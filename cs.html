@@ -124,18 +124,19 @@
       }
 
       .mobile-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 400px;
-        height: 100vh;
-        background: var(--white);
-        z-index: 999;
-        padding: 6rem 2rem 2rem;
-        transition: right 0.3s;
-        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
-      }
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 400px;
+    height: 100vh;
+    background: var(--white);
+    z-index: 999;
+    padding: 8rem 2rem 2rem;
+    transition: right 0.3s;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
 
       .mobile-menu.active {
         right: 0;
@@ -3058,4 +3059,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 </body>
 </html>
+
 <!-- END OF PART 5 - COMPLETE WEBSITE! -->
