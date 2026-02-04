@@ -459,6 +459,69 @@
         }
       }
 
+      /* Hero CTA Button - Extra attention grabbing */
+      .btn-hero-cta {
+        padding: 1.25rem 3rem;
+        font-size: var(--font-size-xl);
+        min-width: 320px;
+        background: linear-gradient(
+          135deg,
+          #000000 0%,
+          #0066cc 50%,
+          #000000 100%
+        );
+        background-size: 200% 200%;
+        color: #ffffff;
+        border: none;
+        animation:
+          heroGradient 3s ease infinite,
+          heroGlow 2s ease-in-out infinite;
+        position: relative;
+      }
+
+      .btn-hero-cta:hover {
+        animation: heroGradient 3s ease infinite;
+        transform: translateY(-3px) scale(1.02);
+        box-shadow:
+          0 0 30px rgba(0, 102, 204, 0.8),
+          0 0 60px rgba(0, 102, 204, 0.5),
+          0 0 90px rgba(0, 0, 0, 0.3);
+      }
+
+      @keyframes heroGradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @keyframes heroGlow {
+        0%,
+        100% {
+          box-shadow:
+            0 0 20px rgba(0, 102, 204, 0.6),
+            0 0 40px rgba(0, 102, 204, 0.3),
+            0 0 60px rgba(0, 0, 0, 0.2);
+        }
+        33% {
+          box-shadow:
+            0 0 25px rgba(0, 150, 255, 0.7),
+            0 0 50px rgba(0, 102, 204, 0.5),
+            0 0 75px rgba(0, 50, 150, 0.3);
+        }
+        66% {
+          box-shadow:
+            0 0 30px rgba(0, 80, 180, 0.8),
+            0 0 60px rgba(0, 102, 204, 0.4),
+            0 0 90px rgba(0, 0, 0, 0.25);
+        }
+      }
+
       .btn-subtext {
         display: block;
         font-size: var(--font-size-sm);
@@ -577,7 +640,11 @@
         color: var(--color-white);
         padding: var(--space-md) var(--space-sm);
         border-radius: var(--radius-lg);
-        background: linear-gradient(135deg, rgba(0, 102, 204, 0.92) 0%, rgba(0, 76, 153, 0.97) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(0, 102, 204, 0.92) 0%,
+          rgba(0, 76, 153, 0.97) 100%
+        );
         box-shadow: 0 8px 32px rgba(0, 102, 204, 0.3);
         transition: var(--transition-base);
       }
@@ -1008,7 +1075,7 @@
       }
 
       .footer-credit a {
-        color: #FFFFFF;
+        color: #ffffff;
         font-weight: 600;
       }
 
@@ -1147,7 +1214,11 @@
 
       /* Solution Card */
       .solution-card {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.95) 0%, rgba(22, 163, 74, 0.98) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(34, 197, 94, 0.95) 0%,
+          rgba(22, 163, 74, 0.98) 100%
+        );
         border-radius: var(--radius-lg);
         padding: var(--space-xl);
         margin-top: var(--space-xl);
@@ -1208,7 +1279,7 @@
 
       /* Programs Section */
       .programs-section {
-        background: linear-gradient(180deg, #0066CC 0%, #004C99 100%);
+        background: linear-gradient(180deg, #0066cc 0%, #004c99 100%);
         position: relative;
         overflow: hidden;
         padding-top: 140px;
@@ -1216,26 +1287,35 @@
       }
 
       .programs-section::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         background:
-          radial-gradient(ellipse at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-          radial-gradient(ellipse at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+          radial-gradient(
+            ellipse at 20% 20%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 50%
+          );
         pointer-events: none;
       }
 
       .programs-section::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
         height: 120px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='0.06' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E")
+          no-repeat bottom;
         background-size: cover;
         pointer-events: none;
       }
@@ -1308,13 +1388,17 @@
       }
 
       .service-card::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+        background: linear-gradient(
+          90deg,
+          var(--color-primary) 0%,
+          var(--color-secondary) 100%
+        );
       }
 
       .service-card:hover {
@@ -1326,7 +1410,11 @@
         position: absolute;
         top: var(--space-md);
         right: var(--space-md);
-        background: linear-gradient(135deg, var(--color-secondary) 0%, #E6C200 100%);
+        background: linear-gradient(
+          135deg,
+          var(--color-secondary) 0%,
+          #e6c200 100%
+        );
         box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
       }
 
@@ -1434,7 +1522,7 @@
 
       /* Benefits Section with Blue Background */
       .benefits-section {
-        background: linear-gradient(180deg, #0066CC 0%, #004C99 100%);
+        background: linear-gradient(180deg, #0066cc 0%, #004c99 100%);
         position: relative;
         padding-top: 140px;
         padding-bottom: var(--space-3xl);
@@ -1464,7 +1552,7 @@
       .benefits-section .section-title,
       .benefits-section .section-subtitle,
       .benefits-section .eyebrow {
-        color: #FFFFFF;
+        color: #ffffff;
       }
 
       .benefits-section .eyebrow {
@@ -1473,11 +1561,13 @@
       }
 
       .benefits-section .benefit-card {
-        background: #FFFFFF;
+        background: #ffffff;
         border-radius: var(--radius-lg);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         border-top: 4px solid #22c55e;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
       }
 
       .benefits-section .benefit-card:hover {
@@ -1498,7 +1588,7 @@
       .benefits-section .benefit-card .card-icon svg {
         width: 28px;
         height: 28px;
-        stroke: #FFFFFF;
+        stroke: #ffffff;
       }
 
       .benefits-section .benefit-card .card-title {
@@ -1511,7 +1601,7 @@
       }
 
       .benefits-section .btn-primary {
-        background: #FFFFFF;
+        background: #ffffff;
         color: var(--color-primary);
         font-weight: 600;
       }
@@ -1544,7 +1634,7 @@
       }
 
       .benefits-section .wave-fill-bottom {
-        fill: #FFFFFF;
+        fill: #ffffff;
       }
 
       /* Who We Help Section */
@@ -1678,11 +1768,11 @@
         font-family: var(--font-body);
         font-size: var(--font-size-lg);
         font-weight: 600;
-        color: #FFFFFF;
+        color: #ffffff;
         text-align: left;
         cursor: pointer;
         transition: all 0.3s ease;
-        background: linear-gradient(135deg, #0066CC 0%, #004C99 100%);
+        background: linear-gradient(135deg, #0066cc 0%, #004c99 100%);
         gap: var(--space-md);
         border-radius: var(--radius-lg);
       }
@@ -1698,7 +1788,7 @@
       .faq-question svg {
         width: 24px;
         height: 24px;
-        color: #FFFFFF;
+        color: #ffffff;
         transition: all 0.3s ease;
         flex-shrink: 0;
       }
@@ -1711,7 +1801,7 @@
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
-        background: #FFFFFF;
+        background: #ffffff;
       }
 
       .faq-answer-inner {
@@ -1989,7 +2079,9 @@
                 With over 3,000 students taught across 11 years of instruction,
                 we deliver results that most swim schools simply cannot match.
               </p>
-              <a href="#contact" class="btn btn-primary btn-lg btn-glow"
+              <a
+                href="#contact"
+                class="btn btn-primary btn-lg btn-glow btn-hero-cta"
                 >Schedule Your Consultation</a
               >
             </div>
@@ -2010,7 +2102,15 @@
           <div class="stats-grid">
             <div class="stat-item animate-on-scroll">
               <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -2022,7 +2122,15 @@
             </div>
             <div class="stat-item animate-on-scroll animate-delay-1">
               <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -2032,8 +2140,18 @@
             </div>
             <div class="stat-item animate-on-scroll animate-delay-2">
               <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                  ></path>
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
               </div>
@@ -2042,7 +2160,15 @@
             </div>
             <div class="stat-item animate-on-scroll animate-delay-3">
               <div class="stat-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                   <polyline points="22 4 12 14.01 9 11.01"></polyline>
                 </svg>
@@ -2064,7 +2190,8 @@
               Your Child Deserves Better Than "Fun" Lessons That Take Years
             </h2>
             <p class="section-subtitle">
-              Most parents have already tried swim lessons that promise results but lead to frustration.
+              Most parents have already tried swim lessons that promise results
+              but lead to frustration.
             </p>
           </div>
           <div
@@ -2076,13 +2203,19 @@
             class="animate-on-scroll"
           >
             <p>
-              You enroll your child at a rec center or big swim school. Months or even years go by, and they still cannot swim independently or stay calm underwater.
+              You enroll your child at a rec center or big swim school. Months
+              or even years go by, and they still cannot swim independently or
+              stay calm underwater.
             </p>
             <p>
-              That is not your fault. Many programs are built to keep kids enrolled and prioritize "fun" over real skill. With minimal training, instructors often over-support, teaching children to rely on floaties and adult help instead of their own bodies.
+              That is not your fault. Many programs are built to keep kids
+              enrolled and prioritize "fun" over real skill. With minimal
+              training, instructors often over-support, teaching children to
+              rely on floaties and adult help instead of their own bodies.
             </p>
             <p>
-              <strong>The result</strong> is years of lessons, little progress, and a child still at risk around water.
+              <strong>The result</strong> is years of lessons, little progress,
+              and a child still at risk around water.
             </p>
           </div>
           <div class="grid grid-4 animate-on-scroll">
@@ -2176,14 +2309,28 @@
           </div>
           <div class="solution-card animate-on-scroll">
             <div class="solution-card-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
             </div>
             <div class="solution-card-content">
               <h3>We Do Things Differently</h3>
-              <p>At Intuitive Swimming, we focus on life-saving skills first. Our expert instructors teach children to float, roll over, and find air independently in just weeks, not years. With over 3,000 students taught and 11 years of experience, we deliver real results that keep your child safe around water.</p>
+              <p>
+                At Intuitive Swimming, we focus on life-saving skills first. Our
+                expert instructors teach children to float, roll over, and find
+                air independently in just weeks, not years. With over 3,000
+                students taught and 11 years of experience, we deliver real
+                results that keep your child safe around water.
+              </p>
             </div>
           </div>
           <div
@@ -2203,7 +2350,10 @@
       <section class="section programs-section" id="programs">
         <div class="wave-top">
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path class="wave-fill" d="M0,0 C150,90 350,0 500,60 C650,120 800,40 1000,80 C1100,100 1150,60 1200,80 L1200,0 L0,0 Z"></path>
+            <path
+              class="wave-fill"
+              d="M0,0 C150,90 350,0 500,60 C650,120 800,40 1000,80 C1100,100 1150,60 1200,80 L1200,0 L0,0 Z"
+            ></path>
           </svg>
         </div>
         <div class="container">
@@ -2630,8 +2780,15 @@
       <section class="section benefits-section" id="why-us">
         <!-- Wave transition from section above -->
         <div class="wave-top-benefits">
-          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="wave-fill-benefits" d="M0,0 L0,60 Q360,120 720,60 T1440,60 L1440,0 Z"></path>
+          <svg
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="wave-fill-benefits"
+              d="M0,0 L0,60 Q360,120 720,60 T1440,60 L1440,0 Z"
+            ></path>
           </svg>
         </div>
         <div class="container">
@@ -2792,13 +2949,19 @@
         </div>
         <!-- Wave transition to section below -->
         <div class="wave-bottom-benefits">
-          <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="wave-fill-bottom" d="M0,120 L0,60 Q360,0 720,60 T1440,60 L1440,120 Z"></path>
+          <svg
+            viewBox="0 0 1440 120"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="wave-fill-bottom"
+              d="M0,120 L0,60 Q360,0 720,60 T1440,60 L1440,120 Z"
+            ></path>
           </svg>
         </div>
       </section>
       <!-- ========== BENEFITS SECTION END ========== -->
-
 
       <!-- ========== GALLERY SECTION START ========== -->
       <section class="section" id="gallery">
@@ -2814,7 +2977,15 @@
           <div class="gallery-grid animate-on-scroll">
             <div class="gallery-item">
               <div class="gallery-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                   <circle cx="8.5" cy="8.5" r="1.5"></circle>
                   <polyline points="21 15 16 10 5 21"></polyline>
@@ -2824,7 +2995,15 @@
             </div>
             <div class="gallery-item">
               <div class="gallery-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                   <circle cx="8.5" cy="8.5" r="1.5"></circle>
                   <polyline points="21 15 16 10 5 21"></polyline>
@@ -2834,7 +3013,15 @@
             </div>
             <div class="gallery-item">
               <div class="gallery-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                   <circle cx="8.5" cy="8.5" r="1.5"></circle>
                   <polyline points="21 15 16 10 5 21"></polyline>
@@ -2844,7 +3031,15 @@
             </div>
             <div class="gallery-item">
               <div class="gallery-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                   <circle cx="8.5" cy="8.5" r="1.5"></circle>
                   <polyline points="21 15 16 10 5 21"></polyline>
@@ -2854,7 +3049,15 @@
             </div>
             <div class="gallery-item">
               <div class="gallery-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                   <circle cx="8.5" cy="8.5" r="1.5"></circle>
                   <polyline points="21 15 16 10 5 21"></polyline>
@@ -2864,7 +3067,15 @@
             </div>
             <div class="gallery-item">
               <div class="gallery-placeholder">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
                   <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                   <circle cx="8.5" cy="8.5" r="1.5"></circle>
                   <polyline points="21 15 16 10 5 21"></polyline>
@@ -3155,7 +3366,6 @@
             <a href="#contact" class="btn btn-primary"
               >Schedule Your Consultation</a
             >
-            <span class="btn-subtext">Schedule a 15-minute call.</span>
           </div>
         </div>
       </section>
@@ -3197,7 +3407,6 @@
             <a href="#contact" class="btn btn-white btn-lg"
               >Schedule Your Consultation</a
             >
-            <span class="btn-subtext">No obligation. Takes 2 minutes.</span>
             <div class="final-cta-badges">
               <div class="final-cta-badge">
                 <svg
@@ -3244,21 +3453,6 @@
                 </svg>
                 Red Cross Certified
               </div>
-              <div class="final-cta-badge">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                $1M Insurance
-              </div>
             </div>
           </div>
         </div>
@@ -3272,7 +3466,10 @@
         <div class="footer-grid">
           <div class="footer-brand">
             <div class="footer-logo">
-              <img src="https://services.leadconnectorhq.com/documents/download/ugVnFourHg1hLCHp7yfW" alt="Intuitive Swimming Logo" />
+              <img
+                src="https://services.leadconnectorhq.com/documents/download/ugVnFourHg1hLCHp7yfW"
+                alt="Intuitive Swimming Logo"
+              />
             </div>
             <p>
               Teaching Metro Denver children life-saving water safety skills
