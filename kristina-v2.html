@@ -305,6 +305,23 @@
         height: 80px;
       }
 
+      .section-wave {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+        z-index: 2;
+      }
+
+      .section-wave svg {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 80px;
+      }
+
       /* Social Proof - Floating Cards */
       .social-proof {
         position: relative;
@@ -456,8 +473,10 @@
 
       /* Problem Section */
       .problem-section {
-        background: var(--bg);
+        background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 60%, white 90%);
         text-align: center;
+        position: relative;
+        padding-bottom: 180px;
       }
 
       .section-eyebrow {
@@ -571,6 +590,15 @@
         filter: brightness(1.1);
       }
 
+      .btn-subtext {
+        display: block;
+        margin-top: 6px;
+        font-size: 11px;
+        font-weight: 400;
+        opacity: 0.85;
+        letter-spacing: 0.3px;
+      }
+
       /* Services Section */
       .services-section {
         background: white;
@@ -677,6 +705,10 @@
         color: var(--primary);
       }
 
+      .service-card.service-featured h3 {
+        color: white;
+      }
+
       .service-price {
         font-size: 48px;
         font-weight: 700;
@@ -710,6 +742,7 @@
 
       .service-featured .service-features li {
         border-bottom-color: rgba(255, 255, 255, 0.2);
+        color: white;
       }
 
       .service-features li::before {
@@ -843,11 +876,12 @@
         position: absolute;
         left: 50%;
         top: 0;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(0);
         width: 40px;
         height: 40px;
         z-index: 5;
-        transition: top 0.05s linear;
+        will-change: transform, opacity;
+        transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
         filter: drop-shadow(0 4px 12px rgba(42, 90, 132, 0.35));
       }
 
@@ -1221,6 +1255,13 @@
       .fade-in-up:nth-child(5) { transition-delay: 0.5s; }
       .fade-in-up:nth-child(6) { transition-delay: 0.6s; }
 
+      /* Desktop adjustments */
+      @media (min-width: 969px) {
+        .hero {
+          height: calc(100vh - 20px);
+        }
+      }
+
       /* Responsive */
       @media (max-width: 968px) {
         .nav {
@@ -1349,7 +1390,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
-      <a href="#contact" class="nav-cta">Reserve Your Spot</a>
+      <a href="#contact" class="nav-cta">Get Started</a>
       <div class="nav-toggle">
         <span></span>
         <span></span>
@@ -1386,9 +1427,9 @@
           children in Auburn and Opelika.
         </p>
         <a href="#contact" class="hero-btn">
-          Reserve Your Spot
+          Get Started
           <span class="hero-subtext"
-            >Limited summer availability. No commitment to inquire.</span
+            >Spaces are limited — no commitment to inquire.</span
           >
         </a>
       </div>
@@ -1539,7 +1580,21 @@
           and meeting each child exactly where they are.
         </p>
 
-        <a href="#contact" class="problem-cta">We Do Things Differently</a>
+        <a href="#contact" class="problem-cta">Get Started Today<span class="btn-subtext">Limited spots available this season</span></a>
+      </div>
+      <div class="section-wave">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="white"/>
+          <path d="M0,70 C240,110 480,20 720,70 C960,110 1200,20 1440,70 L1440,120 L0,120 Z" fill="white" opacity="0.5"/>
+          <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60" fill="none" stroke="url(#waveGrad)" stroke-width="3"/>
+          <defs>
+            <linearGradient id="waveGrad" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#2A5A84"/>
+              <stop offset="50%" stop-color="#8EC6D8"/>
+              <stop offset="100%" stop-color="#2A5A84"/>
+            </linearGradient>
+          </defs>
+        </svg>
       </div>
     </section>
 
@@ -1572,7 +1627,7 @@
               <li>Certified instructor</li>
               <li>Perfect for trial or one-time use</li>
             </ul>
-            <a href="#contact" class="service-btn">Book Now</a>
+            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Try a single lesson risk-free</span></a>
           </div>
 
           <!-- 4-Lesson Package (Featured) -->
@@ -1587,7 +1642,7 @@
               <li>Progress tracking & updates</li>
               <li>Save $20 vs. single lessons</li>
             </ul>
-            <a href="#contact" class="service-btn">Get Started</a>
+            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Most popular — spots filling fast</span></a>
           </div>
 
           <!-- 8-Lesson Package -->
@@ -1601,7 +1656,7 @@
               <li>Weekly progress reports</li>
               <li>Save $60 vs. single lessons</li>
             </ul>
-            <a href="#contact" class="service-btn">Book Now</a>
+            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Best value — save $60</span></a>
           </div>
         </div>
       </div>
@@ -1814,7 +1869,7 @@
               — or if this is your child's first time learning to swim — you're
               in the right place.
             </p>
-            <a href="#contact" class="problem-cta">Get Started Today</a>
+            <a href="#contact" class="problem-cta">Get Started Today<span class="btn-subtext">Your child's first lesson awaits</span></a>
           </div>
           <div class="who-image">
             <img
@@ -2177,31 +2232,26 @@
 
         if (timelineArrow && processTimeline && processSteps.length > 0) {
           const reachedSteps = new Set();
+          let ticking = false;
 
           function updateTimelineArrow() {
             const timelineRect = processTimeline.getBoundingClientRect();
             const timelineTop = timelineRect.top;
             const timelineHeight = timelineRect.height;
 
-            // Calculate how far through the viewport center is relative to the timeline
             const viewportCenter = window.innerHeight * 0.45;
             const progress = (viewportCenter - timelineTop) / timelineHeight;
-
-            // Clamp between 0 and 1
             const clampedProgress = Math.max(0, Math.min(1, progress));
+            const arrowY = clampedProgress * timelineHeight;
 
-            // Position the arrow along the timeline
-            const arrowTop = clampedProgress * timelineHeight;
-            timelineArrow.style.top = arrowTop + 'px';
+            timelineArrow.style.transform = 'translateX(-50%) translateY(' + arrowY + 'px)';
 
-            // Show/hide arrow based on whether timeline is in view
             if (progress < -0.1 || progress > 1.1) {
               timelineArrow.style.opacity = '0';
             } else {
               timelineArrow.style.opacity = '1';
             }
 
-            // Check each step for proximity
             processSteps.forEach((step, index) => {
               const stepRect = step.getBoundingClientRect();
               const stepCenter = stepRect.top + stepRect.height / 2;
@@ -2211,15 +2261,23 @@
                 reachedSteps.add(index);
                 step.classList.add('step-reached');
 
-                // Trigger arrow pulse
                 timelineArrow.classList.remove('pulse');
-                void timelineArrow.offsetWidth; // Force reflow
+                void timelineArrow.offsetWidth;
                 timelineArrow.classList.add('pulse');
               }
             });
+
+            ticking = false;
           }
 
-          window.addEventListener('scroll', updateTimelineArrow, { passive: true });
+          function onScroll() {
+            if (!ticking) {
+              requestAnimationFrame(updateTimelineArrow);
+              ticking = true;
+            }
+          }
+
+          window.addEventListener('scroll', onScroll, { passive: true });
           updateTimelineArrow();
         }
       });
