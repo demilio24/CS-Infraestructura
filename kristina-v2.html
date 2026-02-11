@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Gentle, private swim lessons for infants, toddlers & young children in Auburn & Opelika, AL. Splash Swim School — safe, confident swimmers start here."
+      content="Gentle, private swim lessons for infants, toddlers & young children in Auburn & Opelika, AL. Splash Swim School: safe, confident swimmers start here."
     />
     <meta name="keywords" content="swim lessons Auburn AL, private swim lessons, infant swim lessons, toddler swimming, Splash Swim School, Opelika swim lessons, baby swim classes, learn to swim Auburn" />
     <meta name="author" content="Splash Swim School of Auburn" />
@@ -269,17 +269,19 @@
       .highlight-text {
         position: relative;
         display: inline;
-        padding: 2px 10px;
-        margin: 0 -4px;
+        padding: 2px 6px;
+        margin: 0;
         background: linear-gradient(
           120deg,
-          rgba(255, 255, 255, 0.25) 0%,
-          rgba(255, 255, 255, 0.25) 100%
+          rgba(255, 255, 255, 0.2) 0%,
+          rgba(255, 255, 255, 0.2) 100%
         );
         background-repeat: no-repeat;
         background-size: 0% 100%;
         background-position: 0 0;
-        border-radius: 6px;
+        border-radius: 4px;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
         animation: highlightSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         animation-delay: 0.6s;
       }
@@ -300,31 +302,74 @@
         opacity: 0.95;
       }
 
-      .hero-btn {
+      /* Flowing water border wrapper */
+      .hero-btn-border {
+        position: relative;
         display: inline-block;
-        background: white;
-        color: var(--primary);
-        padding: 20px 50px;
-        border-radius: 50px;
+        padding: 3px;
+        border-radius: 18px;
+        background: conic-gradient(
+          from var(--border-angle, 0deg),
+          #ffffff 0%,
+          #8ec6d8 25%,
+          #2a5a84 40%,
+          #8ec6d8 55%,
+          #b8e2f0 70%,
+          #ffffff 85%,
+          #8ec6d8 100%
+        );
+        animation: flowBorder 3s linear infinite;
+        transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+      }
+
+      @property --border-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      @keyframes flowBorder {
+        to { --border-angle: 360deg; }
+      }
+
+      .hero-btn-border:hover {
+        transform: translateY(-5px) scale(1.06);
+        box-shadow:
+          0 8px 25px rgba(42, 90, 132, 0.25),
+          0 18px 50px rgba(142, 198, 216, 0.2),
+          0 0 60px rgba(142, 198, 216, 0.15);
+      }
+
+      .hero-btn {
+        display: block;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f9fc 40%, #e4f4fa 100%);
+        color: var(--primary-dark);
+        padding: 22px 55px;
+        border-radius: 15px;
         text-decoration: none;
         font-weight: 700;
         font-size: 18px;
-        transition: all 0.3s ease-out;
-        box-shadow:
-          0 4px 8px rgba(0, 0, 0, 0.15),
-          0 8px 20px rgba(0, 0, 0, 0.1),
-          0 16px 40px rgba(0, 0, 0, 0.08);
+        letter-spacing: 0.5px;
         position: relative;
+        overflow: hidden;
+        z-index: 1;
       }
 
-      .hero-btn:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow:
-          0 6px 12px rgba(0, 0, 0, 0.2),
-          0 12px 30px rgba(0, 0, 0, 0.15),
-          0 20px 50px rgba(0, 0, 0, 0.12),
-          0 0 60px rgba(142, 198, 216, 0.5);
-        filter: brightness(1.05);
+      /* Foam highlight along the top */
+      .hero-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 45%;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.5) 0%,
+          transparent 100%
+        );
+        border-radius: 15px 15px 0 0;
+        pointer-events: none;
       }
 
       .hero-subtext {
@@ -332,23 +377,6 @@
         margin-top: 15px;
         font-size: 13px;
         opacity: 0.85;
-      }
-
-      /* Wave Divider */
-      .wave-divider {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-      }
-
-      .wave-divider svg {
-        position: relative;
-        display: block;
-        width: calc(100% + 1.3px);
-        height: 80px;
       }
 
       .section-wave {
@@ -1413,7 +1441,7 @@
           transform: translateY(-5px);
         }
 
-        .hero-btn:hover,
+        .hero-btn-border:hover,
         .problem-cta:hover,
         .form-submit:hover {
           transform: translateY(-2px);
@@ -1466,26 +1494,20 @@
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
-        <div class="hero-eyebrow">Private Swim Lessons — Auburn, AL</div>
+        <div class="hero-eyebrow">Private Swim Lessons | Auburn, AL</div>
         <h1 class="hero-title"><span class="highlight-text">Swimming lessons</span> children love and parents trust.</h1>
         <p class="hero-subtitle">
           Gentle, one-on-one swim instruction for infants, toddlers, and young
           children in Auburn and Opelika.
         </p>
-        <a href="#contact" class="hero-btn">
-          Get Started
-          <span class="hero-subtext"
-            >Spaces are limited — no commitment to inquire.</span
-          >
-        </a>
-      </div>
-      <div class="wave-divider">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
-            fill="#F6F5F1"
-          ></path>
-        </svg>
+        <div class="hero-btn-border">
+          <a href="#contact" class="hero-btn">
+            Get Started
+            <span class="hero-subtext"
+              >Spaces are limited. No commitment to inquire.</span
+            >
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1591,7 +1613,7 @@
             <p>
               Your child gets lost in a sea of students. They don't get the
               attention they need, fall behind, and quickly lose confidence. One
-              instructor can't watch everyone at once — and that's when fear
+              instructor can't watch everyone at once, and that's when fear
               takes root.
             </p>
           </div>
@@ -1600,7 +1622,7 @@
             <h3>Fear-Based Instruction</h3>
             <p>
               Some programs push children too hard, too fast. Being forced
-              underwater before they're ready doesn't teach them to swim — it
+              underwater before they're ready doesn't teach them to swim. It
               teaches them to be afraid. Fear-based training creates swimmers
               who never want to go near the water again.
             </p>
@@ -1611,7 +1633,7 @@
             <p>
               Every week, a new face. Your child has to start over, rebuild
               trust, and relearn their comfort level. Consistency is everything
-              when teaching young swimmers — and most programs can't offer that.
+              when teaching young swimmers, and most programs can't offer that.
             </p>
           </div>
         </div>
@@ -1622,7 +1644,7 @@
             toddlers, and young children.</strong
           >
           They were designed for efficiency and scale. But learning to swim
-          isn't about rushing through a curriculum — it's about patience, trust,
+          isn't about rushing through a curriculum. It's about patience, trust,
           and meeting each child exactly where they are.
         </p>
 
@@ -1688,7 +1710,7 @@
               <li>Progress tracking & updates</li>
               <li>Save $20 vs. single lessons</li>
             </ul>
-            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Most popular — spots filling fast</span></a>
+            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Most popular. Spots filling fast</span></a>
           </div>
 
           <!-- 8-Lesson Package -->
@@ -1702,7 +1724,7 @@
               <li>Weekly progress reports</li>
               <li>Save $60 vs. single lessons</li>
             </ul>
-            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Best value — save $60</span></a>
+            <a href="#contact" class="service-btn">Get Started<span class="btn-subtext">Best value. Save $60</span></a>
           </div>
         </div>
       </div>
@@ -1740,7 +1762,7 @@
                 Fill out our quick contact form or give us a call. We'll ask a
                 few questions about your child's age, current comfort level with
                 water, and any past swim experience. No pressure, no obligation
-                — just a friendly conversation.
+                . Just a friendly conversation.
               </p>
             </div>
           </div>
@@ -1752,7 +1774,7 @@
               <p>
                 We'll work with your schedule to find a consistent day and time
                 that works for your family. All lessons take place in our
-                private, heated home pool in Opelika — a safe, calm environment
+                private, heated home pool in Opelika, a safe, calm environment
                 where your child can focus and feel comfortable.
               </p>
             </div>
@@ -1764,7 +1786,7 @@
               <h3>Meet Your Instructor</h3>
               <p>
                 Your child will work with the same certified instructor every
-                single week. We believe consistency is everything — building
+                single week. We believe consistency is everything. Building
                 trust takes time, and we're in no rush. Your instructor will
                 meet your child where they are and move at their pace.
               </p>
@@ -1780,7 +1802,7 @@
                 We use gentle, positive reinforcement to build skills
                 step-by-step: water comfort, breath control, floating, kicking,
                 and eventually independent swimming. Progress happens at your
-                child's pace — never faster.
+                child's pace, never faster.
               </p>
             </div>
           </div>
@@ -1820,7 +1842,7 @@
             <p>
               We specialize in infants, toddlers, and young children. Our entire
               curriculum is built around their developmental stage, attention
-              span, and emotional needs. We understand how little ones learn —
+              span, and emotional needs. We understand how little ones learn,
               and we meet them where they are.
             </p>
           </div>
@@ -1852,7 +1874,7 @@
             <h3>Gentle, Confidence-First Approach</h3>
             <p>
               We never force, rush, or pressure. Our method is built on trust,
-              patience, and positive reinforcement. Swimming should be joyful —
+              patience, and positive reinforcement. Swimming should be joyful,
               not scary. We help kids fall in love with the water, not fear it.
             </p>
           </div>
@@ -1874,7 +1896,7 @@
             <p>
               Since 2021, we've helped hundreds of Auburn and Opelika families
               raise safe, confident swimmers. Parents trust us because we
-              deliver results — and because we genuinely care about every child
+              deliver results, and because we genuinely care about every child
               who steps into our pool.
             </p>
           </div>
@@ -1912,7 +1934,7 @@
             </ul>
             <p>
               If you've tried group swim classes before and they didn't work out
-              — or if this is your child's first time learning to swim — you're
+              , or if this is your child's first time learning to swim, you're
               in the right place.
             </p>
             <a href="#contact" class="problem-cta">Get Started Today<span class="btn-subtext">Your child's first lesson awaits</span></a>
@@ -1982,7 +2004,7 @@
             <div class="faq-answer">
               <div class="faq-answer-content">
                 We specialize in teaching infants, toddlers, and young children
-                — typically between 6 months and 6 years old. Our curriculum is
+                , typically between 6 months and 6 years old. Our curriculum is
                 designed specifically for this age group, focusing on gentle
                 water introduction, comfort-building, and foundational swim
                 skills.
@@ -1999,7 +2021,7 @@
               <div class="faq-answer-content">
                 All lessons are held in our private, heated home pool in
                 Opelika, AL. It's a calm, safe, and distraction-free environment
-                — perfect for young learners. The address is shared once you
+                , perfect for young learners. The address is shared once you
                 book your first lesson.
               </div>
             </div>
@@ -2013,7 +2035,7 @@
             <div class="faq-answer">
               <div class="faq-answer-content">
                 Each private lesson is 30 minutes long. For young children, 30
-                minutes is the ideal length — long enough to make real progress,
+                minutes is the ideal length: long enough to make real progress,
                 but short enough to keep them engaged and avoid fatigue.
               </div>
             </div>
@@ -2043,7 +2065,7 @@
             <div class="faq-answer">
               <div class="faq-answer-content">
                 This is exactly why we do what we do. Many of the children we
-                teach are nervous or fearful around water — often because of a
+                teach are nervous or fearful around water, often because of a
                 past negative experience. Our gentle, patient approach is
                 designed to rebuild trust and confidence. We go at your child's
                 pace, always.
@@ -2075,8 +2097,8 @@
             <div class="faq-answer">
               <div class="faq-answer-content">
                 We ask for at least 24 hours' notice if you need to cancel or
-                reschedule. We understand life happens — especially with young
-                kids — and we'll always work with you to find a new time that
+                reschedule. We understand life happens, especially with young
+                kids, and we'll always work with you to find a new time that
                 fits your schedule.
               </div>
             </div>
@@ -2107,7 +2129,7 @@
         <h2 class="section-title">Let's Get Your Child Swimming</h2>
         <p class="section-intro">
           Fill out the form below and we'll be in touch within 24 hours to
-          schedule your first lesson. No commitment required — just a friendly
+          schedule your first lesson. No commitment required. Just a friendly
           conversation about your child and their swim goals.
         </p>
 
