@@ -247,6 +247,37 @@
           0 0 40px rgba(142, 198, 216, 0.3);
       }
 
+      .highlight-text {
+        position: relative;
+        display: inline;
+        padding: 2px 10px;
+        margin: 0 -4px;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0.25) 0%,
+          rgba(255, 255, 255, 0.25) 100%
+        );
+        background-repeat: no-repeat;
+        background-size: 0% 100%;
+        background-position: 0 0;
+        border-radius: 6px;
+        animation: highlightSweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        animation-delay: 0.6s;
+      }
+
+      .highlight-text-2 {
+        animation-delay: 1.0s;
+      }
+
+      @keyframes highlightSweep {
+        0% {
+          background-size: 0% 100%;
+        }
+        100% {
+          background-size: 100% 100%;
+        }
+      }
+
       .hero-subtitle {
         font-size: 24px;
         font-weight: 400;
@@ -1421,7 +1452,7 @@
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-eyebrow">Private Swim Lessons — Auburn, AL</div>
-        <h1 class="hero-title">Safe, Confident Swimmers Start Here</h1>
+        <h1 class="hero-title"><span class="highlight-text">Safe, Confident</span> Swimmers <span class="highlight-text highlight-text-2">Start Here</span></h1>
         <p class="hero-subtitle">
           Gentle, one-on-one swim instruction for infants, toddlers, and young
           children in Auburn and Opelika.
