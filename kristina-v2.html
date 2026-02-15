@@ -347,6 +347,7 @@
         padding: 22px 55px;
         border-radius: 15px;
         text-decoration: none;
+        font-family: 'Montserrat', sans-serif;
         font-weight: 700;
         font-size: 18px;
         letter-spacing: 0.5px;
@@ -376,6 +377,7 @@
         display: block;
         margin-top: 15px;
         font-size: 13px;
+        font-family: 'Playfair Display', serif;
         opacity: 0.85;
       }
 
@@ -460,6 +462,127 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+      }
+
+      /* Video Highlights Section */
+      .video-highlights {
+        background: var(--bg);
+        padding: 80px 20px;
+        text-align: center;
+      }
+
+      .video-grid {
+        max-width: 1200px;
+        margin: 60px auto 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .video-item {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease-out;
+        background: white;
+        aspect-ratio: 9/16;
+        padding: 4px;
+        background: linear-gradient(135deg, #2a5a84 0%, #8ec6d8 50%, #2a5a84 100%);
+        cursor: pointer;
+      }
+
+      .video-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg,
+          rgba(42, 90, 132, 0.1) 0%,
+          rgba(142, 198, 216, 0.1) 50%,
+          rgba(42, 90, 132, 0.1) 100%);
+        border-radius: 20px;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .video-item:hover::before {
+        opacity: 1;
+      }
+
+      .video-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #000;
+      }
+
+      .video-item:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow:
+          0 12px 24px rgba(42, 90, 132, 0.2),
+          0 24px 48px rgba(42, 90, 132, 0.15),
+          0 40px 80px rgba(42, 90, 132, 0.1),
+          0 0 60px rgba(142, 198, 216, 0.4);
+      }
+
+      .video-item video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+      }
+
+      .video-play-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(42, 90, 132, 0.7) 0%, rgba(142, 198, 216, 0.7) 100%);
+        z-index: 2;
+        transition: opacity 0.3s;
+        pointer-events: none;
+      }
+
+      .video-play-overlay.hidden {
+        opacity: 0;
+      }
+
+      .video-play-button {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ffffff 0%, #e4f4fa 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+          0 8px 24px rgba(0, 0, 0, 0.3),
+          0 0 40px rgba(142, 198, 216, 0.6);
+        transition: all 0.3s;
+      }
+
+      .video-item:hover .video-play-button {
+        transform: scale(1.1);
+        box-shadow:
+          0 12px 32px rgba(0, 0, 0, 0.4),
+          0 0 60px rgba(142, 198, 216, 0.8);
+      }
+
+      .video-play-button svg {
+        width: 32px;
+        height: 32px;
+        margin-left: 4px;
       }
 
       /* Section Styles */
@@ -1121,17 +1244,54 @@
         display: block;
       }
 
-      /* Gallery Section */
+      /* Gallery Section - Conveyor Belt */
       .gallery-section {
         background: white;
         text-align: center;
+        overflow: hidden;
       }
 
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
+      .gallery-conveyor {
         margin-top: 60px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .gallery-track {
+        display: flex;
+        gap: 30px;
+        animation: scroll 60s linear infinite;
+        width: max-content;
+      }
+
+      .gallery-track.reverse {
+        animation: scrollReverse 60s linear infinite;
+      }
+
+      .gallery-track:hover {
+        animation-play-state: paused;
+      }
+
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      @keyframes scrollReverse {
+        0% {
+          transform: translateX(-50%);
+        }
+        100% {
+          transform: translateX(0);
+        }
       }
 
       .gallery-item {
@@ -1140,7 +1300,9 @@
         overflow: hidden;
         box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         transition: transform 0.3s;
-        aspect-ratio: 4/3;
+        flex-shrink: 0;
+        width: 400px;
+        height: 300px;
       }
 
       .gallery-item:hover {
@@ -1338,12 +1500,104 @@
 
       /* Responsive */
       @media (max-width: 968px) {
+        .video-highlights {
+          padding: 60px 20px;
+        }
+
+        .video-grid {
+          position: relative;
+          display: block;
+          height: 600px;
+          max-width: 400px;
+          margin: 60px auto 40px;
+        }
+
+        .video-item {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 90%;
+          height: 500px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: grab;
+          aspect-ratio: 9/16;
+        }
+
+        .video-item:active {
+          cursor: grabbing;
+        }
+
+        .video-item.hidden {
+          opacity: 0;
+          pointer-events: none;
+          transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        .video-item.prev {
+          transform: translate(-50%, -50%) scale(0.95) translateX(-30px);
+          opacity: 0.5;
+          z-index: 1;
+          pointer-events: none;
+        }
+
+        .video-item.active {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+          z-index: 3;
+        }
+
+        .video-item.next {
+          transform: translate(-50%, -50%) scale(0.95) translateX(30px);
+          opacity: 0.5;
+          z-index: 2;
+          pointer-events: none;
+        }
+
+        .video-dots {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 20px;
+        }
+
+        .video-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: rgba(42, 90, 132, 0.3);
+          transition: all 0.3s;
+        }
+
+        .video-dot.active {
+          background: var(--primary);
+          width: 24px;
+          border-radius: 4px;
+        }
+
+        .gallery-item {
+          width: 280px;
+          height: 210px;
+        }
+
+        .gallery-track {
+          gap: 20px;
+        }
+
         .nav {
           padding: 15px 25px;
           gap: 20px;
           width: 90%;
         }
+      }
 
+      @media (min-width: 969px) {
+        .video-dots {
+          display: none;
+        }
+      }
+
+      @media (max-width: 600px) {
         .nav-links {
           display: none !important;
         }
@@ -1493,7 +1747,7 @@
       <div class="hero-bg">
         <video autoplay loop muted playsinline>
           <source
-            src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/698ab9ac67d7496a58351d44.mov"
+            src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120ee0084988041998522.mov"
             type="video/mp4"
           />
         </video>
@@ -1594,6 +1848,59 @@
           </div>
           <div class="proof-label">Certified</div>
           <div class="proof-value">CPR, First Aid & Swim Certified</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Highlights Section -->
+    <section class="video-highlights">
+      <div class="container">
+        <div class="section-eyebrow">SEE US IN ACTION</div>
+        <h2 class="section-title">Real Lessons, Real Progress</h2>
+        <p class="section-intro">
+          Watch how we work with children of all ages and comfort levels. These are real moments from our private swim lessons in Auburn and Opelika.
+        </p>
+
+        <div class="video-grid" id="videoCarousel">
+          <div class="video-item active" data-index="0">
+            <video controls playsinline>
+              <source src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120ee899b8856fdb35f6e.mov" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item next" data-index="1">
+            <video controls playsinline>
+              <source src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120ee899b887437b35f6d.mov" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item hidden" data-index="2">
+            <video controls playsinline>
+              <source src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120eec08665abb7fea5cd.mov" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item hidden" data-index="3">
+            <video controls playsinline>
+              <source src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120ee00849809b0998521.mov" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item hidden" data-index="4">
+            <video controls playsinline>
+              <source src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120ee899b882ccbb35f6f.mov" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item hidden" data-index="5">
+            <video controls playsinline>
+              <source src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/699120eec0866518fbfea5cc.mov" type="video/mp4">
+            </video>
+          </div>
+        </div>
+
+        <div class="video-dots" id="videoDots">
+          <div class="video-dot active"></div>
+          <div class="video-dot"></div>
+          <div class="video-dot"></div>
+          <div class="video-dot"></div>
+          <div class="video-dot"></div>
+          <div class="video-dot"></div>
         </div>
       </div>
     </section>
@@ -1947,9 +2254,8 @@
           </div>
           <div class="who-image">
             <img
-              src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/698ab9ac67d7496a58351d44.mov"
-              alt="Child learning to swim"
-              onerror="this.parentElement.innerHTML='<div class=\'gallery-placeholder\'>👶🏊</div>'"
+              src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b885180905c89.jpg"
+              alt="Instructor with student at Splash Swim School"
             />
           </div>
         </div>
@@ -1966,24 +2272,267 @@
           are just a few of the families we've had the honor of teaching.
         </p>
 
-        <div class="gallery-grid">
-          <div class="gallery-item">
-            <div class="gallery-placeholder">🏊</div>
+        <div class="gallery-conveyor">
+          <!-- First Row - Scrolls Left -->
+          <div class="gallery-track">
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498255d768052.jpeg" alt="Happy student in yellow swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084985d0476804e.jpg" alt="Young swimmer with football">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cdbe280d763.jpg" alt="Confident swimmer giving thumbs up">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392c9e337c1dc.jpg" alt="Student enjoying pool time">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a39209ae37c1e1.jpg" alt="Happy young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c6d9680d75d.jpg" alt="Cheerful student by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086657dc1daae0b.jpg" alt="Smiling swimmer in purple">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b885b61905c8c.jpg" alt="Student enjoying swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392ec8637c1db.jpg" alt="Proud swimmer showing progress">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650a73daae0c.jpg" alt="Young student in colorful swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084984b03768054.jpg" alt="Two students learning together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c133380d75f.jpg" alt="Student with swim equipment">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b88719e905c8a.jpg" alt="Happy child at poolside">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b884fc0905c91.jpg" alt="Excited young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cb55980d762.jpg" alt="Two children by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498673f76804d.jpg" alt="Boy ready for swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086651deddaae08.jpg" alt="Students in the pool together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086656b78daae09.jpg" alt="Children playing in pool with flotation devices">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac08665795cdaae0a.jpg" alt="Four happy swimmers together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c5ec880d764.jpg" alt="Student learning to swim">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650770daae10.jpg" alt="Two boys enjoying swim lessons">
+            </div>
+            <!-- Duplicate images for seamless loop -->
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498255d768052.jpeg" alt="Happy student in yellow swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084985d0476804e.jpg" alt="Young swimmer with football">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cdbe280d763.jpg" alt="Confident swimmer giving thumbs up">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392c9e337c1dc.jpg" alt="Student enjoying pool time">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a39209ae37c1e1.jpg" alt="Happy young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c6d9680d75d.jpg" alt="Cheerful student by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086657dc1daae0b.jpg" alt="Smiling swimmer in purple">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b885b61905c8c.jpg" alt="Student enjoying swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392ec8637c1db.jpg" alt="Proud swimmer showing progress">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650a73daae0c.jpg" alt="Young student in colorful swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084984b03768054.jpg" alt="Two students learning together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c133380d75f.jpg" alt="Student with swim equipment">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b88719e905c8a.jpg" alt="Happy child at poolside">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b884fc0905c91.jpg" alt="Excited young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cb55980d762.jpg" alt="Two children by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498673f76804d.jpg" alt="Boy ready for swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086651deddaae08.jpg" alt="Students in the pool together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086656b78daae09.jpg" alt="Children playing in pool with flotation devices">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac08665795cdaae0a.jpg" alt="Four happy swimmers together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c5ec880d764.jpg" alt="Student learning to swim">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650770daae10.jpg" alt="Two boys enjoying swim lessons">
+            </div>
           </div>
-          <div class="gallery-item">
-            <div class="gallery-placeholder">💙</div>
-          </div>
-          <div class="gallery-item">
-            <div class="gallery-placeholder">🌊</div>
-          </div>
-          <div class="gallery-item">
-            <div class="gallery-placeholder">👶</div>
-          </div>
-          <div class="gallery-item">
-            <div class="gallery-placeholder">✨</div>
-          </div>
-          <div class="gallery-item">
-            <div class="gallery-placeholder">🎉</div>
+
+          <!-- Second Row - Scrolls Right -->
+          <div class="gallery-track reverse">
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498255d768052.jpeg" alt="Happy student in yellow swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084985d0476804e.jpg" alt="Young swimmer with football">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cdbe280d763.jpg" alt="Confident swimmer giving thumbs up">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392c9e337c1dc.jpg" alt="Student enjoying pool time">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a39209ae37c1e1.jpg" alt="Happy young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c6d9680d75d.jpg" alt="Cheerful student by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086657dc1daae0b.jpg" alt="Smiling swimmer in purple">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b885b61905c8c.jpg" alt="Student enjoying swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392ec8637c1db.jpg" alt="Proud swimmer showing progress">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650a73daae0c.jpg" alt="Young student in colorful swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084984b03768054.jpg" alt="Two students learning together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c133380d75f.jpg" alt="Student with swim equipment">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b88719e905c8a.jpg" alt="Happy child at poolside">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b884fc0905c91.jpg" alt="Excited young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cb55980d762.jpg" alt="Two children by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498673f76804d.jpg" alt="Boy ready for swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086651deddaae08.jpg" alt="Students in the pool together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086656b78daae09.jpg" alt="Children playing in pool with flotation devices">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac08665795cdaae0a.jpg" alt="Four happy swimmers together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c5ec880d764.jpg" alt="Student learning to swim">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650770daae10.jpg" alt="Two boys enjoying swim lessons">
+            </div>
+            <!-- Duplicate for seamless loop -->
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498255d768052.jpeg" alt="Happy student in yellow swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084985d0476804e.jpg" alt="Young swimmer with football">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cdbe280d763.jpg" alt="Confident swimmer giving thumbs up">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392c9e337c1dc.jpg" alt="Student enjoying pool time">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a39209ae37c1e1.jpg" alt="Happy young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c6d9680d75d.jpg" alt="Cheerful student by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086657dc1daae0b.jpg" alt="Smiling swimmer in purple">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b885b61905c8c.jpg" alt="Student enjoying swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca36a392ec8637c1db.jpg" alt="Proud swimmer showing progress">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650a73daae0c.jpg" alt="Young student in colorful swimsuit">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca0084984b03768054.jpg" alt="Two students learning together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c133380d75f.jpg" alt="Student with swim equipment">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b88719e905c8a.jpg" alt="Happy child at poolside">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca899b884fc0905c91.jpg" alt="Excited young swimmer">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813cb55980d762.jpg" alt="Two children by the pool">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca008498673f76804d.jpg" alt="Boy ready for swim lesson">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086651deddaae08.jpg" alt="Students in the pool together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086656b78daae09.jpg" alt="Children playing in pool with flotation devices">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac08665795cdaae0a.jpg" alt="Four happy swimmers together">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990beca24813c5ec880d764.jpg" alt="Student learning to swim">
+            </div>
+            <div class="gallery-item">
+              <img src="https://storage.googleapis.com/msgsndr/vXDv5ymXhoCaKQEDNCQk/media/6990becac086650770daae10.jpg" alt="Two boys enjoying swim lessons">
+            </div>
           </div>
         </div>
       </div>
@@ -2353,6 +2902,113 @@
 
           window.addEventListener('scroll', onScroll, { passive: true });
           updateTimelineArrow();
+        }
+
+        // Video Carousel Swipe (Mobile Only)
+        const carousel = document.getElementById('videoCarousel');
+        const dots = document.querySelectorAll('.video-dot');
+
+        if (carousel && window.innerWidth <= 968) {
+          let currentIndex = 0;
+          const totalVideos = 6;
+          let startX = 0;
+          let isDragging = false;
+
+          function updateCarousel() {
+            const items = carousel.querySelectorAll('.video-item');
+
+            items.forEach((item, index) => {
+              item.classList.remove('active', 'prev', 'next', 'hidden');
+
+              if (index === currentIndex) {
+                item.classList.add('active');
+              } else if (index === (currentIndex - 1 + totalVideos) % totalVideos) {
+                item.classList.add('prev');
+              } else if (index === (currentIndex + 1) % totalVideos) {
+                item.classList.add('next');
+              } else {
+                item.classList.add('hidden');
+              }
+            });
+
+            // Update dots
+            dots.forEach((dot, index) => {
+              dot.classList.toggle('active', index === currentIndex);
+            });
+          }
+
+          function nextVideo() {
+            currentIndex = (currentIndex + 1) % totalVideos;
+            updateCarousel();
+          }
+
+          function prevVideo() {
+            currentIndex = (currentIndex - 1 + totalVideos) % totalVideos;
+            updateCarousel();
+          }
+
+          // Touch events
+          carousel.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+          }, { passive: true });
+
+          carousel.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+          }, { passive: true });
+
+          carousel.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+
+            const endX = e.changedTouches[0].clientX;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > 50) {
+              if (diff > 0) {
+                nextVideo();
+              } else {
+                prevVideo();
+              }
+            }
+
+            isDragging = false;
+          });
+
+          // Mouse events for desktop testing
+          carousel.addEventListener('mousedown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            e.preventDefault();
+          });
+
+          carousel.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+          });
+
+          carousel.addEventListener('mouseup', (e) => {
+            if (!isDragging) return;
+
+            const endX = e.clientX;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > 50) {
+              if (diff > 0) {
+                nextVideo();
+              } else {
+                prevVideo();
+              }
+            }
+
+            isDragging = false;
+          });
+
+          // Dot click navigation
+          dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+              currentIndex = index;
+              updateCarousel();
+            });
+          });
         }
       });
     </script>
