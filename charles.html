@@ -804,14 +804,14 @@
     /* Hero */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: calc(100vh - 90px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       background: var(--gradient-hero-overlay), url('https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=1920&q=80') center/cover no-repeat;
-      padding: 140px var(--space-md) 0;
+      padding: 120px var(--space-md) var(--space-xl);
       overflow: hidden;
     }
 
@@ -1777,7 +1777,7 @@
 
       .hero {
         min-height: auto;
-        padding: 120px var(--space-md) 0;
+        padding: 120px var(--space-md) var(--space-lg);
       }
 
       .final-cta-badges {
