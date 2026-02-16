@@ -810,7 +810,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      background: var(--gradient-hero-overlay), url('https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?w=1920&q=80') center/cover no-repeat;
+      background: var(--gradient-hero-overlay), url('https://storage.googleapis.com/msgsndr/YUxVPDw3FnvQ2ne2mIu8/media/699356a954da0444bd51c1f7.png') center/cover no-repeat;
       padding: 120px var(--space-md) var(--space-xl);
       overflow: hidden;
     }
@@ -846,6 +846,7 @@
     }
 
     .hero h1 {
+      font-family: 'Playfair Display', serif;
       color: var(--color-white);
       max-width: 900px;
       margin-bottom: var(--space-md);
@@ -1130,6 +1131,87 @@
       box-shadow: 0 0 15px rgba(201,150,59,0.3);
     }
 
+    .process-image {
+      max-width: 700px;
+      margin: var(--space-2xl) auto 0;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .process-image img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Final CTA with background image */
+    .section-dark-image {
+      padding: var(--section-padding);
+      color: var(--color-white);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(27,58,92,0.92) 0%, rgba(42,82,128,0.85) 100%), url('https://storage.googleapis.com/msgsndr/YUxVPDw3FnvQ2ne2mIu8/media/699356cedcdadbdbd3314f6a.png') center/cover no-repeat;
+    }
+
+    .section-dark-image::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201,150,59,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-dark-image::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(42,82,128,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-dark-image h2,
+    .section-dark-image h3,
+    .section-dark-image h4 {
+      color: var(--color-white);
+    }
+
+    .section-dark-image p {
+      color: rgba(255,255,255,0.85);
+    }
+
+    .section-dark-image .eyebrow {
+      color: var(--color-secondary);
+    }
+
+    .section-dark-image > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Pain section SVG illustration */
+    .pain-illustration {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-lg);
+    }
+
+    .pain-illustration svg {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+    }
+
     /* Benefits */
     .benefits-grid {
       display: grid;
@@ -1231,11 +1313,30 @@
       box-shadow: var(--shadow-lg);
     }
 
-    .gallery-item svg {
+    .gallery-item svg.gallery-placeholder {
       width: 48px;
       height: 48px;
       color: var(--color-primary);
       opacity: 0.25;
+    }
+
+    .gallery-item svg.gallery-scene {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+    }
+
+    .gallery-item .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(27,58,92,0.85) 0%, transparent 100%);
+      color: white;
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      padding: 24px 12px 10px;
+      text-align: center;
     }
 
     .gallery-item img {
@@ -1648,7 +1749,9 @@
       }
 
       .section-dark::before,
-      .section-dark::after {
+      .section-dark::after,
+      .section-dark-image::before,
+      .section-dark-image::after {
         display: none;
       }
 
@@ -1676,7 +1779,8 @@
         padding: var(--space-2xl) var(--space-md);
       }
 
-      .section-dark {
+      .section-dark,
+      .section-dark-image {
         padding: var(--space-2xl) var(--space-md);
       }
 
@@ -1917,7 +2021,47 @@
           </div>
         </div>
         <div class="pain-image-col animate-on-scroll delay-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div class="pain-illustration">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+              <!-- Background circle -->
+              <circle cx="200" cy="200" r="180" fill="#E8EDF3" opacity="0.5"/>
+              <!-- Stack of documents -->
+              <rect x="100" y="160" width="140" height="180" rx="8" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+              <rect x="112" y="180" width="80" height="6" rx="3" fill="#DFE3EA"/>
+              <rect x="112" y="196" width="110" height="6" rx="3" fill="#DFE3EA"/>
+              <rect x="112" y="212" width="95" height="6" rx="3" fill="#DFE3EA"/>
+              <rect x="112" y="228" width="105" height="6" rx="3" fill="#DFE3EA"/>
+              <rect x="112" y="250" width="80" height="6" rx="3" fill="#DFE3EA"/>
+              <rect x="112" y="266" width="100" height="6" rx="3" fill="#DFE3EA"/>
+              <!-- Stamp mark -->
+              <rect x="140" y="290" width="60" height="30" rx="4" fill="none" stroke="#C9963B" stroke-width="2.5" stroke-dasharray="4 2" transform="rotate(-8 170 305)"/>
+              <text x="155" y="310" font-family="Inter, sans-serif" font-size="9" fill="#C9963B" font-weight="700" transform="rotate(-8 170 305)">PENDING</text>
+              <!-- Second doc behind -->
+              <rect x="110" y="150" width="140" height="180" rx="8" fill="white" stroke="#1B3A5C" stroke-width="1.5" opacity="0.4"/>
+              <!-- Clock -->
+              <circle cx="280" cy="140" r="65" fill="white" stroke="#1B3A5C" stroke-width="3"/>
+              <circle cx="280" cy="140" r="58" fill="white" stroke="#E8EDF3" stroke-width="1"/>
+              <!-- Clock tick marks -->
+              <line x1="280" y1="86" x2="280" y2="92" stroke="#1B3A5C" stroke-width="2.5"/>
+              <line x1="280" y1="188" x2="280" y2="194" stroke="#1B3A5C" stroke-width="2.5"/>
+              <line x1="222" y1="140" x2="228" y2="140" stroke="#1B3A5C" stroke-width="2.5"/>
+              <line x1="332" y1="140" x2="338" y2="140" stroke="#1B3A5C" stroke-width="2.5"/>
+              <!-- Clock hands -->
+              <line x1="280" y1="140" x2="280" y2="102" stroke="#1B3A5C" stroke-width="3" stroke-linecap="round"/>
+              <line x1="280" y1="140" x2="310" y2="155" stroke="#C9963B" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="280" cy="140" r="4" fill="#1B3A5C"/>
+              <!-- X marks (frustration indicators) -->
+              <g stroke="#D4652E" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+                <line x1="310" y1="240" x2="322" y2="252"/><line x1="322" y1="240" x2="310" y2="252"/>
+                <line x1="280" y1="270" x2="292" y2="282"/><line x1="292" y1="270" x2="280" y2="282"/>
+                <line x1="330" y1="280" x2="342" y2="292"/><line x1="342" y1="280" x2="330" y2="292"/>
+              </g>
+              <!-- Decorative dots -->
+              <circle cx="90" cy="120" r="4" fill="#C9963B" opacity="0.3"/>
+              <circle cx="340" cy="320" r="6" fill="#1B3A5C" opacity="0.15"/>
+              <circle cx="70" cy="280" r="5" fill="#C9963B" opacity="0.2"/>
+            </svg>
+          </div>
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
@@ -2066,6 +2210,9 @@
           </div>
         </div>
       </div>
+      <div class="process-image animate-on-scroll">
+        <img src="https://storage.googleapis.com/msgsndr/YUxVPDw3FnvQ2ne2mIu8/media/699356a9a9efde5947ae556b.png" alt="Client signing notarized documents at their location in Miami" loading="lazy">
+      </div>
       <div class="timeline-callout animate-on-scroll">
         Appointments available as soon as 60 minutes from your call.
       </div>
@@ -2189,6 +2336,41 @@
           </div>
         </div>
         <div class="animate-on-scroll delay-2">
+          <!-- South Florida Coverage Map SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 320" fill="none" style="width:100%;margin-bottom:var(--space-lg);border-radius:var(--radius-lg);background:#E8EDF3;padding:20px;">
+            <!-- Simplified South FL peninsula shape -->
+            <path d="M80 20 L260 20 L280 60 L290 120 L285 180 L270 230 L240 270 L200 300 L170 310 L150 300 L130 270 L110 230 L95 180 L85 120 L80 60 Z" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <!-- Water texture lines -->
+            <g stroke="#1B3A5C" stroke-width="0.5" opacity="0.08">
+              <line x1="20" y1="80" x2="80" y2="80"/><line x1="290" y1="100" x2="350" y2="100"/>
+              <line x1="15" y1="140" x2="85" y2="140"/><line x1="285" y1="160" x2="355" y2="160"/>
+              <line x1="25" y1="200" x2="95" y2="200"/><line x1="270" y1="220" x2="340" y2="220"/>
+            </g>
+            <!-- Miami-Dade region -->
+            <path d="M120 180 L260 180 L255 225 L235 260 L200 285 L170 290 L145 275 L125 240 L115 210 Z" fill="#1B3A5C" opacity="0.15" stroke="#1B3A5C" stroke-width="1.5"/>
+            <!-- Broward region -->
+            <path d="M110 130 L270 130 L265 175 L260 180 L120 180 L115 175 Z" fill="#C9963B" opacity="0.15" stroke="#C9963B" stroke-width="1.5"/>
+            <!-- Miami pin -->
+            <g transform="translate(195, 230)">
+              <circle r="8" fill="#1B3A5C"/><circle r="3" fill="white"/>
+              <path d="M0 -14 L-6 -26 C-6 -32 6 -32 6 -26 Z" fill="#1B3A5C"/>
+            </g>
+            <text x="215" y="234" font-family="Inter,sans-serif" font-size="11" fill="#1B3A5C" font-weight="700">Miami</text>
+            <!-- Fort Lauderdale pin -->
+            <g transform="translate(220, 155)">
+              <circle r="6" fill="#C9963B"/><circle r="2.5" fill="white"/>
+              <path d="M0 -10 L-5 -20 C-5 -25 5 -25 5 -20 Z" fill="#C9963B"/>
+            </g>
+            <text x="236" y="159" font-family="Inter,sans-serif" font-size="10" fill="#C9963B" font-weight="600">Ft. Lauderdale</text>
+            <!-- Labels -->
+            <text x="165" y="215" font-family="Inter,sans-serif" font-size="9" fill="#1B3A5C" opacity="0.6" text-anchor="middle">MIAMI-DADE</text>
+            <text x="180" y="160" font-family="Inter,sans-serif" font-size="9" fill="#C9963B" opacity="0.8" text-anchor="middle">BROWARD</text>
+            <!-- Coverage indicator -->
+            <rect x="60" y="10" width="10" height="10" rx="2" fill="#1B3A5C" opacity="0.15"/>
+            <text x="76" y="19" font-family="Inter,sans-serif" font-size="9" fill="#1B3A5C" opacity="0.6">Miami-Dade County</text>
+            <rect x="200" y="10" width="10" height="10" rx="2" fill="#C9963B" opacity="0.15"/>
+            <text x="216" y="19" font-family="Inter,sans-serif" font-size="9" fill="#C9963B" opacity="0.8">Broward County</text>
+          </svg>
           <div class="qualifier-box">
             <h4>Not the Right Fit?</h4>
             <p>We may not be the best match if you need notarization outside of Miami-Dade or Broward County, or if you are looking for legal advice (we are notaries, not attorneys). For anything within our coverage area and scope of service, we are here for you.</p>
@@ -2212,23 +2394,148 @@
         <p class="section-subtitle">Real service, real locations, real people. Here is what working with us looks like.</p>
       </div>
       <div class="gallery-grid animate-on-scroll">
+        <!-- Scene 1: Home signing -->
         <div class="gallery-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="gallery-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" fill="none">
+            <rect width="280" height="210" fill="#E8EDF3"/>
+            <!-- House outline -->
+            <path d="M60 100 L140 50 L220 100" stroke="#1B3A5C" stroke-width="2.5" fill="none"/>
+            <rect x="80" y="100" width="120" height="80" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <rect x="100" y="120" width="30" height="25" fill="#E8EDF3" stroke="#1B3A5C" stroke-width="1.5"/>
+            <rect x="150" y="120" width="30" height="25" fill="#E8EDF3" stroke="#1B3A5C" stroke-width="1.5"/>
+            <rect x="125" y="150" width="30" height="30" fill="#1B3A5C" stroke="#1B3A5C" stroke-width="1.5"/>
+            <circle cx="150" cy="165" r="2" fill="#C9963B"/>
+            <!-- Document with seal -->
+            <rect x="175" y="130" width="50" height="65" rx="3" fill="white" stroke="#C9963B" stroke-width="2" transform="rotate(8 200 162)"/>
+            <rect x="185" y="142" width="30" height="3" rx="1.5" fill="#DFE3EA" transform="rotate(8 200 143)"/>
+            <rect x="185" y="150" width="25" height="3" rx="1.5" fill="#DFE3EA" transform="rotate(8 200 151)"/>
+            <circle cx="205" cy="175" r="10" fill="none" stroke="#C9963B" stroke-width="2" transform="rotate(8 205 175)"/>
+            <text x="201" y="179" font-family="Inter" font-size="7" fill="#C9963B" font-weight="700" transform="rotate(8 205 175)">N</text>
+          </svg>
+          <div class="gallery-label">Home Signings</div>
         </div>
+        <!-- Scene 2: Office/Business -->
         <div class="gallery-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="gallery-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" fill="none">
+            <rect width="280" height="210" fill="#E8EDF3"/>
+            <!-- Office building -->
+            <rect x="80" y="50" width="120" height="130" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <!-- Windows grid -->
+            <g fill="#E8EDF3" stroke="#1B3A5C" stroke-width="1">
+              <rect x="95" y="65" width="20" height="15"/><rect x="125" y="65" width="20" height="15"/><rect x="155" y="65" width="20" height="15"/>
+              <rect x="95" y="90" width="20" height="15"/><rect x="125" y="90" width="20" height="15"/><rect x="155" y="90" width="20" height="15"/>
+              <rect x="95" y="115" width="20" height="15"/><rect x="125" y="115" width="20" height="15"/><rect x="155" y="115" width="20" height="15"/>
+            </g>
+            <!-- Door -->
+            <rect x="125" y="150" width="30" height="30" fill="#1B3A5C"/>
+            <!-- Briefcase -->
+            <rect x="195" y="140" width="40" height="30" rx="4" fill="white" stroke="#C9963B" stroke-width="2"/>
+            <path d="M207 140 L207 133 C207 130 215 130 215 130 L223 130 C223 130 228 130 228 133 L228 140" stroke="#C9963B" stroke-width="2" fill="none"/>
+            <line x1="195" y1="152" x2="235" y2="152" stroke="#C9963B" stroke-width="1.5"/>
+          </svg>
+          <div class="gallery-label">Office Visits</div>
         </div>
+        <!-- Scene 3: Hospital -->
         <div class="gallery-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="gallery-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" fill="none">
+            <rect width="280" height="210" fill="#E8EDF3"/>
+            <!-- Hospital building -->
+            <rect x="70" y="60" width="140" height="120" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <!-- Cross -->
+            <rect x="127" y="30" width="26" height="50" rx="3" fill="white" stroke="#D4652E" stroke-width="2"/>
+            <rect x="120" y="42" width="40" height="26" rx="3" fill="white" stroke="#D4652E" stroke-width="2"/>
+            <rect x="129" y="44" width="22" height="22" rx="2" fill="#D4652E" opacity="0.15"/>
+            <!-- Windows -->
+            <g fill="#E8EDF3" stroke="#1B3A5C" stroke-width="1">
+              <rect x="85" y="80" width="25" height="20"/><rect x="127" y="80" width="25" height="20"/><rect x="170" y="80" width="25" height="20"/>
+              <rect x="85" y="115" width="25" height="20"/><rect x="170" y="115" width="25" height="20"/>
+            </g>
+            <rect x="127" y="140" width="26" height="40" fill="#1B3A5C"/>
+            <!-- Clipboard -->
+            <rect x="205" y="100" width="40" height="55" rx="3" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <rect x="215" y="95" width="20" height="10" rx="3" fill="#1B3A5C"/>
+            <rect x="212" y="115" width="26" height="3" rx="1.5" fill="#DFE3EA"/>
+            <rect x="212" y="123" width="22" height="3" rx="1.5" fill="#DFE3EA"/>
+            <rect x="212" y="131" width="24" height="3" rx="1.5" fill="#DFE3EA"/>
+            <polyline points="214,142 220,148 232,136" stroke="#2E8B57" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="gallery-label">Hospital & Bedside</div>
         </div>
+        <!-- Scene 4: Real Estate -->
         <div class="gallery-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="gallery-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" fill="none">
+            <rect width="280" height="210" fill="#E8EDF3"/>
+            <!-- Key -->
+            <circle cx="110" cy="100" r="28" fill="none" stroke="#C9963B" stroke-width="3"/>
+            <circle cx="110" cy="100" r="12" fill="none" stroke="#C9963B" stroke-width="2"/>
+            <line x1="138" y1="100" x2="200" y2="100" stroke="#C9963B" stroke-width="3"/>
+            <line x1="185" y1="100" x2="185" y2="115" stroke="#C9963B" stroke-width="3"/>
+            <line x1="200" y1="100" x2="200" y2="118" stroke="#C9963B" stroke-width="3"/>
+            <!-- Document -->
+            <rect x="160" y="120" width="70" height="55" rx="4" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <rect x="170" y="132" width="40" height="3" rx="1.5" fill="#DFE3EA"/>
+            <rect x="170" y="140" width="35" height="3" rx="1.5" fill="#DFE3EA"/>
+            <rect x="170" y="148" width="42" height="3" rx="1.5" fill="#DFE3EA"/>
+            <!-- Signature line -->
+            <line x1="170" y1="163" x2="215" y2="163" stroke="#1B3A5C" stroke-width="1" stroke-dasharray="3 2"/>
+            <path d="M175 160 C178 155 182 162 186 158 C189 155 193 161 196 158" stroke="#1B3A5C" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div class="gallery-label">Real Estate Closings</div>
         </div>
+        <!-- Scene 5: Wedding -->
         <div class="gallery-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="gallery-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" fill="none">
+            <rect width="280" height="210" fill="#E8EDF3"/>
+            <!-- Rings -->
+            <circle cx="125" cy="90" r="30" fill="none" stroke="#C9963B" stroke-width="3"/>
+            <circle cx="155" cy="90" r="30" fill="none" stroke="#C9963B" stroke-width="3"/>
+            <!-- Diamond -->
+            <polygon points="140,55 135,65 145,65" fill="#C9963B"/>
+            <polygon points="135,65 140,58 145,65" fill="white" opacity="0.3"/>
+            <!-- Marriage certificate -->
+            <rect x="80" y="125" width="120" height="65" rx="4" fill="white" stroke="#1B3A5C" stroke-width="2"/>
+            <text x="140" y="143" font-family="Instrument Serif,serif" font-size="9" fill="#1B3A5C" text-anchor="middle" font-weight="400">Certificate of Marriage</text>
+            <line x1="95" y1="150" x2="185" y2="150" stroke="#DFE3EA" stroke-width="1"/>
+            <rect x="95" y="157" width="35" height="3" rx="1.5" fill="#DFE3EA"/>
+            <rect x="145" y="157" width="35" height="3" rx="1.5" fill="#DFE3EA"/>
+            <!-- Heart between names -->
+            <path d="M137 158 C137 155 140 153 140 156 C140 153 143 155 143 158 C143 161 140 163 140 163 C140 163 137 161 137 158Z" fill="#C9963B"/>
+            <!-- Signature lines -->
+            <line x1="95" y1="175" x2="130" y2="175" stroke="#1B3A5C" stroke-width="0.8" stroke-dasharray="3 2"/>
+            <line x1="145" y1="175" x2="185" y2="175" stroke="#1B3A5C" stroke-width="0.8" stroke-dasharray="3 2"/>
+            <!-- Seal -->
+            <circle cx="140" cy="180" r="6" fill="none" stroke="#C9963B" stroke-width="1.5"/>
+          </svg>
+          <div class="gallery-label">Wedding Officiation</div>
         </div>
+        <!-- Scene 6: 24/7 Emergency -->
         <div class="gallery-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <svg class="gallery-scene" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" fill="none">
+            <rect width="280" height="210" fill="#1B3A5C" opacity="0.08"/>
+            <rect width="280" height="210" fill="#E8EDF3"/>
+            <!-- Moon and stars (night scene) -->
+            <circle cx="200" cy="50" r="22" fill="#C9963B" opacity="0.2"/>
+            <circle cx="210" cy="42" r="22" fill="#E8EDF3"/>
+            <g fill="#C9963B" opacity="0.4">
+              <circle cx="100" cy="35" r="2"/><circle cx="160" cy="28" r="1.5"/><circle cx="130" cy="45" r="1.8"/><circle cx="240" cy="38" r="1.5"/>
+            </g>
+            <!-- Clock showing midnight -->
+            <circle cx="140" cy="110" r="50" fill="white" stroke="#1B3A5C" stroke-width="2.5"/>
+            <circle cx="140" cy="110" r="44" fill="white" stroke="#E8EDF3" stroke-width="1"/>
+            <!-- Tick marks -->
+            <g stroke="#1B3A5C" stroke-width="2">
+              <line x1="140" y1="68" x2="140" y2="74"/><line x1="140" y1="146" x2="140" y2="152"/>
+              <line x1="98" y1="110" x2="104" y2="110"/><line x1="176" y1="110" x2="182" y2="110"/>
+            </g>
+            <!-- Hands pointing to 12 (midnight) -->
+            <line x1="140" y1="110" x2="140" y2="78" stroke="#1B3A5C" stroke-width="3" stroke-linecap="round"/>
+            <line x1="140" y1="110" x2="140" y2="82" stroke="#C9963B" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="140" cy="110" r="4" fill="#1B3A5C"/>
+            <!-- 24/7 badge -->
+            <rect x="90" y="165" width="100" height="28" rx="14" fill="#1B3A5C"/>
+            <text x="140" y="184" font-family="Inter,sans-serif" font-size="13" fill="white" text-anchor="middle" font-weight="700">24/7/365</text>
+          </svg>
+          <div class="gallery-label">After-Hours Emergency</div>
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
@@ -2375,7 +2682,7 @@
   <!-- ========== FAQ SECTION END ========== -->
 
   <!-- ========== FINAL CTA SECTION START ========== -->
-  <section class="section-dark" id="final-cta">
+  <section class="section-dark-image" id="final-cta">
     <div class="container text-center">
       <span class="eyebrow animate-on-scroll">READY TO GET STARTED?</span>
       <h2 class="section-title animate-on-scroll delay-1">Your Documents. Your Location. <span class="text-accent">Your Schedule.</span></h2>
