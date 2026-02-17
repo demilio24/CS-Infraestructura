@@ -1506,6 +1506,121 @@
       max-height: 300px;
     }
 
+    /* Form Modal */
+    .form-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+
+    .form-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .form-modal {
+      background-color: var(--color-white);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 16px 48px rgba(0,0,0,0.1);
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s ease-out;
+    }
+
+    .form-overlay.active .form-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .form-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--gradient-primary);
+      color: var(--color-white);
+    }
+
+    .form-modal-header h3 {
+      color: var(--color-white);
+      font-size: var(--font-size-xl);
+      margin: 0;
+    }
+
+    .form-modal-header p {
+      color: rgba(255,255,255,0.75);
+      font-size: var(--font-size-sm);
+      margin: 4px 0 0;
+    }
+
+    .form-close-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+      flex-shrink: 0;
+    }
+
+    .form-close-btn:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    .form-close-btn svg {
+      width: 16px;
+      height: 16px;
+      color: var(--color-white);
+    }
+
+    .form-modal-body {
+      height: 560px;
+      overflow: hidden;
+    }
+
+    .form-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Inline form embed in final CTA */
+    .inline-form-wrapper {
+      max-width: 520px;
+      margin: var(--space-lg) auto 0;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      background: var(--color-white);
+    }
+
+    .inline-form-wrapper iframe {
+      width: 100%;
+      height: 560px;
+      border: none;
+      border-radius: var(--radius-xl);
+    }
+
     /* Modal */
     .modal-overlay {
       position: fixed;
@@ -2148,9 +2263,9 @@
         <a href="#who-we-help">Service Areas</a>
         <a href="#faq">FAQ</a>
         <a href="#final-cta">Contact</a>
-        <a href="tel:3056133300" class="nav-cta">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          Call 305-613-3300
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="nav-cta">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Get In Touch
         </a>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -2169,7 +2284,7 @@
     <p class="hero-subtitle animate-on-scroll delay-2">Veteran-owned mobile notary service covering all of South Florida, available 24 hours a day, 7 days a week, 365 days a year.</p>
     <p class="hero-body animate-on-scroll delay-3">No need to drive across town or wait in line. We come directly to your home, office, hospital, or wherever you are. Appointments available as soon as 60 minutes from your call.</p>
     <div class="animate-on-scroll delay-4">
-      <a href="tel:3056133300" class="btn btn-white">Schedule Your Appointment Now</a>
+      <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-white">Request Your Appointment</a>
     </div>
   </section>
 
@@ -2287,7 +2402,7 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="tel:3056133300" class="btn btn-primary">Skip the Hassle. We Come to You.</a>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Request a Free Quote</a>
         <span class="btn-subtext">Available right now, wherever you are in South Florida.</span>
       </div>
     </div>
@@ -2394,8 +2509,8 @@
 
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="tel:3056133300" class="btn btn-primary">Get Your Documents Notarized Today</a>
-        <span class="btn-subtext">Call 305-613-3300 for same-day service.</span>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Get Your Documents Notarized Today</a>
+        <span class="btn-subtext">Same-day service available.</span>
       </div>
     </div>
   </section>
@@ -2439,8 +2554,8 @@
         Appointments available as soon as 60 minutes from your call.
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="tel:3056133300" class="btn btn-primary">Start With a Quick Call</a>
-        <span class="btn-subtext">305-613-3300. Available 24/7, including holidays.</span>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Request Your Appointment</a>
+        <span class="btn-subtext">Available 24/7, including holidays.</span>
       </div>
     </div>
   </section>
@@ -2499,8 +2614,8 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="tel:3056133300" class="btn btn-primary">Schedule Your Mobile Notary Now</a>
-        <span class="btn-subtext">Fast, professional, and hassle-free. Call 305-613-3300.</span>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Schedule Your Mobile Notary</a>
+        <span class="btn-subtext">Fast, professional, and hassle-free.</span>
       </div>
     </div>
   </section>
@@ -2600,8 +2715,8 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="tel:3056133300" class="btn btn-primary">Check if We Cover Your Area</a>
-        <span class="btn-subtext">Call 305-613-3300. Serving all of Miami-Dade and Broward County.</span>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Check if We Cover Your Area</a>
+        <span class="btn-subtext">Serving all of Miami-Dade and Broward County.</span>
       </div>
     </div>
   </section>
@@ -2762,7 +2877,7 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="tel:3056133300" class="btn btn-primary">See How Easy It Is. Schedule Now.</a>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Get In Touch</a>
         <span class="btn-subtext">We will come to you, wherever you are.</span>
       </div>
     </div>
@@ -2910,15 +3025,30 @@
     <div class="container text-center">
       <span class="eyebrow animate-on-scroll">READY TO GET STARTED?</span>
       <h2 class="section-title animate-on-scroll delay-1">Your Documents. Your Location. <span class="text-accent">Your Schedule.</span></h2>
-      <p class="section-subtitle animate-on-scroll delay-2" style="color: rgba(255,255,255,0.85);">Stop rearranging your day around a notary office. One phone call and we are on our way to you.</p>
+      <p class="section-subtitle animate-on-scroll delay-2" style="color: rgba(255,255,255,0.85);">Stop rearranging your day around a notary office. Fill out the form below and we will be on our way to you.</p>
       <p class="animate-on-scroll delay-2" style="max-width: 650px; margin: 0 auto var(--space-lg); color: rgba(255,255,255,0.75);">
-        Whether it is a real estate closing, a power of attorney, or an emergency document at midnight, we are available right now to come to you anywhere in Miami-Dade or Broward County. Call 305-613-3300 or click below to schedule your appointment.
+        Whether it is a real estate closing, a power of attorney, or an emergency document at midnight, we are available right now to come to you anywhere in Miami-Dade or Broward County.
       </p>
-      <div class="final-cta-buttons animate-on-scroll delay-3">
-        <a href="tel:3056133300" class="btn btn-white">Call 305-613-3300 Now</a>
-        <a href="#" class="btn btn-ghost-white">Request an Appointment Online</a>
+      <div class="inline-form-wrapper animate-on-scroll delay-3">
+        <iframe
+          src="https://link.nilsdigital.com/widget/form/xV80hQ8FKSjV305m6DjH"
+          id="inline-xV80hQ8FKSjV305m6DjH"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Website Form (Do not edit)"
+          data-height="559"
+          data-layout-iframe-id="inline-xV80hQ8FKSjV305m6DjH"
+          data-form-id="xV80hQ8FKSjV305m6DjH"
+          title="Website Form (Do not edit)"
+          loading="lazy"
+        ></iframe>
       </div>
-      <span class="btn-subtext-light animate-on-scroll delay-3">Available 24/7. No obligation. Veteran-owned and operated.</span>
+      <span class="btn-subtext-light animate-on-scroll delay-3" style="margin-top: var(--space-md);">Available 24/7. No obligation. Veteran-owned and operated.</span>
       <div class="final-cta-badges animate-on-scroll delay-4">
         <div class="cta-badge">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -2956,7 +3086,7 @@
             <a href="#process">How It Works</a>
             <a href="#who-we-help">Service Areas</a>
             <a href="#faq">FAQ</a>
-            <a href="tel:3056133300">Schedule an Appointment</a>
+            <a href="#" onclick="event.preventDefault(); openFormModal();">Request an Appointment</a>
             <a href="#" onclick="event.preventDefault(); openModal('legalModal', 'privacy')">Privacy Policy</a>
             <a href="#" onclick="event.preventDefault(); openModal('legalModal', 'terms')">Terms &amp; Conditions</a>
             <a href="#" onclick="event.preventDefault(); openModal('legalModal', 'disclaimers')">Disclaimers</a>
@@ -2993,6 +3123,39 @@
     </div>
   </footer>
   <!-- ========== FOOTER END ========== -->
+
+  <!-- ========== FORM MODAL START ========== -->
+  <div class="form-overlay" id="formModal">
+    <div class="form-modal">
+      <div class="form-modal-header">
+        <div>
+          <h3>Request Your Appointment</h3>
+          <p>We will get back to you within minutes.</p>
+        </div>
+        <button class="form-close-btn" onclick="closeFormModal()" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="form-modal-body">
+        <iframe
+          src="https://link.nilsdigital.com/widget/form/xV80hQ8FKSjV305m6DjH"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Website Form (Do not edit)"
+          data-height="559"
+          data-form-id="xV80hQ8FKSjV305m6DjH"
+          title="Request Appointment Form"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+  <!-- ========== FORM MODAL END ========== -->
 
   <!-- ========== LEGAL MODAL START ========== -->
   <div class="modal-overlay" id="legalModal">
@@ -3343,7 +3506,43 @@
       initSmoothScroll();
       initFAQ();
       initModals();
+      initFormModal();
     });
+
+    /* ============================================
+       FORM MODAL
+       ============================================ */
+    function openFormModal() {
+      const modal = document.getElementById('formModal');
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeFormModal() {
+      const modal = document.getElementById('formModal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function initFormModal() {
+      const overlay = document.getElementById('formModal');
+      if (!overlay) return;
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeFormModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          closeFormModal();
+        }
+      });
+    }
   </script>
+  <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 </body>
 </html>
