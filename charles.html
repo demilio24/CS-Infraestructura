@@ -547,6 +547,9 @@
     }
 
     .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: var(--font-heading);
       font-size: var(--font-size-xl);
       font-weight: 700;
@@ -554,8 +557,50 @@
       transition: var(--transition-base);
     }
 
+    .nav-logo-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      transition: var(--transition-base);
+    }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo-sub {
+      font-family: var(--font-body);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
     .navbar.scrolled .nav-logo {
       color: var(--color-primary);
+    }
+
+    .nav-logo-icon .logo-shield {
+      fill: white;
+      transition: var(--transition-base);
+    }
+
+    .nav-logo-icon .logo-accent {
+      transition: var(--transition-base);
+    }
+
+    .navbar.scrolled .nav-logo-icon .logo-shield {
+      fill: var(--color-primary);
     }
 
     .nav-links {
@@ -804,14 +849,14 @@
     /* Hero */
     .hero {
       position: relative;
-      min-height: calc(100vh - 90px);
+      min-height: calc(100vh - 160px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       background: var(--gradient-hero-overlay), url('https://storage.googleapis.com/msgsndr/YUxVPDw3FnvQ2ne2mIu8/media/699356a954da0444bd51c1f7.png') center/cover no-repeat;
-      padding: 120px var(--space-md) var(--space-xl);
+      padding: 100px var(--space-md) var(--space-lg);
       overflow: hidden;
     }
 
@@ -896,7 +941,11 @@
     .social-proof-item {
       text-align: center;
       position: relative;
-      padding: 0 var(--space-sm);
+      padding: var(--space-xs) var(--space-sm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
     .social-proof-item:not(:last-child)::after {
@@ -909,6 +958,29 @@
       background: linear-gradient(180deg, transparent, var(--color-border), transparent);
     }
 
+    .proof-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #2A5280 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(27,58,92,0.2);
+    }
+
+    .proof-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-white);
+    }
+
+    .proof-icon.proof-icon-gold {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, #D4A94E 100%);
+      box-shadow: 0 2px 8px rgba(201,150,59,0.25);
+    }
+
     .social-proof-item .proof-label {
       font-family: var(--font-heading);
       font-size: var(--font-size-xl);
@@ -917,8 +989,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 4px;
+      margin-bottom: 0;
       display: block;
+      line-height: 1.2;
     }
 
     .social-proof-item .proof-desc {
@@ -1824,6 +1897,29 @@
         display: flex;
       }
 
+      .nav-logo-sub {
+        display: none;
+      }
+
+      .nav-logo-icon {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-logo-main {
+        font-size: 0.95rem;
+      }
+
+      .proof-icon {
+        width: 38px;
+        height: 38px;
+      }
+
+      .proof-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
       .grid-2,
       .grid-3 {
         grid-template-columns: 1fr;
@@ -1930,7 +2026,27 @@
   <!-- ========== NAVIGATION START ========== -->
   <nav class="navbar" id="navbar">
     <div class="container">
-      <a href="#" class="nav-logo">Mobile Notary Miami</a>
+      <a href="#" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shield shape -->
+          <path class="logo-shield" d="M24 4 L42 12 L42 24 C42 36 24 46 24 46 C24 46 6 36 6 24 L6 12 Z" fill="white"/>
+          <!-- Inner shield border -->
+          <path d="M24 7 L39 14 L39 24 C39 34.5 24 43 24 43 C24 43 9 34.5 9 24 L9 14 Z" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5"/>
+          <!-- Gold seal circle -->
+          <circle class="logo-accent" cx="24" cy="22" r="12" fill="#C9963B"/>
+          <!-- Inner seal ring -->
+          <circle cx="24" cy="22" r="9" fill="none" stroke="white" stroke-width="1.2"/>
+          <!-- Quill / pen nib -->
+          <path class="logo-detail" d="M20 26 L24 15 L28 26" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <line class="logo-detail" x1="21" y1="23" x2="27" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Small star at top of shield -->
+          <polygon class="logo-accent" points="24,8 25.2,10.5 28,10.8 26,12.8 26.5,15.5 24,14 21.5,15.5 22,12.8 20,10.8 22.8,10.5" fill="#C9963B"/>
+        </svg>
+        <span class="nav-logo-text">
+          <span class="nav-logo-main">Mobile Notary Miami</span>
+          <span class="nav-logo-sub">Veteran-Owned &bull; 24/7 Service</span>
+        </span>
+      </a>
       <div class="nav-links" id="navLinks">
         <a href="#services">Services</a>
         <a href="#process">How It Works</a>
@@ -1966,18 +2082,30 @@
   <div class="social-proof-bar">
     <div class="social-proof-grid">
       <div class="social-proof-item">
+        <div class="proof-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
         <span class="proof-label">24/7/365</span>
         <p class="proof-desc">Always Available</p>
       </div>
       <div class="social-proof-item">
+        <div class="proof-icon proof-icon-gold">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
         <span class="proof-label">Veteran-Owned</span>
         <p class="proof-desc">Army Veteran Led</p>
       </div>
       <div class="social-proof-item">
+        <div class="proof-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
         <span class="proof-label">All of South FL</span>
         <p class="proof-desc">Miami-Dade &amp; Broward</p>
       </div>
       <div class="social-proof-item">
+        <div class="proof-icon proof-icon-gold">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <span class="proof-label">60-Min Response</span>
         <p class="proof-desc">Fast Appointments</p>
       </div>
