@@ -940,17 +940,9 @@
       position: relative;
       z-index: 1;
       background: var(--color-white);
-      border-radius: var(--radius-xl);
+      border-radius: 20px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 16px 48px rgba(0,0,0,0.15);
-    }
-
-    .hero-form iframe {
-      width: 100%;
-      min-height: 580px;
-      height: auto;
-      border: none;
-      display: block;
-      border-radius: var(--radius-xl);
+      min-height: 600px;
     }
 
     .social-proof-bar {
@@ -2265,7 +2257,8 @@
       <div class="hero-form animate-on-scroll delay-2" id="hero-form">
         <iframe
           src="https://link.nilsdigital.com/widget/form/xV80hQ8FKSjV305m6DjH"
-          id="hero-form-iframe"
+          style="width:100%;height:100%;border:none;border-radius:20px"
+          id="inline-xV80hQ8FKSjV305m6DjH"
           data-layout="{'id':'INLINE'}"
           data-trigger-type="alwaysShow"
           data-trigger-value=""
@@ -2275,9 +2268,9 @@
           data-deactivation-value=""
           data-form-name="Website Form (Do not edit)"
           data-height="559"
+          data-layout-iframe-id="inline-xV80hQ8FKSjV305m6DjH"
           data-form-id="xV80hQ8FKSjV305m6DjH"
-          title="Request Appointment Form"
-          sandbox="allow-scripts allow-forms allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-top-navigation allow-top-navigation-by-user-activation"
+          title="Website Form (Do not edit)"
         ></iframe>
       </div>
     </div>
@@ -3475,6 +3468,5 @@
       initModals();
     });
   </script>
-  <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 </body>
 </html>
