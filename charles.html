@@ -862,15 +862,29 @@
     /* Hero */
     .hero {
       position: relative;
-      min-height: calc(100vh - 175px);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       background: var(--gradient-hero-overlay), url('https://storage.googleapis.com/msgsndr/YUxVPDw3FnvQ2ne2mIu8/media/699356a954da0444bd51c1f7.png') center/cover no-repeat;
-      padding: 100px var(--space-md) var(--space-md);
+      padding: 100px var(--space-md) var(--space-xl);
       overflow: hidden;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+      max-width: var(--container-width);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-text {
+      text-align: left;
     }
 
     .hero::before {
@@ -898,7 +912,7 @@
       z-index: 0;
     }
 
-    .hero > * {
+    .hero > .hero-grid {
       position: relative;
       z-index: 1;
     }
@@ -906,22 +920,53 @@
     .hero h1 {
       font-family: 'Playfair Display', serif;
       color: var(--color-white);
-      max-width: 900px;
       margin-bottom: var(--space-md);
     }
 
     .hero-subtitle {
       font-size: var(--font-size-xl);
       color: rgba(255,255,255,0.9);
-      max-width: 720px;
-      margin: 0 auto var(--space-sm);
+      margin: 0 0 var(--space-sm);
     }
 
     .hero-body {
       font-size: var(--font-size-lg);
       color: rgba(255,255,255,0.75);
-      max-width: 660px;
-      margin: 0 auto var(--space-lg);
+      margin: 0 0 var(--space-lg);
+    }
+
+    .hero-form {
+      position: relative;
+      z-index: 1;
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 16px 48px rgba(0,0,0,0.15);
+    }
+
+    .hero-form-header {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, #D4A94E 100%);
+      padding: var(--space-md) var(--space-lg);
+      text-align: center;
+    }
+
+    .hero-form-header h3 {
+      color: var(--color-white);
+      font-size: var(--font-size-xl);
+      margin: 0;
+    }
+
+    .hero-form-header p {
+      color: rgba(255,255,255,0.85);
+      font-size: var(--font-size-sm);
+      margin: 4px 0 0;
+    }
+
+    .hero-form iframe {
+      width: 100%;
+      height: 580px;
+      border: none;
+      display: block;
     }
 
     .social-proof-bar {
@@ -2236,7 +2281,20 @@
 
       .hero {
         min-height: auto;
-        padding: 120px var(--space-md) var(--space-lg);
+        padding: 100px var(--space-md) var(--space-lg);
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .hero-form iframe {
+        height: 620px;
       }
 
       .final-cta-badges {
@@ -2319,7 +2377,7 @@
         <a href="#who-we-help">Service Areas</a>
         <a href="#faq">FAQ</a>
         <a href="#final-cta">Contact</a>
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="nav-cta">
+        <a href="#hero-form" class="nav-cta">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           Get In Touch
         </a>
@@ -2335,12 +2393,37 @@
 
   <!-- ========== HERO SECTION START ========== -->
   <section class="hero" id="hero">
-    <span class="eyebrow animate-on-scroll" style="color: var(--color-secondary);">MOBILE NOTARY SERVICES IN MIAMI-DADE &amp; BROWARD COUNTY</span>
-    <h1 class="animate-on-scroll delay-1">Documents Notarized at <span class="text-accent">Your</span> Location</h1>
-    <p class="hero-subtitle animate-on-scroll delay-2">Veteran-owned mobile notary service covering all of South Florida, available 24 hours a day, 7 days a week, 365 days a year.</p>
-    <p class="hero-body animate-on-scroll delay-3">No need to drive across town or wait in line. We come directly to your home, office, hospital, or wherever you are. Appointments available as soon as 60 minutes from your call.</p>
-    <div class="animate-on-scroll delay-4">
-      <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-white">Request Your Appointment</a>
+    <div class="hero-grid">
+      <div class="hero-text">
+        <span class="eyebrow animate-on-scroll" style="color: var(--color-secondary);">MOBILE NOTARY SERVICES IN MIAMI-DADE &amp; BROWARD COUNTY</span>
+        <h1 class="animate-on-scroll delay-1">Documents Notarized at <span class="text-accent">Your</span> Location</h1>
+        <p class="hero-subtitle animate-on-scroll delay-2">Veteran-owned mobile notary service covering all of South Florida, available 24 hours a day, 7 days a week, 365 days a year.</p>
+        <p class="hero-body animate-on-scroll delay-3">No need to drive across town or wait in line. We come directly to your home, office, hospital, or wherever you are. Appointments available as soon as 60 minutes from your call.</p>
+        <div class="animate-on-scroll delay-4">
+          <a href="#hero-form" class="btn btn-white">Request Your Appointment</a>
+        </div>
+      </div>
+      <div class="hero-form animate-on-scroll delay-2" id="hero-form">
+        <div class="hero-form-header">
+          <h3>Request Your Appointment</h3>
+          <p>Fill out the form and we will contact you within minutes.</p>
+        </div>
+        <iframe
+          src="https://link.nilsdigital.com/widget/form/xV80hQ8FKSjV305m6DjH"
+          id="hero-form-iframe"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Website Form (Do not edit)"
+          data-height="559"
+          data-form-id="xV80hQ8FKSjV305m6DjH"
+          title="Request Appointment Form"
+        ></iframe>
+      </div>
     </div>
   </section>
 
@@ -2458,7 +2541,7 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Request a Free Quote</a>
+        <a href="#hero-form" class="btn btn-primary">Request a Free Quote</a>
         <span class="btn-subtext">Available right now, wherever you are in South Florida.</span>
       </div>
     </div>
@@ -2565,7 +2648,7 @@
 
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Get Your Documents Notarized Today</a>
+        <a href="#hero-form" class="btn btn-primary">Get Your Documents Notarized Today</a>
         <span class="btn-subtext">Same-day service available.</span>
       </div>
     </div>
@@ -2610,7 +2693,7 @@
         Appointments available as soon as 60 minutes from your call.
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Request Your Appointment</a>
+        <a href="#hero-form" class="btn btn-primary">Request Your Appointment</a>
         <span class="btn-subtext">Available 24/7, including holidays.</span>
       </div>
     </div>
@@ -2670,7 +2753,7 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Schedule Your Mobile Notary</a>
+        <a href="#hero-form" class="btn btn-primary">Schedule Your Mobile Notary</a>
         <span class="btn-subtext">Fast, professional, and hassle-free.</span>
       </div>
     </div>
@@ -2682,7 +2765,7 @@
     <div class="container text-center" style="position:relative;z-index:1;">
       <h3 style="color: var(--color-white); margin-bottom: var(--space-xs);">Ready to Get Your Documents Notarized?</h3>
       <p style="color: rgba(255,255,255,0.75); margin-bottom: var(--space-md); max-width: 550px; margin-left: auto; margin-right: auto;">Fill out our quick form and a notary will be on the way to your location. Available 24/7.</p>
-      <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-white">Request Your Appointment</a>
+      <a href="#hero-form" class="btn btn-white">Request Your Appointment</a>
     </div>
   </div>
 
@@ -2780,7 +2863,7 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Check if We Cover Your Area</a>
+        <a href="#hero-form" class="btn btn-primary">Check if We Cover Your Area</a>
         <span class="btn-subtext">Serving all of Miami-Dade and Broward County.</span>
       </div>
     </div>
@@ -2942,7 +3025,7 @@
         </div>
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Get In Touch</a>
+        <a href="#hero-form" class="btn btn-primary">Get In Touch</a>
         <span class="btn-subtext">We will come to you, wherever you are.</span>
       </div>
     </div>
@@ -3083,7 +3166,7 @@
       </div>
       <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
         <p style="font-size: var(--font-size-lg); font-weight: 600; color: var(--color-primary); margin-bottom: var(--space-sm);">Still have questions? We are happy to help.</p>
-        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Get In Touch</a>
+        <a href="#hero-form" class="btn btn-primary">Get In Touch</a>
       </div>
     </div>
   </section>
@@ -3094,30 +3177,14 @@
     <div class="container text-center">
       <span class="eyebrow animate-on-scroll">READY TO GET STARTED?</span>
       <h2 class="section-title animate-on-scroll delay-1">Your Documents. Your Location. <span class="text-accent">Your Schedule.</span></h2>
-      <p class="section-subtitle animate-on-scroll delay-2" style="color: rgba(255,255,255,0.85);">Stop rearranging your day around a notary office. Fill out the form below and we will be on our way to you.</p>
+      <p class="section-subtitle animate-on-scroll delay-2" style="color: rgba(255,255,255,0.85);">Stop rearranging your day around a notary office. One quick form and we are on our way to you.</p>
       <p class="animate-on-scroll delay-2" style="max-width: 650px; margin: 0 auto var(--space-lg); color: rgba(255,255,255,0.75);">
         Whether it is a real estate closing, a power of attorney, or an emergency document at midnight, we are available right now to come to you anywhere in Miami-Dade or Broward County.
       </p>
-      <div class="inline-form-wrapper animate-on-scroll delay-3">
-        <iframe
-          src="https://link.nilsdigital.com/widget/form/xV80hQ8FKSjV305m6DjH"
-          id="inline-xV80hQ8FKSjV305m6DjH"
-          data-layout="{'id':'INLINE'}"
-          data-trigger-type="alwaysShow"
-          data-trigger-value=""
-          data-activation-type="alwaysActivated"
-          data-activation-value=""
-          data-deactivation-type="neverDeactivate"
-          data-deactivation-value=""
-          data-form-name="Website Form (Do not edit)"
-          data-height="559"
-          data-layout-iframe-id="inline-xV80hQ8FKSjV305m6DjH"
-          data-form-id="xV80hQ8FKSjV305m6DjH"
-          title="Website Form (Do not edit)"
-          loading="lazy"
-        ></iframe>
+      <div class="final-cta-buttons animate-on-scroll delay-3">
+        <a href="#hero-form" class="btn btn-white">Request Your Appointment</a>
       </div>
-      <span class="btn-subtext-light animate-on-scroll delay-3" style="margin-top: var(--space-md);">Available 24/7. No obligation. Veteran-owned and operated.</span>
+      <span class="btn-subtext-light animate-on-scroll delay-3">Available 24/7. No obligation. Veteran-owned and operated.</span>
       <div class="final-cta-badges animate-on-scroll delay-4">
         <div class="cta-badge">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -3155,7 +3222,7 @@
             <a href="#process">How It Works</a>
             <a href="#who-we-help">Service Areas</a>
             <a href="#faq">FAQ</a>
-            <a href="#" onclick="event.preventDefault(); openFormModal();">Request an Appointment</a>
+            <a href="#hero-form">Request an Appointment</a>
             <a href="#" onclick="event.preventDefault(); openModal('legalModal', 'privacy')">Privacy Policy</a>
             <a href="#" onclick="event.preventDefault(); openModal('legalModal', 'terms')">Terms &amp; Conditions</a>
             <a href="#" onclick="event.preventDefault(); openModal('legalModal', 'disclaimers')">Disclaimers</a>
@@ -3195,44 +3262,11 @@
 
   <!-- ========== STICKY MOBILE CTA ========== -->
   <div class="sticky-cta">
-    <a href="#" onclick="event.preventDefault(); openFormModal();">
+    <a href="#hero-form">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       Request Your Free Appointment
     </a>
   </div>
-
-  <!-- ========== FORM MODAL START ========== -->
-  <div class="form-overlay" id="formModal">
-    <div class="form-modal">
-      <div class="form-modal-header">
-        <div>
-          <h3>Request Your Appointment</h3>
-          <p>We will get back to you within minutes.</p>
-        </div>
-        <button class="form-close-btn" onclick="closeFormModal()" aria-label="Close">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="form-modal-body">
-        <iframe
-          src="https://link.nilsdigital.com/widget/form/xV80hQ8FKSjV305m6DjH"
-          data-layout="{'id':'INLINE'}"
-          data-trigger-type="alwaysShow"
-          data-trigger-value=""
-          data-activation-type="alwaysActivated"
-          data-activation-value=""
-          data-deactivation-type="neverDeactivate"
-          data-deactivation-value=""
-          data-form-name="Website Form (Do not edit)"
-          data-height="559"
-          data-form-id="xV80hQ8FKSjV305m6DjH"
-          title="Request Appointment Form"
-          loading="lazy"
-        ></iframe>
-      </div>
-    </div>
-  </div>
-  <!-- ========== FORM MODAL END ========== -->
 
   <!-- ========== LEGAL MODAL START ========== -->
   <div class="modal-overlay" id="legalModal">
@@ -3583,42 +3617,7 @@
       initSmoothScroll();
       initFAQ();
       initModals();
-      initFormModal();
     });
-
-    /* ============================================
-       FORM MODAL
-       ============================================ */
-    function openFormModal() {
-      const modal = document.getElementById('formModal');
-      if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-    }
-
-    function closeFormModal() {
-      const modal = document.getElementById('formModal');
-      if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
-
-    function initFormModal() {
-      const overlay = document.getElementById('formModal');
-      if (!overlay) return;
-
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeFormModal();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) {
-          closeFormModal();
-        }
-      });
-    }
   </script>
   <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 </body>
