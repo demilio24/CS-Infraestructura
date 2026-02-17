@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://link.nilsdigital.com/js/form_embed.js" async></script>
   <style>
     /* ============================================
        CSS VARIABLES
@@ -940,33 +941,16 @@
       z-index: 1;
       background: var(--color-white);
       border-radius: var(--radius-xl);
-      overflow: hidden;
       box-shadow: 0 8px 32px rgba(0,0,0,0.2), 0 16px 48px rgba(0,0,0,0.15);
-    }
-
-    .hero-form-header {
-      background: linear-gradient(135deg, var(--color-secondary) 0%, #D4A94E 100%);
-      padding: var(--space-md) var(--space-lg);
-      text-align: center;
-    }
-
-    .hero-form-header h3 {
-      color: var(--color-white);
-      font-size: var(--font-size-xl);
-      margin: 0;
-    }
-
-    .hero-form-header p {
-      color: rgba(255,255,255,0.85);
-      font-size: var(--font-size-sm);
-      margin: 4px 0 0;
     }
 
     .hero-form iframe {
       width: 100%;
-      height: 580px;
+      min-height: 580px;
+      height: auto;
       border: none;
       display: block;
+      border-radius: var(--radius-xl);
     }
 
     .social-proof-bar {
@@ -1554,131 +1538,6 @@
 
     .faq-item.active .faq-answer {
       max-height: 300px;
-    }
-
-    /* Form Modal */
-    .form-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: var(--space-md);
-      opacity: 0;
-      transition: opacity 0.3s ease-out;
-    }
-
-    .form-overlay.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .form-modal {
-      background-color: var(--color-white);
-      border-radius: var(--radius-xl);
-      width: 100%;
-      max-width: 520px;
-      max-height: 95vh;
-      overflow-y: auto;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 16px 48px rgba(0,0,0,0.1);
-      position: relative;
-      transform: translateY(20px) scale(0.97);
-      transition: transform 0.3s ease-out;
-    }
-
-    .form-overlay.active .form-modal {
-      transform: translateY(0) scale(1);
-    }
-
-    .form-modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--space-md) var(--space-lg);
-      background: var(--gradient-primary);
-      color: var(--color-white);
-    }
-
-    .form-modal-header h3 {
-      color: var(--color-white);
-      font-size: var(--font-size-xl);
-      margin: 0;
-    }
-
-    .form-modal-header p {
-      color: rgba(255,255,255,0.75);
-      font-size: var(--font-size-sm);
-      margin: 4px 0 0;
-    }
-
-    .form-close-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      background: rgba(255,255,255,0.1);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition-fast);
-      flex-shrink: 0;
-    }
-
-    .form-close-btn:hover {
-      background: rgba(255,255,255,0.25);
-      border-color: rgba(255,255,255,0.5);
-    }
-
-    .form-close-btn svg {
-      width: 16px;
-      height: 16px;
-      color: var(--color-white);
-    }
-
-    .form-modal-body {
-      height: 680px;
-      overflow: hidden;
-    }
-
-    .form-modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* Hide scrollbar on form modal */
-    .form-modal::-webkit-scrollbar {
-      display: none;
-    }
-
-    .form-modal {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    /* Inline form embed in final CTA */
-    .inline-form-wrapper {
-      max-width: 520px;
-      margin: var(--space-lg) auto 0;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-      background: var(--color-white);
-    }
-
-    .inline-form-wrapper iframe {
-      width: 100%;
-      height: 680px;
-      border: none;
-      border-radius: var(--radius-xl);
     }
 
     /* Modal */
@@ -2294,7 +2153,7 @@
       }
 
       .hero-form iframe {
-        height: 620px;
+        min-height: 620px;
       }
 
       .final-cta-badges {
@@ -2418,6 +2277,8 @@
           data-height="559"
           data-form-id="xV80hQ8FKSjV305m6DjH"
           title="Request Appointment Form"
+          allow="camera; microphone; autoplay; encrypted-media; fullscreen; payment"
+          allowfullscreen
         ></iframe>
       </div>
     </div>
