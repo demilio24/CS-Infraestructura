@@ -681,6 +681,11 @@
       display: none;
     }
 
+    /* Sticky mobile CTA bar */
+    .sticky-cta {
+      display: none;
+    }
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -1535,8 +1540,8 @@
       border-radius: var(--radius-xl);
       width: 100%;
       max-width: 520px;
-      max-height: 90vh;
-      overflow: hidden;
+      max-height: 95vh;
+      overflow-y: auto;
       box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 16px 48px rgba(0,0,0,0.1);
       position: relative;
       transform: translateY(20px) scale(0.97);
@@ -1594,7 +1599,7 @@
     }
 
     .form-modal-body {
-      height: 560px;
+      height: 680px;
       overflow: hidden;
     }
 
@@ -1602,6 +1607,16 @@
       width: 100%;
       height: 100%;
       border: none;
+    }
+
+    /* Hide scrollbar on form modal */
+    .form-modal::-webkit-scrollbar {
+      display: none;
+    }
+
+    .form-modal {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
 
     /* Inline form embed in final CTA */
@@ -1616,7 +1631,7 @@
 
     .inline-form-wrapper iframe {
       width: 100%;
-      height: 560px;
+      height: 680px;
       border: none;
       border-radius: var(--radius-xl);
     }
@@ -2098,6 +2113,47 @@
 
       .hamburger {
         display: flex;
+      }
+
+      .sticky-cta {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 998;
+        background: var(--color-white);
+        padding: 12px var(--space-md);
+        box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+        border-top: 2px solid var(--color-secondary);
+      }
+
+      .sticky-cta a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        background: var(--gradient-primary);
+        color: var(--color-white);
+        font-family: var(--font-body);
+        font-size: var(--font-size-base);
+        font-weight: 700;
+        padding: 14px;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        letter-spacing: 0.02em;
+      }
+
+      .sticky-cta a svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+
+      /* Add bottom padding to body so sticky bar doesn't cover content */
+      body {
+        padding-bottom: 72px;
       }
 
       .nav-logo-sub {
@@ -2621,6 +2677,15 @@
   </section>
   <!-- ========== BENEFITS SECTION END ========== -->
 
+  <!-- ========== INLINE CTA BANNER ========== -->
+  <div class="section-dark" style="padding: var(--space-2xl) var(--space-lg);">
+    <div class="container text-center" style="position:relative;z-index:1;">
+      <h3 style="color: var(--color-white); margin-bottom: var(--space-xs);">Ready to Get Your Documents Notarized?</h3>
+      <p style="color: rgba(255,255,255,0.75); margin-bottom: var(--space-md); max-width: 550px; margin-left: auto; margin-right: auto;">Fill out our quick form and a notary will be on the way to your location. Available 24/7.</p>
+      <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-white">Request Your Appointment</a>
+    </div>
+  </div>
+
   <!-- ========== WHO WE HELP SECTION START ========== -->
   <section class="section-alt" id="who-we-help">
     <div class="container">
@@ -3016,6 +3081,10 @@
         </div>
 
       </div>
+      <div class="text-center animate-on-scroll" style="margin-top: var(--space-2xl);">
+        <p style="font-size: var(--font-size-lg); font-weight: 600; color: var(--color-primary); margin-bottom: var(--space-sm);">Still have questions? We are happy to help.</p>
+        <a href="#" onclick="event.preventDefault(); openFormModal();" class="btn btn-primary">Get In Touch</a>
+      </div>
     </div>
   </section>
   <!-- ========== FAQ SECTION END ========== -->
@@ -3123,6 +3192,14 @@
     </div>
   </footer>
   <!-- ========== FOOTER END ========== -->
+
+  <!-- ========== STICKY MOBILE CTA ========== -->
+  <div class="sticky-cta">
+    <a href="#" onclick="event.preventDefault(); openFormModal();">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Request Your Free Appointment
+    </a>
+  </div>
 
   <!-- ========== FORM MODAL START ========== -->
   <div class="form-overlay" id="formModal">
