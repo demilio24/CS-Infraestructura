@@ -673,6 +673,14 @@
       height: 16px;
     }
 
+    .nav-close-bar {
+      display: none;
+    }
+
+    .menu-overlay {
+      display: none;
+    }
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -1862,27 +1870,80 @@
       }
 
       .nav-links {
-        display: none;
         position: fixed;
         top: 0;
-        right: 0;
+        right: -300px;
         width: 280px;
         height: 100vh;
         background-color: var(--color-white);
+        display: flex;
         flex-direction: column;
-        padding: 80px var(--space-lg) var(--space-lg);
-        box-shadow: var(--shadow-lg);
-        gap: var(--space-md);
-        z-index: 999;
+        padding: 0 var(--space-lg) var(--space-lg);
+        box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+        gap: 0;
+        z-index: 1002;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
       }
 
       .nav-links.active {
+        right: 0;
+      }
+
+      .nav-close-bar {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-md) 0;
+        margin-bottom: var(--space-sm);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .nav-close-bar span {
+        font-family: var(--font-heading);
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        color: var(--color-primary);
+      }
+
+      .nav-close-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: var(--color-primary-light);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-fast);
+      }
+
+      .nav-close-btn:hover {
+        background: var(--color-primary);
+      }
+
+      .nav-close-btn svg {
+        width: 18px;
+        height: 18px;
+        color: var(--color-primary);
+        transition: var(--transition-fast);
+      }
+
+      .nav-close-btn:hover svg {
+        color: var(--color-white);
       }
 
       .nav-links a {
         color: var(--color-text);
-        font-size: var(--font-size-base);
+        font-size: var(--font-size-lg);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(223,227,234,0.5);
+        font-weight: 600;
+      }
+
+      .nav-links a:last-of-type {
+        border-bottom: none;
       }
 
       .nav-links a:hover {
@@ -1895,6 +1956,29 @@
         text-align: center;
         justify-content: center;
         width: 100%;
+        margin-top: var(--space-md);
+        border-bottom: none !important;
+        border-radius: var(--radius-md);
+        padding: 14px !important;
+      }
+
+      .menu-overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.35s ease, visibility 0.35s ease;
+      }
+
+      .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
       }
 
       .hamburger {
@@ -2051,7 +2135,14 @@
           <span class="nav-logo-sub">Veteran-Owned &bull; 24/7 Service</span>
         </span>
       </a>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <div class="nav-links" id="navLinks">
+        <div class="nav-close-bar">
+          <span>Menu</span>
+          <button class="nav-close-btn" id="navClose" aria-label="Close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
         <a href="#services">Services</a>
         <a href="#process">How It Works</a>
         <a href="#who-we-help">Service Areas</a>
@@ -3081,19 +3172,38 @@
     function initMobileMenu() {
       const hamburger = document.getElementById('hamburger');
       const navLinks = document.getElementById('navLinks');
+      const navClose = document.getElementById('navClose');
+      const menuOverlay = document.getElementById('menuOverlay');
 
       if (!hamburger || !navLinks) return;
 
+      function openMenu() {
+        hamburger.classList.add('active');
+        navLinks.classList.add('active');
+        if (menuOverlay) menuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        if (menuOverlay) menuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
       hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('active');
+        if (navLinks.classList.contains('active')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
       });
 
+      if (navClose) navClose.addEventListener('click', closeMenu);
+      if (menuOverlay) menuOverlay.addEventListener('click', closeMenu);
+
       navLinks.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          hamburger.classList.remove('active');
-          navLinks.classList.remove('active');
-        });
+        link.addEventListener('click', closeMenu);
       });
     }
 
