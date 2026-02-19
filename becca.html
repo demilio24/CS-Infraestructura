@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaSquad Swim — Water Safety for Children | Wesley Chapel, FL</title>
+  <meta name="description" content="AquaSquad teaches children real survival skills in the water. Led by Becca, a certified survival swim instructor serving Wesley Chapel, Epperson, and surrounding areas." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES
+    ============================================= */
+    :root {
+      --primary:       #1AA79D;
+      --primary-dark:  #18494C;
+      --primary-light: #E8F7F6;
+      --secondary:     #F8A28E;
+      --bg:            #FFFFFF;
+      --surface:       #F4FAFA;
+      --text-primary:  #18494C;
+      --text-secondary:#5A7A7B;
+      --text-on-primary:#FFFFFF;
+      --border:        #D4ECEA;
+      --success:       #2ECC71;
+      --gradient:      linear-gradient(135deg, #1AA79D 0%, #18494C 100%);
+
+      --space-xs:  8px;
+      --space-sm:  16px;
+      --space-md:  24px;
+      --space-lg:  32px;
+      --space-xl:  48px;
+      --space-2xl: 64px;
+      --space-3xl: 80px;
+
+      --radius-btn:  8px;
+      --radius-card: 12px;
+      --radius-img:  12px;
+      --radius-pill: 100px;
+
+      --shadow-sm:   0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md:   0 4px 12px rgba(0,0,0,0.10);
+      --shadow-lg:   0 8px 24px rgba(0,0,0,0.12);
+      --shadow-glow: 0 0 20px rgba(26,167,157,0.25);
+
+      --font: 'Jost', 'Century Gothic', 'Trebuchet MS', sans-serif;
+      --container: 1200px;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--text-primary);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img, video { max-width: 100%; height: auto; display: block; }
+    a { color: var(--primary); text-decoration: none; }
+
+    /* =============================================
+       TYPOGRAPHY
+    ============================================= */
+    h1 { font-size: clamp(36px, 5vw, 56px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+    h3 { font-size: clamp(22px, 3vw, 28px); font-weight: 600; line-height: 1.3; }
+    h4 { font-size: clamp(18px, 2.5vw, 22px); font-weight: 600; line-height: 1.3; }
+    p  { font-size: 16px; line-height: 1.6; }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: var(--space-sm);
+    }
+    .accent { color: var(--primary); }
+
+    /* =============================================
+       LAYOUT UTILITIES
+    ============================================= */
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .section-pad  { padding: var(--space-3xl) 0; }
+    .text-center  { text-align: center; }
+    .text-max     { max-width: 800px; margin-left: auto; margin-right: auto; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+    .section-header h2  { margin-bottom: var(--space-sm); }
+    .section-header > p { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      min-width: 220px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+    .btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow-glow); color: #fff; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: var(--primary);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius-btn);
+      border: 2px solid var(--primary);
+      cursor: pointer;
+      text-decoration: none;
+      min-width: 200px;
+      transition: background 0.3s ease;
+    }
+    .btn-ghost:hover { background: rgba(26,167,157,0.10); color: var(--primary); }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      color: var(--primary-dark);
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      min-width: 220px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-white:hover { background: var(--primary-light); box-shadow: var(--shadow-md); color: var(--primary-dark); }
+
+    .cta-wrap { display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; }
+    .cta-subtext { font-size: 13px; color: var(--text-secondary); margin-top: 8px; display: block; }
+
+    /* =============================================
+       BADGES
+    ============================================= */
+    .badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .badge-coral { background: var(--secondary); color: #fff; }
+    .badge-teal  { background: var(--primary);   color: #fff; }
+
+    /* =============================================
+       SCROLL ANIMATIONS
+    ============================================= */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up:nth-child(2) { transition-delay: 0.08s; }
+    .fade-up:nth-child(3) { transition-delay: 0.16s; }
+    .fade-up:nth-child(4) { transition-delay: 0.24s; }
+    .fade-up:nth-child(5) { transition-delay: 0.32s; }
+    .fade-up:nth-child(6) { transition-delay: 0.40s; }
+
+    /* =============================================
+       SECTION 1: NAV
+    ============================================= */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: #fff;
+      transition: box-shadow 0.3s ease;
+    }
+    #nav.scrolled { box-shadow: 0 2px 8px rgba(0,0,0,0.09); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-links { display: flex; gap: var(--space-lg); list-style: none; }
+    .nav-links a { color: var(--text-primary); font-weight: 600; font-size: 15px; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta { flex-shrink: 0; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-lg);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+    .mobile-menu-close {
+      position: absolute; top: 20px; right: 24px;
+      background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* =============================================
+       SECTION 2: HERO
+    ============================================= */
+    #hero {
+      background: var(--primary-light);
+      padding-top: calc(var(--space-3xl) + 72px);
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: center;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px var(--space-3xl);
+    }
+    .hero-text .subheadline {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: var(--space-md) 0 var(--space-md);
+      max-width: 500px;
+    }
+    .hero-text p { color: var(--text-secondary); margin-bottom: var(--space-sm); }
+    .hero-img-wrap {
+      border-radius: var(--radius-img);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .hero-img-wrap img { width: 100%; height: 540px; object-fit: cover; }
+
+    /* Social Proof Bar */
+    #proof-bar {
+      background: var(--primary-dark);
+      padding: 26px 0;
+    }
+    .proof-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .proof-stat { text-align: center; padding: 8px 16px; position: relative; }
+    .proof-stat:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 1px; height: 40px;
+      background: var(--secondary);
+      opacity: 0.5;
+    }
+    .proof-stat .num   { display: block; font-size: clamp(26px, 3vw, 36px); font-weight: 700; color: var(--primary); line-height: 1.1; }
+    .proof-stat .label { display: block; font-size: 13px; color: #fff; font-weight: 500; margin-top: 4px; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-img-wrap { order: -1; }
+      .hero-img-wrap img { height: 360px; }
+      .hero-text .subheadline { max-width: 100%; }
+    }
+    @media (max-width: 580px) {
+      .proof-inner { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .proof-stat:not(:last-child)::after { display: none; }
+      .proof-stat:nth-child(-n+2) { border-bottom: 1px solid rgba(248,162,142,0.25); padding-bottom: 16px; }
+    }
+
+    /* =============================================
+       SECTION 3: PROBLEM
+    ============================================= */
+    #problem { background: var(--bg); }
+
+    .problem-body { margin-bottom: var(--space-xl); }
+    .problem-body p { color: var(--text-secondary); margin-bottom: var(--space-md); }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+
+    .problem-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .problem-item {
+      padding: var(--space-sm) var(--space-md);
+      border-left: 4px solid var(--secondary);
+      background: #fff9f8;
+      border-radius: 0 var(--radius-card) var(--radius-card) 0;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .problem-callout {
+      background: var(--primary-light);
+      border-radius: var(--radius-card);
+      border-left: 4px solid var(--primary);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+    .problem-callout p { font-size: 17px; font-weight: 500; color: var(--text-primary); margin: 0; }
+
+    .problem-img {
+      border-radius: var(--radius-img);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .problem-img img { width: 100%; height: 340px; object-fit: cover; }
+
+    @media (max-width: 768px) { .problem-grid { grid-template-columns: 1fr; } }
+
+    /* =============================================
+       SECTION 4: SERVICES
+    ============================================= */
+    #services { background: var(--primary-light); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .service-card {
+      background: var(--bg);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border-top: 4px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.3s ease;
+    }
+    .service-card:hover { box-shadow: var(--shadow-lg); }
+
+    .sc-head {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border);
+    }
+    .sc-head .badge { margin-bottom: 10px; }
+    .sc-head h4 { margin: 6px 0 var(--space-sm); }
+    .sc-head .short-desc { color: var(--text-secondary); font-size: 15px; line-height: 1.5; }
+
+    .sc-price {
+      padding: 14px var(--space-lg);
+      background: var(--surface);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .sc-price .per { font-size: 14px; font-weight: 400; color: var(--text-secondary); }
+
+    .sc-toggle-wrap { padding: 0 var(--space-lg); }
+    .sc-toggle {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sc-toggle .chev { display: inline-block; transition: transform 0.3s; font-style: normal; font-size: 12px; }
+    .sc-toggle.open .chev { transform: rotate(180deg); }
+
+    .sc-body { max-height: 0; overflow: hidden; transition: max-height 0.45s ease; }
+    .sc-body.open { max-height: 700px; }
+    .sc-body-inner { padding: var(--space-sm) var(--space-lg) var(--space-md); }
+
+    .sc-body ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: var(--space-sm); }
+    .sc-body li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .sc-body li::before { content: "✓"; color: var(--success); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+    .sc-note {
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--primary-light);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: var(--space-sm);
+    }
+
+    .sc-foot {
+      padding: var(--space-md) var(--space-lg) var(--space-lg);
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sc-foot .btn-primary { width: 100%; min-width: unset; font-size: 15px; padding: 14px 20px; }
+    .sc-foot .cta-subtext { text-align: center; }
+
+    .services-bridge {
+      margin-top: var(--space-2xl);
+      border-radius: var(--radius-img);
+      overflow: hidden;
+      max-height: 360px;
+    }
+    .services-bridge img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
+    }
+
+    /* =============================================
+       SECTION 5: PROCESS
+    ============================================= */
+    #process { background: var(--bg); }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: var(--space-2xl);
+      position: relative;
+    }
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 0 var(--space-md);
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .process-step.visible { opacity: 1; transform: translateY(0); }
+    .process-step:nth-child(2) { transition-delay: 0.12s; }
+    .process-step:nth-child(3) { transition-delay: 0.24s; }
+    .process-step:nth-child(4) { transition-delay: 0.36s; }
+
+    .step-num {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      box-shadow: var(--shadow-md);
+    }
+    .step-timeframe {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .process-step h4 { margin-bottom: 8px; }
+    .process-step > p { font-size: 14px; color: var(--text-secondary); margin-bottom: var(--space-sm); }
+    .step-roles { font-size: 13px; color: var(--text-secondary); text-align: left; }
+    .step-roles span { display: block; padding: 3px 0; }
+    .step-roles span strong { color: var(--primary); }
+
+    .process-media {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-2xl);
+      align-items: center;
+    }
+    .process-media video,
+    .process-media img {
+      border-radius: var(--radius-img);
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    @media (max-width: 900px) {
+      .process-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-xl); }
+      .process-grid::before { display: none; }
+      .process-media { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .process-grid { grid-template-columns: 1fr; }
+    }
+
+    /* =============================================
+       SECTION 6: BENEFITS
+    ============================================= */
+    #benefits { background: var(--primary-dark); }
+    #benefits .eyebrow { color: var(--secondary); }
+    #benefits h2 { color: #fff; }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-2xl);
+    }
+    .benefit-card {
+      background: rgba(255,255,255,0.06);
+      border-radius: var(--radius-card);
+      padding: var(--space-lg);
+      transition: background 0.3s;
+    }
+    .benefit-card:hover { background: rgba(255,255,255,0.10); }
+
+    .benefit-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(26,167,157,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      font-size: 26px;
+    }
+    .benefit-card h4 { color: #fff; margin-bottom: 8px; }
+    .benefit-card p  { color: rgba(255,255,255,0.68); font-size: 15px; line-height: 1.6; }
+
+    .benefits-banner {
+      margin-top: var(--space-2xl);
+      border-radius: var(--radius-img);
+      overflow: hidden;
+      position: relative;
+      height: 240px;
+    }
+    .benefits-banner img { width: 100%; height: 100%; object-fit: cover; }
+    .benefits-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(24,73,76,0.82) 0%, transparent 55%);
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-lg) var(--space-xl);
+    }
+    .benefits-quote { color: #fff; font-size: clamp(18px, 2.5vw, 24px); font-weight: 700; font-style: italic; }
+
+    @media (max-width: 900px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
+
+    /* =============================================
+       SECTION 7: WHO WE HELP
+    ============================================= */
+    #who { background: var(--primary-light); }
+
+    .who-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      margin-top: var(--space-2xl);
+    }
+    .who-col h3 { margin-bottom: var(--space-lg); }
+    .who-col h3.good { color: var(--primary); }
+    .who-col h3.bad  { color: var(--text-secondary); }
+
+    .who-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .who-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    .who-list.good li::before { content: "✓"; color: var(--success); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .who-list.bad  li::before { content: "✕"; color: var(--secondary); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+    .who-col img { border-radius: var(--radius-img); width: 100%; height: 220px; object-fit: cover; margin-top: var(--space-lg); }
+
+    .area-card {
+      margin: var(--space-2xl) auto 0;
+      max-width: 580px;
+      background: #fff;
+      border-radius: var(--radius-card);
+      border: 2px solid var(--primary);
+      padding: var(--space-lg) var(--space-xl);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .area-card-icon { font-size: 30px; flex-shrink: 0; }
+    .area-card p { color: var(--text-secondary); font-size: 15px; }
+
+    .family-img { margin-top: var(--space-xl); border-radius: var(--radius-img); overflow: hidden; max-height: 340px; }
+    .family-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    @media (max-width: 768px) {
+      .who-cols { grid-template-columns: 1fr; }
+      .area-card { flex-direction: column; text-align: center; }
+    }
+
+    /* =============================================
+       SECTION 8: GALLERY
+    ============================================= */
+    #gallery { background: var(--bg); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: var(--space-2xl);
+    }
+    .gallery-item { border-radius: var(--radius-img); overflow: hidden; aspect-ratio: 4/3; }
+    .gallery-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img,
+    .gallery-item:hover video { transform: scale(1.04); }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.wide { grid-column: span 1; aspect-ratio: 4/3; }
+    }
+
+    /* =============================================
+       SECTION 9: FAQ
+    ============================================= */
+    #faq { background: var(--primary-light); }
+
+    .faq-list {
+      max-width: 800px;
+      margin: var(--space-2xl) auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .faq-item { background: #fff; border-radius: var(--radius-card); box-shadow: var(--shadow-sm); overflow: hidden; }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      padding: var(--space-md) var(--space-lg);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--primary); }
+    .faq-item.open .faq-q { color: var(--primary); }
+
+    .faq-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+      transition: transform 0.3s, background 0.3s, color 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--primary); color: #fff; }
+
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-item.open .faq-a { max-height: 500px; }
+
+    .faq-a-inner {
+      padding: 0 var(--space-lg) var(--space-lg);
+      border-top: 1px solid var(--border);
+      padding-top: var(--space-md);
+      color: var(--text-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       SECTION 10: FINAL CTA
+    ============================================= */
+    #final-cta {
+      background: var(--gradient);
+      text-align: center;
+    }
+    #final-cta .eyebrow { color: var(--secondary); }
+    #final-cta h2 { color: #fff; }
+
+    .fcta-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.82);
+      max-width: 540px;
+      margin: var(--space-md) auto var(--space-xl);
+      line-height: 1.6;
+    }
+    .fcta-image {
+      border-radius: var(--radius-img);
+      overflow: hidden;
+      max-width: 540px;
+      height: 300px;
+      margin: 0 auto var(--space-xl);
+    }
+    .fcta-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    .fcta-body { max-width: 640px; margin: 0 auto var(--space-xl); }
+    .fcta-body p { color: rgba(255,255,255,0.72); margin-bottom: var(--space-sm); }
+
+    .fcta-cta-subtext { color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 10px; display: block; }
+
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .trust-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.68); font-size: 13px; font-weight: 600; }
+    .trust-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(26,167,157,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: #fff;
+    }
+
+    /* =============================================
+       SECTION 11: FOOTER
+    ============================================= */
+    #footer { background: var(--primary-dark); padding: var(--space-2xl) 0 var(--space-md); }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--space-2xl);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px var(--space-2xl);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-logo img { height: 44px; margin-bottom: var(--space-md); }
+    .footer-logo p { color: rgba(255,255,255,0.55); font-size: 14px; line-height: 1.7; max-width: 300px; }
+
+    .footer-social { display: flex; gap: 10px; margin-top: var(--space-md); }
+    .soc-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.65);
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .soc-icon:hover { background: var(--primary); color: #fff; }
+    .soc-icon svg { width: 16px; height: 16px; }
+
+    .footer-col h5 {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-md);
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.55); font-size: 14px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--primary); }
+    .footer-col p { color: rgba(255,255,255,0.55); font-size: 14px; line-height: 1.8; }
+
+    .footer-bottom {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: var(--space-md) 24px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .footer-bottom p, .footer-bottom a { color: rgba(255,255,255,0.35); font-size: 13px; }
+    .footer-bottom a:hover { color: var(--primary); }
+    .footer-legal { display: flex; gap: var(--space-md); }
+
+    .nils-credit {
+      width: 100%;
+      text-align: center;
+      color: rgba(255,255,255,0.22);
+      font-size: 12px;
+      margin-top: var(--space-sm);
+      padding-top: var(--space-sm);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .nils-credit a { color: rgba(255,255,255,0.28); font-size: 12px; }
+    .nils-credit a:hover { color: var(--primary); }
+
+    @media (max-width: 768px) {
+      .footer-top { grid-template-columns: 1fr; gap: var(--space-xl); }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button class="mobile-menu-close" id="menuClose" aria-label="Close menu">&#x2715;</button>
+    <a href="#process" onclick="closeMobileMenu()">How It Works</a>
+    <a href="#services" onclick="closeMobileMenu()">Programs</a>
+    <a href="#who" onclick="closeMobileMenu()">About</a>
+    <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+    <a href="#final-cta" onclick="closeMobileMenu()" class="btn-primary" style="margin-top:24px;">Check Availability</a>
+  </div>
+
+  <!-- =============================================
+       SECTION 1: NAVIGATION
+  ============================================= -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="AquaSquad Swim home">
+        <img src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/699767b83873af6718a31276.png" alt="AquaSquad Swim" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#process">How It Works</a></li>
+        <li><a href="#services">Programs</a></li>
+        <li><a href="#who">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#final-cta" class="btn-primary nav-cta" style="min-width:unset; padding:12px 22px; font-size:14px;">Check Availability</a>
+      <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =============================================
+       SECTION 2: HERO
+  ============================================= -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text fade-up">
+        <span class="eyebrow">Wesley Chapel Water Safety for Children 6 Months &ndash; 5+ Years</span>
+        <h1>Your Child Knows <span class="accent">What to Do</span></h1>
+        <p class="subheadline">AquaSquad teaches children real survival skills in the water, so you can feel confident around pools, lakes, and Florida living.</p>
+        <p>Most swim programs teach kids to swim. AquaSquad teaches them what to do when something goes wrong.</p>
+        <p>Led by Becca, a certified survival swim instructor and former classroom educator with two degrees and over a decade teaching young children, every lesson is built around calm, repeatable responses, not just strokes.</p>
+        <p>If your family has a pool, lives near water, or simply wants the peace of mind that comes with real preparation, this program was built for you.</p>
+        <div class="cta-wrap" style="margin-top: var(--space-xl);">
+          <div>
+            <a href="#final-cta" class="btn-primary">Check Availability</a>
+            <span class="cta-subtext">Spots are limited &mdash; families contact us before completing registration</span>
+          </div>
+          <a href="#process" class="btn-ghost">See How It Works</a>
+        </div>
+      </div>
+      <div class="hero-img-wrap fade-up">
+        <!-- IMAGE: 6997664a8d5b5a72a086bf08.jpg — Smiling child floating on back in pool -->
+        <img
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8d5b5a72a086bf08.jpg"
+          alt="Smiling child floating on back in pool, water safety lesson with AquaSquad Swim"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF BAR -->
+  <div id="proof-bar" role="region" aria-label="Social proof statistics">
+    <div class="proof-inner">
+      <div class="proof-stat">
+        <span class="num">200+</span>
+        <span class="label">Families Served</span>
+      </div>
+      <div class="proof-stat">
+        <span class="num">2023</span>
+        <span class="label">In Business Since</span>
+      </div>
+      <div class="proof-stat">
+        <span class="num">6 Wks</span>
+        <span class="label">Survival Certification</span>
+      </div>
+      <div class="proof-stat">
+        <span class="num">Certified</span>
+        <span class="label">CPR / First Aid + SwimFin</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================
+       SECTION 3: PROBLEM / ALTERNATIVES
+  ============================================= -->
+  <section id="problem" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Why Most Swim Lessons Fall Short</span>
+        <h2>Swim Lessons Aren't Always <span class="accent">Water Safety</span></h2>
+        <p>If your child has taken lessons before but you still feel uneasy around water, you're not alone &mdash; and it's not your fault.</p>
+      </div>
+
+      <div class="problem-body text-max fade-up">
+        <p>Traditional swim programs are built around strokes. They teach kids to glide, kick, and breathe &mdash; which is valuable. But stroke skills and survival skills are two different things. A child who swims beautifully in a lesson may panic completely if they fall in unexpectedly.</p>
+        <p>Many families come to AquaSquad after trying once-a-week group lessons, summer swim camps, or stroke-focused programs. Their child learned to move through the water, but nobody practiced what to do in an actual emergency. Nobody built the calm, automatic response that could make a difference when seconds count.</p>
+        <p>And common shortcuts &mdash; like floaties, puddle jumpers, or the general hope that kids will "just get comfortable over time" &mdash; build false confidence without building real skill.</p>
+      </div>
+
+      <div class="problem-grid fade-up">
+        <div>
+          <ul class="problem-list">
+            <li class="problem-item">Once-a-week casual lessons that don't build reliable muscle memory</li>
+            <li class="problem-item">Stroke-focused programs that skip survival fundamentals</li>
+            <li class="problem-item">Summer-only swim camps with no year-round reinforcement</li>
+            <li class="problem-item">Parent-led practice without structure or clear expectations</li>
+            <li class="problem-item">Floaties and puddle jumpers that create dependency, not confidence</li>
+            <li class="problem-item">Waiting and hoping the child will "figure it out" on their own</li>
+          </ul>
+          <div class="problem-callout">
+            <p>The real risk isn't that your child can't swim. It's that when something unexpected happens, they don't know what to do. That's the gap AquaSquad closes.</p>
+          </div>
+          <div style="margin-top: var(--space-xl);">
+            <a href="#services" class="btn-primary">Learn About Our Program</a>
+            <span class="cta-subtext">No pressure &mdash; just information</span>
+          </div>
+        </div>
+        <div class="problem-img">
+          <!-- IMAGE: 6997664a2a2f151b2903c552.jpg — Instructor demonstrating with doll poolside, parents watching -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a2a2f151b2903c552.jpg"
+            alt="Instructor demonstrating water safety technique with doll, parents observing at AquaSquad Swim"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 4: SERVICES
+  ============================================= -->
+  <section id="services" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Programs &amp; Pricing</span>
+        <h2>Choose the Right Path <span class="accent">for Your Child</span></h2>
+        <p>Every child starts somewhere. AquaSquad programs are designed to meet your child where they are and build from there.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- CARD 1: Survival Swim -->
+        <div class="service-card fade-up">
+          <div class="sc-head">
+            <span class="badge badge-coral">Most Popular</span>
+            <h4>Survival Swim Program</h4>
+            <p class="short-desc">Foundational survival swim instruction for children 6 months and older. This is where water safety begins.</p>
+          </div>
+          <div class="sc-price">$115 <span class="per">/ week</span></div>
+          <div class="sc-toggle-wrap">
+            <button class="sc-toggle" onclick="toggleService(this)" aria-expanded="false">
+              See what's included <em class="chev">&#9660;</em>
+            </button>
+          </div>
+          <div class="sc-body" role="region">
+            <div class="sc-body-inner">
+              <ul>
+                <li>3 lessons per week, 13&ndash;15 minutes each</li>
+                <li>Short, focused sessions designed for maximum retention</li>
+                <li>Teaches roll-to-float, independent breathing, and calm water response</li>
+                <li>Developmentally appropriate for infants through early childhood</li>
+                <li>Ages 6 months through early walkers: roll, float, breathe independently</li>
+                <li>Ages approx. 18 months and older: swim-float-swim sequence toward a safe exit</li>
+              </ul>
+              <p class="sc-note">One-time registration fee required for all new swimmers. Contact Becca to confirm scheduling and availability before registering.</p>
+            </div>
+          </div>
+          <div class="sc-foot">
+            <a href="#final-cta" class="btn-primary">Check Availability</a>
+            <span class="cta-subtext">Families contact us first to confirm open spots</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: Private Skill-Building -->
+        <div class="service-card fade-up">
+          <div class="sc-head">
+            <span class="badge badge-teal">Ages 5+</span>
+            <h4>Private Skill-Building Lessons</h4>
+            <p class="short-desc">For children who have completed survival swim foundations or swimmers aged 5+ ready to build endurance, confidence, and technique.</p>
+          </div>
+          <div class="sc-price">From $60 <span class="per">/ lesson</span></div>
+          <div class="sc-toggle-wrap">
+            <button class="sc-toggle" onclick="toggleService(this)" aria-expanded="false">
+              See what's included <em class="chev">&#9660;</em>
+            </button>
+          </div>
+          <div class="sc-body" role="region">
+            <div class="sc-body-inner">
+              <ul>
+                <li>30-minute private (one-on-one) sessions</li>
+                <li>Typically once per week</li>
+                <li>Skill development, endurance, and water confidence</li>
+                <li>All packages prepaid</li>
+              </ul>
+              <ul>
+                <li>6 lessons &mdash; $70/lesson ($420 total)</li>
+                <li>12 lessons &mdash; $65/lesson ($780 total)</li>
+                <li>18 lessons &mdash; $60/lesson ($1,080 total)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="sc-foot">
+            <a href="#final-cta" class="btn-primary">Get Started</a>
+            <span class="cta-subtext">Contact us to find your package</span>
+          </div>
+        </div>
+
+        <!-- CARD 3: Mobile Private Lessons -->
+        <div class="service-card fade-up">
+          <div class="sc-head">
+            <span class="badge badge-coral">Home Pool</span>
+            <h4>Mobile Private Lessons</h4>
+            <p class="short-desc">Private survival swim instruction brought directly to your home pool. Available by request for families who prefer the comfort of their own backyard.</p>
+          </div>
+          <div class="sc-price">Custom <span class="per">quote</span></div>
+          <div class="sc-toggle-wrap">
+            <button class="sc-toggle" onclick="toggleService(this)" aria-expanded="false">
+              See what's included <em class="chev">&#9660;</em>
+            </button>
+          </div>
+          <div class="sc-body" role="region">
+            <div class="sc-body-inner">
+              <ul>
+                <li>30-minute private sessions at your home pool</li>
+                <li>Offered by request only</li>
+                <li>Premium pricing applies due to instructor travel</li>
+                <li>Custom quote based on location and availability</li>
+              </ul>
+            </div>
+          </div>
+          <div class="sc-foot">
+            <a href="#final-cta" class="btn-primary">Request a Quote</a>
+            <span class="cta-subtext">Limited availability &mdash; inquire to confirm</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bridge image below cards -->
+      <div class="services-bridge fade-up">
+        <!-- IMAGE: 6997664a8d5b5a768386bf09.jpg — Baby floating on back in pool, supported by parents -->
+        <img
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8d5b5a768386bf09.jpg"
+          alt="Baby floating on back in pool supported by parents and instructor at AquaSquad Swim"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 5: PROCESS / HOW IT WORKS
+  ============================================= -->
+  <section id="process" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">From First Contact to Water Confidence</span>
+        <h2>Getting Started <span class="accent">Is Simple</span></h2>
+        <p>Four straightforward steps separate your child from real, practiced water safety skills.</p>
+      </div>
+
+      <div class="process-grid">
+
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <span class="step-timeframe">Day 1&ndash;5</span>
+          <h4>Reach Out and Inquire</h4>
+          <p>Contact Becca to ask about availability, programs, and whether AquaSquad is the right fit. You'll get a real response, not an automated system.</p>
+          <div class="step-roles">
+            <span><strong>You:</strong> Reach out via phone, email, or Instagram</span>
+            <span><strong>Becca:</strong> Reviews readiness &amp; confirms scheduling</span>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <span class="step-timeframe">Once confirmed</span>
+          <h4>Register and Prepare</h4>
+          <p>Complete registration once Becca confirms your spot. She'll build a customized lesson plan for your child and send your invoice.</p>
+          <div class="step-roles">
+            <span><strong>You:</strong> Complete registration, set payment</span>
+            <span><strong>Becca:</strong> Custom lesson plan &amp; scheduling</span>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <span class="step-timeframe">Within 1&ndash;2 weeks</span>
+          <h4>Attend Consistent Lessons</h4>
+          <p>Show up consistently and on time. AquaSquad's short, focused sessions are designed for real retention &mdash; consistency is what makes skills stick.</p>
+          <div class="step-roles">
+            <span><strong>You:</strong> Show up consistently and on time</span>
+            <span><strong>Becca:</strong> Structured instruction &amp; parent updates</span>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <span class="step-timeframe">Core skills: 6&ndash;8 weeks</span>
+          <h4>Build Reliable Water Safety Skills</h4>
+          <p>Most children build core survival skills within 6 to 8 weeks of consistent instruction. Every child progresses at their own pace &mdash; Becca guides the whole way.</p>
+          <div class="step-roles">
+            <span><strong>You:</strong> Celebrate progress, maintain practice</span>
+            <span><strong>Becca:</strong> Ongoing coaching &amp; skill reinforcement</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Process media: video + lifestyle image -->
+      <div class="process-media fade-up">
+        <!-- VIDEO: 6997664a8523c5bdb9d3c1ec.mp4 — In-water instruction video -->
+        <video
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8523c5bdb9d3c1ec.mp4"
+          autoplay muted loop playsinline
+          aria-label="AquaSquad Swim lesson video showing child in water"
+          style="border-radius: var(--radius-img);">
+        </video>
+        <!-- IMAGE: 6997664b3873af096ea2734b.jpg — Adult in pink cap holding child in pool, both smiling -->
+        <img
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664b3873af096ea2734b.jpg"
+          alt="Adult in pink swim cap holding child in pool, both smiling at AquaSquad Swim"
+          loading="lazy"
+          style="border-radius: var(--radius-img); height: 300px; object-fit: cover;"
+        />
+      </div>
+
+      <div class="text-center fade-up" style="margin-top: var(--space-2xl);">
+        <a href="#final-cta" class="btn-primary">Check Availability Now</a>
+        <span class="cta-subtext">Spots fill quickly &mdash; contact us to hold your place</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 6: BENEFITS
+  ============================================= -->
+  <section id="benefits" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Why It Matters</span>
+        <h2>What Changes When Your Child Trains with <span style="color: var(--primary);">AquaSquad</span></h2>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">&#x1F6E1;&#xFE0F;</div>
+          <h4>Real Peace of Mind</h4>
+          <p>You stop wondering "what would my child do?" and start knowing the answer. AquaSquad replaces quiet anxiety with quiet confidence.</p>
+        </div>
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">&#x1F504;</div>
+          <h4>Skills That Hold Under Pressure</h4>
+          <p>AquaSquad's short, frequent sessions build automatic survival responses &mdash; not skills that only work in a calm lesson setting.</p>
+        </div>
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">&#x1F393;</div>
+          <h4>Education-Led Instruction</h4>
+          <p>Becca brings over a decade of classroom experience and two degrees in Early Childhood and Elementary Education. She understands how young children actually learn.</p>
+        </div>
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">&#x1F4CD;</div>
+          <h4>Designed for Florida Families</h4>
+          <p>Pools, lakes, boats, and unpredictable outdoor water are part of life here. This program is built for how Florida families actually live.</p>
+        </div>
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">&#x2764;&#xFE0F;</div>
+          <h4>Confidence and Joy in the Water</h4>
+          <p>AquaSquad doesn't stop at survival. Becca pushes children past safety into a genuine love of the water that lasts a lifetime.</p>
+        </div>
+        <div class="benefit-card fade-up">
+          <div class="benefit-icon">&#x1F4C5;</div>
+          <h4>Structured, Predictable Progress</h4>
+          <p>No guessing. No "let's see how it goes." Every child has a plan, every session has a purpose, and parents know what to expect.</p>
+        </div>
+      </div>
+
+      <!-- Benefits banner image -->
+      <div class="benefits-banner fade-up">
+        <!-- IMAGE: 6997664af83453c5803880fb.jpg — Child floating in pool wearing red sunglasses, broad smile -->
+        <img
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664af83453c5803880fb.jpg"
+          alt="Child floating in pool wearing red sunglasses, completely relaxed and smiling &mdash; AquaSquad Swim"
+          loading="lazy"
+        />
+        <div class="benefits-banner-overlay">
+          <p class="benefits-quote">"This is what confidence looks like."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 7: WHO WE HELP
+  ============================================= -->
+  <section id="who" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Is AquaSquad Right for Your Family?</span>
+        <h2>Built for Families Who Take <span class="accent">Water Seriously</span></h2>
+        <p>AquaSquad is not a casual swim school. It's a structured, safety-first program for families who are ready to commit.</p>
+      </div>
+
+      <div class="who-cols">
+        <div class="who-col fade-up">
+          <h3 class="good">AquaSquad Is Right For You If...</h3>
+          <ul class="who-list good">
+            <li>You have access to water, a pool, a lake, or live the Florida outdoor lifestyle</li>
+            <li>You feel uneasy about water accidents and want real preparation, not just comfort</li>
+            <li>Your child is between 6 months and 5+ years old</li>
+            <li>You value consistency and are willing to commit to regular lessons</li>
+            <li>You want an educator-led program grounded in child development</li>
+            <li>You want your child to know what to do in a real situation, not just swim strokes</li>
+            <li>You want your child to not only be safe but to genuinely love the water</li>
+          </ul>
+          <!-- IMAGE: 6997664a20c03545fc1192a6.jpg — Child floating on back with adult hands gently supporting -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a20c03545fc1192a6.jpg"
+            alt="Child floating on back with adult hands gently supporting, peaceful and trusting at AquaSquad Swim"
+            loading="lazy"
+          />
+        </div>
+        <div class="who-col fade-up">
+          <h3 class="bad">AquaSquad May Not Be the Right Fit If...</h3>
+          <ul class="who-list bad">
+            <li>You're looking for casual, once-a-week recreational swimming</li>
+            <li>You want a social swim team environment</li>
+            <li>You expect fast results without consistent attendance</li>
+            <li>You're seeking stroke competition training</li>
+            <li>You're not ready to commit to a structured, frequent lesson schedule</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="area-card fade-up">
+        <span class="area-card-icon">&#x1F4CD;</span>
+        <p>Currently serving families in <strong>Epperson, Wesley Chapel</strong> and surrounding areas. Contact Becca to confirm availability in your location.</p>
+      </div>
+
+      <!-- IMAGE: 6997664a8d5b5a2b4a86bf0d.jpg — Family in pool, woman in pink swimsuit holding baby, man supporting -->
+      <div class="family-img fade-up">
+        <img
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8d5b5a2b4a86bf0d.jpg"
+          alt="Family moment in pool, woman in pink swimsuit holding baby, man supporting lovingly at AquaSquad Swim"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="text-center fade-up" style="margin-top: var(--space-xl);">
+        <a href="#final-cta" class="btn-primary">See If We Have Availability</a>
+        <span class="cta-subtext">We'll confirm fit before you ever commit</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 8: GALLERY
+  ============================================= -->
+  <section id="gallery" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Inside AquaSquad Lessons</span>
+        <h2>This Is What Water Safety Looks Like <span class="accent">in Practice</span></h2>
+        <p>Every child, every session, every skill &mdash; real instruction with real kids in the water.</p>
+      </div>
+
+      <div class="gallery-grid fade-up">
+
+        <!-- Feature: Instructor in pink rash guard smiling at child floating -->
+        <div class="gallery-item wide">
+          <!-- IMAGE: 6997664a8d5b5a60a586bf04.jpeg — Instructor in pink rash guard and cap smiling at child floating -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8d5b5a60a586bf04.jpeg"
+            alt="AquaSquad instructor in pink rash guard and cap smiling at child floating on back in pool"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Adult supporting baby floating -->
+        <div class="gallery-item">
+          <!-- IMAGE: 6997664c4c250235ce9c3d2f.jpg — Adult supporting baby floating on back -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664c4c250235ce9c3d2f.jpg"
+            alt="Adult supporting baby floating on back, hands raised in encouragement at AquaSquad Swim"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Child underwater rainbow swimsuit -->
+        <div class="gallery-item">
+          <!-- IMAGE: 6997664a3ff516ff1c57a183.jpg — Child underwater in rainbow swimsuit, joyful -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a3ff516ff1c57a183.jpg"
+            alt="Child underwater in rainbow swimsuit, joyful expression at AquaSquad Swim"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Video 2 -->
+        <div class="gallery-item">
+          <!-- VIDEO: 6997664bdf9bdf30151651a6.mp4 — In-pool lesson video -->
+          <video
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664bdf9bdf30151651a6.mp4"
+            autoplay muted loop playsinline
+            aria-label="AquaSquad Swim lesson video"
+          ></video>
+        </div>
+
+        <!-- Child floating clothed with sunglasses -->
+        <div class="gallery-item">
+          <!-- IMAGE: 6997664a3ff516ad7857a17e.jpg — Child floating on back fully clothed with sunglasses -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a3ff516ad7857a17e.jpg"
+            alt="Child floating on back fully clothed with sunglasses, practicing clothed water entry skills at AquaSquad Swim"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Instructor in pool professional -->
+        <div class="gallery-item">
+          <!-- IMAGE: 6997664a2a2f154f7e03c54f.jpg — Instructor in pool wearing "INSTRUCTOR" shirt -->
+          <img
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a2a2f154f7e03c54f.jpg"
+            alt="AquaSquad instructor in pool wearing Instructor shirt and sunglasses, professional and approachable"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Video 3 — wide -->
+        <div class="gallery-item wide">
+          <!-- VIDEO: 6997664adf9bdfa2ee1651a5.mp4 — Additional in-pool lesson video -->
+          <video
+            src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664adf9bdfa2ee1651a5.mp4"
+            autoplay muted loop playsinline
+            aria-label="AquaSquad Swim lesson video showing water safety training"
+          ></video>
+        </div>
+
+      </div>
+
+      <div class="text-center fade-up" style="margin-top: var(--space-2xl);">
+        <a href="#final-cta" class="btn-primary">Start Your Child's Journey</a>
+        <span class="cta-subtext">Limited spots available &mdash; contact us to check availability</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 9: FAQ
+  ============================================= -->
+  <section id="faq" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Common Questions</span>
+        <h2>Everything You Want to Know <span class="accent">Before You Reach Out</span></h2>
+        <p>We get these questions often. Here are honest, straightforward answers.</p>
+      </div>
+
+      <div class="faq-list fade-up" role="list">
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            What survival skills will my child learn?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Skills are always developmentally appropriate and based on your child's age and readiness. Children 6 months through early walkers learn to roll onto their back, float, and breathe independently. Children approximately 18 months and older work toward a swim-float-swim sequence &mdash; moving through the water, rolling to float for air, and continuing safely toward a pool exit.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            How is AquaSquad different from regular swim lessons?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Most swim lessons focus on stroke development. AquaSquad focuses on survival response first. We teach children what to do when something unexpected happens in the water, and we build that response through consistent, short sessions that create real muscle memory. Our program is also led by a certified survival swim instructor with a background in Early Childhood and Elementary Education &mdash; instruction is grounded in how young children actually learn.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            How long will it take for my child to develop survival skills?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Most children build foundational survival skills within 6 to 8 weeks of consistent instruction. Every child progresses at their own pace. Becca will communicate your child's progress throughout the program so you always know where they stand.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            How old does my child need to be?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              AquaSquad serves children starting at 6 months of age. The Survival Swim Program is designed for children from 6 months through early childhood. Private Skill-Building Lessons are available for children aged 5 and older who have completed a survival swim foundation or are ready for structured skill development.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            Why are lessons only 13&ndash;15 minutes for the Survival Swim Program?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Short, focused sessions are intentional. Young children have limited attention windows, and frequent short sessions build more reliable retention than long infrequent ones. Three sessions per week at 13&ndash;15 minutes creates the repetition needed for skills to become automatic rather than performed.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            How do I get started?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Contact Becca first to confirm availability and scheduling. Families complete registration only after availability is confirmed. Once registered, Becca will create a custom lesson plan for your child and send your invoice. You'll typically begin lessons within 1 to 2 weeks of confirming your spot.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            Do you offer mobile lessons at our home pool?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Yes. Mobile private lessons are available by request for families who prefer instruction at their home pool. Premium pricing applies due to instructor travel. Contact Becca for availability and a custom quote.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            What certifications does Becca hold?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Becca is a certified Survival Swim Instructor, CPR/First Aid certified, and SwimFin certified. Her survival swim certification required 6 weeks of in-water training and 6 weeks of academic coursework. She also holds two degrees and has over a decade of experience teaching young children in classroom settings.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            Is AquaSquad insured?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              Yes, AquaSquad carries insurance coverage. Specific policy details are available upon request.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" onclick="toggleFAQ(this)" role="button" tabindex="0" aria-expanded="false">
+            What if my child isn't ready or is afraid of the water?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </div>
+          <div class="faq-a" role="region">
+            <div class="faq-a-inner">
+              This is one of the most common situations Becca works with. Hesitation around water is completely normal and expected, especially in young children. AquaSquad's approach is calm, patient, and developmentally informed. Becca knows how to build trust and confidence at a pace that works for your child.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 10: FINAL CTA
+  ============================================= -->
+  <section id="final-cta" class="section-pad">
+    <div class="container">
+      <span class="eyebrow">Spots Are Limited</span>
+      <h2>Your Child's Water Safety Starts with <span style="color: var(--secondary);">One Message</span></h2>
+      <p class="fcta-sub">AquaSquad accepts a limited number of families to maintain the quality and consistency every child deserves.</p>
+
+      <!-- IMAGE: 6997664a8d5b5a60a586bf04.jpeg — Instructor in pink rash guard smiling at child in pool -->
+      <div class="fcta-image fade-up">
+        <img
+          src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8d5b5a60a586bf04.jpeg"
+          alt="AquaSquad instructor smiling at child during water safety lesson, Wesley Chapel FL"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="fcta-body fade-up">
+        <p>Drowning is the leading cause of accidental death in children ages 1 to 4 in the United States. Most families don't think about water safety until they need to. AquaSquad families think about it first.</p>
+        <p>Becca has helped over 200 families in the Wesley Chapel area give their children real, practiced water safety skills. Every child who goes through this program leaves with more than swim ability &mdash; they leave with a reliable response when it matters most, and parents leave with genuine confidence around water.</p>
+        <p>Reaching out is the first step. It costs nothing and commits you to nothing. Becca will confirm availability, answer your questions, and help you find the right program for your child.</p>
+      </div>
+
+      <a href="mailto:hello@aquasquadswim.com" class="btn-white">Check Availability Today</a>
+      <span class="fcta-cta-subtext">No commitment required &mdash; just a conversation</span>
+
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-check">&#x2713;</span> Certified Survival Swim Instructor</div>
+        <div class="trust-item"><span class="trust-check">&#x2713;</span> CPR &amp; First Aid Certified</div>
+        <div class="trust-item"><span class="trust-check">&#x2713;</span> SwimFin Certified</div>
+        <div class="trust-item"><span class="trust-check">&#x2713;</span> Fully Insured</div>
+        <div class="trust-item"><span class="trust-check">&#x2713;</span> 200+ Families Served</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       SECTION 11: FOOTER
+  ============================================= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <img src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/699767b83873af6718a31276.png" alt="AquaSquad Swim" />
+        <p>Real water survival skills for children 6 months and older. Serving Wesley Chapel, Epperson, and surrounding communities in the Tampa Bay area.</p>
+        <div class="footer-social">
+          <a href="#" class="soc-icon" aria-label="AquaSquad Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="soc-icon" aria-label="AquaSquad Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="soc-icon" aria-label="AquaSquad YouTube">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#process">How It Works</a></li>
+          <li><a href="#services">Programs &amp; Pricing</a></li>
+          <li><a href="#who">Who We Help</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <p>
+          Wesley Chapel, FL<br />
+          Epperson &amp; Surrounding Areas<br /><br />
+          <a href="mailto:hello@aquasquadswim.com">hello@aquasquadswim.com</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 AquaSquad Swim. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+      </div>
+    </div>
+    <div class="nils-credit">
+      Website and marketing systems developed by <a href="https://nilsdigital.com" target="_blank" rel="noopener noreferrer">Nilsdigital.com</a>
+    </div>
+  </footer>
+
+  <script>
+    /* =============================================
+       NAV: Shadow on scroll
+    ============================================= */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    /* =============================================
+       MOBILE MENU
+    ============================================= */
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    const menuClose   = document.getElementById('menuClose');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      hamburger.setAttribute('aria-expanded', 'true');
+    });
+    menuClose.addEventListener('click', closeMobileMenu);
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    /* =============================================
+       SERVICE CARD EXPAND / COLLAPSE
+    ============================================= */
+    function toggleService(btn) {
+      const card  = btn.closest('.service-card');
+      const body  = card.querySelector('.sc-body');
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    }
+
+    /* =============================================
+       FAQ ACCORDION
+    ============================================= */
+    function toggleFAQ(questionEl) {
+      const item   = questionEl.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all open items
+      document.querySelectorAll('.faq-item.open').forEach(el => {
+        el.classList.remove('open');
+        el.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      // Open this one if it was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        questionEl.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    // Keyboard support for FAQ
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleFAQ(q);
+        }
+      });
+    });
+
+    /* =============================================
+       SCROLL ANIMATIONS — IntersectionObserver
+    ============================================= */
+    const animEls = document.querySelectorAll('.fade-up, .process-step');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    animEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
