@@ -1078,24 +1078,36 @@
     }
     .benefits-quote { color: #fff; font-size: clamp(18px, 2.5vw, 24px); font-weight: 700; font-style: italic; }
 
-    /* Community Impact */
-    .community-grid {
+    /* Community chips (compact horizontal items) */
+    .community-chips {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-lg);
-      margin-top: var(--space-xl);
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
     }
-    .community-card {
+    .community-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
       background: var(--primary-light);
       border-radius: var(--radius-card);
-      padding: var(--space-lg);
-      text-align: center;
+      padding: var(--space-md);
+      border: 1px solid var(--border);
     }
-    .community-card-icon { font-size: 36px; margin-bottom: var(--space-sm); }
-    .community-card h4 { margin-bottom: var(--space-sm); color: var(--primary-dark); }
-    .community-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin: 0; }
+    .cc-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .cc-text { display: flex; flex-direction: column; gap: 3px; }
+    .cc-text strong { font-size: 14px; font-weight: 700; color: var(--primary-dark); line-height: 1.3; }
+    .cc-text span   { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+    /* Divider between community chips and who-cols */
+    .combined-divider {
+      height: 1px;
+      background: var(--border);
+      margin: var(--space-lg) 0;
+    }
+
     @media (max-width: 768px) {
-      .community-grid { grid-template-columns: 1fr; }
+      .community-chips { grid-template-columns: 1fr; gap: var(--space-sm); }
     }
 
     @media (max-width: 900px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -1191,7 +1203,7 @@
     /* =============================================
        SECTION 8: GALLERY
     ============================================= */
-    #gallery { background: var(--bg); }
+    #gallery { background: var(--bg); border-top: 1px solid var(--border); }
 
     .gallery-grid {
       display: grid;
@@ -2512,7 +2524,7 @@
     </div>
   </section>
 
-  <!-- Wave: benefits (dark teal) → community (white) -->
+  <!-- Wave: benefits (dark teal) → combined section (white) -->
   <div class="wave-divider" style="background: #18494C;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 72" preserveAspectRatio="none">
       <path fill="#ffffff" d="M0,42 C300,6 600,68 900,32 C1100,10 1280,58 1440,38 L1440,72 L0,72 Z"/>
@@ -2520,75 +2532,47 @@
   </div>
 
   <!-- =============================================
-       SECTION 6B: COMMUNITY IMPACT
+       SECTION 6B+7: COMMUNITY + WHO WE HELP (COMBINED)
   ============================================= -->
-  <section id="community" class="section-pad">
+  <section id="who" class="section-pad" style="background: #fff;">
     <div class="container">
+
+      <!-- Header -->
       <div class="section-header fade-up">
-        <span class="eyebrow">Beyond the Pool</span>
-        <h2>Lessons That Give <span class="accent">Back</span></h2>
-        <p>AquaSquad is built on the belief that water safety is a right, not a privilege.</p>
-      </div>
-
-      <div class="community-grid">
-
-        <div class="community-card fade-up">
-          <div class="community-card-icon">💛</div>
-          <h4>Smile Like Aubrey</h4>
-          <p>$10 from every registration is donated toward swim lessons for a child in need through our partnership with the <strong>Smile Like Aubrey</strong> foundation. Every family that enrolls helps another family get access.</p>
-        </div>
-
-        <div class="community-card fade-up">
-          <div class="community-card-icon">📚</div>
-          <h4>Continuing Education</h4>
-          <p>Becca regularly attends industry conferences and trains with leading survival swim educators. Her instruction reflects the latest research — not just what she learned years ago.</p>
-        </div>
-
-        <div class="community-card fade-up">
-          <div class="community-card-icon">🌊</div>
-          <h4>Safety for Every Child</h4>
-          <p>Cost should never be the reason a child doesn't learn to survive in the water. Reach out to ask about scholarship and financial assistance options.</p>
-        </div>
-
-      </div>
-
-      <div class="section-inline-cta section-inline-cta--light fade-up" style="margin-top: var(--space-xl);">
-        <p>Join 200+ families who've made water safety a priority.</p>
-        <a href="#hero" class="btn-primary">Get a Free Consultation</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Wave: community (white) → who (pool blue) -->
-  <div class="wave-divider" style="background: #ffffff;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 72" preserveAspectRatio="none">
-      <path fill="#2E9CB5" d="M0,42 C300,6 600,68 900,32 C1100,10 1280,58 1440,38 L1440,72 L0,72 Z"/>
-    </svg>
-  </div>
-
-  <!-- =============================================
-       SECTION 7: WHO WE HELP
-  ============================================= -->
-  <section id="who" class="section-pad">
-
-    <!-- Water ring decorations -->
-    <!-- Bubble decorations -->
-    <div class="who-bubble who-bubble-1" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-2" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-3" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-4" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-5" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-6" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-7" aria-hidden="true"></div>
-    <div class="who-bubble who-bubble-8" aria-hidden="true"></div>
-
-    <div class="container">
-      <div class="section-header fade-up">
-        <span class="eyebrow">Is AquaSquad Right for Your Family?</span>
+        <span class="eyebrow">Beyond the Lesson</span>
         <h2>Built for Families Who Take <span style="color: var(--secondary);">Water Seriously</span></h2>
-        <p>A structured, safety-first program for families ready to commit.</p>
+        <p>A structured, safety-first program — with a bigger mission.</p>
       </div>
 
+      <!-- Community chips row -->
+      <div class="community-chips fade-up">
+        <div class="community-chip">
+          <span class="cc-icon">💛</span>
+          <div class="cc-text">
+            <strong>Smile Like Aubrey</strong>
+            <span>$10 from every registration donated to swim lessons for a child in need</span>
+          </div>
+        </div>
+        <div class="community-chip">
+          <span class="cc-icon">📚</span>
+          <div class="cc-text">
+            <strong>Always Learning</strong>
+            <span>Becca trains with industry leaders and attends conferences year-round</span>
+          </div>
+        </div>
+        <div class="community-chip">
+          <span class="cc-icon">🌊</span>
+          <div class="cc-text">
+            <strong>Safety for Every Child</strong>
+            <span>Scholarships and financial assistance available — just ask</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="combined-divider"></div>
+
+      <!-- Who We Help columns -->
       <div class="who-cols">
         <div class="who-col fade-up">
           <h3 class="good">AquaSquad Is Right For You If...</h3>
@@ -2628,23 +2612,19 @@
         </div>
       </div>
 
+      <!-- Location + CTA -->
       <div class="area-card fade-up">
         <span class="area-card-icon">&#x1F4CD;</span>
         <p>Currently serving families in <strong>Epperson, Wesley Chapel</strong> and surrounding areas. Contact Becca to confirm availability in your location.</p>
       </div>
 
-      <div class="text-center fade-up" style="margin-top: var(--space-2xl);">
-        <a href="#hero" class="btn-white">Get in Touch</a>
+      <div class="text-center fade-up" style="margin-top: var(--space-xl);">
+        <a href="#hero" class="btn-primary">Get a Free Consultation</a>
+        <span class="cta-subtext">No commitment required</span>
       </div>
+
     </div>
   </section>
-
-  <!-- Wave: who (pool blue) → gallery (white) -->
-  <div class="wave-divider" style="background: #2E9CB5;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 72" preserveAspectRatio="none">
-      <path fill="#ffffff" d="M0,26 C240,64 480,4 720,42 C960,72 1200,18 1440,34 L1440,72 L0,72 Z"/>
-    </svg>
-  </div>
 
   <!-- =============================================
        SECTION 8: GALLERY
