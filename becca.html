@@ -1665,6 +1665,106 @@
     @media (max-width: 768px) {
       .wave-divider svg { height: 44px; }
     }
+
+    /* =============================================
+       COLLAPSIBLE / SHOW-MORE PATTERNS
+    ============================================= */
+    /* Generic collapse container */
+    .collapse-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.38s ease;
+    }
+    .collapse-body.open {
+      max-height: 800px;
+    }
+
+    /* Show-more button (used in comparison & who-list) */
+    .show-more-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 6px 18px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .show-more-btn:hover { background: var(--primary-light); border-color: var(--primary); }
+    .show-more-btn .arrow { display: inline-block; transition: transform 0.3s; font-style: normal; }
+    .show-more-btn.open .arrow { transform: rotate(180deg); }
+
+    /* Service card features toggle */
+    .sc-feat-toggle {
+      width: 100%;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      transition: background 0.2s;
+    }
+    .sc-feat-toggle:hover { background: var(--primary-light); }
+    .sc-feat-toggle .arrow { display: inline-block; transition: transform 0.3s; }
+    .sc-feat-toggle.open .arrow { transform: rotate(180deg); }
+    .service-card.featured .sc-feat-toggle { border-color: rgba(255,255,255,0.35); color: #fff; }
+    .service-card.featured .sc-feat-toggle:hover { background: rgba(255,255,255,0.1); }
+
+    /* Process step collapsible */
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      gap: 8px;
+    }
+    .step-header h4 { margin: 0; flex: 1; }
+    .step-toggle-icon {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: transform 0.3s, background 0.2s;
+    }
+    .process-step.open .step-toggle-icon { transform: rotate(180deg); background: var(--primary); color: #fff; }
+
+    /* Benefit card collapsible */
+    .benefit-card {
+      cursor: pointer;
+      user-select: none;
+    }
+    .benefit-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .benefit-card-header h4 { margin: 0; }
+    .benefit-toggle-icon {
+      font-size: 16px;
+      color: var(--primary);
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+    .benefit-card.open .benefit-toggle-icon { transform: rotate(180deg); }
+
   </style>
 </head>
 <body>
@@ -1889,11 +1989,18 @@
           <ul class="vs-list">
             <li>Teach strokes and gliding, not survival responses</li>
             <li>Once-a-week group classes that don't build reliable muscle memory</li>
-            <li>Summer camps with no year-round reinforcement</li>
-            <li>Floaties and puddle jumpers that create dependency, not real skill</li>
-            <li>Large classes where your child is one of many</li>
-            <li>No plan when something unexpected actually happens in the water</li>
           </ul>
+          <div class="collapse-body" id="vs-bad-extra">
+            <ul class="vs-list" style="margin-top:0; padding-top:0;">
+              <li>Summer camps with no year-round reinforcement</li>
+              <li>Floaties and puddle jumpers that create dependency, not real skill</li>
+              <li>Large classes where your child is one of many</li>
+              <li>No plan when something unexpected happens in the water</li>
+            </ul>
+          </div>
+          <button class="show-more-btn" onclick="toggleCollapse('vs-bad-extra', this)" aria-expanded="false">
+            <span class="btn-label">Show more</span> <em class="arrow">↓</em>
+          </button>
         </div>
         <div class="vs-col vs-col-good">
           <span class="vs-col-label">What AquaSquad does</span>
@@ -1901,11 +2008,18 @@
           <ul class="vs-list">
             <li>Survival response first: roll, float, breathe, swim to safety</li>
             <li>3 short sessions per week to build automatic, reliable reactions</li>
-            <li>Year-round instruction with a consistent, structured plan</li>
-            <li>Zero dependency on floaties. Children learn to trust themselves.</li>
-            <li>Every child gets Becca's full attention, every lesson</li>
-            <li>Children leave knowing exactly what to do if they fall in unexpectedly</li>
           </ul>
+          <div class="collapse-body" id="vs-good-extra">
+            <ul class="vs-list" style="margin-top:0; padding-top:0;">
+              <li>Year-round instruction with a consistent, structured plan</li>
+              <li>Zero dependency on floaties — children learn to trust themselves</li>
+              <li>Every child gets Becca's full attention, every lesson</li>
+              <li>Children leave knowing exactly what to do if they fall in unexpectedly</li>
+            </ul>
+          </div>
+          <button class="show-more-btn" onclick="toggleCollapse('vs-good-extra', this)" aria-expanded="false">
+            <span class="btn-label">Show more</span> <em class="arrow">↓</em>
+          </button>
         </div>
       </div>
 
@@ -1957,17 +2071,22 @@
             <span class="sc-price">From $60 <span class="per">/ lesson</span></span>
             <p class="sc-price-note">30-minute one-on-one sessions</p>
           </div>
-          <div class="sc-features">
-            <ul>
-              <li>Private, one-on-one instruction</li>
-              <li>Stroke development, endurance, and water confidence</li>
-              <li>All packages prepaid</li>
-            </ul>
-            <ul class="sc-packages">
-              <li><span class="sc-pkg-label">6 lessons</span><span class="sc-pkg-price">$70/lesson — $420 total</span></li>
-              <li><span class="sc-pkg-label">12 lessons</span><span class="sc-pkg-price">$65/lesson — $780 total</span></li>
-              <li><span class="sc-pkg-label">18 lessons</span><span class="sc-pkg-price">$60/lesson — $1,080 total</span></li>
-            </ul>
+          <button class="sc-feat-toggle" onclick="toggleCollapse('sc-feat-learn', this)" aria-expanded="false">
+            <span class="btn-label">What's included</span> <em class="arrow">↓</em>
+          </button>
+          <div class="collapse-body" id="sc-feat-learn">
+            <div class="sc-features">
+              <ul>
+                <li>Private, one-on-one instruction</li>
+                <li>Stroke development, endurance, and water confidence</li>
+                <li>All packages prepaid</li>
+              </ul>
+              <ul class="sc-packages">
+                <li><span class="sc-pkg-label">6 lessons</span><span class="sc-pkg-price">$70/lesson — $420 total</span></li>
+                <li><span class="sc-pkg-label">12 lessons</span><span class="sc-pkg-price">$65/lesson — $780 total</span></li>
+                <li><span class="sc-pkg-label">18 lessons</span><span class="sc-pkg-price">$60/lesson — $1,080 total</span></li>
+              </ul>
+            </div>
           </div>
           <div class="sc-foot">
             <a href="#hero" class="btn-primary">Get Started</a>
@@ -1988,16 +2107,21 @@
             <span class="sc-price">$115 <span class="per">/ week</span></span>
             <p class="sc-price-note">3 sessions per week &bull; 13–15 min each</p>
           </div>
-          <div class="sc-features">
-            <ul>
-              <li>Roll-to-float, independent breathing, calm water response</li>
-              <li>Short, frequent sessions build real muscle memory</li>
-              <li>Infants through early walkers: float &amp; breathe independently</li>
-              <li>18 months+: swim-float-swim sequence to a safe exit</li>
-              <li>Optional 4th session/week available as a refresher day</li>
-              <li>One instructor, one child — Becca's full attention every session</li>
-            </ul>
-            <p class="sc-note">One-time registration fee required. Contact Becca before registering to confirm scheduling and open spots.</p>
+          <button class="sc-feat-toggle" onclick="toggleCollapse('sc-feat-survival', this)" aria-expanded="false">
+            <span class="btn-label">What's included</span> <em class="arrow">↓</em>
+          </button>
+          <div class="collapse-body" id="sc-feat-survival">
+            <div class="sc-features">
+              <ul>
+                <li>Roll-to-float, independent breathing, calm water response</li>
+                <li>Short, frequent sessions build real muscle memory</li>
+                <li>Infants through early walkers: float &amp; breathe independently</li>
+                <li>18 months+: swim-float-swim sequence to a safe exit</li>
+                <li>Optional 4th session/week available as a refresher day</li>
+                <li>One instructor, one child — Becca's full attention every session</li>
+              </ul>
+              <p class="sc-note">One-time registration fee required. Contact Becca before registering to confirm scheduling and open spots.</p>
+            </div>
           </div>
           <div class="sc-foot">
             <a href="#hero" class="btn-primary">Get Started Today</a>
@@ -2017,13 +2141,18 @@
             <span class="sc-price">Custom <span class="per">quote</span></span>
             <p class="sc-price-note">Based on location and availability</p>
           </div>
-          <div class="sc-features">
-            <ul>
-              <li>30-minute private sessions at your home pool</li>
-              <li>Offered by request only</li>
-              <li>Premium pricing applies due to instructor travel</li>
-              <li>Custom quote based on location and schedule</li>
-            </ul>
+          <button class="sc-feat-toggle" onclick="toggleCollapse('sc-feat-mobile', this)" aria-expanded="false">
+            <span class="btn-label">What's included</span> <em class="arrow">↓</em>
+          </button>
+          <div class="collapse-body" id="sc-feat-mobile">
+            <div class="sc-features">
+              <ul>
+                <li>30-minute private sessions at your home pool</li>
+                <li>Offered by request only</li>
+                <li>Premium pricing applies due to instructor travel</li>
+                <li>Custom quote based on location and schedule</li>
+              </ul>
+            </div>
           </div>
           <div class="sc-foot">
             <a href="#hero" class="btn-primary">Request a Quote</a>
@@ -2059,44 +2188,64 @@
         <div class="process-step">
           <div class="step-num">01</div>
           <span class="step-timeframe">Day 1&ndash;5</span>
-          <h4>Reach Out and Inquire</h4>
-          <p>Contact Becca to ask about availability, programs, and whether AquaSquad is the right fit. You'll get a real response, not an automated system.</p>
-          <div class="step-roles">
-            <span><strong>You:</strong> Reach out via phone, email, or Instagram</span>
-            <span><strong>Becca:</strong> Reviews readiness &amp; confirms scheduling</span>
+          <div class="step-header" role="button" aria-expanded="false">
+            <h4>Reach Out and Inquire</h4>
+            <span class="step-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="step-detail collapse-body">
+            <p>Contact Becca to confirm availability and whether AquaSquad is the right fit. You'll get a real response, not an automated system.</p>
+            <div class="step-roles">
+              <span><strong>You:</strong> Reach out via phone, email, or Instagram</span>
+              <span><strong>Becca:</strong> Reviews readiness &amp; confirms scheduling</span>
+            </div>
           </div>
         </div>
 
         <div class="process-step">
           <div class="step-num">02</div>
           <span class="step-timeframe">Once confirmed</span>
-          <h4>Register and Prepare</h4>
-          <p>Complete registration once Becca confirms your spot. She'll build a customized lesson plan for your child and send your invoice.</p>
-          <div class="step-roles">
-            <span><strong>You:</strong> Complete registration, set payment</span>
-            <span><strong>Becca:</strong> Custom lesson plan &amp; scheduling</span>
+          <div class="step-header" role="button" aria-expanded="false">
+            <h4>Register and Prepare</h4>
+            <span class="step-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="step-detail collapse-body">
+            <p>Complete registration once Becca confirms your spot. She builds a custom lesson plan and sends your invoice.</p>
+            <div class="step-roles">
+              <span><strong>You:</strong> Complete registration, set payment</span>
+              <span><strong>Becca:</strong> Custom lesson plan &amp; scheduling</span>
+            </div>
           </div>
         </div>
 
         <div class="process-step">
           <div class="step-num">03</div>
           <span class="step-timeframe">Within 1&ndash;2 weeks</span>
-          <h4>Attend Consistent Lessons</h4>
-          <p>Show up consistently and on time. AquaSquad's short, focused sessions are designed for real retention. Consistency is what makes skills stick.</p>
-          <div class="step-roles">
-            <span><strong>You:</strong> Show up consistently and on time</span>
-            <span><strong>Becca:</strong> Structured instruction &amp; parent updates</span>
+          <div class="step-header" role="button" aria-expanded="false">
+            <h4>Attend Consistent Lessons</h4>
+            <span class="step-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="step-detail collapse-body">
+            <p>Show up consistently. Short, focused sessions build real retention — consistency is what makes skills automatic.</p>
+            <div class="step-roles">
+              <span><strong>You:</strong> Show up on time, every session</span>
+              <span><strong>Becca:</strong> Structured instruction &amp; parent updates</span>
+            </div>
           </div>
         </div>
 
         <div class="process-step">
           <div class="step-num">04</div>
           <span class="step-timeframe">Core skills: 6&ndash;8 weeks</span>
-          <h4>Build Reliable Water Safety Skills</h4>
-          <p>Most children build core survival skills within 6 to 8 weeks of consistent instruction. Every child progresses at their own pace. Becca guides the whole way.</p>
-          <div class="step-roles">
-            <span><strong>You:</strong> Celebrate progress, maintain practice</span>
-            <span><strong>Becca:</strong> Ongoing coaching &amp; skill reinforcement</span>
+          <div class="step-header" role="button" aria-expanded="false">
+            <h4>Build Real Water Safety Skills</h4>
+            <span class="step-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="step-detail collapse-body">
+            <p>Most children build foundational survival skills within 6–8 weeks of consistent instruction. Every child moves at their own pace.</p>
+            <div class="step-roles">
+              <span><strong>You:</strong> Celebrate progress, maintain practice</span>
+              <span><strong>Becca:</strong> Ongoing coaching &amp; skill reinforcement</span>
+            </div>
           </div>
         </div>
 
@@ -2137,39 +2286,69 @@
     <div class="container">
       <div class="section-header fade-up">
         <span class="eyebrow">Why It Matters</span>
-        <h2>What Changes When Your Child Trains with <span style="color: var(--primary);">AquaSquad</span></h2>
+        <h2>What Changes When Your Child Trains with <span style="color: var(--secondary);">AquaSquad</span></h2>
       </div>
 
       <div class="benefits-grid">
-        <div class="benefit-card fade-up">
+        <div class="benefit-card fade-up" role="button" aria-expanded="false">
           <div class="benefit-icon">&#x1F6E1;&#xFE0F;</div>
-          <h4>Real Peace of Mind</h4>
-          <p>You stop wondering "what would my child do?" and start knowing the answer. AquaSquad replaces quiet anxiety with quiet confidence.</p>
+          <div class="benefit-card-header">
+            <h4>Real Peace of Mind</h4>
+            <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="benefit-desc collapse-body">
+            <p>You stop wondering "what would my child do?" and start knowing the answer. AquaSquad replaces quiet anxiety with quiet confidence.</p>
+          </div>
         </div>
-        <div class="benefit-card fade-up">
+        <div class="benefit-card fade-up" role="button" aria-expanded="false">
           <div class="benefit-icon">&#x1F504;</div>
-          <h4>Skills That Hold Under Pressure</h4>
-          <p>AquaSquad's short, frequent sessions build automatic survival responses, not skills that only work in a calm lesson setting.</p>
+          <div class="benefit-card-header">
+            <h4>Skills That Hold Under Pressure</h4>
+            <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="benefit-desc collapse-body">
+            <p>AquaSquad's short, frequent sessions build automatic survival responses, not skills that only work in a calm lesson setting.</p>
+          </div>
         </div>
-        <div class="benefit-card fade-up">
+        <div class="benefit-card fade-up" role="button" aria-expanded="false">
           <div class="benefit-icon">&#x1F393;</div>
-          <h4>Education-Led Instruction</h4>
-          <p>Becca brings over a decade of classroom experience and three degrees in Early Childhood Education, Liberal Arts, and Elementary Education. She understands how young children actually learn.</p>
+          <div class="benefit-card-header">
+            <h4>Education-Led Instruction</h4>
+            <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="benefit-desc collapse-body">
+            <p>Becca brings over a decade of classroom experience and three degrees in Early Childhood Education, Liberal Arts, and Elementary Education. She understands how young children actually learn.</p>
+          </div>
         </div>
-        <div class="benefit-card fade-up">
+        <div class="benefit-card fade-up" role="button" aria-expanded="false">
           <div class="benefit-icon">&#x1F4CD;</div>
-          <h4>Designed for Florida Families</h4>
-          <p>Pools, lakes, boats, and unpredictable outdoor water are part of life here. This program is built for how Florida families actually live.</p>
+          <div class="benefit-card-header">
+            <h4>Designed for Florida Families</h4>
+            <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="benefit-desc collapse-body">
+            <p>Pools, lakes, boats, and unpredictable outdoor water are part of life here. This program is built for how Florida families actually live.</p>
+          </div>
         </div>
-        <div class="benefit-card fade-up">
+        <div class="benefit-card fade-up" role="button" aria-expanded="false">
           <div class="benefit-icon">&#x2764;&#xFE0F;</div>
-          <h4>Confidence and Joy in the Water</h4>
-          <p>AquaSquad doesn't stop at survival. Becca pushes children past safety into a genuine love of the water that lasts a lifetime.</p>
+          <div class="benefit-card-header">
+            <h4>Confidence and Joy in the Water</h4>
+            <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="benefit-desc collapse-body">
+            <p>AquaSquad doesn't stop at survival. Becca pushes children past safety into a genuine love of the water that lasts a lifetime.</p>
+          </div>
         </div>
-        <div class="benefit-card fade-up">
+        <div class="benefit-card fade-up" role="button" aria-expanded="false">
           <div class="benefit-icon">&#x1F4C5;</div>
-          <h4>Structured, Predictable Progress</h4>
-          <p>No guessing. No "let's see how it goes." Every child has a plan, every session has a purpose, and parents know what to expect.</p>
+          <div class="benefit-card-header">
+            <h4>Structured, Predictable Progress</h4>
+            <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+          </div>
+          <div class="benefit-desc collapse-body">
+            <p>No guessing. Every child has a plan, every session has a purpose, and parents always know what to expect.</p>
+          </div>
         </div>
       </div>
 
@@ -2263,24 +2442,38 @@
         <div class="who-col fade-up">
           <h3 class="good">AquaSquad Is Right For You If...</h3>
           <ul class="who-list good">
-            <li>You have access to water, a pool, a lake, or live the Florida outdoor lifestyle</li>
-            <li>You feel uneasy about water accidents and want real preparation, not just comfort</li>
-            <li>Your child is between 6 months and 5+ years old</li>
-            <li>You value consistency and are willing to commit to regular lessons</li>
-            <li>You want an educator-led program grounded in child development</li>
-            <li>You want your child to know what to do in a real situation, not just swim strokes</li>
-            <li>You want your child to not only be safe but to genuinely love the water</li>
+            <li>You have access to water — a pool, lake, or the Florida outdoor lifestyle</li>
+            <li>You feel uneasy about water accidents and want real preparation</li>
           </ul>
+          <div class="collapse-body" id="who-good-extra">
+            <ul class="who-list good" style="margin-top:0; padding-top:0; border-top:none;">
+              <li>Your child is between 6 months and 5+ years old</li>
+              <li>You value consistency and can commit to regular lessons</li>
+              <li>You want an educator-led program grounded in child development</li>
+              <li>You want your child to know what to do in a real situation</li>
+              <li>You want your child to genuinely love the water</li>
+            </ul>
+          </div>
+          <button class="show-more-btn" onclick="toggleCollapse('who-good-extra', this)" aria-expanded="false">
+            <span class="btn-label">Show more</span> <em class="arrow">↓</em>
+          </button>
         </div>
         <div class="who-col fade-up">
           <h3 class="bad">AquaSquad May Not Be the Right Fit If...</h3>
           <ul class="who-list bad">
             <li>You're looking for casual, once-a-week recreational swimming</li>
             <li>You want a social swim team environment</li>
-            <li>You expect fast results without consistent attendance</li>
-            <li>You're seeking stroke competition training</li>
-            <li>You're not ready to commit to a structured, frequent lesson schedule</li>
           </ul>
+          <div class="collapse-body" id="who-bad-extra">
+            <ul class="who-list bad" style="margin-top:0; padding-top:0; border-top:none;">
+              <li>You expect fast results without consistent attendance</li>
+              <li>You're seeking stroke competition training</li>
+              <li>You're not ready to commit to a structured, frequent schedule</li>
+            </ul>
+          </div>
+          <button class="show-more-btn" onclick="toggleCollapse('who-bad-extra', this)" aria-expanded="false">
+            <span class="btn-label">Show more</span> <em class="arrow">↓</em>
+          </button>
         </div>
       </div>
 
@@ -2551,13 +2744,8 @@
 
     <div class="container">
       <span class="eyebrow">Spots Are Limited</span>
-      <h2>Your Child's Water Safety Starts with <span style="color: var(--secondary);">One Message</span></h2>
-      <p class="fcta-sub">AquaSquad accepts a limited number of families to maintain the quality and consistency every child deserves.</p>
-
-      <div class="fcta-body fade-up">
-        <p>Drowning is the leading cause of accidental death in children ages 1 to 4. Becca has helped over 200 families give their children real, practiced water safety skills. Every child leaves with a reliable response when it matters most — and parents leave with genuine confidence around water.</p>
-        <p>Reaching out costs nothing and commits you to nothing. Becca will confirm availability, answer your questions, and help you find the right program.</p>
-      </div>
+      <h2>Water Safety Starts with <span style="color: var(--secondary);">One Message</span></h2>
+      <p class="fcta-sub">Becca has helped 200+ families give their children real, practiced water safety skills. Reaching out costs nothing and commits you to nothing.</p>
 
       <!-- Final CTA Form -->
       <div class="fade-up" style="max-width:600px; margin: 0 auto var(--space-xl); background:#fff; border-radius:20px; overflow:hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25);">
@@ -2721,6 +2909,50 @@
           e.preventDefault();
           toggleFAQ(q);
         }
+      });
+    });
+
+    /* =============================================
+       GENERIC COLLAPSE TOGGLE
+    ============================================= */
+    function toggleCollapse(bodyId, btn, openLabel, closeLabel) {
+      const body  = document.getElementById(bodyId);
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      if (btn) {
+        btn.classList.toggle('open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        // Update label if provided
+        const labelEl = btn.querySelector('.btn-label');
+        if (labelEl && openLabel && closeLabel) {
+          labelEl.textContent = isOpen ? openLabel : closeLabel;
+        }
+      }
+    }
+
+    /* =============================================
+       PROCESS STEP TOGGLE
+    ============================================= */
+    document.querySelectorAll('.step-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const step = header.closest('.process-step');
+        const detail = step.querySelector('.step-detail');
+        const isOpen = step.classList.contains('open');
+        step.classList.toggle('open', !isOpen);
+        detail.classList.toggle('open', !isOpen);
+      });
+    });
+
+    /* =============================================
+       BENEFIT CARD TOGGLE
+    ============================================= */
+    document.querySelectorAll('.benefit-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const desc = card.querySelector('.benefit-desc');
+        const isOpen = card.classList.contains('open');
+        card.classList.toggle('open', !isOpen);
+        desc.classList.toggle('open', !isOpen);
+        card.setAttribute('aria-expanded', String(!isOpen));
       });
     });
 
