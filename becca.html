@@ -286,10 +286,10 @@
       pointer-events: all;
     }
 
-    /* Mobile menu — drops down from below nav bar */
+    /* Mobile menu — drops down flush below nav bar (top set by JS) */
     .mobile-menu {
       position: fixed;
-      top: 72px; /* match nav height */
+      top: 0; /* overridden by JS to match real nav height */
       left: 0;
       right: 0;
       width: 100%;
@@ -301,9 +301,9 @@
       transform: translateY(-110%);
       transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
-      max-height: calc(100vh - 72px);
+      max-height: 80vh;
       box-shadow: 0 8px 32px rgba(0,0,0,0.14);
-      border-top: 1px solid var(--border);
+      border-top: 2px solid var(--primary);
     }
     .mobile-menu.open { transform: translateY(0); }
 
@@ -381,14 +381,14 @@
     }
     @media (max-width: 900px) {
       .nav-links { display: none; }
-      /* Keep CTA button in header, smaller size */
+      /* CTA button — visible and readable on mobile */
       .nav-cta {
-        padding: 9px 14px !important;
-        font-size: 13px !important;
+        padding: 11px 18px !important;
+        font-size: 14px !important;
         min-width: unset !important;
       }
       .hamburger { display: flex; }
-      .nav-logo img { height: 52px; }
+      .nav-logo img { height: 64px; }
     }
 
     /* =============================================
@@ -1107,7 +1107,20 @@
     }
 
     @media (max-width: 768px) {
-      .community-chips { grid-template-columns: 1fr; gap: var(--space-sm); }
+      .community-chips { grid-template-columns: 1fr; gap: 8px; }
+      .community-chip {
+        flex-direction: row;
+        align-items: center;
+        padding: 12px var(--space-md);
+        cursor: pointer;
+        gap: 10px;
+      }
+      .cc-icon { font-size: 20px; margin-top: 0; }
+      .cc-text strong { font-size: 13px; }
+      .cc-text span { display: none; font-size: 12px; margin-top: 4px; }
+      .community-chip.open .cc-text span { display: block; }
+      .community-chip.open { border-color: var(--primary); background: #d4eeed; }
+      .cc-text { gap: 0; }
     }
 
     @media (max-width: 900px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -1778,13 +1791,25 @@
       /* --- Typography --- */
       h2 { font-size: clamp(22px, 6vw, 32px); }
       h3 { font-size: clamp(18px, 5vw, 24px); }
+      .eyebrow { margin-bottom: 6px; }
+      .section-header { margin-bottom: var(--space-xl); }
 
       /* --- Hero --- */
       .hero-text p  { font-size: 14px; line-height: 1.6; }
       .hero-text .subheadline { font-size: 16px; }
 
+      /* --- 6+6 badge --- */
+      .cert-66-note { color: #ffffff !important; font-size: 13px; }
+      .cert-66-badge { padding: var(--space-sm) var(--space-md); }
+
       /* --- About Becca card --- */
       .becca-intro-grid { border-radius: 14px; }
+      .becca-photo-wrap img { height: 380px; }
+      .becca-photo-overlay { padding: var(--space-md) var(--space-sm) var(--space-sm); }
+      .becca-photo-overlay .becca-name { font-size: 15px; }
+      .becca-photo-overlay .becca-title { font-size: 11px; margin-bottom: 6px; }
+      .becca-creds { gap: 2px; }
+      .becca-creds li { font-size: 10px; }
 
       /* --- Comparison (vs-grid) --- */
       .vs-section-header { padding-top: var(--space-lg); }
@@ -1863,6 +1888,11 @@
 
       /* --- Hero --- */
       .hero-text h1 { font-size: clamp(28px, 8vw, 40px); }
+
+      /* --- About Becca card --- */
+      .becca-photo-wrap img { height: 320px; }
+      .becca-creds { display: none; }  /* creds in text below; overlay shows only name + title */
+      .becca-photo-overlay .becca-title { margin-bottom: 0; }
 
       /* --- Pull quote --- */
       .becca-pull-quote p { font-size: 14px; }
@@ -2985,6 +3015,9 @@
     const mobileBackdrop = document.getElementById('mobileBackdrop');
 
     hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('open');
+      if (isOpen) { closeMobileMenu(); return; }
+      mobileMenu.style.top = nav.offsetHeight + 'px';
       mobileMenu.classList.add('open');
       mobileBackdrop.classList.add('open');
       hamburger.classList.add('open');
@@ -3033,6 +3066,18 @@
       }
     }
 
+    // Tapping the answer body also closes the open FAQ item
+    document.querySelectorAll('.faq-a').forEach(answerEl => {
+      answerEl.style.cursor = 'pointer';
+      answerEl.addEventListener('click', () => {
+        const item = answerEl.closest('.faq-item');
+        if (item && item.classList.contains('open')) {
+          const q = item.querySelector('.faq-q');
+          toggleFAQ(q);
+        }
+      });
+    });
+
     // Keyboard support for FAQ
     document.querySelectorAll('.faq-q').forEach(q => {
       q.addEventListener('keydown', e => {
@@ -3064,13 +3109,37 @@
     /* =============================================
        PROCESS STEP TOGGLE
     ============================================= */
-    document.querySelectorAll('.step-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const step = header.closest('.process-step');
+    document.querySelectorAll('.process-step').forEach(step => {
+      step.style.cursor = 'pointer';
+      step.addEventListener('click', () => {
         const detail = step.querySelector('.step-detail');
+        const header = step.querySelector('.step-header');
         const isOpen = step.classList.contains('open');
         step.classList.toggle('open', !isOpen);
         detail.classList.toggle('open', !isOpen);
+        if (header) header.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+
+    /* =============================================
+       COMMUNITY CHIP TOGGLE (mobile)
+    ============================================= */
+    document.querySelectorAll('.community-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        chip.classList.toggle('open');
+      });
+    });
+
+    /* =============================================
+       WHO-COL CARD — entire card tappable
+    ============================================= */
+    document.querySelectorAll('.who-col').forEach(col => {
+      col.style.cursor = 'pointer';
+      const btn = col.querySelector('.show-more-btn');
+      // Prevent button from double-firing when card is tapped
+      if (btn) btn.addEventListener('click', e => e.stopPropagation());
+      col.addEventListener('click', () => {
+        if (btn) btn.click();
       });
     });
 
