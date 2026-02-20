@@ -541,24 +541,26 @@
     ============================================= */
     #problem { background: var(--bg); }
 
-    /* Becca intro — two column */
+    /* Becca intro — unified card block */
     .becca-intro-grid {
       display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: var(--space-2xl);
-      align-items: start;
+      grid-template-columns: 380px 1fr;
+      gap: 0;
+      align-items: stretch;
       margin-bottom: var(--space-3xl);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.10);
+      background: #fff;
     }
     .becca-photo-wrap {
       position: relative;
-      border-radius: var(--radius-img);
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
       flex-shrink: 0;
     }
     .becca-photo-wrap img {
       width: 100%;
-      height: 540px;
+      height: 100%;
+      min-height: 520px;
       object-fit: cover;
       object-position: top center;
       display: block;
@@ -603,6 +605,12 @@
       flex-shrink: 0;
     }
 
+    .becca-intro-text {
+      padding: var(--space-2xl) var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     .becca-intro-text h2 { margin-bottom: var(--space-md); }
     .becca-intro-text p { color: var(--text-secondary); margin-bottom: var(--space-md); font-size: 16px; line-height: 1.7; }
 
@@ -729,8 +737,9 @@
     .problem-callout p em { color: var(--secondary); font-style: normal; }
 
     @media (max-width: 900px) {
-      .becca-intro-grid { grid-template-columns: 1fr; }
-      .becca-photo-wrap img { height: 420px; }
+      .becca-intro-grid { grid-template-columns: 1fr; border-radius: 16px; }
+      .becca-photo-wrap img { height: 340px; min-height: unset; }
+      .becca-intro-text { padding: var(--space-xl) var(--space-lg); }
       .vs-grid { grid-template-columns: 1fr; }
     }
 
@@ -1569,21 +1578,9 @@
       box-shadow: -4px 0 24px rgba(26,167,157,0.14), inset 0 0 32px rgba(26,167,157,0.04);
     }
 
-    /* --- 10. Becca photo: floating shadow --- */
-    .becca-photo-wrap {
-      box-shadow:
-        0 6px 14px rgba(0,0,0,0.10),
-        0 14px 36px rgba(0,0,0,0.12),
-        0 32px 64px rgba(0,0,0,0.09);
-      transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
-    }
-    .becca-photo-wrap:hover {
-      transform: translateY(-5px);
-      box-shadow:
-        0 10px 20px rgba(0,0,0,0.12),
-        0 22px 48px rgba(0,0,0,0.10),
-        0 40px 80px rgba(0,0,0,0.08),
-        0 0 30px rgba(26,167,157,0.06);
+    /* --- 10. Becca card: hover lifts the whole unified card --- */
+    .becca-intro-grid:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.10), 0 24px 64px rgba(0,0,0,0.12);
     }
 
     /* --- 11. Gallery items: enhanced hover --- */
@@ -1642,7 +1639,7 @@
       .btn-primary:hover   { transform: scale(1.02); }
       .service-card:hover  { transform: translateY(-3px); }
       .benefit-card:hover  { transform: none; }
-      .becca-photo-wrap:hover { transform: none; }
+      .becca-intro-grid:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 16px 48px rgba(0,0,0,0.10); }
       .gallery-item:hover  { transform: none; }
       .faq-item:hover      { transform: none; }
       .vs-col:hover        { transform: none; }
