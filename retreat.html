@@ -251,8 +251,101 @@
             margin-top: 2px;
         }
 
-        .icon-website { background: linear-gradient(135deg, var(--blue-light), #7b42f6); }
-        .icon-waiver  { background: linear-gradient(135deg, #e53935, #ff7043); }
+        .icon-website   { background: linear-gradient(135deg, var(--blue-light), #7b42f6); }
+        .icon-waiver    { background: linear-gradient(135deg, #e53935, #ff7043); }
+        .icon-schedule  { background: linear-gradient(135deg, #0097a7, #26c6da); }
+        .icon-packing   { background: linear-gradient(135deg, #388e3c, #66bb6a); }
+        .icon-rules     { background: linear-gradient(135deg, #f57c00, #ffb74d); }
+
+        /* ── PDF Dropdown ── */
+        .pdf-item {
+            margin-bottom: 12px;
+        }
+        .pdf-toggle {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.35s cubic-bezier(.4,0,.2,1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(43,58,142,0.06);
+            cursor: pointer;
+            text-align: left;
+            font-family: 'Nunito', sans-serif;
+        }
+        .pdf-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+        .pdf-toggle:hover::before { left: 100%; }
+        .pdf-toggle:hover {
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(43,58,142,0.2);
+            box-shadow: 0 8px 32px rgba(43,58,142,0.12), 0 0 20px rgba(126,200,227,0.15);
+            background: rgba(255,255,255,0.7);
+        }
+        .pdf-toggle:active { transform: scale(0.97); }
+        .pdf-toggle .arrow {
+            margin-left: auto;
+            opacity: 0.3;
+            transition: all 0.35s;
+            font-size: 1.1rem;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+        .pdf-toggle:hover .arrow { opacity: 1; }
+        .pdf-toggle.open .arrow { transform: rotate(90deg); opacity: 1; }
+        .pdf-toggle .sub-text {
+            font-size: 0.72rem;
+            font-weight: 400;
+            opacity: 0.55;
+            margin-top: 2px;
+        }
+        .pdf-panel {
+            display: none;
+            border-radius: 0 0 16px 16px;
+            overflow: hidden;
+            margin-top: -8px;
+            border: 1px solid rgba(43,58,142,0.12);
+            border-top: none;
+            background: rgba(255,255,255,0.85);
+        }
+        .pdf-panel.open {
+            display: block;
+        }
+        .pdf-panel iframe {
+            display: block;
+            width: 100%;
+            height: 480px;
+            border: none;
+        }
+        .pdf-open-link {
+            display: block;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--blue);
+            text-decoration: none;
+            background: rgba(43,58,142,0.05);
+            letter-spacing: 1px;
+        }
+        .pdf-open-link:hover { background: rgba(43,58,142,0.1); }
 
         /* ── Wave Divider ── */
         .wave-divider {
@@ -406,20 +499,86 @@
     <div class="links-section">
         <div class="section-label fade-up delay-3">Quick Links</div>
 
-        <a href="https://superheroswim.framer.website/" target="_blank" rel="noopener" class="link-btn fade-up delay-3">
-            <div class="link-icon icon-website">&#x1F310;</div>
-            <div>
-                <div>Retreat Website</div>
-                <div class="sub-text">All the details & info</div>
+        <!-- PDF: Retreat House Guest Schedule -->
+        <div class="pdf-item fade-up delay-3">
+            <button class="pdf-toggle" onclick="togglePdf(this, 'pdf-house')">
+                <div class="link-icon icon-schedule">&#x1F3E0;</div>
+                <div>
+                    <div>Retreat House Guest Schedule</div>
+                    <div class="sub-text">Tap to view PDF</div>
+                </div>
+                <span class="arrow">&rsaquo;</span>
+            </button>
+            <div class="pdf-panel" id="pdf-house">
+                <iframe src="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88e92bc148eaea8089.pdf" title="Retreat House Guest Schedule"></iframe>
+                <a class="pdf-open-link" href="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88e92bc148eaea8089.pdf" target="_blank" rel="noopener">&#x2197; OPEN IN NEW TAB</a>
             </div>
-            <span class="arrow">&rsaquo;</span>
-        </a>
+        </div>
 
-        <a href="https://superheroswimuniversity.nilsdigital.com/release-form" target="_blank" rel="noopener" class="link-btn fade-up delay-4">
+        <!-- PDF: Superhero Swim Retreat Schedule -->
+        <div class="pdf-item fade-up delay-3">
+            <button class="pdf-toggle" onclick="togglePdf(this, 'pdf-swim')">
+                <div class="link-icon icon-schedule">&#x1F9B8;</div>
+                <div>
+                    <div>Superhero Swim Retreat Schedule</div>
+                    <div class="sub-text">Tap to view PDF</div>
+                </div>
+                <span class="arrow">&rsaquo;</span>
+            </button>
+            <div class="pdf-panel" id="pdf-swim">
+                <iframe src="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88d83aecb9f26dfaa5.pdf" title="Superhero Swim Retreat Schedule"></iframe>
+                <a class="pdf-open-link" href="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88d83aecb9f26dfaa5.pdf" target="_blank" rel="noopener">&#x2197; OPEN IN NEW TAB</a>
+            </div>
+        </div>
+
+        <!-- PDF: Packing List -->
+        <div class="pdf-item fade-up delay-4">
+            <button class="pdf-toggle" onclick="togglePdf(this, 'pdf-packing')">
+                <div class="link-icon icon-packing">&#x1F9F3;</div>
+                <div>
+                    <div>Packing List</div>
+                    <div class="sub-text">Tap to view PDF</div>
+                </div>
+                <span class="arrow">&rsaquo;</span>
+            </button>
+            <div class="pdf-panel" id="pdf-packing">
+                <iframe src="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88df9bdf59755fa040.pdf" title="Packing List"></iframe>
+                <a class="pdf-open-link" href="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88df9bdf59755fa040.pdf" target="_blank" rel="noopener">&#x2197; OPEN IN NEW TAB</a>
+            </div>
+        </div>
+
+        <!-- PDF: House Rules -->
+        <div class="pdf-item fade-up delay-4">
+            <button class="pdf-toggle" onclick="togglePdf(this, 'pdf-rules')">
+                <div class="link-icon icon-rules">&#x1F4CB;</div>
+                <div>
+                    <div>House Rules</div>
+                    <div class="sub-text">Tap to view PDF</div>
+                </div>
+                <span class="arrow">&rsaquo;</span>
+            </button>
+            <div class="pdf-panel" id="pdf-rules">
+                <iframe src="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88df9bdf97d55fa03f.pdf" title="House Rules"></iframe>
+                <a class="pdf-open-link" href="https://assets.cdn.filesafe.space/fnkYRrAiIDiQrWbiOtRL/media/69988a88df9bdf97d55fa03f.pdf" target="_blank" rel="noopener">&#x2197; OPEN IN NEW TAB</a>
+            </div>
+        </div>
+
+        <!-- Waiver -->
+        <a href="https://superheroswimuniversity.nilsdigital.com/release-form" target="_blank" rel="noopener" class="link-btn fade-up delay-5">
             <div class="link-icon icon-waiver">&#x1F4DD;</div>
             <div>
                 <div>Sign the Waiver <span class="pulse-dot"></span></div>
                 <div class="sub-text">Required before the retreat</div>
+            </div>
+            <span class="arrow">&rsaquo;</span>
+        </a>
+
+        <!-- Retreat Website (last) -->
+        <a href="https://superheroswiminstructorretreat.com/" target="_blank" rel="noopener" class="link-btn fade-up delay-5">
+            <div class="link-icon icon-website">&#x1F310;</div>
+            <div>
+                <div>Retreat Website</div>
+                <div class="sub-text">All the details & info</div>
             </div>
             <span class="arrow">&rsaquo;</span>
         </a>
@@ -535,6 +694,23 @@ document.addEventListener('click', function(e) {
     document.body.appendChild(ripple);
     setTimeout(() => ripple.remove(), 800);
 });
+
+// ── PDF Dropdown Toggle ──
+function togglePdf(btn, panelId) {
+    const panel = document.getElementById(panelId);
+    const isOpen = panel.classList.contains('open');
+
+    // Close all open panels first
+    document.querySelectorAll('.pdf-panel.open').forEach(p => p.classList.remove('open'));
+    document.querySelectorAll('.pdf-toggle.open').forEach(b => b.classList.remove('open'));
+
+    if (!isOpen) {
+        panel.classList.add('open');
+        btn.classList.add('open');
+        // Scroll the panel into view smoothly
+        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    }
+}
 
 // ── Intersection Observer for fade-in ──
 const observer = new IntersectionObserver((entries) => {
