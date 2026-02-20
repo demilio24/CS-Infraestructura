@@ -1836,12 +1836,16 @@
 
       /* --- About Becca card --- */
       .becca-intro-grid { border-radius: 14px; }
-      .becca-photo-wrap img { height: 380px; }
-      .becca-photo-overlay { padding: var(--space-md) var(--space-sm) var(--space-sm); }
-      .becca-photo-overlay .becca-name { font-size: 15px; }
-      .becca-photo-overlay .becca-title { font-size: 11px; margin-bottom: 6px; }
-      .becca-creds { gap: 2px; }
-      .becca-creds li { font-size: 10px; }
+      .becca-photo-wrap img { height: 480px; }
+      .becca-photo-overlay {
+        padding: var(--space-2xl) var(--space-md) var(--space-md);
+        background: linear-gradient(to top, rgba(24,73,76,0.97) 0%, rgba(24,73,76,0.6) 55%, transparent 100%);
+      }
+      .becca-photo-overlay .becca-name { font-size: 20px; margin-bottom: 4px; }
+      .becca-photo-overlay .becca-title { font-size: 13px; margin-bottom: 10px; }
+      .becca-creds { gap: 5px; }
+      .becca-creds li { font-size: 13px; gap: 8px; }
+      .becca-creds li::before { font-size: 10px; }
 
       /* --- Comparison (vs-grid) --- */
       .vs-section-header { padding-top: var(--space-lg); }
@@ -1922,9 +1926,11 @@
       .hero-text h1 { font-size: clamp(28px, 8vw, 40px); }
 
       /* --- About Becca card --- */
-      .becca-photo-wrap img { height: 320px; }
-      .becca-creds { display: none; }  /* creds in text below; overlay shows only name + title */
-      .becca-photo-overlay .becca-title { margin-bottom: 0; }
+      .becca-photo-wrap img { height: 460px; }
+      .becca-creds { display: flex; gap: 4px; }
+      .becca-creds li { font-size: 12px; }
+      .becca-photo-overlay .becca-name { font-size: 18px; }
+      .becca-photo-overlay .becca-title { font-size: 12px; margin-bottom: 8px; }
 
       /* --- Pull quote --- */
       .becca-pull-quote p { font-size: 14px; }
