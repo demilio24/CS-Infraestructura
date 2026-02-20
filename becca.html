@@ -619,6 +619,51 @@
       color: var(--text-primary);
       font-style: italic;
       margin: 0;
+    }
+
+    /* 6+6 Certification Badge */
+    .cert-66-badge {
+      background: var(--gradient);
+      border-radius: var(--radius-card);
+      padding: var(--space-md) var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+    .cert-66-inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: 8px;
+    }
+    .cert-66-num {
+      font-size: 42px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .cert-66-num span {
+      color: var(--secondary);
+      font-size: 28px;
+    }
+    .cert-66-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cert-66-text strong {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .cert-66-text span {
+      color: rgba(255,255,255,0.85);
+      font-size: 13px;
+    }
+    .cert-66-note {
+      color: rgba(255,255,255,0.75);
+      font-size: 13px;
+      font-style: italic;
+      margin: 0;
       line-height: 1.5;
     }
 
@@ -1030,6 +1075,26 @@
       padding: var(--space-lg) var(--space-xl);
     }
     .benefits-quote { color: #fff; font-size: clamp(18px, 2.5vw, 24px); font-weight: 700; font-style: italic; }
+
+    /* Community Impact */
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .community-card {
+      background: var(--primary-light);
+      border-radius: var(--radius-card);
+      padding: var(--space-lg);
+      text-align: center;
+    }
+    .community-card-icon { font-size: 36px; margin-bottom: var(--space-sm); }
+    .community-card h4 { margin-bottom: var(--space-sm); color: var(--primary-dark); }
+    .community-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.6; margin: 0; }
+    @media (max-width: 768px) {
+      .community-grid { grid-template-columns: 1fr; }
+    }
 
     @media (max-width: 900px) { .benefits-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
@@ -1770,8 +1835,9 @@
               <li>Certified Survival Swim Instructor</li>
               <li>CPR &amp; First Aid Certified</li>
               <li>SwimFin Certified</li>
-              <li>B.S. Early Childhood Education</li>
-              <li>M.Ed. Elementary Education</li>
+              <li>A.S. Liberal Arts</li>
+              <li>A.S. Early Childhood Education</li>
+              <li>B.S. Elementary Education</li>
               <li>10+ Years Teaching Young Children</li>
               <li>200+ Families Served</li>
             </ul>
@@ -1783,13 +1849,23 @@
           <span class="eyebrow">Why AquaSquad is Different</span>
           <h2>A Teacher Who Understands How <span class="accent">Children Actually Learn</span></h2>
 
-          <p>Most swim instructors know water. Becca knows children. Two degrees in Early Childhood and Elementary Education, over a decade in the classroom, and a teaching philosophy built around how young children actually build lasting skills.</p>
+          <p>Most swim instructors know water. Becca knows <em>children</em>. With a decade in the classroom and degrees in Early Childhood Education and Elementary Education, her instruction is grounded in how young children actually build lasting skills.</p>
 
           <div class="becca-pull-quote">
             <p>"Most programs teach children to swim. I teach them what to do when something goes wrong."</p>
           </div>
 
-          <p>Three short sessions per week build automatic, calm responses that hold up under real pressure. Even for children who start out nervous or resistant around water.</p>
+          <!-- 6+6 Certification Badge -->
+          <div class="cert-66-badge">
+            <div class="cert-66-inner">
+              <div class="cert-66-num">6<span>+</span>6</div>
+              <div class="cert-66-text">
+                <strong>The Industry's Highest Standard</strong>
+                <span>6 weeks in-water training &bull; 6 weeks academic coursework</span>
+              </div>
+            </div>
+            <p class="cert-66-note">Most certifications require a weekend course. Becca's required a full semester.</p>
+          </div>
 
           <div style="margin-top: var(--space-xl);">
             <a href="#hero" class="btn-primary">Get a Free Consultation</a>
@@ -1802,8 +1878,8 @@
       <!-- PART 2: Alternatives comparison -->
       <div class="vs-section-header fade-up">
         <span class="eyebrow">Why Most Swim Lessons Fall Short</span>
-        <h2>Your Child May Have Lessons Already. <span class="accent">This Is Different.</span></h2>
-        <p>If you've already tried lessons and you're still uneasy around water, you're not alone. And it's not your fault.</p>
+        <h2>Your Child May Already Have Lessons. <span class="accent">This Is Different.</span></h2>
+        <p>Most programs teach strokes. AquaSquad teaches survival.</p>
       </div>
 
       <div class="vs-grid fade-up">
@@ -1869,13 +1945,13 @@
 
       <div class="services-grid">
 
-        <!-- CARD 1: Private Skill-Building -->
+        <!-- CARD 1: Learn-to-Swim -->
         <div class="service-card fade-up">
           <div class="sc-head">
             <span class="sc-icon">⭐</span>
             <span class="badge badge-teal" style="font-size:11px;">Ages 5+</span>
-            <h4>Private Skill-Building</h4>
-            <p class="short-desc">For children who have completed survival foundations or swimmers aged 5+ ready to build endurance, confidence, and technique.</p>
+            <h4>Learn-to-Swim</h4>
+            <p class="short-desc">For children 5 and older ready to build endurance, technique, and lasting water confidence through structured private instruction.</p>
           </div>
           <div class="sc-price-block">
             <span class="sc-price">From $60 <span class="per">/ lesson</span></span>
@@ -1884,7 +1960,7 @@
           <div class="sc-features">
             <ul>
               <li>Private, one-on-one instruction</li>
-              <li>Skill development, endurance, water confidence</li>
+              <li>Stroke development, endurance, and water confidence</li>
               <li>All packages prepaid</li>
             </ul>
             <ul class="sc-packages">
@@ -1904,9 +1980,9 @@
           <div class="sc-ribbon">Most Popular</div>
           <div class="sc-head">
             <span class="sc-icon">🛡️</span>
-            <span class="badge badge-coral" style="font-size:11px;">Ages 6 months+</span>
+            <span class="badge badge-coral" style="font-size:11px;">Birth – Age 5</span>
             <h4>Survival Swim Program</h4>
-            <p class="short-desc">Foundational survival swim instruction. This is where real water safety begins — the calm, automatic response that holds up when something goes wrong.</p>
+            <p class="short-desc">Foundational survival swim instruction. Real water safety begins here — the calm, automatic response that holds up when something actually goes wrong.</p>
           </div>
           <div class="sc-price-block">
             <span class="sc-price">$115 <span class="per">/ week</span></span>
@@ -1918,6 +1994,7 @@
               <li>Short, frequent sessions build real muscle memory</li>
               <li>Infants through early walkers: float &amp; breathe independently</li>
               <li>18 months+: swim-float-swim sequence to a safe exit</li>
+              <li>Optional 4th session/week available as a refresher day</li>
               <li>One instructor, one child — Becca's full attention every session</li>
             </ul>
             <p class="sc-note">One-time registration fee required. Contact Becca before registering to confirm scheduling and open spots.</p>
@@ -2077,7 +2154,7 @@
         <div class="benefit-card fade-up">
           <div class="benefit-icon">&#x1F393;</div>
           <h4>Education-Led Instruction</h4>
-          <p>Becca brings over a decade of classroom experience and two degrees in Early Childhood and Elementary Education. She understands how young children actually learn.</p>
+          <p>Becca brings over a decade of classroom experience and three degrees in Early Childhood Education, Liberal Arts, and Elementary Education. She understands how young children actually learn.</p>
         </div>
         <div class="benefit-card fade-up">
           <div class="benefit-icon">&#x1F4CD;</div>
@@ -2110,8 +2187,50 @@
     </div>
   </section>
 
-  <!-- Wave: benefits (dark teal) → who (pool blue) -->
+  <!-- Wave: benefits (dark teal) → community (white) -->
   <div class="wave-divider" style="background: #18494C;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 72" preserveAspectRatio="none">
+      <path fill="#ffffff" d="M0,42 C300,6 600,68 900,32 C1100,10 1280,58 1440,38 L1440,72 L0,72 Z"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       SECTION 6B: COMMUNITY IMPACT
+  ============================================= -->
+  <section id="community" class="section-pad">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="eyebrow">Beyond the Pool</span>
+        <h2>Lessons That Give <span class="accent">Back</span></h2>
+        <p>AquaSquad is built on the belief that water safety is a right, not a privilege.</p>
+      </div>
+
+      <div class="community-grid">
+
+        <div class="community-card fade-up">
+          <div class="community-card-icon">💛</div>
+          <h4>Smile Like Aubrey</h4>
+          <p>$10 from every registration is donated toward swim lessons for a child in need through our partnership with the <strong>Smile Like Aubrey</strong> foundation. Every family that enrolls helps another family get access.</p>
+        </div>
+
+        <div class="community-card fade-up">
+          <div class="community-card-icon">📚</div>
+          <h4>Continuing Education</h4>
+          <p>Becca regularly attends industry conferences and trains with leading survival swim educators. Her instruction reflects the latest research — not just what she learned years ago.</p>
+        </div>
+
+        <div class="community-card fade-up">
+          <div class="community-card-icon">🌊</div>
+          <h4>Safety for Every Child</h4>
+          <p>Cost should never be the reason a child doesn't learn to survive in the water. Reach out to ask about scholarship and financial assistance options.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Wave: community (white) → who (pool blue) -->
+  <div class="wave-divider" style="background: #ffffff;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 72" preserveAspectRatio="none">
       <path fill="#2E9CB5" d="M0,42 C300,6 600,68 900,32 C1100,10 1280,58 1440,38 L1440,72 L0,72 Z"/>
     </svg>
@@ -2137,7 +2256,7 @@
       <div class="section-header fade-up">
         <span class="eyebrow">Is AquaSquad Right for Your Family?</span>
         <h2>Built for Families Who Take <span style="color: var(--secondary);">Water Seriously</span></h2>
-        <p>AquaSquad is not a casual swim school. It's a structured, safety-first program for families who are ready to commit.</p>
+        <p>A structured, safety-first program for families ready to commit.</p>
       </div>
 
       <div class="who-cols">
@@ -2298,7 +2417,7 @@
           </div>
           <div class="faq-a" role="region">
             <div class="faq-a-inner">
-              Most swim lessons focus on stroke development. AquaSquad focuses on survival response first. We teach children what to do when something unexpected happens in the water, and we build that response through consistent, short sessions that create real muscle memory. Our program is also led by a certified survival swim instructor with a background in Early Childhood and Elementary Education. Instruction is grounded in how young children actually learn.
+              Most swim lessons focus on stroke development. AquaSquad focuses on survival response first. We teach children what to do when something unexpected happens in the water, and we build that response through consistent, short sessions that create real muscle memory. Our program is led by a certified survival swim instructor whose certification required 6 weeks of in-water training and 6 weeks of academic coursework — plus a background in Early Childhood Education and Elementary Education. Instruction is grounded in how young children actually learn.
             </div>
           </div>
         </div>
@@ -2370,7 +2489,7 @@
           </div>
           <div class="faq-a" role="region">
             <div class="faq-a-inner">
-              Becca is a certified Survival Swim Instructor, CPR/First Aid certified, and SwimFin certified. Her survival swim certification required 6 weeks of in-water training and 6 weeks of academic coursework. She also holds two degrees and has over a decade of experience teaching young children in classroom settings.
+              Becca is a certified Survival Swim Instructor, CPR/First Aid certified, and SwimFin certified. Her survival swim certification required 6 weeks of in-water training and 6 weeks of academic coursework — one of the most rigorous credentialing pathways in the industry. She also holds three degrees (Associate's in Liberal Arts, Associate's in Early Childhood Education, and a Bachelor's in Elementary Education) and has over a decade of experience teaching young children in classroom settings.
             </div>
           </div>
         </div>
@@ -2436,9 +2555,8 @@
       <p class="fcta-sub">AquaSquad accepts a limited number of families to maintain the quality and consistency every child deserves.</p>
 
       <div class="fcta-body fade-up">
-        <p>Drowning is the leading cause of accidental death in children ages 1 to 4 in the United States. Most families don't think about water safety until they need to. AquaSquad families think about it first.</p>
-        <p>Becca has helped over 200 families in the Wesley Chapel area give their children real, practiced water safety skills. Every child who goes through this program leaves with more than swim ability. They leave with a reliable response when it matters most, and parents leave with genuine confidence around water.</p>
-        <p>Reaching out is the first step. It costs nothing and commits you to nothing. Becca will confirm availability, answer your questions, and help you find the right program for your child.</p>
+        <p>Drowning is the leading cause of accidental death in children ages 1 to 4. Becca has helped over 200 families give their children real, practiced water safety skills. Every child leaves with a reliable response when it matters most — and parents leave with genuine confidence around water.</p>
+        <p>Reaching out costs nothing and commits you to nothing. Becca will confirm availability, answer your questions, and help you find the right program.</p>
       </div>
 
       <!-- Final CTA Form -->
