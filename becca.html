@@ -548,61 +548,61 @@
     .becca-photo-overlay {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(24,73,76,0.95) 0%, rgba(24,73,76,0.4) 60%, transparent 100%);
-      padding: var(--space-xl) var(--space-lg) var(--space-md);
+      background: linear-gradient(to top, rgba(24,73,76,0.95) 0%, rgba(24,73,76,0.4) 65%, transparent 100%);
+      padding: var(--space-lg) var(--space-md) var(--space-sm);
     }
     .becca-photo-overlay .becca-name {
       color: #fff;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       display: block;
       margin-bottom: 2px;
     }
     .becca-photo-overlay .becca-title {
       color: var(--secondary);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       display: block;
-      margin-bottom: var(--space-sm);
+      margin-bottom: 10px;
     }
     .becca-creds {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 3px;
     }
     .becca-creds li {
-      color: rgba(255,255,255,0.82);
-      font-size: 12px;
+      color: rgba(255,255,255,0.80);
+      font-size: 11px;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
     .becca-creds li::before {
       content: "★";
       color: var(--secondary);
-      font-size: 10px;
+      font-size: 9px;
       flex-shrink: 0;
     }
 
     .becca-intro-text {
-      padding: var(--space-2xl) var(--space-xl);
+      padding: var(--space-lg) var(--space-lg);
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    .becca-intro-text h2 { margin-bottom: var(--space-md); }
-    .becca-intro-text p { color: var(--text-secondary); margin-bottom: var(--space-md); font-size: 16px; line-height: 1.7; }
+    .becca-intro-text h2 { margin-bottom: var(--space-sm); }
+    .becca-intro-text p { color: var(--text-secondary); margin-bottom: var(--space-sm); font-size: 15px; line-height: 1.65; }
 
     .becca-pull-quote {
       border-left: 4px solid var(--primary);
       background: var(--primary-light);
       border-radius: 0 var(--radius-card) var(--radius-card) 0;
-      padding: var(--space-md) var(--space-lg);
-      margin: var(--space-lg) 0;
+      padding: 12px var(--space-md);
+      margin: var(--space-sm) 0;
     }
     .becca-pull-quote p {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text-primary);
       font-style: italic;
@@ -613,17 +613,17 @@
     .cert-66-badge {
       background: var(--gradient);
       border-radius: var(--radius-card);
-      padding: var(--space-md) var(--space-lg);
-      margin: var(--space-lg) 0;
+      padding: 12px var(--space-md);
+      margin: var(--space-sm) 0;
     }
     .cert-66-inner {
       display: flex;
       align-items: center;
-      gap: var(--space-md);
-      margin-bottom: 8px;
+      gap: var(--space-sm);
+      margin-bottom: 4px;
     }
     .cert-66-num {
-      font-size: 42px;
+      font-size: 32px;
       font-weight: 700;
       color: #fff;
       line-height: 1;
@@ -631,28 +631,28 @@
     }
     .cert-66-num span {
       color: var(--secondary);
-      font-size: 28px;
+      font-size: 22px;
     }
     .cert-66-text {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
     }
     .cert-66-text strong {
       color: #fff;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
     }
     .cert-66-text span {
       color: rgba(255,255,255,0.85);
-      font-size: 13px;
+      font-size: 12px;
     }
     .cert-66-note {
-      color: rgba(255,255,255,0.75);
-      font-size: 13px;
+      color: rgba(255,255,255,0.70);
+      font-size: 12px;
       font-style: italic;
       margin: 0;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     /* Alternatives comparison */
@@ -731,8 +731,8 @@
 
     @media (max-width: 900px) {
       .becca-intro-grid { grid-template-columns: 1fr; border-radius: 16px; }
-      .becca-photo-wrap img { height: 340px; min-height: unset; }
-      .becca-intro-text { padding: var(--space-xl) var(--space-lg); }
+      .becca-photo-wrap img { height: 300px; min-height: unset; }
+      .becca-intro-text { padding: var(--space-md) var(--space-md); }
       .vs-grid { grid-template-columns: 1fr; }
     }
 
@@ -1988,7 +1988,7 @@
             <p class="cert-66-note">Most certifications require a weekend course. Becca's required a full semester.</p>
           </div>
 
-          <div style="margin-top: var(--space-xl);">
+          <div style="margin-top: var(--space-md);">
             <a href="#hero" class="btn-primary">Get a Free Consultation</a>
             <span class="cta-subtext">No pressure, just information</span>
           </div>
