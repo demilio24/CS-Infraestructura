@@ -293,7 +293,7 @@
       right: 0;
       width: min(320px, 88vw);
       height: 100%;
-      background: var(--primary-dark);
+      background: #ffffff;
       z-index: 999;
       display: flex;
       flex-direction: column;
@@ -301,7 +301,7 @@
       transform: translateX(100%);
       transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
-      box-shadow: -8px 0 40px rgba(0,0,0,0.30);
+      box-shadow: -8px 0 40px rgba(0,0,0,0.15);
     }
     .mobile-menu.open { transform: translateX(0); }
 
@@ -311,26 +311,26 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 20px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid var(--border);
       flex-shrink: 0;
     }
-    .mobile-menu-header img { height: 56px; width: auto; }
+    .mobile-menu-header img { height: 44px; width: auto; }
 
     .mobile-menu-close {
-      background: rgba(255,255,255,0.1);
+      background: var(--primary-light);
       border: none;
       width: 40px; height: 40px;
       border-radius: 50%;
       font-size: 20px;
       cursor: pointer;
-      color: #fff;
+      color: var(--primary-dark);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background 0.2s;
       flex-shrink: 0;
     }
-    .mobile-menu-close:hover { background: rgba(255,255,255,0.2); }
+    .mobile-menu-close:hover { background: var(--border); }
 
     /* Drawer nav links */
     .mobile-menu-links {
@@ -343,7 +343,7 @@
     .mobile-menu-links a {
       font-size: 18px;
       font-weight: 600;
-      color: rgba(255,255,255,0.80);
+      color: var(--text-primary);
       padding: 14px 16px;
       border-radius: 10px;
       transition: background 0.2s ease-out, color 0.2s ease-out;
@@ -353,8 +353,8 @@
     }
     .mobile-menu-links a:hover,
     .mobile-menu-links a:active {
-      background: rgba(255,255,255,0.08);
-      color: #fff;
+      background: var(--primary-light);
+      color: var(--primary);
     }
     .mobile-menu-links .nav-num {
       font-size: 11px;
@@ -364,41 +364,40 @@
       flex-shrink: 0;
     }
 
-    /* Drawer CTA (middle of drawer, after header) */
+    /* Drawer CTA — pinned to bottom */
     .mobile-menu-cta {
-      padding: 20px 20px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
     }
     .mobile-menu-cta a {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--secondary);
+      background: var(--primary);
       color: #fff;
       font-size: 17px;
       font-weight: 700;
       padding: 17px 24px;
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 4px 16px rgba(248,162,142,0.40), 0 8px 32px rgba(248,162,142,0.20);
-      transition: background 0.25s ease-out, transform 0.25s ease-out, box-shadow 0.25s ease-out;
+      transition: background 0.25s ease-out, box-shadow 0.25s ease-out;
     }
     .mobile-menu-cta a:hover {
-      background: #f48d75;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(248,162,142,0.50), 0 12px 36px rgba(248,162,142,0.25);
+      background: var(--primary-dark);
+      box-shadow: var(--shadow-glow);
       color: #fff;
     }
     .mobile-menu-cta p {
       text-align: center;
       font-size: 12px;
-      color: rgba(255,255,255,0.45);
+      color: var(--text-secondary);
       margin-top: 10px;
     }
 
     .mobile-menu-divider {
       width: 40px; height: 1px;
-      background: rgba(255,255,255,0.15);
+      background: var(--border);
       margin: 4px 0;
       align-self: center;
     }
@@ -1050,18 +1049,6 @@
     #who .section-header > p { color: rgba(255,255,255,0.80); }
 
     /* Water ring decorations */
-    .who-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.22);
-      pointer-events: none;
-    }
-    .who-ring-1 { width: 300px; height: 300px; top: -80px;  left: -80px; }
-    .who-ring-2 { width: 180px; height: 180px; top: 40px;   left: 60px;  border-color: rgba(255,255,255,0.12); }
-    .who-ring-3 { width: 440px; height: 440px; top: -160px; right: -120px; border-color: rgba(255,255,255,0.10); }
-    .who-ring-4 { width: 240px; height: 240px; bottom: -60px; right: 80px; border-color: rgba(255,255,255,0.14); }
-    .who-ring-5 { width: 140px; height: 140px; bottom: 40px;  left: 120px; border-color: rgba(255,255,255,0.16); }
-    .who-ring-6 { width: 360px; height: 360px; bottom: -180px; left: -100px; border-color: rgba(255,255,255,0.08); }
 
     /* Bubbles */
     .who-bubble {
@@ -1630,12 +1617,6 @@
       <button class="mobile-menu-close" id="menuClose" aria-label="Close menu">&#x2715;</button>
     </div>
 
-    <!-- CTA -->
-    <div class="mobile-menu-cta">
-      <a href="#hero" onclick="closeMobileMenu()">Get a Free Consultation</a>
-      <p>No commitment required, just a conversation</p>
-    </div>
-
     <!-- Links in section order -->
     <nav class="mobile-menu-links">
       <a href="#problem" onclick="closeMobileMenu()">
@@ -1660,6 +1641,12 @@
         <span class="nav-num">07</span> FAQ
       </a>
     </nav>
+
+    <!-- CTA pinned to bottom -->
+    <div class="mobile-menu-cta">
+      <a href="#final-cta" onclick="closeMobileMenu()">Get a Free Consultation</a>
+      <p>No commitment required, just a conversation</p>
+    </div>
 
   </div>
 
@@ -2137,12 +2124,6 @@
   <section id="who" class="section-pad">
 
     <!-- Water ring decorations -->
-    <div class="who-ring who-ring-1" aria-hidden="true"></div>
-    <div class="who-ring who-ring-2" aria-hidden="true"></div>
-    <div class="who-ring who-ring-3" aria-hidden="true"></div>
-    <div class="who-ring who-ring-4" aria-hidden="true"></div>
-    <div class="who-ring who-ring-5" aria-hidden="true"></div>
-    <div class="who-ring who-ring-6" aria-hidden="true"></div>
     <!-- Bubble decorations -->
     <div class="who-bubble who-bubble-1" aria-hidden="true"></div>
     <div class="who-bubble who-bubble-2" aria-hidden="true"></div>
