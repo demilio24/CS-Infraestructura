@@ -1755,6 +1755,128 @@
     .benefit-card.open .benefit-toggle-icon { transform: rotate(180deg); }
 
     /* =============================================
+       MOBILE OPTIMIZATIONS  (max-width: 768px)
+    ============================================= */
+    @media (max-width: 768px) {
+
+      /* --- Global spacing reduction --- */
+      .section-pad { padding: var(--space-2xl) 0; }        /* 80px → 48px */
+      .container   { padding: 0 16px; }                    /* 24px → 16px */
+
+      /* --- Typography --- */
+      h2 { font-size: clamp(22px, 6vw, 32px); }
+      h3 { font-size: clamp(18px, 5vw, 24px); }
+
+      /* --- Hero --- */
+      .hero-text p  { font-size: 14px; line-height: 1.6; }
+      .hero-text .subheadline { font-size: 16px; }
+
+      /* --- About Becca card --- */
+      .becca-intro-grid { border-radius: 14px; }
+
+      /* --- Comparison (vs-grid) --- */
+      .vs-section-header { padding-top: var(--space-lg); }
+      .vs-col { padding: var(--space-md); }
+
+      /* --- Problem video --- */
+      .problem-video-wrap video { height: 220px; }
+      .problem-callout { padding: var(--space-2xl) var(--space-md) var(--space-md); }
+      .problem-callout p { font-size: 15px; }
+
+      /* --- Service cards --- */
+      .sc-head        { padding: var(--space-md); }
+      .sc-price-block { padding: var(--space-sm) var(--space-md); }
+      .sc-foot        { padding: var(--space-md); }
+      .sc-feat-toggle { padding: 8px var(--space-md); font-size: 13px; }
+
+      /* --- Process steps --- */
+      .process-photo-pair img { height: 180px; }
+      .process-step { padding: var(--space-md); }
+      .step-roles { gap: 6px; }
+      .step-roles span { font-size: 13px; }
+
+      /* --- Benefits --- */
+      .benefit-card { padding: var(--space-md); }
+      .benefit-icon { font-size: 28px; width: 48px; height: 48px; }
+      .benefits-banner img { max-height: 240px; }
+
+      /* --- Community --- */
+      .community-card { padding: var(--space-md); }
+      .community-card-icon { font-size: 28px; margin-bottom: 10px; }
+
+      /* --- Who We Help --- */
+      .who-col     { padding: var(--space-md); }
+      .who-col h3  { font-size: 17px; margin-bottom: var(--space-md); }
+      .who-list li { font-size: 14px; }
+      .area-card   { padding: var(--space-md); margin-top: var(--space-lg); }
+
+      /* --- Gallery --- */
+      .gallery-grid { gap: 6px; }
+
+      /* --- FAQ --- */
+      .faq-q       { font-size: 15px; padding: var(--space-md); gap: var(--space-sm); }
+      .faq-a-inner { padding: var(--space-sm) var(--space-md) var(--space-md); font-size: 14px; }
+
+      /* --- Footer --- */
+      .footer-top  { gap: var(--space-xl); padding-bottom: var(--space-xl); }
+      .footer-col h5 { font-size: 15px; }
+      .footer-col p, .footer-col a { font-size: 14px; }
+      .footer-bottom { flex-direction: column; gap: 8px; font-size: 13px; }
+      .footer-legal  { gap: var(--space-sm); }
+
+      /* --- Section inline CTA strips --- */
+      .section-inline-cta { padding: var(--space-md) var(--space-lg); }
+
+      /* --- Final CTA trust row --- */
+      .trust-row { gap: 8px 16px; }
+      .trust-item { font-size: 13px; }
+    }
+
+    /* =============================================
+       SMALL PHONE (max-width: 480px)
+    ============================================= */
+    @media (max-width: 480px) {
+
+      /* --- Global --- */
+      .section-pad { padding: var(--space-xl) 0; }         /* 48px → 32px */
+      .container   { padding: 0 12px; }
+
+      /* --- Typography --- */
+      h2 { font-size: clamp(20px, 7vw, 28px); }
+      p  { font-size: 14px; }
+
+      /* --- Nav --- */
+      .nav-logo img { height: 42px; }
+      .nav-cta { padding: 7px 10px !important; font-size: 12px !important; }
+
+      /* --- Hero --- */
+      .hero-text h1 { font-size: clamp(28px, 8vw, 40px); }
+
+      /* --- Pull quote --- */
+      .becca-pull-quote p { font-size: 14px; }
+
+      /* --- Service cards --- */
+      .services-grid { max-width: 100%; }
+
+      /* --- Process --- */
+      .step-num { width: 56px; height: 56px; font-size: 22px; }
+      .process-photo-pair { display: none; }              /* hide image pair, saves vertical space */
+
+      /* --- FAQ --- */
+      .faq-q { font-size: 14px; }
+
+      /* --- Who We Help --- */
+      .who-cols { gap: var(--space-md); }
+
+      /* --- Proof bar --- */
+      .proof-stat-value { font-size: 26px; }
+      .proof-stat-label { font-size: 11px; }
+
+      /* --- Final CTA --- */
+      .trust-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* =============================================
        SECTION INLINE CTA STRIPS
     ============================================= */
     .section-inline-cta {
