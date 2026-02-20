@@ -727,13 +727,26 @@
     .vs-col-bad  .vs-list li::before { content: "✕"; color: var(--secondary); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
     .vs-col-good .vs-list li::before { content: "✓"; color: var(--primary);   font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
+    .problem-video-wrap {
+      position: relative;
+      border-radius: var(--radius-img);
+      overflow: hidden;
+      margin-bottom: var(--space-xl);
+    }
+    .problem-video-wrap video {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
     .problem-callout {
-      background: var(--primary-dark);
-      border-radius: var(--radius-card);
-      padding: var(--space-lg) var(--space-xl);
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(14,38,40,0.96) 0%, rgba(14,38,40,0.72) 55%, transparent 100%);
+      padding: var(--space-3xl) var(--space-xl) var(--space-xl);
       text-align: center;
     }
-    .problem-callout p { font-size: 18px; font-weight: 600; color: #fff; margin: 0; line-height: 1.6; }
+    .problem-callout p { font-size: 19px; font-weight: 600; color: #fff; margin: 0; line-height: 1.6; }
     .problem-callout p em { color: var(--secondary); font-style: normal; }
 
     @media (max-width: 900px) {
@@ -1615,10 +1628,9 @@
       box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 16px 40px rgba(0,0,0,0.05);
     }
 
-    /* --- 14. Problem callout: richer gradient dark --- */
-    .problem-callout {
-      background: linear-gradient(135deg, #18494C 0%, #0e3133 100%);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.20), 0 0 60px rgba(26,167,157,0.07);
+    /* --- 14. Problem video wrap shadow --- */
+    .problem-video-wrap {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
     }
 
     /* --- 15. Area card: teal glow border on hover --- */
@@ -2020,17 +2032,15 @@
         </div>
       </div>
 
-      <div class="fade-up" style="border-radius: var(--radius-img); overflow: hidden; margin-bottom: var(--space-md);">
+      <div class="problem-video-wrap fade-up">
         <video
           src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a8523c5bdb9d3c1ec.mp4"
           autoplay muted loop playsinline
-          style="width:100%; height:400px; object-fit:cover; display:block;"
           aria-label="AquaSquad Swim lesson video"
         ></video>
-      </div>
-
-      <div class="problem-callout fade-up">
-        <p>The risk isn't that your child can't swim. It's that when something unexpected happens, <em>they don't know what to do</em>. That's the gap AquaSquad closes.</p>
+        <div class="problem-callout">
+          <p>The risk isn't that your child can't swim. It's that when something unexpected happens, <em>they don't know what to do</em>. That's the gap AquaSquad closes.</p>
+        </div>
       </div>
 
     </div>
