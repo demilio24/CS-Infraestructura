@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Work+Sans:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap"
       rel="stylesheet"
     />
 
@@ -60,8 +60,8 @@
         --gradient-primary: linear-gradient(135deg, #0066cc 0%, #004c99 100%);
 
         /* Typography */
-        --font-heading: "Work Sans", sans-serif;
-        --font-body: "Inter", sans-serif;
+        --font-heading: "DM Serif Display", serif;
+        --font-body: "DM Sans", sans-serif;
         --font-size-xs: 0.75rem;
         --font-size-sm: 0.875rem;
         --font-size-base: 1rem;
@@ -2443,6 +2443,108 @@
           align-items: center;
         }
       }
+      /* ── BOOKING CARDS ── */
+      .booking-cards {
+        max-width: 640px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .booking-card {
+        background: rgba(255,255,255,0.10);
+        border: 1px solid rgba(255,255,255,0.22);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      }
+
+      .booking-card:hover {
+        background: rgba(255,255,255,0.17);
+        border-color: rgba(255,255,255,0.40);
+        transform: translateY(-2px);
+      }
+
+      .booking-card.open {
+        background: #fff;
+        border-color: transparent;
+        transform: none;
+      }
+
+      .booking-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 22px 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 1rem;
+      }
+
+      .booking-card.open .booking-btn {
+        color: #0D1B2A;
+      }
+
+      .booking-icon {
+        font-size: 1.9rem;
+        flex-shrink: 0;
+        width: 44px;
+        text-align: center;
+      }
+
+      .booking-text { flex: 1; }
+
+      .booking-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        display: block;
+        line-height: 1.2;
+      }
+
+      .booking-card.open .booking-title { color: #023E8A; }
+
+      .booking-sub {
+        font-size: 0.85rem;
+        opacity: 0.75;
+        display: block;
+        margin-top: 3px;
+      }
+
+      .booking-card.open .booking-sub { color: #4A6885; opacity: 1; }
+
+      .booking-arrow {
+        font-size: 1rem;
+        flex-shrink: 0;
+        transition: transform 0.3s;
+        opacity: 0.7;
+      }
+
+      .booking-card.open .booking-arrow {
+        transform: rotate(180deg);
+        color: #0077B6;
+        opacity: 1;
+      }
+
+      .booking-panel {
+        display: none;
+        padding: 0 16px 20px;
+      }
+
+      .booking-card.open .booking-panel { display: block; }
+
+      .booking-panel iframe {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        min-height: 620px;
+        background: #f8fafc;
+      }
     </style>
   </head>
   <body>
@@ -2463,8 +2565,8 @@
           <a href="#faq" class="nav-link">FAQ</a>
           <a href="#contact" class="nav-link">Contact</a>
         </div>
-        <a href="#contact" class="btn btn-primary navbar-cta"
-          >Schedule Your Consultation</a
+        <a href="#book" class="btn btn-primary navbar-cta"
+          >Book a Lesson</a
         >
         <button
           class="navbar-toggle"
@@ -2482,8 +2584,8 @@
         <a href="#about" class="nav-link">About</a>
         <a href="#faq" class="nav-link">FAQ</a>
         <a href="#contact" class="nav-link">Contact</a>
-        <a href="#contact" class="btn btn-primary"
-          >Schedule Your Consultation</a
+        <a href="#book" class="btn btn-primary"
+          >Book a Lesson</a
         >
       </div>
     </nav>
@@ -2512,9 +2614,9 @@
                 we deliver results that most swim schools simply cannot match.
               </p>
               <a
-                href="#contact"
+                href="#book"
                 class="btn btn-primary btn-lg btn-glow btn-hero-cta"
-                >Schedule Your Consultation</a
+                >Book a Lesson Now</a
               >
             </div>
             <div class="hero-media animate-on-scroll animate-delay-2">
@@ -2785,7 +2887,7 @@
       </section>
       <!-- ========== PROBLEM SECTION END ========== -->
 
-      <!-- ========== SERVICES SECTION START ========== -->
+      <!-- ========== SERVICES SECTION (TEMPORARILY HIDDEN) ==========
       <section class="section programs-section" id="programs">
         <div class="wave-top">
           <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -3152,7 +3254,7 @@
           </div>
         </div>
       </section>
-      <!-- ========== SERVICES SECTION END ========== -->
+      ========== SERVICES SECTION END ========== -->
 
       <!-- ========== PROCESS SECTION START ========== -->
       <section class="section section-primary-light" id="process">
@@ -3811,93 +3913,90 @@
       </section>
       <!-- ========== FAQ SECTION END ========== -->
 
-      <!-- ========== FINAL CTA SECTION START ========== -->
-      <section class="section section-dark final-cta" id="contact">
+      <!-- ========== BOOK NOW SECTION START ========== -->
+      <section class="section section-dark final-cta" id="book">
         <div class="container">
-          <div class="animate-on-scroll">
-            <span class="eyebrow">Do Not Wait</span>
-            <h2>Your Child's Safety Cannot Wait</h2>
-            <p class="section-subtitle" style="margin-bottom: var(--space-lg)">
-              Drowning happens in seconds. The skills we teach can give your
-              child a fighting chance.
+          <div class="animate-on-scroll" style="text-align:center; margin-bottom: 2.5rem;">
+            <span class="eyebrow">Ready to Start?</span>
+            <h2 style="margin-bottom: 0.75rem;">Pick Your Lesson &amp; Book Right Now</h2>
+            <p class="section-subtitle" style="margin-bottom: 0;">
+              Tap a lesson below — the booking calendar opens right here on the page.
             </p>
-            <p
-              style="
-                max-width: 700px;
-                margin: 0 auto var(--space-xl);
-                opacity: 0.95;
-              "
-            >
-              Every week you wait is another week your child spends without the
-              ability to save themselves in an aquatic emergency. We have taught
-              over 3,000 students in 11 years. Let us help your child become one
-              of them.
-            </p>
-            <p
-              style="
-                max-width: 700px;
-                margin: 0 auto var(--space-xl);
-                opacity: 0.95;
-              "
-            >
-              Schedule your consultation today. We will discuss your child's
-              needs, answer your questions, and help you determine if Intuitive
-              Swimming is the right fit for your family.
-            </p>
-            <a href="#contact" class="btn btn-white btn-lg"
-              >Schedule Your Consultation</a
-            >
-            <div class="final-cta-badges">
-              <div class="final-cta-badge">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                3,000+ Students Taught
-              </div>
-              <div class="final-cta-badge">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                11 Years Experience
-              </div>
-              <div class="final-cta-badge">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                Red Cross Certified
+          </div>
+
+          <div class="booking-cards">
+
+            <!-- 1. Intro Assessment -->
+            <div class="booking-card" id="bcard-intro">
+              <button class="booking-btn" onclick="toggleBooking('bcard-intro', 'bcal-intro')" aria-expanded="false">
+                <span class="booking-icon">👋</span>
+                <span class="booking-text">
+                  <span class="booking-title">Intro Assessment</span>
+                  <span class="booking-sub">with Blake &amp; Heather — find the right level for your child</span>
+                </span>
+                <span class="booking-arrow">▼</span>
+              </button>
+              <div class="booking-panel" id="bcal-intro">
+                <iframe src="https://link.nilsdigital.com/widget/booking/WPjVySyt4UUPUUTkZYMU" scrolling="no" id="WPjVySyt4UUPUUTkZYMU_1"></iframe>
               </div>
             </div>
-          </div>
+
+            <!-- 2. Drop-In Lesson -->
+            <div class="booking-card" id="bcard-dropin">
+              <button class="booking-btn" onclick="toggleBooking('bcard-dropin', 'bcal-dropin')" aria-expanded="false">
+                <span class="booking-icon">🌊</span>
+                <span class="booking-text">
+                  <span class="booking-title">Drop-In Lesson</span>
+                  <span class="booking-sub">One-time session, no commitment required</span>
+                </span>
+                <span class="booking-arrow">▼</span>
+              </button>
+              <div class="booking-panel" id="bcal-dropin">
+                <iframe src="https://link.nilsdigital.com/widget/booking/mUCNGmbtfJeuHltZJdNR" scrolling="no" id="mUCNGmbtfJeuHltZJdNR_1"></iframe>
+              </div>
+            </div>
+
+            <!-- 3. Group Lessons -->
+            <div class="booking-card" id="bcard-group">
+              <button class="booking-btn" onclick="toggleBooking('bcard-group', 'bcal-group')" aria-expanded="false">
+                <span class="booking-icon">👥</span>
+                <span class="booking-text">
+                  <span class="booking-title">Group Lessons</span>
+                  <span class="booking-sub">Learn with others — great for all ages</span>
+                </span>
+                <span class="booking-arrow">▼</span>
+              </button>
+              <div class="booking-panel" id="bcal-group">
+                <iframe src="https://link.nilsdigital.com/widget/booking/0mxi4BxYArrmjyCUJBxJ" scrolling="no" id="0mxi4BxYArrmjyCUJBxJ_1"></iframe>
+              </div>
+            </div>
+
+            <!--
+            ════════════════════════════════════════
+            INACTIVE — Parent Tot Advanced
+            Uncomment when ready to go live
+            ════════════════════════════════════════
+
+            <div class="booking-card" id="bcard-parenttot">
+              <button class="booking-btn" onclick="toggleBooking('bcard-parenttot', 'bcal-parenttot')" aria-expanded="false">
+                <span class="booking-icon">👶</span>
+                <span class="booking-text">
+                  <span class="booking-title">Parent Tot Advanced</span>
+                  <span class="booking-sub">Parent &amp; toddler advanced swim sessions</span>
+                </span>
+                <span class="booking-arrow">▼</span>
+              </button>
+              <div class="booking-panel" id="bcal-parenttot">
+                <iframe src="https://link.nilsdigital.com/widget/booking/gAFr2mfpwKny1uO3gcZD" scrolling="no" id="gAFr2mfpwKny1uO3gcZD_1"></iframe>
+              </div>
+            </div>
+
+            ════════════════════════════════════════ -->
+
+          </div><!-- /booking-cards -->
         </div>
       </section>
-      <!-- ========== FINAL CTA SECTION END ========== -->
+      <!-- ========== BOOK NOW SECTION END ========== -->
     </main>
 
     <!-- ========== FOOTER START ========== -->
@@ -4279,6 +4378,30 @@
         initFaqAccordion();
         initModal();
       });
+    </script>
+
+    <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+    <script>
+      function toggleBooking(cardId, panelId) {
+        var card   = document.getElementById(cardId);
+        var btn    = card.querySelector('.booking-btn');
+        var isOpen = card.classList.contains('open');
+
+        // Close all booking cards
+        document.querySelectorAll('.booking-card').forEach(function(c) {
+          c.classList.remove('open');
+          c.querySelector('.booking-btn').setAttribute('aria-expanded', 'false');
+        });
+
+        // Open this one if it wasn't open
+        if (!isOpen) {
+          card.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          setTimeout(function() {
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        }
+      }
     </script>
   </body>
 </html>
