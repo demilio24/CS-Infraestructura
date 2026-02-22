@@ -98,22 +98,47 @@
       background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border); z-index: 100;
       display: flex; align-items: center;
+      transition: box-shadow 0.3s ease, background 0.3s ease;
     }
+    .nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.10); background: rgba(255,255,255,0.99); }
     .nav .container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
     .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--text); }
-    .nav-logo img { height: 34px; }
+    .nav-logo img { height: 44px; }
     .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-link { font-size: 0.93rem; font-weight: 500; color: var(--text-soft); transition: color var(--t); }
     .nav-link:hover { color: var(--blue); }
-    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+
+    /* Hamburger */
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; z-index: 101; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.25s ease, opacity 0.25s ease; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile CTA — visible only on mobile */
+    .nav-mobile-cta { display: none; }
+
+    /* Mobile menu — always in DOM, animated in/out */
     .nav-mobile {
-      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+      display: flex; flex-direction: column; gap: 18px;
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
       background: #fff; border-bottom: 1px solid var(--border);
-      padding: 20px 24px; flex-direction: column; gap: 18px; z-index: 99;
+      padding: 24px 24px 28px; z-index: 99;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
     }
-    .nav-mobile.open { display: flex; }
-    .nav-mobile .nav-link { font-size: 1rem; color: var(--text); }
+    .nav-mobile.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .nav-mobile .nav-link { font-size: 1.05rem; color: var(--text); padding: 4px 0; border-bottom: 1px solid var(--border); }
+    .nav-mobile .nav-link:last-of-type { border-bottom: none; }
+
+    /* Overlay to catch outside clicks */
+    .nav-overlay {
+      display: none; position: fixed; inset: 0; z-index: 98;
+      background: rgba(0,0,0,0.25);
+      opacity: 0; transition: opacity 0.25s ease;
+    }
+    .nav-overlay.open { display: block; opacity: 1; }
 
     /* ══════════════════════════════════════════
        HERO
@@ -333,6 +358,8 @@
       .section { padding: 60px 0; }
       .nav-links { display: none; }
       .nav-toggle { display: flex; }
+      .nav-logo-text { display: none; }
+      .nav-mobile-cta { display: inline-flex; padding: 9px 18px; font-size: 0.88rem; }
       .stat { min-width: 48%; }
       .stat:nth-child(2) { border-right: none; }
       .stat:nth-child(3) { border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
@@ -360,25 +387,27 @@
     <div class="container">
       <a href="#" class="nav-logo">
         <img src="https://services.leadconnectorhq.com/documents/download/ugVnFourHg1hLCHp7yfW" alt="Intuitive Swimming Logo" />
-        Intuitive Swimming
+        <span class="nav-logo-text">Intuitive Swimming</span>
       </a>
       <div class="nav-links">
-        <a href="#book"     class="nav-link">Book a Lesson</a>
-        <a href="#how"      class="nav-link">How It Works</a>
-        <a href="#why"      class="nav-link">Why Us</a>
-        <a href="#faq"      class="nav-link">FAQ</a>
+        <a href="#book" class="nav-link">Book a Lesson</a>
+        <a href="#how"  class="nav-link">How It Works</a>
+        <a href="#why"  class="nav-link">Why Us</a>
+        <a href="#faq"  class="nav-link">FAQ</a>
         <a href="#book" class="btn btn-primary" style="padding:10px 22px;font-size:0.9rem;">Book Now</a>
       </div>
+      <a href="#book" class="btn btn-primary nav-mobile-cta">Book Now</a>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
   <div class="nav-mobile" id="navMobile">
-    <a href="#book"  class="nav-link">Book a Lesson</a>
-    <a href="#how"   class="nav-link">How It Works</a>
-    <a href="#why"   class="nav-link">Why Us</a>
-    <a href="#faq"   class="nav-link">FAQ</a>
+    <a href="#book" class="nav-link">Book a Lesson</a>
+    <a href="#how"  class="nav-link">How It Works</a>
+    <a href="#why"  class="nav-link">Why Us</a>
+    <a href="#faq"  class="nav-link">FAQ</a>
     <a href="#book" class="btn btn-primary">Book Now</a>
   </div>
 
@@ -808,14 +837,38 @@
   <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
   <script>
     // Mobile nav
-    document.getElementById('navToggle').addEventListener('click', function() {
-      document.getElementById('navMobile').classList.toggle('open');
+    var navToggle  = document.getElementById('navToggle');
+    var navMobile  = document.getElementById('navMobile');
+    var navOverlay = document.getElementById('navOverlay');
+
+    function openNav() {
+      navToggle.classList.add('open');
+      navMobile.classList.add('open');
+      navOverlay.classList.add('open');
+    }
+    function closeNav() {
+      navToggle.classList.remove('open');
+      navMobile.classList.remove('open');
+      navOverlay.classList.remove('open');
+    }
+
+    navToggle.addEventListener('click', function() {
+      navMobile.classList.contains('open') ? closeNav() : openNav();
     });
-    document.querySelectorAll('#navMobile a').forEach(function(a) {
-      a.addEventListener('click', function() {
-        document.getElementById('navMobile').classList.remove('open');
-      });
+
+    // Close when tapping the overlay (outside menu)
+    navOverlay.addEventListener('click', closeNav);
+
+    // Close when tapping a link inside the menu
+    navMobile.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', closeNav);
     });
+
+    // Scroll shadow on nav
+    var nav = document.querySelector('.nav');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
 
     // Booking accordion
     function openCard(id) {
