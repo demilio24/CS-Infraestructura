@@ -983,6 +983,10 @@
           flex-direction: column;
         }
       }
+      @media (max-width: 768px) {
+        .book-card-arrow { display: none; }
+        .book-card-btn { grid-template-columns: 52px 1fr; }
+      }
       @media (max-width: 480px) {
         h1 {
           font-size: 2rem;
