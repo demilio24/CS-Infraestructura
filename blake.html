@@ -182,15 +182,41 @@
     .book-card-sub   { font-size: 0.86rem; color: var(--text-soft); display: block; margin-bottom: 5px; }
     .book-card-detail{ font-size: 0.82rem; color: var(--text-soft); display: block; line-height: 1.5; }
     .book-card-arrow {
-      width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-soft); font-size: 0.7rem; flex-shrink: 0;
-      transition: background var(--t), color var(--t), transform var(--t), border-color var(--t);
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 999px;
+      background: var(--blue-light); border: 1.5px solid #BFDBFF;
+      color: var(--blue); font-size: 0.78rem; font-weight: 700;
+      white-space: nowrap; flex-shrink: 0;
+      transition: background var(--t), color var(--t), border-color var(--t);
     }
-    .book-card.open .book-card-arrow { background: var(--blue); border-color: var(--blue); color: #fff; transform: rotate(180deg); }
+    .book-card-arrow::after { content: '→'; font-size: 0.9rem; }
+    .book-card.open .book-card-arrow { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .book-card.open .book-card-arrow::after { content: '✕'; }
     .book-card-body { display: none; padding: 0 20px 20px; }
     .book-card.open .book-card-body { display: block; }
     .book-card-body iframe { width: 100%; border: none; border-radius: var(--radius-md); min-height: 620px; background: var(--bg-alt); }
+
+    /* Tap prompt */
+    .tap-prompt {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin: 0 auto 28px; max-width: 680px;
+      padding: 14px 20px; border-radius: var(--radius-md);
+      background: #FFF9EC; border: 1.5px dashed #F59E0B;
+      font-size: 0.95rem; font-weight: 600; color: #92400E;
+    }
+    .tap-emoji { font-size: 1.5rem; animation: tapBounce 1s ease-in-out infinite; display: inline-block; }
+    @keyframes tapBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* Pulse cards on load */
+    @keyframes cardPulse {
+      0%   { box-shadow: var(--shadow-sm); }
+      50%  { box-shadow: 0 0 0 4px rgba(0,85,170,0.12), var(--shadow-md); }
+      100% { box-shadow: var(--shadow-sm); }
+    }
+    .book-card:not(.open) { animation: cardPulse 2.4s ease-in-out 1s 2; }
 
     /* ══════════════════════════════════════════
        PROBLEM
@@ -417,6 +443,11 @@
           <p>Tap a lesson to open the booking calendar right here — no new tabs.</p>
         </div>
 
+        <div class="tap-prompt">
+          <span class="tap-emoji">👇</span>
+          Tap a card below to open the booking calendar
+        </div>
+
         <div class="book-cards">
 
           <div class="book-card" id="bc-intro">
@@ -427,7 +458,7 @@
                 <span class="book-card-sub">with Blake &amp; Heather — recommended for all new families</span>
                 <span class="book-card-detail">Not sure where to start? We assess your child's level and build a personalized plan. Best first step before committing to a program.</span>
               </div>
-              <div class="book-card-arrow">▼</div>
+              <div class="book-card-arrow">Tap to book</div>
             </button>
             <div class="book-card-body">
               <iframe src="https://link.nilsdigital.com/widget/booking/WPjVySyt4UUPUUTkZYMU" scrolling="no" id="WPjVySyt4UUPUUTkZYMU_1"></iframe>
@@ -442,7 +473,7 @@
                 <span class="book-card-sub">One-time session, no commitment</span>
                 <span class="book-card-detail">Great for children who've done lessons before or need a quick refresher. 15-minute focused session with twice-weekly availability.</span>
               </div>
-              <div class="book-card-arrow">▼</div>
+              <div class="book-card-arrow">Tap to book</div>
             </button>
             <div class="book-card-body">
               <iframe src="https://link.nilsdigital.com/widget/booking/mUCNGmbtfJeuHltZJdNR" scrolling="no" id="mUCNGmbtfJeuHltZJdNR_1"></iframe>
@@ -457,7 +488,7 @@
                 <span class="book-card-sub">Small groups, all ages</span>
                 <span class="book-card-detail">Build confidence through peer learning. Small class sizes ensure every child gets focused instruction. Great for ages 2 and up.</span>
               </div>
-              <div class="book-card-arrow">▼</div>
+              <div class="book-card-arrow">Tap to book</div>
             </button>
             <div class="book-card-body">
               <iframe src="https://link.nilsdigital.com/widget/booking/0mxi4BxYArrmjyCUJBxJ" scrolling="no" id="0mxi4BxYArrmjyCUJBxJ_1"></iframe>
@@ -475,7 +506,7 @@
                 <span class="book-card-sub">Parent &amp; toddler advanced sessions</span>
                 <span class="book-card-detail">For toddlers ready to move beyond beginner skills. Parent participates in the water to support skill development.</span>
               </div>
-              <div class="book-card-arrow">▼</div>
+              <div class="book-card-arrow">Tap to book</div>
             </button>
             <div class="book-card-body">
               <iframe src="https://link.nilsdigital.com/widget/booking/gAFr2mfpwKny1uO3gcZD" scrolling="no" id="gAFr2mfpwKny1uO3gcZD_1"></iframe>
