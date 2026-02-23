@@ -68,15 +68,8 @@
 
       /* NAV */
       #nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
+        position: relative;
         background: #fff;
-        transition: box-shadow 0.3s ease;
-      }
-      #nav.scrolled {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
       }
       .nav-inner {
@@ -121,7 +114,7 @@
 
       /* PAGE HEADER */
       .page-header {
-        padding-top: calc(var(--nav-h) + 48px);
+        padding-top: 48px;
         padding-bottom: 40px;
         text-align: center;
         background: var(--gradient);
@@ -195,7 +188,7 @@
           --nav-h: 88px;
         }
         .page-header {
-          padding-top: calc(var(--nav-h) + 32px);
+          padding-top: 32px;
           padding-bottom: 32px;
         }
         .form-wrap {
@@ -259,12 +252,5 @@
       </p>
     </footer>
 
-    <script>
-      // Nav scroll shadow
-      const nav = document.getElementById("nav");
-      window.addEventListener("scroll", () => {
-        nav.classList.toggle("scrolled", window.scrollY > 10);
-      });
-    </script>
   </body>
 </html>
