@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NILS Revision Request Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blue: #046bd2;
+        --blue-dark: #0357ae;
+        --blue-light: #e8f2fc;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #d1d5db;
+        --red: #dc2626;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--blue);
+        min-height: 100vh;
+      }
+
+      /* HEADER */
+      .site-header {
+        background: #fff;
+        text-align: center;
+        padding: 28px 20px 24px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .site-header img.logo {
+        height: 50px;
+        width: auto;
+        display: block;
+        margin: 0 auto 16px;
+        object-fit: contain;
+      }
+      .site-header h1 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 5px;
+      }
+      .site-header p {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text);
+      }
+      .site-header p.sub {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #374151;
+        margin-top: 3px;
+      }
+
+      /* PAGE */
+      .page-body {
+        padding: 36px 16px 60px;
+      }
+
+      /* CARD */
+      .card {
+        background: #fff;
+        border-radius: 14px;
+        max-width: 740px;
+        margin: 0 auto 24px;
+        padding: 32px 36px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.13);
+      }
+      @media (max-width: 540px) {
+        .card {
+          padding: 22px 16px;
+        }
+      }
+
+      /* EMAIL */
+      .email-intro {
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        color: var(--text);
+        line-height: 1.45;
+        margin-bottom: 20px;
+      }
+
+      /* FIELDS */
+      .field {
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      label .req {
+        color: var(--red);
+        margin-left: 2px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="url"],
+      textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        font-size: 14.5px;
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        background: #fff;
+        transition: border-color 0.18s;
+        resize: vertical;
+      }
+      input::placeholder,
+      textarea::placeholder {
+        color: #9ca3af;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--blue);
+      }
+      input.invalid,
+      textarea.invalid {
+        border-color: var(--red) !important;
+        background: #fef2f2;
+      }
+      .field-hint {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+
+      /* HOW-TO CALLOUTS */
+      .howto-callout {
+        border-radius: 10px;
+        padding: 16px 18px;
+        margin-bottom: 14px;
+        border: 2px solid;
+      }
+      .howto-callout.image-how {
+        background: #fff7ed;
+        border-color: #fb923c;
+      }
+      .howto-callout.video-how {
+        background: #f0f9ff;
+        border-color: #38bdf8;
+      }
+      .howto-callout .how-title {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .howto-callout.image-how .how-title {
+        color: #c2410c;
+      }
+      .howto-callout.video-how .how-title {
+        color: #0369a1;
+      }
+      .howto-callout ol {
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .howto-callout ol li {
+        font-size: 13.5px;
+        font-weight: 500;
+        color: #1f2937;
+        line-height: 1.5;
+      }
+      .howto-callout ol li strong {
+        font-weight: 800;
+        color: #111;
+      }
+      .howto-callout .shout {
+        margin-top: 12px;
+        font-size: 13px;
+        font-weight: 800;
+        padding: 10px 14px;
+        border-radius: 7px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        line-height: 1.45;
+      }
+      .howto-callout.image-how .shout {
+        background: #fed7aa;
+        color: #9a3412;
+      }
+      .howto-callout.video-how .shout {
+        background: #bae6fd;
+        color: #0c4a6e;
+      }
+
+      /* CHIPS */
+      .type-selector {
+        margin-bottom: 28px;
+      }
+      .type-selector > p {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 12px;
+      }
+      .type-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border: 2px solid var(--border);
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--muted);
+        background: #fff;
+        transition: all 0.18s;
+        user-select: none;
+        font-family: "DM Sans", sans-serif;
+      }
+      .chip:hover {
+        border-color: var(--blue);
+        color: var(--blue);
+      }
+      .chip.active {
+        border-color: var(--blue);
+        background: var(--blue-light);
+        color: var(--blue);
+      }
+
+      /* SECTIONS */
+      .revision-section {
+        display: none;
+      }
+      .revision-section.visible {
+        display: block;
+        animation: fadeIn 0.22s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section-divider {
+        font-size: 12.5px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--blue);
+        margin: 28px 0 14px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--blue-light);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* BLOCKS */
+      .revision-block {
+        background: #f9fafb;
+        border: 1.5px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 18px;
+        margin-bottom: 12px;
+        position: relative;
+      }
+      .revision-block .block-num {
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin-bottom: 12px;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+      @media (max-width: 500px) {
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+      .remove-btn {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #9ca3af;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+        transition: color 0.15s;
+      }
+      .remove-btn:hover {
+        color: var(--red);
+      }
+
+      /* Optional per-block notes */
+      .block-notes-label {
+        font-size: 11.5px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        display: block;
+        margin-bottom: 5px;
+        margin-top: 10px;
+      }
+      .block-notes-label em {
+        text-transform: none;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 11px;
+      }
+
+      .add-btn {
+        width: 100%;
+        padding: 11px;
+        background: none;
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--blue);
+        cursor: pointer;
+        transition: all 0.18s;
+        font-family: "DM Sans", sans-serif;
+        margin-top: 4px;
+      }
+      .add-btn:hover {
+        border-color: var(--blue);
+        background: var(--blue-light);
+      }
+
+      /* WARNING */
+      .warning-pill {
+        background: #fffbeb;
+        border: 1.5px solid #fcd34d;
+        border-radius: 8px;
+        padding: 13px 16px;
+        margin-bottom: 24px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #92400e;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+      .warning-pill .icon {
+        font-size: 16px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      /* NO SELECTION */
+      .no-selection {
+        text-align: center;
+        padding: 24px;
+        background: #f9fafb;
+        border: 2px dashed #e5e7eb;
+        border-radius: 10px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .no-selection span {
+        display: block;
+        font-size: 26px;
+        margin-bottom: 8px;
+      }
+
+      /* SUBMIT */
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--blue);
+        color: #fff;
+        border: none;
+        border-radius: 9px;
+        font-size: 16px;
+        font-weight: 800;
+        font-family: "DM Sans", sans-serif;
+        cursor: pointer;
+        transition: background 0.18s;
+        letter-spacing: 0.2px;
+        margin-top: 8px;
+      }
+      .submit-btn:hover {
+        background: var(--blue-dark);
+      }
+      .submit-btn:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      .success-card {
+        display: none;
+        background: #f0fdf4;
+        border: 2px solid #86efac;
+        border-radius: 10px;
+        padding: 24px;
+        text-align: center;
+        margin-top: 16px;
+      }
+      .success-card .check {
+        font-size: 36px;
+        margin-bottom: 8px;
+      }
+      .success-card h3 {
+        font-size: 19px;
+        font-weight: 800;
+        color: #15803d;
+        margin-bottom: 4px;
+      }
+      .success-card p {
+        font-size: 14px;
+        color: #166534;
+      }
+
+      .error-banner {
+        display: none;
+        background: #fef2f2;
+        border: 1.5px solid #fca5a5;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--red);
+        margin-top: 14px;
+      }
+
+      .section-header {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text);
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-header">
+      <img
+        class="logo"
+        src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png"
+        alt="Logo"
+      />
+      <h1>Revision Request Portal</h1>
+      <p>Please complete this form to submit your revision request.</p>
+      <p class="sub">
+        You get one free revision round. Please be thorough. Any additional
+        revisions will be billed separately.
+      </p>
+    </div>
+
+    <div class="page-body">
+      <!-- EMAIL -->
+      <div class="card">
+        <p class="email-intro">
+          Before getting started, please enter the email<br />address associated
+          with your account.
+        </p>
+        <div class="field">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="email-input" placeholder="your@email.com" />
+          <p class="field-hint" style="text-align: center">
+            This allows us to link your responses to your profile.
+          </p>
+        </div>
+      </div>
+
+      <!-- MAIN -->
+      <div class="card">
+        <div class="section-header">Revision Request</div>
+
+        <div class="warning-pill">
+          <span class="icon">⚠️</span>
+          <span
+            >We will <strong>NOT accept</strong> vague requests like "change
+            this" or "fix that." You must provide the
+            <strong>exact current content</strong> and
+            <strong>exactly what you want it replaced with.</strong> Incomplete
+            submissions will be rejected without review.</span
+          >
+        </div>
+
+        <!-- TYPE CHIPS -->
+        <div class="type-selector">
+          <p>
+            What type of revisions do you have?
+            <em style="font-weight: 400; color: #6b7280"
+              >(select all that apply, skip any you don't need)</em
+            >
+          </p>
+          <div class="type-chips">
+            <div class="chip" onclick="toggleType('text', this)">
+              ✏️&nbsp; Text Changes
+            </div>
+            <div class="chip" onclick="toggleType('image', this)">
+              🖼️&nbsp; Image Swaps
+            </div>
+            <div class="chip" onclick="toggleType('video', this)">
+              🎬&nbsp; Video Changes
+            </div>
+          </div>
+        </div>
+
+        <div class="no-selection" id="no-selection">
+          <span>👆</span>
+          Select the type(s) of revisions above. Only fill in what applies to
+          you. Leave the rest blank.
+        </div>
+
+        <!-- TEXT -->
+        <div class="revision-section" id="section-text">
+          <div class="section-divider">✏️ Text Revisions</div>
+          <div id="text-blocks"></div>
+          <button class="add-btn" onclick="addBlock('text')">
+            + Add Another Text Revision
+          </button>
+        </div>
+
+        <!-- IMAGE -->
+        <div class="revision-section" id="section-image">
+          <div class="section-divider">🖼️ Image Revisions</div>
+
+          <div class="howto-callout image-how">
+            <div class="how-title">
+              🚨 READ THIS BEFORE YOU TOUCH ANYTHING BELOW
+            </div>
+            <ol>
+              <li>
+                Open your website and
+                <strong>find the exact image you want replaced.</strong>
+              </li>
+              <li><strong>Right-click directly on that image.</strong></li>
+              <li>
+                A menu will pop up. Click
+                <strong>"Copy Image Address"</strong> (sometimes called "Copy
+                Image Link").
+              </li>
+              <li>
+                <strong>Paste that copied link</strong> into the "Current Image
+                URL" field below.
+              </li>
+              <li>
+                Upload your new image somewhere (Google Drive, Dropbox, your own
+                site) and <strong>paste its full URL</strong> into the
+                replacement field.
+              </li>
+            </ol>
+            <div class="shout">
+              ☝️ DO NOT write "the logo," "the banner," or "the photo on the
+              homepage." We have no idea which image you mean.
+              <strong
+                >You MUST paste the actual URL from right-clicking the
+                image.</strong
+              >
+              No URL = your request gets rejected. It takes 5 seconds. Do it.
+            </div>
+          </div>
+
+          <div id="image-blocks"></div>
+          <button class="add-btn" onclick="addBlock('image')">
+            + Add Another Image Revision
+          </button>
+        </div>
+
+        <!-- VIDEO -->
+        <div class="revision-section" id="section-video">
+          <div class="section-divider">🎬 Video Changes</div>
+
+          <div class="howto-callout video-how">
+            <div class="how-title">
+              🚨 READ THIS BEFORE YOU TOUCH ANYTHING BELOW
+            </div>
+            <ol>
+              <li>
+                Open your website and
+                <strong>find the exact video you want replaced.</strong>
+              </li>
+              <li>
+                <strong>Right-click directly on the video player.</strong>
+              </li>
+              <li>
+                A menu will pop up. Click
+                <strong>"Copy Video Address"</strong> (sometimes called "Copy
+                Video Link").
+              </li>
+              <li>
+                <strong>Paste that copied link</strong> into the "Current Video
+                URL" field below.
+              </li>
+              <li>
+                For the new video, paste the <strong>full URL</strong> (YouTube
+                link, Vimeo link, or direct video URL) into the replacement
+                field.
+              </li>
+            </ol>
+            <div class="shout">
+              ☝️ DO NOT write "the intro video" or "the video on page 2." We
+              need the <strong>actual URL.</strong> Right-click the video. Copy
+              the address. Paste it. That is all. No URL = request rejected.
+              This is not optional.
+            </div>
+          </div>
+
+          <div id="video-blocks"></div>
+          <button class="add-btn" onclick="addBlock('video')">
+            + Add Another Video Change
+          </button>
+        </div>
+
+        <!-- GENERAL NOTES -->
+        <div id="general-notes-wrap" style="display: none; margin-top: 24px">
+          <label
+            style="
+              font-size: 12px;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+              margin-bottom: 6px;
+              display: block;
+            "
+          >
+            Anything else we should know?
+            <em style="text-transform: none; font-weight: 400; font-size: 11px"
+              >(optional)</em
+            >
+          </label>
+          <textarea
+            id="extra-notes"
+            rows="3"
+            placeholder="General context, deadlines, or anything else for the whole request..."
+          ></textarea>
+        </div>
+
+        <div class="error-banner" id="error-banner">
+          ❌ Please fill in all required fields. Every URL and text change must
+          be completed.
+        </div>
+
+        <button
+          class="submit-btn"
+          id="submit-btn"
+          onclick="submitForm()"
+          style="display: none"
+        >
+          Submit Revision Request
+        </button>
+
+        <div class="success-card" id="success-card">
+          <div class="check">✅</div>
+          <h3>Request Submitted!</h3>
+          <p>
+            We've received your revision request and will be in touch shortly.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const GHL_WEBHOOK =
+        "https://services.leadconnectorhq.com/hooks/stoLOEGDIvEDY3xQI4B8/webhook-trigger/816e85b0-36c2-48d3-a434-491f4b38f087";
+      const activeTypes = new Set();
+      const counts = { text: 0, image: 0, video: 0 };
+
+      function toggleType(type, chip) {
+        if (activeTypes.has(type)) {
+          activeTypes.delete(type);
+          chip.classList.remove("active");
+          document
+            .getElementById("section-" + type)
+            .classList.remove("visible");
+          document.getElementById(type + "-blocks").innerHTML = "";
+          counts[type] = 0;
+        } else {
+          activeTypes.add(type);
+          chip.classList.add("active");
+          document.getElementById("section-" + type).classList.add("visible");
+          if (!document.getElementById(type + "-blocks").children.length)
+            addBlock(type);
+        }
+        const has = activeTypes.size > 0;
+        document.getElementById("no-selection").style.display = has
+          ? "none"
+          : "block";
+        document.getElementById("general-notes-wrap").style.display = has
+          ? "block"
+          : "none";
+        document.getElementById("submit-btn").style.display = has
+          ? "block"
+          : "none";
+      }
+
+      function addBlock(type) {
+        counts[type]++;
+        const n = counts[type];
+        const container = document.getElementById(type + "-blocks");
+        const div = document.createElement("div");
+        div.className = "revision-block";
+        div.id = `${type}-block-${n}`;
+
+        let fields = "";
+        if (type === "text") {
+          fields = `
+        <div class="two-col">
+          <div>
+            <label>Current Text, copy &amp; paste exactly <span class="req">*</span></label>
+            <textarea rows="3" class="cur-text" placeholder="Paste the exact text as it currently reads on the site. Word for word."></textarea>
+            <p class="field-hint">Copy it directly from the live page. Exact wording, exact punctuation.</p>
+          </div>
+          <div>
+            <label>Replacement Text <span class="req">*</span></label>
+            <textarea rows="3" class="rep-text" placeholder="Type exactly what you want it to say instead."></textarea>
+            <p class="field-hint">Spell it out completely. We copy it exactly as written.</p>
+          </div>
+        </div>`;
+        } else if (type === "image") {
+          fields = `
+        <div class="two-col">
+          <div>
+            <label>Current Image URL <span class="req">*</span></label>
+            <input type="url" class="cur-img" placeholder="https://yoursite.com/old-image.jpg"/>
+            <p class="field-hint">Right-click the image then click <strong>Copy Image Address</strong></p>
+          </div>
+          <div>
+            <label>New Image URL <span class="req">*</span></label>
+            <input type="url" class="rep-img" placeholder="https://yoursite.com/new-image.jpg"/>
+            <p class="field-hint">Full URL of your replacement image. Must start with https://</p>
+          </div>
+        </div>`;
+        } else {
+          fields = `
+        <div class="two-col">
+          <div>
+            <label>Current Video URL <span class="req">*</span></label>
+            <input type="url" class="cur-vid" placeholder="https://youtube.com/watch?v=..."/>
+            <p class="field-hint">Right-click the video then click <strong>Copy Video Address</strong></p>
+          </div>
+          <div>
+            <label>New Video URL <span class="req">*</span></label>
+            <input type="url" class="rep-vid" placeholder="https://youtube.com/watch?v=..."/>
+            <p class="field-hint">YouTube, Vimeo, or direct link to your new video.</p>
+          </div>
+        </div>`;
+        }
+
+        div.innerHTML = `
+      <div class="block-num">${type.charAt(0).toUpperCase() + type.slice(1)} Revision #${n}</div>
+      <button type="button" class="remove-btn" onclick="removeBlock('${type}-block-${n}','${type}')">×</button>
+      ${fields}
+      <label class="block-notes-label">Notes for this revision <em>(optional)</em></label>
+      <textarea rows="2" class="block-notes" placeholder="Any extra context for this specific change (optional)..."></textarea>`;
+
+        container.appendChild(div);
+      }
+
+      function removeBlock(id, type) {
+        const c = document.getElementById(type + "-blocks");
+        if (c.children.length <= 1) {
+          alert(
+            "Need at least one block. Deselect the type above if you have no " +
+              type +
+              " revisions.",
+          );
+          return;
+        }
+        document.getElementById(id)?.remove();
+      }
+
+      function chk(el) {
+        if (!el.value.trim()) {
+          el.classList.add("invalid");
+          return false;
+        }
+        el.classList.remove("invalid");
+        return true;
+      }
+
+      function submitForm() {
+        let ok = true;
+        const vague = [
+          "change this",
+          "update this",
+          "fix this",
+          "edit this",
+          "change that",
+          "update that",
+          "fix that",
+        ];
+        const email = document.getElementById("email-input");
+        if (!chk(email)) ok = false;
+
+        if (activeTypes.has("text")) {
+          document
+            .querySelectorAll("#text-blocks .revision-block")
+            .forEach((b) => {
+              const c = b.querySelector(".cur-text"),
+                r = b.querySelector(".rep-text");
+              if (!chk(c)) ok = false;
+              if (!chk(r)) ok = false;
+              [c, r].forEach((el) => {
+                if (vague.includes(el.value.trim().toLowerCase())) {
+                  el.classList.add("invalid");
+                  ok = false;
+                }
+              });
+            });
+        }
+        if (activeTypes.has("image")) {
+          document
+            .querySelectorAll("#image-blocks .revision-block")
+            .forEach((b) => {
+              if (!chk(b.querySelector(".cur-img"))) ok = false;
+              if (!chk(b.querySelector(".rep-img"))) ok = false;
+            });
+        }
+        if (activeTypes.has("video")) {
+          document
+            .querySelectorAll("#video-blocks .revision-block")
+            .forEach((b) => {
+              if (!chk(b.querySelector(".cur-vid"))) ok = false;
+              if (!chk(b.querySelector(".rep-vid"))) ok = false;
+            });
+        }
+
+        const err = document.getElementById("error-banner");
+        if (!ok) {
+          err.style.display = "block";
+          err.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+        err.style.display = "none";
+
+        const textRevisions = [
+          ...document.querySelectorAll("#text-blocks .revision-block"),
+        ].map((b, i) => ({
+          index: i + 1,
+          currentText: b.querySelector(".cur-text").value.trim(),
+          replacementText: b.querySelector(".rep-text").value.trim(),
+          notes: b.querySelector(".block-notes").value.trim() || null,
+        }));
+        const imageRevisions = [
+          ...document.querySelectorAll("#image-blocks .revision-block"),
+        ].map((b, i) => ({
+          index: i + 1,
+          currentImageUrl: b.querySelector(".cur-img").value.trim(),
+          newImageUrl: b.querySelector(".rep-img").value.trim(),
+          notes: b.querySelector(".block-notes").value.trim() || null,
+        }));
+        const videoRevisions = [
+          ...document.querySelectorAll("#video-blocks .revision-block"),
+        ].map((b, i) => ({
+          index: i + 1,
+          currentVideoUrl: b.querySelector(".cur-vid").value.trim(),
+          newVideoUrl: b.querySelector(".rep-vid").value.trim(),
+          notes: b.querySelector(".block-notes").value.trim() || null,
+        }));
+
+        const payload = {
+          submittedAt: new Date().toISOString(),
+          email: email.value.trim(),
+          generalNotes:
+            document.getElementById("extra-notes").value.trim() || null,
+          revisionTypes: [...activeTypes],
+          textRevisions,
+          imageRevisions,
+          videoRevisions,
+        };
+
+        const btn = document.getElementById("submit-btn");
+        btn.disabled = true;
+        btn.textContent = "Submitting…";
+
+        fetch(GHL_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }).finally(() => {
+          window.location.href =
+            "https://nilsdigital.com/revision-request-completed";
+        });
+      }
+    </script>
+  </body>
+</html>
