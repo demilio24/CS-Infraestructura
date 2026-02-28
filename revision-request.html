@@ -945,6 +945,10 @@
       const activeTypes = new Set();
       const counts = { text: 0, image: 0, video: 0, addition: 0, deletion: 0 };
 
+      // Auto-fill email from ?email= URL parameter
+      const _urlEmail = new URLSearchParams(window.location.search).get("email");
+      if (_urlEmail) document.getElementById("email-input").value = _urlEmail;
+
       function toggleType(type, chip) {
         if (activeTypes.has(type)) {
           activeTypes.delete(type);
