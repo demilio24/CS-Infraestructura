@@ -134,9 +134,27 @@
         border-color: var(--blue);
       }
       input.invalid,
-      textarea.invalid {
+      textarea.invalid,
+      select.invalid {
         border-color: var(--red) !important;
         background: #fef2f2;
+      }
+
+      select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        font-size: 14.5px;
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        background: #fff;
+        transition: border-color 0.18s;
+        cursor: pointer;
+      }
+      select:focus {
+        outline: none;
+        border-color: var(--blue);
       }
       .field-hint {
         font-size: 12px;
@@ -209,6 +227,39 @@
       .howto-callout.video-how .shout {
         background: #bae6fd;
         color: #0c4a6e;
+      }
+      .howto-callout.text-how {
+        background: #faf5ff;
+        border-color: #c084fc;
+      }
+      .howto-callout.text-how .how-title {
+        color: #7e22ce;
+      }
+      .howto-callout.text-how .shout {
+        background: #e9d5ff;
+        color: #581c87;
+      }
+      .howto-callout.addition-how {
+        background: #f0fdf4;
+        border-color: #4ade80;
+      }
+      .howto-callout.addition-how .how-title {
+        color: #15803d;
+      }
+      .howto-callout.addition-how .shout {
+        background: #bbf7d0;
+        color: #14532d;
+      }
+      .howto-callout.deletion-how {
+        background: #fff1f2;
+        border-color: #fb7185;
+      }
+      .howto-callout.deletion-how .how-title {
+        color: #be123c;
+      }
+      .howto-callout.deletion-how .shout {
+        background: #fecdd3;
+        color: #9f1239;
       }
 
       /* CHIPS */
@@ -472,6 +523,70 @@
         text-align: center;
         margin-bottom: 20px;
       }
+
+      /* FILE UPLOAD */
+      .upload-zone {
+        border: 2px dashed var(--border);
+        border-radius: 8px;
+        padding: 14px 12px;
+        text-align: center;
+        background: #f9fafb;
+        margin-top: 8px;
+        transition: border-color 0.18s, background 0.18s;
+      }
+      .upload-zone.zone-invalid {
+        border-color: var(--red) !important;
+        background: #fef2f2;
+      }
+      .upload-trigger-zone {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        background: var(--blue-light);
+        border: 1.5px solid var(--blue);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--blue);
+        font-family: "DM Sans", sans-serif;
+        transition: all 0.18s;
+        text-transform: none;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+      }
+      .upload-trigger-zone:hover {
+        background: var(--blue);
+        color: #fff;
+      }
+      .upload-trigger-zone input[type="file"] {
+        display: none;
+      }
+      .upload-zone-limit {
+        font-size: 11.5px;
+        color: var(--muted);
+        font-weight: 500;
+        margin: 0;
+      }
+      .upload-status {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 6px;
+      }
+      .upload-status.uploading { color: var(--blue); }
+      .upload-status.uploaded  { color: #15803d; }
+      .upload-status.up-error  { color: var(--red); }
+      .or-divider {
+        text-align: center;
+        font-size: 11.5px;
+        font-weight: 800;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin: 10px 0 4px;
+      }
     </style>
   </head>
   <body>
@@ -547,6 +662,12 @@
             <div class="chip" onclick="toggleType('video', this)">
               🎬&nbsp; Video Changes
             </div>
+            <div class="chip" onclick="toggleType('addition', this)">
+              ➕&nbsp; Additions
+            </div>
+            <div class="chip" onclick="toggleType('deletion', this)">
+              🗑️&nbsp; Deletions
+            </div>
           </div>
         </div>
 
@@ -559,6 +680,34 @@
         <!-- TEXT -->
         <div class="revision-section" id="section-text">
           <div class="section-divider">✏️ Text Revisions</div>
+
+          <div class="howto-callout text-how">
+            <div class="how-title">
+              ✏️ HOW TO SUBMIT A TEXT CHANGE
+            </div>
+            <ol>
+              <li>
+                Open your live website and
+                <strong>find the exact text you want changed.</strong>
+              </li>
+              <li>
+                <strong>Copy it word-for-word</strong> from the page and paste
+                it into the "Current Text" field below. Do not paraphrase or
+                summarize it.
+              </li>
+              <li>
+                In the "Replacement Text" field, type
+                <strong>exactly what you want it to say.</strong> Spell
+                everything out completely.
+              </li>
+            </ol>
+            <div class="shout">
+              ☝️ DO NOT say "update the about section" or "change the
+              headline." Paste the actual words currently on the site. If the
+              current text does not match exactly, your request gets rejected.
+            </div>
+          </div>
+
           <div id="text-blocks"></div>
           <button class="add-btn" onclick="addBlock('text')">
             + Add Another Text Revision
@@ -571,37 +720,36 @@
 
           <div class="howto-callout image-how">
             <div class="how-title">
-              🚨 READ THIS BEFORE YOU TOUCH ANYTHING BELOW
+              🚨 HOW TO SUBMIT AN IMAGE SWAP
             </div>
             <ol>
               <li>
-                Open your website and
+                Open your live website and
                 <strong>find the exact image you want replaced.</strong>
               </li>
-              <li><strong>Right-click directly on that image.</strong></li>
               <li>
-                A menu will pop up. Click
-                <strong>"Copy Image Address"</strong> (sometimes called "Copy
-                Image Link").
+                <strong>Right-click directly on that image.</strong> A menu
+                will appear.
               </li>
               <li>
-                <strong>Paste that copied link</strong> into the "Current Image
-                URL" field below.
+                Click <strong>"Copy Image Address"</strong> (also called "Copy
+                Image Link" in some browsers).
               </li>
               <li>
-                Upload your new image somewhere (Google Drive, Dropbox, your own
-                site) and <strong>paste its full URL</strong> into the
-                replacement field.
+                <strong>Paste that link</strong> into the "Current Image URL"
+                field below.
+              </li>
+              <li>
+                Use the <strong>upload button in the form below</strong> to
+                upload your replacement image directly. Maximum file size is
+                <strong>5 MB.</strong>
               </li>
             </ol>
             <div class="shout">
               ☝️ DO NOT write "the logo," "the banner," or "the photo on the
               homepage." We have no idea which image you mean.
-              <strong
-                >You MUST paste the actual URL from right-clicking the
-                image.</strong
-              >
-              No URL = your request gets rejected. It takes 5 seconds. Do it.
+              <strong>You must paste the actual URL from right-clicking the image.</strong>
+              No URL = request rejected. It takes 5 seconds.
             </div>
           </div>
 
@@ -617,42 +765,128 @@
 
           <div class="howto-callout video-how">
             <div class="how-title">
-              🚨 READ THIS BEFORE YOU TOUCH ANYTHING BELOW
+              🚨 HOW TO SUBMIT A VIDEO CHANGE
             </div>
             <ol>
               <li>
-                Open your website and
+                Open your live website and
                 <strong>find the exact video you want replaced.</strong>
               </li>
               <li>
-                <strong>Right-click directly on the video player.</strong>
+                <strong>Right-click directly on the video player.</strong> A
+                menu will appear.
               </li>
               <li>
-                A menu will pop up. Click
-                <strong>"Copy Video Address"</strong> (sometimes called "Copy
-                Video Link").
+                Click <strong>"Copy Video Address"</strong> (also called "Copy
+                Video Link" in some browsers).
               </li>
               <li>
-                <strong>Paste that copied link</strong> into the "Current Video
-                URL" field below.
+                <strong>Paste that link</strong> into the "Current Video URL"
+                field below.
               </li>
               <li>
-                For the new video, paste the <strong>full URL</strong> (YouTube
-                link, Vimeo link, or direct video URL) into the replacement
-                field.
+                For the replacement: paste a
+                <strong>YouTube, Vimeo, or public video link</strong> into the
+                URL field, or use the <strong>upload button</strong> to upload
+                a file directly (5 MB max).
               </li>
             </ol>
             <div class="shout">
               ☝️ DO NOT write "the intro video" or "the video on page 2." We
-              need the <strong>actual URL.</strong> Right-click the video. Copy
-              the address. Paste it. That is all. No URL = request rejected.
-              This is not optional.
+              need the <strong>actual URL.</strong> Right-click the video, copy
+              the address, and paste it. No URL = request rejected.
             </div>
           </div>
 
           <div id="video-blocks"></div>
           <button class="add-btn" onclick="addBlock('video')">
             + Add Another Video Change
+          </button>
+        </div>
+
+        <!-- ADDITION -->
+        <div class="revision-section" id="section-addition">
+          <div class="section-divider">➕ Additions</div>
+
+          <div class="howto-callout addition-how">
+            <div class="how-title">
+              ✅ HOW TO SUBMIT AN ADDITION REQUEST
+            </div>
+            <ol>
+              <li>
+                Use the dropdown to
+                <strong>select the type of element you want added</strong>
+                (team member, section, image, etc.).
+              </li>
+              <li>
+                In the "Where should it appear" field, write the
+                <strong>page name and exact position.</strong> Example: "Below
+                the testimonials section on the homepage."
+              </li>
+              <li>
+                In the description field, write out
+                <strong>every piece of content we need to build it:</strong>
+                full names, job titles, body text, photo URLs, button text,
+                links. Do not say "similar to X" or leave anything for us to
+                figure out.
+              </li>
+              <li>
+                If your addition includes an image or photo,
+                <strong>upload it online first</strong> (Google Drive, Dropbox,
+                etc.) and paste the direct link into the description.
+              </li>
+            </ol>
+            <div class="shout">
+              ☝️ Incomplete requests will be rejected. If we do not have
+              everything we need to build it, we cannot do it. Write it all
+              out.
+            </div>
+          </div>
+
+          <div id="addition-blocks"></div>
+          <button class="add-btn" onclick="addBlock('addition')">
+            + Add Another Addition Request
+          </button>
+        </div>
+
+        <!-- DELETION -->
+        <div class="revision-section" id="section-deletion">
+          <div class="section-divider">🗑️ Deletions</div>
+
+          <div class="howto-callout deletion-how">
+            <div class="how-title">
+              🗑️ HOW TO SUBMIT A DELETION REQUEST
+            </div>
+            <ol>
+              <li>
+                Use the dropdown to
+                <strong>select the type of element you want removed.</strong>
+              </li>
+              <li>
+                In the identification field, tell us
+                <strong>exactly how to find it</strong> on the site:
+                <ul style="margin-top: 6px; padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
+                  <li>Image or video: right-click it and paste the URL</li>
+                  <li>Team member: type their full name</li>
+                  <li>Text or paragraph: copy and paste the exact words</li>
+                  <li>Section: write the exact section heading</li>
+                </ul>
+              </li>
+              <li>
+                Do <strong>NOT</strong> say "the old photo," "that section," or
+                "the one at the top." We manage many websites. We cannot guess
+                which element you mean.
+              </li>
+            </ol>
+            <div class="shout">
+              ☝️ Be precise. The more clearly you identify what to remove, the
+              faster we get it done. Vague descriptions = request rejected.
+            </div>
+          </div>
+
+          <div id="deletion-blocks"></div>
+          <button class="add-btn" onclick="addBlock('deletion')">
+            + Add Another Deletion Request
           </button>
         </div>
 
@@ -707,8 +941,9 @@
     <script>
       const GHL_WEBHOOK =
         "https://services.leadconnectorhq.com/hooks/stoLOEGDIvEDY3xQI4B8/webhook-trigger/816e85b0-36c2-48d3-a434-491f4b38f087";
+      const GHL_API_TOKEN = "pit-c52dab88-1e5a-4889-a376-752f9010943f";
       const activeTypes = new Set();
-      const counts = { text: 0, image: 0, video: 0 };
+      const counts = { text: 0, image: 0, video: 0, addition: 0, deletion: 0 };
 
       function toggleType(type, chip) {
         if (activeTypes.has(type)) {
@@ -770,12 +1005,19 @@
             <p class="field-hint">Right-click the image then click <strong>Copy Image Address</strong></p>
           </div>
           <div>
-            <label>New Image URL <span class="req">*</span></label>
-            <input type="url" class="rep-img" placeholder="https://yoursite.com/new-image.jpg"/>
-            <p class="field-hint">Full URL of your replacement image. Must start with https://</p>
+            <label>New Image <span class="req">*</span></label>
+            <input type="hidden" class="rep-img">
+            <div class="upload-zone">
+              <label class="upload-trigger-zone">
+                <input type="file" accept="image/*" onchange="uploadMediaFile(this,'rep-img')">
+                📁 Upload replacement image
+              </label>
+              <p class="upload-zone-limit">JPG, PNG, GIF, WebP · 5 MB max</p>
+              <span class="upload-status"></span>
+            </div>
           </div>
         </div>`;
-        } else {
+        } else if (type === "video") {
           fields = `
         <div class="two-col">
           <div>
@@ -784,10 +1026,64 @@
             <p class="field-hint">Right-click the video then click <strong>Copy Video Address</strong></p>
           </div>
           <div>
-            <label>New Video URL <span class="req">*</span></label>
-            <input type="url" class="rep-vid" placeholder="https://youtube.com/watch?v=..."/>
-            <p class="field-hint">YouTube, Vimeo, or direct link to your new video.</p>
+            <label>New Video <span class="req">*</span></label>
+            <input type="url" class="rep-vid" placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."/>
+            <p class="field-hint">Paste a YouTube, Vimeo, or any public video link here.</p>
+            <div class="or-divider">or upload a file</div>
+            <div class="upload-zone">
+              <label class="upload-trigger-zone">
+                <input type="file" accept="video/mp4,video/mpeg,video/*" onchange="uploadMediaFile(this,'rep-vid')">
+                📁 Upload video file
+              </label>
+              <p class="upload-zone-limit">MP4, MPEG · 5 MB max · Uploading auto-fills the link above</p>
+              <span class="upload-status"></span>
+            </div>
           </div>
+        </div>`;
+        } else if (type === "addition") {
+          fields = `
+        <div class="field">
+          <label>What type of element are you adding? <span class="req">*</span></label>
+          <select class="add-type">
+            <option value="">Select a type...</option>
+            <option value="Team Member">Team Member</option>
+            <option value="Section / Content Block">Section / Content Block</option>
+            <option value="Image">Image</option>
+            <option value="Video">Video</option>
+            <option value="Button / Link">Button / Link</option>
+            <option value="Text Block / Paragraph">Text Block / Paragraph</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Where should it appear on the page? <span class="req">*</span></label>
+          <input type="text" class="add-location" placeholder="e.g. After the testimonials section on the homepage"/>
+          <p class="field-hint">Name the page and the exact position (above, below, or inside which element).</p>
+        </div>
+        <div class="field">
+          <label>Describe everything we need to build it <span class="req">*</span></label>
+          <textarea rows="5" class="add-description" placeholder="Include ALL content: names, job titles, text, photo URLs, button links, etc. Write it all out. Do not reference other elements or say 'similar to X.'"></textarea>
+          <p class="field-hint">We copy exactly what you write here. Missing content = request rejected.</p>
+        </div>`;
+        } else if (type === "deletion") {
+          fields = `
+        <div class="field">
+          <label>What type of element are you removing? <span class="req">*</span></label>
+          <select class="del-type">
+            <option value="">Select a type...</option>
+            <option value="Team Member">Team Member</option>
+            <option value="Section / Content Block">Section / Content Block</option>
+            <option value="Image">Image</option>
+            <option value="Video">Video</option>
+            <option value="Button / Link">Button / Link</option>
+            <option value="Text / Paragraph">Text / Paragraph</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>How do we identify exactly what to remove? <span class="req">*</span></label>
+          <textarea rows="4" class="del-identifier" placeholder="For images/videos: paste the URL. For text: quote it word-for-word. For team members: full name. For sections: exact heading or clear description."></textarea>
+          <p class="field-hint">Be exact. We manage many sites and cannot guess which element you mean.</p>
         </div>`;
         }
 
@@ -821,6 +1117,70 @@
         }
         el.classList.remove("invalid");
         return true;
+      }
+
+      async function uploadMediaFile(input, fieldClass) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const zone     = input.closest(".upload-zone");
+        const block    = input.closest(".revision-block");
+        const urlInput = block.querySelector("." + fieldClass);
+        const statusEl = zone.querySelector(".upload-status");
+
+        // Client-side 5 MB guard
+        if (file.size > 5 * 1024 * 1024) {
+          statusEl.textContent = "File exceeds 5 MB. Please choose a smaller file.";
+          statusEl.className   = "upload-status up-error";
+          zone.classList.add("zone-invalid");
+          input.value = "";
+          return;
+        }
+
+        statusEl.textContent = "Uploading...";
+        statusEl.className   = "upload-status uploading";
+        zone.classList.remove("zone-invalid");
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("hosted", "false");
+
+        try {
+          const res = await fetch(
+            "https://services.leadconnectorhq.com/medias/upload-file",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${GHL_API_TOKEN}`,
+                Version: "2021-07-28",
+              },
+              body: formData,
+            }
+          );
+
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+          const data = await res.json();
+          const url =
+            data?.fileUrl   ||
+            data?.url       ||
+            data?.data?.url ||
+            data?.mediaUrl  ||
+            null;
+
+          if (!url) throw new Error("No URL in response");
+
+          urlInput.value = url;
+          urlInput.classList.remove("invalid");
+          statusEl.textContent = `✓ ${file.name} uploaded`;
+          statusEl.className   = "upload-status uploaded";
+        } catch (err) {
+          console.error("GHL upload error:", err);
+          statusEl.textContent = "Upload failed. Please try again.";
+          statusEl.className   = "upload-status up-error";
+        }
+
+        input.value = "";
       }
 
       function submitForm() {
@@ -861,7 +1221,14 @@
             .querySelectorAll("#image-blocks .revision-block")
             .forEach((b) => {
               if (!chk(b.querySelector(".cur-img"))) ok = false;
-              if (!chk(b.querySelector(".rep-img"))) ok = false;
+              const repImg = b.querySelector(".rep-img");
+              const zone   = b.querySelector(".upload-zone");
+              if (!repImg.value.trim()) {
+                ok = false;
+                zone.classList.add("zone-invalid");
+              } else {
+                zone.classList.remove("zone-invalid");
+              }
             });
         }
         if (activeTypes.has("video")) {
@@ -870,6 +1237,23 @@
             .forEach((b) => {
               if (!chk(b.querySelector(".cur-vid"))) ok = false;
               if (!chk(b.querySelector(".rep-vid"))) ok = false;
+            });
+        }
+        if (activeTypes.has("addition")) {
+          document
+            .querySelectorAll("#addition-blocks .revision-block")
+            .forEach((b) => {
+              if (!chk(b.querySelector(".add-type"))) ok = false;
+              if (!chk(b.querySelector(".add-location"))) ok = false;
+              if (!chk(b.querySelector(".add-description"))) ok = false;
+            });
+        }
+        if (activeTypes.has("deletion")) {
+          document
+            .querySelectorAll("#deletion-blocks .revision-block")
+            .forEach((b) => {
+              if (!chk(b.querySelector(".del-type"))) ok = false;
+              if (!chk(b.querySelector(".del-identifier"))) ok = false;
             });
         }
 
@@ -909,6 +1293,27 @@
           type: "video",
           current_video_url: b.querySelector(".cur-vid").value.trim(),
           new_video_url: b.querySelector(".rep-vid").value.trim(),
+          notes: b.querySelector(".block-notes").value.trim() || "",
+        }));
+
+        const additionRevisions = [
+          ...document.querySelectorAll("#addition-blocks .revision-block"),
+        ].map((b, i) => ({
+          revision_number: i + 1,
+          type: "addition",
+          element_type: b.querySelector(".add-type").value.trim(),
+          location: b.querySelector(".add-location").value.trim(),
+          description: b.querySelector(".add-description").value.trim(),
+          notes: b.querySelector(".block-notes").value.trim() || "",
+        }));
+
+        const deletionRevisions = [
+          ...document.querySelectorAll("#deletion-blocks .revision-block"),
+        ].map((b, i) => ({
+          revision_number: i + 1,
+          type: "deletion",
+          element_type: b.querySelector(".del-type").value.trim(),
+          identifier: b.querySelector(".del-identifier").value.trim(),
           notes: b.querySelector(".block-notes").value.trim() || "",
         }));
 
@@ -964,9 +1369,31 @@
           globalIndex++;
         });
 
+        additionRevisions.forEach((r) => {
+          lines.push(`--- REVISION ${globalIndex} (Addition) ---`);
+          lines.push(`ADD: ${r.element_type}`);
+          lines.push(`WHERE: ${r.location}`);
+          lines.push(`DETAILS:`);
+          lines.push(r.description);
+          if (r.notes) lines.push(`Notes: ${r.notes}`);
+          lines.push("");
+          globalIndex++;
+        });
+
+        deletionRevisions.forEach((r) => {
+          lines.push(`--- REVISION ${globalIndex} (Deletion) ---`);
+          lines.push(`REMOVE: ${r.element_type}`);
+          lines.push(`IDENTIFIES AS:`);
+          lines.push(r.identifier);
+          if (r.notes) lines.push(`Notes: ${r.notes}`);
+          lines.push("");
+          globalIndex++;
+        });
+
         const revisions_summary = lines.join("\n");
         const total_revisions =
-          textRevisions.length + imageRevisions.length + videoRevisions.length;
+          textRevisions.length + imageRevisions.length + videoRevisions.length +
+          additionRevisions.length + deletionRevisions.length;
 
         // ── Final payload ──────────────────────────────────────────────────
         // Top-level flat fields  = map once each in GHL/ClickUp, never touch again.
@@ -984,6 +1411,8 @@
           total_text_revisions: textRevisions.length,
           total_image_revisions: imageRevisions.length,
           total_video_revisions: videoRevisions.length,
+          total_addition_revisions: additionRevisions.length,
+          total_deletion_revisions: deletionRevisions.length,
           revision_types: [...activeTypes].join(", "),
 
           // ONE field to paste into ClickUp task description — contains everything
@@ -993,6 +1422,8 @@
           text_revisions: textRevisions,
           image_revisions: imageRevisions,
           video_revisions: videoRevisions,
+          addition_revisions: additionRevisions,
+          deletion_revisions: deletionRevisions,
         };
 
         const btn = document.getElementById("submit-btn");
