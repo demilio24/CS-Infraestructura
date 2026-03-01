@@ -29,32 +29,64 @@ Background alternation pattern for sections: [Define — e.g., white -> light ti
 Maximum number of colors on any single section: 3 (background + primary + text)
 CTA buttons ALWAYS use primary color background with white text (or reverse if light primary)
 1.2 — TYPOGRAPHY
-Default recommended font pairing when the client does not specify a preference:
-Headline Font: DM Serif Display (Google Fonts — elegant, high-contrast serif)
-Body Font: DM Sans (Google Fonts — clean, modern sans-serif, weights 400/500/600/700)
-Font Import: https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap
+If the client specifies fonts, use those. Otherwise, choose a pairing based on the brand feel words and industry:
 
-If the client specifies their own fonts, use those instead. Otherwise always default to DM Serif Display + DM Sans.
+FONT SELECTION GUIDE (choose the best match for this client):
+
+FANCY / PREMIUM / ELEGANT / LUXURY / HIGH-END
+  Headline: DM Serif Display (serif, weight 400 only)
+  Body: DM Sans (weights 400/500/600/700)
+  Import: https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap
+  Best for: legal, real estate, high-end services, medical aesthetics, financial, notary, premium coaching
+  Note: DM Serif Display is weight 400 only — never set heading font-weight above 400
+
+CLEAN / MODERN / PROFESSIONAL / CORPORATE / TECH
+  Headline: Inter (semi-bold 600 or bold 700)
+  Body: Inter (weights 400/500/600/700)
+  Import: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+  Best for: construction, logistics, B2B, SaaS, agencies, industrial, IT services
+
+FRIENDLY / APPROACHABLE / WARM / FAMILY / COMMUNITY
+  Headline: Poppins (semi-bold 600 or bold 700)
+  Body: Poppins (weights 400/500/600/700)
+  Import: https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap
+  Best for: children's services, tutoring, fitness, wellness, family businesses, swim schools, daycare
+
+MODERN FRIENDLY / STARTUP / CREATIVE / YOUTHFUL
+  Headline: Plus Jakarta Sans (bold 700)
+  Body: Plus Jakarta Sans (weights 400/500/600/700)
+  Import: https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap
+  Best for: creative agencies, photography, events, personal brands, lifestyle businesses
+
+CLEAN MEDICAL / HEALTH / WELLNESS / MINIMAL
+  Headline: Nunito (bold 700 or extra-bold 800)
+  Body: Nunito (weights 400/600/700)
+  Import: https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap
+  Best for: health, therapy, counseling, pediatrics, dental, functional medicine
+
+State your chosen pairing clearly at the top of OUTPUT 1 like this:
+  Font Pairing Selected: [Headline Font] + [Body Font]
+  Reason: [1 sentence explaining why this matches the brand feel]
 
 Type Scale (Desktop / Mobile):
 Element | Desktop Size | Mobile Size | Weight | Line Height | Letter Spacing
-Hero Headline (H1) | 56px | 36px | 400 (DM Serif Display is regular weight only) | 1.1 | -0.02em
-Section Headline (H2) | 42px | 28px | 400 (DM Serif Display) | 1.2 | -0.01em
-Sub-headline (H3) | 28px | 22px | 600 (DM Sans Semi-bold) | 1.3 | 0
-Card Title (H4) | 22px | 18px | 600 (DM Sans Semi-bold) | 1.3 | 0
+Hero Headline (H1) | 56px | 36px | See font note above | 1.1 | -0.02em
+Section Headline (H2) | 42px | 28px | See font note above | 1.2 | -0.01em
+Sub-headline (H3) | 28px | 22px | 600 (Semi-bold) | 1.3 | 0
+Card Title (H4) | 22px | 18px | 600 (Semi-bold) | 1.3 | 0
 Body Large | 18px | 16px | 400 (Regular) | 1.6 | 0
 Body Regular | 16px | 15px | 400 (Regular) | 1.6 | 0
 Body Small / Captions | 14px | 13px | 400 (Regular) | 1.5 | 0.01em
 CTA Button Text | 18px | 16px | 700 (Bold) | 1 | 0.02em
 Eyebrow/Label | 14px | 12px | 600 (Semi-bold) | 1.4 | 0.08em (uppercase)
-Social Proof Numbers | 36px | 28px | 400 (DM Serif Display) | 1.1 | -0.01em
+Social Proof Numbers | 36px | 28px | 700 or 400 (match headline font weight) | 1.1 | -0.01em
 
 Typography Rules:
-Headlines use the Headline Font (DM Serif Display or client-specified serif); everything else uses the Body Font
+Headlines use the chosen Headline Font; everything else uses the Body Font
 Eyebrow text is ALWAYS uppercase with wide letter spacing
 Primary accent color can be applied to one key word per headline for emphasis — wrap it in a <span> tag
 Never use italics for body copy — only for subtle emphasis in testimonials or quotes
-DM Serif Display is weight 400 only — do not set heading font-weight above 400
+If using DM Serif Display, heading font-weight must be 400 (it has no other weights)
 
 1.3 — SPACING SYSTEM
 Base Unit: 8px
