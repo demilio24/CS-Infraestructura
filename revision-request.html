@@ -614,14 +614,14 @@
           Before getting started, please fill in your account details.
         </p>
         <div class="field">
-          <label>Website Domain <span class="req">*</span></label>
+          <label>Website Page URL <span class="req">*</span></label>
           <input
             type="text"
             id="domain-input"
-            placeholder="e.g. yourwebsite.com"
+            placeholder="e.g. yourwebsite.com/page-name"
           />
           <p class="field-hint" style="text-align: center">
-            Enter the domain of the website you want revised.
+            Enter the full URL of the specific page you want revised (not just the domain).
           </p>
         </div>
         <div class="field">
@@ -1348,7 +1348,7 @@
 
         lines.push(`REVISION REQUEST`);
         lines.push(`Submitted: ${submittedAt}`);
-        lines.push(`Domain: ${domainVal}`);
+        lines.push(`Page URL: ${domainVal}`);
         lines.push(`Email: ${emailVal}`);
         if (generalNotes) lines.push(`General Notes: ${generalNotes}`);
         lines.push("");
