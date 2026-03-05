@@ -148,19 +148,21 @@
     .nav__links a:hover { color: var(--text); }
     .nav__btn {
       display: none;
-      font-size: .82rem;
+      font-size: .78rem;
       font-weight: 600;
-      padding: 9px 20px;
+      padding: 6px 18px;
       border-radius: 100px;
       background: var(--blue);
       color: #fff;
-      transition: background .25s, box-shadow .25s, transform .25s;
-      box-shadow: 0 2px 12px rgba(10,126,245,.3);
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 2px 8px rgba(10,126,245,.25);
+      line-height: 1;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .nav__btn:hover {
       background: var(--blue-deep);
-      box-shadow: 0 4px 20px rgba(10,126,245,.4);
-      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(10,126,245,.35);
     }
     .nav__ham { display: flex; flex-direction: column; gap: 4.5px; padding: 4px; }
     .nav__ham span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; }
@@ -204,7 +206,7 @@
     }
 
     @media (min-width: 768px) {
-      .nav { inset: 16px 24px auto; padding: 0 24px; }
+      .nav { inset: 16px auto auto; left: 50%; transform: translateX(-50%); width: calc(100% - 48px); max-width: 1180px; padding: 0 24px; }
       .nav__links, .nav__btn { display: flex; }
       .nav__ham { display: none; }
     }
@@ -256,9 +258,32 @@
     .hero__inner {
       position: relative;
       z-index: 1;
+      width: 100%;
+      max-width: 1180px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
       text-align: center;
-      max-width: 860px;
-      padding: 0 20px;
+    }
+    @media (min-width: 900px) {
+      .hero__inner {
+        grid-template-columns: 1fr 1fr;
+        text-align: left;
+      }
+    }
+    .hero__social-proof {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0;
+      margin-bottom: 28px;
+    }
+    @media (min-width: 900px) {
+      .hero__social-proof { justify-content: flex-start; }
     }
     .hero__awards {
       display: inline-flex;
@@ -268,7 +293,26 @@
       border: 1px solid rgba(245,166,35,.25);
       border-radius: 100px;
       padding: 6px 14px 6px 8px;
-      margin-bottom: 32px;
+    }
+    .hero__google {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 100px;
+      padding: 6px 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .hero__google-stars {
+      color: #FBBC04;
+      font-size: .85rem;
+      letter-spacing: 1px;
+    }
+    .hero__google-text {
+      font-size: .75rem;
+      font-weight: 700;
+      color: #444;
     }
     .hero__award-imgs {
       display: flex;
@@ -288,12 +332,12 @@
       letter-spacing: .04em;
     }
     .hero__title {
-      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-size: clamp(2rem, 4vw, 3.4rem);
       font-weight: 800;
-      line-height: 1.06;
-      letter-spacing: -.04em;
+      line-height: 1.12;
+      letter-spacing: -.03em;
       color: var(--text);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .hero__title .line-blue {
       background: linear-gradient(135deg, #0A7EF5, #38bdf8 60%, #0A7EF5);
@@ -304,13 +348,44 @@
       animation: shimmer 4s linear infinite;
     }
     @keyframes shimmer { to { background-position: 200% center; } }
+    .underline-anim {
+      position: relative;
+      display: inline;
+    }
+    .underline-anim .heart {
+      position: absolute;
+      top: -0.3em;
+      right: -0.7em;
+      font-size: 0.45em;
+      transform: rotate(45deg);
+      display: inline-block;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .underline-anim::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 2px;
+      height: 4px;
+      width: 0;
+      border-radius: 2px;
+      background: linear-gradient(135deg, #0A7EF5, #38bdf8 60%, #0A7EF5);
+      background-size: 200% auto;
+      animation: shimmer 4s linear infinite;
+      transition: width .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .underline-anim.draw::after { width: 100%; }
     .hero__sub {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-size: clamp(.95rem, 2vw, 1.1rem);
       color: var(--muted);
       line-height: 1.75;
-      max-width: 560px;
-      margin: 0 auto 40px;
+      max-width: 520px;
+      margin: 0 auto 0;
       font-weight: 400;
+    }
+    @media (min-width: 900px) {
+      .hero__sub { margin: 0 0 0; }
     }
     .hero__ctas {
       display: flex;
@@ -567,32 +642,30 @@
        PROGRAMS
     ══════════════════════════════ */
     .programs { padding: 110px 0; }
-    .programs__grid {
+    .prog-unified {
       display: grid;
-      gap: 20px;
       grid-template-columns: 1fr;
-    }
-    .prog {
       border-radius: var(--r-xl);
       overflow: hidden;
       background: #fff;
       border: 1px solid var(--border);
-      box-shadow: var(--sh1);
-      transition: box-shadow .35s ease, transform .35s ease;
-      display: flex;
-      flex-direction: column;
+      box-shadow: var(--sh2);
     }
-    .prog:hover {
-      box-shadow: var(--sh3);
-      transform: translateY(-6px);
-    }
-    .prog__img {
+    @media (min-width: 768px) { .prog-unified { grid-template-columns: 1fr 1fr; } }
+    .prog-unified__img {
       width: 100%;
-      height: 240px;
+      height: 100%;
+      min-height: 320px;
       object-fit: cover;
       object-position: center 30%;
+      display: block;
     }
-    .prog__body { padding: 28px 26px; flex: 1; display: flex; flex-direction: column; }
+    .prog-unified__body { padding: 32px 36px; display: flex; flex-direction: column; justify-content: center; }
+    .prog-tier {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .prog-tier:last-of-type { border-bottom: none; margin-bottom: 24px; }
     .prog__badge {
       display: inline-block;
       font-size: .68rem;
@@ -603,14 +676,12 @@
       background: var(--blue-soft);
       border-radius: 100px;
       padding: 4px 12px;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
     }
-    .prog__title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; letter-spacing: -.01em; }
-    .prog__desc { font-size: .87rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 22px; }
-    .prog__price { font-size: 1.5rem; font-weight: 800; color: var(--text); letter-spacing: -.02em; margin-bottom: 18px; }
-    .prog__price span { font-size: .85rem; font-weight: 400; color: var(--muted); }
-    @media (min-width: 640px) { .programs__grid { grid-template-columns: 1fr 1fr; } }
-    @media (min-width: 960px) { .programs__grid { grid-template-columns: repeat(3, 1fr); } }
+    .prog__title { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 6px; letter-spacing: -.01em; }
+    .prog__desc { font-size: .85rem; color: var(--muted); line-height: 1.7; margin-bottom: 8px; }
+    .prog__price { font-size: 1.3rem; font-weight: 800; color: var(--text); letter-spacing: -.02em; }
+    .prog__price span { font-size: .82rem; font-weight: 400; color: var(--muted); }
 
     /* ══════════════════════════════
        PROCESS
@@ -672,11 +743,11 @@
       gap: 12px;
       grid-template-columns: 1fr 1fr;
     }
-    .gallery__grid .g-wide { grid-column: 1 / -1; }
     .g-cell {
       border-radius: var(--r-lg);
       overflow: hidden;
       position: relative;
+      aspect-ratio: 1/1;
     }
     .g-cell img {
       width: 100%;
@@ -686,8 +757,6 @@
       transition: transform .5s cubic-bezier(.25,.46,.45,.94);
     }
     .g-cell:hover img { transform: scale(1.04); }
-    .g-cell.g-wide { aspect-ratio: 16/7; }
-    .g-cell:not(.g-wide) { aspect-ratio: 4/3; }
     @media (min-width: 700px) { .gallery__grid { grid-template-columns: repeat(3, 1fr); } }
 
     /* ══════════════════════════════
@@ -755,8 +824,8 @@
       margin-top: 32px;
     }
     .about__award-row img {
-      width: 56px;
-      height: 56px;
+      width: 90px;
+      height: 90px;
       object-fit: contain;
       filter: drop-shadow(0 2px 8px rgba(245,166,35,.35));
       transition: transform .25s, filter .25s;
@@ -896,24 +965,24 @@
     ══════════════════════════════ */
     .cta-section {
       padding: 110px 0;
-      background: var(--dark);
+      background: var(--surface);
       position: relative;
       overflow: hidden;
       text-align: center;
     }
-    /* ambient glow */
-    .cta-section::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px; height: 400px;
-      background: radial-gradient(ellipse, rgba(10,126,245,.25) 0%, transparent 70%);
-      pointer-events: none;
+    .cta-section::before { display: none; }
+    .cta-bubble {
+      background: #fff;
+      border-radius: 32px;
+      padding: 64px 40px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: var(--sh2), 0 0 0 1px rgba(0,0,0,.05);
     }
     .cta-section > * { position: relative; z-index: 1; }
-    .cta-section .h2 { color: #fff; margin-bottom: 16px; }
-    .cta-section .lead { max-width: 520px; margin: 0 auto 40px; color: rgba(255,255,255,.65); }
+    .cta-section .h2 { color: var(--text); margin-bottom: 16px; }
+    .cta-section .lead { max-width: 520px; margin: 0 auto 40px; color: var(--muted); }
+    .cta-section .label { color: var(--gold); background: none; border-color: transparent; }
     .cta__trust {
       display: flex;
       flex-wrap: wrap;
@@ -926,7 +995,7 @@
       align-items: center;
       gap: 8px;
       font-size: .82rem;
-      color: rgba(255,255,255,.55);
+      color: var(--muted);
       font-weight: 500;
     }
     .trust-item svg { flex-shrink: 0; }
@@ -1061,6 +1130,143 @@
     .modal__success-title { font-size: 1.3rem; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -.02em; }
     .modal__success-body { font-size: .9rem; color: var(--muted); line-height: 1.7; }
 
+    /* ── Hero Proof Block ── */
+    .hero__proof {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-top: 1px solid var(--border);
+      padding: 20px 0 0;
+    }
+    .hero__proof-label {
+      font-size: .77rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero__proof-label::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .hero__proof-awards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    @media (min-width: 900px) {
+      .hero__proof-awards { grid-template-columns: repeat(4, 1fr); }
+    }
+    .hero__proof-award {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+    }
+    .hero__proof-award img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(245,166,35,.3));
+      transition: transform .25s;
+    }
+    .hero__proof-award img:hover { transform: translateY(-2px) scale(1.06); }
+    .hero__proof-award-year {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .hero__proof-award-name {
+      font-size: .68rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .hero__proof-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      padding: 14px 16px;
+    }
+    .hero__proof-stat {
+      text-align: center;
+    }
+    .hero__proof-stat-num {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: -.03em;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .hero__proof-stat-label {
+      font-size: .58rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+    }
+
+    /* ── Hero Form Card ── */
+    .hero__form-card {
+      background: #fff;
+      border-radius: var(--r-xl);
+      padding: 24px 24px 28px;
+      box-shadow: var(--sh2), 0 0 0 1px rgba(0,0,0,.06);
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: left;
+      width: 100%;
+    }
+    .hero__form-card .fg-row {
+      grid-template-columns: 1fr;
+    }
+    .hero__form-title {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: .01em;
+    }
+    .hero__form-submit {
+      width: 100%;
+      padding: 14px;
+      border-radius: 100px;
+      font-size: .95rem;
+      font-weight: 700;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 6px;
+      box-shadow: 0 4px 16px rgba(10,126,245,.3);
+      transition: background .25s, box-shadow .25s, transform .25s;
+    }
+    .hero__form-submit:hover {
+      background: var(--blue-deep);
+      box-shadow: 0 8px 28px rgba(10,126,245,.4);
+      transform: translateY(-1px);
+    }
+    .hero__form-note { font-size: .72rem; color: var(--muted); text-align: center; margin-top: 10px; }
+    .hero__form-success { display: none; padding: 24px 0 8px; text-align: center; }
+    .hero__form-success-icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .hero__form-success-title { font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -.02em; }
+    .hero__form-success-body { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+
     /* ── Section spacing util ── */
     .sh { margin-bottom: 60px; }
     .sh.ctr { text-align: center; }
@@ -1079,7 +1285,7 @@
       <li><a href="#testimonials">Reviews</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a href="#" class="btn btn--blue nav__btn" onclick="openModal(); return false;">Book a Spot</a>
+    <a href="#contact" class="btn btn--blue nav__btn">Contact Us</a>
     <button class="nav__ham" id="ham" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -1091,107 +1297,85 @@
     <a href="#about" onclick="closeDrawer()">About</a>
     <a href="#testimonials" onclick="closeDrawer()">Reviews</a>
     <a href="#faq" onclick="closeDrawer()">FAQ</a>
-    <a href="#" class="drawer-cta" onclick="openModal(); closeDrawer(); return false;">Book a Spot &rarr;</a>
+    <a href="#contact" class="drawer-cta" onclick="closeDrawer()">Contact Us &rarr;</a>
   </div>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="contact">
     <div class="hero-blob hero-blob--1"></div>
     <div class="hero-blob hero-blob--2"></div>
     <div class="hero-blob hero-blob--3"></div>
     <div class="hero__inner">
-      <div class="hero__awards reveal">
-        <div class="hero__award-imgs">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b36702f0821bf2de3.png" alt="2023 Platinum Award" />
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b22141b0d302d4e2a.png" alt="2024 Platinum Award" />
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891d618c8d22c1cf5cf3.png" alt="2025 Platinum Award" />
+      <div class="hero__left">
+        <div class="hero__social-proof reveal">
+          <div class="hero__awards">
+            <span class="hero__awards-text">&#128205; Topeka, KS &nbsp;&middot;&nbsp; Now Enrolling &nbsp;&middot;&nbsp; Register Now!</span>
+          </div>
+          <div class="hero__google">
+            <span class="hero__google-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="hero__google-text">5.0 on Google</span>
+          </div>
         </div>
-        <span class="hero__awards-text">3x Platinum Award Winner</span>
-      </div>
-      <h1 class="hero__title reveal reveal-d1">
-        Your Child Learns to<br/>
-        <span class="line-blue">Love the Water.</span>
-      </h1>
-      <p class="hero__sub reveal reveal-d2">
-        Private, one-on-one swim lessons for children 16 months and up in Topeka, KS. Safety-first, confidence-building, award-winning instruction.
-      </p>
-      <div class="hero__ctas reveal reveal-d3">
-        <a href="#" class="btn btn--blue btn--lg" onclick="openModal(); return false;">Book Your First Lesson</a>
-        <a href="#programs" class="btn btn--ghost btn--lg">See Programs</a>
-      </div>
-      <div class="hero__image-wrap reveal reveal-d4">
-        <img
-          src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bfbffadfa0e6814eb7.jpg"
-          alt="Kids learning to swim with instructor at Kicking Kiddos"
-        />
-        <div class="hero__chip hero__chip--tl">
-          <div class="chip__num">$25</div>
-          <div class="chip__label">Per Lesson</div>
-        </div>
-        <div class="hero__chip hero__chip--br">
-          <div class="chip__row">
-            <div class="chip__dot"></div>
-            <div class="chip__live">Enrolling Now</div>
+        <h1 class="hero__title reveal reveal-d1">
+          Swimming Lessons<br/>
+          <span class="underline-anim">children love<span class="heart">❤️</span></span><br/>
+          <span class="line-blue">and parents trust.</span>
+        </h1>
+        <p class="hero__sub reveal reveal-d2">
+          Private lessons for children 16 months and up in Topeka, KS. Safety focused, confidence building, award winning instruction.
+        </p>
+        <div class="hero__proof reveal reveal-d3">
+          <div class="hero__proof-label">Recognized for Excellence</div>
+          <div class="hero__proof-awards">
+            <div class="hero__proof-award">
+              <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b36702f0821bf2de3.png" alt="2023 Platinum Award" />
+              <div class="hero__proof-award-year">2023</div>
+              <div class="hero__proof-award-name">Platinum Award Winner</div>
+            </div>
+            <div class="hero__proof-award">
+              <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b22141b0d302d4e2a.png" alt="2024 Platinum Award" />
+              <div class="hero__proof-award-year">2024</div>
+              <div class="hero__proof-award-name">Platinum Award Winner</div>
+            </div>
+            <div class="hero__proof-award">
+              <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891d618c8d22c1cf5cf3.png" alt="2025 Platinum Award" />
+              <div class="hero__proof-award-year">2025</div>
+              <div class="hero__proof-award-name">Platinum Award Winner</div>
+            </div>
+            <div class="hero__proof-award">
+              <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891dedd0875c9c1ba671.png" alt="Youth Swimming Award 2025" />
+              <div class="hero__proof-award-year">2025</div>
+              <div class="hero__proof-award-name">Youth Swimming Excellence</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- AWARDS -->
-  <section class="awards" id="awards">
-    <div class="wrap">
-      <div class="awards__label reveal">
-        <span class="label label--gold">Recognized for Excellence</span>
-      </div>
-      <div class="awards__grid reveal reveal-d1">
-        <div class="award-item">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b36702f0821bf2de3.png" alt="2023 Platinum Award" class="award-item__img" />
-          <div class="award-item__year">2023</div>
-          <div class="award-item__name">Platinum Award Winner</div>
+      <div class="hero__form-card reveal reveal-d3">
+        <div class="hero__form-title">We'll respond within 24 hours.</div>
+        <div id="heroForm">
+          <form onsubmit="submitForm(event)">
+            <div class="fg-row">
+              <div class="fg"><label>Your Name</label><input name="parentName" type="text" placeholder="Jane Smith" required /></div>
+              <div class="fg"><label>Child's Name &amp; Age</label><input name="childInfo" type="text" placeholder="Emma, 4 years" required /></div>
+            </div>
+            <div class="fg-row">
+              <div class="fg"><label>Phone</label><input name="phone" type="tel" placeholder="(785) 555-0100" required /></div>
+              <div class="fg"><label>Email</label><input name="email" type="email" placeholder="jane@email.com" required /></div>
+            </div>
+            <div class="fg"><label>Message (optional)</label><textarea name="message" placeholder="Any questions, goals, or availability..."></textarea></div>
+            <button type="submit" class="hero__form-submit">Contact Us &rarr;</button>
+            <p class="hero__form-note">No spam, ever. We'll only contact you about your child's lessons.</p>
+          </form>
         </div>
-        <div class="award-item">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b22141b0d302d4e2a.png" alt="2024 Platinum Award" class="award-item__img" />
-          <div class="award-item__year">2024</div>
-          <div class="award-item__name">Platinum Award Winner</div>
-        </div>
-        <div class="award-item">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891d618c8d22c1cf5cf3.png" alt="2025 Platinum Award" class="award-item__img" />
-          <div class="award-item__year">2025</div>
-          <div class="award-item__name">Platinum Award Winner</div>
-        </div>
-        <div class="award-item">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891dedd0875c9c1ba671.png" alt="Youth Swimming Award 2025" class="award-item__img" />
-          <div class="award-item__year">2025</div>
-          <div class="award-item__name">Youth Swimming Excellence</div>
+        <div class="hero__form-success" id="heroSuccess">
+          <div class="hero__form-success-icon">&#127881;</div>
+          <div class="hero__form-success-title">Message received!</div>
+          <p class="hero__form-success-body">Thanks for reaching out. We'll be in touch within 24 hours. We can't wait to meet your family!</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS -->
-  <section class="stats">
-    <div class="wrap">
-      <div class="stats__inner">
-        <div class="reveal">
-          <div class="stat__num">3x</div>
-          <div class="stat__label">Platinum Award</div>
-        </div>
-        <div class="reveal reveal-d1">
-          <div class="stat__num">1:1</div>
-          <div class="stat__label">Private Instruction</div>
-        </div>
-        <div class="reveal reveal-d2">
-          <div class="stat__num">16mo+</div>
-          <div class="stat__label">Ages Welcome</div>
-        </div>
-        <div class="reveal reveal-d3">
-          <div class="stat__num">$25</div>
-          <div class="stat__label">Per Lesson</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- WHY -->
   <section class="why" id="why">
@@ -1250,36 +1434,28 @@
         <h2 class="h2 reveal reveal-d1">A Plan for Every Swimmer</h2>
         <p class="lead reveal reveal-d2">From first splash to stroke refinement, we meet your child exactly where they are.</p>
       </div>
-      <div class="programs__grid">
-        <div class="prog reveal">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bf4b6c779873132419.jpg" alt="Parent and Toddler Swim" class="prog__img" />
-          <div class="prog__body">
-            <span class="prog__badge">Ages 16 months - 3 years</span>
-            <h3 class="prog__title">Parent + Toddler</h3>
+      <div class="prog-unified reveal">
+        <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bfb003fa9d728f71c7.jpg" alt="Swim lessons at Kicking Kiddos" class="prog-unified__img" />
+        <div class="prog-unified__body">
+          <div class="prog-tier">
+            <span class="prog__badge">Ages 16 months to 3 years</span>
+            <h3 class="prog__title">Parent and Toddler Swim</h3>
             <p class="prog__desc">Bond in the water while building foundational safety skills. You stay in the pool with your little one as they discover the joy of swimming.</p>
             <div class="prog__price">$25 <span>/ lesson</span></div>
-            <a href="#" class="btn btn--blue" onclick="openModal(); return false;">Book Now</a>
           </div>
-        </div>
-        <div class="prog reveal reveal-d1">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bfb003fa9d728f71c7.jpg" alt="Beginner Swim Lessons" class="prog__img" />
-          <div class="prog__body">
-            <span class="prog__badge">Ages 3 - 7 years</span>
-            <h3 class="prog__title">Beginner Swimmers</h3>
+          <div class="prog-tier">
+            <span class="prog__badge">Ages 3 to 7 years</span>
+            <h3 class="prog__title">Beginner Swim Lessons</h3>
             <p class="prog__desc">Turn fear into confidence. Water safety, breath control, floating, and first strokes, all at the child's pace with no pressure and lots of encouragement.</p>
             <div class="prog__price">$25 <span>/ lesson</span></div>
-            <a href="#" class="btn btn--blue" onclick="openModal(); return false;">Book Now</a>
           </div>
-        </div>
-        <div class="prog reveal reveal-d2">
-          <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bfbffadfa0e6814eb7.jpg" alt="Intermediate and Advanced Swim Lessons" class="prog__img" />
-          <div class="prog__body">
-            <span class="prog__badge">Ages 7+</span>
-            <h3 class="prog__title">Intermediate + Advanced</h3>
+          <div class="prog-tier">
+            <span class="prog__badge">Ages 7 and up</span>
+            <h3 class="prog__title">Intermediate and Advanced</h3>
             <p class="prog__desc">Refine technique, build stamina, master all four strokes. Whether your child wants to swim laps or compete, we set the foundation for a lifetime.</p>
             <div class="prog__price">$25 <span>/ lesson</span></div>
-            <a href="#" class="btn btn--blue" onclick="openModal(); return false;">Book Now</a>
           </div>
+          <a href="#contact" class="btn btn--blue btn--lg">Contact Us Today</a>
         </div>
       </div>
     </div>
@@ -1326,7 +1502,7 @@
         <h2 class="h2 reveal reveal-d1">Real Lessons, Real Progress</h2>
       </div>
       <div class="gallery__grid">
-        <div class="g-cell g-wide reveal">
+        <div class="g-cell reveal">
           <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bfbffadfa0e6814eb7.jpg" alt="Swim instructor with child" />
         </div>
         <div class="g-cell reveal reveal-d1">
@@ -1411,61 +1587,16 @@
         </div>
         <div class="reveal reveal-d1">
           <span class="label">About Kicking Kiddos</span>
-          <h2 class="h2" style="margin-bottom: 16px;">Passionate About Water Safety and Happy Kids</h2>
-          <p class="lead" style="margin-bottom: 16px;">Kicking Kiddos was founded on a simple belief: every child deserves to feel safe, confident, and joyful in the water.</p>
-          <p style="font-size:.9rem; color:var(--muted); line-height:1.75; margin-bottom:8px;">With years of experience teaching children as young as 16 months, our program is rooted in patience, encouragement, and proven technique. We have been recognized three years in a row with the Platinum Award for excellence in aquatic instruction.</p>
-          <ul class="about__bullets">
-            <li>Certified water safety and swim instruction professionals</li>
-            <li>Patient, encouraging approach for children at every level</li>
-            <li>Safety skills woven into every lesson, every time</li>
-            <li>Flexible scheduling to fit your family's life</li>
-            <li>Proudly serving the Topeka, Kansas community</li>
+          <h2 class="h2" style="margin-bottom: 14px;">Kicking Kiddos: Water Safety &amp; Swimming Excellence</h2>
+          <p class="lead" style="margin-bottom: 20px;">Kicking Kiddos provides award-winning, professional aquatic instruction in Topeka, Kansas. With a focus on patience and safety, we help children of all levels build confidence and joy in the water.</p>
+          <ul class="about__bullets" style="margin: 0 0 0;">
+            <li><strong>Award-Winning:</strong> Three-time Platinum Award winner for excellence in aquatic instruction.</li>
+            <li><strong>Expert Led:</strong> Certified professionals using proven, safety-first techniques tailored to every child.</li>
+            <li><strong>All Ages Welcome:</strong> Parent-assisted toddler programs starting at 16 months through advanced competitive swimmers.</li>
+            <li><strong>Fearful Swimmer Specialists:</strong> Patient, step-by-step guidance that turns water anxiety into confidence.</li>
+            <li><strong>Flexible Scheduling:</strong> Lessons designed to fit your family's busy life, available year-round.</li>
           </ul>
-          <div class="about__award-row">
-            <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b36702f0821bf2de3.png" alt="2023 Platinum Award" />
-            <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891b22141b0d302d4e2a.png" alt="2024 Platinum Award" />
-            <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891d618c8d22c1cf5cf3.png" alt="2025 Platinum Award" />
-            <img src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a8891dedd0875c9c1ba671.png" alt="Youth Swimming Award 2025" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHO WE HELP -->
-  <section class="who" id="who">
-    <div class="wrap">
-      <div class="who__layout">
-        <div class="reveal">
-          <span class="label">Who We Serve</span>
-          <h2 class="h2" style="margin-bottom: 12px;">Every Child Deserves to Feel Safe in the Water</h2>
-          <p style="font-size:.9rem; color:var(--muted); line-height:1.75; margin-bottom:8px;">We work with children at all levels, from their very first encounter with water to advanced stroke development.</p>
-          <ul class="who-list">
-            <li class="who-item">
-              <span class="who-item__icon">😰</span>
-              <div><div class="who-item__title">The Fearful Swimmer</div><div class="who-item__body">Panics near deep water or refuses to put their face in. Our patient approach turns fear into confidence, one breath at a time.</div></div>
-            </li>
-            <li class="who-item">
-              <span class="who-item__icon">👶</span>
-              <div><div class="who-item__title">Toddlers (16 Months+)</div><div class="who-item__body">The perfect age to begin water safety skills. Parent-assisted lessons build a happy relationship with water from the start.</div></div>
-            </li>
-            <li class="who-item">
-              <span class="who-item__icon">🌱</span>
-              <div><div class="who-item__title">Beginners Building Basics</div><div class="who-item__body">Never formally learned to swim? We build water safety, floating, and foundational strokes in a zero-pressure environment.</div></div>
-            </li>
-            <li class="who-item">
-              <span class="who-item__icon">🚀</span>
-              <div><div class="who-item__title">Swimmers Leveling Up</div><div class="who-item__body">Already swimming but want better technique or to prep for a swim team? We take developing swimmers to the next level.</div></div>
-            </li>
-          </ul>
-          <a href="#" class="btn btn--blue btn--lg" onclick="openModal(); return false;">Find the Right Program</a>
-        </div>
-        <div class="reveal reveal-d2">
-          <img
-            src="https://assets.cdn.filesafe.space/y8AfcwWjebLRDs50RH69/media/69a889bf6fa6586d8ec2d61c.jpg"
-            alt="Child in swim lesson"
-            class="who__img"
-          />
+          <a href="#contact" class="btn btn--blue btn--lg" style="margin-top: 28px;">Contact Us Today</a>
         </div>
       </div>
     </div>
@@ -1485,7 +1616,7 @@
         </div>
         <div class="faq-item">
           <button class="faq-q" onclick="toggleFaq(this)">What does a private lesson actually look like? <span class="faq-q__icon">+</span></button>
-          <div class="faq-a"><p>Each lesson is 30 minutes of focused, one-on-one instruction tailored to your child's skill level and goals. We start with a quick check-in, then move through skill-building exercises at a pace that feels comfortable and fun.</p></div>
+          <div class="faq-a"><p>Each lesson is 30 minutes of focused, one on one instruction tailored to your child's skill level and goals. We start with a quick check in, then move through skill building exercises at a pace that feels comfortable and fun.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" onclick="toggleFaq(this)">How do you handle children who are scared of the water? <span class="faq-q__icon">+</span></button>
@@ -1514,22 +1645,24 @@
   <!-- FINAL CTA -->
   <section class="cta-section">
     <div class="wrap">
-      <span class="label label--gold reveal" style="margin-bottom:20px;">Ready to Start?</span>
-      <h2 class="h2 reveal reveal-d1">Give Your Child the Gift<br/>of Water Confidence</h2>
-      <p class="lead reveal reveal-d2">Spots fill up fast. Book your child's first private lesson today and join Topeka's most trusted swim instruction program.</p>
-      <a href="#" class="btn btn--white btn--lg reveal reveal-d3" onclick="openModal(); return false;">Book a Lesson, Starting at $25</a>
-      <div class="cta__trust reveal reveal-d4">
-        <div class="trust-item">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,.3)" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          No commitment required
-        </div>
-        <div class="trust-item">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,.3)" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          3x Platinum Award winner
-        </div>
-        <div class="trust-item">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,.3)" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Response within 24 hours
+      <div class="cta-bubble">
+        <span class="label label--gold reveal" style="margin-bottom:20px;">Ready to Start?</span>
+        <h2 class="h2 reveal reveal-d1">Give Your Child the Gift<br/>of Water Confidence</h2>
+        <p class="lead reveal reveal-d2">Spots fill up fast. Book your child's first private lesson today and join Topeka's most trusted swim instruction program.</p>
+        <a href="#contact" class="btn btn--blue btn--lg reveal reveal-d3">Contact Us Today</a>
+        <div class="cta__trust reveal reveal-d4">
+          <div class="trust-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,.15)" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            No commitment required
+          </div>
+          <div class="trust-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,.15)" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            3x Platinum Award winner
+          </div>
+          <div class="trust-item">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="rgba(0,0,0,.15)" stroke-width="2"/><path d="M8 12l3 3 5-5" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Response within 24 hours
+          </div>
         </div>
       </div>
     </div>
@@ -1551,70 +1684,18 @@
           <li><a href="#faq">FAQ</a></li>
         </ul>
         <div class="footer__copy">&copy; 2025 Kicking Kiddos. All rights reserved. Topeka, KS.</div>
+        <div class="footer__copy" style="margin-top:8px;">Website and marketing systems developed by <a href="https://nilsdigital.com" target="_blank" rel="noopener" style="color:rgba(255,255,255,.4);text-decoration:underline;">nilsdigital.com</a></div>
       </div>
     </div>
   </footer>
 
-  <!-- MODAL -->
-  <div class="overlay" id="overlay" onclick="handleOverlay(event)">
-    <div class="modal" id="modal">
-      <div class="modal__top">
-        <div>
-          <div class="modal__title">Book Your Child's First Lesson</div>
-          <div class="modal__sub">We'll reach out within 24 hours to confirm your spot.</div>
-        </div>
-        <button class="modal__x" onclick="closeModal()">&times;</button>
-      </div>
-      <div id="modalForm">
-        <form class="modal__form" onsubmit="submitForm(event)">
-          <div class="fg-row">
-            <div class="fg"><label>Parent Name</label><input name="parentName" type="text" placeholder="Jane Smith" required /></div>
-            <div class="fg"><label>Child's Name</label><input name="childName" type="text" placeholder="Emma" required /></div>
-          </div>
-          <div class="fg-row">
-            <div class="fg">
-              <label>Child's Age</label>
-              <select name="childAge" required>
-                <option value="" disabled selected>Select age</option>
-                <option>16 months - 2 years</option>
-                <option>3 - 4 years</option>
-                <option>5 - 6 years</option>
-                <option>7 - 9 years</option>
-                <option>10 - 12 years</option>
-                <option>13+ years</option>
-              </select>
-            </div>
-            <div class="fg">
-              <label>Swim Level</label>
-              <select name="swimLevel" required>
-                <option value="" disabled selected>Select level</option>
-                <option>No experience</option>
-                <option>Very beginner</option>
-                <option>Some experience</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-              </select>
-            </div>
-          </div>
-          <div class="fg-row">
-            <div class="fg"><label>Phone</label><input name="phone" type="tel" placeholder="(785) 555-0100" required /></div>
-            <div class="fg"><label>Email</label><input name="email" type="email" placeholder="jane@email.com" required /></div>
-          </div>
-          <div class="fg"><label>Preferred Days / Times</label><input name="availability" type="text" placeholder="e.g. Weekday afternoons or Saturday mornings" /></div>
-          <div class="fg"><label>Anything else? (optional)</label><textarea name="message" placeholder="Any fears, special needs, or goals for your child..."></textarea></div>
-          <button type="submit" class="modal__submit">Request My Spot &rarr;</button>
-          <p class="modal__note">No spam, ever. We will only contact you about your lesson.</p>
-        </form>
-      </div>
-      <div class="modal__success" id="modalSuccess">
-        <div class="modal__success-icon">🎉</div>
-        <div class="modal__success-title">You're on the list!</div>
-        <p class="modal__success-body">Thanks for reaching out. We'll be in touch within 24 hours to confirm your child's first lesson. We can't wait to meet you!</p>
-      </div>
-    </div>
-  </div>
 
   <script>
+    /* ── Underline animation ── */
+    setTimeout(() => {
+      document.querySelector('.underline-anim').classList.add('draw');
+    }, 1000);
+
     /* ── Nav ── */
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 60), { passive: true });
@@ -1653,26 +1734,12 @@
       }
     }
 
-    /* ── Modal ── */
-    function openModal() {
-      document.getElementById('overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeModal() {
-      document.getElementById('overlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    function handleOverlay(e) {
-      if (e.target === document.getElementById('overlay')) closeModal();
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
     /* ── Form ── */
     const GHL_WEBHOOK = 'YOUR_GHL_WEBHOOK_URL_HERE';
     async function submitForm(e) {
       e.preventDefault();
       const form = e.target;
-      const btn  = form.querySelector('.modal__submit');
+      const btn  = form.querySelector('.hero__form-submit');
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
@@ -1688,8 +1755,8 @@
         });
       } catch (_) {}
 
-      document.getElementById('modalForm').style.display = 'none';
-      document.getElementById('modalSuccess').style.display = 'block';
+      document.getElementById('heroForm').style.display = 'none';
+      document.getElementById('heroSuccess').style.display = 'block';
     }
   </script>
 </body>
