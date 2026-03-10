@@ -864,25 +864,44 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       margin: 24px 0 32px;
     }
     .about__bullets li {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      font-size: .9rem;
+      gap: 14px;
+      font-size: .88rem;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.6;
+      background: var(--surface);
+      border: 1px solid rgba(10,126,245,.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .about__bullets li:hover {
+      border-color: rgba(10,126,245,.2);
+      box-shadow: 0 4px 16px rgba(10,126,245,.07);
     }
     .about__bullets li::before {
-      content: '';
-      width: 6px;
-      height: 6px;
+      content: '✓';
+      min-width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: var(--blue);
-      margin-top: 8px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: .72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .about__bullets li strong {
+      color: var(--text);
+      font-weight: 700;
     }
     @media (min-width: 880px) {
       .about__layout { grid-template-columns: 1fr 1fr; }
