@@ -343,51 +343,14 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <a class="nav__logo" href="kickingkiddos.html">Kicking Kiddos</a>
-    <ul class="nav__links">
-      <li><a href="kickingkiddos.html">Home</a></li>
-      <li><a href="kickingkiddos.html#programs">Programs</a></li>
-      <li><a href="kickingkiddos.html#about">About</a></li>
-      <li><a href="kickingkiddos.html#contact">Contact</a></li>
-    </ul>
-    <a class="nav__btn" href="kickingkiddos.html">← Back to Home</a>
-    <button class="nav__ham" id="ham" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-  <div class="nav__drawer" id="drawer">
-    <a href="kickingkiddos.html">Home</a>
-    <a href="kickingkiddos.html#programs">Programs</a>
-    <a href="kickingkiddos.html#about">About</a>
-    <a href="kickingkiddos.html#contact">Contact</a>
-    <a class="drawer-cta" href="registration.html">Register Now</a>
-  </div>
-
-  <!-- PAGE HEADER -->
+<!-- PAGE HEADER -->
   <header class="page-header">
     <div class="ph-blob ph-blob--1"></div>
     <div class="ph-blob ph-blob--2"></div>
     <div class="ph-blob ph-blob--3"></div>
     <div class="wrap page-header__inner">
-      <a class="ph-back" href="kickingkiddos.html">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3L5 7.5 9 12"/></svg>
-        Back to Home
-      </a>
-      <p class="label">Kicking Kiddos Swimming Lessons</p>
       <h1>Student Registration 🏊</h1>
-      <p>Complete all four sections below. One registration per child is required. Please read all forms carefully before signing.</p>
-      <div class="steps">
-        <div class="step-chip"><span class="step-n">Step 1</span><span class="step-arr-in">→</span><span class="step-lbl">Register</span></div>
-        <div class="step-sep">→</div>
-        <div class="step-chip"><span class="step-n">Step 2</span><span class="step-arr-in">→</span><span class="step-lbl">Parents</span></div>
-        <div class="step-sep">→</div>
-        <div class="step-chip"><span class="step-n">Step 3</span><span class="step-arr-in">→</span><span class="step-lbl">Media</span></div>
-        <div class="step-sep">→</div>
-        <div class="step-chip"><span class="step-n">Step 4</span><span class="step-arr-in">→</span><span class="step-lbl">Waiver</span></div>
-      </div>
-    </div>
+      <p>Register your student(s) below ⬇️</div>
     <!-- Wave transition into form area -->
     <svg class="ph-wave" viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0,32 C240,56 480,8 720,32 C960,56 1200,8 1440,32 L1440,56 L0,56 Z" fill="#e8f4ff"/>
@@ -397,10 +360,26 @@
   <!-- FORM AREA -->
   <main class="form-area">
     <div class="wrap">
-      <p class="req-note"><b>*</b> Required fields &nbsp;·&nbsp; One registration form per child</p>
+      <iframe
+        src="https://link.nilsdigital.com/widget/form/sP0dqwYEEjnnmTUBcthi"
+        style="width:100%;height:2993px;border:none;border-radius:3px"
+        id="inline-sP0dqwYEEjnnmTUBcthi"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Registration Form"
+        data-height="2993"
+        data-layout-iframe-id="inline-sP0dqwYEEjnnmTUBcthi"
+        data-form-id="sP0dqwYEEjnnmTUBcthi"
+        title="Registration Form"
+      ></iframe>
+      <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 
-      <!-- Replace YOUR_FORM_ID after signing up free at formspree.io -->
-      <form id="regForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <form id="regForm" style="display:none">
 
         <!-- ══ 1. CHILD INFO ══ -->
         <div class="form-card form-card--blue reveal">
@@ -687,13 +666,7 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer__logo">Kicking Kiddos</div>
-    <p class="footer__copy">© 2025 Kicking Kiddos Swimming Lessons · Topeka, KS · All rights reserved.</p>
-  </footer>
-
-  <script>
+<script>
     // NAV
     const nav = document.getElementById('nav');
     const ham = document.getElementById('ham');
@@ -708,91 +681,6 @@
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // AUTO-FILL DATES
-    const today = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    document.getElementById('mediaDate').value = today;
-    document.getElementById('waiverDate').value = today;
-
-    // AGE FROM DOB
-    document.getElementById('child_dob').addEventListener('change', function () {
-      if (!this.value) return;
-      const dob = new Date(this.value + 'T00:00:00');
-      const now = new Date();
-      let age = now.getFullYear() - dob.getFullYear();
-      const m = now.getMonth() - dob.getMonth();
-      if (m < 0 || (m === 0 && now.getDate() < dob.getDate())) age--;
-      document.getElementById('child_age').value = age >= 0 ? age + ' years old' : '';
-    });
-
-    // SHOW SOCIAL MEDIA BLOCK WHEN PHOTOS APPROVED
-    document.querySelectorAll('input[name="media_photos"]').forEach(r => {
-      r.addEventListener('change', function () {
-        const block = document.getElementById('socialBlock');
-        block.classList.toggle('show', this.value === 'Approved');
-        if (this.value !== 'Approved') document.querySelectorAll('input[name="media_social"]').forEach(x => x.checked = false);
-      });
-    });
-
-    // FORM SUBMISSION
-    const form = document.getElementById('regForm');
-    const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      // Validate required text/select/email/tel
-      let valid = true;
-      form.querySelectorAll('input[required], select[required], textarea[required]').forEach(el => {
-        el.classList.remove('err');
-        if (el.type === 'checkbox') {
-          if (!el.checked) { el.closest('.c-item').style.outline = '2px solid #ef4444'; valid = false; }
-          else el.closest('.c-item').style.outline = '';
-        } else if (el.type !== 'radio' && !el.value.trim()) {
-          el.classList.add('err'); valid = false;
-        }
-      });
-
-      // Validate photo radio
-      if (!document.querySelector('input[name="media_photos"]:checked')) {
-        alert('Please select Approve or Deny for photos/videos in the Media Release section.');
-        return;
-      }
-      // Validate social radio only if photos approved
-      if (document.querySelector('input[name="media_photos"]:checked')?.value === 'Approved') {
-        if (!document.querySelector('input[name="media_social"]:checked')) {
-          alert('Please select Approve or Deny for Social Media sharing in the Media Release section.');
-          return;
-        }
-      }
-
-      if (!valid) {
-        alert('Please fill in all required fields before submitting.');
-        form.querySelector('.err, [style*="outline"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-
-      submitBtn.textContent = 'Submitting…';
-      submitBtn.disabled = true;
-
-      try {
-        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
-        if (res.ok) {
-          form.style.display = 'none';
-          const s = document.getElementById('successState');
-          s.classList.add('show');
-          s.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else { throw new Error(); }
-      } catch {
-        submitBtn.textContent = 'Submit Registration';
-        submitBtn.disabled = false;
-        alert('Something went wrong. Please try again or contact Kimberley directly.');
-      }
-    });
-
-    // Remove error highlight on input
-    form.querySelectorAll('input, select, textarea').forEach(el => {
-      el.addEventListener('input', () => el.classList.remove('err'));
-    });
   </script>
 </body>
 </html>
