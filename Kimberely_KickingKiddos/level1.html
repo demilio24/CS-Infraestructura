@@ -142,6 +142,19 @@
     }
     .btn-rebook:hover { background: #15803d; transform: translateY(-2px); }
 
+    /* ── NEXT STEPS BUTTON ── */
+    .btn-next-steps {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px 24px; margin-bottom: 20px;
+      background: #fff; border: 2.5px solid var(--green);
+      border-radius: 14px; text-decoration: none;
+      font-family: inherit; font-size: .95rem; font-weight: 800; color: var(--green);
+      box-shadow: 0 2px 12px rgba(22,163,74,.12);
+      transition: background .15s, transform .15s, box-shadow .15s;
+    }
+    .btn-next-steps:hover { background: #f0fdf4; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(22,163,74,.2); }
+    .btn-next-steps__arrow { font-size: 1.1rem; }
+
     /* ── CALENDAR ── */
     iframe#booking-frame {
       width: 100%; border: none; overflow: hidden; display: block;
@@ -225,17 +238,18 @@
       </button>
     </div>
 
+    <!-- NEXT STEPS BUTTON -->
+    <a href="https://kickingkiddos.com/done" class="btn-next-steps">
+      Done booking all your lessons? Go to next steps here
+      <span class="btn-next-steps__arrow">→</span>
+    </a>
+
     <!-- CALENDAR EMBED -->
-    <iframe
-      src="https://link.nilsdigital.com/widget/booking/QTdX6CLzU3cRhQ5aDG4p"
-      style="width:100%;border:none;overflow:hidden;"
-      scrolling="no"
-      id="booking-frame"
-    ></iframe>
+    <iframe src="https://link.nilsdigital.com/widget/booking/k2iEG2zXtevwPUOlCILd" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="k2iEG2zXtevwPUOlCILd_1773358930175"></iframe>
 
     <p class="footer-note">
       Questions about your schedule? Email Kimberley at
-      <a href="mailto:kimberleyannortega@gmail.com">kimberleyannortega@gmail.com</a>
+      <a href="mailto:kickingkiddos@yahoo.com">kickingkiddos@yahoo.com</a>
     </p>
 
   </div>
