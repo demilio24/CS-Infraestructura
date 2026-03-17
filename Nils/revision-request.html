@@ -284,8 +284,8 @@
       .chip {
         display: flex;
         align-items: center;
-        gap: 7px;
-        padding: 11px 22px;
+        gap: 8px;
+        padding: 11px 20px;
         border: 2px solid var(--border);
         border-radius: 50px;
         cursor: pointer;
@@ -296,15 +296,39 @@
         transition: all 0.18s;
         user-select: none;
         font-family: "DM Sans", sans-serif;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.07);
       }
       .chip:hover {
         border-color: var(--blue);
         color: var(--blue);
+        box-shadow: 0 2px 8px rgba(4,107,210,0.15);
       }
       .chip.active {
         border-color: var(--blue);
         background: var(--blue-light);
         color: var(--blue);
+        box-shadow: 0 2px 8px rgba(4,107,210,0.15);
+      }
+      .chip-check {
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 10px;
+        transition: all 0.18s;
+        background: #fff;
+      }
+      .chip:hover .chip-check {
+        border-color: var(--blue);
+      }
+      .chip.active .chip-check {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
       }
 
       /* SECTIONS */
@@ -591,6 +615,62 @@
         letter-spacing: 0.6px;
         margin: 10px 0 4px;
       }
+      .upload-remove-btn {
+        display: none;
+        margin: 6px auto 0;
+        background: none;
+        border: 1.5px solid #fca5a5;
+        border-radius: 6px;
+        color: var(--red);
+        font-size: 12px;
+        font-weight: 700;
+        font-family: "DM Sans", sans-serif;
+        padding: 4px 12px;
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+      }
+      .upload-remove-btn:hover {
+        background: #fef2f2;
+      }
+
+      /* MULTI-UPLOAD LIST */
+      .add-media-container {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+      .add-media-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #f0fdf4;
+        border: 1.5px solid #86efac;
+        border-radius: 6px;
+        padding: 7px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #15803d;
+      }
+      .add-media-item button {
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 15px;
+        padding: 0;
+        margin-left: 10px;
+        line-height: 1;
+        font-family: "DM Sans", sans-serif;
+      }
+      .add-media-item button:hover { color: var(--red); }
+
+      /* OTHER callout */
+      .howto-callout.other-how {
+        background: #f8fafc;
+        border-color: #94a3b8;
+      }
+      .howto-callout.other-how .how-title { color: #475569; }
     </style>
   </head>
   <body>
@@ -601,18 +681,12 @@
         alt="Logo"
       />
       <h1>Revision Request Portal</h1>
-      <p>Please complete this form to submit your revision request.</p>
-      <p class="sub">
-        Your plan includes one free revision round per month with as many changes as you'd like. Additional rounds within the same month are $75 per submission.
-      </p>
+      <p class="sub">1 free revision round per month with <strong>unlimited changes</strong> · Need another round? $75 per submission</p>
     </div>
 
     <div class="page-body">
       <!-- EMAIL -->
       <div class="card">
-        <p class="email-intro">
-          Before getting started, please fill in your account details.
-        </p>
         <div class="field">
           <label>Website Page URL <span class="req">*</span></label>
           <input
@@ -620,16 +694,10 @@
             id="domain-input"
             placeholder="e.g. yourwebsite.com/page-name"
           />
-          <p class="field-hint" style="text-align: center">
-            Enter the full URL of the specific page you want revised (not just the domain).
-          </p>
         </div>
         <div class="field">
           <label>Email <span class="req">*</span></label>
           <input type="email" id="email-input" placeholder="your@email.com" />
-          <p class="field-hint" style="text-align: center">
-            This allows us to link your responses to your profile.
-          </p>
         </div>
       </div>
 
@@ -638,47 +706,38 @@
         <div class="section-header">Revision Request</div>
 
         <div class="warning-pill">
-          <span class="icon">⚠️</span>
-          <span
-            >We will <strong>NOT accept</strong> vague requests like "change
-            this" or "fix that." You must provide the
-            <strong>exact current content</strong> and
-            <strong>exactly what you want it replaced with.</strong> Incomplete
-            submissions will be rejected without review.</span
-          >
+          <span class="icon">💡</span>
+          <span>Be specific — include the <strong>exact current content</strong> and <strong>exactly what you want instead.</strong></span>
         </div>
 
         <!-- TYPE CHIPS -->
         <div class="type-selector">
-          <p>
-            What type of revisions do you have?
-            <em style="font-weight: 400; color: #6b7280"
-              >(select all that apply — you can pick multiple types and add as many requests as you need within each)</em
-            >
-          </p>
+          <p>What do you need changed? <em style="font-weight: 400; color: #6b7280">Select all that apply.</em></p>
           <div class="type-chips">
             <div class="chip" onclick="toggleType('text', this)">
-              ✏️&nbsp; Text Changes
+              <span class="chip-check"></span>✏️ Text Changes
             </div>
             <div class="chip" onclick="toggleType('image', this)">
-              🖼️&nbsp; Image Swaps
+              <span class="chip-check"></span>🖼️ Image Swaps
             </div>
             <div class="chip" onclick="toggleType('video', this)">
-              🎬&nbsp; Video Changes
+              <span class="chip-check"></span>🎬 Video Changes
             </div>
             <div class="chip" onclick="toggleType('addition', this)">
-              ➕&nbsp; Additions
+              <span class="chip-check"></span>➕ Additions
             </div>
             <div class="chip" onclick="toggleType('deletion', this)">
-              🗑️&nbsp; Deletions
+              <span class="chip-check"></span>🗑️ Deletions
+            </div>
+            <div class="chip" onclick="toggleType('other', this)">
+              <span class="chip-check"></span>⚙️ Other
             </div>
           </div>
         </div>
 
         <div class="no-selection" id="no-selection">
           <span>👆</span>
-          Select the type(s) of revisions above. Only fill in what applies to
-          you. Leave the rest blank.
+          Select a revision type above to get started.
         </div>
 
         <!-- TEXT -->
@@ -686,28 +745,11 @@
           <div class="section-divider">✏️ Text Revisions</div>
 
           <div class="howto-callout text-how">
-            <div class="how-title">
-              ✏️ HOW TO SUBMIT A TEXT CHANGE
-            </div>
+            <div class="how-title">✏️ Text Changes</div>
             <ol>
-              <li>
-                Open your live website and
-                <strong>find the exact text you want changed.</strong>
-              </li>
-              <li>
-                <strong>Copy it word-for-word</strong> from the page and paste
-                it into the "Current Text" field below. Do not paraphrase or
-                summarize it.
-              </li>
-              <li>
-                In the "Replacement Text" field, type
-                <strong>exactly what you want it to say.</strong> Spell
-                everything out completely.
-              </li>
+              <li><strong>Copy the text</strong> from your live site and paste it into "Current Text."</li>
+              <li>Type <strong>exactly what you want it to say</strong> in "Replacement Text."</li>
             </ol>
-            <div class="shout">
-              💡 For best results, copy the text directly from your live site and paste it into the "Current Text" field. Even a small difference in wording can slow things down, so the closer the match the faster we can make the change.
-            </div>
           </div>
 
           <div id="text-blocks"></div>
@@ -721,35 +763,11 @@
           <div class="section-divider">🖼️ Image Revisions</div>
 
           <div class="howto-callout image-how">
-            <div class="how-title">
-              🚨 HOW TO SUBMIT AN IMAGE SWAP
-            </div>
+            <div class="how-title">🖼️ Image Swaps</div>
             <ol>
-              <li>
-                Open your live website and
-                <strong>find the exact image you want replaced.</strong>
-              </li>
-              <li>
-                <strong>Right-click directly on that image.</strong> A menu
-                will appear.
-              </li>
-              <li>
-                Click <strong>"Copy Image Address"</strong> (also called "Copy
-                Image Link" in some browsers).
-              </li>
-              <li>
-                <strong>Paste that link</strong> into the "Current Image URL"
-                field below.
-              </li>
-              <li>
-                Use the <strong>upload button in the form below</strong> to
-                upload your replacement image directly. Maximum file size is
-                <strong>5 MB.</strong>
-              </li>
+              <li><strong>Right-click the image</strong> on your site → select <strong>"Copy Image Address"</strong> → paste it into "Current Image URL."</li>
+              <li>Upload your new image using the button below.</li>
             </ol>
-            <div class="shout">
-              💡 To make sure we replace the right image, please paste the actual image URL into the "Current Image URL" field. Right-clicking the image and selecting <strong>Copy Image Address</strong> is the quickest way to get it — it only takes a few seconds!
-            </div>
           </div>
 
           <div id="image-blocks"></div>
@@ -763,36 +781,11 @@
           <div class="section-divider">🎬 Video Changes</div>
 
           <div class="howto-callout video-how">
-            <div class="how-title">
-              🚨 HOW TO SUBMIT A VIDEO CHANGE
-            </div>
+            <div class="how-title">🎬 Video Changes</div>
             <ol>
-              <li>
-                Open your live website and
-                <strong>find the exact video you want replaced.</strong>
-              </li>
-              <li>
-                <strong>Right-click directly on the video player.</strong> A
-                menu will appear.
-              </li>
-              <li>
-                Click <strong>"Copy Video Address"</strong> (also called "Copy
-                Video Link" in some browsers).
-              </li>
-              <li>
-                <strong>Paste that link</strong> into the "Current Video URL"
-                field below.
-              </li>
-              <li>
-                For the replacement: paste a
-                <strong>YouTube, Vimeo, or public video link</strong> into the
-                URL field, or use the <strong>upload button</strong> to upload
-                a file directly (5 MB max).
-              </li>
+              <li><strong>Right-click the video</strong> on your site → select <strong>"Copy Video Address"</strong> → paste it into "Current Video URL."</li>
+              <li>Paste a YouTube/Vimeo link <em>or</em> upload a file for the replacement.</li>
             </ol>
-            <div class="shout">
-              💡 To make sure we update the right video, please paste the actual video URL into the "Current Video URL" field. You can get it by right-clicking the video on your site and selecting <strong>Copy Video Address</strong> — it only takes a moment!
-            </div>
           </div>
 
           <div id="video-blocks"></div>
@@ -806,36 +799,11 @@
           <div class="section-divider">➕ Additions</div>
 
           <div class="howto-callout addition-how">
-            <div class="how-title">
-              ✅ HOW TO SUBMIT AN ADDITION REQUEST
-            </div>
+            <div class="how-title">➕ Additions</div>
             <ol>
-              <li>
-                Use the dropdown to
-                <strong>select the type of element you want added</strong>
-                (team member, section, image, etc.).
-              </li>
-              <li>
-                In the "Where should it appear" field, write the
-                <strong>page name and exact position.</strong> Example: "Below
-                the testimonials section on the homepage."
-              </li>
-              <li>
-                In the description field, write out
-                <strong>every piece of content we need to build it:</strong>
-                full names, job titles, body text, photo URLs, button text,
-                links. Do not say "similar to X" or leave anything for us to
-                figure out.
-              </li>
-              <li>
-                If your addition includes an image or photo,
-                <strong>upload it online first</strong> (Google Drive, Dropbox,
-                etc.) and paste the direct link into the description.
-              </li>
+              <li>Choose the element type and <strong>where it should appear</strong> on the page.</li>
+              <li>Include <strong>all content needed</strong> — names, text, links, images, etc.</li>
             </ol>
-            <div class="shout">
-              💡 The more detail you include, the faster we can build it. Think of it as handing us everything we need in one go — text, images, links, names — so we can get started right away without any back and forth.
-            </div>
           </div>
 
           <div id="addition-blocks"></div>
@@ -849,39 +817,33 @@
           <div class="section-divider">🗑️ Deletions</div>
 
           <div class="howto-callout deletion-how">
-            <div class="how-title">
-              🗑️ HOW TO SUBMIT A DELETION REQUEST
-            </div>
+            <div class="how-title">🗑️ Deletions</div>
             <ol>
-              <li>
-                Use the dropdown to
-                <strong>select the type of element you want removed.</strong>
-              </li>
-              <li>
-                In the identification field, tell us
-                <strong>exactly how to find it</strong> on the site:
-                <ul style="margin-top: 6px; padding-left: 18px; display: flex; flex-direction: column; gap: 4px;">
-                  <li>Image or video: right-click it and paste the URL</li>
-                  <li>Team member: type their full name</li>
-                  <li>Text or paragraph: copy and paste the exact words</li>
-                  <li>Section: write the exact section heading</li>
-                </ul>
-              </li>
-              <li>
-                Do <strong>NOT</strong> say "the old photo," "that section," or
-                "the one at the top." We manage many websites. We cannot guess
-                which element you mean.
-              </li>
+              <li>Choose the element type from the dropdown.</li>
+              <li>Identify it precisely — <strong>paste its URL, full name, or exact wording</strong> from the page.</li>
             </ol>
-            <div class="shout">
-              💡 The more precisely you identify the element, the faster we can remove it. A URL, an exact name, or a direct quote from the page is all we need to get it done right away.
-            </div>
           </div>
 
           <div id="deletion-blocks"></div>
           <button class="add-btn" onclick="addBlock('deletion')">
             + Add Another Deletion Request
           </button>
+        </div>
+
+        <!-- OTHER -->
+        <div class="revision-section" id="section-other">
+          <div class="section-divider">⚙️ Other</div>
+
+          <div class="howto-callout other-how">
+            <div class="how-title">⚙️ Other Requests</div>
+            <ol>
+              <li>Give it a short title so we know what it is — e.g. "Add Google Analytics," "Fix contact form," "Set up redirect."</li>
+              <li>Describe exactly what you need done.</li>
+            </ol>
+          </div>
+
+          <div id="other-blocks"></div>
+          <button class="add-btn" onclick="addBlock('other')">+ Add Another Request</button>
         </div>
 
         <!-- GENERAL NOTES -->
@@ -909,8 +871,7 @@
         </div>
 
         <div class="error-banner" id="error-banner">
-          ❌ Please fill in all required fields. Every URL and text change must
-          be completed.
+          Please fill in all required fields before submitting.
         </div>
 
         <button
@@ -937,16 +898,18 @@
         "https://services.leadconnectorhq.com/hooks/stoLOEGDIvEDY3xQI4B8/webhook-trigger/816e85b0-36c2-48d3-a434-491f4b38f087";
       const GHL_API_TOKEN = "pit-c52dab88-1e5a-4889-a376-752f9010943f";
       const activeTypes = new Set();
-      const counts = { text: 0, image: 0, video: 0, addition: 0, deletion: 0 };
+      const counts = { text: 0, image: 0, video: 0, addition: 0, deletion: 0, other: 0 };
 
       // Auto-fill email from ?email= URL parameter
       const _urlEmail = new URLSearchParams(window.location.search).get("email");
       if (_urlEmail) document.getElementById("email-input").value = _urlEmail;
 
       function toggleType(type, chip) {
+        const checkEl = chip.querySelector(".chip-check");
         if (activeTypes.has(type)) {
           activeTypes.delete(type);
           chip.classList.remove("active");
+          if (checkEl) checkEl.textContent = "";
           document
             .getElementById("section-" + type)
             .classList.remove("visible");
@@ -955,6 +918,7 @@
         } else {
           activeTypes.add(type);
           chip.classList.add("active");
+          if (checkEl) checkEl.textContent = "✓";
           document.getElementById("section-" + type).classList.add("visible");
           if (!document.getElementById(type + "-blocks").children.length)
             addBlock(type);
@@ -985,13 +949,11 @@
         <div class="two-col">
           <div>
             <label>Current Text, copy &amp; paste exactly <span class="req">*</span></label>
-            <textarea rows="3" class="cur-text" placeholder="Paste the exact text as it currently reads on the site. Word for word."></textarea>
-            <p class="field-hint">Copy it directly from the live page. Exact wording, exact punctuation.</p>
+            <textarea rows="3" class="cur-text" placeholder="Paste the text exactly as it appears on your site."></textarea>
           </div>
           <div>
             <label>Replacement Text <span class="req">*</span></label>
-            <textarea rows="3" class="rep-text" placeholder="Type exactly what you want it to say instead."></textarea>
-            <p class="field-hint">Spell it out completely. We copy it exactly as written.</p>
+            <textarea rows="3" class="rep-text" placeholder="Type exactly what you'd like it to say."></textarea>
           </div>
         </div>`;
         } else if (type === "image") {
@@ -1000,7 +962,6 @@
           <div>
             <label>Current Image URL <span class="req">*</span></label>
             <input type="url" class="cur-img" placeholder="https://yoursite.com/old-image.jpg"/>
-            <p class="field-hint">Right-click the image then click <strong>Copy Image Address</strong></p>
           </div>
           <div>
             <label>New Image <span class="req">*</span></label>
@@ -1012,6 +973,7 @@
               </label>
               <p class="upload-zone-limit">JPG, PNG, GIF, WebP · 5 MB max</p>
               <span class="upload-status"></span>
+              <button type="button" class="upload-remove-btn" onclick="clearUpload(this,'rep-img')">✕ Remove file</button>
             </div>
           </div>
         </div>`;
@@ -1021,12 +983,10 @@
           <div>
             <label>Current Video URL <span class="req">*</span></label>
             <input type="url" class="cur-vid" placeholder="https://youtube.com/watch?v=..."/>
-            <p class="field-hint">Right-click the video then click <strong>Copy Video Address</strong></p>
           </div>
           <div>
             <label>New Video <span class="req">*</span></label>
             <input type="url" class="rep-vid" placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..."/>
-            <p class="field-hint">Paste a YouTube, Vimeo, or any public video link here.</p>
             <div class="or-divider">or upload a file</div>
             <div class="upload-zone">
               <label class="upload-trigger-zone">
@@ -1035,6 +995,7 @@
               </label>
               <p class="upload-zone-limit">MP4, MPEG · 5 MB max · Uploading auto-fills the link above</p>
               <span class="upload-status"></span>
+              <button type="button" class="upload-remove-btn" onclick="clearUpload(this,'rep-vid')">✕ Remove file</button>
             </div>
           </div>
         </div>`;
@@ -1056,22 +1017,20 @@
         <div class="field">
           <label>Where should it appear on the page? <span class="req">*</span></label>
           <input type="text" class="add-location" placeholder="e.g. After the testimonials section on the homepage"/>
-          <p class="field-hint">Name the page and the exact position (above, below, or inside which element).</p>
         </div>
         <div class="field">
           <label>Describe everything we need to build it <span class="req">*</span></label>
-          <textarea rows="5" class="add-description" placeholder="Include ALL content: names, job titles, text, photo URLs, button links, etc. Write it all out. Do not reference other elements or say 'similar to X.'"></textarea>
-          <p class="field-hint">We copy exactly what you write here. Missing content = request rejected.</p>
+          <textarea rows="5" class="add-description" placeholder="Include all content: names, job titles, text, photo URLs, button labels, links, etc."></textarea>
         </div>
         <div class="field">
-          <label>Media file <em style="font-weight:400;color:var(--muted)">(optional — upload an image or video to include)</em></label>
-          <input type="hidden" class="add-media-url">
-          <div class="upload-zone">
+          <label>Media files <em style="font-weight:400;color:var(--muted)">(optional — upload as many images or videos as needed)</em></label>
+          <div class="add-media-container"></div>
+          <div class="upload-zone" data-multi="true">
             <label class="upload-trigger-zone">
-              <input type="file" accept="image/*,video/mp4,video/mpeg,video/*" onchange="uploadMediaFile(this,'add-media-url')">
+              <input type="file" accept="image/*,video/mp4,video/mpeg,video/*" onchange="uploadMediaFile(this,'add-media')">
               📁 Upload image or video
             </label>
-            <p class="upload-zone-limit">JPG, PNG, GIF, WebP, MP4, MPEG · 5 MB max</p>
+            <p class="upload-zone-limit">JPG, PNG, GIF, WebP, MP4, MPEG · 5 MB max each · Upload as many as you need</p>
             <span class="upload-status"></span>
           </div>
         </div>`;
@@ -1092,8 +1051,17 @@
         </div>
         <div class="field">
           <label>How do we identify exactly what to remove? <span class="req">*</span></label>
-          <textarea rows="4" class="del-identifier" placeholder="For images/videos: paste the URL. For text: quote it word-for-word. For team members: full name. For sections: exact heading or clear description."></textarea>
-          <p class="field-hint">Be exact. We manage many sites and cannot guess which element you mean.</p>
+          <textarea rows="4" class="del-identifier" placeholder="Images/videos: paste the URL · Text: quote it word-for-word · Team members: full name · Sections: exact heading"></textarea>
+        </div>`;
+        } else if (type === "other") {
+          fields = `
+        <div class="field">
+          <label>What is it? <span class="req">*</span></label>
+          <input type="text" class="other-title" placeholder="e.g. Add Google Analytics tracking code, Fix contact form, Set up redirect..."/>
+        </div>
+        <div class="field">
+          <label>Details <span class="req">*</span></label>
+          <textarea rows="4" class="other-description" placeholder="Describe exactly what you need done."></textarea>
         </div>`;
         }
 
@@ -1133,13 +1101,27 @@
         return true;
       }
 
+      function clearUpload(btn, fieldClass) {
+        const zone     = btn.closest(".upload-zone");
+        const block    = btn.closest(".revision-block");
+        const urlInput = block.querySelector("." + fieldClass);
+        const statusEl = zone.querySelector(".upload-status");
+        const fileInput = zone.querySelector("input[type='file']");
+        urlInput.value      = "";
+        statusEl.textContent = "";
+        statusEl.className   = "upload-status";
+        if (fileInput) fileInput.value = "";
+        zone.classList.remove("zone-invalid");
+        btn.style.display = "none";
+      }
+
       async function uploadMediaFile(input, fieldClass) {
         const file = input.files[0];
         if (!file) return;
 
         const zone     = input.closest(".upload-zone");
         const block    = input.closest(".revision-block");
-        const urlInput = block.querySelector("." + fieldClass);
+        const urlInput = zone.dataset.multi !== "true" ? block.querySelector("." + fieldClass) : null;
         const statusEl = zone.querySelector(".upload-status");
 
         // Client-side 5 MB guard
@@ -1184,10 +1166,23 @@
 
           if (!url) throw new Error("No URL in response");
 
-          urlInput.value = url;
-          urlInput.classList.remove("invalid");
-          statusEl.textContent = `✓ ${file.name} uploaded`;
-          statusEl.className   = "upload-status uploaded";
+          if (zone.dataset.multi === "true") {
+            const container = zone.closest(".field").querySelector(".add-media-container");
+            const item = document.createElement("div");
+            item.className = "add-media-item";
+            item.dataset.url = url;
+            item.innerHTML = `<span>✓ ${file.name}</span><button type="button" onclick="this.closest('.add-media-item').remove()">✕</button>`;
+            container.appendChild(item);
+            statusEl.textContent = "";
+            statusEl.className = "upload-status";
+          } else {
+            urlInput.value = url;
+            urlInput.classList.remove("invalid");
+            statusEl.textContent = `✓ ${file.name} uploaded`;
+            statusEl.className   = "upload-status uploaded";
+            const removeBtn = zone.querySelector(".upload-remove-btn");
+            if (removeBtn) removeBtn.style.display = "block";
+          }
         } catch (err) {
           console.error("GHL upload error:", err);
           statusEl.textContent = "Upload failed. Please try again.";
@@ -1270,6 +1265,14 @@
               if (!chk(b.querySelector(".del-identifier"))) ok = false;
             });
         }
+        if (activeTypes.has("other")) {
+          document
+            .querySelectorAll("#other-blocks .revision-block")
+            .forEach((b) => {
+              if (!chk(b.querySelector(".other-title"))) ok = false;
+              if (!chk(b.querySelector(".other-description"))) ok = false;
+            });
+        }
 
         const err = document.getElementById("error-banner");
         if (!ok) {
@@ -1318,7 +1321,7 @@
           element_type: b.querySelector(".add-type").value.trim(),
           location: b.querySelector(".add-location").value.trim(),
           description: b.querySelector(".add-description").value.trim(),
-          media_url: b.querySelector(".add-media-url").value.trim() || "",
+          media_urls: [...b.querySelectorAll(".add-media-item")].map(el => el.dataset.url).filter(Boolean),
           notes: b.querySelector(".block-notes").value.trim() || "",
         }));
 
@@ -1329,6 +1332,16 @@
           type: "deletion",
           element_type: b.querySelector(".del-type").value.trim(),
           identifier: b.querySelector(".del-identifier").value.trim(),
+          notes: b.querySelector(".block-notes").value.trim() || "",
+        }));
+
+        const otherRevisions = [
+          ...document.querySelectorAll("#other-blocks .revision-block"),
+        ].map((b, i) => ({
+          revision_number: i + 1,
+          type: "other",
+          title: b.querySelector(".other-title").value.trim(),
+          description: b.querySelector(".other-description").value.trim(),
           notes: b.querySelector(".block-notes").value.trim() || "",
         }));
 
@@ -1390,7 +1403,7 @@
           lines.push(`WHERE: ${r.location}`);
           lines.push(`DETAILS:`);
           lines.push(r.description);
-          if (r.media_url) lines.push(`Media: ${r.media_url}`);
+          if (r.media_urls && r.media_urls.length) lines.push(`Media Files:\n${r.media_urls.map((u, i) => `  ${i + 1}. ${u}`).join("\n")}`);
           if (r.notes) lines.push(`Notes: ${r.notes}`);
           lines.push("");
           globalIndex++;
@@ -1406,10 +1419,20 @@
           globalIndex++;
         });
 
+        otherRevisions.forEach((r) => {
+          lines.push(`--- REVISION ${globalIndex} (Other) ---`);
+          lines.push(`REQUEST: ${r.title}`);
+          lines.push(`DETAILS:`);
+          lines.push(r.description);
+          if (r.notes) lines.push(`Notes: ${r.notes}`);
+          lines.push("");
+          globalIndex++;
+        });
+
         const revisions_summary = lines.join("\n");
         const total_revisions =
           textRevisions.length + imageRevisions.length + videoRevisions.length +
-          additionRevisions.length + deletionRevisions.length;
+          additionRevisions.length + deletionRevisions.length + otherRevisions.length;
 
         // ── Final payload ──────────────────────────────────────────────────
         // Top-level flat fields  = map once each in GHL/ClickUp, never touch again.
@@ -1429,6 +1452,7 @@
           total_video_revisions: videoRevisions.length,
           total_addition_revisions: additionRevisions.length,
           total_deletion_revisions: deletionRevisions.length,
+          total_other_revisions: otherRevisions.length,
           revision_types: [...activeTypes].join(", "),
 
           // ONE field to paste into ClickUp task description — contains everything
@@ -1440,6 +1464,7 @@
           video_revisions: videoRevisions,
           addition_revisions: additionRevisions,
           deletion_revisions: deletionRevisions,
+          other_revisions: otherRevisions,
         };
 
         const btn = document.getElementById("submit-btn");
