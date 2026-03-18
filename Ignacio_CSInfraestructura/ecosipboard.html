@@ -365,7 +365,20 @@
       font-family: 'Space Grotesk', sans-serif;
       padding: 80px 40px;
       background: var(--color-bg-page);
+      position: relative; overflow: hidden;
     }
+    .alternative-section::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(74,156,109,.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .alternative-section::after {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 50% 60% at 95% 80%, rgba(122,201,160,.15) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 5% 20%, rgba(74,156,109,.1) 0%, transparent 60%);
+    }
+    .alternative-inner { position: relative; z-index: 1; }
     .alternative-inner {
       max-width: 1200px; margin: 0 auto;
       display: grid; grid-template-columns: 1fr 1fr;
@@ -484,7 +497,26 @@
     .content-block p { font-size: .98rem; color: var(--color-body); line-height: 1.8; }
 
     /* ── TIMELINE ─────────────────────────────────────── */
-    .timeline-section { font-family: 'Space Grotesk', sans-serif; max-width: 1300px; margin: 0 auto; padding: 80px 40px; background: var(--color-bg-page); border-radius: 32px; }
+    .timeline-section {
+      font-family: 'Space Grotesk', sans-serif; max-width: 1300px; margin: 0 auto;
+      padding: 80px 40px; background: var(--color-bg-page); border-radius: 32px;
+      position: relative; overflow: hidden;
+    }
+    .timeline-section::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(74,156,109,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,156,109,.07) 1px, transparent 1px);
+      background-size: 56px 56px;
+    }
+    .timeline-section::after {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(122,201,160,.13) 0%, transparent 60%),
+        radial-gradient(ellipse 35% 40% at 90% 100%, rgba(74,156,109,.1) 0%, transparent 60%);
+    }
+    .timeline-header { position: relative; z-index: 1; }
+    .timeline-container { position: relative; z-index: 1; }
     .timeline-header { text-align: center; margin-bottom: 60px; }
     .timeline-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 700; color: var(--color-heading); margin-bottom: 16px; }
     .timeline-header p { font-size: 1.05rem; color: var(--color-body); max-width: 680px; margin: 0 auto; }
@@ -495,7 +527,7 @@
       background: #fff; border-radius: 20px; padding: 32px 24px;
       position: relative; border: 1.5px solid #eee;
       cursor: pointer; transition: all .3s ease-out;
-      box-shadow: var(--shadow-sm); z-index: 1;
+      box-shadow: var(--shadow-sm); z-index: 1; overflow: hidden;
     }
     .process-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -703,7 +735,22 @@
     .contact-form-wrap iframe { width: 100%; border: none; min-height: 520px; display: block; }
 
     /* ── FAQ ─────────────────────────────────────────── */
-    .faq-section { font-family: 'Space Grotesk', sans-serif; max-width: 860px; margin: 0 auto 80px; padding: 80px 40px; background: var(--color-bg-page); border-radius: 32px; }
+    .faq-section {
+      font-family: 'Space Grotesk', sans-serif; max-width: 860px; margin: 0 auto 80px;
+      padding: 80px 40px; background: var(--color-bg-page); border-radius: 32px;
+      position: relative; overflow: hidden;
+    }
+    .faq-section::before {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(74,156,109,.1) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .faq-section::after {
+      content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(122,201,160,.12) 0%, transparent 65%);
+    }
+    .faq-header { position: relative; z-index: 1; }
+    .faq-list { position: relative; z-index: 1; }
     .faq-header { text-align: center; margin-bottom: 56px; }
     .faq-header .section-label { display: block; margin-bottom: 12px; }
     .faq-header h2 {
