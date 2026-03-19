@@ -12,7 +12,7 @@
   //  Everyone NOT on this list with agency access sees the full
   //  agency dashboard as normal (your team, super admins, etc.)
   // ============================================================
-  var CONFIG_URL = 'https://cdn.jsdelivr.net/gh/demilio24/Websites@main/Nils/GHL/config.json';
+  var CONFIG_URL = 'https://raw.githubusercontent.com/demilio24/Websites/main/Nils/GHL/config.json';
 
   // ============================================================
   //  INTERNALS
