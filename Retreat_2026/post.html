@@ -346,6 +346,55 @@
             margin-top: 10px;
         }
 
+        /* ── Value Slider ── */
+        .slider-wrap { padding: 8px 4px 4px; }
+        .value-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            border-radius: 6px;
+            background: linear-gradient(to right, var(--blue-light) 0%, var(--blue-light) 50%, rgba(43,58,142,0.15) 50%, rgba(43,58,142,0.15) 100%);
+            outline: none;
+            cursor: pointer;
+        }
+        .value-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: var(--blue-light);
+            box-shadow: 0 2px 10px rgba(65,88,208,0.4);
+            cursor: pointer;
+            border: 3px solid white;
+            transition: transform 0.15s;
+        }
+        .value-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+        .value-slider::-moz-range-thumb {
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: var(--blue-light);
+            box-shadow: 0 2px 10px rgba(65,88,208,0.4);
+            cursor: pointer;
+            border: 3px solid white;
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.71rem;
+            font-weight: 600;
+            color: var(--blue);
+            opacity: 0.65;
+            margin-top: 8px;
+        }
+        .slider-value-display {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--blue-light);
+            margin-top: 10px;
+            letter-spacing: -0.02em;
+        }
+
         /* ── Name + Email row ── */
         .field-row {
             display: grid;
@@ -565,6 +614,67 @@
                 <label class="question-label">What was the most valuable part of the experience?<span class="optional-tag">Optional</span></label>
                 <textarea name="most_valuable" placeholder="What stood out most for you…"></textarea>
             </div>
+
+            <div class="question">
+                <label class="question-label">For the cost of your ticket, how would you rate the value?<span class="optional-tag">Optional</span></label>
+                <p style="font-size:0.78rem;color:var(--blue);opacity:0.7;margin-bottom:10px;">Drag the slider — 1 means way too expensive for what you got, 10 means incredibly cheap.</p>
+                <div class="slider-wrap">
+                    <input type="range" class="value-slider" id="ticket-value-slider" name="ticket_value" min="1" max="10" value="5">
+                    <div class="slider-labels">
+                        <span>1 — Way too expensive</span>
+                        <span>10 — Incredible value</span>
+                    </div>
+                    <div class="slider-value-display" id="slider-display">5 / 10</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Logistics & Experience ── -->
+        <div class="form-card fade-up delay-5">
+            <div class="section-header">
+                <div class="section-icon icon-orange">🚌</div>
+                <div>
+                    <div class="section-title">Logistics & Experience</div>
+                    <div class="section-sub">Transportation, Food & Accommodation</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <label class="question-label">How was the transportation to and from the retreat?<span class="optional-tag">Optional</span></label>
+                <div class="radio-group" id="transport-group">
+                    <label class="radio-option"><input type="radio" name="transportation" value="Very helpful"> Very helpful</label>
+                    <label class="radio-option"><input type="radio" name="transportation" value="Somewhat helpful"> Somewhat helpful</label>
+                    <label class="radio-option"><input type="radio" name="transportation" value="Not helpful"> Not helpful</label>
+                    <label class="radio-option"><input type="radio" name="transportation" value="I arranged my own"> I arranged my own transport</label>
+                </div>
+                <div class="follow-up">
+                    <textarea name="transportation_detail" placeholder="Any suggestions to improve transportation next time…"></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <label class="question-label">How was the food?<span class="optional-tag">Optional</span></label>
+                <div class="radio-group" id="food-group">
+                    <label class="radio-option"><input type="radio" name="food" value="3 meals a day was perfect"> 3 meals a day was perfect</label>
+                    <label class="radio-option"><input type="radio" name="food" value="Would have liked more snacks"> Would have liked more snacks throughout the day</label>
+                    <label class="radio-option"><input type="radio" name="food" value="More variety needed"> More variety / dietary options needed</label>
+                    <label class="radio-option"><input type="radio" name="food" value="Portions were too small"> Portions were too small</label>
+                    <label class="radio-option"><input type="radio" name="food" value="It was great overall"> It was great overall</label>
+                </div>
+                <div class="follow-up">
+                    <textarea name="food_detail" placeholder="Anything specific you'd change about the meals or snacks…"></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <label class="question-label">Would you room share with a stranger again?<span class="optional-tag">Optional</span></label>
+                <div class="radio-group" id="roomshare-group">
+                    <label class="radio-option"><input type="radio" name="room_share" value="Yes, loved it"> Yes, I loved it — great way to connect</label>
+                    <label class="radio-option"><input type="radio" name="room_share" value="It was fine"> It was fine</label>
+                    <label class="radio-option"><input type="radio" name="room_share" value="Prefer own room"> I'd prefer my own room next time</label>
+                    <label class="radio-option"><input type="radio" name="room_share" value="No - private option needed"> No — please offer a private room option</label>
+                </div>
+            </div>
         </div>
 
         <!-- ── Education ── -->
@@ -628,6 +738,31 @@
                 <div>
                     <div class="section-title">The Retreat — Overall</div>
                     <div class="section-sub">Schedule & Takeaways</div>
+                </div>
+            </div>
+
+            <div class="question">
+                <label class="question-label">How did the flow of the day feel overall?<span class="optional-tag">Optional</span></label>
+                <div class="radio-group" id="flow-group">
+                    <label class="radio-option"><input type="radio" name="day_flow" value="Great flow"> Great — it felt natural and well-paced</label>
+                    <label class="radio-option"><input type="radio" name="day_flow" value="A bit rushed"> A bit rushed in places</label>
+                    <label class="radio-option"><input type="radio" name="day_flow" value="Too much downtime"> Too much downtime between sessions</label>
+                    <label class="radio-option"><input type="radio" name="day_flow" value="Uneven"> Uneven — some parts great, others not</label>
+                </div>
+                <div class="follow-up">
+                    <textarea name="day_flow_detail" placeholder="What would have improved the flow of the day…"></textarea>
+                </div>
+            </div>
+
+            <div class="question">
+                <label class="question-label">Was the amount of hands-on learning right for you?<span class="optional-tag">Optional</span></label>
+                <div class="radio-inline" id="handson-group">
+                    <label class="radio-option"><input type="radio" name="hands_on" value="Just right"> Just right</label>
+                    <label class="radio-option"><input type="radio" name="hands_on" value="Wanted more"> Wanted more</label>
+                    <label class="radio-option"><input type="radio" name="hands_on" value="Too much"> Too much</label>
+                </div>
+                <div class="follow-up">
+                    <textarea name="hands_on_detail" placeholder="What could be done better with the hands-on sessions…"></textarea>
                 </div>
             </div>
 
@@ -880,6 +1015,20 @@ document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(fun
         }
     });
 });
+
+// ── Ticket Value Slider ──
+(function() {
+    const slider = document.getElementById('ticket-value-slider');
+    const display = document.getElementById('slider-display');
+    function updateSlider() {
+        const val = slider.value;
+        const pct = ((val - 1) / 9) * 100;
+        slider.style.background = `linear-gradient(to right, #4158D0 0%, #4158D0 ${pct}%, rgba(43,58,142,0.15) ${pct}%, rgba(43,58,142,0.15) 100%)`;
+        display.textContent = val + ' / 10';
+    }
+    slider.addEventListener('input', updateSlider);
+    updateSlider();
+})();
 
 // ── GitHub config ──
 const GH_TOKEN = 'github_pat_11A3DBHWY0I0' + 'QyrUIwHAcK_MYOC35Zr0HetANGSLfaGqpjwQOMgHrq4M5WxmgWZAqAMP6F3F6XDqajXe0b';
