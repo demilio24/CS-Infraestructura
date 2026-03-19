@@ -1,6 +1,22 @@
 (function () {
 
+  // ============================================================
+  //  CONFIG SOURCE
+  //  Edit config.json and push — no need to touch this script.
+  //
+  //  supportAccessList — clients who have been given agency admin
+  //  solely to access HL's Help & Support widget. They get
+  //  redirected to their sub-account and cannot see the agency
+  //  dashboard. The support button stays visible for them.
+  //
+  //  Everyone NOT on this list with agency access sees the full
+  //  agency dashboard as normal (your team, super admins, etc.)
+  // ============================================================
   var CONFIG_URL = 'https://raw.githubusercontent.com/demilio24/Websites/main/Nils/GHL/config.json';
+
+  // ============================================================
+  //  INTERNALS
+  // ============================================================
 
   var _debug = false;
 
@@ -75,9 +91,9 @@
     return /^\/(v2\/)?agency(\/|$)/.test(path);
   }
 
+  // Hide agency navigation only — support button intentionally left visible
   function lockdownAgencyUI() {
     var selectors = [
-      // Agency navigation — hide for non-whitelisted users
       '[data-testid="switch-to-agency"]',
       '[data-testid="agency-switch"]',
       'button[class*="agencySwitch"]',
@@ -88,11 +104,6 @@
       '[class*="switch-agency"]',
       '[id*="agency-view"]',
       '[id*="agencyView"]',
-      // GHL Help & Support button (top right)
-      '#hl_header--help-icon',
-      '.helpiconstyles',
-      '.hl_header--help-icon',
-      '[aria-label="Access Help & Support"]',
     ];
 
     function sweep() {
@@ -101,7 +112,7 @@
           el.style.display = 'none';
           el.style.pointerEvents = 'none';
           el.setAttribute('aria-hidden', 'true');
-          log('Hiding element:', sel);
+          log('Hiding agency element:', sel);
         });
       });
       document.querySelectorAll('a').forEach(function (el) {
@@ -152,25 +163,20 @@
   }
 
   function applyLockdown(config, user) {
-    var whitelist = config.whitelist || [];
-    var blacklist = config.blacklist || [];
+    var supportAccessList = config.supportAccessList || [];
     var defaultLocationId = config.defaultLocationId || '';
 
-    if (user && blacklist.indexOf(user) !== -1) {
-      log('User is blacklisted:', user);
+    if (user && supportAccessList.indexOf(user) !== -1) {
+      // Client on support access list — redirect to sub-account,
+      // hide agency nav, but leave the Help & Support button alone
+      log('Client on supportAccessList — blocking agency view:', user);
       enforceRedirect(defaultLocationId);
       lockdownAgencyUI();
       return;
     }
 
-    if (!user || whitelist.indexOf(user) === -1) {
-      log('User not on whitelist:', user);
-      enforceRedirect(defaultLocationId);
-      lockdownAgencyUI();
-      return;
-    }
-
-    log('User is whitelisted — full access granted:', user);
+    // Not on the list — full agency access, do nothing
+    log('User not on supportAccessList — full agency access:', user);
   }
 
   function init() {
@@ -192,9 +198,8 @@
         applyLockdown(config, user);
       })
       .catch(function (err) {
-        console.warn('[GHL-GUARD] Could not load config, failing safe:', err);
-        enforceRedirect('');
-        lockdownAgencyUI();
+        // If config fails to load, do nothing — fail open for agency admins
+        console.warn('[GHL-GUARD] Could not load config:', err);
       });
   }
 

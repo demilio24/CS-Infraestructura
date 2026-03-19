@@ -1,9 +1,7 @@
 {
-  "whitelist": [
-    "you@yourdomain.com",
-    "teammate@yourdomain.com"
+  "supportAccessList": [
+    "client@theirdomain.com"
   ],
-  "blacklist": [],
   "defaultLocationId": "YOUR_LOCATION_ID_HERE",
   "debug": false
 }
