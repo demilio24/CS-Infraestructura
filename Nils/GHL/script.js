@@ -107,8 +107,10 @@
   ];
 
   function isAgencyPath(path) {
+    // Normalize — strip leading /v2 so both domains match the same list
+    var p = path.replace(/^\/v2/, '') || '/';
     for (var i = 0; i < AGENCY_PATHS.length; i++) {
-      if (path === AGENCY_PATHS[i] || path.indexOf(AGENCY_PATHS[i] + '/') === 0) {
+      if (p === AGENCY_PATHS[i] || p.indexOf(AGENCY_PATHS[i] + '/') === 0) {
         return true;
       }
     }
