@@ -66,25 +66,17 @@
     return null;
   }
 
-  function getLocationId(defaultId) {
+  function getLocationId(configuredId) {
+    // Always prefer the location ID we explicitly set for this client in config
+    if (configuredId) { log('Using locationId from config:', configuredId); return configuredId; }
+    // Fallback: try to read it from localStorage
     var locKeys = ['locationId', 'activeLocation', 'hl_location', 'currentLocation', 'location_id'];
     for (var i = 0; i < locKeys.length; i++) {
       var v = localStorage.getItem(locKeys[i]);
-      if (v) { log('Found location via key "' + locKeys[i] + '":', v); return v; }
+      if (v) { log('Found location via localStorage key "' + locKeys[i] + '":', v); return v; }
     }
-    var userKeys = ['user', 'userData', 'hl_user', 'currentUser'];
-    for (var j = 0; j < userKeys.length; j++) {
-      try {
-        var raw = localStorage.getItem(userKeys[j]);
-        if (raw) {
-          var parsed = JSON.parse(raw);
-          var loc = parsed && (parsed.locationId || parsed.location_id || parsed.activeLocation);
-          if (loc) { log('Found location inside user object:', loc); return loc; }
-        }
-      } catch (e) {}
-    }
-    log('Falling back to defaultLocationId from config:', defaultId);
-    return defaultId;
+    log('Could not determine locationId');
+    return '';
   }
 
   function isAgencyPath(path) {
@@ -164,13 +156,21 @@
 
   function applyLockdown(config, user) {
     var supportAccessList = config.supportAccessList || [];
-    var defaultLocationId = config.defaultLocationId || '';
 
-    if (user && supportAccessList.indexOf(user) !== -1) {
-      // Client on support access list — redirect to sub-account,
+    // Find this user's entry in the list
+    var entry = null;
+    for (var i = 0; i < supportAccessList.length; i++) {
+      if (supportAccessList[i].email === user) {
+        entry = supportAccessList[i];
+        break;
+      }
+    }
+
+    if (entry) {
+      // Client on support access list — redirect to their sub-account,
       // hide agency nav, but leave the Help & Support button alone
-      log('Client on supportAccessList — blocking agency view:', user);
-      enforceRedirect(defaultLocationId);
+      log('Client on supportAccessList — blocking agency view, redirecting to:', entry.locationId);
+      enforceRedirect(entry.locationId);
       lockdownAgencyUI();
       return;
     }
