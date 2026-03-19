@@ -12,13 +12,15 @@
   //  Everyone NOT on this list with agency access sees the full
   //  agency dashboard as normal (your team, super admins, etc.)
   // ============================================================
-  var CONFIG_URL = 'https://raw.githubusercontent.com/demilio24/Websites/main/Nils/GHL/config.json';
+  var CONFIG_URL = 'https://cdn.jsdelivr.net/gh/demilio24/Websites@main/Nils/GHL/config.json';
 
   // ============================================================
   //  INTERNALS
   // ============================================================
 
   var _debug = false;
+
+  console.log('[GHL-GUARD] script loaded');
 
   function log() {
     if (_debug) console.log('[GHL-GUARD]', ...arguments);
@@ -86,6 +88,10 @@
   // Hide agency navigation only — support button intentionally left visible
   function lockdownAgencyUI() {
     var selectors = [
+      // Confirmed GHL selector for "Back to Agency" switcher
+      '#switcher-agency-switch',
+      '#switcher-agency-switch .cursor-pointer',
+      // Broader fallbacks
       '[data-testid="switch-to-agency"]',
       '[data-testid="agency-switch"]',
       'button[class*="agencySwitch"]',
@@ -96,6 +102,7 @@
       '[class*="switch-agency"]',
       '[id*="agency-view"]',
       '[id*="agencyView"]',
+      '[id*="switcher-agency"]',
     ];
 
     function sweep() {
