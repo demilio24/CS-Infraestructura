@@ -19,12 +19,101 @@
   // ============================================================
 
   var _debug = false;
+  var _lockdownActive = false;
+  var _safeUrl = '';
 
   console.log('[GHL-GUARD] script loaded');
 
   function log() {
     if (_debug) console.log('[GHL-GUARD]', ...arguments);
   }
+
+  // ---- Agency path detection ----
+
+  var AGENCY_PATHS = [
+    '/agency_dashboard',
+    '/prospecting',
+    '/accounts',
+    '/snapshots',
+    '/reselling',
+    '/marketplace',
+    '/affiliate_portal',
+    '/template-library-admin',
+    '/partners',
+    '/university',
+    '/saas_education',
+    '/mobile-app-customiser',
+    '/integration',
+  ];
+
+  function isAgencyPath(path) {
+    // Normalize — strip leading /v2 so both GHL domains match the same list
+    var p = path.replace(/^\/v2/, '') || '/';
+    for (var i = 0; i < AGENCY_PATHS.length; i++) {
+      if (p === AGENCY_PATHS[i] || p.indexOf(AGENCY_PATHS[i] + '/') === 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // ---- Override pushState/replaceState IMMEDIATELY ----
+  // Flags are set later once config loads — this way we catch
+  // GHL's client-side navigation from / → /agency_dashboard
+  // even before the async config fetch resolves.
+
+  var _origPush = history.pushState.bind(history);
+  var _origReplace = history.replaceState.bind(history);
+
+  history.pushState = function (state, title, url) {
+    if (_lockdownActive && url && isAgencyPath(String(url))) {
+      log('Blocked pushState to:', url, '→', _safeUrl);
+      return _origPush(state, title, _safeUrl);
+    }
+    return _origPush(state, title, url);
+  };
+
+  history.replaceState = function (state, title, url) {
+    if (_lockdownActive && url && isAgencyPath(String(url))) {
+      log('Blocked replaceState to:', url, '→', _safeUrl);
+      return _origReplace(state, title, _safeUrl);
+    }
+    return _origReplace(state, title, url);
+  };
+
+  window.addEventListener('popstate', function () {
+    if (_lockdownActive && isAgencyPath(window.location.pathname)) {
+      log('popstate agency path — redirecting');
+      window.location.replace(_safeUrl);
+    }
+  });
+
+  // ---- Polling loop — catches anything that slipped through ----
+  // Runs every 100ms for 10 seconds after lockdown activates,
+  // then every 500ms indefinitely (handles slow React renders).
+
+  var _pollCount = 0;
+
+  function startPolling() {
+    var fast = setInterval(function () {
+      if (_lockdownActive && isAgencyPath(window.location.pathname)) {
+        log('Poll caught agency path — redirecting');
+        window.location.replace(_safeUrl);
+      }
+      _pollCount++;
+      if (_pollCount >= 100) { // 10 seconds of fast polling
+        clearInterval(fast);
+        setInterval(function () {
+          if (_lockdownActive && isAgencyPath(window.location.pathname)) {
+            log('Slow-poll caught agency path — redirecting');
+            window.location.replace(_safeUrl);
+          }
+        }, 500);
+      }
+    }, 100);
+  }
+
+  // ---- User identification ----
 
   function parseJwt(token) {
     try {
@@ -33,7 +122,7 @@
   }
 
   function getCurrentUser() {
-    // Check confirmed GHL white-label localStorage key first
+    // Confirmed GHL white-label localStorage keys
     var directKeys = ['themegen_user_email', 'allow_subaccount'];
     for (var d = 0; d < directKeys.length; d++) {
       var direct = localStorage.getItem(directKeys[d]);
@@ -78,9 +167,7 @@
   }
 
   function getLocationId(configuredId) {
-    // Always prefer the location ID we explicitly set for this client in config
     if (configuredId) { log('Using locationId from config:', configuredId); return configuredId; }
-    // Fallback: try to read it from localStorage
     var locKeys = ['locationId', 'activeLocation', 'hl_location', 'currentLocation', 'location_id'];
     for (var i = 0; i < locKeys.length; i++) {
       var v = localStorage.getItem(locKeys[i]);
@@ -90,40 +177,12 @@
     return '';
   }
 
-  var AGENCY_PATHS = [
-    '/agency_dashboard',
-    '/prospecting',
-    '/accounts',
-    '/snapshots',
-    '/reselling',
-    '/marketplace',
-    '/affiliate_portal',
-    '/template-library-admin',
-    '/partners',
-    '/university',
-    '/saas_education',
-    '/mobile-app-customiser',
-    '/integration',
-  ];
+  // ---- UI lockdown ----
 
-  function isAgencyPath(path) {
-    // Normalize — strip leading /v2 so both domains match the same list
-    var p = path.replace(/^\/v2/, '') || '/';
-    for (var i = 0; i < AGENCY_PATHS.length; i++) {
-      if (p === AGENCY_PATHS[i] || p.indexOf(AGENCY_PATHS[i] + '/') === 0) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // Hide agency navigation only — support button intentionally left visible
   function lockdownAgencyUI() {
     var selectors = [
-      // Confirmed GHL selector for "Back to Agency" switcher
       '#switcher-agency-switch',
       '#switcher-agency-switch .cursor-pointer',
-      // Broader fallbacks
       '[data-testid="switch-to-agency"]',
       '[data-testid="agency-switch"]',
       'button[class*="agencySwitch"]',
@@ -143,7 +202,6 @@
           el.style.display = 'none';
           el.style.pointerEvents = 'none';
           el.setAttribute('aria-hidden', 'true');
-          log('Hiding agency element:', sel);
         });
       });
       document.querySelectorAll('a').forEach(function (el) {
@@ -160,43 +218,29 @@
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
-  function enforceRedirect(defaultLocationId) {
-    var locId = getLocationId(defaultLocationId);
-    var safeUrl = '/location/' + locId + '/dashboard';
+  // ---- Lockdown activation ----
 
-    var _push = history.pushState.bind(history);
-    var _replace = history.replaceState.bind(history);
+  function activateLockdown(locationId) {
+    var locId = getLocationId(locationId);
+    _safeUrl = '/location/' + locId + '/dashboard';
+    _lockdownActive = true;
+    log('Lockdown active — safe URL:', _safeUrl);
 
-    function guardUrl(fn) {
-      return function (state, title, url) {
-        if (url && isAgencyPath(String(url))) {
-          log('Blocked navigation to:', url, '→', safeUrl);
-          return fn(state, title, safeUrl);
-        }
-        return fn(state, title, url);
-      };
-    }
-
-    history.pushState = guardUrl(_push);
-    history.replaceState = guardUrl(_replace);
-
-    window.addEventListener('popstate', function () {
-      if (isAgencyPath(window.location.pathname)) {
-        log('popstate agency path — redirecting');
-        window.location.replace(safeUrl);
-      }
-    });
-
+    // Redirect immediately if already on an agency path
     if (isAgencyPath(window.location.pathname)) {
-      log('Initial agency load — hard redirecting to', safeUrl);
-      window.location.replace(safeUrl);
+      log('Currently on agency path — hard redirecting');
+      window.location.replace(_safeUrl);
+      return;
     }
+
+    lockdownAgencyUI();
+    startPolling();
   }
+
+  // ---- Main ----
 
   function applyLockdown(config, user) {
     var supportAccessList = config.supportAccessList || [];
-
-    // Find this user's entry in the list
     var entry = null;
     for (var i = 0; i < supportAccessList.length; i++) {
       if (supportAccessList[i].email === user) {
@@ -206,15 +250,11 @@
     }
 
     if (entry) {
-      // Client on support access list — redirect to their sub-account,
-      // hide agency nav, but leave the Help & Support button alone
-      log('Client on supportAccessList — blocking agency view, redirecting to:', entry.locationId);
-      enforceRedirect(entry.locationId);
-      lockdownAgencyUI();
+      log('Client on supportAccessList — activating lockdown, locationId:', entry.locationId);
+      activateLockdown(entry.locationId);
       return;
     }
 
-    // Not on the list — full agency access, do nothing
     log('User not on supportAccessList — full agency access:', user);
   }
 
@@ -237,7 +277,6 @@
         applyLockdown(config, user);
       })
       .catch(function (err) {
-        // If config fails to load, do nothing — fail open for agency admins
         console.warn('[GHL-GUARD] Could not load config:', err);
       });
   }
