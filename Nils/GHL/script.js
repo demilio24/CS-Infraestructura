@@ -44,6 +44,7 @@
     '/saas_education',
     '/mobile-app-customiser',
     '/integration',
+    '/offers',
   ];
 
   function isAgencyPath(path) {
