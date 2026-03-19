@@ -2,39 +2,29 @@
 (function () {
 
   // ============================================================
-  //  CONFIG — edit these two sections only
+  //  CONFIG SOURCE
+  //  Whitelist / blacklist live in config.json in the same repo.
+  //  Update that file and push — no need to touch this script.
   // ============================================================
-
-  // Emails OR user IDs that are allowed to see the full agency view
-  var WHITELIST = [
-    'you@yourdomain.com',       // <-- replace with your email
-    'teammate@yourdomain.com'   // <-- add more as needed
-  ];
-
-  // If we can't find the user's assigned location, fall back to this sub-account
-  var DEFAULT_LOCATION_ID = 'YOUR_LOCATION_ID_HERE'; // <-- replace with your sub-account location ID
-
-  // Set to true temporarily if the redirect isn't working — check the browser console
-  var DEBUG = false;
+  var CONFIG_URL = 'https://raw.githubusercontent.com/demilio24/Websites/main/Nils/GHL/config.json';
 
   // ============================================================
-  //  INTERNALS — no need to touch below this line
+  //  INTERNALS
   // ============================================================
+
+  var _debug = false;
 
   function log() {
-    if (DEBUG) console.log('[GHL-GUARD]', ...arguments);
+    if (_debug) console.log('[GHL-GUARD]', ...arguments);
   }
 
-  // --- Decode a JWT without any library ---
   function parseJwt(token) {
     try {
       return JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
     } catch (e) { return null; }
   }
 
-  // --- Try every common GHL key until we find a user email or ID ---
   function getCurrentUser() {
-    // 1. Known object keys
     var objKeys = ['user', 'userData', 'hl_user', 'auth_user', 'currentUser', 'ghl_user', 'logged_user'];
     for (var i = 0; i < objKeys.length; i++) {
       try {
@@ -46,8 +36,6 @@
         }
       } catch (e) {}
     }
-
-    // 2. JWT token keys
     var tokenKeys = ['access_token', 'token', 'id_token', 'jwt', 'hl_token', 'authToken'];
     for (var j = 0; j < tokenKeys.length; j++) {
       var t = localStorage.getItem(tokenKeys[j]);
@@ -57,8 +45,6 @@
         if (id2) { log('Found user via JWT key "' + tokenKeys[j] + '":', id2); return id2; }
       }
     }
-
-    // 3. Brute-force scan all localStorage keys for anything with email/id
     for (var k = 0; k < localStorage.length; k++) {
       var key = localStorage.key(k);
       try {
@@ -70,19 +56,16 @@
         }
       } catch (e) {}
     }
-
     log('Could not identify current user');
     return null;
   }
 
-  // --- Find the user's assigned sub-account location ID ---
-  function getLocationId() {
+  function getLocationId(defaultId) {
     var locKeys = ['locationId', 'activeLocation', 'hl_location', 'currentLocation', 'location_id'];
     for (var i = 0; i < locKeys.length; i++) {
       var v = localStorage.getItem(locKeys[i]);
       if (v) { log('Found location via key "' + locKeys[i] + '":', v); return v; }
     }
-    // Try user object
     var userKeys = ['user', 'userData', 'hl_user', 'currentUser'];
     for (var j = 0; j < userKeys.length; j++) {
       try {
@@ -94,15 +77,14 @@
         }
       } catch (e) {}
     }
-    log('Falling back to DEFAULT_LOCATION_ID:', DEFAULT_LOCATION_ID);
-    return DEFAULT_LOCATION_ID;
+    log('Falling back to defaultLocationId from config:', defaultId);
+    return defaultId;
   }
 
   function isAgencyPath(path) {
     return /^\/(v2\/)?agency(\/|$)/.test(path);
   }
 
-  // --- Nuke every agency-related UI element we can find ---
   function lockdownAgencyUI() {
     var selectors = [
       '[data-testid="switch-to-agency"]',
@@ -126,8 +108,6 @@
           log('Hiding element:', sel);
         });
       });
-
-      // Also hide/intercept any plain <a> pointing to agency
       document.querySelectorAll('a').forEach(function (el) {
         var href = el.getAttribute('href') || '';
         if (href.indexOf('/agency') !== -1) {
@@ -138,24 +118,21 @@
     }
 
     sweep();
-    // Keep sweeping as React re-renders new nodes
     var observer = new MutationObserver(sweep);
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
-  // --- Intercept the router so React navigation can't sneak to agency ---
-  function enforceRedirect() {
-    var locId = getLocationId();
+  function enforceRedirect(defaultLocationId) {
+    var locId = getLocationId(defaultLocationId);
     var safeUrl = '/location/' + locId + '/dashboard';
 
-    // Block SPA pushState / replaceState navigation to agency paths
     var _push = history.pushState.bind(history);
     var _replace = history.replaceState.bind(history);
 
     function guardUrl(fn) {
       return function (state, title, url) {
         if (url && isAgencyPath(String(url))) {
-          log('Blocked pushState/replaceState to:', url, '→ redirecting to', safeUrl);
+          log('Blocked navigation to:', url, '→', safeUrl);
           return fn(state, title, safeUrl);
         }
         return fn(state, title, url);
@@ -165,51 +142,68 @@
     history.pushState = guardUrl(_push);
     history.replaceState = guardUrl(_replace);
 
-    // Back/forward button
     window.addEventListener('popstate', function () {
       if (isAgencyPath(window.location.pathname)) {
-        log('popstate to agency path — redirecting');
+        log('popstate agency path — redirecting');
         window.location.replace(safeUrl);
       }
     });
 
-    // Hard redirect if they loaded an agency URL directly
     if (isAgencyPath(window.location.pathname)) {
-      log('Initial load on agency path — hard redirecting to', safeUrl);
+      log('Initial agency load — hard redirecting to', safeUrl);
       window.location.replace(safeUrl);
     }
   }
 
-  // ============================================================
-  //  MAIN
-  // ============================================================
+  function applyLockdown(config, user) {
+    var whitelist = config.whitelist || [];
+    var blacklist = config.blacklist || [];
+    var defaultLocationId = config.defaultLocationId || '';
 
-  // Wait until localStorage is populated (GHL sometimes writes it after load)
-  function init() {
-    var user = getCurrentUser();
-
-    if (!user) {
-      // Retry once after a short delay in case GHL hasn't written to localStorage yet
-      setTimeout(function () {
-        var retryUser = getCurrentUser();
-        if (!retryUser || WHITELIST.indexOf(retryUser) === -1) {
-          log('User not on whitelist after retry — locking down');
-          enforceRedirect();
-          lockdownAgencyUI();
-        } else {
-          log('User is whitelisted:', retryUser);
-        }
-      }, 1200);
+    // Explicit blacklist always blocked regardless of whitelist
+    if (user && blacklist.indexOf(user) !== -1) {
+      log('User is blacklisted:', user);
+      enforceRedirect(defaultLocationId);
+      lockdownAgencyUI();
       return;
     }
 
-    if (WHITELIST.indexOf(user) === -1) {
-      log('User "' + user + '" not on whitelist — locking down');
-      enforceRedirect();
+    // Not on whitelist → restricted
+    if (!user || whitelist.indexOf(user) === -1) {
+      log('User not on whitelist:', user);
+      enforceRedirect(defaultLocationId);
       lockdownAgencyUI();
-    } else {
-      log('User "' + user + '" is whitelisted — full access granted');
+      return;
     }
+
+    log('User is whitelisted — full access granted:', user);
+  }
+
+  function init() {
+    fetch(CONFIG_URL + '?t=' + Date.now())
+      .then(function (res) { return res.json(); })
+      .then(function (config) {
+        _debug = !!config.debug;
+        log('Config loaded:', config);
+
+        var user = getCurrentUser();
+
+        if (!user) {
+          // GHL may not have written to localStorage yet — retry once
+          setTimeout(function () {
+            applyLockdown(config, getCurrentUser());
+          }, 1200);
+          return;
+        }
+
+        applyLockdown(config, user);
+      })
+      .catch(function (err) {
+        // If config fails to load, fail safe — lock everyone out of agency
+        console.warn('[GHL-GUARD] Could not load config, failing safe:', err);
+        enforceRedirect('');
+        lockdownAgencyUI();
+      });
   }
 
   if (document.readyState === 'loading') {
