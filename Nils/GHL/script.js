@@ -243,7 +243,7 @@
     var supportAccessList = config.supportAccessList || [];
     var entry = null;
     for (var i = 0; i < supportAccessList.length; i++) {
-      if (supportAccessList[i].email === user) {
+      if (supportAccessList[i].email.toLowerCase() === user.toLowerCase()) {
         entry = supportAccessList[i];
         break;
       }
