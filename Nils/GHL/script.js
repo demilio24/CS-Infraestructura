@@ -77,6 +77,7 @@
 
   function lockdownAgencyUI() {
     var selectors = [
+      // Agency navigation — hide for non-whitelisted users
       '[data-testid="switch-to-agency"]',
       '[data-testid="agency-switch"]',
       'button[class*="agencySwitch"]',
@@ -87,6 +88,11 @@
       '[class*="switch-agency"]',
       '[id*="agency-view"]',
       '[id*="agencyView"]',
+      // GHL Help & Support button (top right)
+      '#hl_header--help-icon',
+      '.helpiconstyles',
+      '.hl_header--help-icon',
+      '[aria-label="Access Help & Support"]',
     ];
 
     function sweep() {
