@@ -182,9 +182,9 @@
 
   function lockdownAgencyUI() {
     var selectors = [
-      // Hide Help drawer sections — leaves Zoom/Chat/Ticket buttons visible
-      '#help-drawer .help-sections',
-      '#priority-support',
+      // Hide individual help items — leaves avatar + Zoom/Chat/Ticket buttons visible
+      // The buttons are in div.!p-5, NOT in .help-section, so they're unaffected
+      '#help-drawer .help-section',
       '#switcher-agency-switch',
       '#switcher-agency-switch .cursor-pointer',
       '[data-testid="switch-to-agency"]',
