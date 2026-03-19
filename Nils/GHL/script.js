@@ -90,8 +90,29 @@
     return '';
   }
 
+  var AGENCY_PATHS = [
+    '/agency_dashboard',
+    '/prospecting',
+    '/accounts',
+    '/snapshots',
+    '/reselling',
+    '/marketplace',
+    '/affiliate_portal',
+    '/template-library-admin',
+    '/partners',
+    '/university',
+    '/saas_education',
+    '/mobile-app-customiser',
+    '/integration',
+  ];
+
   function isAgencyPath(path) {
-    return /^\/(v2\/)?agency(\/|$)/.test(path);
+    for (var i = 0; i < AGENCY_PATHS.length; i++) {
+      if (path === AGENCY_PATHS[i] || path.indexOf(AGENCY_PATHS[i] + '/') === 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Hide agency navigation only — support button intentionally left visible
