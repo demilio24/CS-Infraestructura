@@ -33,6 +33,15 @@
   }
 
   function getCurrentUser() {
+    // Check confirmed GHL white-label localStorage key first
+    var directKeys = ['themegen_user_email', 'allow_subaccount'];
+    for (var d = 0; d < directKeys.length; d++) {
+      var direct = localStorage.getItem(directKeys[d]);
+      if (direct && direct.indexOf('@') !== -1) {
+        log('Found user via direct key "' + directKeys[d] + '":', direct);
+        return direct.trim();
+      }
+    }
     var objKeys = ['user', 'userData', 'hl_user', 'auth_user', 'currentUser', 'ghl_user', 'logged_user'];
     for (var i = 0; i < objKeys.length; i++) {
       try {
