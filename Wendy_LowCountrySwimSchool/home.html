@@ -881,6 +881,17 @@ function closeLcMenu() {
   }
 }
 
+/* ── Form highlight pulse ── */
+@keyframes formPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(72, 199, 142, 0.7), 0 0 0 0 rgba(99, 179, 237, 0.7); }
+  40%  { box-shadow: 0 0 0 18px rgba(72, 199, 142, 0), 0 0 0 30px rgba(99, 179, 237, 0.15); }
+  70%  { box-shadow: 0 0 0 0 rgba(72, 199, 142, 0), 0 0 0 18px rgba(99, 179, 237, 0); background: linear-gradient(135deg, rgba(99,179,237,0.18) 0%, rgba(72,199,142,0.18) 100%); }
+  100% { box-shadow: 0 0 0 0 rgba(72, 199, 142, 0), 0 0 0 0 rgba(99, 179, 237, 0); background: #fff; }
+}
+.lc-hero-form-wrap.form-highlight {
+  animation: formPulse 1s ease-out 3;
+}
+
 /* ── RIGHT form card ── */
 .lc-hero-form-wrap {
   flex: 0 0 420px;
@@ -6319,5 +6330,19 @@ document.addEventListener('DOMContentLoaded', function() {
         script.src = 'https://commitchange.com/js/donate-button.v2.js';
         first.parentNode.insertBefore(script, first);
       })();
+    </script>
+    <script>
+      document.querySelectorAll('a[href="#inline-OBmhoPhXwagt95nin53Y"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var formWrap = document.querySelector('.lc-hero-form-wrap');
+          if (!formWrap) return;
+          formWrap.classList.remove('form-highlight');
+          void formWrap.offsetWidth; // force reflow so animation restarts
+          formWrap.classList.add('form-highlight');
+          formWrap.addEventListener('animationend', function() {
+            formWrap.classList.remove('form-highlight');
+          }, { once: true });
+        });
+      });
     </script>
 
