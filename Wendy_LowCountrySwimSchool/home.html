@@ -3562,27 +3562,52 @@ document.addEventListener('DOMContentLoaded', function() {
         line-height: 1.5;
       }
 
+      .location-image-wrap {
+        position: relative;
+      }
+
+      .location-type-tag {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(27, 75, 114, 0.88);
+        color: #ffffff;
+        font-family: "Inter", sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border-radius: 6px;
+        pointer-events: none;
+      }
+
+      .location-badges {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
       .location-status {
         display: inline-block;
-        padding: 6px 14px;
+        padding: 5px 14px;
         border-radius: 100px;
         font-family: "Inter", sans-serif;
         font-size: 13px;
         font-weight: 600;
-        margin-bottom: 12px;
         background: #d2f9b5;
         color: #1a4a1a;
       }
 
       .members-only-badge {
         display: inline-block;
-        padding: 4px 12px;
+        padding: 5px 12px;
         border-radius: 100px;
         font-family: "Inter", sans-serif;
         font-size: 12px;
         font-weight: 700;
-        margin-bottom: 12px;
-        margin-left: 8px;
         background: #1B4B72;
         color: #ffffff;
         letter-spacing: 0.5px;
@@ -3595,52 +3620,32 @@ document.addEventListener('DOMContentLoaded', function() {
         color: #495057;
         line-height: 1.7;
         flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .location-details strong {
-        color: #1b4b72;
-        font-weight: 700;
-        font-size: 16px;
-        display: inline-block;
-        padding: 8px 16px;
-        background: linear-gradient(135deg, #c4e538 0%, #a8c830 100%);
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(196, 229, 56, 0.3);
-      }
-
-      .location-details-btn {
-        color: #1b4b72;
-        font-weight: 700;
-        font-size: 16px;
-        display: inline-block;
-        padding: 8px 16px;
-        background: linear-gradient(135deg, #c4e538 0%, #a8c830 100%);
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(196, 229, 56, 0.3);
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      .location-details-btn:hover {
-        background: linear-gradient(135deg, #b8d930 0%, #96b820 100%);
-        box-shadow: 0 4px 12px rgba(196, 229, 56, 0.5);
-      }
-
-      a.location-status {
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      a.location-status:hover {
-        opacity: 0.85;
       }
 
       .location-hours {
-        margin-top: auto;
-        padding-top: 12px;
+        padding-top: 8px;
         border-top: 1px solid #e9ecef;
+        color: #6c757d;
+      }
+
+      .location-cta {
+        display: block;
+        text-align: center;
+        margin-top: 16px;
+        padding: 11px 16px;
+        background: linear-gradient(135deg, #c4e538 0%, #a8c830 100%);
+        color: #1b4b72;
+        font-family: "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        border-radius: 10px;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(196, 229, 56, 0.35);
+      }
+
+      .location-cta:hover {
+        background: linear-gradient(135deg, #b8d930 0%, #96b820 100%);
+        box-shadow: 0 4px 14px rgba(196, 229, 56, 0.5);
       }
 
       .aqua-mobile-section {
@@ -3851,154 +3856,186 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="locations-grid">
           <!-- Location 1: North Charleston Aquatic Center -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964950af13bc38ae7b708a8.webp"
-              alt="North Charleston Aquatic Center"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964950af13bc38ae7b708a8.webp"
+                alt="North Charleston Aquatic Center"
+                class="location-image"
+              />
+              <span class="location-type-tag">Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">North Charleston Aquatic Center</h3>
-              <p class="location-address">
-                8610 Patriot Boulevard, North Charleston
-              </p>
-              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-status">Now Registering</a>
+              <p class="location-address">8610 Patriot Boulevard, North Charleston</p>
+              <div class="location-badges">
+                <span class="location-status">Now Registering</span>
+              </div>
               <div class="location-details">
                 <div class="location-hours">
                   <p>Saturdays: 10am - 3pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 2: North Charleston Sport Complex -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951302f1be7904c9adac.webp"
-              alt="North Charleston Sport Complex"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951302f1be7904c9adac.webp"
+                alt="North Charleston Sport Complex"
+                class="location-image"
+              />
+              <span class="location-type-tag">Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">North Charleston Sport Complex</h3>
-              <p class="location-address">
-                1455 Monitor Street, North Charleston (Park Circle)
-              </p>
-              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-status">Now Registering</a>
+              <p class="location-address">1455 Monitor Street, North Charleston (Park Circle)</p>
+              <div class="location-badges">
+                <span class="location-status">Now Registering</span>
+              </div>
               <div class="location-details">
                 <div class="location-hours">
                   <p>Saturdays: 10am - 3pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 3: Pierce Park Pool -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
-              alt="Pierce Park Pool"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
+                alt="Pierce Park Pool"
+                class="location-image"
+              />
+              <span class="location-type-tag">Year-Round Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Pierce Park Pool</h3>
               <p class="location-address">1801 Pierce Street, Charleston</p>
-              <span class="location-status">Resident Only</span>
-              <div class="location-details">
-                <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-details-btn">Now Open for Lessons - All Year Around!</a>
+              <div class="location-badges">
+                <span class="location-status">Resident Only</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 4: Felix Pinckney Pool -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964952902f1be3eeec9afad.webp"
-              alt="Felix Pinckney Pool"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964952902f1be3eeec9afad.webp"
+                alt="Felix Pinckney Pool"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Felix Pinckney Pool</h3>
-              <p class="location-address">
-                4790 Hassel Avenue, North Charleston
-              </p>
-              <span class="location-status">May 31st - August 15th</span>
-              <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
+              <p class="location-address">4790 Hassel Avenue, North Charleston</p>
+              <div class="location-badges">
+                <span class="location-status">May 31st - August 15th</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 5: Goose Creek Crowfield Pool -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/69649566f13bc37ba9b71265.webp"
-              alt="Goose Creek Crowfield Pool"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/69649566f13bc37ba9b71265.webp"
+                alt="Goose Creek Crowfield Pool"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Goose Creek Crowfield Pool</h3>
               <p class="location-address">300 Hamlet Circle, Goose Creek</p>
-              <span class="location-status">June 1st - August 31st</span>
+              <div class="location-badges">
+                <span class="location-status">June 1st - August 31st</span>
+              </div>
               <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
                 <div class="location-hours">
                   <p>Tuesday - Saturday: 10am - 7pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 6: Shadowmoss Country Club -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964954b02f1be68e3c9b28b.webp"
-              alt="Shadowmoss Country Club"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964954b02f1be68e3c9b28b.webp"
+                alt="Shadowmoss Country Club"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Shadowmoss Country Club</h3>
               <p class="location-address">21 Dunvegan Drive, Charleston</p>
-              <span class="location-status">June 1st - August 31st</span>
-              <span class="members-only-badge">Members Only</span>
+              <div class="location-badges">
+                <span class="location-status">June 1st - August 31st</span>
+                <span class="members-only-badge">Members Only</span>
+              </div>
               <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
                 <div class="location-hours">
                   <p>Tuesday - Saturday: 10am - 7pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 7: John's Island -->
           <div class="location-card">
-            <img
-              src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/69af01e9ace6474919e7b4f5.jpeg"
-              alt="John's Island"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/69af01e9ace6474919e7b4f5.jpeg"
+                alt="John's Island"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">John's Island</h3>
               <p class="location-address">John's Island, SC</p>
-              <span class="location-status">June 1st - August 31st</span>
-              <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
+              <div class="location-badges">
+                <span class="location-status">June 1st - August 31st</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 8: Daniel Island -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
-              alt="Daniel Island"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
+                alt="Daniel Island"
+                class="location-image"
+              />
+              <span class="location-type-tag">Spring &amp; Summer Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Daniel Island</h3>
               <p class="location-address">Daniel Island, SC</p>
-              <span class="location-status">Spring &amp; Summer</span>
-              <div class="location-details">
-                <p><strong>Spring and Summer Lessons</strong></p>
+              <div class="location-badges">
+                <span class="location-status">Spring &amp; Summer</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
         </div>
@@ -4012,133 +4049,161 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="additional-locations" id="additionalLocations">
           <!-- Location 2: North Charleston Sport Complex -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951302f1be7904c9adac.webp"
-              alt="North Charleston Sport Complex"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951302f1be7904c9adac.webp"
+                alt="North Charleston Sport Complex"
+                class="location-image"
+              />
+              <span class="location-type-tag">Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">North Charleston Sport Complex</h3>
-              <p class="location-address">
-                1455 Monitor Street, North Charleston (Park Circle)
-              </p>
-              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-status">Now Registering</a>
+              <p class="location-address">1455 Monitor Street, North Charleston (Park Circle)</p>
+              <div class="location-badges">
+                <span class="location-status">Now Registering</span>
+              </div>
               <div class="location-details">
                 <div class="location-hours">
                   <p>Saturdays: 10am - 3pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 3: Pierce Park Pool -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
-              alt="Pierce Park Pool"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
+                alt="Pierce Park Pool"
+                class="location-image"
+              />
+              <span class="location-type-tag">Year-Round Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Pierce Park Pool</h3>
               <p class="location-address">1801 Pierce Street, Charleston</p>
-              <span class="location-status">Resident Only</span>
-              <div class="location-details">
-                <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-details-btn">Now Open for Lessons - All Year Around!</a>
+              <div class="location-badges">
+                <span class="location-status">Resident Only</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 4: Felix Pinckney Pool -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964952902f1be3eeec9afad.webp"
-              alt="Felix Pinckney Pool"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964952902f1be3eeec9afad.webp"
+                alt="Felix Pinckney Pool"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Felix Pinckney Pool</h3>
-              <p class="location-address">
-                4790 Hassel Avenue, North Charleston
-              </p>
-              <span class="location-status">May 31st - August 15th</span>
-              <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
+              <p class="location-address">4790 Hassel Avenue, North Charleston</p>
+              <div class="location-badges">
+                <span class="location-status">May 31st - August 15th</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 5: Goose Creek Crowfield Pool -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/69649566f13bc37ba9b71265.webp"
-              alt="Goose Creek Crowfield Pool"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/69649566f13bc37ba9b71265.webp"
+                alt="Goose Creek Crowfield Pool"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Goose Creek Crowfield Pool</h3>
               <p class="location-address">300 Hamlet Circle, Goose Creek</p>
-              <span class="location-status">June 1st - August 31st</span>
+              <div class="location-badges">
+                <span class="location-status">June 1st - August 31st</span>
+              </div>
               <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
                 <div class="location-hours">
                   <p>Tuesday - Saturday: 10am - 7pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 6: Shadowmoss Country Club -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964954b02f1be68e3c9b28b.webp"
-              alt="Shadowmoss Country Club"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964954b02f1be68e3c9b28b.webp"
+                alt="Shadowmoss Country Club"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Shadowmoss Country Club</h3>
               <p class="location-address">21 Dunvegan Drive, Charleston</p>
-              <span class="location-status">June 1st - September 1st</span>
-              <span class="members-only-badge">Members Only</span>
+              <div class="location-badges">
+                <span class="location-status">June 1st - September 1st</span>
+                <span class="members-only-badge">Members Only</span>
+              </div>
               <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
                 <div class="location-hours">
                   <p>Tuesday - Saturday: 10am - 7pm</p>
                 </div>
               </div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 7: John's Island -->
           <div class="location-card">
-            <img
-              src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/69af01e9ace6474919e7b4f5.jpeg"
-              alt="John's Island"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/69af01e9ace6474919e7b4f5.jpeg"
+                alt="John's Island"
+                class="location-image"
+              />
+              <span class="location-type-tag">Summer Swim Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">John's Island</h3>
               <p class="location-address">John's Island, SC</p>
-              <span class="location-status">June 1st - August 31st</span>
-              <div class="location-details">
-                <p><strong>Summer Swim Lessons</strong></p>
+              <div class="location-badges">
+                <span class="location-status">June 1st - August 31st</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
 
           <!-- Location 8: Daniel Island -->
           <div class="location-card">
-            <img
-              src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
-              alt="Daniel Island"
-              class="location-image"
-            />
+            <div class="location-image-wrap">
+              <img
+                src="https://storage.googleapis.com/msgsndr/LHyUDIth9k9Kk9qv4BzQ/media/6964951ff8a93b7116e46865.webp"
+                alt="Daniel Island"
+                class="location-image"
+              />
+              <span class="location-type-tag">Spring &amp; Summer Lessons</span>
+            </div>
             <div class="location-content">
               <h3 class="location-name">Daniel Island</h3>
               <p class="location-address">Daniel Island, SC</p>
-              <span class="location-status">Spring &amp; Summer</span>
-              <div class="location-details">
-                <p><strong>Spring and Summer Lessons</strong></p>
+              <div class="location-badges">
+                <span class="location-status">Spring &amp; Summer</span>
               </div>
+              <div class="location-details"></div>
+              <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="location-cta">Register Now →</a>
             </div>
           </div>
         </div>
