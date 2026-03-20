@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NILS Support — Book a Call</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blue: #046bd2;
+        --blue-dark: #0357ae;
+        --blue-light: #e8f2fc;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #d1d5db;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--blue);
+        min-height: 100vh;
+      }
+
+      /* HEADER */
+      .site-header {
+        background: #fff;
+        text-align: center;
+        padding: 28px 20px 24px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .site-header img.logo {
+        height: 50px;
+        width: auto;
+        display: block;
+        margin: 0 auto 16px;
+        object-fit: contain;
+      }
+      .site-header h1 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 5px;
+      }
+      .site-header p {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text);
+      }
+      .site-header p.sub {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #374151;
+        margin-top: 3px;
+      }
+
+      /* PAGE */
+      .page-body {
+        padding: 40px 24px 72px;
+      }
+
+      /* CARD */
+      .card {
+        background: #fff;
+        border-radius: 14px;
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 40px 52px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.13);
+      }
+      @media (max-width: 540px) {
+        .card {
+          padding: 28px 16px;
+        }
+      }
+
+      /* INTRO */
+      .card-intro {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .card-intro h2 {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .card-intro p {
+        font-size: 15px;
+        color: var(--muted);
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      /* CALENDAR EMBED */
+      .calendar-wrap {
+        width: 100%;
+        min-height: 600px;
+      }
+      .calendar-wrap iframe {
+        width: 100%;
+        border: none;
+        overflow: hidden;
+        display: block;
+      }
+
+      /* FOOTER */
+      .site-footer {
+        text-align: center;
+        padding: 28px 20px;
+        color: rgba(255,255,255,0.7);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .site-footer a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <img
+        class="logo"
+        src="https://assets.cdn.filesafe.space/xTRFMBPsHJwPgbRmtBMl/media/67aefa6c5f2b7445571a4fde.png"
+        alt="NILS Digital"
+      />
+      <h1>Support Call</h1>
+      <p>Book a time with our support team — we've got you covered.</p>
+      <p class="sub">Pick a slot that works best for you below.</p>
+    </header>
+
+    <main class="page-body">
+      <div class="card">
+        <div class="card-intro">
+          <h2>Schedule Your Support Session</h2>
+          <p>
+            Need help with your website, automations, or account?<br />
+            Choose an available time and we'll take care of it together.
+          </p>
+        </div>
+        <div class="calendar-wrap">
+          <iframe
+            src="https://link.nilsdigital.com/widget/booking/ly33dbmoZzZN8LO1DLAF"
+            scrolling="no"
+            id="5ZY5mQXXFUQ1bXxwyAuq_1774034020656"
+          ></iframe>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      &copy; 2025 <a href="https://nilsdigital.com" target="_blank">NILS Digital</a> — All rights reserved.
+    </footer>
+
+    <script src="https://link.nilsdigital.com/js/form_embed.js" type="text/javascript"></script>
+
+  </body>
+</html>
