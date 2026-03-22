@@ -23,9 +23,11 @@ Design language across the references:
 
 ### VSL pages
 - **NO navigation bar** — removes distraction, keeps focus on the video and form
-- Hero is full-width, centered layout (not 2-column), video is the dominant element
-- Survey/opt-in form goes directly below the video
+- Hero is full-width, centered layout (not 2-column)
+- **Video goes INSIDE the hero** — below the headline and CTA button, same max-width as the rest of the hero. NOT in a separate section below.
+- Survey/opt-in form goes at the bottom of the page (linked from CTA buttons), NOT directly below the video
 - Survey must be **multi-step** (one question at a time, auto-advances on click, back navigation available)
+- Trust bar goes BELOW the hero, with exactly 3 pills using the client's real numbers (clients served, star rating + platform, ad spend or revenue generated). Never use generic icons or vague claims.
 
 ### Standard landing pages / homepages
 - Navigation bar with logo, links, and CTA button
@@ -75,6 +77,19 @@ background: linear-gradient(135deg, rgba(5,10,24,0.88) 0%, rgba(4,107,210,0.75) 
 
 **Never leave a section without a visual.** Every section needs at least one: a background image, an illustration, an icon grid, a photo, a stat graphic, or a floating proof card.
 
+**Review/testimonial grid rule:** All review screenshot images MUST use a uniform `aspect-ratio` CSS property (e.g. `aspect-ratio: 4/3`) with `object-fit: cover`. Never display review images at their natural size — they will all be different sizes and the grid will look broken.
+
+**Video testimonials rule:** Never use bare `<video>` tags without a custom play button overlay. Always wrap each video in a card with:
+- A dark overlay div with a centered blue play button circle
+- `onclick="playVid(this)"` — clicking removes the overlay and plays the video
+- `preload="none"` to avoid loading all videos at once
+
+**About/founder photo rule:** Use `object-fit: contain` (NOT `cover`) with `object-position: center` so the full photo is visible — cropping with `cover` cuts off important parts of the image (awards, plaques, context).
+
+**Hero logo watermark:** For white-on-transparent PNG logos, use: `filter: brightness(0) sepia(1) saturate(5) hue-rotate(195deg); opacity: 0.055;` to render a blue watermark effect.
+
+**Fire badge phrasing:** The fire badge should wrap the FULL highlighted phrase (e.g. "4x more clients"), not just the number. The asterisk appears as a superscript inside the badge. Tooltip text must be large enough to read — use `font-size: 14px; padding: 14px 20px; width: 300px`.
+
 **Visual requirement applies to ALL content sections** — including "Who We Are," "How It Works," "Problem" sections, and any section describing a system or process. Users read headlines + scan images. If a section has no visual, it will be skipped entirely. The only acceptable exception is a form or survey step.
 
 **Copy density rule:** Most visitors will NOT read body paragraphs. Write headlines that stand alone and bullet points that communicate the result, not the feature. Remove any paragraph that could be deleted without losing a key point. Every word must earn its place — talk in terms of outcomes and results, not process or effort.
@@ -102,24 +117,19 @@ All pill items must be the same height. Use `align-items: center` and consistent
 
 ## Section transition rules
 
-Transitions connect sections. The style must match the business personality. **Never apply a transition style meant for one niche to a different one.**
+Transitions connect sections. Use clean background color alternation as the primary transition method. Diagonal SVG cuts have been explicitly rejected by the client — do not use them.
 
 | Business type | Transition style |
 |---|---|
-| B2B agency, tech, finance, legal | Sharp diagonal cut OR clean gradient fade OR simple background color change (no waves) |
-| Local service, family business, healthcare | Gentle organic wave (2 overlapping paths) |
+| B2B agency, tech, finance, legal | **Simple background color change** — alternate white, light gray (#f5f7fa), and blue. No SVG shapes. |
+| Local service, family business, healthcare | Gentle organic wave (2 overlapping paths) between sections |
 | Fitness, energy brands | Medium bold wave or angular cut |
-| Luxury, high-end | No wave — just a clean line or subtle drop shadow between sections |
+| Luxury, high-end | No wave — just a clean 1px border or subtle drop shadow |
 
-**Default for B2B/agency pages:**
-```html
-<!-- Diagonal cut — clean and professional -->
-<div style="background:{CURRENT_BG}; line-height:0; overflow:hidden;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:60px;">
-    <polygon points="0,60 1440,0 1440,60" fill="{NEXT_BG_COLOR}"/>
-  </svg>
-</div>
-```
+**Default B2B section pattern (alternate these backgrounds):**
+- White (#fff) → Light gray (#f5f7fa) → White → Blue (var(--blue)) → White → Light gray
+
+The background color change itself IS the transition. No SVG dividers needed for B2B pages.
 
 ---
 

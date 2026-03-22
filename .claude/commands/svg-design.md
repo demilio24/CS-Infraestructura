@@ -21,19 +21,19 @@ Design and generate custom inline SVG elements for a funnel page — icons, sect
 
 | Business type | Transition style |
 |---|---|
-| B2B agency, tech, finance, legal | Diagonal cut OR gradient fade — no organic waves |
+| B2B agency, tech, finance, legal | **Background color change only** — no SVG dividers. Alternate white, light gray (#f5f7fa), and blue. ⚠️ Diagonal cuts have been explicitly rejected — do not use. |
 | Local service, family business | Gentle organic wave (soft curves) |
 | Healthcare, wellness | Soft curve or gentle wave |
 | Fitness, energy | Medium bold wave or sharp angular cut |
 | Luxury | Clean line only — no wave at all |
 
-**Diagonal cut (B2B/agency/tech — clean and professional):**
+**B2B/agency default — NO divider needed:**
+Just change the section's `background` property. The color change between sections is the transition.
 ```html
-<div style="background:{CURRENT_BG}; line-height:0; overflow:hidden;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:60px;">
-    <polygon points="0,60 1440,0 1440,60" fill="{NEXT_COLOR}"/>
-  </svg>
-</div>
+<!-- Example: white → gray → blue — no SVG needed -->
+<section style="background: #fff"> ... </section>
+<section style="background: #f5f7fa"> ... </section>
+<section style="background: var(--blue)"> ... </section>
 ```
 
 **Gentle wave (family businesses, swim schools, local services):**
