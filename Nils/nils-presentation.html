@@ -1,1139 +1,2425 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nils Digital - Custom Systems</title>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      width: 100%; height: 100%; overflow: hidden;
-      font-family: 'Instrument Sans', 'Inter', -apple-system, sans-serif;
-      background: #000; cursor: pointer; user-select: none;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nils Digital - Custom Systems</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family:
+          "Instrument Sans",
+          "Inter",
+          -apple-system,
+          sans-serif;
+        background: #000;
+        cursor: pointer;
+        user-select: none;
+      }
 
-    /* SLIDE SYSTEM */
-    .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
-    .slide {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 80px 48px;
-      opacity: 0; pointer-events: none;
-      transform: translateY(28px);
-      transition: opacity 0.38s ease, transform 0.38s ease;
-      overflow: hidden;
-    }
-    .slide.active  { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .slide.leaving { opacity: 0; transform: translateY(-28px); transition: opacity 0.28s ease, transform 0.28s ease; }
+      /* SLIDE SYSTEM */
+      .deck {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 48px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(28px);
+        transition:
+          opacity 0.38s ease,
+          transform 0.38s ease;
+        overflow: hidden;
+      }
+      .slide.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      .slide.leaving {
+        opacity: 0;
+        transform: translateY(-28px);
+        transition:
+          opacity 0.28s ease,
+          transform 0.28s ease;
+      }
 
-    /* THEMES */
-    .navy  { background: #0a2540; color: #fff; }
-    .light { background: #f0f4f8; color: #000; }
-    .white { background: #ffffff; color: #000; }
-    .blue  { background: #046bd2; color: #fff; }
-    .green { background: #047857; color: #fff; }
+      /* THEMES */
+      .navy {
+        background: #0a2540;
+        color: #fff;
+      }
+      .light {
+        background: #f0f4f8;
+        color: #000;
+      }
+      .white {
+        background: #ffffff;
+        color: #000;
+      }
+      .blue {
+        background: #046bd2;
+        color: #fff;
+      }
+      .green {
+        background: #047857;
+        color: #fff;
+      }
 
-    /* WATERMARK BG ICON */
-    .bg-icon {
-      position: absolute; font-size: clamp(160px, 25vw, 300px);
-      opacity: 0.04; z-index: 0; pointer-events: none;
-      user-select: none; right: -10px; bottom: -10px;
-    }
-    .slide > *:not(.bg-icon) { position: relative; z-index: 1; }
+      /* WATERMARK BG ICON */
+      .bg-icon {
+        position: absolute;
+        font-size: clamp(160px, 25vw, 300px);
+        opacity: 0.04;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
+        right: -10px;
+        bottom: -10px;
+      }
+      .slide > *:not(.bg-icon) {
+        position: relative;
+        z-index: 1;
+      }
 
-    /* TYPOGRAPHY */
-    .eyebrow {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 18px;
-    }
-    .navy .eyebrow  { color: #4fa3f7; }
-    .light .eyebrow, .white .eyebrow { color: #046bd2; }
-    .blue .eyebrow  { color: rgba(255,255,255,0.65); }
-    .green .eyebrow { color: rgba(255,255,255,0.65); }
+      /* TYPOGRAPHY */
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .navy .eyebrow {
+        color: #4fa3f7;
+      }
+      .light .eyebrow,
+      .white .eyebrow {
+        color: #046bd2;
+      }
+      .blue .eyebrow {
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .green .eyebrow {
+        color: rgba(255, 255, 255, 0.65);
+      }
 
-    .headline {
-      font-size: clamp(28px, 5vw, 58px);
-      font-weight: 700; line-height: 1.12;
-      text-align: center; max-width: 920px;
-    }
-    .headline.xl   { font-size: clamp(32px, 6.5vw, 76px); }
-    .headline.huge { font-size: clamp(40px, 8vw, 96px); }
+      .headline {
+        font-size: clamp(28px, 5vw, 58px);
+        font-weight: 700;
+        line-height: 1.12;
+        text-align: center;
+        max-width: 920px;
+      }
+      .headline.xl {
+        font-size: clamp(32px, 6.5vw, 76px);
+      }
+      .headline.huge {
+        font-size: clamp(40px, 8vw, 96px);
+      }
 
-    .subtext {
-      font-size: clamp(15px, 2vw, 20px); font-weight: 500;
-      line-height: 1.55; text-align: center;
-      max-width: 680px; margin-top: 18px;
-    }
-    .navy .subtext  { color: rgba(255,255,255,0.55); }
-    .light .subtext, .white .subtext { color: #555; }
-    .blue .subtext  { color: rgba(255,255,255,0.8); }
-    .green .subtext { color: rgba(255,255,255,0.8); }
+      .subtext {
+        font-size: clamp(15px, 2vw, 20px);
+        font-weight: 500;
+        line-height: 1.55;
+        text-align: center;
+        max-width: 680px;
+        margin-top: 18px;
+      }
+      .navy .subtext {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .light .subtext,
+      .white .subtext {
+        color: #555;
+      }
+      .blue .subtext {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .green .subtext {
+        color: rgba(255, 255, 255, 0.8);
+      }
 
-    .accent { color: #046bd2; }
-    .navy .accent { color: #4fa3f7; }
-    .blue .accent  { color: #fff; font-style: italic; }
+      .accent {
+        color: #046bd2;
+      }
+      .navy .accent {
+        color: #4fa3f7;
+      }
+      .blue .accent {
+        color: #fff;
+        font-style: italic;
+      }
 
-    /* BADGE */
-    .badge {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: #046bd2; color: #fff;
-      font-size: 12px; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 7px 18px; border-radius: 100px; margin-bottom: 24px;
-    }
-    .blue .badge { background: rgba(255,255,255,0.18); }
+      /* BADGE */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: #046bd2;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 7px 18px;
+        border-radius: 100px;
+        margin-bottom: 24px;
+      }
+      .blue .badge {
+        background: rgba(255, 255, 255, 0.18);
+      }
 
-    /* SYSTEM PREVIEW CARDS (title slide) */
-    .system-preview { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 44px; }
-    .system-card {
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 10px; padding: 12px 22px;
-      font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.75);
-      display: flex; align-items: center; gap: 8px;
-    }
+      /* SYSTEM PREVIEW CARDS (title slide) */
+      .system-preview {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 44px;
+      }
+      .system-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 10px;
+        padding: 12px 22px;
+        font-size: 14px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.75);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-    /* HOW CARDS */
-    .how-cards { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 36px; }
-    .how-card {
-      background: #fff; border-radius: 16px; padding: 36px 44px;
-      text-align: center; box-shadow: 0 2px 24px rgba(0,0,0,0.07); min-width: 180px;
-    }
-    .how-card__icon { font-size: 44px; margin-bottom: 14px; }
-    .how-card__label { font-size: 18px; font-weight: 700; color: #000; }
-    .how-card__sub { font-size: 13px; color: #666; margin-top: 6px; font-weight: 500; }
+      /* HOW CARDS */
+      .how-cards {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 36px;
+      }
+      .how-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 36px 44px;
+        text-align: center;
+        box-shadow: 0 2px 24px rgba(0, 0, 0, 0.07);
+        min-width: 180px;
+      }
+      .how-card__icon {
+        font-size: 44px;
+        margin-bottom: 14px;
+      }
+      .how-card__label {
+        font-size: 18px;
+        font-weight: 700;
+        color: #000;
+      }
+      .how-card__sub {
+        font-size: 13px;
+        color: #666;
+        margin-top: 6px;
+        font-weight: 500;
+      }
 
-    /* OUTCOME CARDS (slide 5) */
-    .outcome-cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; max-width: 940px; margin-top: 36px; }
-    .outcome-card {
-      flex: 1; min-width: 220px; max-width: 280px;
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
-      border-top: 3px solid #4fa3f7; border-radius: 14px; padding: 28px 22px; text-align: center;
-    }
-    .outcome-card__icon { font-size: 36px; margin-bottom: 14px; }
-    .outcome-card__title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .outcome-card__sub { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.55); line-height: 1.4; }
+      /* OUTCOME CARDS (slide 5) */
+      .outcome-cards {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 940px;
+        margin-top: 36px;
+      }
+      .outcome-card {
+        flex: 1;
+        min-width: 220px;
+        max-width: 280px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 3px solid #4fa3f7;
+        border-radius: 14px;
+        padding: 28px 22px;
+        text-align: center;
+      }
+      .outcome-card__icon {
+        font-size: 36px;
+        margin-bottom: 14px;
+      }
+      .outcome-card__title {
+        font-size: 17px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .outcome-card__sub {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.55);
+        line-height: 1.4;
+      }
 
-    /* DELIVERABLE */
-    .deliverable { max-width: 720px; text-align: center; }
-    .deliverable__icon { font-size: 52px; margin-bottom: 22px; }
-    .deliverable__title { font-size: clamp(22px, 4vw, 38px); font-weight: 700; margin-bottom: 14px; }
-    .navy .deliverable__title { color: #fff; }
-    .white .deliverable__title, .light .deliverable__title { color: #000; }
-    .deliverable__sub { font-size: 17px; font-weight: 500; line-height: 1.6; }
-    .navy .deliverable__sub { color: rgba(255,255,255,0.6); }
-    .white .deliverable__sub, .light .deliverable__sub { color: #555; }
+      /* DELIVERABLE */
+      .deliverable {
+        max-width: 720px;
+        text-align: center;
+      }
+      .deliverable__icon {
+        font-size: 52px;
+        margin-bottom: 22px;
+      }
+      .deliverable__title {
+        font-size: clamp(22px, 4vw, 38px);
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+      .navy .deliverable__title {
+        color: #fff;
+      }
+      .white .deliverable__title,
+      .light .deliverable__title {
+        color: #000;
+      }
+      .deliverable__sub {
+        font-size: 17px;
+        font-weight: 500;
+        line-height: 1.6;
+      }
+      .navy .deliverable__sub {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .white .deliverable__sub,
+      .light .deliverable__sub {
+        color: #555;
+      }
 
-    /* PILLS */
-    .pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
-    .pill { background: #f0f4f8; border: 1px solid #dde3ea; border-radius: 100px; padding: 9px 20px; font-size: 14px; font-weight: 600; color: #333; }
+      /* PILLS */
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .pill {
+        background: #f0f4f8;
+        border: 1px solid #dde3ea;
+        border-radius: 100px;
+        padding: 9px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+      }
 
-    /* BROWSER MOCK */
-    .browser-wrap { margin-top: 24px; max-width: 500px; width: 100%; }
-    .browser-mock { background: #fff; border-radius: 12px; box-shadow: 0 8px 48px rgba(0,0,0,0.13); overflow: hidden; border: 1px solid #e0e0e0; }
-    .browser-bar { background: #f4f4f4; padding: 10px 14px; display: flex; align-items: center; gap: 7px; border-bottom: 1px solid #e0e0e0; }
-    .browser-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .browser-dot:nth-child(1) { background: #ff5f57; }
-    .browser-dot:nth-child(2) { background: #ffbd2e; }
-    .browser-dot:nth-child(3) { background: #28c840; }
-    .browser-url { flex: 1; background: #e8e8e8; border-radius: 6px; height: 20px; margin-left: 8px; display: flex; align-items: center; padding: 0 10px; font-size: 11px; color: #888; font-weight: 500; }
-    .browser-body { padding: 20px; background: #f8fafc; }
-    .browser-hero { height: 12px; background: #046bd2; border-radius: 4px; margin-bottom: 10px; width: 60%; }
-    .browser-text { height: 8px; background: #e0e5ea; border-radius: 3px; margin-bottom: 7px; }
-    .browser-btn { height: 28px; width: 90px; background: #046bd2; border-radius: 6px; margin-top: 12px; }
+      /* BROWSER MOCK */
+      .browser-wrap {
+        margin-top: 24px;
+        max-width: 500px;
+        width: 100%;
+      }
+      .browser-mock {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 48px rgba(0, 0, 0, 0.13);
+        overflow: hidden;
+        border: 1px solid #e0e0e0;
+      }
+      .browser-bar {
+        background: #f4f4f4;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .browser-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .browser-dot:nth-child(1) {
+        background: #ff5f57;
+      }
+      .browser-dot:nth-child(2) {
+        background: #ffbd2e;
+      }
+      .browser-dot:nth-child(3) {
+        background: #28c840;
+      }
+      .browser-url {
+        flex: 1;
+        background: #e8e8e8;
+        border-radius: 6px;
+        height: 20px;
+        margin-left: 8px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        font-size: 11px;
+        color: #888;
+        font-weight: 500;
+      }
+      .browser-body {
+        padding: 20px;
+        background: #f8fafc;
+      }
+      .browser-hero {
+        height: 12px;
+        background: #046bd2;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        width: 60%;
+      }
+      .browser-text {
+        height: 8px;
+        background: #e0e5ea;
+        border-radius: 3px;
+        margin-bottom: 7px;
+      }
+      .browser-btn {
+        height: 28px;
+        width: 90px;
+        background: #046bd2;
+        border-radius: 6px;
+        margin-top: 12px;
+      }
 
-    /* REVIEW FLOW */
-    .review-flow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
-    .flow-step { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; padding: 16px 20px; text-align: center; min-width: 130px; }
-    .flow-step__icon { font-size: 28px; margin-bottom: 6px; }
-    .flow-step__label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
-    .flow-arrow { font-size: 22px; color: #4fa3f7; font-weight: 700; flex-shrink: 0; }
+      /* REVIEW FLOW */
+      .review-flow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 32px;
+      }
+      .flow-step {
+        background: rgba(255, 255, 255, 0.09);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        padding: 16px 20px;
+        text-align: center;
+        min-width: 130px;
+      }
+      .flow-step__icon {
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+      .flow-step__label {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .flow-arrow {
+        font-size: 22px;
+        color: #4fa3f7;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
 
-    /* CHAT MOCK */
-    .chat-mock { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; max-width: 440px; width: 100%; }
-    .chat-bubble { padding: 12px 18px; border-radius: 18px; font-size: 14px; font-weight: 500; max-width: 82%; line-height: 1.4; }
-    .chat-bubble.review { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85); align-self: flex-start; border-bottom-left-radius: 4px; }
-    .chat-bubble.reply  { background: #046bd2; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .chat-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; text-transform: uppercase; }
-    .chat-label.right { text-align: right; }
+      /* CHAT MOCK */
+      .chat-mock {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 440px;
+        width: 100%;
+      }
+      .chat-bubble {
+        padding: 12px 18px;
+        border-radius: 18px;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 82%;
+        line-height: 1.4;
+      }
+      .chat-bubble.review {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.85);
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+      .chat-bubble.reply {
+        background: #046bd2;
+        color: #fff;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+      }
+      .chat-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .chat-label.right {
+        text-align: right;
+      }
 
-    /* RESULTS */
-    .results { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin-top: 28px; }
-    .result-item { text-align: center; }
-    .result-img { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.13); max-height: 52vh; }
-    .result-img img { display: block; width: auto; max-height: 52vh; max-width: min(380px, 40vw); object-fit: contain; }
-    .result-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-top: 10px; }
+      /* RESULTS */
+      .results {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 28px;
+      }
+      .result-item {
+        text-align: center;
+      }
+      .result-img {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.13);
+        max-height: 52vh;
+      }
+      .result-img img {
+        display: block;
+        width: auto;
+        max-height: 52vh;
+        max-width: min(380px, 40vw);
+        object-fit: contain;
+      }
+      .result-label {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #888;
+        margin-top: 10px;
+      }
 
-    /* DEMO BUTTON */
-    .demo-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #000; color: #fff;
-      font-family: 'Instrument Sans', sans-serif;
-      font-size: 15px; font-weight: 700;
-      padding: 14px 28px; border-radius: 8px; text-decoration: none; margin-top: 24px;
-      pointer-events: all; cursor: pointer; transition: opacity 0.2s;
-    }
-    .demo-btn:hover { opacity: 0.8; }
+      /* DEMO BUTTON */
+      .demo-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #000;
+        color: #fff;
+        font-family: "Instrument Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 14px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 24px;
+        pointer-events: all;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .demo-btn:hover {
+        opacity: 0.8;
+      }
 
-    /* QR LAYOUT */
-    .qr-layout { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
-    .qr-block { text-align: center; }
-    .qr-block .result-img img { max-width: 260px; max-height: 260px; }
-    .qr-text { max-width: 340px; text-align: left; }
-    .qr-text p { font-size: 17px; font-weight: 500; color: #333; line-height: 1.6; margin-bottom: 20px; }
+      /* QR LAYOUT */
+      .qr-layout {
+        display: flex;
+        gap: 48px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 32px;
+      }
+      .qr-block {
+        text-align: center;
+      }
+      .qr-block .result-img img {
+        max-width: 260px;
+        max-height: 260px;
+      }
+      .qr-text {
+        max-width: 340px;
+        text-align: left;
+      }
+      .qr-text p {
+        font-size: 17px;
+        font-weight: 500;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
 
-    /* INCLUDED LIST */
-    .included-list { display: flex; flex-direction: column; gap: 8px; max-width: 600px; width: 100%; margin-top: 20px; }
-    .included-row {
-      display: flex; align-items: flex-start; gap: 14px;
-      background: #f4f7fb; border-left: 3px solid #046bd2;
-      border-radius: 0 10px 10px 0; padding: 11px 16px;
-    }
-    .included-row__icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-    .included-row__title { font-size: 14px; font-weight: 700; color: #000; margin-bottom: 3px; }
-    .included-row__outcome { font-size: 12px; font-weight: 500; color: #666; line-height: 1.4; }
+      /* INCLUDED LIST */
+      .included-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 600px;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .included-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        background: #f4f7fb;
+        border-left: 3px solid #046bd2;
+        border-radius: 0 10px 10px 0;
+        padding: 11px 16px;
+      }
+      .included-row__icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .included-row__title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000;
+        margin-bottom: 3px;
+      }
+      .included-row__outcome {
+        font-size: 12px;
+        font-weight: 500;
+        color: #666;
+        line-height: 1.4;
+      }
 
-    /* PRICING */
-    .price-cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 28px; }
-    .price-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 28px 44px; text-align: center; min-width: 180px; }
-    .price-card.featured { background: #046bd2; border-color: #046bd2; }
-    .price-card__amount { font-size: 54px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px; }
-    .price-card__label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; }
-    .price-card.featured .price-card__label { color: rgba(255,255,255,0.8); }
-    .price-card__monthly { font-size: 22px; font-weight: 700; color: rgba(255,255,255,0.75); margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.2); letter-spacing: 0.01em; }
-    .price-card__monthly-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+      /* PRICING */
+      .price-cards {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 28px;
+      }
+      .price-card {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 28px 44px;
+        text-align: center;
+        min-width: 180px;
+      }
+      .price-card.featured {
+        background: #046bd2;
+        border-color: #046bd2;
+      }
+      .price-card__amount {
+        font-size: 54px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .price-card__label {
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .price-card.featured .price-card__label {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      .price-card__monthly {
+        font-size: 22px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.75);
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        letter-spacing: 0.01em;
+      }
+      .price-card__monthly-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 4px;
+      }
 
-    /* GUARANTEE */
-    .guarantee {
-      display: flex; align-items: flex-start; gap: 16px;
-      background: rgba(79,163,247,0.1); border: 1px solid rgba(79,163,247,0.25);
-      border-radius: 12px; padding: 20px 24px;
-      max-width: 580px; margin-top: 20px; text-align: left;
-    }
-    .guarantee__icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
-    .guarantee__title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-    .guarantee__body { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); line-height: 1.6; }
-    .green .guarantee { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); }
+      /* GUARANTEE */
+      .guarantee {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        background: rgba(79, 163, 247, 0.1);
+        border: 1px solid rgba(79, 163, 247, 0.25);
+        border-radius: 12px;
+        padding: 20px 24px;
+        max-width: 580px;
+        margin-top: 20px;
+        text-align: left;
+      }
+      .guarantee__icon {
+        font-size: 28px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .guarantee__title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+      .guarantee__body {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.6;
+      }
+      .green .guarantee {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.22);
+      }
 
-    /* CTA BUTTON */
-    .cta-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #fff; color: #000;
-      font-family: 'Instrument Sans', sans-serif;
-      font-size: 16px; font-weight: 700;
-      padding: 16px 36px; border-radius: 10px; text-decoration: none; margin-top: 24px;
-      pointer-events: all; cursor: pointer; transition: opacity 0.2s; letter-spacing: 0.01em;
-    }
-    .cta-btn:hover { opacity: 0.88; }
+      /* CTA BUTTON */
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        color: #000;
+        font-family: "Instrument Sans", sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 16px 36px;
+        border-radius: 10px;
+        text-decoration: none;
+        margin-top: 24px;
+        pointer-events: all;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .cta-btn:hover {
+        opacity: 0.88;
+      }
 
-    /* CHROME */
-    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: #046bd2; transition: width 0.4s ease; z-index: 200; }
-    .brand-mark { position: fixed; top: 22px; left: 26px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; z-index: 200; transition: color 0.3s; }
-    .counter { position: fixed; top: 22px; right: 26px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; z-index: 200; transition: color 0.3s; }
-    .nav-dots { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; z-index: 200; }
-    .dot { height: 6px; border-radius: 3px; transition: all 0.3s ease; cursor: pointer; }
-    .click-hint { position: fixed; bottom: 62px; right: 26px; font-size: 12px; font-weight: 600; z-index: 200; display: flex; align-items: center; gap: 5px; animation: pulse 2.2s ease-in-out infinite; transition: opacity 0.5s; }
-    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:.9} }
+      /* CHROME */
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: #046bd2;
+        transition: width 0.4s ease;
+        z-index: 200;
+      }
+      .brand-mark {
+        position: fixed;
+        top: 22px;
+        left: 26px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        z-index: 200;
+        transition: color 0.3s;
+      }
+      .counter {
+        position: fixed;
+        top: 22px;
+        right: 26px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        z-index: 200;
+        transition: color 0.3s;
+      }
+      .nav-dots {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        z-index: 200;
+      }
+      .dot {
+        height: 6px;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .click-hint {
+        position: fixed;
+        bottom: 62px;
+        right: 26px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        animation: pulse 2.2s ease-in-out infinite;
+        transition: opacity 0.5s;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.9;
+        }
+      }
 
-    /* ARROWS */
-    .arrow { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; z-index: 200; transition: all 0.2s; pointer-events: all; }
-    .arrow:hover { background: rgba(255,255,255,0.15); color: #fff; }
-    .arrow-prev { left: 18px; }
-    .arrow-next { right: 18px; }
-    .arrow.hidden { opacity: 0; pointer-events: none; }
-    .light-chrome .arrow { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: rgba(0,0,0,0.35); }
-    .light-chrome .arrow:hover { background: rgba(0,0,0,0.1); color: #000; }
+      /* ARROWS */
+      .arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.5);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 200;
+        transition: all 0.2s;
+        pointer-events: all;
+      }
+      .arrow:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
+      .arrow-prev {
+        left: 18px;
+      }
+      .arrow-next {
+        right: 18px;
+      }
+      .arrow.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .light-chrome .arrow {
+        background: rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 0, 0, 0.1);
+        color: rgba(0, 0, 0, 0.35);
+      }
+      .light-chrome .arrow:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: #000;
+      }
 
-    /* PIPELINE MOCK */
-    .pipeline-mock { display: flex; gap: 8px; margin-top: 24px; max-width: 580px; width: 100%; }
-    .pipeline-col { flex: 1; background: #f8fafc; border-radius: 8px; padding: 10px; min-width: 0; }
-    .pipeline-col__header { font-size: 10px; font-weight: 700; color: #046bd2; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .pipeline-lead { background: #fff; border-radius: 6px; padding: 7px 9px; margin-bottom: 5px; font-size: 11px; font-weight: 500; color: #333; border-left: 2px solid #046bd2; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-    .pipeline-lead.warm { border-left-color: #f59e0b; }
-    .pipeline-lead.hot  { border-left-color: #ef4444; }
-    .pipeline-lead.won  { border-left-color: #10b981; }
-    .pipeline-count { font-size: 18px; font-weight: 700; color: #046bd2; margin-top: 8px; }
+      /* PIPELINE MOCK */
+      .pipeline-mock {
+        display: flex;
+        gap: 8px;
+        margin-top: 24px;
+        max-width: 580px;
+        width: 100%;
+      }
+      .pipeline-col {
+        flex: 1;
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 10px;
+        min-width: 0;
+      }
+      .pipeline-col__header {
+        font-size: 10px;
+        font-weight: 700;
+        color: #046bd2;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .pipeline-lead {
+        background: #fff;
+        border-radius: 6px;
+        padding: 7px 9px;
+        margin-bottom: 5px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #333;
+        border-left: 2px solid #046bd2;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+      }
+      .pipeline-lead.warm {
+        border-left-color: #f59e0b;
+      }
+      .pipeline-lead.hot {
+        border-left-color: #ef4444;
+      }
+      .pipeline-lead.won {
+        border-left-color: #10b981;
+      }
+      .pipeline-count {
+        font-size: 18px;
+        font-weight: 700;
+        color: #046bd2;
+        margin-top: 8px;
+      }
 
-    /* APPOINTMENT MOCK */
-    .appt-list { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; max-width: 420px; width: 100%; }
-    .appt-item { display: flex; align-items: center; gap: 12px; background: #f4f7fb; border-radius: 8px; padding: 12px 16px; }
-    .appt-time { font-size: 12px; font-weight: 700; color: #046bd2; min-width: 64px; }
-    .appt-name { font-size: 14px; font-weight: 600; color: #000; flex: 1; }
-    .appt-tag { font-size: 11px; font-weight: 700; background: #e8f3ff; color: #046bd2; padding: 3px 10px; border-radius: 100px; }
-    .appt-tag.reminder { background: #fef3c7; color: #d97706; }
+      /* APPOINTMENT MOCK */
+      .appt-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 24px;
+        max-width: 420px;
+        width: 100%;
+      }
+      .appt-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f4f7fb;
+        border-radius: 8px;
+        padding: 12px 16px;
+      }
+      .appt-time {
+        font-size: 12px;
+        font-weight: 700;
+        color: #046bd2;
+        min-width: 64px;
+      }
+      .appt-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+        flex: 1;
+      }
+      .appt-tag {
+        font-size: 11px;
+        font-weight: 700;
+        background: #e8f3ff;
+        color: #046bd2;
+        padding: 3px 10px;
+        border-radius: 100px;
+      }
+      .appt-tag.reminder {
+        background: #fef3c7;
+        color: #d97706;
+      }
 
-    /* SEQUENCE */
-    .sequence { display: flex; flex-direction: column; gap: 0; margin-top: 24px; max-width: 440px; width: 100%; }
-    .seq-step { display: flex; align-items: flex-start; gap: 14px; padding-bottom: 4px; }
-    .seq-left { display: flex; flex-direction: column; align-items: center; }
-    .seq-dot { width: 30px; height: 30px; border-radius: 50%; background: #046bd2; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .seq-line { width: 2px; flex: 1; background: #dde6f0; min-height: 20px; }
-    .seq-content { padding-bottom: 16px; }
-    .seq-title { font-size: 14px; font-weight: 700; color: #000; }
-    .seq-time  { font-size: 12px; color: #888; margin-top: 2px; }
+      /* SEQUENCE */
+      .sequence {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-top: 24px;
+        max-width: 440px;
+        width: 100%;
+      }
+      .seq-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding-bottom: 4px;
+      }
+      .seq-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .seq-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #046bd2;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .seq-line {
+        width: 2px;
+        flex: 1;
+        background: #dde6f0;
+        min-height: 20px;
+      }
+      .seq-content {
+        padding-bottom: 16px;
+      }
+      .seq-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000;
+      }
+      .seq-time {
+        font-size: 12px;
+        color: #888;
+        margin-top: 2px;
+      }
 
-    /* DASHBOARD MOCK */
-    .dashboard-mock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 480px; width: 100%; margin-top: 24px; }
-    .dash-stat { background: #f4f7fb; border-radius: 10px; padding: 16px 12px; text-align: center; }
-    .dash-stat__num { font-size: 26px; font-weight: 700; color: #046bd2; line-height: 1; }
-    .dash-stat__label { font-size: 11px; color: #666; font-weight: 600; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+      /* DASHBOARD MOCK */
+      .dashboard-mock {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 480px;
+        width: 100%;
+        margin-top: 24px;
+      }
+      .dash-stat {
+        background: #f4f7fb;
+        border-radius: 10px;
+        padding: 16px 12px;
+        text-align: center;
+      }
+      .dash-stat__num {
+        font-size: 26px;
+        font-weight: 700;
+        color: #046bd2;
+        line-height: 1;
+      }
+      .dash-stat__label {
+        font-size: 11px;
+        color: #666;
+        font-weight: 600;
+        margin-top: 5px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
 
-    /* ROI GRID */
-    .roi-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 880px; margin-top: 28px; }
-    .roi-card { flex: 1; min-width: 155px; max-width: 195px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-top: 3px solid #4fa3f7; border-radius: 12px; padding: 20px 14px; text-align: center; }
-    .roi-card__stat { font-size: 30px; font-weight: 700; color: #4fa3f7; margin-bottom: 6px; line-height: 1; }
-    .roi-card__title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 5px; line-height: 1.3; }
-    .roi-card__desc { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.45); line-height: 1.4; }
+      /* ROI GRID */
+      .roi-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        max-width: 880px;
+        margin-top: 28px;
+      }
+      .roi-card {
+        flex: 1;
+        min-width: 155px;
+        max-width: 195px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-top: 3px solid #4fa3f7;
+        border-radius: 12px;
+        padding: 20px 14px;
+        text-align: center;
+      }
+      .roi-card__stat {
+        font-size: 30px;
+        font-weight: 700;
+        color: #4fa3f7;
+        margin-bottom: 6px;
+        line-height: 1;
+      }
+      .roi-card__title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 5px;
+        line-height: 1.3;
+      }
+      .roi-card__desc {
+        font-size: 11px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.4;
+      }
 
-    /* ADDON */
-    .addon-list { display: flex; flex-direction: column; gap: 10px; margin-top: 28px; max-width: 500px; width: 100%; }
-    .addon-item { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.85); }
-    .addon-item::before { content: '✓'; color: #4fa3f7; font-weight: 700; flex-shrink: 0; }
+      /* ADDON */
+      .addon-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 28px;
+        max-width: 500px;
+        width: 100%;
+      }
+      .addon-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .addon-item::before {
+        content: "✓";
+        color: #4fa3f7;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
 
-    /* 2-COL IMAGE GRID */
-    .results-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; max-width: 700px; width: 100%; }
-    .results-2col .result-img img { max-height: 34vh; max-width: 100%; width: 100%; object-fit: cover; }
+      /* 2-COL IMAGE GRID */
+      .results-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 24px;
+        max-width: 700px;
+        width: 100%;
+      }
+      .results-2col .result-img img {
+        max-height: 34vh;
+        max-width: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
 
-    /* STEP 2 PRICE OPTIONS */
-    .price-setup { text-align: center; margin-top: 28px; }
-    .price-setup__amount { font-size: 72px; font-weight: 700; color: #fff; line-height: 1; }
-    .price-setup__label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 6px; }
-    .price-divider { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.35); margin: 16px 0 12px; text-transform: uppercase; letter-spacing: 0.1em; }
-    .price-options { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .price-option { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 16px 28px; text-align: center; }
-    .price-option.highlight { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.35); }
-    .price-option__amount { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 5px; }
-    .price-option__label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; }
-  </style>
-</head>
-<body>
+      /* STEP 2 PRICE OPTIONS */
+      .price-setup {
+        text-align: center;
+        margin-top: 28px;
+      }
+      .price-setup__amount {
+        font-size: 72px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+      }
+      .price-setup__label {
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 6px;
+      }
+      .price-divider {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.35);
+        margin: 16px 0 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .price-options {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .price-option {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 16px 28px;
+        text-align: center;
+      }
+      .price-option.highlight {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.35);
+      }
+      .price-option__amount {
+        font-size: 28px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+      .price-option__label {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="brand-mark" id="brandMark">Nils Digital</div>
+    <div class="counter" id="counter">1 / 15</div>
 
-<div class="progress-bar" id="progressBar"></div>
-<div class="brand-mark" id="brandMark">Nils Digital</div>
-<div class="counter" id="counter">1 / 15</div>
+    <button
+      class="arrow arrow-prev hidden"
+      id="arrowPrev"
+      onclick="
+        event.stopPropagation();
+        prev();
+      "
+    >
+      ‹
+    </button>
+    <button
+      class="arrow arrow-next"
+      id="arrowNext"
+      onclick="
+        event.stopPropagation();
+        next();
+      "
+    >
+      ›
+    </button>
 
-<button class="arrow arrow-prev hidden" id="arrowPrev" onclick="event.stopPropagation(); prev()">‹</button>
-<button class="arrow arrow-next" id="arrowNext" onclick="event.stopPropagation(); next()">›</button>
-
-<div class="deck" id="deck">
-
-  <!-- SLIDE 1: Title -->
-  <div class="slide navy active" data-theme="navy">
-    <div class="eyebrow">Nils Digital</div>
-    <h1 class="headline xl">
-      We install custom systems that generate your business
-      <span class="accent"> more revenue</span>
-      and save you time in the process.
-    </h1>
-    <div class="system-preview">
-      <div class="system-card">🌐 New Website</div>
-      <div class="system-card">⭐ Review System</div>
-      <div class="system-card">📈 More Revenue</div>
-    </div>
-    <div class="bg-icon">💡</div>
-  </div>
-
-  <!-- SLIDE 2: Step #1 -->
-  <div class="slide light" data-theme="light">
-    <div class="badge">Step #1 of the System</div>
-    <h2 class="headline huge">The Foundation</h2>
-    <p class="subtext">Get more clients. Build the base.</p>
-  </div>
-
-  <!-- SLIDE 3: Objective -->
-  <div class="slide white" data-theme="light">
-    <div style="font-size: 64px; margin-bottom: 16px;">🎯</div>
-    <div class="eyebrow">Objective</div>
-    <h2 class="headline huge">Get More Clients.</h2>
-  </div>
-
-  <!-- SLIDE 4: How -->
-  <div class="slide white" data-theme="light">
-    <div class="eyebrow">How we'll do it</div>
-    <h2 class="headline">Website + Review System</h2>
-    <div class="how-cards">
-      <div class="how-card">
-        <div class="how-card__icon">🌐</div>
-        <div class="how-card__label">New Website</div>
-        <div class="how-card__sub">Built to convert visitors into leads</div>
-      </div>
-      <div class="how-card">
-        <div class="how-card__icon">⭐</div>
-        <div class="how-card__label">Review System</div>
-        <div class="how-card__sub">5-star reputation on autopilot</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 5: Outcome -->
-  <div class="slide navy" data-theme="navy">
-    <div class="eyebrow">The outcome</div>
-    <h2 class="headline" style="font-size:clamp(22px,3.5vw,42px);">Here's exactly what this does for your business:</h2>
-    <div class="outcome-cards">
-      <div class="outcome-card">
-        <div class="outcome-card__icon">📍</div>
-        <div class="outcome-card__title">Show Up on Google</div>
-        <div class="outcome-card__sub">Customers searching for your service find you before your competitors</div>
-      </div>
-      <div class="outcome-card">
-        <div class="outcome-card__icon">👑</div>
-        <div class="outcome-card__title">Look Most Established</div>
-        <div class="outcome-card__sub">Professional site plus 5-star reviews equals instant credibility</div>
-      </div>
-      <div class="outcome-card">
-        <div class="outcome-card__icon">📞</div>
-        <div class="outcome-card__title">New Customers Call You</div>
-        <div class="outcome-card__sub">Not your competitors</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 6: Deliverables Header -->
-  <div class="slide blue" data-theme="blue">
-    <div class="eyebrow">What you get</div>
-    <h2 class="headline xl">Here's exactly what<br>we build for you.</h2>
-  </div>
-
-  <!-- SLIDE 7: Website -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">🖥️</div>
-      <div class="deliverable__title">Brand New Website Built for Conversions</div>
-    </div>
-    <div class="browser-wrap">
-      <div class="browser-mock">
-        <div class="browser-bar">
-          <div class="browser-dot"></div>
-          <div class="browser-dot"></div>
-          <div class="browser-dot"></div>
-          <div class="browser-url">yourbusiness.com</div>
+    <div class="deck" id="deck">
+      <!-- SLIDE 1: Title -->
+      <div class="slide navy active" data-theme="navy">
+        <div class="eyebrow">Nils Digital</div>
+        <h1 class="headline xl">
+          We install custom systems that generate your business
+          <span class="accent"> more revenue</span>
+          and save you time in the process.
+        </h1>
+        <div class="system-preview">
+          <div class="system-card">🌐 New Website</div>
+          <div class="system-card">⭐ Review System</div>
+          <div class="system-card">📈 More Revenue</div>
         </div>
-        <div class="browser-body">
-          <div class="browser-hero"></div>
-          <div class="browser-text" style="width:80%"></div>
-          <div class="browser-text" style="width:65%"></div>
-          <div class="browser-text" style="width:50%"></div>
-          <div class="browser-btn"></div>
+        <div class="bg-icon">💡</div>
+      </div>
+
+      <!-- SLIDE 2: Step #1 -->
+      <div class="slide light" data-theme="light">
+        <div class="badge">Step #1 of the System</div>
+        <h2 class="headline huge">The Foundation</h2>
+        <p class="subtext">Get more clients. Build the base.</p>
+      </div>
+
+      <!-- SLIDE 3: Objective -->
+      <div class="slide white" data-theme="light">
+        <div style="font-size: 64px; margin-bottom: 16px">🎯</div>
+        <div class="eyebrow">Objective</div>
+        <h2 class="headline huge">Get More Clients.</h2>
+      </div>
+
+      <!-- SLIDE 4: How -->
+      <div class="slide white" data-theme="light">
+        <div class="eyebrow">How we'll do it</div>
+        <h2 class="headline">Website + Review System</h2>
+        <div class="how-cards">
+          <div class="how-card">
+            <div class="how-card__icon">🌐</div>
+            <div class="how-card__label">New Website</div>
+            <div class="how-card__sub">
+              Built to convert visitors into leads
+            </div>
+          </div>
+          <div class="how-card">
+            <div class="how-card__icon">⭐</div>
+            <div class="how-card__label">Review System</div>
+            <div class="how-card__sub">5-star reputation on autopilot</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="pills">
-      <span class="pill">⚡ Loads under 2 seconds</span>
-      <span class="pill">📱 Mobile-optimized</span>
-      <span class="pill">🔍 SEO-ready</span>
-    </div>
-  </div>
 
-  <!-- SLIDE 8: A/B Testing -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">📈</div>
-      <div class="deliverable__title">Designed to Turn Visitors Into Leads</div>
-      <div class="deliverable__sub">A/B Split Testing included. We test what converts best and double down on what works.</div>
-    </div>
-  </div>
-
-  <!-- SLIDE 9: Results Images -->
-  <div class="slide light" data-theme="light">
-    <div class="eyebrow">Real Results</div>
-    <h3 class="headline" style="font-size:clamp(20px,3vw,30px);">What our sites look like in action</h3>
-    <div class="results">
-      <div class="result-item">
-        <div class="result-img">
-          <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/b578d93ce9c44c7fb19bb3ffc2c024f2/original/Business-Owner-Ads.png" alt="Landing Page">
-        </div>
-        <div class="result-label">Landing Page</div>
-      </div>
-      <div class="result-item">
-        <div class="result-img">
-          <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png" alt="20% Conversion Rate">
-        </div>
-        <div class="result-label">20% Conversion Rate</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 10: Review Filtering -->
-  <div class="slide navy" data-theme="navy">
-    <div class="deliverable">
-      <div class="deliverable__icon">🔄</div>
-      <div class="deliverable__title">Review Filtering System</div>
-      <div class="deliverable__sub">You share a QR code or link with customers after every job. The system filters happy customers straight to your Google page.</div>
-    </div>
-    <div class="review-flow">
-      <div class="flow-step">
-        <div class="flow-step__icon">✅</div>
-        <div class="flow-step__label">Job Complete</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-step__icon">🔗</div>
-        <div class="flow-step__label">You Share QR / Link</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-step__icon">⭐</div>
-        <div class="flow-step__label">5-Star on Google</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="flow-step__icon">🏆</div>
-        <div class="flow-step__label">Reputation Grows</div>
-      </div>
-    </div>
-    <div class="bg-icon">⭐</div>
-  </div>
-
-  <!-- SLIDE 11: Auto-responds -->
-  <div class="slide navy" data-theme="navy">
-    <div class="deliverable">
-      <div class="deliverable__icon">💬</div>
-      <div class="deliverable__title">Auto-responds to Every Google Review</div>
-    </div>
-    <div class="chat-mock">
-      <div class="chat-label">Customer review</div>
-      <div class="chat-bubble review">"Great service, very professional. Will use again!" ⭐⭐⭐⭐⭐</div>
-      <div class="chat-label right">Your business replies instantly</div>
-      <div class="chat-bubble reply">Thank you so much! We truly appreciate your kind words and look forward to serving you again.</div>
-    </div>
-    <div class="bg-icon">💬</div>
-  </div>
-
-  <!-- SLIDE 12: Demo / QR -->
-  <div class="slide light" data-theme="light">
-    <div class="eyebrow">See it live</div>
-    <h3 class="headline" style="font-size:clamp(20px,3vw,30px); margin-bottom:0;">Here's exactly what your customers see:</h3>
-    <div class="qr-layout">
-      <div class="qr-block">
-        <div class="result-img">
-          <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/7125df2addbb42059ce54ca514996d04/original/Review-Filtering-1--8610-Patriot-Blvd-North-Charleston-SC-29420-1.png" alt="Review Filtering QR Code">
+      <!-- SLIDE 5: Outcome -->
+      <div class="slide navy" data-theme="navy">
+        <div class="eyebrow">The outcome</div>
+        <h2 class="headline" style="font-size: clamp(22px, 3.5vw, 42px)">
+          Here's exactly what this does for your business:
+        </h2>
+        <div class="outcome-cards">
+          <div class="outcome-card">
+            <div class="outcome-card__icon">📍</div>
+            <div class="outcome-card__title">Show Up on Google</div>
+            <div class="outcome-card__sub">
+              Customers searching for your service find you before your
+              competitors
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card__icon">👑</div>
+            <div class="outcome-card__title">Look Most Established</div>
+            <div class="outcome-card__sub">
+              Professional site plus 5-star reviews equals instant credibility
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card__icon">📞</div>
+            <div class="outcome-card__title">New Customers Call You</div>
+            <div class="outcome-card__sub">Not your competitors</div>
+          </div>
         </div>
       </div>
-      <div class="qr-text">
-        <p>Scan the QR code or click below to see the live review filtering system in action. Exactly what goes in front of your customers after every job.</p>
-        <a class="demo-btn" href="https://lowcountryswimschool.com/review" target="_blank" onclick="event.stopPropagation();">
-          🔗 View Live Demo
+
+      <!-- SLIDE 6: Deliverables Header -->
+      <div class="slide blue" data-theme="blue">
+        <div class="eyebrow">What you get</div>
+        <h2 class="headline xl">Here's exactly what<br />we build for you.</h2>
+      </div>
+
+      <!-- SLIDE 7: Website -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">🖥️</div>
+          <div class="deliverable__title">
+            Brand New Website Built for Conversions
+          </div>
+        </div>
+        <div class="browser-wrap">
+          <div class="browser-mock">
+            <div class="browser-bar">
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+              <div class="browser-dot"></div>
+              <div class="browser-url">yourbusiness.com</div>
+            </div>
+            <div class="browser-body">
+              <div class="browser-hero"></div>
+              <div class="browser-text" style="width: 80%"></div>
+              <div class="browser-text" style="width: 65%"></div>
+              <div class="browser-text" style="width: 50%"></div>
+              <div class="browser-btn"></div>
+            </div>
+          </div>
+        </div>
+        <div class="pills">
+          <span class="pill">⚡ Loads under 2 seconds</span>
+          <span class="pill">📱 Mobile-optimized</span>
+          <span class="pill">🔍 SEO-ready</span>
+        </div>
+      </div>
+
+      <!-- SLIDE 8: A/B Testing -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">📈</div>
+          <div class="deliverable__title">
+            Designed to Turn Visitors Into Leads
+          </div>
+          <div class="deliverable__sub">
+            A/B Split Testing included. We test what converts best and double
+            down on what works.
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 9: Results Images -->
+      <div class="slide light" data-theme="light">
+        <div class="eyebrow">Real Results</div>
+        <h3 class="headline" style="font-size: clamp(20px, 3vw, 30px)">
+          What our sites look like in action
+        </h3>
+        <div class="results">
+          <div class="result-item">
+            <div class="result-img">
+              <img
+                src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/b578d93ce9c44c7fb19bb3ffc2c024f2/original/Business-Owner-Ads.png"
+                alt="Landing Page"
+              />
+            </div>
+            <div class="result-label">Landing Page</div>
+          </div>
+          <div class="result-item">
+            <div class="result-img">
+              <img
+                src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png"
+                alt="20% Conversion Rate"
+              />
+            </div>
+            <div class="result-label">20% Conversion Rate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 10: Review Filtering -->
+      <div class="slide navy" data-theme="navy">
+        <div class="deliverable">
+          <div class="deliverable__icon">🔄</div>
+          <div class="deliverable__title">Review Filtering System</div>
+          <div class="deliverable__sub">
+            You share a QR code or link with customers after every job. The
+            system filters happy customers straight to your Google page.
+          </div>
+        </div>
+        <div class="review-flow">
+          <div class="flow-step">
+            <div class="flow-step__icon">✅</div>
+            <div class="flow-step__label">Job Complete</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step__icon">🔗</div>
+            <div class="flow-step__label">You Share QR / Link</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step__icon">⭐</div>
+            <div class="flow-step__label">5-Star on Google</div>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-step__icon">🏆</div>
+            <div class="flow-step__label">Reputation Grows</div>
+          </div>
+        </div>
+        <div class="bg-icon">⭐</div>
+      </div>
+
+      <!-- SLIDE 11: Auto-responds -->
+      <div class="slide navy" data-theme="navy">
+        <div class="deliverable">
+          <div class="deliverable__icon">💬</div>
+          <div class="deliverable__title">
+            Auto-responds to Every Google Review
+          </div>
+        </div>
+        <div class="chat-mock">
+          <div class="chat-label">Customer review</div>
+          <div class="chat-bubble review">
+            "Great service, very professional. Will use again!" ⭐⭐⭐⭐⭐
+          </div>
+          <div class="chat-label right">Your business replies instantly</div>
+          <div class="chat-bubble reply">
+            Thank you so much! We truly appreciate your kind words and look
+            forward to serving you again.
+          </div>
+        </div>
+        <div class="bg-icon">💬</div>
+      </div>
+
+      <!-- SLIDE 12: Demo / QR -->
+      <div class="slide light" data-theme="light">
+        <div class="eyebrow">See it live</div>
+        <h3
+          class="headline"
+          style="font-size: clamp(20px, 3vw, 30px); margin-bottom: 0"
+        >
+          Here's exactly what your customers see:
+        </h3>
+        <div class="qr-layout">
+          <div class="qr-block">
+            <div class="result-img">
+              <img
+                src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/7125df2addbb42059ce54ca514996d04/original/Review-Filtering-1--8610-Patriot-Blvd-North-Charleston-SC-29420-1.png"
+                alt="Review Filtering QR Code"
+              />
+            </div>
+          </div>
+          <div class="qr-text">
+            <p>
+              Scan the QR code or click below to see the live review filtering
+              system in action. Exactly what goes in front of your customers
+              after every job.
+            </p>
+            <a
+              class="demo-btn"
+              href="https://lowcountryswimschool.com/review"
+              target="_blank"
+              onclick="event.stopPropagation()"
+            >
+              🔗 View Live Demo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 13: Questions -->
+      <div class="slide green" data-theme="green">
+        <div style="font-size: 72px; margin-bottom: 16px">🙋</div>
+        <h2 class="headline huge">Any Questions?</h2>
+        <p class="subtext">
+          This is a great time to ask anything before we move on.
+        </p>
+      </div>
+
+      <!-- SLIDE 14: What's Included -->
+      <div class="slide white" data-theme="light">
+        <div class="eyebrow">Step #1 - What you get</div>
+        <h2 class="headline" style="font-size: clamp(20px, 3vw, 34px)">
+          Everything That's Included
+        </h2>
+        <div class="included-list">
+          <div class="included-row">
+            <div class="included-row__icon">🌐</div>
+            <div>
+              <div class="included-row__title">
+                Brand new website built for conversions
+              </div>
+              <div class="included-row__outcome">
+                Turns visitors into calls and leads on autopilot
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">⚡</div>
+            <div>
+              <div class="included-row__title">
+                Loads under 2 seconds, mobile-optimized and SEO-ready
+              </div>
+              <div class="included-row__outcome">
+                Ranks higher on Google and never loses a visitor to a slow page
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">🎯</div>
+            <div>
+              <div class="included-row__title">
+                Designed to turn visitors into leads with A/B Split Testing
+              </div>
+              <div class="included-row__outcome">
+                More visitors become actual phone calls, and your conversion
+                rate keeps improving over time
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">🔄</div>
+            <div>
+              <div class="included-row__title">Review Filtering System</div>
+              <div class="included-row__outcome">
+                Share the QR code or link after every job. Happy customers go to
+                Google, negative feedback stays private
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">💬</div>
+            <div>
+              <div class="included-row__title">
+                Auto-responds to all your Google reviews
+              </div>
+              <div class="included-row__outcome">
+                Every customer feels valued and Google rewards your engagement
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📊</div>
+            <div>
+              <div class="included-row__title">
+                Access to GoHighLevel platform
+              </div>
+              <div class="included-row__outcome">
+                All your leads, contacts, and pipeline visible in one place
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">🛡️</div>
+            <div>
+              <div class="included-row__title">
+                System maintenance, hosting and email support
+              </div>
+              <div class="included-row__outcome">
+                Everything stays running so you never miss a lead
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 15: Investment -->
+      <div class="slide green" data-theme="green">
+        <div class="eyebrow">Step #1 - The Investment</div>
+        <div class="price-cards">
+          <div
+            class="price-card"
+            style="
+              background: rgba(255, 255, 255, 0.15);
+              border-color: rgba(255, 255, 255, 0.25);
+              padding: 36px 64px;
+            "
+          >
+            <div class="price-card__amount" style="font-size: 72px">$650</div>
+            <div class="price-card__label">One-Time Setup</div>
+            <div class="price-card__monthly">$97 / month</div>
+            <div class="price-card__monthly-label">Ongoing</div>
+          </div>
+        </div>
+        <div class="guarantee">
+          <div class="guarantee__icon">🛡️</div>
+          <div>
+            <div class="guarantee__title">60-Day ROI Guarantee</div>
+            <div class="guarantee__body">
+              We guarantee double your conversion rate within 60 days. If we
+              don't hit it, we stop charging and keep working with you until we
+              do.
+            </div>
+          </div>
+        </div>
+        <a
+          class="cta-btn"
+          href="https://nilsdigital.com/client"
+          target="_blank"
+          onclick="event.stopPropagation()"
+        >
+          Get Started →
         </a>
+        <div class="bg-icon">🚀</div>
       </div>
-    </div>
-  </div>
 
-  <!-- SLIDE 13: Questions -->
-  <div class="slide green" data-theme="green">
-    <div style="font-size: 72px; margin-bottom: 16px;">🙋</div>
-    <h2 class="headline huge">Any Questions?</h2>
-    <p class="subtext">This is a great time to ask anything before we move on.</p>
-  </div>
+      <!-- ═══════════════════════════════ STEP 2 ═══════════════════════════════ -->
 
-  <!-- SLIDE 14: What's Included -->
-  <div class="slide white" data-theme="light">
-    <div class="eyebrow">Step #1 - What you get</div>
-    <h2 class="headline" style="font-size:clamp(20px,3vw,34px);">Everything That's Included</h2>
-    <div class="included-list">
-      <div class="included-row">
-        <div class="included-row__icon">🌐</div>
-        <div>
-          <div class="included-row__title">Brand new website built for conversions</div>
-          <div class="included-row__outcome">Turns visitors into calls and leads on autopilot</div>
+      <!-- SLIDE 16: Step #2 Intro -->
+      <div class="slide light" data-theme="light">
+        <div class="badge">Step #2 of the System</div>
+        <h2 class="headline huge">The Automation</h2>
+        <p class="subtext">
+          Once leads are coming in, organize and automate everything.
+        </p>
+      </div>
+
+      <!-- SLIDE 17: Outcome -->
+      <div class="slide navy" data-theme="navy">
+        <div class="eyebrow">The outcome</div>
+        <h2 class="headline" style="font-size: clamp(22px, 3.5vw, 42px)">
+          Every lead, appointment, and follow-up tracked in one place.
+        </h2>
+        <div class="outcome-cards">
+          <div class="outcome-card">
+            <div class="outcome-card__icon">📋</div>
+            <div class="outcome-card__title">Nothing Falls Through</div>
+            <div class="outcome-card__sub">
+              Every lead captured, tagged, and visible at all times
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card__icon">⚡</div>
+            <div class="outcome-card__title">Instant Speed-to-Lead</div>
+            <div class="outcome-card__sub">
+              Leads get followed up automatically before they call your
+              competitor
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card__icon">💰</div>
+            <div class="outcome-card__title">Stop Losing Revenue</div>
+            <div class="outcome-card__sub">
+              No more missed follow-ups or forgotten appointments
+            </div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">⚡</div>
-        <div>
-          <div class="included-row__title">Loads under 2 seconds, mobile-optimized and SEO-ready</div>
-          <div class="included-row__outcome">Ranks higher on Google and never loses a visitor to a slow page</div>
+
+      <!-- SLIDE 18: Deliverables Header -->
+      <div class="slide blue" data-theme="blue">
+        <div class="eyebrow">What you get</div>
+        <h2 class="headline xl">Here's exactly what<br />we build for you.</h2>
+      </div>
+
+      <!-- SLIDE 19: CRM + Pipeline -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">🗂️</div>
+          <div class="deliverable__title">Full CRM + Automated Pipeline</div>
+          <div class="deliverable__sub">
+            All your contacts, leads, and clients in one dashboard. See exactly
+            where every lead is at.
+          </div>
+        </div>
+        <div class="pipeline-mock">
+          <div class="pipeline-col">
+            <div class="pipeline-col__header">New Lead</div>
+            <div class="pipeline-lead">John D. - Roofing</div>
+            <div class="pipeline-lead warm">Sarah M. - HVAC</div>
+            <div class="pipeline-count">2</div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-col__header">Contacted</div>
+            <div class="pipeline-lead warm">Mike R. - Pool</div>
+            <div class="pipeline-count">1</div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-col__header">Appointment</div>
+            <div class="pipeline-lead hot">Lisa T. - Lawn</div>
+            <div class="pipeline-count">1</div>
+          </div>
+          <div class="pipeline-col">
+            <div class="pipeline-col__header">Closed</div>
+            <div class="pipeline-lead won">David K.</div>
+            <div class="pipeline-lead won">Amy W.</div>
+            <div class="pipeline-count">2</div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">🎯</div>
-        <div>
-          <div class="included-row__title">Designed to turn visitors into leads with A/B Split Testing</div>
-          <div class="included-row__outcome">More visitors become actual phone calls, and your conversion rate keeps improving over time</div>
+
+      <!-- SLIDE 20: Appointment Booking -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">📅</div>
+          <div class="deliverable__title">
+            Appointment Booking and Reminders Built In
+          </div>
+          <div class="deliverable__sub">
+            Clients book directly. Automated reminders go out so no one forgets.
+          </div>
+        </div>
+        <div class="appt-list">
+          <div class="appt-item">
+            <div class="appt-time">Mon 9:00am</div>
+            <div class="appt-name">Mike Reynolds</div>
+            <div class="appt-tag">Confirmed</div>
+          </div>
+          <div class="appt-item">
+            <div class="appt-time">Mon 2:00pm</div>
+            <div class="appt-name">Sarah Mitchell</div>
+            <div class="appt-tag reminder">Reminder Sent</div>
+          </div>
+          <div class="appt-item">
+            <div class="appt-time">Tue 10:00am</div>
+            <div class="appt-name">James Kowalski</div>
+            <div class="appt-tag">Confirmed</div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">🔄</div>
-        <div>
-          <div class="included-row__title">Review Filtering System</div>
-          <div class="included-row__outcome">Share the QR code or link after every job. Happy customers go to Google, negative feedback stays private</div>
+
+      <!-- SLIDE 21: Follow-up Sequences -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">🤖</div>
+          <div class="deliverable__title">Automated Follow-up Sequences</div>
+          <div class="deliverable__sub">
+            Leads get nurtured without you lifting a finger.
+          </div>
+        </div>
+        <div class="sequence">
+          <div class="seq-step">
+            <div class="seq-left">
+              <div class="seq-dot">1</div>
+              <div class="seq-line"></div>
+            </div>
+            <div class="seq-content">
+              <div class="seq-title">Instant reply sent</div>
+              <div class="seq-time">Within 60 seconds of inquiry</div>
+            </div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-left">
+              <div class="seq-dot">2</div>
+              <div class="seq-line"></div>
+            </div>
+            <div class="seq-content">
+              <div class="seq-title">Follow-up text and email</div>
+              <div class="seq-time">24 hours later if no response</div>
+            </div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-left">
+              <div class="seq-dot">3</div>
+              <div class="seq-line"></div>
+            </div>
+            <div class="seq-content">
+              <div class="seq-title">Second follow-up sent</div>
+              <div class="seq-time">Day 3 - keeps you top of mind</div>
+            </div>
+          </div>
+          <div class="seq-step">
+            <div class="seq-left"><div class="seq-dot">4</div></div>
+            <div class="seq-content">
+              <div class="seq-title">Lead booked or marked lost</div>
+              <div class="seq-time">Pipeline updates automatically</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">💬</div>
-        <div>
-          <div class="included-row__title">Auto-responds to all your Google reviews</div>
-          <div class="included-row__outcome">Every customer feels valued and Google rewards your engagement</div>
+
+      <!-- SLIDE 22: Dashboard -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">📊</div>
+          <div class="deliverable__title">Real-Time Results Dashboard</div>
+          <div class="deliverable__sub">
+            Track contacts, appointments, and revenue. Everything in one view.
+          </div>
+        </div>
+        <div class="dashboard-mock">
+          <div class="dash-stat">
+            <div class="dash-stat__num">47</div>
+            <div class="dash-stat__label">New Leads</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">12</div>
+            <div class="dash-stat__label">Appointments</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">$18k</div>
+            <div class="dash-stat__label">Revenue</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">89%</div>
+            <div class="dash-stat__label">Show Rate</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">4.9</div>
+            <div class="dash-stat__label">Avg Rating</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">31</div>
+            <div class="dash-stat__label">Reviews</div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">📊</div>
-        <div>
-          <div class="included-row__title">Access to GoHighLevel platform</div>
-          <div class="included-row__outcome">All your leads, contacts, and pipeline visible in one place</div>
+
+      <!-- SLIDE 23: ROI Stats -->
+      <div class="slide navy" data-theme="navy">
+        <div class="eyebrow">The ROI</div>
+        <h2 class="headline" style="font-size: clamp(20px, 3vw, 36px)">
+          What this does for your numbers:
+        </h2>
+        <div class="roi-grid">
+          <div class="roi-card">
+            <div class="roi-card__stat">7x</div>
+            <div class="roi-card__title">Higher Qualification Rate</div>
+            <div class="roi-card__desc">
+              Responding within 60 min makes you 7x more likely to qualify a
+              lead
+            </div>
+          </div>
+          <div class="roi-card">
+            <div class="roi-card__stat">25%</div>
+            <div class="roi-card__title">Revenue Growth</div>
+            <div class="roi-card__desc">
+              Companies automating follow-ups report 25-30% revenue growth in
+              year one
+            </div>
+          </div>
+          <div class="roi-card">
+            <div class="roi-card__stat">40%</div>
+            <div class="roi-card__title">Lower Acquisition Costs</div>
+            <div class="roi-card__desc">
+              Centralizing all communication cuts lead acquisition cost by 40%
+            </div>
+          </div>
+          <div class="roi-card">
+            <div class="roi-card__stat">15+</div>
+            <div class="roi-card__title">Hours Reclaimed Weekly</div>
+            <div class="roi-card__desc">
+              Automating admin and routing reclaims 2 full working days per week
+            </div>
+          </div>
+          <div class="roi-card">
+            <div class="roi-card__stat">5x</div>
+            <div class="roi-card__title">More Reviews</div>
+            <div class="roi-card__desc">
+              Automated review requests generate 300-500% more 5-star social
+              proof
+            </div>
+          </div>
+        </div>
+        <div class="bg-icon">📈</div>
+      </div>
+
+      <!-- SLIDE 24: Optional Add-On -->
+      <div class="slide navy" data-theme="navy">
+        <div class="badge">Optional Add-On</div>
+        <h2 class="headline xl">Phone Number Setup</h2>
+        <div class="addon-list">
+          <div class="addon-item">Dedicated business phone number</div>
+          <div class="addon-item">Automated SMS messages and call tracking</div>
+          <div class="addon-item">
+            Two-way texting with leads directly from the CRM
+          </div>
+          <div class="addon-item">
+            Never miss a lead because you were on a job
+          </div>
+        </div>
+        <div class="bg-icon">📞</div>
+      </div>
+
+      <!-- SLIDE 25: Questions -->
+      <div class="slide green" data-theme="green">
+        <div style="font-size: 72px; margin-bottom: 16px">🙋</div>
+        <h2 class="headline huge">Any Questions?</h2>
+        <p class="subtext">
+          This is a great time to ask anything before we move on.
+        </p>
+      </div>
+
+      <!-- SLIDE 26: What's Included -->
+      <div class="slide white" data-theme="light">
+        <div class="eyebrow">Step #2 - What you get</div>
+        <h2 class="headline" style="font-size: clamp(20px, 3vw, 34px)">
+          Everything That's Included
+        </h2>
+        <div class="included-list">
+          <div class="included-row">
+            <div class="included-row__icon">🗂️</div>
+            <div>
+              <div class="included-row__title">Full CRM system</div>
+              <div class="included-row__outcome">
+                All your contacts, leads, and clients in one dashboard
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">🔀</div>
+            <div>
+              <div class="included-row__title">Automated pipeline</div>
+              <div class="included-row__outcome">
+                See exactly where every lead is at and what happens next
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📅</div>
+            <div>
+              <div class="included-row__title">
+                Appointment booking and reminders built in
+              </div>
+              <div class="included-row__outcome">
+                Clients book online, reminders go out automatically so no-shows
+                drop
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">🤖</div>
+            <div>
+              <div class="included-row__title">
+                Automated follow-up sequences
+              </div>
+              <div class="included-row__outcome">
+                Leads get nurtured from first contact to closed job without any
+                manual effort
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📊</div>
+            <div>
+              <div class="included-row__title">Real-time results dashboard</div>
+              <div class="included-row__outcome">
+                Track contacts, appointments, and revenue all in one place
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">🛡️</div>
+            <div>
+              <div class="included-row__title">
+                System maintenance and email support
+              </div>
+              <div class="included-row__outcome">
+                Everything stays running so you never miss a lead
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">🛡️</div>
-        <div>
-          <div class="included-row__title">System maintenance, hosting and email support</div>
-          <div class="included-row__outcome">Everything stays running so you never miss a lead</div>
+
+      <!-- SLIDE 27: Investment -->
+      <div class="slide green" data-theme="green">
+        <div class="eyebrow">Step #2 - The Investment</div>
+        <div class="price-setup">
+          <div class="price-setup__amount">$1,500</div>
+          <div class="price-setup__label">One-Time Setup</div>
+        </div>
+        <div class="price-divider">Then choose your monthly plan</div>
+        <div class="price-options">
+          <div class="price-option">
+            <div class="price-option__amount">
+              $165<span style="font-size: 16px; font-weight: 500">/mo</span>
+            </div>
+            <div class="price-option__label">Without Phone</div>
+          </div>
+          <div class="price-option highlight">
+            <div class="price-option__amount">
+              $197<span style="font-size: 16px; font-weight: 500">/mo</span>
+            </div>
+            <div class="price-option__label">With Phone Number</div>
+          </div>
+        </div>
+        <div class="guarantee" style="margin-top: 20px">
+          <div class="guarantee__icon">🛡️</div>
+          <div>
+            <div class="guarantee__title">60-Day ROI Guarantee</div>
+            <div class="guarantee__body">
+              We guarantee double your conversion rate within 60 days. If we
+              don't hit it, we stop charging and keep working with you until we
+              do.
+            </div>
+          </div>
+        </div>
+        <a
+          class="cta-btn"
+          href="https://nilsdigital.com/client"
+          target="_blank"
+          onclick="event.stopPropagation()"
+        >
+          Get Started →
+        </a>
+        <div class="bg-icon">⚙️</div>
+      </div>
+
+      <!-- ═══════════════════════════════ STEP 3 ═══════════════════════════════ -->
+
+      <!-- SLIDE 28: Step #3 Intro -->
+      <div class="slide light" data-theme="light">
+        <div class="badge">Step #3 of the System</div>
+        <h2 class="headline huge">The Scale</h2>
+        <p class="subtext">
+          Once your foundation is solid, pour fuel on the fire.
+        </p>
+      </div>
+
+      <!-- SLIDE 29: Outcome -->
+      <div class="slide navy" data-theme="navy">
+        <div class="eyebrow">The outcome</div>
+        <h2
+          class="headline"
+          style="font-size: clamp(20px, 3vw, 38px); max-width: 780px"
+        >
+          High-intent leads searching for your service, your website converts
+          them, your CRM catches them, your automations close them.
+        </h2>
+        <div class="outcome-cards" style="margin-top: 28px">
+          <div class="outcome-card">
+            <div class="outcome-card__icon">🎯</div>
+            <div class="outcome-card__title">High-Intent Leads</div>
+            <div class="outcome-card__sub">
+              People already searching for exactly what you offer
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card__icon">🔄</div>
+            <div class="outcome-card__title">Full System Working</div>
+            <div class="outcome-card__sub">
+              Ads feed into your website, CRM, and automations seamlessly
+            </div>
+          </div>
+          <div class="outcome-card">
+            <div class="outcome-card__icon">📈</div>
+            <div class="outcome-card__title">Predictable Growth</div>
+            <div class="outcome-card__sub">
+              Turn ad spend into booked jobs on demand
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- SLIDE 15: Investment -->
-  <div class="slide green" data-theme="green">
-    <div class="eyebrow">Step #1 - The Investment</div>
-    <div class="price-cards">
-      <div class="price-card" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.25); padding: 36px 64px;">
-        <div class="price-card__amount" style="font-size:72px;">$650</div>
-        <div class="price-card__label">One-Time Setup</div>
-        <div class="price-card__monthly">$97 / month</div>
-        <div class="price-card__monthly-label">Ongoing</div>
+      <!-- SLIDE 30: Deliverables Header -->
+      <div class="slide blue" data-theme="blue">
+        <div class="eyebrow">What you get</div>
+        <h2 class="headline xl">Here's exactly what<br />we build for you.</h2>
       </div>
-    </div>
-    <div class="guarantee">
-      <div class="guarantee__icon">🛡️</div>
-      <div>
-        <div class="guarantee__title">60-Day ROI Guarantee</div>
-        <div class="guarantee__body">We guarantee double your conversion rate within 60 days. If we don't hit it, we stop charging and keep working with you until we do.</div>
-      </div>
-    </div>
-    <a class="cta-btn" href="https://nilsdigital.com/client" target="_blank" onclick="event.stopPropagation();">
-      Get Started →
-    </a>
-    <div class="bg-icon">🚀</div>
-  </div>
 
-  <!-- ═══════════════════════════════ STEP 2 ═══════════════════════════════ -->
-
-  <!-- SLIDE 16: Step #2 Intro -->
-  <div class="slide light" data-theme="light">
-    <div class="badge">Step #2 of the System</div>
-    <h2 class="headline huge">The Automation</h2>
-    <p class="subtext">Once leads are coming in, organize and automate everything.</p>
-  </div>
-
-  <!-- SLIDE 17: Outcome -->
-  <div class="slide navy" data-theme="navy">
-    <div class="eyebrow">The outcome</div>
-    <h2 class="headline" style="font-size:clamp(22px,3.5vw,42px);">Every lead, appointment, and follow-up tracked in one place.</h2>
-    <div class="outcome-cards">
-      <div class="outcome-card">
-        <div class="outcome-card__icon">📋</div>
-        <div class="outcome-card__title">Nothing Falls Through</div>
-        <div class="outcome-card__sub">Every lead captured, tagged, and visible at all times</div>
-      </div>
-      <div class="outcome-card">
-        <div class="outcome-card__icon">⚡</div>
-        <div class="outcome-card__title">Instant Speed-to-Lead</div>
-        <div class="outcome-card__sub">Leads get followed up automatically before they call your competitor</div>
-      </div>
-      <div class="outcome-card">
-        <div class="outcome-card__icon">💰</div>
-        <div class="outcome-card__title">Stop Losing Revenue</div>
-        <div class="outcome-card__sub">No more missed follow-ups or forgotten appointments</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 18: Deliverables Header -->
-  <div class="slide blue" data-theme="blue">
-    <div class="eyebrow">What you get</div>
-    <h2 class="headline xl">Here's exactly what<br>we build for you.</h2>
-  </div>
-
-  <!-- SLIDE 19: CRM + Pipeline -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">🗂️</div>
-      <div class="deliverable__title">Full CRM + Automated Pipeline</div>
-      <div class="deliverable__sub">All your contacts, leads, and clients in one dashboard. See exactly where every lead is at.</div>
-    </div>
-    <div class="pipeline-mock">
-      <div class="pipeline-col">
-        <div class="pipeline-col__header">New Lead</div>
-        <div class="pipeline-lead">John D. - Roofing</div>
-        <div class="pipeline-lead warm">Sarah M. - HVAC</div>
-        <div class="pipeline-count">2</div>
-      </div>
-      <div class="pipeline-col">
-        <div class="pipeline-col__header">Contacted</div>
-        <div class="pipeline-lead warm">Mike R. - Pool</div>
-        <div class="pipeline-count">1</div>
-      </div>
-      <div class="pipeline-col">
-        <div class="pipeline-col__header">Appointment</div>
-        <div class="pipeline-lead hot">Lisa T. - Lawn</div>
-        <div class="pipeline-count">1</div>
-      </div>
-      <div class="pipeline-col">
-        <div class="pipeline-col__header">Closed</div>
-        <div class="pipeline-lead won">David K.</div>
-        <div class="pipeline-lead won">Amy W.</div>
-        <div class="pipeline-count">2</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 20: Appointment Booking -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">📅</div>
-      <div class="deliverable__title">Appointment Booking and Reminders Built In</div>
-      <div class="deliverable__sub">Clients book directly. Automated reminders go out so no one forgets.</div>
-    </div>
-    <div class="appt-list">
-      <div class="appt-item">
-        <div class="appt-time">Mon 9:00am</div>
-        <div class="appt-name">Mike Reynolds</div>
-        <div class="appt-tag">Confirmed</div>
-      </div>
-      <div class="appt-item">
-        <div class="appt-time">Mon 2:00pm</div>
-        <div class="appt-name">Sarah Mitchell</div>
-        <div class="appt-tag reminder">Reminder Sent</div>
-      </div>
-      <div class="appt-item">
-        <div class="appt-time">Tue 10:00am</div>
-        <div class="appt-name">James Kowalski</div>
-        <div class="appt-tag">Confirmed</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 21: Follow-up Sequences -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">🤖</div>
-      <div class="deliverable__title">Automated Follow-up Sequences</div>
-      <div class="deliverable__sub">Leads get nurtured without you lifting a finger.</div>
-    </div>
-    <div class="sequence">
-      <div class="seq-step">
-        <div class="seq-left"><div class="seq-dot">1</div><div class="seq-line"></div></div>
-        <div class="seq-content"><div class="seq-title">Instant reply sent</div><div class="seq-time">Within 60 seconds of inquiry</div></div>
-      </div>
-      <div class="seq-step">
-        <div class="seq-left"><div class="seq-dot">2</div><div class="seq-line"></div></div>
-        <div class="seq-content"><div class="seq-title">Follow-up text and email</div><div class="seq-time">24 hours later if no response</div></div>
-      </div>
-      <div class="seq-step">
-        <div class="seq-left"><div class="seq-dot">3</div><div class="seq-line"></div></div>
-        <div class="seq-content"><div class="seq-title">Second follow-up sent</div><div class="seq-time">Day 3 - keeps you top of mind</div></div>
-      </div>
-      <div class="seq-step">
-        <div class="seq-left"><div class="seq-dot">4</div></div>
-        <div class="seq-content"><div class="seq-title">Lead booked or marked lost</div><div class="seq-time">Pipeline updates automatically</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SLIDE 22: Dashboard -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">📊</div>
-      <div class="deliverable__title">Real-Time Results Dashboard</div>
-      <div class="deliverable__sub">Track contacts, appointments, and revenue. Everything in one view.</div>
-    </div>
-    <div class="dashboard-mock">
-      <div class="dash-stat"><div class="dash-stat__num">47</div><div class="dash-stat__label">New Leads</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">12</div><div class="dash-stat__label">Appointments</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">$18k</div><div class="dash-stat__label">Revenue</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">89%</div><div class="dash-stat__label">Show Rate</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">4.9</div><div class="dash-stat__label">Avg Rating</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">31</div><div class="dash-stat__label">Reviews</div></div>
-    </div>
-  </div>
-
-  <!-- SLIDE 23: ROI Stats -->
-  <div class="slide navy" data-theme="navy">
-    <div class="eyebrow">The ROI</div>
-    <h2 class="headline" style="font-size:clamp(20px,3vw,36px);">What this does for your numbers:</h2>
-    <div class="roi-grid">
-      <div class="roi-card">
-        <div class="roi-card__stat">7x</div>
-        <div class="roi-card__title">Higher Qualification Rate</div>
-        <div class="roi-card__desc">Responding within 60 min makes you 7x more likely to qualify a lead</div>
-      </div>
-      <div class="roi-card">
-        <div class="roi-card__stat">25%</div>
-        <div class="roi-card__title">Revenue Growth</div>
-        <div class="roi-card__desc">Companies automating follow-ups report 25-30% revenue growth in year one</div>
-      </div>
-      <div class="roi-card">
-        <div class="roi-card__stat">40%</div>
-        <div class="roi-card__title">Lower Acquisition Costs</div>
-        <div class="roi-card__desc">Centralizing all communication cuts lead acquisition cost by 40%</div>
-      </div>
-      <div class="roi-card">
-        <div class="roi-card__stat">15+</div>
-        <div class="roi-card__title">Hours Reclaimed Weekly</div>
-        <div class="roi-card__desc">Automating admin and routing reclaims 2 full working days per week</div>
-      </div>
-      <div class="roi-card">
-        <div class="roi-card__stat">5x</div>
-        <div class="roi-card__title">More Reviews</div>
-        <div class="roi-card__desc">Automated review requests generate 300-500% more 5-star social proof</div>
-      </div>
-    </div>
-    <div class="bg-icon">📈</div>
-  </div>
-
-  <!-- SLIDE 24: Optional Add-On -->
-  <div class="slide navy" data-theme="navy">
-    <div class="badge">Optional Add-On</div>
-    <h2 class="headline xl">Phone Number Setup</h2>
-    <div class="addon-list">
-      <div class="addon-item">Dedicated business phone number</div>
-      <div class="addon-item">Automated SMS messages and call tracking</div>
-      <div class="addon-item">Two-way texting with leads directly from the CRM</div>
-      <div class="addon-item">Never miss a lead because you were on a job</div>
-    </div>
-    <div class="bg-icon">📞</div>
-  </div>
-
-  <!-- SLIDE 25: Questions -->
-  <div class="slide green" data-theme="green">
-    <div style="font-size: 72px; margin-bottom: 16px;">🙋</div>
-    <h2 class="headline huge">Any Questions?</h2>
-    <p class="subtext">This is a great time to ask anything before we move on.</p>
-  </div>
-
-  <!-- SLIDE 26: What's Included -->
-  <div class="slide white" data-theme="light">
-    <div class="eyebrow">Step #2 - What you get</div>
-    <h2 class="headline" style="font-size:clamp(20px,3vw,34px);">Everything That's Included</h2>
-    <div class="included-list">
-      <div class="included-row">
-        <div class="included-row__icon">🗂️</div>
-        <div>
-          <div class="included-row__title">Full CRM system</div>
-          <div class="included-row__outcome">All your contacts, leads, and clients in one dashboard</div>
+      <!-- SLIDE 31: Google Ads Setup -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">🎯</div>
+          <div class="deliverable__title">
+            Full Google Ads Setup and Management
+          </div>
+          <div class="deliverable__sub">
+            Targeted campaigns for your service area, optimized for calls and
+            bookings, not just clicks.
+          </div>
+        </div>
+        <div class="results-2col" style="max-width: min(92vw, 1000px)">
+          <div class="result-img">
+            <img
+              src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/0f94d1468c0f4b578f92adadd378fd82/original/blob.png"
+              alt="Google Ads Result"
+              style="max-height: 46vh"
+            />
+          </div>
+          <div class="result-img">
+            <img
+              src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/76b8f880dffa4d6f9b18dec3697be4de/original/blob.png"
+              alt="Google Ads Result"
+              style="max-height: 46vh"
+            />
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">🔀</div>
-        <div>
-          <div class="included-row__title">Automated pipeline</div>
-          <div class="included-row__outcome">See exactly where every lead is at and what happens next</div>
+
+      <!-- SLIDE 32: Ad Results -->
+      <div class="slide light" data-theme="light">
+        <div class="eyebrow">Real Results</div>
+        <h3 class="headline" style="font-size: clamp(20px, 3vw, 30px)">
+          Campaigns we run for clients like you
+        </h3>
+        <div class="results-2col" style="max-width: min(92vw, 1000px)">
+          <div class="result-img">
+            <img
+              src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/f029d7bf6acc438db570002e85e09578/original/blob.png"
+              alt="Google Ads Result"
+              style="max-height: 52vh"
+            />
+          </div>
+          <div class="result-img">
+            <img
+              src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/a0b85aa4763d4de891fd6a641b9213d0/original/blob.png"
+              alt="Google Ads Result"
+              style="max-height: 52vh"
+            />
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">📅</div>
-        <div>
-          <div class="included-row__title">Appointment booking and reminders built in</div>
-          <div class="included-row__outcome">Clients book online, reminders go out automatically so no-shows drop</div>
+
+      <!-- SLIDE 33: Reporting + Optimization -->
+      <div class="slide white" data-theme="light">
+        <div class="deliverable">
+          <div class="deliverable__icon">📊</div>
+          <div class="deliverable__title">Biweekly Performance Reporting</div>
+          <div class="deliverable__sub">
+            You always know exactly where your money is going and what it is
+            returning. Ongoing optimization every cycle to lower your cost per
+            lead.
+          </div>
+        </div>
+        <div class="dashboard-mock" style="margin-top: 28px">
+          <div class="dash-stat">
+            <div class="dash-stat__num">$18</div>
+            <div class="dash-stat__label">Cost Per Lead</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">34</div>
+            <div class="dash-stat__label">Leads / Mo</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">6.2x</div>
+            <div class="dash-stat__label">ROAS</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">4.8%</div>
+            <div class="dash-stat__label">Click Rate</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">22%</div>
+            <div class="dash-stat__label">Conversion</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat__num">↓32%</div>
+            <div class="dash-stat__label">CPL Drop</div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">🤖</div>
-        <div>
-          <div class="included-row__title">Automated follow-up sequences</div>
-          <div class="included-row__outcome">Leads get nurtured from first contact to closed job without any manual effort</div>
+
+      <!-- SLIDE 34: Questions -->
+      <div class="slide green" data-theme="green">
+        <div style="font-size: 72px; margin-bottom: 16px">🙋</div>
+        <h2 class="headline huge">Any Questions?</h2>
+        <p class="subtext">
+          This is a great time to ask anything before we move on.
+        </p>
+      </div>
+
+      <!-- SLIDE 35: What's Included -->
+      <div class="slide white" data-theme="light">
+        <div class="eyebrow">Step #3 - What you get</div>
+        <h2 class="headline" style="font-size: clamp(20px, 3vw, 34px)">
+          Everything That's Included
+        </h2>
+        <div class="included-list">
+          <div class="included-row">
+            <div class="included-row__icon">🎯</div>
+            <div>
+              <div class="included-row__title">
+                Full Google Ads setup and management
+              </div>
+              <div class="included-row__outcome">
+                Your ads go live targeting people actively searching for your
+                exact service
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📍</div>
+            <div>
+              <div class="included-row__title">
+                Targeted campaigns for your service area
+              </div>
+              <div class="included-row__outcome">
+                Only shown to people in your area who are ready to buy right now
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📞</div>
+            <div>
+              <div class="included-row__title">
+                Optimized for calls and bookings, not just clicks
+              </div>
+              <div class="included-row__outcome">
+                Every ad and landing page built to generate real revenue, not
+                vanity metrics
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📊</div>
+            <div>
+              <div class="included-row__title">
+                Biweekly performance reporting
+              </div>
+              <div class="included-row__outcome">
+                You always know exactly where your money is going and what it is
+                returning
+              </div>
+            </div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">📉</div>
+            <div>
+              <div class="included-row__title">
+                Ongoing optimization to lower your cost per lead
+              </div>
+              <div class="included-row__outcome">
+                We continuously improve every cycle so your ROI grows over time
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="included-row">
-        <div class="included-row__icon">📊</div>
-        <div>
-          <div class="included-row__title">Real-time results dashboard</div>
-          <div class="included-row__outcome">Track contacts, appointments, and revenue all in one place</div>
+
+      <!-- SLIDE 36: Investment -->
+      <div class="slide green" data-theme="green">
+        <div class="eyebrow">Step #3 - The Investment</div>
+        <div class="price-cards" style="gap: 24px">
+          <div
+            class="price-card"
+            style="
+              background: rgba(255, 255, 255, 0.12);
+              border-color: rgba(255, 255, 255, 0.25);
+              padding: 28px 40px;
+              flex: 1;
+              min-width: 220px;
+            "
+          >
+            <div
+              class="price-card__label"
+              style="
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                opacity: 0.8;
+                margin-bottom: 8px;
+              "
+            >
+              Payment Plan
+            </div>
+            <div
+              class="price-card__amount"
+              style="font-size: 58px; line-height: 1"
+            >
+              $1,667
+            </div>
+            <div
+              class="price-card__label"
+              style="font-size: 15px; margin-top: 4px"
+            >
+              × 3 months
+            </div>
+            <div style="margin-top: 12px; font-size: 13px; opacity: 0.7">
+              3-month commitment · $5,001 total
+            </div>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              font-size: 18px;
+              font-weight: 700;
+              opacity: 0.7;
+            "
+          >
+            OR
+          </div>
+          <div
+            class="price-card"
+            style="
+              background: rgba(255, 255, 255, 0.22);
+              border-color: rgba(255, 255, 255, 0.5);
+              padding: 28px 40px;
+              flex: 1;
+              min-width: 220px;
+            "
+          >
+            <div
+              class="price-card__label"
+              style="
+                font-size: 13px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                opacity: 0.8;
+                margin-bottom: 8px;
+              "
+            >
+              Pay Upfront
+            </div>
+            <div
+              class="price-card__amount"
+              style="font-size: 58px; line-height: 1"
+            >
+              $4,500
+            </div>
+            <div
+              class="price-card__label"
+              style="font-size: 15px; margin-top: 4px"
+            >
+              One-Time Payment
+            </div>
+            <div style="margin-top: 12px; font-size: 13px; opacity: 0.7">
+              Best value · Save $500 vs. plan
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="included-row">
-        <div class="included-row__icon">🛡️</div>
-        <div>
-          <div class="included-row__title">System maintenance and email support</div>
-          <div class="included-row__outcome">Everything stays running so you never miss a lead</div>
+
+        <!--
+
+        <div
+          style="
+            margin-top: 22px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 14px;
+            padding: 16px 32px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+          "
+        >
+          <span style="font-size: 22px">🔄</span>
+          <div style="text-align: left">
+            <div style="font-size: 18px; font-weight: 700">$750 / month</div>
+            <div style="font-size: 13px; opacity: 0.8">
+              Ongoing maintenance after setup
+            </div>
+          </div>
         </div>
+
+-->
+        <a
+          class="cta-btn"
+          href="https://nilsdigital.com/client"
+          target="_blank"
+          onclick="event.stopPropagation()"
+          style="margin-top: 22px"
+        >
+          Get Started →
+        </a>
+        <div class="bg-icon">🚀</div>
       </div>
     </div>
-  </div>
+    <!-- /deck -->
 
-  <!-- SLIDE 27: Investment -->
-  <div class="slide green" data-theme="green">
-    <div class="eyebrow">Step #2 - The Investment</div>
-    <div class="price-setup">
-      <div class="price-setup__amount">$1,500</div>
-      <div class="price-setup__label">One-Time Setup</div>
+    <div class="nav-dots" id="navDots"></div>
+    <div
+      class="click-hint"
+      id="clickHint"
+      style="color: rgba(255, 255, 255, 0.4)"
+    >
+      Click anywhere to continue →
     </div>
-    <div class="price-divider">Then choose your monthly plan</div>
-    <div class="price-options">
-      <div class="price-option">
-        <div class="price-option__amount">$165<span style="font-size:16px;font-weight:500;">/mo</span></div>
-        <div class="price-option__label">Without Phone</div>
-      </div>
-      <div class="price-option highlight">
-        <div class="price-option__amount">$197<span style="font-size:16px;font-weight:500;">/mo</span></div>
-        <div class="price-option__label">With Phone Number</div>
-      </div>
-    </div>
-    <div class="guarantee" style="margin-top:20px;">
-      <div class="guarantee__icon">🛡️</div>
-      <div>
-        <div class="guarantee__title">60-Day ROI Guarantee</div>
-        <div class="guarantee__body">We guarantee double your conversion rate within 60 days. If we don't hit it, we stop charging and keep working with you until we do.</div>
-      </div>
-    </div>
-    <a class="cta-btn" href="https://nilsdigital.com/client" target="_blank" onclick="event.stopPropagation();">
-      Get Started →
-    </a>
-    <div class="bg-icon">⚙️</div>
-  </div>
 
-  <!-- ═══════════════════════════════ STEP 3 ═══════════════════════════════ -->
+    <script>
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const total = slides.length;
+      const dotsEl = document.getElementById("navDots");
+      const barEl = document.getElementById("progressBar");
+      const counterEl = document.getElementById("counter");
+      const brandEl = document.getElementById("brandMark");
+      const hintEl = document.getElementById("clickHint");
+      const prevBtn = document.getElementById("arrowPrev");
+      const nextBtn = document.getElementById("arrowNext");
+      let cur = 0;
 
-  <!-- SLIDE 28: Step #3 Intro -->
-  <div class="slide light" data-theme="light">
-    <div class="badge">Step #3 of the System</div>
-    <h2 class="headline huge">The Scale</h2>
-    <p class="subtext">Once your foundation is solid, pour fuel on the fire.</p>
-  </div>
+      slides.forEach((_, i) => {
+        const d = document.createElement("div");
+        d.className = "dot";
+        d.addEventListener("click", (e) => {
+          e.stopPropagation();
+          goTo(i);
+        });
+        dotsEl.appendChild(d);
+      });
 
-  <!-- SLIDE 29: Outcome -->
-  <div class="slide navy" data-theme="navy">
-    <div class="eyebrow">The outcome</div>
-    <h2 class="headline" style="font-size:clamp(20px,3vw,38px); max-width:780px;">High-intent leads searching for your service, your website converts them, your CRM catches them, your automations close them.</h2>
-    <div class="outcome-cards" style="margin-top:28px;">
-      <div class="outcome-card">
-        <div class="outcome-card__icon">🎯</div>
-        <div class="outcome-card__title">High-Intent Leads</div>
-        <div class="outcome-card__sub">People already searching for exactly what you offer</div>
-      </div>
-      <div class="outcome-card">
-        <div class="outcome-card__icon">🔄</div>
-        <div class="outcome-card__title">Full System Working</div>
-        <div class="outcome-card__sub">Ads feed into your website, CRM, and automations seamlessly</div>
-      </div>
-      <div class="outcome-card">
-        <div class="outcome-card__icon">📈</div>
-        <div class="outcome-card__title">Predictable Growth</div>
-        <div class="outcome-card__sub">Turn ad spend into booked jobs on demand</div>
-      </div>
-    </div>
-  </div>
+      function isLight(theme) {
+        return theme === "light" || theme === "white";
+      }
 
-  <!-- SLIDE 30: Deliverables Header -->
-  <div class="slide blue" data-theme="blue">
-    <div class="eyebrow">What you get</div>
-    <h2 class="headline xl">Here's exactly what<br>we build for you.</h2>
-  </div>
+      function updateChrome() {
+        const theme = slides[cur].dataset.theme;
+        const light = isLight(theme);
 
-  <!-- SLIDE 31: Google Ads Setup -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">🎯</div>
-      <div class="deliverable__title">Full Google Ads Setup and Management</div>
-      <div class="deliverable__sub">Targeted campaigns for your service area, optimized for calls and bookings, not just clicks.</div>
-    </div>
-    <div class="results-2col" style="max-width:min(92vw,1000px);">
-      <div class="result-img">
-        <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/0f94d1468c0f4b578f92adadd378fd82/original/blob.png" alt="Google Ads Result" style="max-height:46vh;">
-      </div>
-      <div class="result-img">
-        <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/76b8f880dffa4d6f9b18dec3697be4de/original/blob.png" alt="Google Ads Result" style="max-height:46vh;">
-      </div>
-    </div>
-  </div>
+        barEl.style.width = ((cur + 1) / total) * 100 + "%";
+        barEl.style.background = light ? "#046bd2" : "#4fa3f7";
 
-  <!-- SLIDE 32: Ad Results -->
-  <div class="slide light" data-theme="light">
-    <div class="eyebrow">Real Results</div>
-    <h3 class="headline" style="font-size:clamp(20px,3vw,30px);">Campaigns we run for clients like you</h3>
-    <div class="results-2col" style="max-width:min(92vw,1000px);">
-      <div class="result-img">
-        <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/f029d7bf6acc438db570002e85e09578/original/blob.png" alt="Google Ads Result" style="max-height:52vh;">
-      </div>
-      <div class="result-img">
-        <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:900/https://cdn.gamma.app/53q4o972mi6mu4k/a0b85aa4763d4de891fd6a641b9213d0/original/blob.png" alt="Google Ads Result" style="max-height:52vh;">
-      </div>
-    </div>
-  </div>
+        const textColor = light ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.35)";
+        counterEl.style.color = textColor;
+        counterEl.textContent = cur + 1 + " / " + total;
+        brandEl.style.color = textColor;
 
-  <!-- SLIDE 33: Reporting + Optimization -->
-  <div class="slide white" data-theme="light">
-    <div class="deliverable">
-      <div class="deliverable__icon">📊</div>
-      <div class="deliverable__title">Biweekly Performance Reporting</div>
-      <div class="deliverable__sub">You always know exactly where your money is going and what it is returning. Ongoing optimization every cycle to lower your cost per lead.</div>
-    </div>
-    <div class="dashboard-mock" style="margin-top:28px;">
-      <div class="dash-stat"><div class="dash-stat__num">$18</div><div class="dash-stat__label">Cost Per Lead</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">34</div><div class="dash-stat__label">Leads / Mo</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">6.2x</div><div class="dash-stat__label">ROAS</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">4.8%</div><div class="dash-stat__label">Click Rate</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">22%</div><div class="dash-stat__label">Conversion</div></div>
-      <div class="dash-stat"><div class="dash-stat__num">↓32%</div><div class="dash-stat__label">CPL Drop</div></div>
-    </div>
-  </div>
+        document.body.className = light ? "light-chrome" : "";
+        prevBtn.classList.toggle("hidden", cur === 0);
+        nextBtn.classList.toggle("hidden", cur === total - 1);
 
-  <!-- SLIDE 34: Questions -->
-  <div class="slide green" data-theme="green">
-    <div style="font-size: 72px; margin-bottom: 16px;">🙋</div>
-    <h2 class="headline huge">Any Questions?</h2>
-    <p class="subtext">This is a great time to ask anything before we move on.</p>
-  </div>
+        hintEl.style.opacity = cur >= 3 ? "0" : "1";
+        hintEl.style.color = light
+          ? "rgba(0,0,0,0.3)"
+          : "rgba(255,255,255,0.4)";
 
-  <!-- SLIDE 35: What's Included -->
-  <div class="slide white" data-theme="light">
-    <div class="eyebrow">Step #3 - What you get</div>
-    <h2 class="headline" style="font-size:clamp(20px,3vw,34px);">Everything That's Included</h2>
-    <div class="included-list">
-      <div class="included-row">
-        <div class="included-row__icon">🎯</div>
-        <div>
-          <div class="included-row__title">Full Google Ads setup and management</div>
-          <div class="included-row__outcome">Your ads go live targeting people actively searching for your exact service</div>
-        </div>
-      </div>
-      <div class="included-row">
-        <div class="included-row__icon">📍</div>
-        <div>
-          <div class="included-row__title">Targeted campaigns for your service area</div>
-          <div class="included-row__outcome">Only shown to people in your area who are ready to buy right now</div>
-        </div>
-      </div>
-      <div class="included-row">
-        <div class="included-row__icon">📞</div>
-        <div>
-          <div class="included-row__title">Optimized for calls and bookings, not just clicks</div>
-          <div class="included-row__outcome">Every ad and landing page built to generate real revenue, not vanity metrics</div>
-        </div>
-      </div>
-      <div class="included-row">
-        <div class="included-row__icon">📊</div>
-        <div>
-          <div class="included-row__title">Biweekly performance reporting</div>
-          <div class="included-row__outcome">You always know exactly where your money is going and what it is returning</div>
-        </div>
-      </div>
-      <div class="included-row">
-        <div class="included-row__icon">📉</div>
-        <div>
-          <div class="included-row__title">Ongoing optimization to lower your cost per lead</div>
-          <div class="included-row__outcome">We continuously improve every cycle so your ROI grows over time</div>
-        </div>
-      </div>
-    </div>
-  </div>
+        const dots = dotsEl.querySelectorAll(".dot");
+        dots.forEach((d, i) => {
+          const active = i === cur;
+          d.style.width = active ? "22px" : "6px";
+          d.style.background = light
+            ? active
+              ? "#046bd2"
+              : "rgba(0,0,0,0.18)"
+            : active
+              ? "#fff"
+              : "rgba(255,255,255,0.25)";
+        });
+      }
 
-  <!-- SLIDE 36: Investment -->
-  <div class="slide green" data-theme="green">
-    <div class="eyebrow">Step #3 - The Investment</div>
-    <div class="price-cards" style="gap: 24px;">
-      <div class="price-card" style="background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.25); padding: 28px 40px; flex:1; min-width:220px;">
-        <div class="price-card__label" style="font-size:13px; text-transform:uppercase; letter-spacing:1px; opacity:0.8; margin-bottom:8px;">Payment Plan</div>
-        <div class="price-card__amount" style="font-size:58px; line-height:1;">$1,667</div>
-        <div class="price-card__label" style="font-size:15px; margin-top:4px;">× 3 months</div>
-        <div style="margin-top:12px; font-size:13px; opacity:0.7;">3-month commitment · $5,001 total</div>
-      </div>
-      <div style="display:flex; align-items:center; font-size:18px; font-weight:700; opacity:0.7;">OR</div>
-      <div class="price-card" style="background:rgba(255,255,255,0.22); border-color:rgba(255,255,255,0.5); padding: 28px 40px; flex:1; min-width:220px;">
-        <div class="price-card__label" style="font-size:13px; text-transform:uppercase; letter-spacing:1px; opacity:0.8; margin-bottom:8px;">Pay Upfront</div>
-        <div class="price-card__amount" style="font-size:58px; line-height:1;">$4,500</div>
-        <div class="price-card__label" style="font-size:15px; margin-top:4px;">One-Time Payment</div>
-        <div style="margin-top:12px; font-size:13px; opacity:0.7;">Best value · Save $500 vs. plan</div>
-      </div>
-    </div>
-    <div style="margin-top:22px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius:14px; padding:16px 32px; display:inline-flex; align-items:center; gap:12px;">
-      <span style="font-size:22px;">🔄</span>
-      <div style="text-align:left;">
-        <div style="font-size:18px; font-weight:700;">$750 / month</div>
-        <div style="font-size:13px; opacity:0.8;">Ongoing maintenance after setup</div>
-      </div>
-    </div>
-    <a class="cta-btn" href="https://nilsdigital.com/client" target="_blank" onclick="event.stopPropagation();" style="margin-top:22px;">
-      Get Started →
-    </a>
-    <div class="bg-icon">🚀</div>
-  </div>
+      function goTo(index) {
+        if (index < 0 || index >= total || index === cur) return;
+        const leaving = cur;
+        slides[leaving].classList.remove("active");
+        slides[leaving].classList.add("leaving");
+        setTimeout(() => slides[leaving].classList.remove("leaving"), 320);
+        cur = index;
+        slides[cur].classList.add("active");
+        updateChrome();
+      }
 
-</div><!-- /deck -->
+      function next() {
+        goTo(cur + 1);
+      }
+      function prev() {
+        goTo(cur - 1);
+      }
 
-<div class="nav-dots" id="navDots"></div>
-<div class="click-hint" id="clickHint" style="color:rgba(255,255,255,0.4);">Click anywhere to continue →</div>
+      document.getElementById("deck").addEventListener("click", next);
 
-<script>
-  const slides    = Array.from(document.querySelectorAll('.slide'));
-  const total     = slides.length;
-  const dotsEl    = document.getElementById('navDots');
-  const barEl     = document.getElementById('progressBar');
-  const counterEl = document.getElementById('counter');
-  const brandEl   = document.getElementById('brandMark');
-  const hintEl    = document.getElementById('clickHint');
-  const prevBtn   = document.getElementById('arrowPrev');
-  const nextBtn   = document.getElementById('arrowNext');
-  let cur = 0;
+      document.addEventListener("keydown", (e) => {
+        if (["ArrowRight", " ", "Enter"].includes(e.key)) {
+          e.preventDefault();
+          next();
+        }
+        if (["ArrowLeft", "Backspace"].includes(e.key)) {
+          e.preventDefault();
+          prev();
+        }
+      });
 
-  slides.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot';
-    d.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
-    dotsEl.appendChild(d);
-  });
+      let touchX = 0;
+      document.addEventListener("touchstart", (e) => {
+        touchX = e.touches[0].clientX;
+      });
+      document.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+      });
 
-  function isLight(theme) { return theme === 'light' || theme === 'white'; }
-
-  function updateChrome() {
-    const theme = slides[cur].dataset.theme;
-    const light = isLight(theme);
-
-    barEl.style.width = ((cur + 1) / total * 100) + '%';
-    barEl.style.background = light ? '#046bd2' : '#4fa3f7';
-
-    const textColor = light ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.35)';
-    counterEl.style.color = textColor;
-    counterEl.textContent = (cur + 1) + ' / ' + total;
-    brandEl.style.color = textColor;
-
-    document.body.className = light ? 'light-chrome' : '';
-    prevBtn.classList.toggle('hidden', cur === 0);
-    nextBtn.classList.toggle('hidden', cur === total - 1);
-
-    hintEl.style.opacity = cur >= 3 ? '0' : '1';
-    hintEl.style.color = light ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.4)';
-
-    const dots = dotsEl.querySelectorAll('.dot');
-    dots.forEach((d, i) => {
-      const active = i === cur;
-      d.style.width = active ? '22px' : '6px';
-      d.style.background = light
-        ? (active ? '#046bd2' : 'rgba(0,0,0,0.18)')
-        : (active ? '#fff'    : 'rgba(255,255,255,0.25)');
-    });
-  }
-
-  function goTo(index) {
-    if (index < 0 || index >= total || index === cur) return;
-    const leaving = cur;
-    slides[leaving].classList.remove('active');
-    slides[leaving].classList.add('leaving');
-    setTimeout(() => slides[leaving].classList.remove('leaving'), 320);
-    cur = index;
-    slides[cur].classList.add('active');
-    updateChrome();
-  }
-
-  function next() { goTo(cur + 1); }
-  function prev() { goTo(cur - 1); }
-
-  document.getElementById('deck').addEventListener('click', next);
-
-  document.addEventListener('keydown', e => {
-    if (['ArrowRight', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
-    if (['ArrowLeft', 'Backspace'].includes(e.key))   { e.preventDefault(); prev(); }
-  });
-
-  let touchX = 0;
-  document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
-  document.addEventListener('touchend',   e => {
-    const dx = e.changedTouches[0].clientX - touchX;
-    if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
-  });
-
-  updateChrome();
-</script>
-</body>
+      updateChrome();
+    </script>
+  </body>
 </html>
