@@ -62,6 +62,8 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | `/new-funnel` | Builds a new HTML funnel using reference designs from `references/` |
 | `/upload-to-ghl` | Uploads images from `uploads/` to GHL media library, returns CDN URLs |
 | `/generate-image` | Generates an image with Google Imagen (nano banana) and optionally uploads to GHL |
+| `/generate-bg` | Generates premium section backgrounds — CSS mesh gradients or real images via Imagen |
+| `/qa-check` | Screenshots the page with Puppeteer, reads it visually, fixes issues, loops until clean |
 
 ---
 
