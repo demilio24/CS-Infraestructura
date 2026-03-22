@@ -59,26 +59,31 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | Command | Description |
 |---|---|
 | `/ghl-embed` | Wraps a GitHub Pages URL in the full GHL iframe embed code |
-| `/new-funnel` | Builds a new HTML funnel using reference designs from `references/` |
-| `/write-copy` | Writes funnel copy in the exact voice of our best funnels (Charles, Wendy, Becca, Ignacio) |
-| `/research-client` | Scrapes a client's website and returns a structured context report for richer copy |
+| `/research-client` | Scrapes a client's website — returns structured context report for richer copy |
+| `/write-copy` | Writes copy in the exact voice + structure of our best funnels (Charles, Wendy, Becca, Ignacio, Kimberely) |
+| `/new-funnel` | Builds the full HTML funnel from copy + reference designs in `references/` |
+| `/svg-design` | Generates custom inline SVGs — icons, wave dividers, decorative elements, illustrations |
+| `/animate` | Adds the full animation layer — scroll triggers, counters, FAQ toggles, hover effects, form pulse |
+| `/generate-bg` | Generates premium section backgrounds — CSS mesh gradients or Google Imagen images |
+| `/generate-image` | Generates images with Google Imagen (nano banana) and optionally uploads to GHL |
+| `/design-review` | Art director pass — audits every image, replaces bad ones, loops until premium |
 | `/upload-to-ghl` | Uploads images from `uploads/` to GHL media library, returns CDN URLs |
-| `/generate-image` | Generates an image with Google Imagen (nano banana) and optionally uploads to GHL |
-| `/generate-bg` | Generates premium section backgrounds — CSS mesh gradients or real images via Imagen |
-| `/design-review` | Art director review — audits every image section by section, replaces bad ones, loops until premium |
-| `/qa-check` | Screenshots the page with Puppeteer, reads it visually, fixes layout/spacing issues, loops until clean |
-| `/seo-optimize` | Adds meta tags, fixes heading hierarchy, writes alt text, adds structured data, optimizes for rankings |
+| `/seo-optimize` | Meta tags, heading hierarchy, alt text, structured data, page speed signals |
+| `/qa-master` | **Final check** — runs ALL 8 audit categories (copy, structure, visual, SVG, animations, SEO, code, mobile). Fixes everything. Returns "READY FOR CLIENT" report. |
 
 ## Recommended Funnel Workflow
 
-1. `/research-client` — scrape their existing site for context
-2. `/write-copy` — write copy in the right voice using intake form + research
-3. `/new-funnel` — build the HTML from copy + reference designs
-4. `/generate-bg` — generate section backgrounds where needed
-5. `/design-review` — art director pass on all images
-6. `/qa-check` — layout/spacing/connector pass
-7. `/seo-optimize` — meta tags, alt text, structured data
-8. `/ghl-embed` — get the embed code ready to paste
+| Step | Skill | What it does |
+|---|---|---|
+| 1 | `/research-client` | Scrape client's site for context |
+| 2 | `/write-copy` | Write copy: voice + structure of our best funnels |
+| 3 | `/new-funnel` | Build HTML from copy + reference screenshots |
+| 4 | `/svg-design` | Add custom icons, wave dividers, decorative SVGs |
+| 5 | `/animate` | Add full animation layer |
+| 6 | `/generate-bg` | Generate backgrounds for each section |
+| 7 | `/design-review` | Art director image pass |
+| 8 | `/qa-master` | Full audit — copy, layout, SVG, animations, SEO, mobile. Fix everything. |
+| 9 | `/ghl-embed` | Get the paste-ready embed code |
 
 ---
 
