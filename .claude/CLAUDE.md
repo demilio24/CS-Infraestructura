@@ -84,7 +84,8 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | 7 | `/design-review` | Art director image pass |
 | 8 | `/qa-master` | Full audit — copy, layout, SVG, animations, SEO, mobile. Fix everything. |
 | 9 | `/live-test` | Simulates a real user on desktop + mobile — clicks nav, scrolls, opens FAQ, triggers animations, screenshots every state |
-| 10 | `/ghl-embed` | Get the paste-ready embed code |
+| 10 | `/critique` | Senior CRO + UX + copywriter review — finds missed opportunities in design, hierarchy, copy, trust, and conversion flow. Scores the page and fixes priority issues. |
+| 11 | `/ghl-embed` | Get the paste-ready embed code |
 
 ---
 
