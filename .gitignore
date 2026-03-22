@@ -4,3 +4,6 @@
 # Uploaded images (transient, not tracked)
 uploads/*
 !uploads/.gitkeep
+
+# Reference designs ARE tracked (needed across machines)
+# references/ is fully committed — no exclusions
