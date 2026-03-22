@@ -1,28 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
+      "Bash",
       "WebFetch(domain:assets.cdn.filesafe.space)",
-      "Bash(git -C \"f:/GitHub/CS-Infraestructura\" log --oneline --all)",
-      "Bash(python3:*)",
-      "Bash(py:*)",
-      "Bash(node --version:*)",
-      "Bash(node:*)",
-      "Bash(ls:*)",
-      "Bash(git pull --rebase)",
-      "Bash(git stash)",
-      "Bash(git stash pop)",
-      "Bash(python -:*)",
       "WebFetch(domain:marketplace.gohighlevel.com)",
       "WebFetch(domain:help.gohighlevel.com)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:community.make.com)",
       "WebFetch(domain:www.ducks2water.com)",
-      "Bash(grep -v \"footer\\\\|comment\\\\|//\")",
-      "Bash(\"f:/GitHub/CS-Infraestructura/memory/MEMORY.md\":*)",
-      "Bash(npx puppeteer:*)"
+      "WebFetch(domain:nilsdigital.com)",
+      "WebFetch(domain:demilio24.github.io)",
+      "Skill(update-config)",
+      "Skill(update-config:*)"
     ]
   }
 }
