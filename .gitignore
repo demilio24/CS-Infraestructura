@@ -1,0 +1,6 @@
+# Environment variables — never commit
+.env
+
+# Uploaded images (transient, not tracked)
+uploads/*
+!uploads/.gitkeep
