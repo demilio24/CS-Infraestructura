@@ -83,7 +83,8 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | 6 | `/generate-bg` | Generate backgrounds for each section |
 | 7 | `/design-review` | Art director image pass |
 | 8 | `/qa-master` | Full audit — copy, layout, SVG, animations, SEO, mobile. Fix everything. |
-| 9 | `/ghl-embed` | Get the paste-ready embed code |
+| 9 | `/live-test` | Simulates a real user on desktop + mobile — clicks nav, scrolls, opens FAQ, triggers animations, screenshots every state |
+| 10 | `/ghl-embed` | Get the paste-ready embed code |
 
 ---
 
