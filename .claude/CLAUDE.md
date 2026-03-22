@@ -73,19 +73,23 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 
 ## Recommended Funnel Workflow
 
+### Option A: Full automated pipeline (recommended)
+Run `/build-funnel` — the project manager coordinates the entire team automatically.
+
+### Option B: Run specialists individually
 | Step | Skill | What it does |
 |---|---|---|
 | 1 | `/research-client` | Scrape client's site for context |
 | 2 | `/write-copy` | Write copy: voice + structure of our best funnels |
 | 3 | `/new-funnel` | Build HTML from copy + reference screenshots |
-| 4 | `/svg-design` | Add custom icons, wave dividers, decorative SVGs |
-| 5 | `/animate` | Add full animation layer |
-| 6 | `/generate-bg` | Generate backgrounds for each section |
-| 7 | `/design-review` | Art director image pass |
-| 8 | `/qa-master` | Full audit — copy, layout, SVG, animations, SEO, mobile. Fix everything. |
-| 9 | `/live-test` | Simulates a real user on desktop + mobile — clicks nav, scrolls, opens FAQ, triggers animations, screenshots every state |
-| 10 | `/critique` | Senior CRO + UX + copywriter review — finds missed opportunities in design, hierarchy, copy, trust, and conversion flow. Scores the page and fixes priority issues. |
-| 11 | `/ghl-embed` | Get the paste-ready embed code |
+| 4a | `/svg-design` | Add custom icons, wave dividers, decorative SVGs |
+| 4b | `/animate` | Add full animation layer |
+| 4c | `/generate-bg` | Generate backgrounds for each section |
+| 4d | `/design-review` | Art director image pass |
+| 5 | `/qa-master` | Full audit — copy, layout, SVG, animations, SEO, mobile. Fix everything. |
+| 6 | `/live-test` | Simulates a real user on desktop + mobile |
+| 7 | `/critique` | CRO + UX + copy review — scores the page, fixes priority issues |
+| 8 | `/ghl-embed` | Get the paste-ready embed code |
 
 ---
 
