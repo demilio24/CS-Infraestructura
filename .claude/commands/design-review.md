@@ -24,7 +24,9 @@ For every image on the page, evaluate:
 
 ## STEPS
 
-1. **Screenshot the page** — Run this Puppeteer script:
+1. **Screenshot the page** — Try Puppeteer first. If not available, fall back to Screenshotone.
+
+**Option A — Puppeteer (local, preferred):**
 ```bash
 node -e "
 const puppeteer = require('puppeteer');
@@ -39,6 +41,15 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 "
+```
+
+**Option B — Screenshotone (fallback, requires live GitHub Pages URL):**
+Push the current file to GitHub Pages first, then:
+```bash
+SCREENSHOTONE_KEY=$(grep SCREENSHOTONE_ACCESS_KEY .env | cut -d '=' -f2)
+LIVE_URL="https://demilio24.github.io/Websites/{RELATIVE_FILE_PATH}"
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o design-review-desktop.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o design-review-mobile.png
 ```
 
 2. **Read both screenshots** — Use the Read tool on `design-review-desktop.png` and `design-review-mobile.png`.
@@ -67,9 +78,17 @@ const puppeteer = require('puppeteer');
    - Dark overlay opacity is between 60-80% so the image is still visible but text is readable
    - No section has a "floating" or disconnected image that breaks the layout flow
 
-8. **Loop until every image passes** — Keep going until no section has a failing image.
+8. **Check trust badge and pill consistency** — Read the HTML and verify:
+   - Every `<img>` inside a trust bar, credential bar, or pill container has a fixed `height` attribute or CSS `height` — never `auto` or unconstrained
+   - All pill items render at the same visual height (consistent padding, `align-items: center` on container)
+   - The Trustpilot badge image specifically must be `height: 22px` or similar — it will render huge without a constraint
+   - No raw `<img>` tag without a bounding box in any inline row or badge container
 
-9. **Final report** — List what was changed and why. Confirm the page now looks like a premium funnel.
+   Fix any violations immediately before the final report.
+
+9. **Loop until every image passes** — Keep going until no section has a failing image.
+
+10. **Final report** — List what was changed and why. Confirm the page now looks like a premium funnel.
 
 ---
 

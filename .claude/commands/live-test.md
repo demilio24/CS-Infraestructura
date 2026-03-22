@@ -10,8 +10,9 @@ You are acting as a first-time visitor. You have never seen this page. Go throug
 
 ## SETUP
 
-Run all tests using this Puppeteer script as a base — adapt it per test:
+Run all tests using Puppeteer (preferred) or Screenshotone (fallback).
 
+**Option A — Puppeteer (local, preferred — supports interactive tests):**
 ```bash
 node -e "
 const puppeteer = require('puppeteer');
@@ -32,6 +33,16 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 "
+```
+
+**Option B — Screenshotone (fallback — static screenshots only, no click interactions):**
+Push to GitHub Pages first, then use for visual-only tests (Tests 1, 2, 5, 6, 10). For interactive tests (3, 4, 7, 8, 9), verify by reading the HTML/JS code directly instead.
+```bash
+SCREENSHOTONE_KEY=$(grep SCREENSHOTONE_ACCESS_KEY .env | cut -d '=' -f2)
+LIVE_URL="https://demilio24.github.io/Websites/{RELATIVE_FILE_PATH}"
+# Replace 'test-01-desktop-load.png' with the appropriate filename per test
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o test-01-desktop-load.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o test-02-mobile-load.png
 ```
 
 ---

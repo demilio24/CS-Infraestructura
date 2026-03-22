@@ -128,6 +128,71 @@ The one key accent word in the H1 gets a subtle animated gradient.
 
 Apply to ONE word only in the H1 — never in body sections.
 
+### 5b. Hero Stat Badge — Fire / Emphasis Effect (use when a bold stat is the headline anchor)
+
+When a key stat or number needs to feel visceral and high-energy (e.g. "4x", "10x", "#1"), wrap it in a badge with a fire/glow animation instead of a plain gradient:
+
+```html
+<span class="fire-badge" data-tooltip="On average, our websites get a 4x higher conversion rate than the industry average.">
+  4x
+  <span class="fire-badge-asterisk">*</span>
+</span>
+```
+
+```css
+.fire-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  padding: 4px 14px 4px 12px;
+  border-radius: 8px;
+  position: relative;
+  cursor: default;
+  box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.5);
+  animation: fire-pulse 2.5s ease-in-out infinite;
+}
+@keyframes fire-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.5), 0 0 16px 2px rgba(var(--color-primary-rgb), 0.3); }
+  50%       { box-shadow: 0 0 0 8px rgba(var(--color-primary-rgb), 0), 0 0 32px 8px rgba(var(--color-primary-rgb), 0.5); }
+}
+.fire-badge-asterisk {
+  font-size: 0.65em;
+  vertical-align: super;
+  opacity: 0.85;
+}
+/* Tooltip on hover */
+.fire-badge::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0a0a0a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 10px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  max-width: 280px;
+  white-space: normal;
+  width: 260px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.fire-badge:hover::after { opacity: 1; }
+```
+
+Use this pattern whenever a bold outcome stat is the centerpiece of the headline.
+
 ---
 
 ### 6. Card Hover Micro-Interactions
@@ -246,7 +311,7 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
 
 5. **Ensure single IntersectionObserver** — never duplicate it. One observer handles everything.
 
-6. **Screenshot and verify** — use Puppeteer to screenshot the page. Confirm animations are in place (at least confirm the static state is correct — opacity 0 on non-visible elements).
+6. **Screenshot and verify** — Use Puppeteer (preferred) or Screenshotone (fallback) to screenshot the page. Confirm the static state is correct: above-fold elements visible, below-fold elements at opacity 0 waiting to animate in.
 
 7. **Test interactions** — FAQ toggles, card expands, mobile menu, form pulse.
 

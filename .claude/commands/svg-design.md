@@ -16,30 +16,44 @@ Design and generate custom inline SVG elements for a funnel page — icons, sect
 - Trust: shield with checkmark, verified badge, lock, certificate
 
 ### 2. Wave / Section Dividers
-- Purpose: smooth transition between sections with different background colors
-- Always use 2 overlapping paths (secondary at 35% opacity + main at 100%)
-- ViewBox: 0 0 1440 72
-- Height on page: 72px desktop, 44px mobile
 
-**Wave styles:**
+**CRITICAL: Match the transition style to the business type. Never use a family-business wave on a B2B agency page.**
+
+| Business type | Transition style |
+|---|---|
+| B2B agency, tech, finance, legal | Diagonal cut OR gradient fade — no organic waves |
+| Local service, family business | Gentle organic wave (soft curves) |
+| Healthcare, wellness | Soft curve or gentle wave |
+| Fitness, energy | Medium bold wave or sharp angular cut |
+| Luxury | Clean line only — no wave at all |
+
+**Diagonal cut (B2B/agency/tech — clean and professional):**
 ```html
-<!-- Gentle wave (most common) -->
+<div style="background:{CURRENT_BG}; line-height:0; overflow:hidden;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block;width:100%;height:60px;">
+    <polygon points="0,60 1440,0 1440,60" fill="{NEXT_COLOR}"/>
+  </svg>
+</div>
+```
+
+**Gentle wave (family businesses, swim schools, local services):**
+```html
 <svg viewBox="0 0 1440 72" preserveAspectRatio="none">
   <path opacity="0.35" d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="{NEXT_COLOR}"/>
   <path d="M0,48 C360,0 720,72 1080,24 C1260,0 1380,48 1440,36 L1440,72 L0,72 Z" fill="{NEXT_COLOR}"/>
 </svg>
+```
 
-<!-- Angled cut (modern, premium) -->
-<svg viewBox="0 0 1440 72" preserveAspectRatio="none">
-  <path d="M0,72 L1440,0 L1440,72 Z" fill="{NEXT_COLOR}"/>
-</svg>
-
-<!-- Soft curve (approachable, family businesses) -->
+**Soft curve (healthcare, wellness, approachable services):**
+```html
 <svg viewBox="0 0 1440 72" preserveAspectRatio="none">
   <path opacity="0.35" d="M0,72 Q720,-36 1440,72 L1440,72 L0,72 Z" fill="{NEXT_COLOR}"/>
   <path d="M0,72 Q720,0 1440,72 L1440,72 L0,72 Z" fill="{NEXT_COLOR}"/>
 </svg>
 ```
+
+**No divider (luxury, minimal):**
+Just change the background color. A subtle 1px border or drop shadow is enough.
 
 ### 3. Hero Decorative Elements
 - Subtle radial glow behind the form card
@@ -91,6 +105,6 @@ Simple inline SVG illustration showing frustration/friction relevant to the busi
 
 5. **Replace emojis with SVGs** — if the page uses emoji icons (🏊, 🎯, 🛡️), replace them with proper inline SVG icons.
 
-6. **Verify SVG renders** — screenshot the page with Puppeteer after applying. Confirm icons are visible, properly sized, and colored.
+6. **Verify SVG renders** — screenshot the page with Puppeteer (preferred) or Screenshotone (fallback) after applying. Confirm icons are visible, properly sized, and colored.
 
 7. **Edit the HTML file** with all SVG changes inline.

@@ -7,6 +7,8 @@ Your job is NOT to find bugs. Your job is to find missed opportunities — thing
 ## HOW TO RUN THIS
 
 ### Step 1: Screenshot the full page
+
+**Option A — Puppeteer (local, preferred — scrolls to trigger animations before screenshotting):**
 ```bash
 node -e "
 const puppeteer = require('puppeteer');
@@ -33,6 +35,14 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 "
+```
+
+**Option B — Screenshotone (fallback, requires live GitHub Pages URL):**
+```bash
+SCREENSHOTONE_KEY=$(grep SCREENSHOTONE_ACCESS_KEY .env | cut -d '=' -f2)
+LIVE_URL="https://demilio24.github.io/Websites/{RELATIVE_FILE_PATH}"
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=5&scroll=true" -o critique-desktop.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=4" -o critique-mobile.png
 ```
 
 ### Step 2: Read the HTML file and both screenshots

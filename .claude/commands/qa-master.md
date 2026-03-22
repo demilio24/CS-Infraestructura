@@ -49,8 +49,9 @@ Verify the page follows the correct section order:
 
 ### ✅ CATEGORY 3: VISUAL / LAYOUT AUDIT
 
-Take a Puppeteer screenshot at 1440px and 390px:
+Take screenshots at 1440px and 390px.
 
+**Option A — Puppeteer (local, preferred):**
 ```bash
 node -e "
 const puppeteer = require('puppeteer');
@@ -65,6 +66,14 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 "
+```
+
+**Option B — Screenshotone (fallback, requires live GitHub Pages URL):**
+```bash
+SCREENSHOTONE_KEY=$(grep SCREENSHOTONE_ACCESS_KEY .env | cut -d '=' -f2)
+LIVE_URL="https://demilio24.github.io/Websites/{RELATIVE_FILE_PATH}"
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o qa-master-desktop.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o qa-master-mobile.png
 ```
 
 Read both screenshots. Check:

@@ -12,17 +12,36 @@ Generate an image using Google Imagen (Vertex AI) and optionally upload it to Go
    - Aspect ratio: square (1:1), landscape (16:9), or portrait (9:16)?
    - Style: photorealistic, illustration, abstract, professional/corporate?
 
-3. **Generate the image** — Call Google Imagen via Vertex AI:
+3. **Generate the image** — Use Google Imagen (default) or DALL-E 3 (fallback/alternative).
+
+   **Option A — Google Imagen (default, photorealistic, best for backgrounds and scenes):**
    ```bash
+   GOOGLE_KEY=$(grep GOOGLE_API_KEY .env | cut -d '=' -f2)
    curl -X POST \
-     "https://us-central1-aiplatform.googleapis.com/v1/projects/{GOOGLE_PROJECT_ID}/locations/us-central1/publishers/google/models/imagen-3.0-generate-001:predict" \
-     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+     "https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${GOOGLE_KEY}" \
      -H "Content-Type: application/json" \
      -d '{
        "instances": [{"prompt": "{USER_PROMPT}"}],
-       "parameters": {"sampleCount": 1, "aspectRatio": "{RATIO}"}
+       "parameters": {"sampleCount": 1, "aspectRatio": "{RATIO}", "personGeneration": "DONT_ALLOW"}
      }'
    ```
+
+   **Option B — DALL-E 3 (alternative, better for illustrations and stylized images):**
+   ```bash
+   OPENAI_KEY=$(grep OPENAI_API_KEY .env | cut -d '=' -f2)
+   curl -X POST "https://api.openai.com/v1/images/generations" \
+     -H "Authorization: Bearer ${OPENAI_KEY}" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "model": "dall-e-3",
+       "prompt": "{USER_PROMPT}",
+       "n": 1,
+       "size": "{SIZE}",
+       "quality": "hd",
+       "style": "natural"
+     }'
+   ```
+   Size options: `1024x1024` (square), `1792x1024` (landscape), `1024x1792` (portrait).
 
 4. **Save the image** — Decode the base64 response and save to `uploads/generated-{timestamp}.png`.
 
