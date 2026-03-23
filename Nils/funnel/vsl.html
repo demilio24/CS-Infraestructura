@@ -770,23 +770,21 @@
       }
       .gmock-result.competitor-1 {
         background: #e8f0fe;
-        animation: result-click 2.4s ease-in-out infinite;
+        animation: result-click 5s ease-in-out infinite;
         transform-origin: center;
       }
       @keyframes result-click {
-        0%, 55%  { transform: scale(1);    box-shadow: none; }
-        65%      { transform: scale(1.03); box-shadow: 0 4px 16px rgba(26,13,171,0.15); }
-        75%, 100%{ transform: scale(1);    box-shadow: none; }
+        0%, 70%  { transform: scale(1);    box-shadow: none; }
+        80%      { transform: scale(1.03); box-shadow: 0 4px 16px rgba(26,13,171,0.18); }
+        90%, 100%{ transform: scale(1);    box-shadow: none; }
       }
-      .gmock-result.competitor-2 {
-        background: #fafafa;
-      }
+      .gmock-result.competitor-2 { background: #fafafa; }
       .gmock-result.competitor-3 {
-        background: #fafafa;
-        opacity: 0.55;
+        background: #fff5f5;
+        border: 1px solid rgba(239,68,68,0.25);
       }
-      .gmock-result.competitor-3 .gmock-result-url { color: #9aa0a6; }
-      .gmock-result.competitor-3 .gmock-result-title { color: #9aa0a6; font-weight: 500; }
+      .gmock-result.competitor-3 .gmock-result-url { color: #ef4444; }
+      .gmock-result.competitor-3 .gmock-result-title { color: #ef4444; font-weight: 600; }
       .gmock-result-url {
         font-family: var(--font-secondary);
         font-size: 11px;
@@ -816,18 +814,18 @@
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        animation: cursor-click 2.4s ease-in-out infinite;
+        animation: cursor-click 5s ease-in-out infinite;
         pointer-events: none;
       }
       @keyframes cursor-click {
         0%,
-        55% {
+        70% {
           transform: translateY(-50%) scale(1);
         }
-        65% {
+        80% {
           transform: translateY(-50%) scale(0.84);
         }
-        75%,
+        90%,
         100% {
           transform: translateY(-50%) scale(1);
         }
@@ -2079,8 +2077,7 @@
                   Aqua Academy: Expert Swim Lessons for All Ages
                 </div>
                 <div class="gmock-result-snippet">
-                  Fast, licensed, and trusted by 500+ homeowners. Free
-                  estimates. Book online.
+                  Trusted by 1,000+ families. Beginner to advanced. Flexible schedules. Enroll today.
                 </div>
                 <div class="gmock-cursor">
                   <svg
@@ -2101,11 +2098,10 @@
                   cityswimschool.com · ★★★★ 91 reviews
                 </div>
                 <div class="gmock-result-title">
-                  City Pipe Co., Licensed & Insured Plumbers
+                  City Swim School: Learn to Swim in 8 Weeks
                 </div>
                 <div class="gmock-result-snippet">
-                  Serving the area for 15 years. Residential and commercial
-                  plumbing.
+                  Small class sizes, certified instructors, all skill levels. Book a free trial.
                 </div>
               </div>
               <!-- Result 3: the viewer's business -->
