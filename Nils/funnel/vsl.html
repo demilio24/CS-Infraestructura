@@ -667,16 +667,9 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(
-            circle 520px at -140px 50%,
-            rgba(220, 38, 38, 0.18) 0%,
-            transparent 70%
-          ),
-          radial-gradient(
-            circle 520px at calc(100% + 140px) 50%,
-            rgba(220, 38, 38, 0.18) 0%,
-            transparent 70%
-          );
+          radial-gradient(circle 520px at -140px 50%, rgba(220,38,38,0.18) 0%, transparent 70%),
+          radial-gradient(circle 520px at calc(100% + 140px) 50%, rgba(220,38,38,0.18) 0%, transparent 70%),
+          radial-gradient(ellipse 900px 500px at 50% 110%, rgba(220,38,38,0.22) 0%, transparent 65%);
         pointer-events: none;
         z-index: -1;
       }
@@ -1468,26 +1461,34 @@
         content: '';
         position: absolute;
         inset: 0;
-        background:
-          radial-gradient(circle 600px at -120px 50%, rgba(220,38,38,0.14) 0%, transparent 70%),
-          radial-gradient(circle 600px at calc(100% + 120px) 50%, rgba(220,38,38,0.14) 0%, transparent 70%);
+        background: radial-gradient(ellipse 900px 500px at 50% -80px, rgba(220,38,38,0.20) 0%, transparent 65%);
         pointer-events: none;
         z-index: 0;
       }
-      .calc-inner { position: relative; z-index: 1; }
       .calc-inner {
-        max-width: 680px;
+        max-width: 1100px;
         margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
       }
-      .calc-header {
-        text-align: center;
-        margin-bottom: 36px;
+      .calc-copy {
+        display: flex;
+        flex-direction: column;
       }
-      .calc-header .section-eyebrow-white {
+      .calc-copy .section-eyebrow-white {
         display: inline-block;
         margin-bottom: 12px;
         color: #dc2626;
         background: none;
+      }
+      .calc-widget {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
       }
       .calc-h {
         font-size: clamp(24px, 3vw, 36px);
@@ -1648,12 +1649,12 @@
 
       /* CTA below table */
       .calc-cta-wrap {
-        text-align: center;
-        margin-top: 20px;
+        text-align: left;
+        margin-top: 28px;
       }
       .calc-daily-line {
         font-size: 13px;
-        color: #999;
+        color: #888;
         margin-bottom: 14px;
       }
       .calc-daily-line span {
@@ -1678,6 +1679,9 @@
       .calc-cta:hover {
         background: #b91c1c;
         transform: translateY(-1px);
+      }
+      @media (max-width: 860px) {
+        .calc-inner { grid-template-columns: 1fr; gap: 36px; }
       }
       @media (max-width: 600px) {
         .calc-section { padding: 56px 16px; }
@@ -3280,69 +3284,69 @@
     <!-- ══════════════════════════════════════════ CALCULATOR -->
     <section class="calc-section">
       <div class="calc-inner">
-        <div class="calc-header anim">
+
+        <!-- LEFT: copy + CTA -->
+        <div class="calc-copy anim">
           <div class="section-eyebrow-white">The Cost of Waiting</div>
           <h2 class="calc-h">
-            What is doing nothing<br /><span class="accent"
-              >actually costing you?</span
-            >
+            What is doing nothing<br /><span class="accent">actually costing you?</span>
           </h2>
           <p class="calc-sub">Most people are shocked when they see this number.</p>
+          <div class="calc-cta-wrap">
+            <div class="calc-daily-line">That's <span id="calc-daily">$567</span> walking out the door every single day.</div>
+            <button class="calc-cta" onclick="openModal()">Stop leaving money on the table &rarr;</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: calculator widget -->
+        <div class="calc-widget anim d2">
           <span class="calc-interact-hint">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Type your numbers or drag the sliders
           </span>
-        </div>
+          <div class="calc-table">
+            <div class="calc-row">
+              <div>
+                <div class="calc-row-label">Avg. client value / month</div>
+                <div class="calc-row-hint">What one client pays you on average</div>
+              </div>
+              <div class="calc-row-input">
+                <span class="calc-prefix">$</span>
+                <input class="calc-number" id="calc-value" type="number" value="1700" min="100" max="50000" step="100" />
+              </div>
+            </div>
+            <div class="calc-row-full">
+              <input class="calc-slider" id="calc-value-slider" type="range" min="100" max="20000" step="100" value="1700" />
+              <span class="calc-slider-val" id="calc-value-display">$1,700</span>
+            </div>
 
-        <div class="calc-table anim d2">
-          <!-- Row 1: client value -->
-          <div class="calc-row">
-            <div>
-              <div class="calc-row-label">Avg. client value / month</div>
-              <div class="calc-row-hint">What one client pays you on average</div>
+            <div class="calc-row">
+              <div>
+                <div class="calc-row-label">New clients you could take / month</div>
+                <div class="calc-row-hint">Be conservative — open slots only</div>
+              </div>
+              <div class="calc-row-input">
+                <input class="calc-number" id="calc-clients" type="number" value="10" min="1" max="100" step="1" />
+              </div>
             </div>
-            <div class="calc-row-input">
-              <span class="calc-prefix">$</span>
-              <input class="calc-number" id="calc-value" type="number" value="1700" min="100" max="50000" step="100" />
+            <div class="calc-row-full">
+              <input class="calc-slider" id="calc-clients-slider" type="range" min="1" max="50" step="1" value="10" />
+              <span class="calc-slider-val" id="calc-clients-display">10</span>
             </div>
-          </div>
-          <div class="calc-row-full">
-            <input class="calc-slider" id="calc-value-slider" type="range" min="100" max="20000" step="100" value="1700" />
-            <span class="calc-slider-val" id="calc-value-display">$1,700</span>
-          </div>
 
-          <!-- Row 2: clients per month -->
-          <div class="calc-row">
-            <div>
-              <div class="calc-row-label">New clients you could take / month</div>
-              <div class="calc-row-hint">Be conservative — open slots only</div>
-            </div>
-            <div class="calc-row-input">
-              <input class="calc-number" id="calc-clients" type="number" value="10" min="1" max="100" step="1" />
-            </div>
-          </div>
-          <div class="calc-row-full">
-            <input class="calc-slider" id="calc-clients-slider" type="range" min="1" max="50" step="1" value="10" />
-            <span class="calc-slider-val" id="calc-clients-display">10</span>
-          </div>
-
-          <!-- Result row -->
-          <div class="calc-result-row anim d3">
-            <div>
-              <div class="calc-result-label">You're bleeding every month</div>
-              <div class="calc-result-sub">in missed revenue while you wait</div>
-            </div>
-            <div>
-              <div class="calc-result-num" id="calc-monthly">$17,000</div>
-              <div class="calc-result-annual" id="calc-annual">$204,000 / yr</div>
+            <div class="calc-result-row">
+              <div>
+                <div class="calc-result-label">You're bleeding every month</div>
+                <div class="calc-result-sub">in missed revenue while you wait</div>
+              </div>
+              <div>
+                <div class="calc-result-num" id="calc-monthly">$17,000</div>
+                <div class="calc-result-annual" id="calc-annual">$204,000 / yr</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="calc-cta-wrap anim d3">
-          <div class="calc-daily-line">That's <span id="calc-daily">$567</span> walking out the door every single day.</div>
-          <button class="calc-cta" onclick="openModal()">Stop leaving money on the table &rarr;</button>
-        </div>
       </div>
     </section>
 
