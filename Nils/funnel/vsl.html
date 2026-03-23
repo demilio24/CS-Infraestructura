@@ -667,7 +667,8 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 900px at 50% 100%, rgba(220,38,38,0.26) 0%, transparent 65%);
+          radial-gradient(circle 420px at -320px 100%, rgba(220,38,38,0.30) 0%, transparent 70%),
+          radial-gradient(circle 420px at calc(100% + 320px) 100%, rgba(220,38,38,0.30) 0%, transparent 70%);
         pointer-events: none;
         z-index: -1;
       }
@@ -1460,7 +1461,8 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 900px at 50% 0%, rgba(220,38,38,0.22) 0%, transparent 65%);
+          radial-gradient(circle 420px at -320px 0%, rgba(220,38,38,0.26) 0%, transparent 70%),
+          radial-gradient(circle 420px at calc(100% + 320px) 0%, rgba(220,38,38,0.26) 0%, transparent 70%);
         pointer-events: none;
         z-index: 0;
       }
@@ -1599,12 +1601,7 @@
         box-shadow: 0 0 0 7px rgba(220,38,38,0.14);
       }
       .calc-slider-val {
-        font-size: 12px;
-        font-weight: 700;
-        color: rgba(220,38,38,0.60);
-        min-width: 42px;
-        text-align: right;
-        white-space: nowrap;
+        display: none;
       }
 
       /* Result row */
@@ -1639,9 +1636,9 @@
         white-space: nowrap;
       }
       .calc-result-annual {
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.60);
+        font-size: 19px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.80);
         text-align: right;
         margin-top: 4px;
       }
