@@ -246,6 +246,15 @@
 
     <!-- CALENDAR EMBED -->
     <iframe src="https://link.nilsdigital.com/widget/booking/k2iEG2zXtevwPUOlCILd" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="k2iEG2zXtevwPUOlCILd_1773358930175"></iframe>
+    <script>
+      (function () {
+        var email = new URLSearchParams(window.location.search).get('email');
+        if (!email) return;
+        var iframe = document.getElementById('k2iEG2zXtevwPUOlCILd_1773358930175');
+        if (!iframe) return;
+        iframe.src = iframe.src + '?email=' + encodeURIComponent(email);
+      })();
+    </script>
 
     <p class="footer-note">
       Questions? Email Kicking Kiddos at
