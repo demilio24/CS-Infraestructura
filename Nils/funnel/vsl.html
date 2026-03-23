@@ -28,11 +28,17 @@
         scroll-behavior: smooth;
       }
 
-      /* Font system */
+      /* Font system & design tokens */
       :root {
         --font-main: "Google Sans", "DM Sans", sans-serif;
         --font-secondary: "DM Sans", "Google Sans", sans-serif;
         --font-emphasis: "Instrument Sans", "Google Sans", sans-serif;
+        --blue: #046bd2;
+        --blue-dark: #0358b0;
+        --blue-rgb: 4, 107, 210;
+        --gray-bg: #f5f7fa;
+        --text: #0a0a0a;
+        --muted: rgba(10, 10, 10, 0.5);
       }
 
       body {
@@ -79,15 +85,6 @@
       p,
       li {
         font-family: var(--font-secondary);
-      }
-
-      :root {
-        --blue: #046bd2;
-        --blue-dark: #0358b0;
-        --blue-rgb: 4, 107, 210;
-        --gray-bg: #f5f7fa;
-        --text: #0a0a0a;
-        --muted: rgba(10, 10, 10, 0.5);
       }
 
       /* ── ANIMATIONS ─────────────────────────────── */
@@ -206,14 +203,14 @@
         -webkit-mask-image: linear-gradient(
           180deg,
           rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0.4) 55%,
-          transparent 80%
+          rgba(0, 0, 0, 0.4) 60%,
+          transparent 96%
         );
         mask-image: linear-gradient(
           180deg,
           rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0.4) 55%,
-          transparent 80%
+          rgba(0, 0, 0, 0.4) 60%,
+          transparent 96%
         );
         pointer-events: none;
         z-index: 0;
@@ -646,18 +643,23 @@
 
       /* ── PROBLEM ─────────────────────────────────── */
       .problem {
-        /* Continuous dot grid from hero (same 28px / 1.5px, now blue on white) */
-        background:
-          radial-gradient(
-              circle,
-              rgba(4, 107, 210, 0.13) 1.5px,
-              transparent 1.5px
-            )
-            0 0 / 28px 28px,
-          linear-gradient(180deg, #ffffff 0%, #f0f5ff 100%);
+        background: linear-gradient(180deg, #ffffff 0%, #f0f5ff 100%);
         padding: 96px 24px;
         position: relative;
         overflow: hidden;
+        isolation: isolate;
+      }
+      /* Dot grid fades in from top — picks up seamlessly from hero's fading dots */
+      .problem::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle, rgba(4,107,210,0.13) 1.5px, transparent 1.5px);
+        background-size: 28px 28px;
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 35%, black 55%);
+        mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 35%, black 55%);
+        pointer-events: none;
+        z-index: -1;
       }
       /* Large terrorizing red orbs — left and right */
       .problem::before {
@@ -676,6 +678,7 @@
             transparent 70%
           );
         pointer-events: none;
+        z-index: -1;
       }
       .problem-grid {
         max-width: 1100px;
@@ -718,7 +721,12 @@
       /* ── TRANSITION DIVIDER ───────────────────────── */
       .fix-divider-wrap {
         background:
-          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          radial-gradient(
+              circle,
+              rgba(4, 107, 210, 0.1) 1.5px,
+              transparent 1.5px
+            )
+            0 0 / 28px 28px,
           #eef5ff;
         padding: 0 40px;
       }
@@ -732,10 +740,16 @@
       }
       .fix-divider::before,
       .fix-divider::after {
-        content: '';
+        content: "";
         flex: 1;
         height: 1.5px;
-        background: linear-gradient(90deg, transparent, rgba(4,107,210,0.22) 20%, rgba(4,107,210,0.22) 80%, transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(4, 107, 210, 0.22) 20%,
+          rgba(4, 107, 210, 0.22) 80%,
+          transparent
+        );
         min-width: 32px;
       }
       .fix-divider-text {
@@ -748,17 +762,21 @@
         flex-shrink: 1;
         margin: 0;
       }
-      .fix-divider-text span { color: var(--text); font-weight: 700; }
+      .fix-divider-text span {
+        color: var(--text);
+        font-weight: 700;
+      }
 
       /* Google mockup visual, light/white theme */
       .gmock {
-        background: #fff;
+        background: #ffffff;
         border-radius: 16px;
         overflow: hidden;
         box-shadow:
           0 12px 48px rgba(0, 0, 0, 0.13),
           0 1px 4px rgba(0, 0, 0, 0.08);
         border: 1px solid #e0e0e0;
+        isolation: isolate;
       }
       .gmock-topbar {
         background: #f1f3f4;
@@ -889,6 +907,19 @@
       .gmock-result.competitor-3 .gmock-result-snippet {
         opacity: 0.7;
       }
+      .competitor-label {
+        display: inline-block;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #dc2626;
+        background: rgba(220,38,38,0.08);
+        border: 1px solid rgba(220,38,38,0.2);
+        border-radius: 4px;
+        padding: 2px 6px;
+        margin-bottom: 4px;
+      }
       /* Cursor click on result 1 */
       .gmock-cursor {
         position: absolute;
@@ -916,19 +947,32 @@
       /* ── STEP 01 ─────────────────────────────────── */
       .step-section.step-01 {
         background:
-          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          radial-gradient(
+              circle,
+              rgba(4, 107, 210, 0.1) 1.5px,
+              transparent 1.5px
+            )
+            0 0 / 28px 28px,
           #eef5ff;
         padding: 0;
         overflow: hidden;
         position: relative;
       }
       .step-section.step-01::before {
-        content: '';
+        content: "";
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 520px at -140px 50%, rgba(4,107,210,0.14) 0%, transparent 70%),
-          radial-gradient(circle 520px at calc(100% + 140px) 50%, rgba(4,107,210,0.14) 0%, transparent 70%);
+          radial-gradient(
+            circle 520px at -140px 50%,
+            rgba(4, 107, 210, 0.14) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            circle 520px at calc(100% + 140px) 50%,
+            rgba(4, 107, 210, 0.14) 0%,
+            transparent 70%
+          );
         pointer-events: none;
         z-index: 0;
       }
@@ -966,16 +1010,63 @@
         opacity: 0.7;
         margin-top: 4px;
       }
-      .step-section.step-01 .section-h { font-size: clamp(22px, 2.4vw, 34px); }
+      .step-section.step-01 .section-h {
+        font-size: clamp(22px, 2.4vw, 34px);
+      }
 
       /* ── STEP 02 ─────────────────────────────────── */
       .step-section.step-02 {
         background:
-          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          radial-gradient(
+              circle,
+              rgba(4, 107, 210, 0.1) 1.5px,
+              transparent 1.5px
+            )
+            0 0 / 28px 28px,
           #eef5ff;
+        position: relative;
+        overflow: hidden;
       }
-      .step-section.step-02 .section-h { font-size: clamp(28px, 3.8vw, 52px); }
-      .step-section.step-02 .step-inner > div > p { font-size: 18px; line-height: 1.75; }
+      .step-section.step-02::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle 520px at -140px 50%,
+            rgba(22, 163, 74, 0.16) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            circle 520px at calc(100% + 140px) 50%,
+            rgba(22, 163, 74, 0.16) 0%,
+            transparent 70%
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .step-section.step-02 .step-inner {
+        position: relative;
+        z-index: 1;
+      }
+      .step-section.step-02 .step-tag {
+        background: rgba(22, 163, 74, 0.1);
+        border-color: rgba(22, 163, 74, 0.25);
+        color: #16a34a;
+      }
+      .step-section.step-02 .section-h .accent {
+        color: #16a34a;
+      }
+      .step-section.step-02 .section-h {
+        font-size: clamp(28px, 3.8vw, 52px);
+      }
+      .step-section.step-02 .step-inner > div > p {
+        font-size: 18px;
+        line-height: 1.75;
+      }
+      .step-section.step-02 .bullet-list .icon {
+        stroke: #16a34a !important;
+      }
 
       /* ── CASCADING FUNNEL GRID ───────────────────── */
       .funnel-cascade {
@@ -1036,32 +1127,36 @@
 
       /* ── CASE STUDY ──────────────────────────────── */
       .case-study-section {
-        background: #fff;
-        padding: 96px 24px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
+        background:
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          #eef5ff;
+        padding: 80px 24px;
       }
       .case-study-inner {
         max-width: 1100px;
         margin: 0 auto;
       }
-      .case-study-header {
-        margin-bottom: 52px;
+      .case-study-card {
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 8px 48px rgba(4,107,210,0.08), 0 24px 64px rgba(0,0,0,0.09);
+        overflow: hidden;
       }
-      .case-study-disclaimer {
-        font-size: 13px;
-        color: var(--muted);
-        margin-top: 10px;
-        font-style: italic;
+      .case-study-card-header {
+        padding: 52px 56px 40px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
       }
-      .case-study-grid {
+      .case-study-card-body {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 52px;
         align-items: stretch;
       }
       .case-study-video-col {
         display: flex;
         flex-direction: column;
+        padding: 40px;
+        border-right: 1px solid rgba(0,0,0,0.06);
       }
       .case-study-video-wrap {
         border-radius: 16px;
@@ -1082,8 +1177,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 20px;
-        padding-top: 4px;
+        gap: 24px;
+        padding: 40px;
       }
       /* ── VP PLAYER (copied from nils-proof) ─── */
       .vp {
@@ -1266,11 +1361,14 @@
         margin-top: 2px;
       }
       .case-study-pull-quote {
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 700;
         color: var(--text);
-        line-height: 1.4;
+        line-height: 1.5;
         letter-spacing: -0.01em;
+        border-left: 4px solid var(--blue);
+        padding-left: 20px;
+        margin: 0;
       }
       .case-study-quote-body {
         border-left: 3px solid var(--blue);
@@ -1340,13 +1438,286 @@
         margin-top: 2px;
       }
       @media (max-width: 860px) {
-        .case-study-grid {
+        .case-study-card-body {
           grid-template-columns: 1fr;
-          gap: 36px;
         }
-        .case-study-video-wrap video {
-          aspect-ratio: 4/3;
+        .case-study-video-col {
+          border-right: none;
+          border-bottom: 1px solid rgba(0,0,0,0.06);
+          padding: 32px 28px;
         }
+        .case-study-right {
+          padding: 32px 28px;
+        }
+        .case-study-card-header {
+          padding: 40px 28px 32px;
+        }
+      }
+
+      /* ── OPPORTUNITY CALCULATOR ─────────────────── */
+      .calc-section {
+        background: #030d1c;
+        padding: 88px 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .calc-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle 640px at -120px 55%, rgba(220,38,38,0.20) 0%, transparent 70%),
+          radial-gradient(circle 640px at calc(100% + 120px) 55%, rgba(220,38,38,0.20) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .calc-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      .calc-header {
+        text-align: center;
+        margin-bottom: 52px;
+      }
+      .calc-header .section-eyebrow-white {
+        margin-bottom: 10px;
+        border-color: rgba(239,68,68,0.4);
+        color: rgba(239,68,68,0.85);
+      }
+      .calc-h {
+        font-size: clamp(26px, 3.2vw, 42px);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+      }
+      .calc-h .accent {
+        color: #f87171;
+      }
+      .calc-sub {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.50);
+        line-height: 1.6;
+      }
+      .calc-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 0;
+      }
+      .calc-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 16px;
+        padding: 24px 28px 22px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0 24px;
+        align-items: start;
+      }
+      .calc-step-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(220,38,38,0.15);
+        border: 1px solid rgba(220,38,38,0.30);
+        color: #f87171;
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .calc-card-content {
+        display: flex;
+        flex-direction: column;
+      }
+      .calc-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 10px;
+        line-height: 1.3;
+      }
+      .calc-input-row {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .calc-prefix {
+        font-size: 28px;
+        font-weight: 700;
+        color: rgba(255,255,255,0.6);
+        line-height: 1;
+      }
+      .calc-number {
+        font-size: 44px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        min-width: 60px;
+        background: none;
+        border: none;
+        border-bottom: 2px solid rgba(255,255,255,0.15);
+        outline: none;
+        padding: 0 4px 2px;
+        font-family: var(--font-main);
+        width: 100%;
+        transition: border-color 0.2s;
+      }
+      .calc-number:focus {
+        border-bottom-color: rgba(220,38,38,0.6);
+      }
+      .calc-number::-webkit-inner-spin-button,
+      .calc-number::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
+      .calc-hint {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.28);
+        line-height: 1.4;
+        margin-top: -10px;
+        margin-bottom: 14px;
+      }
+      .calc-slider-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .calc-slider-val {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.40);
+        white-space: nowrap;
+        min-width: 40px;
+        text-align: right;
+      }
+      .calc-slider {
+        flex: 1;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 5px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.12);
+        outline: none;
+      }
+      .calc-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #dc2626;
+        cursor: pointer;
+        box-shadow: 0 0 0 4px rgba(220,38,38,0.28);
+        transition: box-shadow 0.15s;
+      }
+      .calc-slider::-webkit-slider-thumb:hover {
+        box-shadow: 0 0 0 6px rgba(220,38,38,0.22);
+      }
+      .calc-arrow-down {
+        text-align: center;
+        color: rgba(220,38,38,0.45);
+        font-size: 22px;
+        line-height: 1;
+        padding: 6px 0;
+      }
+      .calc-result {
+        background: linear-gradient(150deg, #991b1b 0%, #450a0a 100%);
+        border: 1px solid rgba(220,38,38,0.35);
+        border-radius: 20px;
+        padding: 40px 40px 36px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .calc-result::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(239,68,68,0.30) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .calc-result-icon {
+        font-size: 28px;
+        line-height: 1;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .calc-result-label {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 190, 190, 0.75);
+        margin-bottom: 10px;
+      }
+      .calc-result-num {
+        font-size: clamp(52px, 7vw, 80px);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 6px;
+        text-shadow: 0 0 60px rgba(239,68,68,0.5);
+      }
+      .calc-result-sub {
+        font-size: 15px;
+        color: rgba(255, 210, 210, 0.70);
+        margin-bottom: 20px;
+      }
+      .calc-result-annual {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.10);
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 30px;
+        padding: 8px 22px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 28px;
+        letter-spacing: -0.01em;
+      }
+      .calc-result-daily {
+        font-size: 13px;
+        color: rgba(255,190,190,0.60);
+        margin-top: -18px;
+        margin-bottom: 22px;
+        display: block;
+      }
+      .calc-cta {
+        display: inline-block;
+        background: #fff;
+        color: #dc2626;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 14px 32px;
+        border-radius: 100px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        font-family: var(--font-main);
+        letter-spacing: -0.01em;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+      }
+      .calc-cta:hover {
+        background: #fff5f5;
+      }
+      @media (max-width: 640px) {
+        .calc-card {
+          grid-template-columns: 1fr;
+          gap: 12px 0;
+        }
+        .calc-step-badge { display: none; }
+        .calc-result {
+          padding: 28px 24px;
+        }
+        .calc-number { font-size: 36px; }
       }
 
       /* ── ABOUT / WHY WE'RE DIFFERENT ────────────── */
@@ -1493,22 +1864,25 @@
         color: var(--blue);
         flex-shrink: 0;
       }
-      /* Photo strip — full bleed 4-across */
-      .diff-photos-strip {
+      /* Photo + closing — 2 col */
+      .diff-bottom {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: center;
+      }
+      .diff-photos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
       }
       .diff-photo {
         width: 100%;
-        aspect-ratio: 4/5;
+        aspect-ratio: 1/1;
         display: block;
+        border-radius: 12px;
         object-fit: cover;
-      }
-      .diff-closing {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 52px 24px 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
       }
       .diff-closing-eyebrow {
         font-size: 11px;
@@ -1550,8 +1924,8 @@
         .diff-good {
           transform: none;
         }
-        .diff-photos-strip {
-          grid-template-columns: repeat(2, 1fr);
+        .diff-bottom {
+          grid-template-columns: 1fr;
         }
       }
 
@@ -1765,7 +2139,9 @@
         padding: 13px 0;
         opacity: 0;
         transform: translateY(6px);
-        transition: opacity 0.18s ease, transform 0.18s ease;
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease;
       }
       @keyframes roi-appear {
         to {
@@ -1830,7 +2206,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 14px 16px;
-        background: linear-gradient(135deg, #1a56db 0%, #0d2d6e 100%);
+        background: linear-gradient(135deg, #16a34a 0%, #064e1e 100%);
         border-radius: 10px;
         margin-top: 8px;
       }
@@ -1898,7 +2274,11 @@
       /* ── PROOF SECTION ────────────────────────── */
       .proof-section {
         background:
-          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(4,107,210,0.18) 0%, transparent 70%),
+          radial-gradient(
+            ellipse 80% 60% at 50% -10%,
+            rgba(4, 107, 210, 0.18) 0%,
+            transparent 70%
+          ),
           #080f1e;
         padding: 100px 32px 80px;
       }
@@ -1910,84 +2290,165 @@
         text-align: center;
         margin-bottom: 60px;
       }
-      .proof-header .section-eyebrow { color: rgba(160,210,255,0.7); }
-      .proof-header .section-h { color: #fff; }
-      .proof-header .section-h .accent { color: #4da3ff; }
-      .proof-header p { color: rgba(255,255,255,0.5); font-size: 16px; margin-top: 10px; }
+      .proof-header .section-eyebrow {
+        color: rgba(160, 210, 255, 0.7);
+      }
+      .proof-header .section-h {
+        color: #fff;
+      }
+      .proof-header .section-h .accent {
+        color: #4da3ff;
+      }
+      .proof-header p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 16px;
+        margin-top: 10px;
+      }
 
       /* Review grid */
       .proof-reviews-label {
-        font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-        text-transform: uppercase; color: #4da3ff; margin-bottom: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #4da3ff;
+        margin-bottom: 20px;
       }
       .proof-reviews-grid {
         columns: 5;
         column-gap: 12px;
         margin-bottom: 64px;
       }
-      @media (max-width: 1100px) { .proof-reviews-grid { columns: 4; } }
-      @media (max-width: 800px)  { .proof-reviews-grid { columns: 3; } }
-      @media (max-width: 600px)  { .proof-reviews-grid { columns: 2; } }
+      @media (max-width: 1100px) {
+        .proof-reviews-grid {
+          columns: 4;
+        }
+      }
+      @media (max-width: 800px) {
+        .proof-reviews-grid {
+          columns: 3;
+        }
+      }
+      @media (max-width: 600px) {
+        .proof-reviews-grid {
+          columns: 2;
+        }
+      }
       .proof-reviews-grid img {
-        width: 100%; height: auto; display: block;
-        border-radius: 12px; margin-bottom: 12px;
-        border: 1px solid rgba(255,255,255,0.07);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         break-inside: avoid;
       }
 
       /* Live widget */
       .proof-widget-wrap {
-        max-width: 1100px; margin: 0 auto 64px;
-        background: #fff; border-radius: 20px;
-        overflow-x: auto; overflow-y: hidden;
-        box-shadow: 0 4px 32px rgba(0,0,0,0.35);
-        border: 1px solid rgba(255,255,255,0.08);
-        padding: 8px; cursor: grab;
+        max-width: 1100px;
+        margin: 0 auto 64px;
+        background: #fff;
+        border-radius: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px;
+        cursor: grab;
         -webkit-overflow-scrolling: touch;
       }
-      .proof-widget-wrap.is-grabbing { cursor: grabbing; user-select: none; }
-      .proof-widget-hint {
-        text-align: center; margin-top: 12px; margin-bottom: 56px;
-        font-size: 12px; font-weight: 600; letter-spacing: 0.07em;
-        color: rgba(255,255,255,0.25);
+      .proof-widget-wrap.is-grabbing {
+        cursor: grabbing;
+        user-select: none;
       }
-      .lc_reviews_widget { display: block; width: 100%; border: none; }
+      .proof-widget-hint {
+        text-align: center;
+        margin-top: 12px;
+        margin-bottom: 56px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        color: rgba(255, 255, 255, 0.25);
+      }
+      .lc_reviews_widget {
+        display: block;
+        width: 100%;
+        border: none;
+      }
 
       /* Video testimonials grid */
       .proof-vids-label {
-        font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-        text-transform: uppercase; color: #4da3ff; margin-bottom: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #4da3ff;
+        margin-bottom: 20px;
       }
       .proof-video-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
       }
-      @media (max-width: 900px) { .proof-video-grid { grid-template-columns: repeat(2, 1fr); } }
-      @media (max-width: 540px) { .proof-video-grid { grid-template-columns: 1fr; } }
-      .video-card-wrap {
-        border-radius: 16px; overflow: hidden;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-        border: 1px solid rgba(255,255,255,0.07);
-        transition: transform 0.2s, box-shadow 0.2s;
-        background: #111827;
-        display: flex; flex-direction: column;
+      @media (max-width: 900px) {
+        .proof-video-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
-      .video-card-wrap:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+      @media (max-width: 540px) {
+        .proof-video-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .video-card-wrap {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        background: #111827;
+        display: flex;
+        flex-direction: column;
+      }
+      .video-card-wrap:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
       .vc-result {
         padding: 16px 18px 18px;
         background: #111827;
-        border-top: 1px solid rgba(255,255,255,0.07);
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
       }
-      .vc-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+      .vc-bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
       .vc-bullets li {
-        font-size: 13px; font-weight: 500;
-        color: rgba(255,255,255,0.65); line-height: 1.4;
-        display: flex; align-items: flex-start; gap: 7px;
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.4;
+        display: flex;
+        align-items: flex-start;
+        gap: 7px;
       }
-      .vc-bullets li::before { content: "✓"; color: #4da3ff; font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
-      .vc-bullets li strong { color: rgba(255,255,255,0.9); }
+      .vc-bullets li::before {
+        content: "✓";
+        color: #4da3ff;
+        font-weight: 700;
+        font-size: 12px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .vc-bullets li strong {
+        color: rgba(255, 255, 255, 0.9);
+      }
       .guarantee {
         background: url("images/guarantee-bg.png") center center / cover
           no-repeat;
@@ -2014,7 +2475,7 @@
         align-items: center;
         gap: 8px;
         background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.25);
+        border: 1px solid rgba(255, 200, 50, 0.5);
         border-radius: 100px;
         padding: 8px 20px;
         font-size: 12px;
@@ -2031,6 +2492,7 @@
         line-height: 1.1;
         margin-bottom: 20px;
         letter-spacing: -0.02em;
+        text-shadow: 0 2px 32px rgba(0, 0, 0, 0.4);
       }
       .guarantee-p {
         font-size: 17px;
@@ -2080,16 +2542,9 @@
         line-height: 1.55;
       }
       /* Gold accents for guarantee */
-      .guarantee-pill {
-        border-color: rgba(255, 200, 50, 0.5) !important;
-      }
       .guarantee-pill svg {
         stroke: #ffc832;
       }
-      .guarantee-h {
-        text-shadow: 0 2px 32px rgba(0, 0, 0, 0.4);
-      }
-
       /* ── FAQ, BLUE GRADIENT BACKGROUND ─────────── */
       .faq {
         background: linear-gradient(
@@ -2802,6 +3257,7 @@
             >
               <!-- Result 1: competitor getting clicked -->
               <div class="gmock-result competitor-1">
+                <div class="competitor-label">Your Competitor</div>
                 <div class="gmock-result-url">
                   aquaacademy.com · ★★★★★ 143 reviews
                 </div>
@@ -2827,6 +3283,7 @@
               </div>
               <!-- Result 2 -->
               <div class="gmock-result competitor-2">
+                <div class="competitor-label">Your Competitor</div>
                 <div class="gmock-result-url">
                   cityswimschool.com · ★★★★ 91 reviews
                 </div>
@@ -3121,7 +3578,9 @@
     <!-- ══════════════════════════════════════════ STEP 02 DIVIDER -->
     <div class="fix-divider-wrap">
       <div class="fix-divider anim">
-        <p class="fix-divider-text">Once everything is converting efficiently — <span>Step 02:</span> we run extremely profitable Google Ads.</p>
+        <p class="fix-divider-text">
+          Once everything is <span>converting efficiently.</span>
+        </p>
       </div>
     </div>
 
@@ -3155,7 +3614,10 @@
               margin-bottom: 20px;
             "
           >
-            Once you're positioned as the obvious choice and you have systems that convert properly, we will run extremely profitable Google Ads so you get the highest quality leads that are already looking for your service and have already mentally purchased.
+            Once you're positioned as the obvious choice and you have systems
+            that convert properly, we will run extremely profitable Google Ads
+            so you get the highest quality leads that are already looking for
+            your service and have already mentally purchased.
             <strong>They just need the last push to go for you.</strong>
           </p>
           <ul class="bullet-list">
@@ -3234,24 +3696,50 @@
               <div class="roi-calc">
                 <div class="roi-row roi-row-1">
                   <span class="roi-label">Ad spend per client</span>
-                  <span class="roi-value roi-cost" data-val="120" data-prefix="− $"><span class="roi-typed"></span></span>
+                  <span
+                    class="roi-value roi-cost"
+                    data-val="120"
+                    data-prefix="− $"
+                    ><span class="roi-typed"></span
+                  ></span>
                 </div>
                 <div class="roi-divider roi-div-1"></div>
                 <div class="roi-row roi-row-2">
                   <span class="roi-label">Avg. job value</span>
-                  <span class="roi-value roi-rev" data-val="2800" data-prefix="$"><span class="roi-typed"></span></span>
+                  <span
+                    class="roi-value roi-rev"
+                    data-val="2800"
+                    data-prefix="$"
+                    ><span class="roi-typed"></span
+                  ></span>
                 </div>
                 <div class="roi-divider roi-div-2"></div>
                 <div class="roi-row roi-row-3">
                   <span class="roi-label">Gross profit per client</span>
-                  <span class="roi-value roi-profit" data-val="2680" data-prefix="$"><span class="roi-typed"></span> <span class="roi-check" style="opacity:0;transition:opacity 0.2s">✓</span></span>
+                  <span
+                    class="roi-value roi-profit"
+                    data-val="2680"
+                    data-prefix="$"
+                    ><span class="roi-typed"></span>
+                    <span
+                      class="roi-check"
+                      style="opacity: 0; transition: opacity 0.2s"
+                      >✓</span
+                    ></span
+                  >
                 </div>
                 <div class="roi-multiplier roi-row-4">
                   <span class="roi-mult-label">× 14 clients this month</span>
                 </div>
                 <div class="roi-result roi-row-5">
                   <span class="roi-result-label">New Revenue</span>
-                  <span class="roi-result-num" id="roi-num" data-val="37520" data-prefix="$"><span class="roi-typed"></span></span>
+                  <span
+                    class="roi-result-num"
+                    id="roi-num"
+                    data-val="37520"
+                    data-prefix="$"
+                    ><span class="roi-typed"></span
+                  ></span>
                 </div>
               </div>
             </div>
@@ -3269,7 +3757,7 @@
         </div>
         <div class="adspend-strip-copy">
           <div class="adspend-strip-stat">
-            $2,000,000<span class="adspend-strip-plus">+</span>
+            $2,210,000<span class="adspend-strip-plus">+</span>
           </div>
           <div class="adspend-strip-label">
             in Google Ads spend managed in 2025 alone
@@ -3286,16 +3774,20 @@
 
     <!-- ══════════════════════════════════════════ CASE STUDY -->
     <section class="case-study-section">
-        <div class="case-study-header" style="max-width:100%;text-align:center;padding:0 40px 52px;">
-          <div class="section-eyebrow anim">Proof of Concept</div>
-          <h2 class="section-h anim d2" style="font-size:clamp(32px,5vw,72px);max-width:100%;">
-            Sounds too good to be true?<br />
-            <span class="accent">Watch what our client has to say.</span>
-          </h2>
-        </div>
       <div class="case-study-inner">
+        <div class="case-study-card anim">
+          <div class="case-study-card-header">
+            <div class="section-eyebrow anim">Proof of Concept</div>
+            <h2
+              class="section-h anim d2"
+              style="font-size: clamp(28px, 3.6vw, 52px); max-width: 100%; margin-bottom: 0"
+            >
+              Sounds too good to be true?<br />
+              <span class="accent">Watch what our client has to say.</span>
+            </h2>
+          </div>
 
-        <div class="case-study-grid anim d4">
+          <div class="case-study-card-body">
           <!-- Video with native controls, seeks to 2:06 on load -->
           <div class="case-study-video-col">
             <div class="vp" id="cs-vp">
@@ -3449,6 +3941,106 @@
               />
             </div>
           </div>
+          </div><!-- /case-study-card-body -->
+        </div><!-- /case-study-card -->
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ CALCULATOR -->
+    <section class="calc-section">
+      <div class="calc-inner">
+        <div class="calc-header anim">
+          <div class="section-eyebrow-white">The Cost of Waiting</div>
+          <h2 class="calc-h">
+            What is doing nothing<br /><span class="accent"
+              >actually costing you?</span
+            >
+          </h2>
+          <p class="calc-sub">Fill in your numbers. Most people are shocked.</p>
+        </div>
+
+        <div class="calc-inputs anim d2">
+          <div class="calc-card">
+            <div class="calc-step-badge">1</div>
+            <div class="calc-card-content">
+              <div class="calc-label">What's your average client value per month?</div>
+              <div class="calc-input-row">
+                <span class="calc-prefix">$</span>
+                <input
+                  class="calc-number"
+                  id="calc-value"
+                  type="number"
+                  value="1000"
+                  min="100"
+                  max="50000"
+                  step="100"
+                />
+              </div>
+              <div class="calc-hint">What one client pays you on average each month</div>
+              <div class="calc-slider-row">
+                <input
+                  class="calc-slider"
+                  id="calc-value-slider"
+                  type="range"
+                  min="100"
+                  max="20000"
+                  step="100"
+                  value="1000"
+                />
+                <span class="calc-slider-val" id="calc-value-display">$1,000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-card">
+            <div class="calc-step-badge">2</div>
+            <div class="calc-card-content">
+              <div class="calc-label">How many new clients could you take per month?</div>
+              <div class="calc-input-row">
+                <input
+                  class="calc-number"
+                  id="calc-clients"
+                  type="number"
+                  value="5"
+                  min="1"
+                  max="100"
+                  step="1"
+                />
+              </div>
+              <div class="calc-hint">Be conservative — this is how many slots you actually have</div>
+              <div class="calc-slider-row">
+                <input
+                  class="calc-slider"
+                  id="calc-clients-slider"
+                  type="range"
+                  min="1"
+                  max="50"
+                  step="1"
+                  value="5"
+                />
+                <span class="calc-slider-val" id="calc-clients-display">5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-arrow-down anim d3">↓</div>
+
+        <div class="calc-result anim d3">
+          <span class="calc-result-icon">🩸</span>
+          <div class="calc-result-label">You're bleeding every month</div>
+          <div class="calc-result-num" id="calc-monthly">$5,000</div>
+          <div class="calc-result-sub">
+            in missed revenue — every single month you wait
+          </div>
+          <div class="calc-result-annual" id="calc-annual">$60,000 per year</div>
+          <span class="calc-result-daily" id="calc-daily">That's $167 per day walking out the door.</span>
+          <button
+            class="calc-cta"
+            onclick="openModal()"
+          >
+            Stop leaving money on the table &rarr;
+          </button>
         </div>
       </div>
     </section>
@@ -3464,7 +4056,10 @@
             <span class="accent">The proven team in the sweet spot.</span>
           </h2>
           <p class="diff-subtext">
-            Most agencies hand you off to a junior rep overseas and charge $10k a month for it. Most freelancers figure out half the job on your dime. We sit right in the middle: certified, award-winning, and proven across 200+ businesses.
+            Most agencies hand you off to a junior rep overseas and charge $10k
+            a month for it. Most freelancers figure out half the job on your
+            dime. We sit right in the middle: certified, award-winning, and
+            proven across 200+ businesses.
           </p>
         </div>
 
@@ -3635,8 +4230,35 @@
           </div>
         </div>
 
-        <!-- Closing copy -->
-        <div class="diff-closing anim d4">
+        <!-- Photos + closing copy -->
+        <div class="diff-bottom anim d4">
+          <div class="diff-photos">
+            <img
+              class="diff-photo"
+              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
+              alt="Nils Digital GoHighLevel 200 clients award"
+              loading="lazy"
+            />
+            <img
+              class="diff-photo"
+              src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg"
+              alt="Nils Digital award plaque"
+              loading="lazy"
+            />
+            <img
+              class="diff-photo"
+              src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg"
+              alt="Nils in Times Square"
+              loading="lazy"
+            />
+            <img
+              class="diff-photo"
+              src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg"
+              alt="Nils presenting on stage"
+              loading="lazy"
+            />
+          </div>
+          <div class="diff-closing">
             <div class="diff-closing-eyebrow">Our Promise to You</div>
             <h3 class="diff-closing-h">
               This is the easiest way forward you'll find.
@@ -3657,35 +4279,8 @@
               proven track record, and a team that actually cares at a rate that
               makes the math easy."
             </div>
+          </div>
         </div>
-      </div>
-
-      <!-- Photos strip — full bleed, 4 across -->
-      <div class="diff-photos-strip anim">
-        <img
-          class="diff-photo"
-          src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
-          alt="Nils Digital GoHighLevel 200 clients award"
-          loading="lazy"
-        />
-        <img
-          class="diff-photo"
-          src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg"
-          alt="Nils Digital award plaque"
-          loading="lazy"
-        />
-        <img
-          class="diff-photo"
-          src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg"
-          alt="Nils featured as consultant in Times Square"
-          loading="lazy"
-        />
-        <img
-          class="diff-photo"
-          src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg"
-          alt="Nils presenting on stage"
-          loading="lazy"
-        />
       </div>
     </section>
 
@@ -3694,34 +4289,117 @@
       <div class="proof-inner">
         <div class="proof-header anim">
           <div class="section-eyebrow">Real Results</div>
-          <h2 class="section-h">If you don't think this works,<br><span class="accent">here's the proof.</span></h2>
-          <p>100+ clients. Real reviews. Real testimonials. See for yourself.</p>
+          <h2 class="section-h">
+            If you don't think this works,<br /><span class="accent"
+              >here's the proof.</span
+            >
+          </h2>
+          <p>
+            100+ clients. Real reviews. Real testimonials. See for yourself.
+          </p>
         </div>
 
         <div class="proof-reviews-label anim">Client Reviews</div>
         <div class="proof-reviews-grid anim d2">
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c0630eb845b14a16b21.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d662eb392bf8196989f8.jpg" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c087fda7a317126b76a.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6945d3e58cae8f8306fd5fc6.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a16bb55008b8278fa27d7.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d5760439b6be373540aef.jpg" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c4c956b851de2642b59.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a17a6fd6d7301db3b9fb0.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c055a423066f369ef9f.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c59956b856761642c56.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c37a29dcf5e749662cd0.jpg" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ab8a671d50761fd7259d.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85be27fda7a410926b4d3.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ae3679fc96d264deccf7.png" alt="5-star review" loading="lazy"/>
-          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c41956b859202642a95.png" alt="5-star review" loading="lazy"/>
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c0630eb845b14a16b21.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d662eb392bf8196989f8.jpg"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c087fda7a317126b76a.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6945d3e58cae8f8306fd5fc6.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a16bb55008b8278fa27d7.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d5760439b6be373540aef.jpg"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c4c956b851de2642b59.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a17a6fd6d7301db3b9fb0.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c055a423066f369ef9f.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c59956b856761642c56.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c37a29dcf5e749662cd0.jpg"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ab8a671d50761fd7259d.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85be27fda7a410926b4d3.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ae3679fc96d264deccf7.png"
+            alt="5-star review"
+            loading="lazy"
+          />
+          <img
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c41956b859202642a95.png"
+            alt="5-star review"
+            loading="lazy"
+          />
         </div>
 
         <div class="proof-widget-wrap anim" id="proofWidgetScroll">
-          <script type="text/javascript" src="https://reputationhub.site/reputation/assets/review-widget.js"></script>
-          <iframe class="lc_reviews_widget" src="https://reputationhq.site/reputation/widgets/review_widget/stoLOEGDIvEDY3xQI4B8?widgetId=699ddb090e54c474af0c8a01" frameborder="0" scrolling="no" style="min-width:100%;width:100%"></iframe>
+          <script
+            type="text/javascript"
+            src="https://reputationhub.site/reputation/assets/review-widget.js"
+          ></script>
+          <iframe
+            class="lc_reviews_widget"
+            src="https://reputationhq.site/reputation/widgets/review_widget/stoLOEGDIvEDY3xQI4B8?widgetId=699ddb090e54c474af0c8a01"
+            frameborder="0"
+            scrolling="no"
+            style="min-width: 100%; width: 100%"
+          ></iframe>
         </div>
         <p class="proof-widget-hint">Press "Load More" to read more reviews</p>
 
@@ -3729,24 +4407,80 @@
         <div class="proof-video-grid">
           <div class="video-card-wrap anim d1">
             <div class="vp">
-              <video playsinline preload="metadata" data-start="31"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e41a23401cc3.mp4#t=0.001" type="video/mp4"/></video>
-              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <video playsinline preload="metadata" data-start="31">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e41a23401cc3.mp4#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
               <div class="vp-bar">
                 <div class="vp-seek"><div class="vp-seek-fill"></div></div>
                 <div class="vp-row">
-                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
-                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-play-btn">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00</span
+                  ><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
                   <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                  <button class="vp-btn vp-fs-btn">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
             <div class="vc-result">
               <ul class="vc-bullets">
-                <li>Built email list from scratch &amp; created coach email campaigns</li>
-                <li><strong>Helped monetize an existing following into real revenue</strong></li>
-                <li><strong>Set up CRM for both online &amp; physical business</strong></li>
+                <li>
+                  Built email list from scratch &amp; created coach email
+                  campaigns
+                </li>
+                <li>
+                  <strong
+                    >Helped monetize an existing following into real
+                    revenue</strong
+                  >
+                </li>
+                <li>
+                  <strong
+                    >Set up CRM for both online &amp; physical business</strong
+                  >
+                </li>
                 <li>Extremely affordable, huge return on investment</li>
               </ul>
             </div>
@@ -3754,16 +4488,60 @@
 
           <div class="video-card-wrap anim d2">
             <div class="vp">
-              <video playsinline preload="metadata" data-start="94"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2837e8f26631ae1d.mov#t=0.001" type="video/mp4"/></video>
-              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <video playsinline preload="metadata" data-start="94">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2837e8f26631ae1d.mov#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
               <div class="vp-bar">
                 <div class="vp-seek"><div class="vp-seek-fill"></div></div>
                 <div class="vp-row">
-                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
-                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-play-btn">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00</span
+                  ><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
                   <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                  <button class="vp-btn vp-fs-btn">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -3771,49 +4549,152 @@
               <ul class="vc-bullets">
                 <li>Replaced 150 individual messages with 1 automated blast</li>
                 <li>Unified all contacts into a single platform</li>
-                <li>Automated appointment reminders &amp; slot notifications</li>
-                <li><strong>Streamlined client onboarding end-to-end</strong></li>
+                <li>
+                  Automated appointment reminders &amp; slot notifications
+                </li>
+                <li>
+                  <strong>Streamlined client onboarding end-to-end</strong>
+                </li>
               </ul>
             </div>
           </div>
 
           <div class="video-card-wrap anim d3">
             <div class="vp">
-              <video playsinline preload="metadata" data-start="1"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4#t=0.001" type="video/mp4"/></video>
-              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <video playsinline preload="metadata" data-start="1">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
               <div class="vp-bar">
                 <div class="vp-seek"><div class="vp-seek-fill"></div></div>
                 <div class="vp-row">
-                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
-                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-play-btn">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00</span
+                  ><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
                   <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                  <button class="vp-btn vp-fs-btn">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
             <div class="vc-result">
               <ul class="vc-bullets">
                 <li>Website exceeded all expectations</li>
-                <li>Previous agency took months &amp; just copied existing content</li>
-                <li><strong>"Best decision we could have made for our company"</strong></li>
-                <li><strong>Fast, attentive, and genuinely invested in the business</strong></li>
+                <li>
+                  Previous agency took months &amp; just copied existing content
+                </li>
+                <li>
+                  <strong
+                    >"Best decision we could have made for our company"</strong
+                  >
+                </li>
+                <li>
+                  <strong
+                    >Fast, attentive, and genuinely invested in the
+                    business</strong
+                  >
+                </li>
               </ul>
             </div>
           </div>
 
           <div class="video-card-wrap anim d1">
             <div class="vp">
-              <video playsinline preload="metadata" data-start="28"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e4081f401cc4.mp4#t=0.001" type="video/mp4"/></video>
-              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <video playsinline preload="metadata" data-start="28">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e4081f401cc4.mp4#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
               <div class="vp-bar">
                 <div class="vp-seek"><div class="vp-seek-fill"></div></div>
                 <div class="vp-row">
-                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
-                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-play-btn">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00</span
+                  ><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
                   <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                  <button class="vp-btn vp-fs-btn">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -3821,7 +4702,12 @@
               <ul class="vc-bullets">
                 <li>Built full CRM database from the ground up</li>
                 <li>System works perfectly, "exactly what I wanted"</li>
-                <li><strong>Made complex tech simple for a non-tech business owner</strong></li>
+                <li>
+                  <strong
+                    >Made complex tech simple for a non-tech business
+                    owner</strong
+                  >
+                </li>
                 <li>Patient, thorough, goes above and beyond</li>
               </ul>
             </div>
@@ -3829,55 +4715,162 @@
 
           <div class="video-card-wrap anim d2">
             <div class="vp">
-              <video playsinline preload="metadata" data-start="37"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699bb11b480c4fd4ef95cd91.mov#t=0.001" type="video/mp4"/></video>
-              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <video playsinline preload="metadata" data-start="37">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699bb11b480c4fd4ef95cd91.mov#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
               <div class="vp-bar">
                 <div class="vp-seek"><div class="vp-seek-fill"></div></div>
                 <div class="vp-row">
-                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
-                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-play-btn">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00</span
+                  ><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
                   <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                  <button class="vp-btn vp-fs-btn">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
             <div class="vc-result">
               <ul class="vc-bullets">
                 <li>Website built &amp; live in just a few days</li>
-                <li><strong>Eliminated years of manual heavy lifting overnight</strong></li>
-                <li><strong>Streamlined &amp; optimized entire business operations</strong></li>
-                <li><strong>Immediate response to every request, nothing falls through</strong></li>
+                <li>
+                  <strong
+                    >Eliminated years of manual heavy lifting overnight</strong
+                  >
+                </li>
+                <li>
+                  <strong
+                    >Streamlined &amp; optimized entire business
+                    operations</strong
+                  >
+                </li>
+                <li>
+                  <strong
+                    >Immediate response to every request, nothing falls
+                    through</strong
+                  >
+                </li>
               </ul>
             </div>
           </div>
 
           <div class="video-card-wrap anim d3">
             <div class="vp">
-              <video playsinline preload="metadata" data-start="43"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6998d8f4df9bdf0b337051ed.mov#t=0.001" type="video/mp4"/></video>
-              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <video playsinline preload="metadata" data-start="43">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6998d8f4df9bdf0b337051ed.mov#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
               <div class="vp-bar">
                 <div class="vp-seek"><div class="vp-seek-fill"></div></div>
                 <div class="vp-row">
-                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
-                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-play-btn">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00</span
+                  ><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
                   <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                  <button class="vp-btn vp-fs-btn">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
             <div class="vc-result">
               <ul class="vc-bullets">
                 <li>Website updated to rank in Google's eyes</li>
-                <li>Customer reviews fully automated, no more manual posting</li>
-                <li><strong>Freed up hours of wasted time every week</strong></li>
-                <li><strong>"Now I can focus on revenue-generating tasks"</strong></li>
+                <li>
+                  Customer reviews fully automated, no more manual posting
+                </li>
+                <li>
+                  <strong>Freed up hours of wasted time every week</strong>
+                </li>
+                <li>
+                  <strong>"Now I can focus on revenue-generating tasks"</strong>
+                </li>
               </ul>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -4517,6 +5510,49 @@
         });
       });
 
+      /* ── OPPORTUNITY CALCULATOR ─────────────── */
+      (function () {
+        function fmt(n) {
+          return "$" + Math.round(n).toLocaleString("en-US");
+        }
+        function update() {
+          const val = Math.max(
+            0,
+            parseFloat(document.getElementById("calc-value").value) || 0,
+          );
+          const clients = Math.max(
+            0,
+            parseFloat(document.getElementById("calc-clients").value) || 0,
+          );
+          const monthly = val * clients;
+          const annual = monthly * 12;
+          const daily = Math.round(monthly / 30);
+          document.getElementById("calc-monthly").textContent = fmt(monthly);
+          document.getElementById("calc-annual").textContent =
+            fmt(annual) + " per year";
+          document.getElementById("calc-daily").textContent =
+            "That's " + fmt(daily) + " per day walking out the door.";
+          document.getElementById("calc-value-slider").value = val;
+          document.getElementById("calc-clients-slider").value = clients;
+          document.getElementById("calc-value-display").textContent = fmt(val);
+          document.getElementById("calc-clients-display").textContent = clients;
+        }
+        function syncSlider(inputId, sliderId) {
+          document
+            .getElementById(sliderId)
+            .addEventListener("input", function () {
+              document.getElementById(inputId).value = this.value;
+              update();
+            });
+          document.getElementById(inputId).addEventListener("input", update);
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+          syncSlider("calc-value", "calc-value-slider");
+          syncSlider("calc-clients", "calc-clients-slider");
+          update();
+        });
+      })();
+
       /* ── VIDEO PLAYER ───────────────────────── */
       function playVid(card) {
         const v = card.querySelector("video");
@@ -4684,8 +5720,8 @@
           else if (i === prev) s.classList.add("fs-prev");
           else if (i === next) s.classList.add("fs-next");
         });
-        document.getElementById("f-counter").textContent =
-          fIdx + " / " + (fTotal - 1);
+        const fCounter = document.getElementById("f-counter");
+        if (fCounter) fCounter.textContent = fIdx + " / " + (fTotal - 1);
       }
 
       function fNext() {
@@ -4702,24 +5738,27 @@
       // Touch/swipe support
       let fTouchX = null;
       const fTrack = document.getElementById("ftrack");
-      fTrack.addEventListener(
-        "touchstart",
-        (e) => {
-          fTouchX = e.touches[0].clientX;
-        },
-        { passive: true },
-      );
-      fTrack.addEventListener("touchend", (e) => {
-        if (fTouchX === null) return;
-        const dx = e.changedTouches[0].clientX - fTouchX;
-        if (Math.abs(dx) > 40) {
-          dx < 0 ? fNext() : fPrev();
-        }
-        fTouchX = null;
-      });
+      if (fTrack) {
+        fTrack.addEventListener(
+          "touchstart",
+          (e) => {
+            fTouchX = e.touches[0].clientX;
+          },
+          { passive: true },
+        );
+        fTrack.addEventListener("touchend", (e) => {
+          if (fTouchX === null) return;
+          const dx = e.changedTouches[0].clientX - fTouchX;
+          if (Math.abs(dx) > 40) {
+            dx < 0 ? fNext() : fPrev();
+          }
+          fTouchX = null;
+        });
+      }
 
       // Init counter
-      document.getElementById("f-counter").textContent = "1 / " + (fTotal - 1);
+      const fCounterEl = document.getElementById("f-counter");
+      if (fCounterEl) fCounterEl.textContent = "1 / " + (fTotal - 1);
 
       /* ── MODAL ──────────────────────────────── */
       function openModal() {
@@ -4907,10 +5946,7 @@
             let left = r.left + r.width / 2 - tipW / 2;
             // clamp to viewport
             left = Math.max(8, Math.min(left, window.innerWidth - tipW - 8));
-            const top = r.top - 8; // will be shifted up by transform
             tip.style.left = left + "px";
-            tip.style.top =
-              r.top + window.scrollY - tip.offsetHeight - 16 + "px";
             // use fixed positioning so no scroll offset needed
             tip.style.top = r.top - 16 + "px";
             tip.style.transform = "translateY(-100%)";
@@ -4922,77 +5958,93 @@
         });
       })();
     </script>
-  
-  <!-- ROI Calculator Fast Typewriter Animation -->
-  <script>
-  (function(){
-    function animateROI(calc){
-      if(calc.dataset.roiDone) return;
-      calc.dataset.roiDone = '1';
 
-      const rows = calc.querySelectorAll('.roi-row, .roi-divider');
-      const VALUES = [
-        { el: calc.querySelector('.roi-cost .roi-typed'),   val: 120,   prefix: '− 
-</html>
-, suffix: '' },
-        { el: calc.querySelector('.roi-rev .roi-typed'),    val: 2800,  prefix: '
-</html>
-,   suffix: '' },
-        { el: calc.querySelector('.roi-profit .roi-typed'), val: 2680,  prefix: '
-</html>
-,   suffix: '' },
-        { el: calc.querySelector('#roi-num .roi-typed'),    val: 37520, prefix: '
-</html>
-,   suffix: '' },
-      ];
+    <!-- ROI Calculator Fast Typewriter Animation -->
+    <script>
+      (function () {
+        function animateROI(calc) {
+          if (calc.dataset.roiDone) return;
+          calc.dataset.roiDone = "1";
 
-      // Cascade rows in fast
-      rows.forEach((r, i) => {
-        setTimeout(() => {
-          r.style.opacity = '1';
-          r.style.transform = 'translateY(0)';
-        }, i * 80);
-      });
+          const rows = calc.querySelectorAll(".roi-row, .roi-divider");
+          const VALUES = [
+            {
+              el: calc.querySelector(".roi-cost .roi-typed"),
+              val: 120,
+              prefix: "− $",
+              suffix: "",
+            },
+            {
+              el: calc.querySelector(".roi-rev .roi-typed"),
+              val: 2800,
+              prefix: "$",
+              suffix: "",
+            },
+            {
+              el: calc.querySelector(".roi-profit .roi-typed"),
+              val: 2680,
+              prefix: "$",
+              suffix: "",
+            },
+            {
+              el: calc.querySelector("#roi-num .roi-typed"),
+              val: 37520,
+              prefix: "$",
+              suffix: "",
+            },
+          ];
 
-      // Fast count-up for each value
-      VALUES.forEach((v, i) => {
-        if(!v.el) return;
-        const delay = i * 120 + 60;
-        const duration = 380; // ms total
-        const steps = 22;
-        const interval = duration / steps;
-        let step = 0;
-        setTimeout(() => {
-          const t = setInterval(() => {
-            step++;
-            const progress = step / steps;
-            // ease-out: fast start, slow end
-            const eased = 1 - Math.pow(1 - progress, 2);
-            const current = Math.round(eased * v.val);
-            v.el.textContent = v.prefix + current.toLocaleString();
-            if(step >= steps){
-              clearInterval(t);
-              v.el.textContent = v.prefix + v.val.toLocaleString();
-              // Show checkmark after profit value lands
-              if(i === 2){
-                const chk = calc.querySelector('.roi-profit .roi-check');
-                if(chk) setTimeout(() => chk.style.opacity = '1', 80);
-              }
-            }
-          }, interval);
-        }, delay);
-      });
-    }
+          // Cascade rows in fast
+          rows.forEach((r, i) => {
+            setTimeout(() => {
+              r.style.opacity = "1";
+              r.style.transform = "translateY(0)";
+            }, i * 80);
+          });
 
-    const calc = document.querySelector('.roi-calc');
-    if(!calc) return;
+          // Fast count-up for each value
+          VALUES.forEach((v, i) => {
+            if (!v.el) return;
+            const delay = i * 120 + 60;
+            const duration = 380; // ms total
+            const steps = 22;
+            const interval = duration / steps;
+            let step = 0;
+            setTimeout(() => {
+              const t = setInterval(() => {
+                step++;
+                const progress = step / steps;
+                // ease-out: fast start, slow end
+                const eased = 1 - Math.pow(1 - progress, 2);
+                const current = Math.round(eased * v.val);
+                v.el.textContent = v.prefix + current.toLocaleString();
+                if (step >= steps) {
+                  clearInterval(t);
+                  v.el.textContent = v.prefix + v.val.toLocaleString();
+                  // Show checkmark after profit value lands
+                  if (i === 2) {
+                    const chk = calc.querySelector(".roi-profit .roi-check");
+                    if (chk) setTimeout(() => (chk.style.opacity = "1"), 80);
+                  }
+                }
+              }, interval);
+            }, delay);
+          });
+        }
 
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if(e.isIntersecting) animateROI(calc); });
-    }, { threshold: 0.4 });
-    obs.observe(calc);
-  })();
-  </script>
+        const calc = document.querySelector(".roi-calc");
+        if (!calc) return;
 
-</body>
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) animateROI(calc);
+            });
+          },
+          { threshold: 0.4 },
+        );
+        obs.observe(calc);
+      })();
+    </script>
+  </body>
 </html>

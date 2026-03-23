@@ -58,6 +58,7 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 
 | Command | Description |
 |---|---|
+| `/build-funnel` | **Full pipeline** — project manager coordinates the entire team end-to-end automatically |
 | `/ghl-embed` | Wraps a GitHub Pages URL in the full GHL iframe embed code |
 | `/research-client` | Scrapes a client's website — returns structured context report for richer copy |
 | `/write-copy` | Writes copy in the exact voice + structure of our best funnels (Charles, Wendy, Becca, Ignacio, Kimberely) |
@@ -69,7 +70,10 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | `/design-review` | Art director pass — audits every image, replaces bad ones, loops until premium |
 | `/upload-to-ghl` | Uploads images from `uploads/` to GHL media library, returns CDN URLs |
 | `/seo-optimize` | Meta tags, heading hierarchy, alt text, structured data, page speed signals |
+| `/qa-check` | Visual QA loop — screenshots the page, identifies issues, fixes them, loops until clean |
 | `/qa-master` | **Final check** — runs ALL 8 audit categories (copy, structure, visual, SVG, animations, SEO, code, mobile). Fixes everything. Returns "READY FOR CLIENT" report. |
+| `/live-test` | Simulates a real user on desktop + mobile — clicks, scrolls, screenshots every key state |
+| `/critique` | CRO + UX + copy review — scores the page, identifies missed opportunities, fixes priority issues |
 
 ## Recommended Funnel Workflow
 
