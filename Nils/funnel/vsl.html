@@ -137,61 +137,71 @@
     .hero-sub-grid .sub-full { grid-column: 1 / -1; }
 
     /* Fire badge — "4x more clients" white pill */
+    /* ── 4x badge ────────────────────────────────── */
     .fire-badge {
       display: inline-flex; align-items: center; gap: 3px;
       background: #fff; color: var(--blue); font-weight: 700;
       padding: 5px 14px; border-radius: 9px; position: relative; cursor: default;
-      white-space: nowrap; animation: fire-pulse 2.5s ease-in-out infinite;
-      font-size: inherit; line-height: 1.1;
+      white-space: nowrap; font-size: inherit; line-height: 1.1;
     }
-    @keyframes fire-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4), 0 0 18px 2px rgba(255,255,255,0.15); }
-      50%       { box-shadow: 0 0 0 10px rgba(255,255,255,0), 0 0 36px 10px rgba(255,255,255,0.30); }
-    }
-    .fire-badge sup { font-size: 0.55em; opacity: 0.8; vertical-align: super; }
-    .fire-badge::after {
-      content: attr(data-tooltip);
-      position: absolute; bottom: calc(100% + 14px); left: 50%; transform: translateX(-50%);
-      background: #0a0a0a; color: #fff; font-size: 14px; font-weight: 500; line-height: 1.6;
-      padding: 16px 22px; border-radius: 12px; width: 320px; text-align: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 300;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.5); white-space: normal;
-    }
-    .fire-badge:hover::after { opacity: 1; }
+    .fire-badge sup { font-size: 0.55em; opacity: 0.7; vertical-align: super; }
 
-    /* Fire text — actual flames above the letters */
-    .fire-text {
-      position: relative;
-      display: inline-block;
-      color: #fff;
-      cursor: default;
-    }
-    .fire-text-flame {
+    /* 4x tooltip — custom card */
+    .badge-tip {
+      display: block;
       position: absolute;
-      bottom: 58%;
-      left: -4%;
-      width: 108%;
-      height: 90px;
-      background: linear-gradient(to top,
-        rgba(255, 50,  0, 1.0)  0%,
-        rgba(255, 100, 0, 0.85) 22%,
-        rgba(255, 160, 0, 0.60) 45%,
-        rgba(255, 210, 0, 0.25) 70%,
-        transparent             100%
-      );
-      filter: url(#fire-distort);
-      pointer-events: none;
-      z-index: 2;
+      top: calc(100% + 16px);
+      left: 50%; transform: translateX(-50%) translateY(-6px);
+      width: 300px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.08);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 300;
+      text-align: left;
+      font-style: normal;
     }
-    .fire-text::after {
-      content: attr(data-tooltip);
-      position: absolute; bottom: calc(100% + 70px); left: 50%; transform: translateX(-50%);
-      background: #0a0a0a; color: #fff; font-size: 14px; font-weight: 500; line-height: 1.6;
-      padding: 16px 22px; border-radius: 12px; width: 340px; text-align: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 300;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.5); white-space: normal;
+    .fire-badge:hover .badge-tip,
+    .fire-text:hover .badge-tip {
+      opacity: 1; transform: translateX(-50%) translateY(0);
     }
-    .fire-text:hover::after { opacity: 1; }
+    .badge-tip::before {
+      content: '';
+      position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-bottom-color: #fff;
+    }
+    .badge-tip-stat {
+      display: block;
+      font-family: var(--font-emphasis);
+      font-size: 32px; font-weight: 700;
+      color: var(--blue); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .badge-tip-label {
+      display: block;
+      font-family: var(--font-secondary);
+      font-size: 13px; color: #555; font-weight: 500;
+      margin-bottom: 14px; padding-bottom: 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .badge-tip-body {
+      display: block;
+      font-family: var(--font-secondary);
+      font-size: 12px; color: #666; line-height: 1.55;
+    }
+
+    /* ── "extremely profitable" underline ────────── */
+    .fire-text {
+      position: relative; display: inline-block; color: #fff; cursor: default;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: rgba(255,255,255,0.55);
+      text-underline-offset: 5px;
+    }
+    .fire-text .badge-tip { width: 320px; }
 
     /* Split layout: video | proof */
     .hero-split {
@@ -573,8 +583,8 @@
     <div class="hero-eyebrow anim">For local service businesses ready to take on more clients</div>
 
     <h1 class="hero-h1 anim d1">
-      <span class="h1-line">We'll build you a website that gets <span class="fire-badge" data-tooltip="On average, our clients see a 4x higher conversion rate compared to their previous website within the first 30 days. Individual results may vary.">4x more clients<sup>*</sup></span></span>
-      <span class="h1-line">and run <span class="fire-text" data-tooltip="We've personally managed over $2,000,000 in ad spend. We know exactly what it takes to launch campaigns that are profitable from day one."><span class="fire-text-flame" aria-hidden="true"></span>extremely profitable</span> Google Ads.</span>
+      <span class="h1-line">We'll build you a website that gets <span class="fire-badge">4x more clients<sup>*</sup><span class="badge-tip"><span class="badge-tip-stat">4x</span><span class="badge-tip-label">Average client conversion rate increase</span><span class="badge-tip-body">Our clients typically see 4x more leads from the same traffic within the first 30 days. Based on average results across 100+ local service businesses.</span></span></span></span>
+      <span class="h1-line">and run <span class="fire-text">extremely profitable<span class="badge-tip"><span class="badge-tip-stat">$2M+</span><span class="badge-tip-label">Ad spend managed across all clients</span><span class="badge-tip-body">We've personally managed over $2,000,000 in Google Ads. We know exactly what profitable campaigns look like — and we build them from day one.</span></span></span> Google Ads.</span>
     </h1>
 
     <div class="hero-sub-grid anim d2">
@@ -1183,17 +1193,6 @@ function submitForm(e) {
 }
 </script>
 
-<!-- SVG fire distortion filter -->
-<svg style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true">
-  <defs>
-    <filter id="fire-distort" x="-20%" y="-80%" width="140%" height="260%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.038 0.075" numOctaves="4" seed="3" result="noise">
-        <animate attributeName="seed" from="1" to="30" dur="0.55s" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </defs>
-</svg>
 
 </body>
 </html>
