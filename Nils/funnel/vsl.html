@@ -159,35 +159,37 @@
     }
     .fire-badge:hover::after { opacity: 1; }
 
-    /* Fire text — "extremely profitable" */
+    /* Fire text — actual flames above the letters */
     .fire-text {
-      position: relative; display: inline; cursor: default;
-      color: #ffdd00;
-      animation: flicker 1.8s ease-in-out infinite alternate;
-      text-shadow:
-        0 0 6px #fff,
-        0 0 12px #fff700,
-        0 0 22px #ffa500,
-        0 0 38px #ff4500,
-        0 0 60px #ff2200;
+      position: relative;
+      display: inline-block;
+      color: #fff;
+      cursor: default;
     }
-    @keyframes flicker {
-      0%   { text-shadow: 0 0 6px #fff, 0 0 12px #fff700, 0 0 22px #ffa500, 0 0 38px #ff4500, 0 0 60px #ff2200; opacity: 1; }
-      18%  { text-shadow: 0 0 4px #fff, 0 0 10px #fff700, 0 0 18px #ffa500, 0 0 30px #ff4500, 0 0 45px #ff2200; opacity: 0.92; }
-      35%  { text-shadow: 0 0 8px #fff, 0 0 16px #fff700, 0 0 28px #ffa500, 0 0 48px #ff4500, 0 0 72px #ff2200; opacity: 1; }
-      52%  { text-shadow: 0 0 3px #fff, 0 0 8px #fff700, 0 0 14px #ffa500, 0 0 24px #ff4500, 0 0 38px #ff2200; opacity: 0.88; }
-      70%  { text-shadow: 0 0 7px #fff, 0 0 14px #fff700, 0 0 24px #ffa500, 0 0 42px #ff4500, 0 0 65px #ff2200; opacity: 1; }
-      85%  { text-shadow: 0 0 5px #fff, 0 0 10px #fff700, 0 0 20px #ffa500, 0 0 35px #ff4500, 0 0 52px #ff2200; opacity: 0.95; }
-      100% { text-shadow: 0 0 9px #fff, 0 0 18px #fff700, 0 0 32px #ffa500, 0 0 52px #ff4500, 0 0 80px #ff2200; opacity: 1; }
+    .fire-text-flame {
+      position: absolute;
+      bottom: 58%;
+      left: -4%;
+      width: 108%;
+      height: 90px;
+      background: linear-gradient(to top,
+        rgba(255, 50,  0, 1.0)  0%,
+        rgba(255, 100, 0, 0.85) 22%,
+        rgba(255, 160, 0, 0.60) 45%,
+        rgba(255, 210, 0, 0.25) 70%,
+        transparent             100%
+      );
+      filter: url(#fire-distort);
+      pointer-events: none;
+      z-index: 2;
     }
     .fire-text::after {
       content: attr(data-tooltip);
-      position: absolute; bottom: calc(100% + 14px); left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: calc(100% + 70px); left: 50%; transform: translateX(-50%);
       background: #0a0a0a; color: #fff; font-size: 14px; font-weight: 500; line-height: 1.6;
       padding: 16px 22px; border-radius: 12px; width: 340px; text-align: center;
       opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 300;
       box-shadow: 0 16px 48px rgba(0,0,0,0.5); white-space: normal;
-      animation: none;
     }
     .fire-text:hover::after { opacity: 1; }
 
@@ -572,7 +574,7 @@
 
     <h1 class="hero-h1 anim d1">
       <span class="h1-line">We'll build you a website that gets <span class="fire-badge" data-tooltip="On average, our clients see a 4x higher conversion rate compared to their previous website within the first 30 days. Individual results may vary.">4x more clients<sup>*</sup></span></span>
-      <span class="h1-line">and run <span class="fire-text" data-tooltip="We've personally managed over $2,000,000 in ad spend. We know exactly what it takes to launch campaigns that are profitable from day one.">extremely profitable</span> Google Ads.</span>
+      <span class="h1-line">and run <span class="fire-text" data-tooltip="We've personally managed over $2,000,000 in ad spend. We know exactly what it takes to launch campaigns that are profitable from day one."><span class="fire-text-flame" aria-hidden="true"></span>extremely profitable</span> Google Ads.</span>
     </h1>
 
     <div class="hero-sub-grid anim d2">
@@ -1180,6 +1182,18 @@ function submitForm(e) {
   document.getElementById('ssuccess').style.display = 'block';
 }
 </script>
+
+<!-- SVG fire distortion filter -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true">
+  <defs>
+    <filter id="fire-distort" x="-20%" y="-80%" width="140%" height="260%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.038 0.075" numOctaves="4" seed="3" result="noise">
+        <animate attributeName="seed" from="1" to="30" dur="0.55s" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
 
 </body>
 </html>
