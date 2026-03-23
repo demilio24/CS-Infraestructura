@@ -1455,269 +1455,225 @@
       }
 
       /* ── OPPORTUNITY CALCULATOR ─────────────────── */
+      /* ── CALCULATOR ─────────────────────────── */
       .calc-section {
-        background: #030d1c;
-        padding: 88px 24px;
-        position: relative;
-        overflow: hidden;
-      }
-      .calc-section::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background:
-          radial-gradient(circle 640px at -120px 55%, rgba(220,38,38,0.20) 0%, transparent 70%),
-          radial-gradient(circle 640px at calc(100% + 120px) 55%, rgba(220,38,38,0.20) 0%, transparent 70%);
-        pointer-events: none;
+        background: #fff;
+        background-image:
+          linear-gradient(rgba(220,38,38,0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(220,38,38,0.08) 1px, transparent 1px);
+        background-size: 40px 40px;
+        padding: 72px 24px;
       }
       .calc-inner {
-        max-width: 900px;
+        max-width: 680px;
         margin: 0 auto;
-        position: relative;
-        z-index: 1;
       }
       .calc-header {
         text-align: center;
-        margin-bottom: 52px;
+        margin-bottom: 36px;
       }
       .calc-header .section-eyebrow-white {
         margin-bottom: 10px;
-        border-color: rgba(239,68,68,0.4);
-        color: rgba(239,68,68,0.85);
+        border-color: rgba(220,38,38,0.35);
+        color: rgba(220,38,38,0.85);
+        background: rgba(220,38,38,0.06);
       }
       .calc-h {
-        font-size: clamp(26px, 3.2vw, 42px);
+        font-size: clamp(24px, 3vw, 36px);
         font-weight: 700;
-        color: #fff;
+        color: #111;
         line-height: 1.15;
         letter-spacing: -0.02em;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
-      .calc-h .accent {
-        color: #f87171;
-      }
+      .calc-h .accent { color: #dc2626; }
       .calc-sub {
         font-size: 15px;
-        color: rgba(255, 255, 255, 0.50);
-        line-height: 1.6;
+        color: #666;
+        line-height: 1.5;
       }
-      .calc-inputs {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        margin-bottom: 0;
+
+      /* Table */
+      .calc-table {
+        background: #fff;
+        border: 1.5px solid rgba(220,38,38,0.25);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(220,38,38,0.08), 0 1px 4px rgba(0,0,0,0.06);
       }
-      .calc-card {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.09);
-        border-radius: 16px;
-        padding: 24px 28px 22px;
+      .calc-row {
         display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 0 24px;
-        align-items: start;
-      }
-      .calc-step-badge {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: rgba(220,38,38,0.15);
-        border: 1px solid rgba(220,38,38,0.30);
-        color: #f87171;
-        font-size: 14px;
-        font-weight: 700;
-        display: flex;
+        grid-template-columns: 1fr auto;
         align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        margin-top: 2px;
+        padding: 18px 24px;
+        border-bottom: 1px solid rgba(220,38,38,0.10);
+        gap: 16px;
       }
-      .calc-card-content {
-        display: flex;
-        flex-direction: column;
-      }
-      .calc-label {
-        font-size: 13px;
+      .calc-row:last-child { border-bottom: none; }
+      .calc-row-label {
+        font-size: 14px;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.65);
-        margin-bottom: 10px;
+        color: #444;
         line-height: 1.3;
       }
-      .calc-input-row {
+      .calc-row-hint {
+        font-size: 11px;
+        color: #999;
+        font-weight: 400;
+        margin-top: 2px;
+      }
+      .calc-row-input {
         display: flex;
         align-items: baseline;
-        gap: 6px;
-        margin-bottom: 16px;
+        gap: 3px;
+        justify-content: flex-end;
       }
       .calc-prefix {
-        font-size: 28px;
+        font-size: 20px;
         font-weight: 700;
-        color: rgba(255,255,255,0.6);
+        color: #bbb;
         line-height: 1;
       }
       .calc-number {
-        font-size: 44px;
+        font-size: 28px;
         font-weight: 700;
-        color: #fff;
+        color: #111;
         line-height: 1;
-        min-width: 60px;
+        width: 110px;
         background: none;
         border: none;
-        border-bottom: 2px solid rgba(255,255,255,0.15);
+        border-bottom: 2px solid rgba(220,38,38,0.25);
         outline: none;
-        padding: 0 4px 2px;
+        padding: 0 2px 2px;
         font-family: var(--font-main);
-        width: 100%;
+        text-align: right;
         transition: border-color 0.2s;
+        cursor: text;
       }
-      .calc-number:focus {
-        border-bottom-color: rgba(220,38,38,0.6);
-      }
+      .calc-number:focus { border-bottom-color: #dc2626; }
       .calc-number::-webkit-inner-spin-button,
-      .calc-number::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-      }
-      .calc-hint {
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.28);
-        line-height: 1.4;
-        margin-top: -10px;
-        margin-bottom: 14px;
-      }
-      .calc-slider-row {
+      .calc-number::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+      /* Slider row inside table */
+      .calc-row-full {
+        grid-column: 1 / -1;
+        padding: 0 24px 14px;
+        border-bottom: 1px solid rgba(220,38,38,0.10);
         display: flex;
         align-items: center;
         gap: 12px;
       }
-      .calc-slider-val {
-        font-size: 12px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.40);
-        white-space: nowrap;
-        min-width: 40px;
-        text-align: right;
-      }
+      .calc-row-full:last-of-type { border-bottom: none; }
       .calc-slider {
         flex: 1;
         -webkit-appearance: none;
         appearance: none;
         height: 5px;
         border-radius: 3px;
-        background: rgba(255, 255, 255, 0.12);
+        background: rgba(220,38,38,0.12);
         outline: none;
+        cursor: pointer;
       }
       .calc-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
         background: #dc2626;
         cursor: pointer;
-        box-shadow: 0 0 0 4px rgba(220,38,38,0.28);
+        box-shadow: 0 0 0 4px rgba(220,38,38,0.18);
         transition: box-shadow 0.15s;
       }
       .calc-slider::-webkit-slider-thumb:hover {
-        box-shadow: 0 0 0 6px rgba(220,38,38,0.22);
+        box-shadow: 0 0 0 7px rgba(220,38,38,0.14);
       }
-      .calc-arrow-down {
-        text-align: center;
-        color: rgba(220,38,38,0.45);
-        font-size: 22px;
-        line-height: 1;
-        padding: 6px 0;
+      .calc-slider-val {
+        font-size: 12px;
+        font-weight: 700;
+        color: rgba(220,38,38,0.60);
+        min-width: 42px;
+        text-align: right;
+        white-space: nowrap;
       }
-      .calc-result {
-        background: linear-gradient(150deg, #991b1b 0%, #450a0a 100%);
-        border: 1px solid rgba(220,38,38,0.35);
-        border-radius: 20px;
-        padding: 40px 40px 36px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-      }
-      .calc-result::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse 70% 60% at 50% -10%, rgba(239,68,68,0.30) 0%, transparent 70%);
-        pointer-events: none;
-      }
-      .calc-result-icon {
-        font-size: 28px;
-        line-height: 1;
-        margin-bottom: 10px;
-        display: block;
+
+      /* Result row */
+      .calc-result-row {
+        background: #dc2626;
+        padding: 22px 24px 20px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 12px;
       }
       .calc-result-label {
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: rgba(255, 190, 190, 0.75);
-        margin-bottom: 10px;
+        color: rgba(255,255,255,0.65);
+        margin-bottom: 4px;
+      }
+      .calc-result-sub {
+        font-size: 13px;
+        color: rgba(255,255,255,0.70);
+        margin-top: 2px;
       }
       .calc-result-num {
-        font-size: clamp(52px, 7vw, 80px);
+        font-size: clamp(36px, 6vw, 52px);
         font-weight: 700;
         color: #fff;
         line-height: 1;
         letter-spacing: -0.03em;
-        margin-bottom: 6px;
-        text-shadow: 0 0 60px rgba(239,68,68,0.5);
-      }
-      .calc-result-sub {
-        font-size: 15px;
-        color: rgba(255, 210, 210, 0.70);
-        margin-bottom: 20px;
+        text-align: right;
+        white-space: nowrap;
       }
       .calc-result-annual {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.10);
-        border: 1px solid rgba(255,255,255,0.18);
-        border-radius: 30px;
-        padding: 8px 22px;
-        font-size: 15px;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 28px;
-        letter-spacing: -0.01em;
-      }
-      .calc-result-daily {
         font-size: 13px;
-        color: rgba(255,190,190,0.60);
-        margin-top: -18px;
-        margin-bottom: 22px;
-        display: block;
+        font-weight: 600;
+        color: rgba(255,255,255,0.60);
+        text-align: right;
+        margin-top: 4px;
+      }
+
+      /* CTA below table */
+      .calc-cta-wrap {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .calc-daily-line {
+        font-size: 13px;
+        color: #999;
+        margin-bottom: 14px;
+      }
+      .calc-daily-line span {
+        color: #dc2626;
+        font-weight: 700;
       }
       .calc-cta {
         display: inline-block;
-        background: #fff;
-        color: #dc2626;
+        background: #dc2626;
+        color: #fff;
         font-size: 15px;
         font-weight: 700;
         padding: 14px 32px;
         border-radius: 100px;
-        text-decoration: none;
         cursor: pointer;
         border: none;
         font-family: var(--font-main);
         letter-spacing: -0.01em;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+        box-shadow: 0 4px 20px rgba(220,38,38,0.35);
+        transition: background 0.15s, transform 0.15s;
       }
       .calc-cta:hover {
-        background: #fff5f5;
+        background: #b91c1c;
+        transform: translateY(-1px);
       }
-      @media (max-width: 640px) {
-        .calc-card {
-          grid-template-columns: 1fr;
-          gap: 12px 0;
-        }
-        .calc-step-badge { display: none; }
-        .calc-result {
-          padding: 28px 24px;
-        }
-        .calc-number { font-size: 36px; }
+      @media (max-width: 600px) {
+        .calc-section { padding: 56px 16px; }
+        .calc-row { padding: 14px 18px; }
+        .calc-row-full { padding: 0 18px 12px; }
+        .calc-result-row { padding: 18px; }
+        .calc-number { font-size: 24px; width: 90px; }
       }
 
       /* ── ABOUT / WHY WE'RE DIFFERENT ────────────── */
@@ -3956,91 +3912,61 @@
               >actually costing you?</span
             >
           </h2>
-          <p class="calc-sub">Fill in your numbers. Most people are shocked.</p>
+          <p class="calc-sub">Most people are shocked when they see this number.</p>
+          <span class="calc-interact-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Type your numbers or drag the sliders
+          </span>
         </div>
 
-        <div class="calc-inputs anim d2">
-          <div class="calc-card">
-            <div class="calc-step-badge">1</div>
-            <div class="calc-card-content">
-              <div class="calc-label">What's your average client value per month?</div>
-              <div class="calc-input-row">
-                <span class="calc-prefix">$</span>
-                <input
-                  class="calc-number"
-                  id="calc-value"
-                  type="number"
-                  value="1000"
-                  min="100"
-                  max="50000"
-                  step="100"
-                />
-              </div>
-              <div class="calc-hint">What one client pays you on average each month</div>
-              <div class="calc-slider-row">
-                <input
-                  class="calc-slider"
-                  id="calc-value-slider"
-                  type="range"
-                  min="100"
-                  max="20000"
-                  step="100"
-                  value="1000"
-                />
-                <span class="calc-slider-val" id="calc-value-display">$1,000</span>
-              </div>
+        <div class="calc-table anim d2">
+          <!-- Row 1: client value -->
+          <div class="calc-row">
+            <div>
+              <div class="calc-row-label">Avg. client value / month</div>
+              <div class="calc-row-hint">What one client pays you on average</div>
+            </div>
+            <div class="calc-row-input">
+              <span class="calc-prefix">$</span>
+              <input class="calc-number" id="calc-value" type="number" value="1700" min="100" max="50000" step="100" />
             </div>
           </div>
+          <div class="calc-row-full">
+            <input class="calc-slider" id="calc-value-slider" type="range" min="100" max="20000" step="100" value="1700" />
+            <span class="calc-slider-val" id="calc-value-display">$1,700</span>
+          </div>
 
-          <div class="calc-card">
-            <div class="calc-step-badge">2</div>
-            <div class="calc-card-content">
-              <div class="calc-label">How many new clients could you take per month?</div>
-              <div class="calc-input-row">
-                <input
-                  class="calc-number"
-                  id="calc-clients"
-                  type="number"
-                  value="5"
-                  min="1"
-                  max="100"
-                  step="1"
-                />
-              </div>
-              <div class="calc-hint">Be conservative — this is how many slots you actually have</div>
-              <div class="calc-slider-row">
-                <input
-                  class="calc-slider"
-                  id="calc-clients-slider"
-                  type="range"
-                  min="1"
-                  max="50"
-                  step="1"
-                  value="5"
-                />
-                <span class="calc-slider-val" id="calc-clients-display">5</span>
-              </div>
+          <!-- Row 2: clients per month -->
+          <div class="calc-row">
+            <div>
+              <div class="calc-row-label">New clients you could take / month</div>
+              <div class="calc-row-hint">Be conservative — open slots only</div>
+            </div>
+            <div class="calc-row-input">
+              <input class="calc-number" id="calc-clients" type="number" value="10" min="1" max="100" step="1" />
+            </div>
+          </div>
+          <div class="calc-row-full">
+            <input class="calc-slider" id="calc-clients-slider" type="range" min="1" max="50" step="1" value="10" />
+            <span class="calc-slider-val" id="calc-clients-display">10</span>
+          </div>
+
+          <!-- Result row -->
+          <div class="calc-result-row anim d3">
+            <div>
+              <div class="calc-result-label">You're bleeding every month</div>
+              <div class="calc-result-sub">in missed revenue while you wait</div>
+            </div>
+            <div>
+              <div class="calc-result-num" id="calc-monthly">$17,000</div>
+              <div class="calc-result-annual" id="calc-annual">$204,000 / yr</div>
             </div>
           </div>
         </div>
 
-        <div class="calc-arrow-down anim d3">↓</div>
-
-        <div class="calc-result anim d3">
-          <span class="calc-result-icon">🩸</span>
-          <div class="calc-result-label">You're bleeding every month</div>
-          <div class="calc-result-num" id="calc-monthly">$5,000</div>
-          <div class="calc-result-sub">
-            in missed revenue — every single month you wait
-          </div>
-          <div class="calc-result-annual" id="calc-annual">$60,000 per year</div>
-          <span class="calc-result-daily" id="calc-daily">That's $167 per day walking out the door.</span>
-          <button
-            class="calc-cta"
-            onclick="openModal()"
-          >
-            Stop leaving money on the table &rarr;
-          </button>
+        <div class="calc-cta-wrap anim d3">
+          <div class="calc-daily-line">That's <span id="calc-daily">$567</span> walking out the door every single day.</div>
+          <button class="calc-cta" onclick="openModal()">Stop leaving money on the table &rarr;</button>
         </div>
       </div>
     </section>
@@ -5529,9 +5455,8 @@
           const daily = Math.round(monthly / 30);
           document.getElementById("calc-monthly").textContent = fmt(monthly);
           document.getElementById("calc-annual").textContent =
-            fmt(annual) + " per year";
-          document.getElementById("calc-daily").textContent =
-            "That's " + fmt(daily) + " per day walking out the door.";
+            fmt(annual) + " / yr";
+          document.getElementById("calc-daily").textContent = fmt(daily);
           document.getElementById("calc-value-slider").value = val;
           document.getElementById("calc-clients-slider").value = clients;
           document.getElementById("calc-value-display").textContent = fmt(val);
