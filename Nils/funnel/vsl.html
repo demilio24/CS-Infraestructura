@@ -137,24 +137,43 @@
     /* Proof cards — glassmorphism */
     .hero-proof-col { display: flex; flex-direction: column; gap: 12px; }
     .hero-proof-item {
-      background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 16px; padding: 18px 14px;
+      background: rgba(255,255,255,0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px; padding: 18px 14px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 6px; flex: 1; text-align: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.08);
-      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.5),
+        inset 0 -1px 0 rgba(255,255,255,0.1),
+        inset 0 0 38px 19px rgba(255,255,255,0.9);
+      position: relative; overflow: hidden;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .hero-proof-item::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    }
+    .hero-proof-item::after {
+      content: '';
+      position: absolute; top: 0; left: 0; width: 1px; height: 100%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent, rgba(255,255,255,0.3));
     }
     .hero-proof-item:hover {
-      background: rgba(0,0,0,0.58);
-      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.5);
+      box-shadow:
+        0 12px 40px rgba(0,0,0,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.6),
+        inset 0 -1px 0 rgba(255,255,255,0.15),
+        inset 0 0 38px 19px rgba(255,255,255,0.95);
     }
-    .hero-proof-num { font-size: 32px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.03em; text-shadow: 0 2px 12px rgba(0,0,0,0.30); }
-    .hero-proof-label { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.3; text-align: center; text-shadow: 0 1px 6px rgba(0,0,0,0.25); }
+    .hero-proof-num { font-size: 32px; font-weight: 800; color: #0a1f44; line-height: 1; letter-spacing: -0.03em; }
+    .hero-proof-label { font-size: 13px; font-weight: 700; color: #334; line-height: 1.3; text-align: center; }
     /* Trustpilot stars in green */
-    .tp-stars { font-size: 20px; color: #00b67a; letter-spacing: 3px; line-height: 1; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.20)); }
+    .tp-stars { font-size: 20px; color: #00b67a; letter-spacing: 3px; line-height: 1; }
 
     /* Full-width CTA below split */
     .hero-cta-wrap { max-width: 1100px; margin: 16px auto 0; }
