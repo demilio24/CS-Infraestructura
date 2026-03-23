@@ -780,11 +780,11 @@
       }
       .gmock-result.competitor-2 { background: #fafafa; }
       .gmock-result.competitor-3 {
-        background: #fff5f5;
-        border: 1px solid rgba(239,68,68,0.25);
+        background: rgba(239,68,68,0.03);
+        border: 1px solid rgba(239,68,68,0.10);
       }
-      .gmock-result.competitor-3 .gmock-result-url { color: #ef4444; }
-      .gmock-result.competitor-3 .gmock-result-title { color: #ef4444; font-weight: 600; }
+      .gmock-result.competitor-3 .gmock-result-url { color: rgba(239,68,68,0.50); }
+      .gmock-result.competitor-3 .gmock-result-title { color: rgba(239,68,68,0.60); font-weight: 600; }
       .gmock-result-url {
         font-family: var(--font-secondary);
         font-size: 11px;
@@ -2110,7 +2110,7 @@
                 </div>
                 <div class="gmock-result-title">YOUR BUSINESS</div>
                 <div class="gmock-result-snippet">
-                  We offer great services at competitive prices. Call us today.
+                  We offer swim lessons for all ages. Contact us for more information.
                 </div>
               </div>
             </div>
@@ -3464,7 +3464,7 @@
           if (i <= text.length) {
             el.textContent = text.slice(0, i);
             i++;
-            setTimeout(type, 65 + Math.random() * 55);
+            setTimeout(type, 30 + Math.random() * 20);
           } else {
             // hide cursor, show results
             const cur = el.nextElementSibling;
