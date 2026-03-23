@@ -91,6 +91,15 @@
 
     <!-- CALENDAR EMBED -->
     <iframe src="https://link.nilsdigital.com/widget/booking/yr4Eiw4Wcs5sLn4qr8VT" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="yr4Eiw4Wcs5sLn4qr8VT_1773358976819"></iframe>
+    <script>
+      (function () {
+        var email = new URLSearchParams(window.location.search).get('email');
+        if (!email) return;
+        var iframe = document.getElementById('yr4Eiw4Wcs5sLn4qr8VT_1773358976819');
+        if (!iframe) return;
+        iframe.src = iframe.src + '?email=' + encodeURIComponent(email);
+      })();
+    </script>
   <script src="https://link.nilsdigital.com/js/form_embed.js" type="text/javascript"></script>
     <p class="footer-note">Questions? Email Kicking Kiddos at <a href="mailto:kickingkiddos@yahoo.com">kickingkiddos@yahoo.com</a></p>
   </div>
