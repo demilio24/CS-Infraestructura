@@ -116,11 +116,202 @@ Use this when the brand needs to feel premium and trustworthy. White text, arc d
 
 **Hero logo watermark:** For white-on-transparent PNG logos, use: `filter: brightness(0) sepia(1) saturate(5) hue-rotate(195deg); opacity: 0.055;` to render a blue watermark effect.
 
-**Fire badge phrasing:** The fire badge should wrap the FULL highlighted phrase (e.g. "4x more clients"), not just the number. The asterisk appears as a superscript inside the badge. Tooltip text must be large enough to read — use `font-size: 14px; padding: 14px 20px; width: 300px`.
+**Fire badge phrasing:** The fire badge should wrap the FULL highlighted phrase (e.g. "4x more clients"), not just the number. The asterisk appears as a superscript inside the badge.
+
+**NO fire/flame text effects.** SVG turbulence filters or glow effects on headline words are explicitly rejected — they look terrible. To emphasize a phrase in the headline, use a solid underline + JS tooltip instead:
+```css
+.fire-text {
+  text-decoration: underline; text-decoration-style: solid;
+  text-decoration-color: rgba(255,255,255,0.50); text-underline-offset: 5px;
+  text-decoration-thickness: 1.5px; cursor: default;
+}
+```
+
+**Tooltip rule (MANDATORY — never use CSS `::after` tooltips inside headlines):** CSS pseudo-element tooltips inside `h1` escape the stacking context and overlap surrounding content. ALWAYS use a JS-injected body-level tooltip:
+```js
+(function() {
+  const tip = document.createElement('div');
+  tip.id = 'global-tip';
+  document.body.appendChild(tip);
+  document.querySelectorAll('[data-tip]').forEach(el => {
+    el.addEventListener('mouseenter', function() {
+      tip.textContent = this.dataset.tip;
+      const r = this.getBoundingClientRect();
+      const tipW = 280;
+      let left = r.left + r.width / 2 - tipW / 2;
+      left = Math.max(8, Math.min(left, window.innerWidth - tipW - 8));
+      tip.style.left = left + 'px';
+      tip.style.top = (r.top - 16) + 'px';
+      tip.style.transform = 'translateY(-100%)';
+      tip.classList.add('visible');
+    });
+    el.addEventListener('mouseleave', () => tip.classList.remove('visible'));
+  });
+})();
+```
+```css
+#global-tip {
+  position: fixed; z-index: 99999; width: 280px;
+  background: #1a1a2e; border-radius: 12px; padding: 14px 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.50);
+  font-size: 13px; color: rgba(255,255,255,0.90); line-height: 1.6;
+  pointer-events: none; opacity: 0; transition: opacity 0.15s ease;
+}
+#global-tip.visible { opacity: 1; }
+#global-tip::before {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: #1a1a2e;
+}
+```
 
 **Visual requirement applies to ALL content sections** — including "Who We Are," "How It Works," "Problem" sections, and any section describing a system or process. Users read headlines + scan images. If a section has no visual, it will be skipped entirely. The only acceptable exception is a form or survey step.
 
+**Headline line-break rule:** Use `<span class="h1-line">` with `display: block` to enforce exact line breaks at specific words — never rely on the viewport to produce the right wrap. This guarantees the headline always reads as intended:
+```css
+.h1-line { display: block; }
+```
+```html
+<h1 class="hero-h1">
+  <span class="h1-line">First line of the headline here</span>
+  <span class="h1-line">Second line of the headline here</span>
+</h1>
+```
+Set `hero-inner` to `max-width: 1400px` on VSL pages so longer headlines have room at large viewports.
+
+**Bullet point style (VSL hero sub-copy):** Stack vertically, center-aligned, with a small solid dot `::before`. No em-dashes — they look like lazy typography. Each point should be outcome-focused and concise (under 12 words):
+```css
+.hero-sub-grid {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; max-width: 700px; margin: 0 auto 32px; text-align: center;
+}
+.hero-sub-grid .sub-item {
+  font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.82);
+  line-height: 1.4; display: flex; align-items: center; gap: 8px;
+}
+.hero-sub-grid .sub-item::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.55); flex-shrink: 0;
+}
+```
+
 **Copy density rule:** Most visitors will NOT read body paragraphs. Write headlines that stand alone and bullet points that communicate the result, not the feature. Remove any paragraph that could be deleted without losing a key point. Every word must earn its place — talk in terms of outcomes and results, not process or effort.
+
+---
+
+## Font system rule (MANDATORY)
+
+Every funnel must use a deliberate 3-font system. Default:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
+```
+```css
+:root {
+  --font-main:      'Google Sans', 'DM Sans', sans-serif;
+  --font-secondary: 'DM Sans', 'Google Sans', sans-serif;
+  --font-emphasis:  'Instrument Sans', 'Google Sans', sans-serif;
+}
+body { font-family: var(--font-main); }
+/* Headlines, badges, CTAs, stats — emphasis font */
+h1, h2, h3, h4, .hero-eyebrow, .btn, .hero-cta-full,
+.step-num, .faq-num, .hero-proof-num, .vid-result-stat { font-family: var(--font-emphasis); }
+/* Body copy, labels, bullets — secondary font */
+.hero-sub, .hero-sub-grid .sub-item, .hero-proof-label,
+.hero-disclaimer, p, li { font-family: var(--font-secondary); }
+```
+
+---
+
+## CTA button rule
+
+Blue pill button, gradient fill, gloss overlay, animated arrow circle. Never use a plain flat button:
+
+```css
+.hero-cta-full {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 20px 48px;
+  background: linear-gradient(135deg, #1a72e8 0%, #046bd2 50%, #0358b0 100%);
+  color: #fff; font-family: var(--font-emphasis); font-size: 18px; font-weight: 700;
+  border-radius: 100px; border: none; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+  box-shadow: 0 8px 32px rgba(4,107,210,0.55), 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+  position: relative; overflow: hidden;
+}
+.hero-cta-full::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+  border-radius: inherit; pointer-events: none;
+}
+.hero-cta-full:hover { transform: translateY(-3px); filter: brightness(1.06); }
+.hero-cta-full .cta-arrow {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.hero-cta-full:hover .cta-arrow { background: rgba(255,255,255,0.28); transform: translateX(3px); }
+```
+
+---
+
+## Proof card rule (hero stat cards)
+
+Dark navy glass, white numbers, muted labels. **Do not use white glass or light backgrounds** — dark glass reads better against a dark hero and feels more premium:
+
+```css
+.hero-proof-item {
+  background: rgba(3, 18, 60, 0.60);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px; padding: 18px 14px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  flex: 1; text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  position: relative;
+}
+.hero-proof-num { font-size: 32px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.03em; }
+.hero-proof-label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); line-height: 1.3; }
+```
+
+**Cursor-light border effect on cards (MANDATORY for proof cards):** Light follows the cursor along the card border. Never darken the background — border glow only. Uses a JS-injected child div with `mask-composite: exclude`.
+
+⚠️ **The `padding-box`/`border-box` CSS gradient border trick does NOT work with `backdrop-filter`** — `backdrop-filter` creates a stacking context that blocks it. Always use the JS-injected approach instead:
+
+```css
+.proof-border-glow {
+  position: absolute; inset: 0; border-radius: 20px;
+  pointer-events: none; z-index: 0;
+  background: radial-gradient(
+    140px circle at var(--cx, 50%) var(--cy, 50%),
+    rgba(255,255,255,0.65), rgba(255,255,255,0.06) 70%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:         linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  padding: 1px; opacity: 0; transition: opacity 0.3s ease;
+}
+.hero-proof-item:hover .proof-border-glow { opacity: 1; }
+.hero-proof-item > *:not(.proof-border-glow) { position: relative; z-index: 1; }
+```
+```js
+document.querySelectorAll('.hero-proof-item').forEach(card => {
+  const glow = document.createElement('div');
+  glow.className = 'proof-border-glow';
+  card.appendChild(glow);
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    glow.style.setProperty('--cx', (e.clientX - r.left) + 'px');
+    glow.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+  });
+  card.addEventListener('mouseleave', () => {
+    glow.style.setProperty('--cx', '50%');
+    glow.style.setProperty('--cy', '-50px');
+  });
+});
+```
+The border glow is `opacity: 0` by default and only appears on hover — never visible at rest.
 
 ---
 

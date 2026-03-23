@@ -193,12 +193,31 @@
       align-items: stretch;
     }
     .hero-video-col {
-      position: relative; border-radius: 14px; overflow: hidden;
+      position: relative; border-radius: 14px;
       background: #000; aspect-ratio: 16/9;
       box-shadow: 0 24px 80px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.08);
     }
-    .hero-video-col iframe { width: 100%; height: 100%; border: none; display: block; }
+    .hero-video-inner {
+      position: absolute; inset: 0; border-radius: 14px; overflow: hidden;
+    }
+    .hero-video-inner iframe,
+    .hero-video-inner video { width: 100%; height: 100%; border: none; display: block; object-fit: cover; }
+    /* cursor-light border glow on video */
+    .video-border-glow {
+      position: absolute; inset: 0; border-radius: 14px;
+      pointer-events: none; z-index: 2;
+      background: radial-gradient(
+        180px circle at var(--cx, 50%) var(--cy, 50%),
+        rgba(255,255,255,0.55), rgba(255,255,255,0.04) 70%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask:         linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      padding: 2px;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .hero-video-col:hover .video-border-glow { opacity: 1; }
 
     /* Proof cards — glassmorphism */
     .hero-proof-col { display: flex; flex-direction: column; gap: 12px; }
@@ -265,6 +284,22 @@
       transition: background 0.2s, transform 0.2s;
     }
     .hero-cta-full:hover .cta-arrow { background: rgba(255,255,255,0.28); transform: translateX(3px); }
+    /* cursor-light border on CTA button */
+    .btn-border-glow {
+      position: absolute; inset: 0; border-radius: 100px;
+      pointer-events: none; z-index: 5;
+      background: radial-gradient(
+        120px circle at var(--cx, 50%) var(--cy, 50%),
+        rgba(255,255,255,0.70), rgba(255,255,255,0.04) 70%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask:         linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      padding: 2px;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .hero-cta-full:hover .btn-border-glow { opacity: 1; }
     .hero-disclaimer { font-size: 12px; color: rgba(0,0,0,0.60); margin-top: 12px; font-weight: 500; }
 
     /* ── SECTION SCAFFOLDING ─────────────────────── */
@@ -588,13 +623,15 @@
     <!-- Video + Social Proof side by side -->
     <div class="hero-split anim d3">
       <div class="hero-video-col">
-        <video
-          src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c083b8ad14007264f62950.mp4"
-          controls
-          playsinline
-          preload="metadata"
-          style="width:100%;height:100%;object-fit:cover;display:block;"
-        ></video>
+        <div class="hero-video-inner">
+          <video
+            src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c083b8ad14007264f62950.mp4"
+            controls
+            playsinline
+            preload="metadata"
+            style="width:100%;height:100%;object-fit:cover;display:block;"
+          ></video>
+        </div>
       </div>
       <div class="hero-proof-col">
         <div class="hero-proof-item">
@@ -1186,6 +1223,40 @@ function submitForm(e) {
 </script>
 
 <script>
+// Cursor-light border on CTA buttons
+document.querySelectorAll('.hero-cta-full').forEach(btn => {
+  const glow = document.createElement('div');
+  glow.className = 'btn-border-glow';
+  btn.appendChild(glow);
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    glow.style.setProperty('--cx', (e.clientX - r.left) + 'px');
+    glow.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+  });
+  btn.addEventListener('mouseleave', () => {
+    glow.style.setProperty('--cx', '50%');
+    glow.style.setProperty('--cy', '-50px');
+  });
+});
+
+// Cursor-light border on video
+(function() {
+  const vid = document.querySelector('.hero-video-col');
+  if (!vid) return;
+  const glow = document.createElement('div');
+  glow.className = 'video-border-glow';
+  vid.appendChild(glow);
+  vid.addEventListener('mousemove', e => {
+    const r = vid.getBoundingClientRect();
+    glow.style.setProperty('--cx', (e.clientX - r.left) + 'px');
+    glow.style.setProperty('--cy', (e.clientY - r.top) + 'px');
+  });
+  vid.addEventListener('mouseleave', () => {
+    glow.style.setProperty('--cx', '50%');
+    glow.style.setProperty('--cy', '-50px');
+  });
+})();
+
 // Cursor-light border on proof cards
 document.querySelectorAll('.hero-proof-item').forEach(card => {
   const glow = document.createElement('div');
