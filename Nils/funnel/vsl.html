@@ -80,21 +80,33 @@
     .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
 
     .hero-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.80);
+      display: inline-block; font-size: 14px; font-weight: 700; letter-spacing: 0.10em;
+      text-transform: uppercase; color: rgba(255,255,255,0.88);
       background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 100px; padding: 6px 20px; margin-bottom: 20px;
+      border-radius: 100px; padding: 7px 22px; margin-bottom: 22px;
     }
     .hero-h1 {
       font-size: clamp(30px, 4.5vw, 58px); font-weight: 700; color: #fff;
       line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.02em;
+      max-width: 1100px; margin-left: auto; margin-right: auto;
     }
     .hero-sub {
-      font-size: 17px; font-weight: 500; color: rgba(255,255,255,0.72);
-      line-height: 1.6; max-width: 560px; margin: 0 auto 32px;
+      font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.80);
+      line-height: 1.6; max-width: 1100px; margin: 0 auto 32px;
     }
+    /* Paragraph 2-col layout on desktop */
+    .hero-sub-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6px 32px;
+      max-width: 1100px; margin: 0 auto 32px; text-align: left;
+    }
+    .hero-sub-grid .sub-item {
+      font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.82);
+      line-height: 1.5; display: flex; align-items: flex-start; gap: 8px;
+    }
+    .hero-sub-grid .sub-item::before { content: '·'; font-size: 20px; color: rgba(255,255,255,0.5); line-height: 1.3; flex-shrink: 0; }
+    .hero-sub-grid .sub-full { grid-column: 1 / -1; }
 
-    /* Fire badge — white background, blue text */
+    /* Fire badge — "4x more clients" white pill */
     .fire-badge {
       display: inline-flex; align-items: center; gap: 3px;
       background: #fff; color: var(--blue); font-weight: 700;
@@ -116,6 +128,38 @@
       box-shadow: 0 16px 48px rgba(0,0,0,0.5); white-space: normal;
     }
     .fire-badge:hover::after { opacity: 1; }
+
+    /* Fire text — "extremely profitable" */
+    .fire-text {
+      position: relative; display: inline; cursor: default;
+      color: #ffdd00;
+      animation: flicker 1.8s ease-in-out infinite alternate;
+      text-shadow:
+        0 0 6px #fff,
+        0 0 12px #fff700,
+        0 0 22px #ffa500,
+        0 0 38px #ff4500,
+        0 0 60px #ff2200;
+    }
+    @keyframes flicker {
+      0%   { text-shadow: 0 0 6px #fff, 0 0 12px #fff700, 0 0 22px #ffa500, 0 0 38px #ff4500, 0 0 60px #ff2200; opacity: 1; }
+      18%  { text-shadow: 0 0 4px #fff, 0 0 10px #fff700, 0 0 18px #ffa500, 0 0 30px #ff4500, 0 0 45px #ff2200; opacity: 0.92; }
+      35%  { text-shadow: 0 0 8px #fff, 0 0 16px #fff700, 0 0 28px #ffa500, 0 0 48px #ff4500, 0 0 72px #ff2200; opacity: 1; }
+      52%  { text-shadow: 0 0 3px #fff, 0 0 8px #fff700, 0 0 14px #ffa500, 0 0 24px #ff4500, 0 0 38px #ff2200; opacity: 0.88; }
+      70%  { text-shadow: 0 0 7px #fff, 0 0 14px #fff700, 0 0 24px #ffa500, 0 0 42px #ff4500, 0 0 65px #ff2200; opacity: 1; }
+      85%  { text-shadow: 0 0 5px #fff, 0 0 10px #fff700, 0 0 20px #ffa500, 0 0 35px #ff4500, 0 0 52px #ff2200; opacity: 0.95; }
+      100% { text-shadow: 0 0 9px #fff, 0 0 18px #fff700, 0 0 32px #ffa500, 0 0 52px #ff4500, 0 0 80px #ff2200; opacity: 1; }
+    }
+    .fire-text::after {
+      content: attr(data-tooltip);
+      position: absolute; bottom: calc(100% + 14px); left: 50%; transform: translateX(-50%);
+      background: #0a0a0a; color: #fff; font-size: 14px; font-weight: 500; line-height: 1.6;
+      padding: 16px 22px; border-radius: 12px; width: 340px; text-align: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 300;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5); white-space: normal;
+      animation: none;
+    }
+    .fire-text:hover::after { opacity: 1; }
 
     /* Split layout: video | proof */
     .hero-split {
@@ -500,11 +544,15 @@
       We'll build you a website that gets
       <span class="fire-badge" data-tooltip="On average, our clients see a 4x higher conversion rate compared to their previous website within the first 30 days. Individual results may vary.">
         4x more clients<sup>*</sup>
-      </span>
-      and run extremely profitable Google Ads.
+      </span><br>
+      and run <span class="fire-text" data-tooltip="We've personally managed over $2,000,000 in ad spend. We know exactly what it takes to launch campaigns that are profitable from day one.">extremely profitable</span> Google Ads.
     </h1>
 
-    <p class="hero-sub anim d2">Done-for-you setup: everything launches within 14 days · Profitable results guaranteed within 30 days or you don't pay · Only takes 1–2 hours of your time</p>
+    <div class="hero-sub-grid anim d2">
+      <div class="sub-item">Done-for-you setup — everything launches within 14 days</div>
+      <div class="sub-item">Profitable results guaranteed within 30 days or you don't pay</div>
+      <div class="sub-item sub-full">Only takes 1–2 hours of your time for us to get all the information we need to set it up</div>
+    </div>
 
     <!-- Video + Social Proof side by side -->
     <div class="hero-split anim d3">
