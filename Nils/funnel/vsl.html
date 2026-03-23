@@ -837,7 +837,7 @@
       .portfolio-track {
         display: flex; gap: 14px;
         overflow-x: auto; overflow-y: hidden;
-        scroll-snap-type: x mandatory;
+        /* scroll-snap disabled — auto-scroll handles rhythm */
         -webkit-overflow-scrolling: touch;
         cursor: grab;
         padding: 8px 24px 24px;
@@ -853,7 +853,7 @@
         overflow-y: auto; overflow-x: hidden;
         border-radius: 14px;
         box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
-        scroll-snap-align: start;
+        /* scroll-snap-align: start; */
         scrollbar-width: thin; scrollbar-color: #e0e0e0 transparent;
         transition: box-shadow 0.2s, transform 0.2s;
         border: 1px solid rgba(0,0,0,0.06);
@@ -3501,27 +3501,61 @@
     </script>
 
     <script>
-      // Portfolio carousel — click-drag to scroll
+      // Portfolio carousel — auto-scroll + drag
       (function () {
         const track = document.getElementById('portfolio-track');
         if (!track) return;
-        let isDown = false, startX, scrollLeft;
+
+        // Duplicate cards for seamless infinite loop
+        const origCards = Array.from(track.children);
+        origCards.forEach(card => track.appendChild(card.cloneNode(true)));
+        const halfWidth = () => track.scrollWidth / 2;
+
+        // Auto-scroll
+        const SPEED = 0.6; // px per frame
+        let paused = false;
+        let isDown = false, startX, dragStart;
+
+        function tick() {
+          if (!paused && !isDown) {
+            track.scrollLeft += SPEED;
+            if (track.scrollLeft >= halfWidth()) {
+              track.scrollLeft -= halfWidth();
+            }
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+
+        // Pause on hover
+        track.addEventListener('mouseenter', () => paused = true);
+        track.addEventListener('mouseleave', () => { paused = false; isDown = false; track.classList.remove('dragging'); });
+
+        // Drag to scroll
         track.addEventListener('mousedown', e => {
           isDown = true;
           track.classList.add('dragging');
           startX = e.pageX - track.getBoundingClientRect().left;
-          scrollLeft = track.scrollLeft;
+          dragStart = track.scrollLeft;
           e.preventDefault();
         });
         document.addEventListener('mouseup', () => {
-          isDown = false;
-          track.classList.remove('dragging');
+          if (isDown) { isDown = false; track.classList.remove('dragging'); }
         });
         document.addEventListener('mousemove', e => {
           if (!isDown) return;
           const x = e.pageX - track.getBoundingClientRect().left;
-          track.scrollLeft = scrollLeft - (x - startX) * 1.4;
+          track.scrollLeft = dragStart - (x - startX) * 1.4;
+          // wrap if dragged past boundaries
+          if (track.scrollLeft < 0) track.scrollLeft += halfWidth();
+          if (track.scrollLeft >= halfWidth()) track.scrollLeft -= halfWidth();
         });
+
+        // Touch support
+        let touchX, touchStart;
+        track.addEventListener('touchstart', e => { touchX = e.touches[0].pageX; touchStart = track.scrollLeft; paused = true; }, { passive: true });
+        track.addEventListener('touchmove', e => { track.scrollLeft = touchStart - (e.touches[0].pageX - touchX) * 1.2; }, { passive: true });
+        track.addEventListener('touchend', () => { paused = false; });
       })();
 
       // Google mockup typing animation
