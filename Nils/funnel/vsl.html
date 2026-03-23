@@ -132,7 +132,11 @@
     }
     .hero-sub-grid .sub-item {
       font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.82);
-      line-height: 1.4;
+      line-height: 1.4; display: flex; align-items: center; gap: 8px;
+    }
+    .hero-sub-grid .sub-item::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.55); flex-shrink: 0;
     }
 
     /* Fire badge — "4x more clients" white pill */
