@@ -61,11 +61,39 @@ background: linear-gradient(to right, rgba(255,255,255,0.97) 40%, rgba(255,255,2
             url('CLIENT_IMAGE_URL') center/cover no-repeat;
 ```
 
-**Option C — Dark hero with image (for high-contrast sections):**
+**Option C — Dark navy hero with blue corner glows (for VSL pages / high-authority feel):**
+Use this when the brand needs to feel premium and trustworthy. White text, arc decoration at top, fades to white at bottom to connect seamlessly with the next section.
 ```css
-background: linear-gradient(135deg, rgba(5,10,24,0.88) 0%, rgba(4,107,210,0.75) 100%),
-            url('IMAGE_URL') center/cover no-repeat;
+.hero {
+  background:
+    linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.55) 78%, #ffffff 100%),
+    radial-gradient(ellipse 65% 80% at 0%   0%, rgba(4,107,210,0.80) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 80% at 100% 0%, rgba(4,107,210,0.80) 0%, transparent 55%),
+    #030d1c;
+  overflow: hidden;
+}
+/* Decorative arc ring at top */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -320px; left: 50%;
+  transform: translateX(-50%);
+  width: 860px; height: 660px;
+  border-radius: 50%;
+  border: 1px solid rgba(4,107,210,0.28);
+  box-shadow: 0 0 0 36px rgba(4,107,210,0.04), 0 0 0 72px rgba(4,107,210,0.025);
+  pointer-events: none; z-index: 0;
+}
+/* Dot grid */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none; z-index: 0;
+}
 ```
+⚠️ **Section connection rule:** The bottom fade to white (`linear-gradient` layer) is what makes the hero connect cleanly to the next white section. Always include it on dark heroes. Never use floating shapes or "bubble" elements to bridge sections — they look disconnected and cheap. Gradient fades are the correct solution.
 
 ---
 
@@ -115,6 +143,64 @@ All pill items must be the same height. Use `align-items: center` and consistent
 
 ---
 
+## Screenshot rule (MANDATORY)
+
+**Always take a Puppeteer screenshot after every significant change.** Do not wait for the user to report a visual problem — catch it yourself first. Run screenshots at minimum:
+- After building the initial page
+- After each major section update
+- After any CSS layout or background change
+
+```js
+// Quick screenshot helper — run this after every edit
+const puppeteer = require('puppeteer');
+(async () => {
+  const b = await puppeteer.launch({args:['--no-sandbox']});
+  const p = await b.newPage();
+  await p.setViewport({width:1440, height:900});
+  await p.goto('file:///PATH/TO/FILE.html', {waitUntil:'networkidle0'});
+  await new Promise(r=>setTimeout(r,2000));
+  await p.screenshot({path:'qa-screenshots/check.png'});
+  // Scroll to 40% and 80% to check mid and bottom
+  await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight*0.4));
+  await new Promise(r=>setTimeout(r,600));
+  await p.screenshot({path:'qa-screenshots/check-mid.png'});
+  await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight*0.8));
+  await new Promise(r=>setTimeout(r,600));
+  await p.screenshot({path:'qa-screenshots/check-bot.png'});
+  await b.close();
+})();
+```
+
+Save screenshots to `qa-screenshots/`. If something looks broken, fix it before reporting back to the user.
+
+---
+
+## Funnel swiper rule (for "How It Works" / client portfolio sections)
+
+Use a Tinder-style card swiper to show client funnel screenshots. Key rules:
+- `overflow-y: auto` on slides (not `overflow: hidden`) — users scroll inside each card to see the full funnel
+- `height: auto` on images (not `object-fit: cover`) — never clip the funnel screenshot
+- Track height `520px` gives enough room without being too tall
+- Show prev/next peeking cards at reduced opacity
+
+```css
+.funnel-slide { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
+.funnel-slide img { width: 100%; height: auto; display: block; }
+```
+
+---
+
+## FAQ section rule
+
+Dark background (blue gradient), number badges on each question, blue glow on open state:
+```css
+.faq { background: linear-gradient(160deg, #030d1c 0%, #062b6e 55%, #0447a8 100%); }
+.faq-item.open { border-color: rgba(4,107,210,0.7); box-shadow: 0 0 32px rgba(4,107,210,0.22); }
+```
+Add numbered badges (`<span class="faq-num">1</span>`) before each question text. The number badge turns solid blue when the item is open.
+
+---
+
 ## Section transition rules
 
 Transitions connect sections. Use clean background color alternation as the primary transition method. Diagonal SVG cuts have been explicitly rejected by the client — do not use them.
@@ -140,9 +226,26 @@ The background color change itself IS the transition. No SVG dividers needed for
 For VSL pages: include the full client testimonial video grid and review screenshots directly in the results section. Pull videos and review images from the client's existing proof assets (from research report).
 
 Keep the results section **scannable** — users should be able to absorb credibility in 10 seconds without watching a video. Use:
-- 3-column video grid (videos are the detail, not the hook)
-- A masonry or horizontal scroll of review screenshots above/before the videos
+- **2-column video grid** — 3 columns is too wide and cards become unreadable. 2-col at `aspect-ratio: 4/5`.
+- Max **6 review screenshots** — more than 6 makes the grid feel overwhelming and cheap. Use `height: 280px` cells so the text is actually legible.
+- A result stat bar overlaid at the bottom of each video card (e.g. "12x ROI · in the first 60 days") — gives non-watchers a reason to care.
+- Pulsing play button animation so cards look alive even before interaction.
 - One bold stat bar: "100+ clients · 5.0 stars · $2M+ ad spend managed"
+
+**Video card template:**
+```html
+<div class="vid-card" onclick="playVid(this)">
+  <video preload="none" loop playsinline><source src="URL" type="video/mp4"/></video>
+  <div class="vid-overlay">
+    <div class="vid-play-circle">▶</div>
+    <div class="vid-overlay-stars">★★★★★</div>
+  </div>
+  <div class="vid-result-bar">
+    <div class="vid-result-stat">RESULT STAT</div>
+    <div class="vid-result-desc">context line</div>
+  </div>
+</div>
+```
 
 ---
 
