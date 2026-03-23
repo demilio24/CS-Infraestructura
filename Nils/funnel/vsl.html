@@ -1457,11 +1457,9 @@
       /* ── OPPORTUNITY CALCULATOR ─────────────────── */
       /* ── CALCULATOR ─────────────────────────── */
       .calc-section {
-        background: #fff;
-        background-image:
-          linear-gradient(rgba(220,38,38,0.08) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(220,38,38,0.08) 1px, transparent 1px);
-        background-size: 40px 40px;
+        background:
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          #f0f5ff;
         padding: 72px 24px;
       }
       .calc-inner {
@@ -1496,17 +1494,17 @@
       /* Table */
       .calc-table {
         background: #fff;
-        border: 1.5px solid rgba(220,38,38,0.25);
+        border: 1.5px solid rgba(0,0,0,0.08);
         border-radius: 14px;
         overflow: hidden;
-        box-shadow: 0 4px 24px rgba(220,38,38,0.08), 0 1px 4px rgba(0,0,0,0.06);
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
       }
       .calc-row {
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: center;
         padding: 18px 24px;
-        border-bottom: 1px solid rgba(220,38,38,0.10);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
         gap: 16px;
       }
       .calc-row:last-child { border-bottom: none; }
@@ -1558,7 +1556,7 @@
       .calc-row-full {
         grid-column: 1 / -1;
         padding: 0 24px 14px;
-        border-bottom: 1px solid rgba(220,38,38,0.10);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
         display: flex;
         align-items: center;
         gap: 12px;
@@ -1570,7 +1568,7 @@
         appearance: none;
         height: 5px;
         border-radius: 3px;
-        background: rgba(220,38,38,0.12);
+        background: rgba(4,107,210,0.12);
         outline: none;
         cursor: pointer;
       }
