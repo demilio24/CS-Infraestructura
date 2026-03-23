@@ -770,14 +770,23 @@
       }
       .gmock-result.competitor-1 {
         background: #e8f0fe;
+        animation: result-click 2.4s ease-in-out infinite;
+        transform-origin: center;
+      }
+      @keyframes result-click {
+        0%, 55%  { transform: scale(1);    box-shadow: none; }
+        65%      { transform: scale(1.03); box-shadow: 0 4px 16px rgba(26,13,171,0.15); }
+        75%, 100%{ transform: scale(1);    box-shadow: none; }
       }
       .gmock-result.competitor-2 {
         background: #fafafa;
       }
       .gmock-result.competitor-3 {
         background: #fafafa;
-        opacity: 0.65;
+        opacity: 0.55;
       }
+      .gmock-result.competitor-3 .gmock-result-url { color: #9aa0a6; }
+      .gmock-result.competitor-3 .gmock-result-title { color: #9aa0a6; font-weight: 500; }
       .gmock-result-url {
         font-family: var(--font-secondary);
         font-size: 11px;
@@ -2099,14 +2108,14 @@
                   plumbing.
                 </div>
               </div>
-              <!-- Result 3 -->
+              <!-- Result 3: the viewer's business -->
               <div class="gmock-result competitor-3">
                 <div class="gmock-result-url">
-                  bluewaveswim.com · 38 reviews
+                  yourbusiness.com
                 </div>
-                <div class="gmock-result-title">Blue Wave Swimming: Family Programs</div>
+                <div class="gmock-result-title">YOUR BUSINESS</div>
                 <div class="gmock-result-snippet">
-                  Family swim programs and private lessons. Contact us for scheduling.
+                  We offer great services at competitive prices. Call us today.
                 </div>
               </div>
             </div>
@@ -3454,7 +3463,7 @@
         const el = document.getElementById("gmock-typing");
         const results = document.getElementById("gmock-results");
         if (!el || !results) return;
-        const text = "swim school near me";
+        const text = "YOUR SERVICE NEAR ME";
         let i = 0;
         function type() {
           if (i <= text.length) {
