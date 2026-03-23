@@ -1461,7 +1461,20 @@
           radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
           #f0f5ff;
         padding: 72px 24px;
+        position: relative;
+        overflow: hidden;
       }
+      .calc-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle 600px at -120px 50%, rgba(220,38,38,0.14) 0%, transparent 70%),
+          radial-gradient(circle 600px at calc(100% + 120px) 50%, rgba(220,38,38,0.14) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .calc-inner { position: relative; z-index: 1; }
       .calc-inner {
         max-width: 680px;
         margin: 0 auto;
@@ -1471,10 +1484,10 @@
         margin-bottom: 36px;
       }
       .calc-header .section-eyebrow-white {
-        margin-bottom: 10px;
-        border-color: rgba(220,38,38,0.35);
-        color: rgba(220,38,38,0.85);
-        background: rgba(220,38,38,0.06);
+        display: inline-block;
+        margin-bottom: 12px;
+        color: #dc2626;
+        background: none;
       }
       .calc-h {
         font-size: clamp(24px, 3vw, 36px);
