@@ -312,70 +312,71 @@
     .section-center { text-align: center; max-width: 760px; margin: 0 auto 52px; }
 
     /* ── PROBLEM ─────────────────────────────────── */
-    .problem { background: var(--gray-bg); padding: 96px 24px; position: relative; z-index: 0; }
+    .problem { background: var(--gray-bg); padding: 96px 24px; }
     .problem-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+    .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
     .bullet-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.5; }
     .bullet-list .icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; }
 
-    /* Opportunity cost visual */
-    .opp-visual { display: flex; flex-direction: column; gap: 0; border-radius: 20px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.16); }
-    .opp-search-bar {
-      background: #1a1a2e;
-      padding: 14px 20px;
+    /* Google mockup visual */
+    .gmock {
+      background: #202124; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22);
+    }
+    .gmock-topbar {
+      background: #303134; padding: 12px 16px;
       display: flex; align-items: center; gap: 10px;
     }
-    .opp-search-bar-inner {
-      flex: 1; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 8px; padding: 8px 14px;
+    .gmock-dots { display: flex; gap: 5px; }
+    .gmock-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .gmock-dot:nth-child(1){background:#f87171;} .gmock-dot:nth-child(2){background:#fbbf24;} .gmock-dot:nth-child(3){background:#34d399;}
+    .gmock-bar {
+      flex: 1; background: #202124; border-radius: 20px; padding: 7px 14px;
       display: flex; align-items: center; gap: 8px;
     }
-    .opp-search-text { font-family: var(--font-secondary); font-size: 13px; color: rgba(255,255,255,0.70); }
-    .opp-search-cursor {
-      width: 1.5px; height: 14px; background: #046bd2;
-      animation: blink 1s step-end infinite;
+    .gmock-bar-text { font-family: var(--font-secondary); font-size: 12px; color: rgba(255,255,255,0.60); }
+    .gmock-body { padding: 20px 20px 16px; }
+    .gmock-result {
+      padding: 12px 14px; border-radius: 10px; margin-bottom: 6px;
+      position: relative; cursor: default;
     }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-    .opp-cols { display: grid; grid-template-columns: 1fr 1fr; }
-    .opp-col { padding: 24px 20px; }
-    .opp-col.bad { background: #1a0808; }
-    .opp-col.good { background: #030d1c; border-left: 1px solid rgba(255,255,255,0.06); }
-    .opp-col-label {
-      font-family: var(--font-emphasis); font-size: 10px; font-weight: 700;
-      letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 16px;
+    .gmock-result.competitor-1 {
+      background: rgba(4,107,210,0.10); border: 1px solid rgba(4,107,210,0.20);
     }
-    .opp-col.bad .opp-col-label { color: #f87171; }
-    .opp-col.good .opp-col-label { color: #60a5fa; }
-    .opp-steps { display: flex; flex-direction: column; gap: 10px; }
-    .opp-step { display: flex; align-items: flex-start; gap: 8px; }
-    .opp-step-icon { flex-shrink: 0; width: 18px; height: 18px; margin-top: 1px; }
-    .opp-step-text { font-family: var(--font-secondary); font-size: 12.5px; line-height: 1.4; }
-    .opp-col.bad .opp-step-text { color: rgba(255,255,255,0.55); }
-    .opp-col.good .opp-step-text { color: rgba(255,255,255,0.75); }
-    .opp-result {
-      margin-top: 16px; padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      display: flex; align-items: center; gap: 8px;
+    .gmock-result.competitor-2, .gmock-result.competitor-3 {
+      background: transparent; border: 1px solid rgba(255,255,255,0.06);
     }
-    .opp-result-num {
-      font-family: var(--font-emphasis); font-size: 18px; font-weight: 800; line-height: 1;
+    .gmock-result-url { font-family: var(--font-secondary); font-size: 11px; color: #bdc1c6; margin-bottom: 2px; }
+    .gmock-result-title { font-family: var(--font-secondary); font-size: 14px; font-weight: 600; color: #8ab4f8; margin-bottom: 3px; line-height: 1.3; }
+    .gmock-result.competitor-2 .gmock-result-title,
+    .gmock-result.competitor-3 .gmock-result-title { opacity: 0.55; }
+    .gmock-result-snippet { font-family: var(--font-secondary); font-size: 11.5px; color: #bdc1c6; line-height: 1.5; }
+    .gmock-result.competitor-2 .gmock-result-snippet,
+    .gmock-result.competitor-3 .gmock-result-snippet { opacity: 0.40; }
+    /* Cursor */
+    .gmock-cursor {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 5px;
+      animation: cursor-click 2.4s ease-in-out infinite;
     }
-    .opp-col.bad .opp-result-num { color: #f87171; }
-    .opp-col.good .opp-result-num { color: #34d399; }
-    .opp-result-label { font-family: var(--font-secondary); font-size: 11px; line-height: 1.3; }
-    .opp-col.bad .opp-result-label { color: rgba(255,255,255,0.35); }
-    .opp-col.good .opp-result-label { color: rgba(255,255,255,0.45); }
-    /* Counter bar at bottom */
-    .opp-counter-bar {
-      background: #030d1c;
+    @keyframes cursor-click {
+      0%,60%  { opacity: 1; transform: translateY(-50%) scale(1); }
+      70%     { opacity: 1; transform: translateY(-50%) scale(0.88); }
+      80%,100%{ opacity: 1; transform: translateY(-50%) scale(1); }
+    }
+    .gmock-pg2 {
+      margin: 8px 0 4px; padding: 10px 14px;
       border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 16px 20px;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
+      display: flex; align-items: center; gap: 8px;
     }
-    .opp-counter-dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.75)} }
-    .opp-counter-text { font-family: var(--font-secondary); font-size: 12px; color: rgba(255,255,255,0.45); }
-    .opp-counter-text strong { color: rgba(255,255,255,0.80); font-family: var(--font-emphasis); }
+    .gmock-pg2-label {
+      font-family: var(--font-secondary); font-size: 11px;
+      color: rgba(255,255,255,0.22);
+    }
+    .gmock-pg2-you {
+      font-family: var(--font-secondary); font-size: 11px; color: #8ab4f8;
+      opacity: 0.30; text-decoration: line-through;
+    }
 
     /* ── ABOUT ───────────────────────────────────── */
     .about { background: var(--gray-bg); padding: 96px 24px; }
@@ -724,12 +725,11 @@
   <div class="problem-grid">
     <div class="anim">
       <div class="section-eyebrow">The Real Cost</div>
-      <h2 class="section-h">This isn't just a missed lead.<br><span class="accent">It's money leaving your business.</span></h2>
-      <p style="font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:20px;">People who Google "[your service] near me" have already decided to buy. They have money. They need someone now. Whoever shows up looking credible, with proof, and a clear way to contact them — that's who gets the call. Right now, that's your competitor.</p>
+      <h2 class="section-h">You might think this isn't a big deal.<br><span class="accent">It's money leaving your business.</span></h2>
       <ul class="bullet-list">
         <li>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-          These aren't cold leads — they're warm buyers with money, ready to spend today
+          These aren't cold leads — they're warm buyers ready to spend right now
         </li>
         <li>
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
@@ -746,70 +746,45 @@
       </ul>
     </div>
     <div class="anim d2">
-      <!-- What's happening right now — lead flow split -->
-      <div class="opp-visual">
-        <div class="opp-search-bar">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.40)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <div class="opp-search-bar-inner">
-            <span class="opp-search-text">best plumber near me</span>
-            <div class="opp-search-cursor"></div>
+      <!-- Google search mockup: cursor clicking competitor -->
+      <div class="gmock">
+        <div class="gmock-topbar">
+          <div class="gmock-dots">
+            <div class="gmock-dot"></div><div class="gmock-dot"></div><div class="gmock-dot"></div>
+          </div>
+          <div class="gmock-bar">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="gmock-bar-text">plumber near me</span>
           </div>
         </div>
-        <div class="opp-cols">
-          <div class="opp-col bad">
-            <div class="opp-col-label">Without a system</div>
-            <div class="opp-steps">
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                <span class="opp-step-text">Finds your outdated site</span>
-              </div>
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                <span class="opp-step-text">Sees no proof, no reviews</span>
-              </div>
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                <span class="opp-step-text">Bounces in 8 seconds</span>
-              </div>
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                <span class="opp-step-text">Calls your competitor</span>
-              </div>
-            </div>
-            <div class="opp-result">
-              <div class="opp-result-num">−$2,000</div>
-              <div class="opp-result-label">job you'll never know you lost</div>
+        <div class="gmock-body">
+          <!-- Result 1: competitor getting clicked -->
+          <div class="gmock-result competitor-1">
+            <div class="gmock-result-url">mikesplumbing.com · ★★★★★ 127 reviews</div>
+            <div class="gmock-result-title">Mike's Plumbing — Same-Day Emergency Service</div>
+            <div class="gmock-result-snippet">Fast, licensed, and trusted by 500+ homeowners. Free estimates. Book online.</div>
+            <!-- Animated cursor -->
+            <div class="gmock-cursor">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff" stroke="#000" stroke-width="0.5"><path d="M4 2l16 9-9 2-4 8z"/></svg>
             </div>
           </div>
-          <div class="opp-col good">
-            <div class="opp-col-label">With Nils Digital</div>
-            <div class="opp-steps">
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span class="opp-step-text">Finds your optimized site</span>
-              </div>
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span class="opp-step-text">Sees 5-star proof instantly</span>
-              </div>
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span class="opp-step-text">Submits an inquiry in 60 sec</span>
-              </div>
-              <div class="opp-step">
-                <svg class="opp-step-icon" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span class="opp-step-text">Calls you — ready to book</span>
-              </div>
-            </div>
-            <div class="opp-result">
-              <div class="opp-result-num">+$2,000</div>
-              <div class="opp-result-label">job booked, client won</div>
-            </div>
+          <!-- Result 2 -->
+          <div class="gmock-result competitor-2">
+            <div class="gmock-result-url">citypipeco.com · ★★★★ 89 reviews</div>
+            <div class="gmock-result-title">City Pipe Co. — Licensed & Insured Plumbers</div>
+            <div class="gmock-result-snippet">Serving the area for 15 years. Residential and commercial.</div>
           </div>
-        </div>
-        <div class="opp-counter-bar">
-          <div class="opp-counter-dot"></div>
-          <div class="opp-counter-text">Right now, <strong>high-intent buyers</strong> in your area are searching. Who gets the call?</div>
+          <!-- Result 3 -->
+          <div class="gmock-result competitor-3">
+            <div class="gmock-result-url">premierpluming.com · 23 reviews</div>
+            <div class="gmock-result-title">Premier Plumbing Solutions</div>
+            <div class="gmock-result-snippet">Residential plumbing services. Call for availability.</div>
+          </div>
+          <!-- You: page 2 -->
+          <div class="gmock-pg2">
+            <span class="gmock-pg2-label">Page 2 ·</span>
+            <span class="gmock-pg2-you">Your Business</span>
+          </div>
         </div>
       </div>
     </div>
