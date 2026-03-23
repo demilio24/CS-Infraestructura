@@ -5,11 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>We'll Build You a Website That Gets 4x More Clients | Nils Digital</title>
   <meta name="description" content="We build premium websites and Google Ads funnels for local service businesses. Results guaranteed in 30 days or you don't pay." />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Instrument Sans', 'Inter', -apple-system, sans-serif; background: #fff; color: #0a0a0a; overflow-x: hidden; }
+
+    /* Font system */
+    :root {
+      --font-main:      'Google Sans', 'DM Sans', sans-serif;
+      --font-secondary: 'DM Sans', 'Google Sans', sans-serif;
+      --font-emphasis:  'Instrument Sans', 'Google Sans', sans-serif;
+    }
+
+    body { font-family: var(--font-main); background: #fff; color: #0a0a0a; overflow-x: hidden; }
+
+    /* Emphasis elements → Instrument Sans */
+    h1, h2, h3, h4,
+    .hero-h1, .section-h2, .section-h3,
+    .fire-badge, .fire-text,
+    .hero-eyebrow, .section-eyebrow,
+    .btn, .hero-cta-full,
+    .step-num, .faq-num,
+    .hero-proof-num,
+    .vid-result-stat { font-family: var(--font-emphasis); }
+
+    /* Secondary elements → DM Sans */
+    .hero-sub, .hero-sub-grid .sub-item,
+    .hero-proof-label,
+    .hero-disclaimer,
+    .section-sub, .section-body,
+    .faq-answer, .survey-opt,
+    .survey-text-input, .tp-stars,
+    .vid-result-desc, .review-caption,
+    p, li { font-family: var(--font-secondary); }
 
     :root {
       --blue: #046bd2;
