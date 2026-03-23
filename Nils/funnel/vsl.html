@@ -831,6 +831,38 @@
         }
       }
 
+      /* ── PORTFOLIO CAROUSEL ──────────────────────── */
+      .step-copy { max-width: 760px; margin: 0 auto; padding: 0 24px 48px; text-align: center; }
+      .step-copy .bullet-list { text-align: left; display: inline-block; }
+      .portfolio-track {
+        display: flex; gap: 14px;
+        overflow-x: auto; overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        cursor: grab;
+        padding: 8px 24px 24px;
+        scrollbar-width: thin; scrollbar-color: #d0d5dd transparent;
+      }
+      .portfolio-track:active { cursor: grabbing; }
+      .portfolio-track::-webkit-scrollbar { height: 5px; }
+      .portfolio-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 10px; }
+      .portfolio-card {
+        flex-shrink: 0;
+        width: clamp(220px, 20vw, 280px);
+        max-height: 500px;
+        overflow-y: auto; overflow-x: hidden;
+        border-radius: 14px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
+        scroll-snap-align: start;
+        scrollbar-width: thin; scrollbar-color: #e0e0e0 transparent;
+        transition: box-shadow 0.2s, transform 0.2s;
+        border: 1px solid rgba(0,0,0,0.06);
+      }
+      .portfolio-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.16); transform: translateY(-3px); }
+      .portfolio-card img { width: 100%; height: auto; display: block; pointer-events: none; }
+      /* drag-prevention on images inside carousel */
+      .portfolio-track img { user-select: none; -webkit-user-drag: none; }
+
       /* ── ABOUT ───────────────────────────────────── */
       .about {
         background: var(--gray-bg);
@@ -2120,33 +2152,49 @@
     </section>
 
     <!-- ══════════════════════════════════════════ STEP 1: PREMIUM PRESENCE -->
-    <section class="step-section dark">
-      <div class="step-inner">
-        <div class="anim">
-          <div class="step-tag">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Step 01
-          </div>
-          <h2 class="section-h">Make you look like the most premium, <span class="accent">obvious choice</span> in your market.</h2>
-          <p style="font-size:15px;color:rgba(255,255,255,0.60);line-height:1.7;margin-bottom:24px;">On average, our websites get <strong style="color:#fff;">4x more conversions</strong> than a standard website. That means 4x more people giving you their information, calling you, and becoming paying clients. Just this one system, implemented into your business, would significantly increase your lead flow and your revenue.</p>
-          <ul class="bullet-list">
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              You become the obvious choice before anyone even calls
-            </li>
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              4x more conversions than the average website
-            </li>
-            <li>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Live and generating leads within 14 days
-            </li>
-          </ul>
+    <!-- ══════════════════════════════════════════ STEP 01 -->
+    <section class="step-section dark" style="padding-bottom: 0;">
+      <div class="step-copy anim">
+        <div class="step-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Step 01
         </div>
-        <div class="anim d2 step-visual">
-          <img src="https://storage.googleapis.com/msgsndr/stoLOEGDIvEDY3xQI4B8/media/69794539fa89c7a3222e4223.png" alt="Premium funnel example" style="width:100%;border-radius:14px;box-shadow:0 24px 72px rgba(0,0,0,0.45);" />
-        </div>
+        <h2 class="section-h">Make you look like the most premium, <span class="accent">obvious choice</span> in your market.</h2>
+        <p style="font-size:15px;color:rgba(255,255,255,0.60);line-height:1.7;margin-bottom:24px;">On average, our websites get <strong style="color:#fff;">4x more conversions</strong> than a standard website. That means 4x more people giving you their information, calling you, and becoming paying clients. Just this one system, implemented into your business, would significantly increase your lead flow and your revenue.</p>
+        <ul class="bullet-list">
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            You become the obvious choice before anyone even calls
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            4x more conversions than the average website
+          </li>
+          <li>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Live and generating leads within 14 days
+          </li>
+        </ul>
+      </div>
+      <div class="portfolio-track anim d2" id="portfolio-track">
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/1.png" alt="Client funnel 1" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/2.png" alt="Client funnel 2" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/3.png" alt="Client funnel 3" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/4.png" alt="Client funnel 4" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/5.png" alt="Client funnel 5" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/6.png" alt="Client funnel 6" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/7.png" alt="Client funnel 7" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/8.png" alt="Client funnel 8" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/9.png" alt="Client funnel 9" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/10.png" alt="Client funnel 10" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/11.png" alt="Client funnel 11" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/12.png" alt="Client funnel 12" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/13.png" alt="Client funnel 13" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/14.png" alt="Client funnel 14" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/15.png" alt="Client funnel 15" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/16.png" alt="Client funnel 16" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/17.png" alt="Client funnel 17" loading="lazy" draggable="false" /></div>
+        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/18.png" alt="Client funnel 18" loading="lazy" draggable="false" /></div>
       </div>
     </section>
 
@@ -3453,6 +3501,29 @@
     </script>
 
     <script>
+      // Portfolio carousel — click-drag to scroll
+      (function () {
+        const track = document.getElementById('portfolio-track');
+        if (!track) return;
+        let isDown = false, startX, scrollLeft;
+        track.addEventListener('mousedown', e => {
+          isDown = true;
+          track.classList.add('dragging');
+          startX = e.pageX - track.getBoundingClientRect().left;
+          scrollLeft = track.scrollLeft;
+          e.preventDefault();
+        });
+        document.addEventListener('mouseup', () => {
+          isDown = false;
+          track.classList.remove('dragging');
+        });
+        document.addEventListener('mousemove', e => {
+          if (!isDown) return;
+          const x = e.pageX - track.getBoundingClientRect().left;
+          track.scrollLeft = scrollLeft - (x - startX) * 1.4;
+        });
+      })();
+
       // Google mockup typing animation
       (function () {
         const el = document.getElementById("gmock-typing");
