@@ -27,7 +27,7 @@ Design language across the references:
 - **Video goes INSIDE the hero** — below the headline and CTA button, same max-width as the rest of the hero. NOT in a separate section below.
 - Survey/opt-in form goes at the bottom of the page (linked from CTA buttons), NOT directly below the video
 - Survey must be **multi-step** (one question at a time, auto-advances on click, back navigation available)
-- Trust bar goes BELOW the hero, with exactly 3 pills using the client's real numbers (clients served, star rating + platform, ad spend or revenue generated). Never use generic icons or vague claims.
+- Trust bar goes BELOW the hero, with exactly 3 pills using the client's real numbers. **Order by impact: ad spend or revenue generated first, star rating second, clients served last.** The strongest proof point always leads. Never use generic icons or vague claims.
 
 ### Standard landing pages / homepages
 - Navigation bar with logo, links, and CTA button
