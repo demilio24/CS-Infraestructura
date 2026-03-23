@@ -646,8 +646,36 @@
 
       /* ── PROBLEM ─────────────────────────────────── */
       .problem {
-        background: var(--gray-bg);
+        /* Continuous dot grid from hero (same 28px / 1.5px, now blue on white) */
+        background:
+          radial-gradient(
+              circle,
+              rgba(4, 107, 210, 0.13) 1.5px,
+              transparent 1.5px
+            )
+            0 0 / 28px 28px,
+          linear-gradient(180deg, #ffffff 0%, #f0f5ff 100%);
         padding: 96px 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Large terrorizing red orbs — left and right */
+      .problem::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            circle 520px at -140px 50%,
+            rgba(220, 38, 38, 0.18) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            circle 520px at calc(100% + 140px) 50%,
+            rgba(220, 38, 38, 0.18) 0%,
+            transparent 70%
+          );
+        pointer-events: none;
       }
       .problem-grid {
         max-width: 1100px;
@@ -681,9 +709,9 @@
       }
 
       .problem-tagline {
-        font-size: 14px;
+        font-size: 18px;
         color: var(--muted);
-        line-height: 1.6;
+        line-height: 1.75;
         margin-top: 10px;
       }
 
@@ -774,17 +802,35 @@
         transform-origin: center;
       }
       @keyframes result-click {
-        0%, 70%  { transform: scale(1);    box-shadow: none; }
-        80%      { transform: scale(1.03); box-shadow: 0 4px 16px rgba(26,13,171,0.18); }
-        90%, 100%{ transform: scale(1);    box-shadow: none; }
+        0%,
+        70% {
+          transform: scale(1);
+          box-shadow: none;
+        }
+        80% {
+          transform: scale(1.03);
+          box-shadow: 0 4px 16px rgba(26, 13, 171, 0.18);
+        }
+        90%,
+        100% {
+          transform: scale(1);
+          box-shadow: none;
+        }
       }
-      .gmock-result.competitor-2 { background: #fafafa; }
+      .gmock-result.competitor-2 {
+        background: #fafafa;
+      }
       .gmock-result.competitor-3 {
-        background: rgba(239,68,68,0.03);
-        border: 1px solid rgba(239,68,68,0.10);
+        background: rgba(239, 68, 68, 0.03);
+        border: 1px solid rgba(239, 68, 68, 0.1);
       }
-      .gmock-result.competitor-3 .gmock-result-url { color: rgba(239,68,68,0.50); }
-      .gmock-result.competitor-3 .gmock-result-title { color: rgba(239,68,68,0.60); font-weight: 600; }
+      .gmock-result.competitor-3 .gmock-result-url {
+        color: rgba(239, 68, 68, 0.5);
+      }
+      .gmock-result.competitor-3 .gmock-result-title {
+        color: rgba(239, 68, 68, 0.6);
+        font-weight: 600;
+      }
       .gmock-result-url {
         font-family: var(--font-secondary);
         font-size: 11px;
@@ -831,103 +877,622 @@
         }
       }
 
-      /* ── PORTFOLIO CAROUSEL ──────────────────────── */
-      .step-copy { max-width: 760px; margin: 0 auto; padding: 0 24px 48px; text-align: center; }
-      .step-copy .bullet-list { text-align: left; display: inline-block; }
-      .portfolio-track {
-        display: flex; gap: 14px;
-        overflow-x: auto; overflow-y: hidden;
-        /* scroll-snap disabled — auto-scroll handles rhythm */
-        -webkit-overflow-scrolling: touch;
-        cursor: grab;
-        padding: 8px 24px 24px;
-        scrollbar-width: thin; scrollbar-color: #d0d5dd transparent;
-      }
-      .portfolio-track:active { cursor: grabbing; }
-      .portfolio-track::-webkit-scrollbar { height: 5px; }
-      .portfolio-track::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.25); border-radius: 10px; }
-      .portfolio-card {
-        flex-shrink: 0;
-        width: clamp(220px, 20vw, 280px);
-        max-height: 500px;
-        overflow-y: auto; overflow-x: hidden;
-        border-radius: 14px;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
-        /* scroll-snap-align: start; */
-        scrollbar-width: thin; scrollbar-color: #e0e0e0 transparent;
-        transition: box-shadow 0.2s, transform 0.2s;
-        border: 1px solid rgba(0,0,0,0.06);
-      }
-      .portfolio-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.16); transform: translateY(-3px); }
-      .portfolio-card img { width: 100%; height: auto; display: block; pointer-events: none; }
-      /* drag-prevention on images inside carousel */
-      .portfolio-track img { user-select: none; -webkit-user-drag: none; }
-
-      /* ── ABOUT ───────────────────────────────────── */
-      .about {
-        background: var(--gray-bg);
-        padding: 96px 24px;
-      }
-      .about-grid {
-        max-width: 1100px;
+      /* ── STEP 01 LAYOUT ──────────────────────────── */
+      .step01-inner {
+        max-width: 1180px;
         margin: 0 auto;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 72px;
+        gap: 64px;
         align-items: center;
-      }
-      .about-img-wrap {
+        padding: 40px 40px 80px;
         position: relative;
+        z-index: 1;
       }
-      .about-img {
-        width: 100%;
-        display: block;
-        object-fit: contain;
-        object-position: center;
-        max-height: 580px;
-        border-radius: 20px;
+      .step01-copy > p {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.75;
+        margin-bottom: 28px;
       }
-      .about-badge {
-        position: absolute;
-        bottom: -14px;
-        right: -14px;
-        background: var(--blue);
+      .step01-copy .bullet-list {
+        margin-bottom: 20px;
+      }
+      .step01-copy .bullet-list li {
         color: #fff;
-        border-radius: 14px;
-        padding: 16px 22px;
-        box-shadow: 0 8px 32px rgba(var(--blue-rgb), 0.35);
-        text-align: center;
-      }
-      .about-badge-num {
-        font-size: 28px;
-        font-weight: 700;
-        line-height: 1;
-        margin-bottom: 4px;
-      }
-      .about-badge-label {
-        font-size: 11px;
         font-weight: 600;
-        opacity: 0.8;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
+        font-size: 15px;
       }
-      .about-creds {
+      .step01-copy .bullet-list .icon {
+        stroke: rgba(160, 210, 255, 0.9) !important;
+      }
+      .step01-hint {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 4px;
+      }
+
+      /* ── CASCADING FUNNEL GRID ───────────────────── */
+      .funnel-cascade {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        height: 700px;
+        overflow: hidden;
+        border-radius: 12px;
+        -webkit-mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 8%,
+          black 92%,
+          transparent 100%
+        );
+        mask-image: linear-gradient(
+          to bottom,
+          transparent 0%,
+          black 8%,
+          black 92%,
+          transparent 100%
+        );
+      }
+      .cascade-col {
         display: flex;
         flex-direction: column;
         gap: 14px;
-        margin-top: 28px;
+        will-change: transform;
       }
-      .about-cred {
+      .cascade-col:nth-child(1) {
+        animation: cascade-up 38s linear infinite;
+      }
+      .cascade-col:nth-child(2) {
+        animation: cascade-up 38s linear infinite;
+        animation-delay: -19s;
+      }
+      .cascade-col img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        box-shadow:
+          0 2px 12px rgba(4, 107, 210, 0.15),
+          0 1px 3px rgba(0, 0, 0, 0.08);
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+      @keyframes cascade-up {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-50%);
+        }
+      }
+
+      /* ── CASE STUDY ──────────────────────────────── */
+      .case-study-section {
+        background: #fff;
+        padding: 96px 24px;
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .case-study-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .case-study-header {
+        margin-bottom: 52px;
+      }
+      .case-study-disclaimer {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 10px;
+        font-style: italic;
+      }
+      .case-study-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 52px;
+        align-items: stretch;
+      }
+      .case-study-video-col {
+        display: flex;
+        flex-direction: column;
+      }
+      .case-study-video-wrap {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+        background: #000;
+        line-height: 0;
+        position: relative;
+        flex: 1;
+      }
+      .case-study-video-wrap video {
+        width: 100%;
+        display: block;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+      }
+      .case-study-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 4px;
+      }
+      /* ── VP PLAYER (copied from nils-proof) ─── */
+      .vp {
+        position: relative;
+        aspect-ratio: 4/5;
+        background: #000;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        user-select: none;
+        flex: 1;
+      }
+      .vp video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .vp-center {
+        position: absolute;
+        inset: 0;
         display: flex;
         align-items: center;
-        gap: 12px;
+        justify-content: center;
+        transition: opacity 0.2s;
+      }
+      .vp.playing .vp-center {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .vp-big-btn {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: rgba(4, 107, 210, 0.85);
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        transition:
+          transform 0.18s,
+          background 0.18s;
+        flex-shrink: 0;
+      }
+      .vp:hover .vp-big-btn {
+        transform: scale(1.1);
+        background: #046bd2;
+      }
+      .vp-big-btn svg {
+        width: 22px;
+        height: 22px;
+        fill: #fff;
+        margin-left: 3px;
+      }
+      .vp-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+        padding: 28px 14px 14px;
+      }
+      .vp-seek {
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+        margin-bottom: 10px;
+        position: relative;
+        cursor: pointer;
+        transition: height 0.15s;
+      }
+      .vp-seek:hover {
+        height: 5px;
+      }
+      .vp-seek-fill {
+        height: 100%;
+        background: #046bd2;
+        border-radius: 2px;
+        width: 0%;
+        pointer-events: none;
+      }
+      .vp-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .vp-btn {
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.88);
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s;
+        flex-shrink: 0;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .vp-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .vp-btn svg {
+        width: 15px;
+        height: 15px;
+        fill: currentColor;
+        display: block;
+      }
+      .vp-time {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.65);
+        white-space: nowrap;
+        min-width: 72px;
+      }
+      .vp-spacer {
+        flex: 1;
+      }
+      .vp-marker {
+        position: absolute;
+        top: -5px;
+        bottom: -5px;
+        width: 3px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+        cursor: pointer;
+        pointer-events: all;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      }
+      .vp-marker::before {
+        content: attr(data-label);
+        position: absolute;
+        bottom: calc(100% + 7px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: #fff;
+        font-size: 10px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.15s;
+        pointer-events: none;
+      }
+      .vp-marker:hover::before {
+        opacity: 1;
+      }
+      /* result badge (reused) */
+      .cs-result-badge {
+        position: absolute;
+        bottom: 68px;
+        left: 14px;
+        background: rgba(3, 13, 28, 0.78);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        padding: 8px 14px;
+        z-index: 3;
+        pointer-events: none;
+      }
+      .cs-result-num {
+        display: block;
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .cs-result-text {
+        display: block;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 2px;
+      }
+      .case-study-pull-quote {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.4;
+        letter-spacing: -0.01em;
+      }
+      .case-study-quote-body {
+        border-left: 3px solid var(--blue);
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .case-study-quote-text {
         font-size: 15px;
+        font-weight: 400;
+        color: var(--muted);
+        line-height: 1.7;
+        font-style: italic;
+        margin: 0;
+      }
+      .case-study-quote-stars {
+        color: #00b67a;
+        font-size: 15px;
+        letter-spacing: 2px;
+        margin-top: 10px;
+        display: block;
+      }
+      .case-study-quote-attr {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--muted);
+        margin-top: 2px;
+        display: block;
+      }
+      .case-study-screenshot-card {
+        background: var(--gray-bg);
+        border-radius: 14px;
+        border: 1px solid #e8edf3;
+        padding: 16px 18px 14px;
+      }
+      .case-study-screenshot-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 10px;
+      }
+      .case-study-results-img {
+        width: 100%;
+        border-radius: 8px;
+        display: block;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+      }
+      .case-study-bullets {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+      }
+      .case-study-bullet {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text);
+        line-height: 1.5;
+      }
+      .case-study-bullet svg {
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      @media (max-width: 860px) {
+        .case-study-grid {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .case-study-video-wrap video {
+          aspect-ratio: 4/3;
+        }
+      }
+
+      /* ── ABOUT / WHY WE'RE DIFFERENT ────────────── */
+      .about {
+        background: #fff;
+        padding: 96px 24px;
+      }
+      .diff-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 72px;
+      }
+      /* Header */
+      .diff-header {
+        text-align: center;
+        max-width: 820px;
+        margin: 0 auto;
+      }
+      .diff-header .section-eyebrow {
+        font-size: 13px;
+      }
+      .diff-header .section-h {
+        font-size: clamp(30px, 4vw, 52px);
+      }
+      .diff-subtext {
+        font-size: 17px;
+        color: var(--muted);
+        line-height: 1.75;
+        margin-top: 8px;
+      }
+      /* Sweet-spot comparison */
+      .diff-comparison {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      .diff-comp-card {
+        border-radius: 16px;
+        padding: 28px 24px;
+      }
+      .diff-bad {
+        background: var(--gray-bg);
+        border: 1px solid #e4e9f0;
+        opacity: 0.85;
+      }
+      .diff-good {
+        background: linear-gradient(160deg, #0847b8 0%, #0560d4 100%);
+        border: none;
+        box-shadow: 0 16px 56px rgba(var(--blue-rgb), 0.35);
+        position: relative;
+        z-index: 1;
+        transform: translateY(-8px);
+      }
+      .diff-good-tag {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: 20px;
+        padding: 4px 12px;
+        margin-bottom: 14px;
+      }
+      .diff-comp-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #fee2e2;
+        color: #dc2626;
+        font-size: 14px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 14px;
+      }
+      .diff-comp-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: var(--text);
+      }
+      .diff-good .diff-comp-title {
+        color: #fff;
+        font-size: 20px;
+      }
+      .diff-comp-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .diff-comp-list li {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--muted);
+        line-height: 1.4;
+        padding-left: 18px;
+        position: relative;
+      }
+      .diff-comp-list li::before {
+        content: "✗";
+        position: absolute;
+        left: 0;
+        color: #dc2626;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .diff-good .diff-comp-list li {
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .diff-good .diff-comp-list li::before {
+        content: "✓";
+        color: #86efac;
+      }
+      /* Credentials bar */
+      .diff-creds {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+      .diff-cred-pill {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--gray-bg);
+        border: 1px solid #e4e9f0;
+        border-radius: 40px;
+        padding: 10px 18px;
+        font-size: 13px;
         font-weight: 600;
         color: var(--text);
       }
-      .about-cred svg {
+      .diff-cred-pill svg {
         color: var(--blue);
         flex-shrink: 0;
+      }
+      /* Photo + closing — stacked */
+      .diff-bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 52px;
+      }
+      .diff-photos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .diff-photo {
+        width: 100%;
+        aspect-ratio: 3/2;
+        display: block;
+        border-radius: 16px;
+        object-fit: cover;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
+      }
+      .diff-closing {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .diff-closing-eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 14px;
+      }
+      .diff-closing-h {
+        font-size: clamp(24px, 2.6vw, 36px);
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        margin-bottom: 18px;
+      }
+      .diff-closing-body {
+        font-size: 16px;
+        color: var(--muted);
+        line-height: 1.75;
+        margin-bottom: 28px;
+      }
+      .diff-closing-quote {
+        background: var(--gray-bg);
+        border-left: 3px solid var(--blue);
+        border-radius: 0 12px 12px 0;
+        padding: 18px 24px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        font-style: italic;
+        line-height: 1.65;
+      }
+      @media (max-width: 900px) {
+        .diff-comparison {
+          grid-template-columns: 1fr;
+        }
+        .diff-good {
+          transform: none;
+        }
+        .diff-photos {
+          grid-template-columns: 1fr;
+        }
       }
 
       /* ── HOW WE FIX IT ───────────────────────────── */
@@ -1079,237 +1644,311 @@
         object-position: center;
       }
 
-      /* ── BRIDGE GRADIENT ─────────────────────────── */
-      .bridge {
-        height: 120px;
-        background: linear-gradient(
-          180deg,
-          #fff 0%,
-          #e8f0ff 30%,
-          #0358b0 70%,
-          #030d1c 100%
-        );
-        pointer-events: none;
-      }
-
-      /* ── STEP 1 DARK ──────────────────────────────── */
-      .step-section.dark {
-        background: linear-gradient(
-          160deg,
-          #030d1c 0%,
-          #051e52 50%,
-          #0447a8 100%
-        ) !important;
-      }
-      .step-section.dark .section-h {
-        color: #fff;
-      }
-      .step-section.dark .section-h .accent {
-        color: rgba(120, 180, 255, 0.9);
-      }
-      .step-section.dark .step-tag {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.18);
-        color: rgba(255, 255, 255, 0.85);
-      }
-      .step-section.dark p {
-        color: rgba(255, 255, 255, 0.65) !important;
-      }
-      .step-section.dark .bullet-list li {
-        color: rgba(255, 255, 255, 0.8);
-      }
-      .step-section.dark .bullet-list .icon {
-        stroke: rgba(120, 180, 255, 0.9);
-      }
-      .step-section.dark .funnel-nav-btn {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.18);
-        color: rgba(255, 255, 255, 0.7);
-      }
-      .step-section.dark .funnel-nav-btn:hover {
-        border-color: rgba(120, 180, 255, 0.6);
-        color: #fff;
-      }
-      .step-section.dark .funnel-counter {
-        color: rgba(255, 255, 255, 0.45);
-      }
-      .step-section.dark .funnel-hint {
-        color: rgba(255, 255, 255, 0.35);
-      }
-      .step-section.dark .funnel-slide {
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      /* ── RESULTS ─────────────────────────────────── */
-      .results {
+      /* ── LEADS ANIMATION CARD ────────────────────── */
+      .leads-anim-card {
         background: #fff;
-        padding: 96px 24px;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow:
+          0 12px 48px rgba(0, 0, 0, 0.13),
+          0 1px 4px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e0e0;
       }
-      .results-inner {
+      .leads-anim-topbar {
+        background: #f1f3f4;
+        padding: 10px 14px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .leads-anim-label {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #5f6368;
+        font-weight: 500;
+      }
+      .leads-anim-dot-live {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22c55e;
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+        animation: live-pulse 1.4s ease-in-out infinite;
+      }
+      @keyframes live-pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.1);
+        }
+      }
+      .leads-anim-body {
+        padding: 20px 24px 24px;
+      }
+
+      /* ── ROI CALCULATOR ───────────────────────────── */
+      .roi-calc {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .roi-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 0;
+        opacity: 0;
+        transform: translateY(8px);
+        animation: roi-appear 0.5s ease forwards;
+      }
+      .roi-row-1 {
+        animation-delay: 0.2s;
+      }
+      .roi-row-2 {
+        animation-delay: 0.7s;
+      }
+      .roi-row-3 {
+        animation-delay: 1.2s;
+      }
+      .roi-row-4 {
+        animation-delay: 1.8s;
+      }
+      .roi-row-5 {
+        animation-delay: 2.2s;
+      }
+      @keyframes roi-appear {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .roi-label {
+        font-size: 13px;
+        color: #64748b;
+        font-weight: 500;
+      }
+      .roi-value {
+        font-size: 15px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+      .roi-cost {
+        color: #ef4444;
+      }
+      .roi-rev {
+        color: #1e3a5f;
+      }
+      .roi-profit {
+        color: #16a34a;
+      }
+      .roi-check {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #dcfce7;
+        color: #16a34a;
+        font-size: 10px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        margin-left: 4px;
+      }
+      .roi-divider {
+        height: 1px;
+        background: #e2e8f0;
+        opacity: 0;
+        animation: roi-appear 0.3s ease forwards;
+      }
+      .roi-div-1 {
+        animation-delay: 0.55s;
+      }
+      .roi-div-2 {
+        animation-delay: 1.05s;
+      }
+      .roi-multiplier {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        background: #f1f5f9;
+        border-radius: 8px;
+        margin-top: 4px;
+        border-left: 3px solid #94a3b8;
+      }
+      .roi-mult-label {
+        font-size: 13px;
+        color: #475569;
+        font-weight: 600;
+      }
+      .roi-result {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 16px;
+        background: linear-gradient(135deg, #1a56db 0%, #0d2d6e 100%);
+        border-radius: 10px;
+        margin-top: 8px;
+      }
+      .roi-result-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.75);
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .roi-result-num {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.02em;
+      }
+
+      /* ── AD SPEND STRIP (inside Step 02) ─────────── */
+      .adspend-strip {
+        max-width: 1100px;
+        margin: 64px auto 0;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 56px;
+        align-items: center;
+        padding-top: 56px;
+        border-top: 1px solid #dde4f0;
+      }
+      .adspend-strip-img-wrap {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.11);
+      }
+      .adspend-strip-img {
+        width: 100%;
+        display: block;
+      }
+      .adspend-strip-stat {
+        font-size: 56px;
+        font-weight: 900;
+        color: #0d2d6e;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 8px;
+      }
+      .adspend-strip-plus {
+        color: var(--blue);
+      }
+      .adspend-strip-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #475569;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 18px;
+      }
+      .adspend-strip-body {
+        font-size: 15px;
+        color: var(--muted);
+        line-height: 1.75;
+        margin: 0;
+      }
+
+      /* ── PROOF SECTION ────────────────────────── */
+      .proof-section {
+        background:
+          radial-gradient(ellipse 80% 60% at 50% -10%, rgba(4,107,210,0.18) 0%, transparent 70%),
+          #080f1e;
+        padding: 100px 32px 80px;
+      }
+      .proof-inner {
         max-width: 1200px;
         margin: 0 auto;
       }
-
-      /* Reviews */
-      .reviews-label {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--blue);
-        margin-bottom: 14px;
+      .proof-header {
+        text-align: center;
+        margin-bottom: 60px;
       }
-      .reviews-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+      .proof-header .section-eyebrow { color: rgba(160,210,255,0.7); }
+      .proof-header .section-h { color: #fff; }
+      .proof-header .section-h .accent { color: #4da3ff; }
+      .proof-header p { color: rgba(255,255,255,0.5); font-size: 16px; margin-top: 10px; }
+
+      /* Review grid */
+      .proof-reviews-label {
+        font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+        text-transform: uppercase; color: #4da3ff; margin-bottom: 20px;
+      }
+      .proof-reviews-grid {
+        columns: 5;
+        column-gap: 12px;
         margin-bottom: 64px;
       }
-      .review-cell {
-        background: #fff;
-        border: 1px solid #e8edf3;
-        border-radius: 12px;
-        overflow: hidden;
-        height: 280px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-      }
-      .review-cell img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        object-position: center;
-        display: block;
-        background: #fff;
+      @media (max-width: 1100px) { .proof-reviews-grid { columns: 4; } }
+      @media (max-width: 800px)  { .proof-reviews-grid { columns: 3; } }
+      @media (max-width: 600px)  { .proof-reviews-grid { columns: 2; } }
+      .proof-reviews-grid img {
+        width: 100%; height: auto; display: block;
+        border-radius: 12px; margin-bottom: 12px;
+        border: 1px solid rgba(255,255,255,0.07);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        break-inside: avoid;
       }
 
-      /* Video testimonials, 2 col, result bar, pulsing play */
-      .vids-label {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--blue);
-        margin-bottom: 14px;
+      /* Live widget */
+      .proof-widget-wrap {
+        max-width: 1100px; margin: 0 auto 64px;
+        background: #fff; border-radius: 20px;
+        overflow-x: auto; overflow-y: hidden;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 8px; cursor: grab;
+        -webkit-overflow-scrolling: touch;
       }
-      .vids-grid {
+      .proof-widget-wrap.is-grabbing { cursor: grabbing; user-select: none; }
+      .proof-widget-hint {
+        text-align: center; margin-top: 12px; margin-bottom: 56px;
+        font-size: 12px; font-weight: 600; letter-spacing: 0.07em;
+        color: rgba(255,255,255,0.25);
+      }
+      .lc_reviews_widget { display: block; width: 100%; border: none; }
+
+      /* Video testimonials grid */
+      .proof-vids-label {
+        font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+        text-transform: uppercase; color: #4da3ff; margin-bottom: 20px;
+      }
+      .proof-video-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
       }
-      .vid-card {
-        border-radius: 16px;
-        overflow: hidden;
-        position: relative;
-        cursor: pointer;
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease;
-        aspect-ratio: 4/5;
-        background: linear-gradient(160deg, #0847b8 0%, #030d1c 60%);
+      @media (max-width: 900px) { .proof-video-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 540px) { .proof-video-grid { grid-template-columns: 1fr; } }
+      .video-card-wrap {
+        border-radius: 16px; overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        border: 1px solid rgba(255,255,255,0.07);
+        transition: transform 0.2s, box-shadow 0.2s;
+        background: #111827;
+        display: flex; flex-direction: column;
       }
-      .vid-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+      .video-card-wrap:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+      .vc-result {
+        padding: 16px 18px 18px;
+        background: #111827;
+        border-top: 1px solid rgba(255,255,255,0.07);
       }
-      .vid-card video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+      .vc-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+      .vc-bullets li {
+        font-size: 13px; font-weight: 500;
+        color: rgba(255,255,255,0.65); line-height: 1.4;
+        display: flex; align-items: flex-start; gap: 7px;
       }
-      .vid-overlay {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 14px;
-        background: linear-gradient(
-          160deg,
-          rgba(4, 71, 184, 0.45) 0%,
-          rgba(3, 13, 28, 0.55) 100%
-        );
-        transition: background 0.25s;
-      }
-      .vid-card.playing .vid-overlay {
-        display: none;
-      }
-      .vid-card:hover .vid-overlay {
-        background: linear-gradient(
-          160deg,
-          rgba(4, 71, 184, 0.3) 0%,
-          rgba(3, 13, 28, 0.4) 100%
-        );
-      }
-      /* Pulsing play circle */
-      @keyframes play-pulse {
-        0%,
-        100% {
-          box-shadow:
-            0 0 0 0 rgba(4, 107, 210, 0.7),
-            0 4px 32px rgba(4, 107, 210, 0.5);
-        }
-        50% {
-          box-shadow:
-            0 0 0 14px rgba(4, 107, 210, 0),
-            0 4px 48px rgba(4, 107, 210, 0.7);
-        }
-      }
-      .vid-play-circle {
-        width: 76px;
-        height: 76px;
-        border-radius: 50%;
-        background: var(--blue);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation: play-pulse 2s ease-in-out infinite;
-        transition: transform 0.2s;
-      }
-      .vid-card:hover .vid-play-circle {
-        transform: scale(1.1);
-      }
-      .vid-overlay-stars {
-        color: #00b67a;
-        font-size: 16px;
-        letter-spacing: 2px;
-      }
-      .vid-overlay-label {
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(255, 255, 255, 0.8);
-      }
-      /* Result bar at bottom of vid card */
-      .vid-result-bar {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(
-          0deg,
-          rgba(3, 13, 28, 0.95) 0%,
-          rgba(3, 13, 28, 0) 100%
-        );
-        padding: 28px 18px 18px;
-      }
-      .vid-result-stat {
-        font-size: 22px;
-        font-weight: 700;
-        color: #fff;
-        line-height: 1;
-      }
-      .vid-result-desc {
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.65);
-        margin-top: 3px;
-      }
-
-      /* ── GUARANTEE ───────────────────────────────── */
+      .vc-bullets li::before { content: "✓"; color: #4da3ff; font-weight: 700; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+      .vc-bullets li strong { color: rgba(255,255,255,0.9); }
       .guarantee {
         background: url("images/guarantee-bg.png") center center / cover
           no-repeat;
@@ -1864,6 +2503,25 @@
         }
       }
       @media (max-width: 680px) {
+        .adspend-strip {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .step01-inner {
+          grid-template-columns: 1fr;
+          padding: 64px 24px;
+          gap: 40px;
+        }
+        .funnel-cascade {
+          min-height: 380px;
+          gap: 8px;
+        }
+        .cascade-col:nth-child(2) {
+          animation-delay: -19s;
+        }
+        .step01-intro {
+          padding: 48px 24px 0;
+        }
         .hero-proof-col {
           flex-direction: column;
         }
@@ -1991,13 +2649,17 @@
     <section class="problem">
       <div class="problem-grid">
         <div class="anim">
-          <div class="section-eyebrow">The Real Cost</div>
+          <div class="section-eyebrow" style="color: #dc2626">
+            The Real Cost
+          </div>
           <h2 class="section-h">
             You might think this isn't a big deal,
-            <span class="accent">it is</span>
+            <span class="accent" style="color: #dc2626">it is</span>
           </h2>
           <p class="problem-tagline">
-            Money out of your pocket. Into your competitor's. Right now, while you read this. And if you don't act, they'll keep growing while you stay stuck.
+            Money out of your pocket. Into your competitor's. Right now, while
+            you read this. And if you don't act, they'll keep growing while you
+            stay stuck.
           </p>
           <ul class="bullet-list">
             <li>
@@ -2108,7 +2770,8 @@
                   Aqua Academy: Expert Swim Lessons for All Ages
                 </div>
                 <div class="gmock-result-snippet">
-                  Trusted by 1,000+ families. Beginner to advanced. Flexible schedules. Enroll today.
+                  Trusted by 1,000+ families. Beginner to advanced. Flexible
+                  schedules. Enroll today.
                 </div>
                 <div class="gmock-cursor">
                   <svg
@@ -2132,17 +2795,17 @@
                   City Swim School: Learn to Swim in 8 Weeks
                 </div>
                 <div class="gmock-result-snippet">
-                  Small class sizes, certified instructors, all skill levels. Book a free trial.
+                  Small class sizes, certified instructors, all skill levels.
+                  Book a free trial.
                 </div>
               </div>
               <!-- Result 3: the viewer's business -->
               <div class="gmock-result competitor-3">
-                <div class="gmock-result-url">
-                  yourbusiness.com
-                </div>
+                <div class="gmock-result-url">yourbusiness.com</div>
                 <div class="gmock-result-title">YOUR BUSINESS</div>
                 <div class="gmock-result-snippet">
-                  We offer swim lessons for all ages. Contact us for more information.
+                  We offer swim lessons for all ages. Contact us for more
+                  information.
                 </div>
               </div>
             </div>
@@ -2151,169 +2814,17 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════ STEP 1: PREMIUM PRESENCE -->
+    <!-- ══════════════════════════════════════════ FIX DIVIDER -->
+    <div class="fix-divider-wrap">
+      <div class="fix-divider anim">
+        <p class="fix-divider-text">How we're going to <span>fix it.</span></p>
+      </div>
+    </div>
+
     <!-- ══════════════════════════════════════════ STEP 01 -->
-    <section class="step-section dark" style="padding-bottom: 0;">
-      <div class="step-copy anim">
-        <div class="step-tag">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Step 01
-        </div>
-        <h2 class="section-h">Make you look like the most premium, <span class="accent">obvious choice</span> in your market.</h2>
-        <p style="font-size:15px;color:rgba(255,255,255,0.60);line-height:1.7;margin-bottom:24px;">On average, our websites get <strong style="color:#fff;">4x more conversions</strong> than a standard website. That means 4x more people giving you their information, calling you, and becoming paying clients. Just this one system, implemented into your business, would significantly increase your lead flow and your revenue.</p>
-        <ul class="bullet-list">
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            You become the obvious choice before anyone even calls
-          </li>
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            4x more conversions than the average website
-          </li>
-          <li>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Live and generating leads within 14 days
-          </li>
-        </ul>
-      </div>
-      <div class="portfolio-track anim d2" id="portfolio-track">
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/1.png" alt="Client funnel 1" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/2.png" alt="Client funnel 2" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/3.png" alt="Client funnel 3" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/4.png" alt="Client funnel 4" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/5.png" alt="Client funnel 5" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/6.png" alt="Client funnel 6" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/7.png" alt="Client funnel 7" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/8.png" alt="Client funnel 8" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/9.png" alt="Client funnel 9" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/10.png" alt="Client funnel 10" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/11.png" alt="Client funnel 11" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/12.png" alt="Client funnel 12" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/13.png" alt="Client funnel 13" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/14.png" alt="Client funnel 14" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/15.png" alt="Client funnel 15" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/16.png" alt="Client funnel 16" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/17.png" alt="Client funnel 17" loading="lazy" draggable="false" /></div>
-        <div class="portfolio-card"><img src="https://demilio24.github.io/Websites/references/18.png" alt="Client funnel 18" loading="lazy" draggable="false" /></div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════ ABOUT -->
-    <section class="about">
-      <div class="about-grid">
-        <div class="about-img-wrap anim">
-          <img
-            class="about-img"
-            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
-            alt="Nils, Founder, Nils Digital"
-          />
-          <div class="about-badge">
-            <div class="about-badge-num">100+</div>
-            <div class="about-badge-label">Happy Clients</div>
-          </div>
-        </div>
-        <div class="anim d2">
-          <div class="section-eyebrow">Why We're Different</div>
-          <h2 class="section-h">
-            Built by a founder who's been in
-            <span class="accent">your shoes.</span>
-          </h2>
-          <p
-            style="
-              font-size: 15px;
-              color: var(--muted);
-              line-height: 1.7;
-              margin-bottom: 8px;
-            "
-          >
-            I had a software startup that got zero customers. Great product,
-            great reviews, but no system to bring in new clients. That killed
-            it. I built the system, then built it for over 100 other businesses.
-          </p>
-          <p
-            style="
-              font-size: 15px;
-              color: var(--muted);
-              line-height: 1.7;
-              margin-bottom: 24px;
-            "
-          >
-            Today Nils Digital has earned a perfect 5-star rating on Trustpilot
-            and managed over $2 million in Google Ads in 2025 alone.
-          </p>
-          <div class="about-creds">
-            <div class="about-cred">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Google Partner certified
-            </div>
-            <div class="about-cred">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Award-winning funnel agency, six-figure funnels built
-            </div>
-            <div class="about-cred">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              $2M+ in ad spend managed in 2025
-            </div>
-            <div class="about-cred">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Perfect 5-star rating on Trustpilot
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════ BRIDGE -->
-    <div class="bridge" aria-hidden="true"></div>
-
-    <!-- ══════════════════════════════════════════ STEP 1: CONVERSION MACHINE -->
-    <section class="step-section dark">
-      <div class="step-inner">
-        <div class="anim">
+    <section class="step-section step-01">
+      <div class="step01-inner">
+        <div class="step01-copy anim">
           <div class="step-tag">
             <svg
               width="12"
@@ -2327,19 +2838,13 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            Step 01
+            Step #1
           </div>
           <h2 class="section-h">
-            We rebuild your <span class="accent">conversion machine.</span>
+            Make you look like the most premium,
+            <span class="accent">obvious choice</span> in your market.
           </h2>
-          <p
-            style="
-              font-size: 15px;
-              color: var(--muted);
-              line-height: 1.7;
-              margin-bottom: 20px;
-            "
-          >
+          <p>
             One page, one goal, one action. Built to make you look like the
             obvious best option in your market. Every funnel we build converts
             at 10 to 20%, not the 2 to 3% industry average.
@@ -2355,9 +2860,8 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              10 to 20% conversion rates vs. the 2 to 3% industry average
+                <polyline points="20 6 9 17 4 12" /></svg
+              >10 to 20% conversion rates vs. the 2 to 3% industry average
             </li>
             <li>
               <svg
@@ -2369,9 +2873,8 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Live and generating leads within 14 days
+                <polyline points="20 6 9 17 4 12" /></svg
+              >Live and generating leads within 14 days
             </li>
             <li>
               <svg
@@ -2383,108 +2886,211 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              Award-winning quality, see our client funnels
+                <polyline points="20 6 9 17 4 12" /></svg
+              >Award-winning quality — see our client funnels
             </li>
           </ul>
-          <p style="font-size: 13px; color: var(--muted); margin-top: 20px">
-            Swipe through actual funnels we built for real clients →
-          </p>
         </div>
-        <div class="step-visual anim d2">
-          <!-- Tinder-style funnel swiper -->
-          <div class="funnel-swiper">
-            <div class="funnel-swiper-track" id="ftrack">
-              <div class="funnel-slide fs-prev">
-                <img src="../../references/8.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide fs-active">
-                <img src="../../references/1.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide fs-next">
-                <img src="../../references/2.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide" data-extra="true">
-                <img src="../../references/3.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide" data-extra="true">
-                <img src="../../references/4.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide" data-extra="true">
-                <img src="../../references/5.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide" data-extra="true">
-                <img src="../../references/6.png" alt="Client funnel" />
-              </div>
-              <div class="funnel-slide" data-extra="true">
-                <img src="../../references/7.png" alt="Client funnel" />
-              </div>
-            </div>
-            <div class="funnel-nav">
-              <button
-                class="funnel-nav-btn"
-                onclick="fPrev()"
-                aria-label="Previous funnel"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <span class="funnel-counter" id="f-counter">1 / 8</span>
-              <button
-                class="funnel-nav-btn"
-                onclick="fNext()"
-                aria-label="Next funnel"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-            <div class="funnel-hint">
-              Click arrows or swipe to browse client funnels
-            </div>
+        <!-- Cascading 2-col funnel grid — each col scrolls at a different speed + offset -->
+        <div class="funnel-cascade anim d2">
+          <!-- Col 1: odd funnels — duplicated for seamless infinite loop -->
+          <div class="cascade-col">
+            <img
+              src="https://demilio24.github.io/Websites/references/1.png"
+              alt="Client funnel 1"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/3.png"
+              alt="Client funnel 3"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/5.png"
+              alt="Client funnel 5"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/7.png"
+              alt="Client funnel 7"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/9.png"
+              alt="Client funnel 9"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/11.png"
+              alt="Client funnel 11"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/13.png"
+              alt="Client funnel 13"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/15.png"
+              alt="Client funnel 15"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/1.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/3.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/5.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/7.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/9.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/11.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/13.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/15.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+          </div>
+          <!-- Col 2: even funnels -->
+          <div class="cascade-col">
+            <img
+              src="https://demilio24.github.io/Websites/references/2.png"
+              alt="Client funnel 2"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/4.png"
+              alt="Client funnel 4"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/6.png"
+              alt="Client funnel 6"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/8.png"
+              alt="Client funnel 8"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/10.png"
+              alt="Client funnel 10"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/12.png"
+              alt="Client funnel 12"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/14.png"
+              alt="Client funnel 14"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/16.png"
+              alt="Client funnel 16"
+              loading="lazy"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/2.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/4.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/6.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/8.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/10.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/12.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/14.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <img
+              src="https://demilio24.github.io/Websites/references/16.png"
+              alt=""
+              loading="lazy"
+              aria-hidden="true"
+            />
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ══════════════════════════════════════════ STEP 02 DIVIDER -->
+    <div class="fix-divider-wrap">
+      <div class="fix-divider anim">
+        <p class="fix-divider-text">
+          Once everything is converting efficiently
+        </p>
+      </div>
+    </div>
+
     <!-- ══════════════════════════════════════════ STEP 2: GOOGLE ADS TRAFFIC -->
-    <section class="step-section" style="background: var(--gray-bg)">
+    <section class="step-section step-02">
       <div class="step-inner">
-        <div class="step-visual anim">
-          <div class="traffic-visual">
-            <img
-              class="traffic-img traffic-img-tall"
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c37a29dcf5e749662cd0.jpg"
-              alt="Google Ads results"
-            />
-            <img
-              class="traffic-img traffic-img-short"
-              src="https://storage.googleapis.com/msgsndr/stoLOEGDIvEDY3xQI4B8/media/697940b55faeb3d52ddafa3b.png"
-              alt="Business owner getting calls"
-            />
-          </div>
-        </div>
         <div class="anim d2">
           <div class="step-tag">
             <svg
@@ -2499,23 +3105,21 @@
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            Step 02
+            Step #2
           </div>
           <h2 class="section-h">
-            We drive <span class="accent">targeted Google Ads</span> traffic.
+            We run <span class="accent">extremely profitable</span> Google Ads.
           </h2>
           <p
             style="
-              font-size: 15px;
+              font-size: 20px;
               color: var(--muted);
-              line-height: 1.7;
+              line-height: 1.75;
               margin-bottom: 20px;
             "
           >
-            Right now someone in your city is searching for exactly what you do.
-            We've managed over
-            <strong>$2,000,000 in Google Ads spend</strong> for clients in 2025
-            alone, and we know how to make every dollar count.
+            Once you're positioned as the obvious choice and you have systems that convert properly, we will run extremely profitable Google Ads so you get the highest quality leads that are already looking for your service and have already mentally purchased.
+            <strong>They just need the last push to go for you.</strong>
           </p>
           <ul class="bullet-list">
             <li>
@@ -2562,154 +3166,687 @@
             </li>
           </ul>
         </div>
+        <div class="step-visual anim d2">
+          <div class="leads-anim-card">
+            <div class="leads-anim-topbar">
+              <div class="gmock-dots">
+                <div class="gmock-dot"></div>
+                <div class="gmock-dot"></div>
+                <div class="gmock-dot"></div>
+              </div>
+              <div class="leads-anim-label">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" fill="#4285F4" />
+                  <text
+                    x="12"
+                    y="16"
+                    text-anchor="middle"
+                    font-size="11"
+                    font-weight="700"
+                    fill="#fff"
+                    font-family="sans-serif"
+                  >
+                    G
+                  </text>
+                </svg>
+                Google Ads — Live Campaign
+              </div>
+              <div class="leads-anim-dot-live"></div>
+            </div>
+            <div class="leads-anim-body">
+              <div class="roi-calc">
+                <div class="roi-row roi-row-1">
+                  <span class="roi-label">Ad spend per client</span>
+                  <span class="roi-value roi-cost">− $120</span>
+                </div>
+                <div class="roi-divider roi-div-1"></div>
+                <div class="roi-row roi-row-2">
+                  <span class="roi-label">Avg. job value</span>
+                  <span class="roi-value roi-rev">$2,800</span>
+                </div>
+                <div class="roi-divider roi-div-2"></div>
+                <div class="roi-row roi-row-3">
+                  <span class="roi-label">Gross profit per client</span>
+                  <span class="roi-value roi-profit"
+                    >$2,680 <span class="roi-check">✓</span></span
+                  >
+                </div>
+                <div class="roi-multiplier roi-row-4">
+                  <span class="roi-mult-label">× 14 clients this month</span>
+                </div>
+                <div class="roi-result roi-row-5">
+                  <span class="roi-result-label">New Revenue</span>
+                  <span class="roi-result-num" id="roi-num">$37,520</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="adspend-strip anim">
+        <div class="adspend-strip-img-wrap">
+          <img
+            src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg"
+            alt="$2M+ Google Ads spend proof"
+            class="adspend-strip-img"
+            loading="lazy"
+          />
+        </div>
+        <div class="adspend-strip-copy">
+          <div class="adspend-strip-stat">
+            $2,000,000<span class="adspend-strip-plus">+</span>
+          </div>
+          <div class="adspend-strip-label">
+            in Google Ads spend managed in 2025 alone
+          </div>
+          <p class="adspend-strip-body">
+            We know what a profitable campaign looks like. Most agencies guess,
+            charge a management fee, and hope for the best. We've spent over two
+            million dollars learning what actually works — so we're not figuring
+            it out on your dime.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════ RESULTS -->
-    <section class="results">
-      <div class="results-inner">
-        <div class="section-center anim">
-          <div class="section-eyebrow">Real Results</div>
-          <h2 class="section-h">
-            If you don't think this works,
-            <span class="accent">here's the proof.</span>
+    <!-- ══════════════════════════════════════════ CASE STUDY -->
+    <section class="case-study-section">
+        <div class="case-study-header" style="max-width:100%;text-align:center;padding:0 40px 52px;">
+          <div class="section-eyebrow anim">Proof of Concept</div>
+          <h2 class="section-h anim d2" style="font-size:clamp(32px,5vw,72px);max-width:100%;">
+            Sounds too good to be true?<br />
+            <span class="accent">Watch what our client has to say.</span>
           </h2>
-          <p style="font-size: 16px; color: var(--muted); line-height: 1.7">
-            100+ clients. Real reviews. Real testimonials. See for yourself.
+        </div>
+      <div class="case-study-inner">
+
+        <div class="case-study-grid anim d4">
+          <!-- Video with native controls, seeks to 2:06 on load -->
+          <div class="case-study-video-col">
+            <div class="vp" id="cs-vp">
+              <video playsinline preload="metadata" data-start="127">
+                <source
+                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4#t=0.001"
+                  type="video/mp4"
+                />
+              </video>
+              <div class="vp-center">
+                <div class="vp-big-btn">
+                  <svg viewBox="0 0 12 12">
+                    <polygon points="2,1 10,6 2,11" />
+                  </svg>
+                </div>
+              </div>
+              <div class="cs-result-badge">
+                <span class="cs-result-num">20.83%</span>
+                <span class="cs-result-text">opt-in rate — up from 3%</span>
+              </div>
+              <div class="vp-bar">
+                <div class="vp-seek">
+                  <div class="vp-seek-fill"></div>
+                  <div
+                    class="vp-marker"
+                    data-time="127"
+                    data-label="2:07 — highlights"
+                  ></div>
+                </div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn" aria-label="Play">
+                    <svg viewBox="0 0 12 12">
+                      <polygon points="2,1 10,6 2,11" />
+                    </svg>
+                  </button>
+                  <span class="vp-time">0:00 / 0:00</span>
+                  <span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn" aria-label="Mute">
+                    <svg viewBox="0 0 16 14">
+                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
+                      <path
+                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                      <path
+                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                      />
+                    </svg>
+                  </button>
+                  <button class="vp-btn vp-speed-btn" aria-label="Speed">
+                    1x
+                  </button>
+                  <button class="vp-btn vp-fs-btn" aria-label="Fullscreen">
+                    <svg
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="1,5 1,1 5,1" />
+                      <polyline points="9,1 13,1 13,5" />
+                      <polyline points="13,9 13,13 9,13" />
+                      <polyline points="5,13 1,13 1,9" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: pull quote → bullets → full quote → screenshot -->
+          <div class="case-study-right">
+            <p class="case-study-pull-quote">
+              "We have seen a huge jump in revenue — and we've only started
+              within the last couple months."
+            </p>
+
+            <div class="case-study-bullets">
+              <div class="case-study-bullet">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    fill="rgba(var(--blue-rgb),0.1)"
+                  />
+                  <path
+                    d="M7 12l3.5 3.5L17 8"
+                    stroke="var(--blue)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                A premium conversion website that positions you as the obvious
+                choice in your market.
+              </div>
+              <div class="case-study-bullet">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    fill="rgba(var(--blue-rgb),0.1)"
+                  />
+                  <path
+                    d="M7 12l3.5 3.5L17 8"
+                    stroke="var(--blue)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                A Google Ads funnel driving high-intent leads already ready to
+                buy — converting at 10–20%.
+              </div>
+              <div class="case-study-bullet">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    fill="rgba(var(--blue-rgb),0.1)"
+                  />
+                  <path
+                    d="M7 12l3.5 3.5L17 8"
+                    stroke="var(--blue)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                The result: more booked appointments, higher close rates, and a
+                business that grows predictably.
+              </div>
+            </div>
+
+            <div class="case-study-screenshot-card">
+              <div class="case-study-screenshot-label">
+                Her website conversion rate
+              </div>
+              <img
+                class="case-study-results-img"
+                src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png"
+                alt="Client website conversion rate — before vs. after"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ ABOUT / WHY WE'RE DIFFERENT -->
+    <section class="about">
+      <div class="diff-inner">
+        <!-- Header -->
+        <div class="diff-header anim">
+          <div class="section-eyebrow">Why We're Different</div>
+          <h2 class="section-h">
+            Not a faceless agency. Not a freelancer winging it.<br />
+            <span class="accent">The proven team that actually shows up.</span>
+          </h2>
+          <p class="diff-subtext">
+            Most agencies offshore their work, charge you $10k a month, and hand
+            you off to a junior rep who barely knows your name. Most freelancers
+            are good at one thing and figure out the rest on your dime. Neither
+            gives you a system that actually grows your business. We do. And
+            we've done it for over 200 clients.
           </p>
         </div>
 
-        <div class="reviews-label anim">Client Reviews</div>
-        <div class="reviews-grid">
-          <div class="review-cell anim d1">
-            <img
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg"
-              alt="5-star review"
-              loading="lazy"
-            />
+        <!-- Sweet-spot comparison -->
+        <div class="diff-comparison anim d2">
+          <div class="diff-comp-card diff-bad">
+            <div class="diff-comp-icon">✗</div>
+            <div class="diff-comp-title">The Big Agency</div>
+            <ul class="diff-comp-list">
+              <li>You're handed off to a junior rep</li>
+              <li>Overseas teams you've never met</li>
+              <li>$10,000+/month and you're just a ticket</li>
+              <li>Strategy meetings replace actual results</li>
+              <li>They scale by caring less</li>
+            </ul>
           </div>
-          <div class="review-cell anim d2">
-            <img
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c0630eb845b14a16b21.png"
-              alt="5-star review"
-              loading="lazy"
-            />
+          <div class="diff-comp-card diff-good">
+            <div class="diff-good-tag">✓ The Sweet Spot</div>
+            <div class="diff-comp-title">Nils Digital</div>
+            <ul class="diff-comp-list">
+              <li>Based in Chicago. No outsourcing, ever.</li>
+              <li>Bachelor's &amp; Master's educated team</li>
+              <li>Founder-led, hands-on from day one</li>
+              <li>Google Partner certified</li>
+              <li>$2M+ in ad spend managed</li>
+              <li>Perfect ★★★★★ on Trustpilot</li>
+              <li>Award-winning. Stage-tested. Proven.</li>
+            </ul>
           </div>
-          <div class="review-cell anim d3">
-            <img
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d662eb392bf8196989f8.jpg"
-              alt="5-star review"
-              loading="lazy"
-            />
-          </div>
-          <div class="review-cell anim d1">
-            <img
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c087fda7a317126b76a.png"
-              alt="5-star review"
-              loading="lazy"
-            />
-          </div>
-          <div class="review-cell anim d2">
-            <img
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6945d3e58cae8f8306fd5fc6.png"
-              alt="5-star review"
-              loading="lazy"
-            />
-          </div>
-          <div class="review-cell anim d3">
-            <img
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a16bb55008b8278fa27d7.png"
-              alt="5-star review"
-              loading="lazy"
-            />
+          <div class="diff-comp-card diff-bad">
+            <div class="diff-comp-icon">✗</div>
+            <div class="diff-comp-title">The One-Man Shop</div>
+            <ul class="diff-comp-list">
+              <li>No team, no backup, no systems</li>
+              <li>Great at one thing, guessing on the rest</li>
+              <li>No certifications, no track record</li>
+              <li>Disappears when things get hard</li>
+              <li>You're the experiment</li>
+            </ul>
           </div>
         </div>
 
-        <div class="vids-label anim">Client Video Testimonials</div>
-        <div class="vids-grid">
-          <div class="vid-card anim d1" onclick="playVid(this)">
-            <video preload="none" loop playsinline>
-              <source
-                src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4"
-                type="video/mp4"
+        <!-- Credentials pills -->
+        <div class="diff-creds anim d3">
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
               />
-            </video>
-            <div class="vid-overlay">
-              <div class="vid-play-circle">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-                  <polygon points="6,3 20,12 6,21" />
-                </svg>
-              </div>
-              <div class="vid-overlay-stars">★★★★★</div>
-            </div>
-            <div class="vid-result-bar">
-              <div class="vid-result-stat">12x ROI</div>
-              <div class="vid-result-desc">in the first 60 days</div>
-            </div>
+              <circle cx="12" cy="9" r="2.5" />
+            </svg>
+            Based in Chicago, IL
           </div>
-          <div class="vid-card anim d2" onclick="playVid(this)">
-            <video preload="none" loop playsinline>
-              <source
-                src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e41a23401cc3.mp4"
-                type="video/mp4"
-              />
-            </video>
-            <div class="vid-overlay">
-              <div class="vid-play-circle">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-                  <polygon points="6,3 20,12 6,21" />
-                </svg>
-              </div>
-              <div class="vid-overlay-stars">★★★★★</div>
-            </div>
-            <div class="vid-result-bar">
-              <div class="vid-result-stat">$14 per lead</div>
-              <div class="vid-result-desc">
-                down from $90 with their old agency
-              </div>
-            </div>
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M2 20c0-4 4-7 10-7s10 3 10 7" />
+            </svg>
+            BS &amp; MS Educated Team
           </div>
-          <div class="vid-card anim d3" onclick="playVid(this)">
-            <video preload="none" loop playsinline>
-              <source
-                src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2837e8f26631ae1d.mov"
-                type="video/mp4"
-              />
-            </video>
-            <div class="vid-overlay">
-              <div class="vid-play-circle">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-                  <polygon points="6,3 20,12 6,21" />
-                </svg>
-              </div>
-              <div class="vid-overlay-stars">★★★★★</div>
-            </div>
-            <div class="vid-result-bar">
-              <div class="vid-result-stat">3x more calls</div>
-              <div class="vid-result-desc">within the first month</div>
-            </div>
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            Google Partner Certified
           </div>
-          <div class="vid-card anim d1" onclick="playVid(this)">
-            <video preload="none" loop playsinline>
-              <source
-                src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4"
-                type="video/mp4"
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+            $2M+ Ad Spend Managed
+          </div>
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
               />
-            </video>
-            <div class="vid-overlay">
-              <div class="vid-play-circle">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff">
-                  <polygon points="6,3 20,12 6,21" />
-                </svg>
-              </div>
-              <div class="vid-overlay-stars">★★★★★</div>
-            </div>
-            <div class="vid-result-bar">
-              <div class="vid-result-stat">Fully booked</div>
-              <div class="vid-result-desc">waitlist within 45 days</div>
+            </svg>
+            Perfect ★★★★★ on Trustpilot
+          </div>
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+              <path d="M4 22h16" />
+              <path
+                d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"
+              />
+              <path
+                d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"
+              />
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2z" />
+            </svg>
+            Award-Winning Agency
+          </div>
+          <div class="diff-cred-pill">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            100+ Happy Clients
+          </div>
+        </div>
+
+        <!-- Photos + closing copy -->
+        <div class="diff-bottom anim d4">
+          <div class="diff-photos">
+            <img
+              class="diff-photo"
+              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
+              alt="Nils Digital GoHighLevel 200 clients award"
+              loading="lazy"
+            />
+            <img
+              class="diff-photo"
+              src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg"
+              alt="Nils Digital award plaque"
+              loading="lazy"
+            />
+            <img
+              class="diff-photo"
+              src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg"
+              alt="Nils featured as consultant in Times Square"
+              loading="lazy"
+            />
+            <img
+              class="diff-photo"
+              src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg"
+              alt="Nils presenting on stage"
+              loading="lazy"
+            />
+          </div>
+          <div class="diff-closing">
+            <div class="diff-closing-eyebrow">Our Promise to You</div>
+            <h3 class="diff-closing-h">
+              This is the easiest way forward you'll find.
+            </h3>
+            <p class="diff-closing-body">
+              We know where you've been, because that's exactly how we started.
+              A great service, no system to bring in clients, and no clear path
+              forward. That experience is the foundation of everything we build
+              for you today.
+              <br /><br />
+              This is a hands-on, handheld service. We handle the website, the
+              ads, the optimization, and the follow-up. You focus on delivering
+              your service and showing up wherever you want to be.
+            </p>
+            <div class="diff-closing-quote">
+              "We aren't cheap. But we aren't anywhere near as expensive as the
+              agencies that don't know your name. You get top-tier talent, a
+              proven track record, and a team that actually cares at a rate that
+              makes the math easy."
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════ PROOF / REVIEWS -->
+    <section class="proof-section">
+      <div class="proof-inner">
+        <div class="proof-header anim">
+          <div class="section-eyebrow">Real Results</div>
+          <h2 class="section-h">If you don't think this works,<br><span class="accent">here's the proof.</span></h2>
+          <p>100+ clients. Real reviews. Real testimonials. See for yourself.</p>
+        </div>
+
+        <div class="proof-reviews-label anim">Client Reviews</div>
+        <div class="proof-reviews-grid anim d2">
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c0630eb845b14a16b21.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d662eb392bf8196989f8.jpg" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c087fda7a317126b76a.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6945d3e58cae8f8306fd5fc6.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a16bb55008b8278fa27d7.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d5760439b6be373540aef.jpg" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c4c956b851de2642b59.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a17a6fd6d7301db3b9fb0.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c055a423066f369ef9f.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c59956b856761642c56.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c37a29dcf5e749662cd0.jpg" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ab8a671d50761fd7259d.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85be27fda7a410926b4d3.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ae3679fc96d264deccf7.png" alt="5-star review" loading="lazy"/>
+          <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c41956b859202642a95.png" alt="5-star review" loading="lazy"/>
+        </div>
+
+        <div class="proof-widget-wrap anim" id="proofWidgetScroll">
+          <script type="text/javascript" src="https://reputationhub.site/reputation/assets/review-widget.js"></script>
+          <iframe class="lc_reviews_widget" src="https://reputationhq.site/reputation/widgets/review_widget/stoLOEGDIvEDY3xQI4B8?widgetId=699ddb090e54c474af0c8a01" frameborder="0" scrolling="no" style="min-width:100%;width:100%"></iframe>
+        </div>
+        <p class="proof-widget-hint">Press "Load More" to read more reviews</p>
+
+        <div class="proof-vids-label anim">Client Video Testimonials</div>
+        <div class="proof-video-grid">
+          <div class="video-card-wrap anim d1">
+            <div class="vp">
+              <video playsinline preload="metadata" data-start="31"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e41a23401cc3.mp4#t=0.001" type="video/mp4"/></video>
+              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <div class="vp-bar">
+                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
+                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="vc-result">
+              <ul class="vc-bullets">
+                <li>Built email list from scratch &amp; created coach email campaigns</li>
+                <li><strong>Helped monetize an existing following into real revenue</strong></li>
+                <li><strong>Set up CRM for both online &amp; physical business</strong></li>
+                <li>Extremely affordable, huge return on investment</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="video-card-wrap anim d2">
+            <div class="vp">
+              <video playsinline preload="metadata" data-start="94"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2837e8f26631ae1d.mov#t=0.001" type="video/mp4"/></video>
+              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <div class="vp-bar">
+                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
+                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="vc-result">
+              <ul class="vc-bullets">
+                <li>Replaced 150 individual messages with 1 automated blast</li>
+                <li>Unified all contacts into a single platform</li>
+                <li>Automated appointment reminders &amp; slot notifications</li>
+                <li><strong>Streamlined client onboarding end-to-end</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="video-card-wrap anim d3">
+            <div class="vp">
+              <video playsinline preload="metadata" data-start="1"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4#t=0.001" type="video/mp4"/></video>
+              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <div class="vp-bar">
+                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
+                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="vc-result">
+              <ul class="vc-bullets">
+                <li>Website exceeded all expectations</li>
+                <li>Previous agency took months &amp; just copied existing content</li>
+                <li><strong>"Best decision we could have made for our company"</strong></li>
+                <li><strong>Fast, attentive, and genuinely invested in the business</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="video-card-wrap anim d1">
+            <div class="vp">
+              <video playsinline preload="metadata" data-start="28"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e4081f401cc4.mp4#t=0.001" type="video/mp4"/></video>
+              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <div class="vp-bar">
+                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
+                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="vc-result">
+              <ul class="vc-bullets">
+                <li>Built full CRM database from the ground up</li>
+                <li>System works perfectly, "exactly what I wanted"</li>
+                <li><strong>Made complex tech simple for a non-tech business owner</strong></li>
+                <li>Patient, thorough, goes above and beyond</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="video-card-wrap anim d2">
+            <div class="vp">
+              <video playsinline preload="metadata" data-start="37"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699bb11b480c4fd4ef95cd91.mov#t=0.001" type="video/mp4"/></video>
+              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <div class="vp-bar">
+                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
+                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="vc-result">
+              <ul class="vc-bullets">
+                <li>Website built &amp; live in just a few days</li>
+                <li><strong>Eliminated years of manual heavy lifting overnight</strong></li>
+                <li><strong>Streamlined &amp; optimized entire business operations</strong></li>
+                <li><strong>Immediate response to every request, nothing falls through</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="video-card-wrap anim d3">
+            <div class="vp">
+              <video playsinline preload="metadata" data-start="43"><source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6998d8f4df9bdf0b337051ed.mov#t=0.001" type="video/mp4"/></video>
+              <div class="vp-center"><div class="vp-big-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></div></div>
+              <div class="vp-bar">
+                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
+                <div class="vp-row">
+                  <button class="vp-btn vp-play-btn"><svg viewBox="0 0 12 12"><polygon points="2,1 10,6 2,11"/></svg></button>
+                  <span class="vp-time">0:00</span><span class="vp-spacer"></span>
+                  <button class="vp-btn vp-mute-btn"><svg viewBox="0 0 16 14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></button>
+                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-fs-btn"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1,5 1,1 5,1"/><polyline points="9,1 13,1 13,5"/><polyline points="13,9 13,13 9,13"/><polyline points="5,13 1,13 1,9"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="vc-result">
+              <ul class="vc-bullets">
+                <li>Website updated to rank in Google's eyes</li>
+                <li>Customer reviews fully automated, no more manual posting</li>
+                <li><strong>Freed up hours of wasted time every week</strong></li>
+                <li><strong>"Now I can focus on revenue-generating tasks"</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -3355,6 +4492,152 @@
         card.classList.add("playing");
         v.play();
       }
+      /* ── VP PLAYER (copied from nils-proof) ─── */
+      const PLAY_ICON = `<svg viewBox="0 0 12 12" fill="currentColor" width="14" height="14"><polygon points="2,1 10,6 2,11"/></svg>`;
+      const PAUSE_ICON = `<svg viewBox="0 0 12 12" fill="currentColor" width="14" height="14"><rect x="2" y="1" width="3" height="10" rx="1"/><rect x="7" y="1" width="3" height="10" rx="1"/></svg>`;
+      const VOL_ICON = `<svg viewBox="0 0 16 14" fill="currentColor" width="16" height="14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><path d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 2.5C16 4.5 16 9.5 13 11.5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>`;
+      const MUTE_ICON = `<svg viewBox="0 0 16 14" fill="currentColor" width="16" height="14"><polygon points="1,4 5,4 9,1 9,13 5,10 1,10"/><line x1="11" y1="3" x2="16" y2="11" stroke="currentColor" stroke-width="2"/><line x1="16" y1="3" x2="11" y2="11" stroke="currentColor" stroke-width="2"/></svg>`;
+
+      function vpFmt(s) {
+        if (!s || isNaN(s)) return "0:00";
+        const m = Math.floor(s / 60),
+          sec = Math.floor(s % 60);
+        return m + ":" + String(sec).padStart(2, "0");
+      }
+
+      function initVP(el) {
+        const video = el.querySelector("video");
+        const playBtn = el.querySelector(".vp-play-btn");
+        const muteBtn = el.querySelector(".vp-mute-btn");
+        const speedBtn = el.querySelector(".vp-speed-btn");
+        const fsBtn = el.querySelector(".vp-fs-btn");
+        const seek = el.querySelector(".vp-seek");
+        const fill = el.querySelector(".vp-seek-fill");
+        const timeEl = el.querySelector(".vp-time");
+        const speeds = [0.75, 1, 1.25, 1.5, 2];
+        let sIdx = 1,
+          seeking = false;
+
+        function togglePlay() {
+          video.paused ? video.play() : video.pause();
+        }
+
+        el.addEventListener("click", (e) => {
+          if (!e.target.closest(".vp-bar")) togglePlay();
+        });
+        video.addEventListener("play", () => {
+          el.classList.add("playing");
+          playBtn.innerHTML = PAUSE_ICON;
+        });
+        video.addEventListener("pause", () => {
+          el.classList.remove("playing");
+          playBtn.innerHTML = PLAY_ICON;
+        });
+        video.addEventListener("timeupdate", () => {
+          if (!video.duration) return;
+          fill.style.width =
+            ((video.currentTime / video.duration) * 100).toFixed(2) + "%";
+          timeEl.textContent =
+            vpFmt(video.currentTime) + " / " + vpFmt(video.duration);
+        });
+
+        function scrub(clientX) {
+          const r = seek.getBoundingClientRect();
+          if (video.duration)
+            video.currentTime =
+              Math.max(0, Math.min(1, (clientX - r.left) / r.width)) *
+              video.duration;
+        }
+        seek.addEventListener("mousedown", (e) => {
+          seeking = true;
+          scrub(e.clientX);
+          e.stopPropagation();
+        });
+        window.addEventListener("mousemove", (e) => {
+          if (seeking) scrub(e.clientX);
+        });
+        window.addEventListener("mouseup", () => {
+          seeking = false;
+        });
+        seek.addEventListener(
+          "touchstart",
+          (e) => {
+            seeking = true;
+            scrub(e.touches[0].clientX);
+            e.stopPropagation();
+          },
+          { passive: true },
+        );
+        window.addEventListener(
+          "touchmove",
+          (e) => {
+            if (seeking) scrub(e.touches[0].clientX);
+          },
+          { passive: true },
+        );
+        window.addEventListener("touchend", () => {
+          seeking = false;
+        });
+
+        playBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          togglePlay();
+        });
+        muteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          video.muted = !video.muted;
+          muteBtn.innerHTML = video.muted ? MUTE_ICON : VOL_ICON;
+        });
+        speedBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          sIdx = (sIdx + 1) % speeds.length;
+          video.playbackRate = speeds[sIdx];
+          speedBtn.textContent = speeds[sIdx] + "x";
+        });
+        fsBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          document.fullscreenElement
+            ? document.exitFullscreen()
+            : el.requestFullscreen().catch(() => {});
+        });
+
+        const startTime = parseFloat(video.dataset.start);
+        if (!isNaN(startTime)) {
+          video.currentTime = startTime;
+          video.addEventListener(
+            "loadedmetadata",
+            () => {
+              video.currentTime = startTime;
+            },
+            { once: true },
+          );
+        }
+
+        const markers = el.querySelectorAll(".vp-marker[data-time]");
+        if (markers.length) {
+          video.addEventListener("loadedmetadata", () => {
+            markers.forEach((m) => {
+              if (video.duration)
+                m.style.left =
+                  ((parseFloat(m.dataset.time) / video.duration) * 100).toFixed(
+                    2,
+                  ) + "%";
+            });
+          });
+          markers.forEach((m) => {
+            m.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const t = parseFloat(m.dataset.time);
+              if (!isNaN(t)) {
+                video.currentTime = t;
+                video.play();
+              }
+            });
+          });
+        }
+      }
+
+      document.querySelectorAll(".vp").forEach(initVP);
 
       /* ── FUNNEL SWIPER ──────────────────────── */
       const fSlides = Array.from(document.querySelectorAll(".funnel-slide"));
@@ -3501,62 +4784,7 @@
     </script>
 
     <script>
-      // Portfolio carousel — auto-scroll + drag
-      (function () {
-        const track = document.getElementById('portfolio-track');
-        if (!track) return;
-
-        // Duplicate cards for seamless infinite loop
-        const origCards = Array.from(track.children);
-        origCards.forEach(card => track.appendChild(card.cloneNode(true)));
-        const halfWidth = () => track.scrollWidth / 2;
-
-        // Auto-scroll
-        const SPEED = 0.3; // px per frame
-        let paused = false;
-        let isDown = false, startX, dragStart;
-
-        function tick() {
-          if (!paused && !isDown) {
-            track.scrollLeft += SPEED;
-            if (track.scrollLeft >= halfWidth()) {
-              track.scrollLeft -= halfWidth();
-            }
-          }
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-
-        // Pause on hover
-        track.addEventListener('mouseenter', () => paused = true);
-        track.addEventListener('mouseleave', () => { paused = false; isDown = false; track.classList.remove('dragging'); });
-
-        // Drag to scroll
-        track.addEventListener('mousedown', e => {
-          isDown = true;
-          track.classList.add('dragging');
-          startX = e.pageX - track.getBoundingClientRect().left;
-          dragStart = track.scrollLeft;
-          e.preventDefault();
-        });
-        document.addEventListener('mouseup', () => {
-          if (isDown) { isDown = false; track.classList.remove('dragging'); }
-        });
-        document.addEventListener('mousemove', e => {
-          if (!isDown) return;
-          const x = e.pageX - track.getBoundingClientRect().left;
-          track.scrollLeft = dragStart - (x - startX) * 1.4;
-          // wrap if dragged past boundaries
-          if (track.scrollLeft < 0) track.scrollLeft += halfWidth();
-          if (track.scrollLeft >= halfWidth()) track.scrollLeft -= halfWidth();
-        });
-
-        // Touch support
-        let touchX, touchStart;
-        track.addEventListener('touchstart', e => { touchX = e.touches[0].pageX; touchStart = track.scrollLeft; paused = true; }, { passive: true });
-        track.addEventListener('touchmove', e => { track.scrollLeft = touchStart - (e.touches[0].pageX - touchX) * 1.2; }, { passive: true });
-        track.addEventListener('touchend', () => { paused = false; });
-      })();
+      // Wheel carousel is pure CSS — no JS needed
 
       // Google mockup typing animation
       (function () {
