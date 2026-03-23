@@ -35,29 +35,31 @@
     .hero {
       position: relative;
       background:
-        radial-gradient(ellipse 65% 80% at 0% 0%,   rgba(4,107,210,0.75) 0%, transparent 55%),
-        radial-gradient(ellipse 65% 80% at 100% 0%, rgba(4,107,210,0.75) 0%, transparent 55%),
-        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(4,55,140,0.40) 0%, transparent 70%),
+        /* Bottom fade to white — connects seamlessly with next section */
+        linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.55) 78%, #ffffff 100%),
+        /* Blue corner glows */
+        radial-gradient(ellipse 65% 80% at 0%   0%, rgba(4,107,210,0.80) 0%, transparent 55%),
+        radial-gradient(ellipse 65% 80% at 100% 0%, rgba(4,107,210,0.80) 0%, transparent 55%),
+        /* Base dark navy */
         #030d1c;
       padding: 56px 24px 80px;
       text-align: center;
-      overflow: visible; /* bridge circles extend below */
+      overflow: hidden;
     }
-    /* Concentric arc rings at the top — decorative */
+    /* Concentric arc ring at top — decorative wave arc */
     .hero::before {
       content: '';
       position: absolute;
-      top: -340px;
+      top: -320px;
       left: 50%;
       transform: translateX(-50%);
-      width: 900px;
-      height: 700px;
+      width: 860px;
+      height: 660px;
       border-radius: 50%;
-      border: 1px solid rgba(4,107,210,0.30);
+      border: 1px solid rgba(4,107,210,0.28);
       box-shadow:
-        inset 0 0 0 40px rgba(4,107,210,0.04),
-        0 0 0 40px rgba(4,107,210,0.04),
-        0 0 0 80px rgba(4,107,210,0.025);
+        0 0 0 36px rgba(4,107,210,0.04),
+        0 0 0 72px rgba(4,107,210,0.025);
       pointer-events: none;
       z-index: 0;
     }
@@ -72,34 +74,6 @@
       z-index: 0;
     }
     .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
-
-    /* ── HERO BRIDGE CIRCLES ──────────────────────── */
-    /* Half-circles on left + right straddling hero → problem boundary */
-    .hero-bridge-left,
-    .hero-bridge-right {
-      position: absolute;
-      bottom: -160px; /* center on boundary: extends 160px into problem */
-      width: 260px;
-      height: 320px;
-      background:
-        radial-gradient(ellipse at center,
-          rgba(4,107,210,0.95) 0%,
-          rgba(3,30,82,0.80) 60%,
-          rgba(3,13,28,0.50) 100%
-        );
-      pointer-events: none;
-      z-index: 10;
-    }
-    .hero-bridge-left {
-      left: 0;
-      border-radius: 0 50% 50% 0; /* D-shape — curves to the right */
-      box-shadow: 8px 0 60px rgba(4,107,210,0.35);
-    }
-    .hero-bridge-right {
-      right: 0;
-      border-radius: 50% 0 0 50%; /* C-shape — curves to the left */
-      box-shadow: -8px 0 60px rgba(4,107,210,0.35);
-    }
 
     .hero-eyebrow {
       display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
@@ -491,10 +465,6 @@
 
 <!-- ══════════════════════════════════════════ HERO -->
 <section class="hero" id="hero">
-  <!-- Bridge half-circles: straddle hero → problem boundary -->
-  <div class="hero-bridge-left" aria-hidden="true"></div>
-  <div class="hero-bridge-right" aria-hidden="true"></div>
-
   <div class="hero-inner">
     <div class="hero-eyebrow anim">For local service businesses ready to take on more clients.</div>
 
