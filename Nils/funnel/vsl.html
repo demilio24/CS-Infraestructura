@@ -126,18 +126,14 @@
     }
     /* Paragraph bullets */
     .hero-sub-grid {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 10px 0; max-width: 900px; margin: 0 auto 32px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; max-width: 700px; margin: 0 auto 32px;
       text-align: center;
     }
     .hero-sub-grid .sub-item {
       font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.82);
-      line-height: 1.4; white-space: nowrap;
+      line-height: 1.4;
     }
-    .hero-sub-grid .sub-item + .sub-item::before {
-      content: '·'; margin: 0 12px; color: rgba(255,255,255,0.40); font-size: 18px;
-    }
-    .hero-sub-grid .sub-full { flex-basis: 100%; }
 
     /* Fire badge — "4x more clients" white pill */
     /* ── 4x badge ────────────────────────────────── */
@@ -177,9 +173,10 @@
     .fire-text {
       position: relative; display: inline-block; color: #fff; cursor: default;
       text-decoration: underline;
-      text-decoration-style: dotted;
-      text-decoration-color: rgba(255,255,255,0.55);
+      text-decoration-style: solid;
+      text-decoration-color: rgba(255,255,255,0.50);
       text-underline-offset: 5px;
+      text-decoration-thickness: 1.5px;
     }
 
     /* Split layout: video | proof */
@@ -202,41 +199,28 @@
     /* Proof cards — glassmorphism */
     .hero-proof-col { display: flex; flex-direction: column; gap: 12px; }
     .hero-proof-item {
-      background: rgba(255,255,255,0.4);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(3, 18, 60, 0.60);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 20px; padding: 18px 14px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: 6px; flex: 1; text-align: center;
-      box-shadow:
-        0 8px 32px rgba(0,0,0,0.1),
-        inset 0 1px 0 rgba(255,255,255,0.5),
-        inset 0 -1px 0 rgba(255,255,255,0.1),
-        inset 0 0 38px 19px rgba(255,255,255,0.9);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
       position: relative; overflow: hidden;
-      transition: background 0.2s, box-shadow 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
     .hero-proof-item::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-    }
-    .hero-proof-item::after {
-      content: '';
-      position: absolute; top: 0; left: 0; width: 1px; height: 100%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.8), transparent, rgba(255,255,255,0.3));
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
     }
     .hero-proof-item:hover {
-      background: rgba(255,255,255,0.5);
-      box-shadow:
-        0 12px 40px rgba(0,0,0,0.12),
-        inset 0 1px 0 rgba(255,255,255,0.6),
-        inset 0 -1px 0 rgba(255,255,255,0.15),
-        inset 0 0 38px 19px rgba(255,255,255,0.95);
+      background: rgba(3, 18, 60, 0.80);
+      border-color: rgba(255,255,255,0.18);
     }
-    .hero-proof-num { font-size: 32px; font-weight: 800; color: #0a1f44; line-height: 1; letter-spacing: -0.03em; }
-    .hero-proof-label { font-size: 13px; font-weight: 700; color: #334; line-height: 1.3; text-align: center; }
+    .hero-proof-num { font-size: 32px; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.03em; }
+    .hero-proof-label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); line-height: 1.3; text-align: center; }
     /* Trustpilot stars in green */
     .tp-stars { font-size: 20px; color: #00b67a; letter-spacing: 3px; line-height: 1; }
 
@@ -584,9 +568,9 @@
     </h1>
 
     <div class="hero-sub-grid anim d2">
-      <div class="sub-item">Done-for-you setup — everything launches within 14 days</div>
+      <div class="sub-item">Done-for-you setup: everything launches within 14 days</div>
       <div class="sub-item">Profitable results guaranteed within 30 days or you don't pay</div>
-      <div class="sub-item sub-full">Only takes 1–2 hours of your time for us to get all the information we need to set it up</div>
+      <div class="sub-item">Only takes 1 to 2 hours of your time for us to get all the information we need to set it up</div>
     </div>
 
     <!-- Video + Social Proof side by side -->
