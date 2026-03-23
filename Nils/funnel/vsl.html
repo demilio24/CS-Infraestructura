@@ -241,18 +241,35 @@
     .tp-stars { font-size: 20px; color: #00b67a; letter-spacing: 3px; line-height: 1; }
 
     /* Full-width CTA below split */
-    .hero-cta-wrap { max-width: 1100px; margin: 16px auto 0; }
+    .hero-cta-wrap { max-width: 1100px; margin: 24px auto 0; text-align: center; }
     .hero-cta-full {
-      width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
-      padding: 20px; background: #fff; color: var(--blue);
-      font-family: inherit; font-size: 18px; font-weight: 700;
-      border-radius: 12px; border: none; cursor: pointer; text-decoration: none;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-      letter-spacing: -0.01em;
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 20px 48px;
+      background: linear-gradient(135deg, #1a72e8 0%, #046bd2 50%, #0358b0 100%);
+      color: #fff;
+      font-family: var(--font-emphasis); font-size: 18px; font-weight: 700;
+      border-radius: 100px; border: none; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+      box-shadow: 0 8px 32px rgba(4,107,210,0.55), 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+      letter-spacing: 0; white-space: nowrap;
+      position: relative; overflow: hidden;
     }
-    .hero-cta-full:hover { background: #f0f6ff; transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
-    .hero-disclaimer { font-size: 12px; color: rgba(0,0,0,0.55); margin-top: 12px; font-weight: 500; }
+    .hero-cta-full::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
+      border-radius: inherit; pointer-events: none;
+    }
+    .hero-cta-full:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(4,107,210,0.65), 0 4px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2); filter: brightness(1.06); }
+    .hero-cta-full:active { transform: translateY(-1px); }
+    .hero-cta-full .cta-arrow {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .hero-cta-full:hover .cta-arrow { background: rgba(255,255,255,0.28); transform: translateX(3px); }
+    .hero-disclaimer { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 12px; font-weight: 500; }
 
     /* ── SECTION SCAFFOLDING ─────────────────────── */
     .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
@@ -604,7 +621,7 @@
     <div class="hero-cta-wrap anim d4">
       <button class="hero-cta-full" onclick="openModal()">
         Click Here to Apply — See If You Qualify
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <span class="cta-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
       </button>
       <div class="hero-disclaimer">Takes 60 seconds · Free strategy call if you qualify</div>
     </div>
