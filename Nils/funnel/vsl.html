@@ -314,10 +314,84 @@
     /* ── PROBLEM ─────────────────────────────────── */
     .problem { background: #fff; padding: 96px 24px; position: relative; z-index: 0; }
     .problem-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+    .problem-subhead { font-size: 18px; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 14px; margin-top: 6px; }
     .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
     .bullet-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.5; }
     .bullet-list .icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; }
-    .problem-img { width: 100%; border-radius: 16px; box-shadow: 0 24px 64px rgba(0,0,0,0.10); display: block; }
+
+    /* Rank visual card */
+    .rank-visual {
+      background: #030d1c;
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+    .rank-visual::before {
+      content: '';
+      position: absolute; top: -80px; right: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(4,107,210,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .rank-visual-header {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-emphasis); font-size: 13px; font-weight: 700;
+      color: rgba(255,255,255,0.55); letter-spacing: 0.09em; text-transform: uppercase;
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .rank-visual-header svg { flex-shrink: 0; }
+    .rank-bars { display: flex; flex-direction: column; gap: 10px; }
+    .rank-row { display: flex; align-items: center; gap: 10px; }
+    .rank-pos {
+      font-family: var(--font-emphasis); font-size: 12px; font-weight: 700;
+      color: rgba(255,255,255,0.45); width: 28px; flex-shrink: 0; text-align: right;
+    }
+    .rank-row.rank-first .rank-pos { color: #046bd2; }
+    .rank-track { flex: 1; height: 10px; background: rgba(255,255,255,0.07); border-radius: 100px; overflow: hidden; }
+    .rank-bar { height: 100%; border-radius: 100px; transition: width 1s ease; }
+    .rank-row.rank-first .rank-bar { background: linear-gradient(90deg, #1a72e8, #046bd2); }
+    .rank-row:not(.rank-first):not(.rank-pg2) .rank-bar { background: rgba(4,107,210,0.55); }
+    .rank-row.rank-pg2 .rank-bar { background: rgba(255,255,255,0.15); }
+    .rank-pct {
+      font-family: var(--font-emphasis); font-size: 13px; font-weight: 700;
+      width: 42px; flex-shrink: 0; text-align: right;
+    }
+    .rank-row.rank-first .rank-pct { color: #fff; }
+    .rank-row:not(.rank-first) .rank-pct { color: rgba(255,255,255,0.40); }
+    .rank-label {
+      font-family: var(--font-secondary); font-size: 12px;
+      color: rgba(255,255,255,0.35); width: 28px; flex-shrink: 0;
+    }
+    .rank-row.rank-first .rank-label { color: rgba(255,255,255,0.70); }
+    .rank-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 8px 0; }
+    .rank-footnote {
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .rank-footnote-icon { flex-shrink: 0; margin-top: 1px; }
+    .rank-footnote-text {
+      font-family: var(--font-secondary); font-size: 12.5px;
+      color: rgba(255,255,255,0.50); line-height: 1.5;
+    }
+    .rank-footnote-text strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+    /* Conversion callout box */
+    .rank-conversion {
+      margin-top: 14px;
+      background: rgba(4,107,210,0.12);
+      border: 1px solid rgba(4,107,210,0.25);
+      border-radius: 12px; padding: 14px 16px;
+      display: flex; gap: 14px; align-items: center;
+    }
+    .rank-conv-col { flex: 1; text-align: center; }
+    .rank-conv-num { font-family: var(--font-emphasis); font-size: 22px; font-weight: 800; line-height: 1; }
+    .rank-conv-label { font-family: var(--font-secondary); font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+    .rank-conv-divider { width: 1px; background: rgba(255,255,255,0.10); align-self: stretch; }
+    .rank-conv-col.bad .rank-conv-num { color: #f87171; }
+    .rank-conv-col.good .rank-conv-num { color: #34d399; }
 
     /* ── ABOUT ───────────────────────────────────── */
     .about { background: var(--gray-bg); padding: 96px 24px; }
@@ -666,7 +740,8 @@
   <div class="problem-grid">
     <div class="anim">
       <div class="section-eyebrow">The Ugly Truth</div>
-      <h2 class="section-h">You're invisible online — and your <span class="accent">competitors are eating your lunch.</span></h2>
+      <h2 class="section-h">If you're not first,<br><span class="accent">you're last.</span></h2>
+      <p class="problem-subhead">You're invisible online — and your competitors are eating your lunch.</p>
       <p style="font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:8px;">The average website converts at 2 to 3%. That means 97 out of 100 people who find you online leave — and call someone else. Every day you don't fix this, you're losing money you didn't even know you had.</p>
       <ul class="bullet-list">
         <li>
@@ -688,7 +763,66 @@
       </ul>
     </div>
     <div class="anim d2">
-      <img class="problem-img" src="https://storage.googleapis.com/msgsndr/stoLOEGDIvEDY3xQI4B8/media/69794539fa89c7a3222e4223.png" alt="Website leaking clients" />
+      <!-- Inline infographic: Google search click-share by position -->
+      <div class="rank-visual">
+        <div class="rank-visual-header">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.50)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Google Search — Who gets the clients?
+        </div>
+        <div class="rank-bars">
+          <div class="rank-row rank-first">
+            <span class="rank-pos">#1</span>
+            <div class="rank-track"><div class="rank-bar" style="width:80%"></div></div>
+            <span class="rank-pct">39.8%</span>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">#2</span>
+            <div class="rank-track"><div class="rank-bar" style="width:38%"></div></div>
+            <span class="rank-pct">18.7%</span>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">#3</span>
+            <div class="rank-track"><div class="rank-bar" style="width:21%"></div></div>
+            <span class="rank-pct">10.2%</span>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">#4</span>
+            <div class="rank-track"><div class="rank-bar" style="width:15%"></div></div>
+            <span class="rank-pct">7.4%</span>
+          </div>
+          <div class="rank-row">
+            <span class="rank-pos">#5+</span>
+            <div class="rank-track"><div class="rank-bar" style="width:10%"></div></div>
+            <span class="rank-pct">3.8%</span>
+          </div>
+          <div class="rank-divider"></div>
+          <div class="rank-row rank-pg2">
+            <span class="rank-pos" style="color:#f87171;font-size:10px;">Pg 2+</span>
+            <div class="rank-track"><div class="rank-bar" style="width:1.2%"></div></div>
+            <span class="rank-pct" style="color:#f87171;">0.6%</span>
+          </div>
+        </div>
+        <!-- Conversion rate comparison -->
+        <div class="rank-conversion">
+          <div class="rank-conv-col bad">
+            <div class="rank-conv-num">2–3%</div>
+            <div class="rank-conv-label">Average site converts</div>
+          </div>
+          <div class="rank-conv-divider"></div>
+          <div class="rank-conv-col good">
+            <div class="rank-conv-num">12%+</div>
+            <div class="rank-conv-label">Our clients convert</div>
+          </div>
+        </div>
+        <div class="rank-footnote">
+          <div class="rank-footnote-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="rank-footnote-text">
+            <strong>97 out of 100</strong> people who find you online leave without calling. Without the right system, you're invisible — no matter how good your work is.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
