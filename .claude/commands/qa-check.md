@@ -10,12 +10,23 @@ Visually review a funnel HTML file by screenshotting it, reading the screenshot,
 - **Visual balance**: Text and imagery are balanced. No walls of text without visual breaks.
 - **Mobile**: Nothing overflows horizontally. Text is readable (min 15px). Buttons are tap-friendly.
 - **Premium feel**: Matches the quality level of the references in `references/`. No default browser styles visible.
+- **Interactive elements**: Accordions open AND close correctly. Animations play at the right speed in both directions.
 
 ---
 
 ## Steps
 
-1. **Take a screenshot** — Run this Puppeteer script via Bash:
+1. **Start an HTTP server** — Never use `file://`. CDN images won't load over the file protocol. Always serve via localhost:
+
+```bash
+# From the repo root (e.g. f:/GitHub/CS-Infraestructura)
+npx http-server -p 8099 --silent &
+sleep 3
+# Use http://localhost:8099/PATH/TO/FILE.html in all Puppeteer scripts
+# If port is in use: netstat -ano | grep 8099 → taskkill //F //PID <pid>
+```
+
+2. **Take a screenshot** — Scroll the page first so lazy-loaded images load:
 
 ```bash
 node -e "
@@ -24,7 +35,11 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto('file:///ABSOLUTE_PATH_TO_FILE.html', { waitUntil: 'networkidle0' });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'networkidle0' });
+  const h = await page.evaluate(() => document.body.scrollHeight);
+  for (let y = 0; y < h; y += 800) { await page.evaluate(y => window.scrollTo(0,y), y); await new Promise(r=>setTimeout(r,100)); }
+  await page.evaluate(() => window.scrollTo(0,0));
+  await new Promise(r => setTimeout(r, 500));
   await page.screenshot({ path: 'qa-screenshot-desktop.png', fullPage: true });
   await page.setViewport({ width: 390, height: 844 });
   await page.screenshot({ path: 'qa-screenshot-mobile.png', fullPage: true });
@@ -34,20 +49,60 @@ const puppeteer = require('puppeteer');
 "
 ```
 
-2. **Read both screenshots** — Use the Read tool on `qa-screenshot-desktop.png` and `qa-screenshot-mobile.png`.
+3. **Read both screenshots** — Use the Read tool on `qa-screenshot-desktop.png` and `qa-screenshot-mobile.png`.
 
-3. **Identify all issues** — List every problem found, grouped by severity:
-   - 🔴 Critical: broken layout, unreadable text, overflowing elements, invisible CTAs
+4. **Test interactive elements with Puppeteer** — Don't assume accordions, toggles, or modals work. Click them and verify:
+
+```bash
+node -e "
+const puppeteer = require('puppeteer');
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1440, height: 900 });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'networkidle0' });
+
+  // Test FAQ accordion: click open, wait, check height > 0, click close, check height = 0
+  const faqBtn = await page.$('.faq-q');
+  if (faqBtn) {
+    await page.evaluate(el => el.scrollIntoView(), faqBtn);
+    await faqBtn.click();
+    await new Promise(r => setTimeout(r, 500));
+    const afterOpen = await page.evaluate(() => {
+      const ans = document.querySelector('.faq-item .faq-ans');
+      const item = document.querySelector('.faq-item');
+      return { h: ans.scrollHeight, open: item.classList.contains('open'), style: ans.style.height };
+    });
+    console.log('FAQ open state:', afterOpen);
+    // open: true and scrollHeight > 0 = PASS
+
+    await faqBtn.click();
+    await new Promise(r => setTimeout(r, 500));
+    const afterClose = await page.evaluate(() => {
+      const ans = document.querySelector('.faq-item .faq-ans');
+      return { h: ans.style.height, open: document.querySelector('.faq-item').classList.contains('open') };
+    });
+    console.log('FAQ close state:', afterClose);
+    // open: false and height = 0px = PASS
+  }
+
+  await browser.close();
+})();
+"
+```
+
+5. **Identify all issues** — List every problem found, grouped by severity:
+   - 🔴 Critical: broken layout, unreadable text, overflowing elements, invisible CTAs, broken interactive elements
    - 🟡 Medium: section connector gaps, color inconsistencies, poor spacing
    - 🟢 Minor: small alignment issues, subtle improvements
 
-4. **Fix everything** — Edit the HTML file to resolve all 🔴 and 🟡 issues. Use `/generate-bg` patterns for section connector problems.
+6. **Fix everything** — Edit the HTML file to resolve all 🔴 and 🟡 issues. Use `/generate-bg` patterns for section connector problems.
 
-5. **Re-screenshot and re-read** — Repeat steps 1-3.
+7. **Re-screenshot and re-test** — Repeat steps 2-4.
 
-6. **Loop until clean** — Keep fixing and re-checking until there are no 🔴 or 🟡 issues remaining.
+8. **Loop until clean** — Keep fixing and re-checking until there are no 🔴 or 🟡 issues remaining.
 
-7. **Report** — Tell the user the page passed QA, summarize what was fixed, and return the GHL embed code.
+9. **Report** — Tell the user the page passed QA, summarize what was fixed, and return the GHL embed code.
 
 ---
 
@@ -75,3 +130,9 @@ const puppeteer = require('puppeteer');
 img, video { max-width: 100%; }
 .section { padding: 60px 20px; }
 ```
+
+**FAQ accordion broken (opens then immediately closes):**
+The `max-height` trick creates unequal speeds and bugs. See `/animate` skill Section 8 for the correct `height`-based implementation using `scrollHeight` + `offsetHeight` reflow.
+
+**Portrait video in landscape container — wrong crop:**
+Use Puppeteer to test `object-position` values until the subject's face is centered. Test 15%, 25%, 35%, 45% and pick the best. See `/new-funnel` skill for the full framing workflow.

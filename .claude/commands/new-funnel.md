@@ -423,6 +423,65 @@ Keep the results section **scannable** — users should be able to absorb credib
 - Pulsing play button animation so cards look alive even before interaction.
 - One bold stat bar: "100+ clients · 5.0 stars · $2M+ ad spend managed"
 
+**If the client only has one video testimonial:** Don't force a grid. Use a **featured hero layout** — video on the left (~42% width), stars + pull quote + bullet points on the right (~58% width). This looks intentional and premium rather than sparse.
+
+```css
+.featured-testimonial {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 48px;
+  align-items: center;
+  background: #fff;
+  border-radius: 24px;
+  border: 1px solid rgba(4, 107, 210, 0.12);
+  box-shadow: 0 8px 48px rgba(4, 107, 210, 0.12);
+  overflow: hidden;
+}
+.featured-testimonial .vp {
+  border-radius: 0;
+  aspect-ratio: 4/3; /* landscape crop of portrait video */
+}
+.featured-testimonial-content {
+  padding: 28px 32px 28px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+@media (max-width: 860px) {
+  .featured-testimonial { grid-template-columns: 1fr; }
+  .featured-testimonial-content { padding: 24px; }
+}
+```
+
+**Portrait video in a landscape container — framing rule:**
+When a portrait-shot video (e.g. 9:16 or 4:5) is displayed in a landscape 4:3 container with `object-fit: cover`, the default crop shows the top of the frame — usually ceiling, not face. Always use Puppeteer to find the right `object-position` percentage:
+
+```js
+// Test multiple y-percentages and screenshot each to find the best face framing
+for (const pct of [15, 25, 35, 45]) {
+  await page.evaluate((p) => {
+    document.querySelector('.featured-testimonial .vp video').style.objectPosition = '50% ' + p + '%';
+  }, pct);
+  await page.screenshot({ path: `qa-pos-${pct}.png`, clip: { /* video area */ } });
+}
+// Pick the % where the subject's face is centered without the top of their head being cut off
+```
+
+Typical winner: **25%** for a head-and-shoulders portrait shot. Never hardcode without testing.
+
+**Per-video speed and start time:** Use `data-speed` and `data-start` attributes on the `<video>` tag and handle them in the player init JS:
+```html
+<video data-start="0" data-speed="1.5" ...>
+```
+```js
+const initSpeed = parseFloat(video.dataset.speed);
+if (!isNaN(initSpeed) && speeds.includes(initSpeed)) {
+  sIdx = speeds.indexOf(initSpeed);
+  video.playbackRate = initSpeed;
+  speedBtn.textContent = initSpeed + 'x';
+}
+```
+
 **Video card template:**
 ```html
 <div class="vid-card" onclick="playVid(this)">
