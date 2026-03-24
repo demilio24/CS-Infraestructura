@@ -10,6 +10,16 @@
       name="description"
       content="We build premium websites and Google Ads funnels for local service businesses. Results guaranteed in 30 days or you don't pay."
     />
+    <!-- Open Graph / Social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="We'll Build You a Website That Gets 4x More Clients | Nils Digital" />
+    <meta property="og:description" content="We build premium websites and Google Ads funnels for local service businesses. Results guaranteed in 30 days or you don't pay." />
+    <meta property="og:image" content="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg" />
+    <meta property="og:url" content="https://demilio24.github.io/Websites/Nils/funnel/vsl.html" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="We'll Build You a Website That Gets 4x More Clients | Nils Digital" />
+    <meta name="twitter:description" content="We build premium websites and Google Ads funnels for local service businesses. Results guaranteed in 30 days or you don't pay." />
+    <meta name="twitter:image" content="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -2922,6 +2932,31 @@
       .survey-input-wrap {
         margin-top: 4px;
       }
+      .survey-dollar-wrap {
+        display: flex;
+        align-items: center;
+        border: 2px solid #e8edf3;
+        border-radius: 10px;
+        background: #fff;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .survey-dollar-wrap:focus-within { border-color: var(--blue); }
+      .survey-dollar-sign {
+        padding: 0 4px 0 18px;
+        font-size: 18px;
+        font-weight: 700;
+        color: #999;
+        user-select: none;
+      }
+      .survey-dollar-wrap .survey-text-input {
+        border: none;
+        border-radius: 0;
+        padding: 16px 18px 16px 4px;
+        flex: 1;
+        width: auto;
+      }
+      .survey-dollar-wrap .survey-text-input:focus { border-color: transparent; }
       .survey-text-input {
         width: 100%;
         padding: 16px 18px;
@@ -4413,7 +4448,7 @@
         </div>
 
         <div class="proof-widget-wrap anim" id="proofWidgetScroll">
-          <script type="text/javascript" src="https://reputationhub.site/reputation/assets/review-widget.js"></script>
+          <script src="https://reputationhub.site/reputation/assets/review-widget.js"></script>
           <iframe
             class="lc_reviews_widget"
             src="https://reputationhub.site/reputation/widgets/review_widget/stoLOEGDIvEDY3xQI4B8"
@@ -4838,6 +4873,7 @@
         class="footer-logo"
         src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png"
         alt="Nils Digital"
+        loading="lazy"
       />
       <p class="footer-p">
         © <span id="footer-year"></span> Nils Digital. All rights reserved.<br />
@@ -4922,17 +4958,22 @@
 
         <!-- Q3 -->
         <div class="survey-step" data-step="3">
-          <div class="survey-q">How much does one client pay you in total over their entire time with you?</div>
+          <div class="survey-q">How much is one client worth to your business, in total?</div>
           <div class="survey-hint">
-            Add up everything they spend with you from start to finish, not just the first job. A rough number is totally fine.
+            Think about everything they've ever paid you, from start to finish. Not just the first time — over their whole lifetime as a customer. A rough estimate is fine.
           </div>
           <div class="survey-input-wrap">
-            <input
-              class="survey-text-input"
-              type="text"
-              id="q3-value"
-              placeholder="e.g. $1,000, $5,000, $20,000 total..."
-            />
+            <div class="survey-dollar-wrap">
+              <span class="survey-dollar-sign">$</span>
+              <input
+                class="survey-text-input"
+                type="number"
+                id="q3-value"
+                placeholder="3000"
+                min="0"
+                inputmode="numeric"
+              />
+            </div>
             <div class="survey-text-hint">
               There's no wrong answer. This just helps us run the numbers for your business.
             </div>
@@ -5592,10 +5633,8 @@
         );
         obs.observe(calc);
       })();
-    </script>
-    <script>
       document.getElementById('footer-year').textContent = new Date().getFullYear();
     </script>
-    <script src="https://link.nilsdigital.com/js/form_embed.js" type="text/javascript"></script>
+    <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
   </body>
 </html>
