@@ -2038,9 +2038,13 @@
         align-items: center;
         gap: 24px;
         margin-top: 0;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
       }
       .diff-creds-line {
-        flex: 0 0 80px;
+        flex: 1 1 0;
+        min-width: 0;
         height: 2px;
         background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.18));
         border-radius: 2px;
@@ -3398,6 +3402,13 @@
         .diff-creds {
           display: grid;
           grid-template-columns: 1fr 1fr;
+        }
+        /* Center the lone pill when there's an odd count (7 items = 1 orphan) */
+        .diff-cred-pill:last-child:nth-child(odd) {
+          grid-column: 1 / -1;
+          max-width: 50%;
+          margin: 0 auto;
+          justify-self: center;
         }
         .adspend-strip {
           grid-template-columns: 1fr;
