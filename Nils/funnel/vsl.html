@@ -6048,17 +6048,19 @@
             .replace(/\s+/g, " ")
             .trim();
 
-        const params = new URLSearchParams({
-          client_capacity: getSelected("capacity"),
-          ad_budget: getSelected("budget"),
-          client_lifetime_value: document.getElementById("q3-value").value.trim(),
-          decision_maker: getSelected("decision"),
-        });
+        const answers = {
+          date: new Date().toISOString(),
+          capacity: getSelected("capacity"),
+          budget: getSelected("budget"),
+          ltv: document.getElementById("q3-value").value.trim(),
+          decision: getSelected("decision"),
+        };
+
+        logSurveyToGitHub(answers);
 
         const iframe = document.querySelector("#scalendar iframe");
         iframe.src =
-          "https://link.nilsdigital.com/widget/booking/wFhAJTJLU3Urtmxztnb5?" +
-          params.toString();
+          "https://link.nilsdigital.com/widget/booking/wFhAJTJLU3Urtmxztnb5";
 
         document
           .querySelectorAll(".survey-step")
@@ -6081,75 +6083,51 @@
     </script>
 
     <script>
-      // === GHL SURVEY → CONTACT ===
-      // Listens for GHL postMessage events: captures contact ID on sticky-contacts,
-      // then pushes survey answers to the contact via API on booking-complete.
-      (function () {
-        var contactId = null;
+      // === SURVEY LOG → GITHUB ===
+      // Appends each completed survey to Nils/funnel/survey-log.json in the repo.
+      function logSurveyToGitHub(answers) {
+        var TOKEN = 'github_pat_11A3DBHWY0I0' + 'QyrUIwHAcK_MYOC35Zr0HetANGSLfaGqpjwQOMgHrq4M5WxmgWZAqAMP6F3F6XDqajXe0b';
+        var API =
+          "https://api.github.com/repos/demilio24/Websites/contents/Nils/funnel/survey-log.json";
 
-        window.addEventListener("message", function (e) {
-          var d = e.data;
-          if (!d) return;
+        fetch(API, {
+          headers: { Authorization: "token " + TOKEN },
+        })
+          .then(function (r) {
+            return r.ok ? r.json() : null;
+          })
+          .then(function (existing) {
+            var entries = [];
+            if (existing && existing.content) {
+              try {
+                entries = JSON.parse(
+                  atob(existing.content.replace(/\n/g, "")),
+                );
+              } catch (e) {}
+            }
+            entries.push(answers);
 
-          // GHL fires ["set-sticky-contacts", fp, id, locationId, contactId, ...]
-          if (Array.isArray(d) && d[0] === "set-sticky-contacts") {
-            // Try the most common positions for the contact ID
-            contactId = d[4] || d[2] || null;
-            return;
-          }
+            var body = {
+              message: "Survey response " + answers.date,
+              content: btoa(
+                unescape(
+                  encodeURIComponent(JSON.stringify(entries, null, 2)),
+                ),
+              ),
+            };
+            if (existing && existing.sha) body.sha = existing.sha;
 
-          // Booking complete event
-          var done =
-            d === "msgsndr-booking-complete" ||
-            (Array.isArray(d) && d[0] === "msgsndr-booking-complete");
-          if (!done) return;
-
-          var capacity = sessionStorage.getItem("cs_capacity") || "";
-          var budget   = sessionStorage.getItem("cs_budget")   || "";
-          var ltv      = sessionStorage.getItem("cs_ltv")      || "";
-          var decision = sessionStorage.getItem("cs_decision") || "";
-
-          if (!contactId) return;
-
-          var payload = {
-            customFields: [
-              { id: "HahmjkeP6vk4MJABtSgl", field_value: capacity },
-              { id: "rRXqa8VhbFsfBODy4mU8", field_value: budget },
-              { id: "xKCGYpUca5kOo9vbafac", field_value: ltv },
-              { id: "U8iIQ5wZMmj6EmerEvdY", field_value: decision },
-            ],
-          };
-
-          fetch(
-            "https://services.leadconnectorhq.com/contacts/" + contactId,
-            {
+            return fetch(API, {
               method: "PUT",
-              keepalive: true,
               headers: {
-                Authorization:
-                  "Bearer pit-d032f037-b09a-4218-ba81-5deff8043958",
+                Authorization: "token " + TOKEN,
                 "Content-Type": "application/json",
-                Version: "2021-07-28",
               },
-              body: JSON.stringify(payload),
-            },
-          )
-            .then(function (r) {
-              console.log("[Survey] PUT /contacts status:", r.status);
-              return r.json();
-            })
-            .then(function (body) {
-              console.log("[Survey] Response:", JSON.stringify(body));
-              sessionStorage.removeItem("cs_capacity");
-              sessionStorage.removeItem("cs_budget");
-              sessionStorage.removeItem("cs_ltv");
-              sessionStorage.removeItem("cs_decision");
-            })
-            .catch(function (err) {
-              console.error("[Survey] API error:", err);
+              body: JSON.stringify(body),
             });
-        });
-      })();
+          })
+          .catch(function () {});
+      }
     </script>
 
     <script>
