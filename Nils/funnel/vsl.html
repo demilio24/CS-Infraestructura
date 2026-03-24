@@ -6058,9 +6058,17 @@
 
         logSurveyToGitHub(answers);
 
+        const params = new URLSearchParams({
+          client_capacity: answers.capacity,
+          ad_budget: answers.budget,
+          client_lifetime_value: answers.ltv,
+          decision_maker: answers.decision,
+        });
+
         const iframe = document.querySelector("#scalendar iframe");
         iframe.src =
-          "https://link.nilsdigital.com/widget/booking/wFhAJTJLU3Urtmxztnb5";
+          "https://link.nilsdigital.com/widget/booking/wFhAJTJLU3Urtmxztnb5?" +
+          params.toString();
 
         document
           .querySelectorAll(".survey-step")
