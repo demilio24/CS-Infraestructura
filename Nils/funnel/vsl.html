@@ -3403,6 +3403,22 @@
           display: grid;
           grid-template-columns: 1fr 1fr;
         }
+        /* Mobile card redesign — icon on top, text centered below */
+        .diff-creds {
+          gap: 10px;
+          align-items: stretch;
+        }
+        .diff-cred-pill {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          border-radius: 16px;
+          padding: 16px 12px;
+          gap: 8px;
+          font-size: 12px;
+          line-height: 1.4;
+        }
         /* Center the lone pill when there's an odd count (7 items = 1 orphan) */
         .diff-cred-pill:last-child:nth-child(odd) {
           grid-column: 1 / -1;
