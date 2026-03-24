@@ -17,7 +17,7 @@ const puppeteer = require('puppeteer');
   const page = await browser.newPage();
 
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
   for (let y = 0; y <= 20000; y += 500) {
     await page.evaluate(s => window.scrollTo(0, s), y);
     await page.waitForTimeout(120);
@@ -25,7 +25,7 @@ const puppeteer = require('puppeteer');
   await page.screenshot({ path: 'critique-desktop.png', fullPage: true });
 
   await page.setViewport({ width: 390, height: 844, isMobile: true });
-  await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
   for (let y = 0; y <= 20000; y += 400) {
     await page.evaluate(s => window.scrollTo(0, s), y);
     await page.waitForTimeout(100);

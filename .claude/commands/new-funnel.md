@@ -341,8 +341,8 @@ All pill items must be the same height. Use `align-items: center` and consistent
 - After each major section update
 - After any CSS layout or background change
 
-```js
-// Quick screenshot helper — run this after every edit
+```bash
+NODE_PATH=.claude/node_modules node -e "
 const puppeteer = require('puppeteer');
 (async () => {
   const b = await puppeteer.launch({args:['--no-sandbox']});
@@ -350,19 +350,19 @@ const puppeteer = require('puppeteer');
   await p.setViewport({width:1440, height:900});
   await p.goto('file:///PATH/TO/FILE.html', {waitUntil:'networkidle0'});
   await new Promise(r=>setTimeout(r,2000));
-  await p.screenshot({path:'qa-screenshots/check.png'});
-  // Scroll to 40% and 80% to check mid and bottom
+  await p.screenshot({path:'.claude/screenshots/check.png'});
   await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight*0.4));
   await new Promise(r=>setTimeout(r,600));
-  await p.screenshot({path:'qa-screenshots/check-mid.png'});
+  await p.screenshot({path:'.claude/screenshots/check-mid.png'});
   await p.evaluate(()=>window.scrollTo(0,document.body.scrollHeight*0.8));
   await new Promise(r=>setTimeout(r,600));
-  await p.screenshot({path:'qa-screenshots/check-bot.png'});
+  await p.screenshot({path:'.claude/screenshots/check-bot.png'});
   await b.close();
 })();
+"
 ```
 
-Save screenshots to `qa-screenshots/`. If something looks broken, fix it before reporting back to the user.
+Save screenshots to `.claude/screenshots/`. If something looks broken, fix it before reporting back to the user.
 
 ---
 
@@ -546,3 +546,77 @@ Requirements:
    - Embed results directly (no external links for proof)
 
 5. **Save, push, return embed** — Git add, commit, push. Return the full GHL iframe embed code.
+
+---
+
+## Mobile modal / calendar rule (VSL pages)
+
+When a survey leads to a GHL calendar modal on VSL pages, apply these mobile rules:
+
+**1. iOS input zoom prevention (MANDATORY):**
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+```
+Without this, iOS Safari zooms the entire viewport when an input inside the GHL iframe gets focus, making the page unusable.
+
+**2. Fullscreen scrollable calendar on mobile:**
+```css
+@media (max-width: 680px) {
+  .modal-overlay.calendar-mode { padding: 0; align-items: flex-start; }
+  .modal-overlay.calendar-mode .modal-box {
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    max-height: none;
+    border-radius: 0;
+    padding: 16px 16px 48px;
+    overflow-y: auto;
+  }
+  /* Give iframe enough height so GHL renders all fields + Schedule button */
+  #scalendar iframe { min-height: 720px; }
+  /* Hide "You qualify" copy to maximize calendar space on mobile */
+  #scalendar > div:first-child { display: none; }
+}
+```
+
+**Why:** The GHL calendar iframe content is ~700-800px tall. If the modal-box is `height: 100vh; overflow: hidden`, the Schedule Meeting button is unreachable. Setting `height: auto; overflow-y: auto` makes the whole modal scrollable so users can reach the button.
+
+---
+
+## Dark hero proof cards — mobile override
+
+VSL pages have a dark navy hero. On desktop, a white panel sits below the proof cards. On mobile, the hero is single-column so the proof cards float directly on the dark background with no white below. The dark-glass default (`rgba(3,18,60,0.6)`) blends in and looks bad.
+
+Override to white glassmorphism on mobile:
+```css
+@media (max-width: 680px) {
+  .hero-proof-item {
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+  .hero-proof-num { color: #fff; }
+  /* Lighter video unmute overlay too — dark overlay on dark bg is unreadable */
+  .hvp-unmute-overlay {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+```
+
+---
+
+## Credential pills — mobile rule
+
+On mobile, the horizontal credential pills with decorative lines look cluttered. Override to compact flex wrapping:
+```css
+@media (max-width: 680px) {
+  .diff-creds-line { display: none; }
+  .diff-creds { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .diff-cred-pill {
+    flex-direction: row; align-items: center;
+    padding: 7px 13px; gap: 6px; font-size: 12px;
+    border-radius: 40px; flex: 0 0 auto;
+  }
+}
+```

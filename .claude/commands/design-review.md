@@ -28,16 +28,16 @@ For every image on the page, evaluate:
 
 **Option A — Puppeteer (local, preferred):**
 ```bash
-node -e "
+NODE_PATH=.claude/node_modules node -e "
 const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto('file:///ABSOLUTE_PATH_TO_FILE', { waitUntil: 'networkidle0' });
-  await page.screenshot({ path: 'design-review-desktop.png', fullPage: true });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.screenshot({ path: '.claude/screenshots/design-review-desktop.png', fullPage: true });
   await page.setViewport({ width: 390, height: 844 });
-  await page.screenshot({ path: 'design-review-mobile.png', fullPage: true });
+  await page.screenshot({ path: '.claude/screenshots/design-review-mobile.png', fullPage: true });
   await browser.close();
 })();
 "
@@ -48,11 +48,11 @@ Push the current file to GitHub Pages first, then:
 ```bash
 SCREENSHOTONE_KEY=$(grep SCREENSHOTONE_ACCESS_KEY .env | cut -d '=' -f2)
 LIVE_URL="https://demilio24.github.io/Websites/{RELATIVE_FILE_PATH}"
-curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o design-review-desktop.png
-curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o design-review-mobile.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o .claude/screenshots/design-review-desktop.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o .claude/screenshots/design-review-mobile.png
 ```
 
-2. **Read both screenshots** — Use the Read tool on `design-review-desktop.png` and `design-review-mobile.png`.
+2. **Read both screenshots** — Use the Read tool on `.claude/screenshots/design-review-desktop.png` and `.claude/screenshots/design-review-mobile.png`.
 
 3. **Audit every image** — Go section by section. For each image found, note:
    - Section name

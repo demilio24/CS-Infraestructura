@@ -22,12 +22,12 @@ const puppeteer = require('puppeteer');
 
   // DESKTOP
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
   // ... test actions here ...
 
   // MOBILE
   await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
-  await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
   // ... test actions here ...
 
   await browser.close();
@@ -69,7 +69,7 @@ Check:
 ### TEST 2: Initial Page Load — Mobile (390px)
 ```js
 await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
-await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
 await page.screenshot({ path: 'test-02-mobile-load.png' });
 ```
 Check:
@@ -113,7 +113,7 @@ Check:
 ### TEST 5: Scroll — Desktop, First 3 Sections
 ```js
 await page.setViewport({ width: 1440, height: 900 });
-await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
 await page.evaluate(() => window.scrollTo(0, 800));
 await page.waitForTimeout(600);
 await page.screenshot({ path: 'test-05-scroll-desktop-top.png' });
@@ -211,7 +211,7 @@ Check:
 ### TEST 10: Full Page — Mobile Scroll
 ```js
 await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
-await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
+await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
 for (let y = 0; y <= 20000; y += 400) {
   await page.evaluate((scrollY) => window.scrollTo(0, scrollY), y);
   await page.waitForTimeout(100);

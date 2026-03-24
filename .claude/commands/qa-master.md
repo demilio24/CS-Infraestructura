@@ -53,16 +53,16 @@ Take screenshots at 1440px and 390px.
 
 **Option A — Puppeteer (local, preferred):**
 ```bash
-node -e "
+NODE_PATH=.claude/node_modules node -e "
 const puppeteer = require('puppeteer');
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto('file:///ABSOLUTE_PATH', { waitUntil: 'networkidle0' });
-  await page.screenshot({ path: 'qa-master-desktop.png', fullPage: true });
+  await page.goto('http://localhost:8099/PATH/TO/FILE.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.screenshot({ path: '.claude/screenshots/qa-master-desktop.png', fullPage: true });
   await page.setViewport({ width: 390, height: 844 });
-  await page.screenshot({ path: 'qa-master-mobile.png', fullPage: true });
+  await page.screenshot({ path: '.claude/screenshots/qa-master-mobile.png', fullPage: true });
   await browser.close();
 })();
 "
@@ -72,8 +72,8 @@ const puppeteer = require('puppeteer');
 ```bash
 SCREENSHOTONE_KEY=$(grep SCREENSHOTONE_ACCESS_KEY .env | cut -d '=' -f2)
 LIVE_URL="https://demilio24.github.io/Websites/{RELATIVE_FILE_PATH}"
-curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o qa-master-desktop.png
-curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o qa-master-mobile.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=1440&viewport_height=900&format=png&delay=4" -o .claude/screenshots/qa-master-desktop.png
+curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=${LIVE_URL}&full_page=true&viewport_width=390&viewport_height=844&format=png&delay=3" -o .claude/screenshots/qa-master-mobile.png
 ```
 
 Read both screenshots. Check:
@@ -199,3 +199,15 @@ Read both screenshots. Check:
    ```
 
 7. Return the GHL embed code.
+
+---
+
+## Mobile audit additions (added from real sessions)
+
+Run the Puppeteer horizontal overflow detector from `/qa-check` as part of the mobile audit. Additionally check:
+
+- **Viewport meta**: must include `maximum-scale=1.0` if page has embedded forms/GHL calendars — stops iOS from zooming on input focus
+- **Modal/calendar**: on mobile, modal must use `height: auto; min-height: 100vh; overflow-y: auto` with iframe `min-height: 720px` — fixed-height containers clip the Schedule button
+- **Flex overflow**: flex items in horizontal rows must use `flex: 1 1 0; min-width: 0` not `flex: 0 0 Xpx`
+- **Dark hero proof cards**: if the VSL hero has no white section below on mobile, override proof cards to white glass: `background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35)`
+- **Video unmute overlay on dark mobile bg**: use `rgba(255,255,255,0.12)` not dark navy — dark overlay on dark background is unreadable
