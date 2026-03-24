@@ -3462,18 +3462,24 @@
         .modal-box {
           padding: 36px 24px 28px;
         }
-        /* Full-screen calendar on mobile */
+        /* Full-screen scrollable calendar on mobile */
         .modal-overlay.calendar-mode {
           padding: 0;
-          align-items: stretch;
+          align-items: flex-start;
         }
         .modal-overlay.calendar-mode .modal-box {
           width: 100vw;
-          height: 100vh;
-          max-height: 100vh;
+          min-height: 100vh;
+          height: auto;
+          max-height: none;
           border-radius: 0;
-          padding: 12px 16px 0;
+          padding: 16px 16px 48px;
+          overflow-y: auto;
         }
+        /* Hide "You qualify" copy on mobile — saves space for the calendar */
+        #scalendar > div:first-child { display: none; }
+        /* Iframe tall enough for GHL to fully render */
+        #scalendar iframe { min-height: 720px; }
         .survey-row {
           grid-template-columns: 1fr;
         }
