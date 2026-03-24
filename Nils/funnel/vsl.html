@@ -146,12 +146,13 @@
       .hero {
         position: relative;
         background:
-        /* Bottom fade to white, connects seamlessly with next section */
+        /* Bottom fade — blue holds strong, then blends into #eef5ff */
           linear-gradient(
             180deg,
-            transparent 35%,
-            rgba(255, 255, 255, 0.5) 72%,
-            #ffffff 100%
+            transparent 55%,
+            rgba(238, 245, 255, 0.25) 80%,
+            rgba(238, 245, 255, 0.65) 92%,
+            #eef5ff 100%
           ),
           /* Bright blue corner glows */
           radial-gradient(
@@ -199,18 +200,20 @@
           transparent 1.5px
         );
         background-size: 28px 28px;
-        /* fade dots out toward bottom as section transitions to white */
+        /* fade dots out toward bottom matching section fade */
         -webkit-mask-image: linear-gradient(
           180deg,
           rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0.4) 60%,
-          transparent 96%
+          rgba(0, 0, 0, 0.55) 60%,
+          rgba(0, 0, 0, 0.2) 85%,
+          transparent 100%
         );
         mask-image: linear-gradient(
           180deg,
           rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0.4) 60%,
-          transparent 96%
+          rgba(0, 0, 0, 0.55) 60%,
+          rgba(0, 0, 0, 0.2) 85%,
+          transparent 100%
         );
         pointer-events: none;
         z-index: 0;
@@ -438,9 +441,9 @@
         pointer-events: none;
         z-index: 0;
         background: radial-gradient(
-          140px circle at var(--cx, 50%) var(--cy, 50%),
-          rgba(255, 255, 255, 0.65),
-          rgba(255, 255, 255, 0.06) 70%
+          280px circle at var(--cx, 50%) var(--cy, -120px),
+          rgba(255, 255, 255, 0.70),
+          rgba(255, 255, 255, 0.04) 65%
         );
         -webkit-mask:
           linear-gradient(#fff 0 0) content-box,
@@ -591,7 +594,7 @@
       }
       .hero-disclaimer {
         font-size: 12px;
-        color: rgba(0, 0, 0, 0.6);
+        color: rgba(10, 10, 10, 0.5);
         margin-top: 12px;
         font-weight: 500;
       }
@@ -643,23 +646,13 @@
 
       /* ── PROBLEM ─────────────────────────────────── */
       .problem {
-        background: linear-gradient(180deg, #ffffff 0%, #f0f5ff 100%);
+        background:
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          #eef5ff;
         padding: 96px 24px;
         position: relative;
         overflow: hidden;
         isolation: isolate;
-      }
-      /* Dot grid fades in from top — picks up seamlessly from hero's fading dots */
-      .problem::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle, rgba(4,107,210,0.13) 1.5px, transparent 1.5px);
-        background-size: 28px 28px;
-        -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 35%, black 55%);
-        mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 10%, rgba(0,0,0,0.6) 35%, black 55%);
-        pointer-events: none;
-        z-index: -1;
       }
       /* Large terrorizing red orbs — left and right */
       .problem::before {
@@ -667,8 +660,8 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 420px at -320px 100%, rgba(220,38,38,0.30) 0%, transparent 70%),
-          radial-gradient(circle 420px at calc(100% + 320px) 100%, rgba(220,38,38,0.30) 0%, transparent 70%);
+          radial-gradient(circle 550px at -180px 0%, rgba(220,38,38,0.32) 0%, transparent 65%),
+          radial-gradient(circle 550px at calc(100% + 180px) 0%, rgba(220,38,38,0.32) 0%, transparent 65%);
         pointer-events: none;
         z-index: -1;
       }
@@ -957,12 +950,12 @@
         background:
           radial-gradient(
             circle 520px at -140px 50%,
-            rgba(4, 107, 210, 0.14) 0%,
+            rgba(4, 107, 210, 0.42) 0%,
             transparent 70%
           ),
           radial-gradient(
             circle 520px at calc(100% + 140px) 50%,
-            rgba(4, 107, 210, 0.14) 0%,
+            rgba(4, 107, 210, 0.42) 0%,
             transparent 70%
           );
         pointer-events: none;
@@ -985,13 +978,18 @@
         line-height: 1.75;
         margin-bottom: 28px;
       }
+      .step01-copy > p {
+        font-size: 18px;
+        line-height: 1.75;
+        color: var(--muted);
+      }
       .step01-copy .bullet-list {
         margin-bottom: 20px;
       }
       .step01-copy .bullet-list li {
         color: var(--text);
         font-weight: 500;
-        font-size: 17px;
+        font-size: 15px;
       }
       .step01-copy .bullet-list .icon {
         stroke: var(--blue) !important;
@@ -1002,19 +1000,12 @@
         opacity: 0.7;
         margin-top: 4px;
       }
-      .step-section.step-01 .section-h {
-        font-size: clamp(22px, 2.4vw, 34px);
-      }
+      /* step-01 uses global .section-h size */
 
       /* ── STEP 02 ─────────────────────────────────── */
       .step-section.step-02 {
         background:
-          radial-gradient(
-              circle,
-              rgba(4, 107, 210, 0.1) 1.5px,
-              transparent 1.5px
-            )
-            0 0 / 28px 28px,
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
           #eef5ff;
         position: relative;
         overflow: hidden;
@@ -1026,12 +1017,12 @@
         background:
           radial-gradient(
             circle 520px at -140px 50%,
-            rgba(22, 163, 74, 0.16) 0%,
+            rgba(22, 163, 74, 0.42) 0%,
             transparent 70%
           ),
           radial-gradient(
             circle 520px at calc(100% + 140px) 50%,
-            rgba(22, 163, 74, 0.16) 0%,
+            rgba(22, 163, 74, 0.42) 0%,
             transparent 70%
           );
         pointer-events: none;
@@ -1049,9 +1040,7 @@
       .step-section.step-02 .section-h .accent {
         color: #16a34a;
       }
-      .step-section.step-02 .section-h {
-        font-size: clamp(28px, 3.8vw, 52px);
-      }
+      /* step-02 uses global .section-h size */
       .step-section.step-02 .step-inner > div > p {
         font-size: 18px;
         line-height: 1.75;
@@ -1451,7 +1440,7 @@
       .calc-section {
         background:
           radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
-          #f0f5ff;
+          #eef5ff;
         padding: 72px 24px;
         position: relative;
         overflow: hidden;
@@ -1461,8 +1450,8 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle 420px at -320px 0%, rgba(220,38,38,0.26) 0%, transparent 70%),
-          radial-gradient(circle 420px at calc(100% + 320px) 0%, rgba(220,38,38,0.26) 0%, transparent 70%);
+          radial-gradient(circle 550px at -180px 100%, rgba(220,38,38,0.32) 0%, transparent 65%),
+          radial-gradient(circle 550px at calc(100% + 180px) 100%, rgba(220,38,38,0.32) 0%, transparent 65%);
         pointer-events: none;
         z-index: 0;
       }
@@ -1519,10 +1508,8 @@
         grid-template-columns: 1fr auto;
         align-items: center;
         padding: 18px 24px;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
         gap: 16px;
       }
-      .calc-row:last-child { border-bottom: none; }
       .calc-row-label {
         font-size: 14px;
         font-weight: 600;
@@ -1553,17 +1540,21 @@
         color: #111;
         line-height: 1;
         width: 110px;
-        background: none;
-        border: none;
-        border-bottom: 2px solid rgba(220,38,38,0.25);
+        background: #f4f4f5;
+        border: 1.5px solid rgba(0,0,0,0.08);
+        border-radius: 8px;
         outline: none;
-        padding: 0 2px 2px;
+        padding: 6px 10px;
         font-family: var(--font-main);
         text-align: right;
-        transition: border-color 0.2s;
         cursor: text;
+        transition: border-color 0.2s, background 0.2s;
       }
-      .calc-number:focus { border-bottom-color: #dc2626; }
+      .calc-number:focus {
+        outline: none;
+        background: #fff;
+        border-color: #dc2626;
+      }
       .calc-number::-webkit-inner-spin-button,
       .calc-number::-webkit-outer-spin-button { -webkit-appearance: none; }
 
@@ -1571,19 +1562,17 @@
       .calc-row-full {
         grid-column: 1 / -1;
         padding: 0 24px 14px;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
         display: flex;
         align-items: center;
         gap: 12px;
       }
-      .calc-row-full:last-of-type { border-bottom: none; }
       .calc-slider {
         flex: 1;
         -webkit-appearance: none;
         appearance: none;
         height: 5px;
         border-radius: 3px;
-        background: rgba(4,107,210,0.12);
+        background: rgba(0,0,0,0.15);
         outline: none;
         cursor: pointer;
       }
@@ -1608,10 +1597,11 @@
       .calc-result-row {
         background: #dc2626;
         padding: 22px 24px 20px;
-        display: grid;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 6px;
+        text-align: center;
       }
       .calc-result-label {
         font-size: 11px;
@@ -1619,28 +1609,24 @@
         letter-spacing: 0.12em;
         text-transform: uppercase;
         color: rgba(255,255,255,0.65);
-        margin-bottom: 4px;
       }
       .calc-result-sub {
         font-size: 13px;
         color: rgba(255,255,255,0.70);
-        margin-top: 2px;
       }
       .calc-result-num {
-        font-size: clamp(36px, 6vw, 52px);
+        font-size: clamp(32px, 5vw, 46px);
         font-weight: 700;
         color: #fff;
         line-height: 1;
         letter-spacing: -0.03em;
-        text-align: right;
         white-space: nowrap;
       }
       .calc-result-annual {
-        font-size: 19px;
+        font-size: 17px;
         font-weight: 700;
         color: rgba(255,255,255,0.80);
-        text-align: right;
-        margin-top: 4px;
+        margin-top: 2px;
       }
 
       /* CTA below table */
@@ -1689,8 +1675,43 @@
 
       /* ── ABOUT / WHY WE'RE DIFFERENT ────────────── */
       .about {
-        background: #fff;
-        padding: 72px 24px;
+        background:
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          #eef5ff;
+        padding: 72px 24px 72px;
+      }
+      .section-bridge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 64px;
+      }
+      .section-bridge-line {
+        flex: 1;
+        max-width: 200px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(4, 107, 210, 0.2));
+      }
+      .section-bridge-line:last-child {
+        background: linear-gradient(90deg, rgba(4, 107, 210, 0.2), transparent);
+      }
+      .section-bridge-dots {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .section-bridge-dots span {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--blue);
+        opacity: 0.25;
+      }
+      .section-bridge-dots span:nth-child(2) {
+        opacity: 0.45;
+        width: 7px;
+        height: 7px;
       }
       .diff-inner {
         max-width: 1100px;
@@ -1706,14 +1727,14 @@
         margin: 0 auto;
       }
       .diff-header .section-eyebrow {
-        font-size: 13px;
+        font-size: 11px;
       }
       .diff-header .section-h {
-        font-size: clamp(24px, 3vw, 38px);
+        font-size: clamp(24px, 3.2vw, 42px);
         margin-bottom: 12px;
       }
       .diff-subtext {
-        font-size: 15px;
+        font-size: 18px;
         color: var(--muted);
         line-height: 1.7;
         margin-top: 4px;
@@ -1809,11 +1830,27 @@
         color: #86efac;
       }
       /* Credentials bar */
+      .diff-creds-wrap {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        margin-top: 0;
+      }
+      .diff-creds-line {
+        flex: 0 0 80px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(0,0,0,0.18));
+        border-radius: 2px;
+      }
+      .diff-creds-line:last-child {
+        background: linear-gradient(90deg, rgba(0,0,0,0.18), transparent);
+      }
       .diff-creds {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         justify-content: center;
+        flex: 1;
       }
       .diff-cred-pill {
         display: flex;
@@ -1860,7 +1897,7 @@
         margin-bottom: 14px;
       }
       .diff-closing-h {
-        font-size: clamp(24px, 2.6vw, 36px);
+        font-size: clamp(24px, 3.2vw, 42px);
         font-weight: 700;
         color: var(--text);
         line-height: 1.2;
@@ -1868,7 +1905,7 @@
         margin-bottom: 18px;
       }
       .diff-closing-body {
-        font-size: 16px;
+        font-size: 18px;
         color: var(--muted);
         line-height: 1.75;
         margin-bottom: 28px;
@@ -2241,14 +2278,8 @@
       /* ── PROOF SECTION ────────────────────────── */
       .proof-section {
         background:
-          radial-gradient(
-            ellipse 80% 50% at 50% -5%,
-            rgba(4, 107, 210, 0.1) 0%,
-            transparent 70%
-          ),
-          url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.4' fill='%23046bd2' fill-opacity='0.07'/%3E%3C/svg%3E"),
-          #f5f9ff;
-        background-size: auto, 28px 28px, auto;
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          #eef5ff;
         padding: 100px 32px 80px;
       }
       .proof-inner {
@@ -2270,7 +2301,7 @@
       }
       .proof-header p {
         color: #5a6a8a;
-        font-size: 16px;
+        font-size: 18px;
         margin-top: 10px;
       }
 
@@ -2284,23 +2315,18 @@
         margin-bottom: 20px;
       }
       .proof-reviews-grid {
-        columns: 5;
-        column-gap: 12px;
+        columns: 3;
+        column-gap: 16px;
         margin-bottom: 64px;
       }
-      @media (max-width: 1100px) {
-        .proof-reviews-grid {
-          columns: 4;
-        }
-      }
-      @media (max-width: 800px) {
-        .proof-reviews-grid {
-          columns: 3;
-        }
-      }
-      @media (max-width: 600px) {
+      @media (max-width: 700px) {
         .proof-reviews-grid {
           columns: 2;
+        }
+      }
+      @media (max-width: 440px) {
+        .proof-reviews-grid {
+          columns: 1;
         }
       }
       .proof-reviews-grid img {
@@ -2308,7 +2334,7 @@
         height: auto;
         display: block;
         border-radius: 12px;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
         border: 1px solid rgba(4, 107, 210, 0.1);
         box-shadow: 0 4px 20px rgba(4, 107, 210, 0.08);
         break-inside: avoid;
@@ -2316,8 +2342,7 @@
 
       /* Live widget */
       .proof-widget-wrap {
-        max-width: 1100px;
-        margin: 0 auto 64px;
+        margin: 0 0 64px;
         background: #fff;
         border-radius: 20px;
         overflow-x: auto;
@@ -2347,7 +2372,7 @@
         border: none;
       }
 
-      /* Video testimonials grid */
+      /* Video testimonials — single featured hero */
       .proof-vids-label {
         font-size: 11px;
         font-weight: 700;
@@ -2356,41 +2381,89 @@
         color: var(--blue);
         margin-bottom: 20px;
       }
-      .proof-video-grid {
+      .featured-testimonial {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        grid-template-columns: 5fr 7fr;
+        gap: 48px;
+        align-items: center;
+        background: #fff;
+        border-radius: 24px;
+        border: 1px solid rgba(4, 107, 210, 0.12);
+        box-shadow: 0 8px 48px rgba(4, 107, 210, 0.12);
+        overflow: hidden;
       }
-      @media (max-width: 900px) {
-        .proof-video-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
+      .featured-testimonial .vp {
+        border-radius: 0;
+        aspect-ratio: 4/3;
       }
-      @media (max-width: 540px) {
-        .proof-video-grid {
+      .featured-testimonial .vp video {
+        object-position: 50% 25%;
+      }
+      .featured-testimonial-content {
+        padding: 28px 32px 28px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .ft-stars {
+        display: flex;
+        gap: 4px;
+      }
+      .ft-stars svg {
+        width: 18px;
+        height: 18px;
+        fill: #f59e0b;
+      }
+      .ft-pullquote {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0d1b35;
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+      }
+      .ft-bullets {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .ft-bullets li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        color: rgba(13, 27, 53, 0.75);
+        line-height: 1.5;
+      }
+      .ft-bullets li::before {
+        content: '';
+        display: block;
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        margin-top: 1px;
+        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23046bd2' fill-opacity='0.1'/%3E%3Cpath d='M4.5 8l2.5 2.5 4.5-5' stroke='%23046bd2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      }
+      @media (max-width: 860px) {
+        .featured-testimonial {
           grid-template-columns: 1fr;
         }
+        .featured-testimonial-content {
+          padding: 32px;
+        }
       }
+      /* legacy grid — keep for .vp/.vc-bullets styles only */
+      .proof-video-grid { display: none; }
       .video-card-wrap {
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 4px 24px rgba(4, 107, 210, 0.1);
-        border: 1px solid rgba(4, 107, 210, 0.12);
-        transition:
-          transform 0.2s,
-          box-shadow 0.2s;
         background: #fff;
         display: flex;
         flex-direction: column;
       }
-      .video-card-wrap:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 16px 40px rgba(4, 107, 210, 0.18);
-      }
       .vc-result {
         padding: 16px 18px 18px;
         background: #f5f9ff;
-        border-top: 1px solid rgba(4, 107, 210, 0.1);
       }
       .vc-bullets {
         list-style: none;
@@ -2420,9 +2493,8 @@
       }
       .guarantee {
         background:
-          url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.4' fill='%23046bd2' fill-opacity='0.07'/%3E%3C/svg%3E"),
-          linear-gradient(175deg, #e8f3ff 0%, #d8ecff 50%, #e8f3ff 100%);
-        background-size: 28px 28px, auto;
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          linear-gradient(180deg, #eef5ff 0%, #cce6ff 45%, #eef5ff 100%);
         padding: 96px 24px;
         text-align: center;
         position: relative;
@@ -2450,15 +2522,15 @@
         border: 1px solid rgba(4, 107, 210, 0.3);
         border-radius: 100px;
         padding: 8px 20px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 700;
         color: var(--blue);
-        letter-spacing: 0.1em;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
         margin-bottom: 28px;
       }
       .guarantee-h {
-        font-size: clamp(28px, 4vw, 54px);
+        font-size: clamp(24px, 3.2vw, 42px);
         font-weight: 700;
         color: #0d1b35;
         line-height: 1.1;
@@ -2467,7 +2539,7 @@
         text-shadow: none;
       }
       .guarantee-p {
-        font-size: 17px;
+        font-size: 18px;
         color: #2d4a7a;
         line-height: 1.7;
         max-width: 640px;
@@ -2478,6 +2550,11 @@
         font-style: italic;
         color: #6a85aa;
         margin-bottom: 40px;
+      }
+      .guarantee-note strong {
+        font-style: normal;
+        color: #0d1b35;
+        font-weight: 700;
       }
       .guarantee-grid {
         display: grid;
@@ -2521,9 +2598,8 @@
       /* ── FAQ, LIGHT BLUE BACKGROUND ─────────── */
       .faq {
         background:
-          url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='14' cy='14' r='1.4' fill='%23046bd2' fill-opacity='0.07'/%3E%3C/svg%3E"),
-          linear-gradient(175deg, #edf4ff 0%, #e0efff 50%, #edf4ff 100%);
-        background-size: 28px 28px, auto;
+          radial-gradient(circle, rgba(4,107,210,0.10) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          linear-gradient(180deg, #eef5ff 0%, #ddeeff 50%, #eef5ff 100%);
         padding: 96px 24px;
       }
       .faq .section-eyebrow-white {
@@ -2556,7 +2632,7 @@
       }
       .faq-item.open {
         border-color: rgba(4, 107, 210, 0.5);
-        background: rgba(4, 107, 210, 0.04);
+        background: #fff;
         box-shadow: 0 0 32px rgba(4, 107, 210, 0.12);
       }
       .faq-q {
@@ -2608,10 +2684,9 @@
         color: var(--blue);
       }
       .faq-ans {
-        display: none;
-      }
-      .faq-item.open .faq-ans {
-        display: block;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.32s cubic-bezier(0.4, 0, 0.2, 1);
       }
       .faq-ans-inner {
         padding: 0 26px 22px 66px;
@@ -2642,10 +2717,10 @@
         background: #fff;
         border-radius: 20px;
         width: 100%;
-        max-width: 640px;
-        max-height: 90vh;
+        max-width: 900px;
+        max-height: 92vh;
         overflow-y: auto;
-        padding: 52px 44px 44px;
+        padding: 48px 36px 36px;
         position: relative;
         box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
         transform: scale(0.92) translateY(24px);
@@ -2653,6 +2728,33 @@
       }
       .modal-overlay.open .modal-box {
         transform: scale(1) translateY(0);
+      }
+      .modal-overlay.calendar-mode {
+        align-items: center;
+        padding: 5vh 5vw;
+      }
+      .modal-overlay.calendar-mode .modal-box {
+        max-width: 100%;
+        width: 90vw;
+        max-height: 90vh;
+        height: 90vh;
+        padding: 48px 28px 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      #scalendar {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+      }
+      #scalendar iframe {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        border: none;
+        display: block;
       }
       .modal-close {
         position: absolute;
@@ -2722,8 +2824,8 @@
         transition: width 0.4s ease;
       }
       .survey-step-lbl {
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 16px;
+        font-weight: 700;
         color: var(--muted);
         white-space: nowrap;
       }
@@ -2922,8 +3024,7 @@
 
       /* ── FOOTER ──────────────────────────────────── */
       .footer {
-        background: #edf4ff;
-        border-top: 1px solid rgba(4, 107, 210, 0.12);
+        background: #eef5ff;
         padding: 36px 24px;
         text-align: center;
       }
@@ -3122,90 +3223,68 @@
     </section>
 
     <!-- ══════════════════════════════════════════ PROBLEM -->
+    <!-- ══════════════════════════════════════════ CALCULATOR -->
+    <section class="calc-section">
+      <div class="calc-inner">
+
+        <!-- LEFT: copy + CTA -->
+        <div class="calc-copy anim">
+          <div class="section-eyebrow-white">The Cost of Waiting</div>
+          <h2 class="calc-h">
+            What is doing nothing<br /><span class="accent">actually costing you?</span>
+          </h2>
+          <p class="calc-sub">Most people are shocked when they see this number.</p>
+          <div class="calc-cta-wrap">
+            <div class="calc-daily-line">That's <span id="calc-daily">-$567</span> walking out the door every single day.</div>
+            <button class="calc-cta" onclick="openModal()">Stop leaving money on the table &rarr;</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: calculator widget -->
+        <div class="calc-widget anim d2">
+          <div class="calc-table">
+            <div class="calc-row">
+              <div>
+                <div class="calc-row-label">Avg. client value / month</div>
+                <div class="calc-row-hint">What one client pays you on average</div>
+              </div>
+              <div class="calc-row-input">
+                <span class="calc-prefix">$</span>
+                <input class="calc-number" id="calc-value" type="number" value="1700" min="100" max="50000" step="100" />
+              </div>
+            </div>
+            <div class="calc-row-full">
+              <input class="calc-slider" id="calc-value-slider" type="range" min="100" max="20000" step="100" value="1700" />
+              <span class="calc-slider-val" id="calc-value-display">$1,700</span>
+            </div>
+
+            <div class="calc-row">
+              <div>
+                <div class="calc-row-label">New clients you could take / month</div>
+                <div class="calc-row-hint">Be conservative, open slots only</div>
+              </div>
+              <div class="calc-row-input">
+                <input class="calc-number" id="calc-clients" type="number" value="10" min="1" max="100" step="1" />
+              </div>
+            </div>
+            <div class="calc-row-full">
+              <input class="calc-slider" id="calc-clients-slider" type="range" min="1" max="50" step="1" value="10" />
+              <span class="calc-slider-val" id="calc-clients-display">10</span>
+            </div>
+
+            <div class="calc-result-row">
+              <div class="calc-result-num" id="calc-monthly">-$17,000/Month</div>
+              <div class="calc-result-annual" id="calc-annual">-$204,000 / Year</div>
+              <div class="calc-result-label">You're bleeding every month in missed revenue while you wait</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <section class="problem">
       <div class="problem-grid">
-        <div class="anim">
-          <div class="section-eyebrow" style="color: #dc2626">
-            The Real Cost
-          </div>
-          <h2 class="section-h">
-            You might think this isn't a big deal,
-            <span class="accent" style="color: #dc2626">it is</span>
-          </h2>
-          <p class="problem-tagline">
-            Money out of your pocket. Into your competitor's. Right now, while
-            you read this. And if you don't act, they'll keep growing while you
-            stay stuck.
-          </p>
-          <ul class="bullet-list">
-            <li>
-              <svg
-                class="icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#ef4444"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
-              These aren't cold leads, they're warm buyers ready to spend right
-              now
-            </li>
-            <li>
-              <svg
-                class="icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#ef4444"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
-              A $2,000 job missed every week is $100,000 a year you'll never see
-            </li>
-            <li>
-              <svg
-                class="icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#ef4444"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
-              The longer they go to your competitor, the more loyal they become
-              to them
-            </li>
-            <li>
-              <svg
-                class="icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#ef4444"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
-              You'll never know what you missed, that's the worst part
-            </li>
-          </ul>
-        </div>
         <div class="anim d2">
           <!-- Google search mockup: white, typing, cursor clicking competitor -->
           <div class="gmock">
@@ -3289,71 +3368,72 @@
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════ CALCULATOR -->
-    <section class="calc-section">
-      <div class="calc-inner">
-
-        <!-- LEFT: copy + CTA -->
-        <div class="calc-copy anim">
-          <div class="section-eyebrow-white">The Cost of Waiting</div>
-          <h2 class="calc-h">
-            What is doing nothing<br /><span class="accent">actually costing you?</span>
+        <div class="anim">
+          <div class="section-eyebrow" style="color: #dc2626">
+            The Real Cost
+          </div>
+          <h2 class="section-h">
+            You might think this isn't a big deal,
+            <span class="accent" style="color: #dc2626">it is</span>
           </h2>
-          <p class="calc-sub">Most people are shocked when they see this number.</p>
-          <div class="calc-cta-wrap">
-            <div class="calc-daily-line">That's <span id="calc-daily">$567</span> walking out the door every single day.</div>
-            <button class="calc-cta" onclick="openModal()">Stop leaving money on the table &rarr;</button>
-          </div>
+          <p class="problem-tagline">
+            Money out of your pocket. Into your competitor's. Right now, while
+            you read this. And if you don't act, they'll keep growing while you
+            stay stuck.
+          </p>
+          <ul class="bullet-list">
+            <li>
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+              These aren't cold leads, they're warm buyers ready to spend right
+              now
+            </li>
+            <li>
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+              The longer they go to your competitor, the more loyal they become
+              to them
+            </li>
+            <li>
+              <svg
+                class="icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ef4444"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+              You'll never know what you missed, that's the worst part
+            </li>
+          </ul>
         </div>
-
-        <!-- RIGHT: calculator widget -->
-        <div class="calc-widget anim d2">
-          <div class="calc-table">
-            <div class="calc-row">
-              <div>
-                <div class="calc-row-label">Avg. client value / month</div>
-                <div class="calc-row-hint">What one client pays you on average</div>
-              </div>
-              <div class="calc-row-input">
-                <span class="calc-prefix">$</span>
-                <input class="calc-number" id="calc-value" type="number" value="1700" min="100" max="50000" step="100" />
-              </div>
-            </div>
-            <div class="calc-row-full">
-              <input class="calc-slider" id="calc-value-slider" type="range" min="100" max="20000" step="100" value="1700" />
-              <span class="calc-slider-val" id="calc-value-display">$1,700</span>
-            </div>
-
-            <div class="calc-row">
-              <div>
-                <div class="calc-row-label">New clients you could take / month</div>
-                <div class="calc-row-hint">Be conservative — open slots only</div>
-              </div>
-              <div class="calc-row-input">
-                <input class="calc-number" id="calc-clients" type="number" value="10" min="1" max="100" step="1" />
-              </div>
-            </div>
-            <div class="calc-row-full">
-              <input class="calc-slider" id="calc-clients-slider" type="range" min="1" max="50" step="1" value="10" />
-              <span class="calc-slider-val" id="calc-clients-display">10</span>
-            </div>
-
-            <div class="calc-result-row">
-              <div>
-                <div class="calc-result-label">You're bleeding every month</div>
-                <div class="calc-result-sub">in missed revenue while you wait</div>
-              </div>
-              <div>
-                <div class="calc-result-num" id="calc-monthly">$17,000</div>
-                <div class="calc-result-annual" id="calc-annual">$204,000 / yr</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
@@ -3430,7 +3510,7 @@
                 stroke-linejoin="round"
               >
                 <polyline points="20 6 9 17 4 12" /></svg
-              >Award-winning quality — see our client funnels
+              >Award-winning quality. See our client funnels
             </li>
           </ul>
         </div>
@@ -3653,14 +3733,7 @@
           <h2 class="section-h">
             We run <span class="accent">extremely profitable</span> Google Ads.
           </h2>
-          <p
-            style="
-              font-size: 20px;
-              color: var(--muted);
-              line-height: 1.75;
-              margin-bottom: 20px;
-            "
-          >
+          <p>
             Once you're positioned as the obvious choice and you have systems
             that convert properly, we will run extremely profitable Google Ads
             so you get the highest quality leads that are already looking for
@@ -3735,7 +3808,7 @@
                     G
                   </text>
                 </svg>
-                Google Ads — Live Campaign
+                Google Ads: Live Campaign
               </div>
               <div class="leads-anim-dot-live"></div>
             </div>
@@ -3812,7 +3885,7 @@
           <p class="adspend-strip-body">
             We know what a profitable campaign looks like. Most agencies guess,
             charge a management fee, and hope for the best. We've spent over two
-            million dollars learning what actually works — so we're not figuring
+            million dollars learning what actually works. We're not figuring
             it out on your dime.
           </p>
         </div>
@@ -3827,10 +3900,10 @@
             <div class="section-eyebrow anim">Proof of Concept</div>
             <h2
               class="section-h anim d2"
-              style="font-size: clamp(28px, 3.6vw, 52px); max-width: 100%; margin-bottom: 0"
+              style="max-width: 100%; margin-bottom: 0"
             >
-              Sounds too good to be true?<br />
-              <span class="accent">Watch what our client has to say.</span>
+              And if you think this is too simple to work,<br />
+              <span class="accent">look at what our client has to say.</span>
             </h2>
           </div>
 
@@ -3853,7 +3926,7 @@
               </div>
               <div class="cs-result-badge">
                 <span class="cs-result-num">20.83%</span>
-                <span class="cs-result-text">opt-in rate — up from 3%</span>
+                <span class="cs-result-text">opt-in rate, up from 3%</span>
               </div>
               <div class="vp-bar">
                 <div class="vp-seek">
@@ -3861,7 +3934,7 @@
                   <div
                     class="vp-marker"
                     data-time="127"
-                    data-label="2:07 — highlights"
+                    data-label="2:07 highlights"
                   ></div>
                 </div>
                 <div class="vp-row">
@@ -3913,7 +3986,7 @@
           <!-- Right column: pull quote → bullets → full quote → screenshot -->
           <div class="case-study-right">
             <p class="case-study-pull-quote">
-              "We have seen a huge jump in revenue — and we've only started
+              "We have seen a huge jump in revenue. And we've only started
               within the last couple months."
             </p>
 
@@ -3954,7 +4027,7 @@
                   />
                 </svg>
                 A Google Ads funnel driving high-intent leads already ready to
-                buy — converting at 10–20%.
+                buy, converting at 10–20%.
               </div>
               <div class="case-study-bullet">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -3984,7 +4057,7 @@
               <img
                 class="case-study-results-img"
                 src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png"
-                alt="Client website conversion rate — before vs. after"
+                alt="Client website conversion rate before vs. after"
               />
             </div>
           </div>
@@ -4051,7 +4124,9 @@
         </div>
 
         <!-- Credentials pills -->
-        <div class="diff-creds anim d3">
+        <div class="diff-creds-wrap anim d3">
+          <div class="diff-creds-line"></div>
+          <div class="diff-creds">
           <div class="diff-cred-pill">
             <svg
               width="16"
@@ -4176,6 +4251,8 @@
             </svg>
             100+ Happy Clients
           </div>
+          </div>
+          <div class="diff-creds-line"></div>
         </div>
 
         <!-- Photos + closing copy -->
@@ -4247,7 +4324,6 @@
           </p>
         </div>
 
-        <div class="proof-reviews-label anim">Client Reviews</div>
         <div class="proof-reviews-grid anim d2">
           <img
             src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg"
@@ -4337,13 +4413,10 @@
         </div>
 
         <div class="proof-widget-wrap anim" id="proofWidgetScroll">
-          <script
-            type="text/javascript"
-            src="https://reputationhub.site/reputation/assets/review-widget.js"
-          ></script>
+          <script type="text/javascript" src="https://reputationhub.site/reputation/assets/review-widget.js"></script>
           <iframe
             class="lc_reviews_widget"
-            src="https://reputationhq.site/reputation/widgets/review_widget/stoLOEGDIvEDY3xQI4B8?widgetId=699ddb090e54c474af0c8a01"
+            src="https://reputationhub.site/reputation/widgets/review_widget/stoLOEGDIvEDY3xQI4B8"
             frameborder="0"
             scrolling="no"
             style="min-width: 100%; width: 100%"
@@ -4351,16 +4424,15 @@
         </div>
         <p class="proof-widget-hint">Press "Load More" to read more reviews</p>
 
-        <div class="proof-vids-label anim">Client Video Testimonials</div>
-        <div class="proof-video-grid">
-          <div class="video-card-wrap anim d1">
-            <div class="vp">
-              <video playsinline preload="metadata" data-start="31">
-                <source
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e41a23401cc3.mp4#t=0.001"
-                  type="video/mp4"
-                />
-              </video>
+        <div class="proof-vids-label anim">Client Video Testimonial</div>
+        <div class="featured-testimonial anim">
+          <div class="vp">
+            <video playsinline preload="metadata" data-start="0" data-speed="1.5">
+              <source
+                src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4#t=0"
+                type="video/mp4"
+              />
+            </video>
               <div class="vp-center">
                 <div class="vp-big-btn">
                   <svg viewBox="0 0 12 12">
@@ -4395,7 +4467,7 @@
                       />
                     </svg>
                   </button>
-                  <button class="vp-btn vp-speed-btn">1x</button>
+                  <button class="vp-btn vp-speed-btn">1.5x</button>
                   <button class="vp-btn vp-fs-btn">
                     <svg
                       viewBox="0 0 14 14"
@@ -4412,411 +4484,20 @@
                 </div>
               </div>
             </div>
-            <div class="vc-result">
-              <ul class="vc-bullets">
-                <li>
-                  Built email list from scratch &amp; created coach email
-                  campaigns
-                </li>
-                <li>
-                  <strong
-                    >Helped monetize an existing following into real
-                    revenue</strong
-                  >
-                </li>
-                <li>
-                  <strong
-                    >Set up CRM for both online &amp; physical business</strong
-                  >
-                </li>
-                <li>Extremely affordable, huge return on investment</li>
-              </ul>
+          <div class="featured-testimonial-content">
+            <div class="ft-stars">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
             </div>
-          </div>
-
-          <div class="video-card-wrap anim d2">
-            <div class="vp">
-              <video playsinline preload="metadata" data-start="94">
-                <source
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2837e8f26631ae1d.mov#t=0.001"
-                  type="video/mp4"
-                />
-              </video>
-              <div class="vp-center">
-                <div class="vp-big-btn">
-                  <svg viewBox="0 0 12 12">
-                    <polygon points="2,1 10,6 2,11" />
-                  </svg>
-                </div>
-              </div>
-              <div class="vp-bar">
-                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
-                <div class="vp-row">
-                  <button class="vp-btn vp-play-btn">
-                    <svg viewBox="0 0 12 12">
-                      <polygon points="2,1 10,6 2,11" />
-                    </svg>
-                  </button>
-                  <span class="vp-time">0:00</span
-                  ><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn">
-                    <svg viewBox="0 0 16 14">
-                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
-                      <path
-                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                      <path
-                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                    </svg>
-                  </button>
-                  <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn">
-                    <svg
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <polyline points="1,5 1,1 5,1" />
-                      <polyline points="9,1 13,1 13,5" />
-                      <polyline points="13,9 13,13 9,13" />
-                      <polyline points="5,13 1,13 1,9" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="vc-result">
-              <ul class="vc-bullets">
-                <li>Replaced 150 individual messages with 1 automated blast</li>
-                <li>Unified all contacts into a single platform</li>
-                <li>
-                  Automated appointment reminders &amp; slot notifications
-                </li>
-                <li>
-                  <strong>Streamlined client onboarding end-to-end</strong>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="video-card-wrap anim d3">
-            <div class="vp">
-              <video playsinline preload="metadata" data-start="1">
-                <source
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4#t=0.001"
-                  type="video/mp4"
-                />
-              </video>
-              <div class="vp-center">
-                <div class="vp-big-btn">
-                  <svg viewBox="0 0 12 12">
-                    <polygon points="2,1 10,6 2,11" />
-                  </svg>
-                </div>
-              </div>
-              <div class="vp-bar">
-                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
-                <div class="vp-row">
-                  <button class="vp-btn vp-play-btn">
-                    <svg viewBox="0 0 12 12">
-                      <polygon points="2,1 10,6 2,11" />
-                    </svg>
-                  </button>
-                  <span class="vp-time">0:00</span
-                  ><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn">
-                    <svg viewBox="0 0 16 14">
-                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
-                      <path
-                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                      <path
-                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                    </svg>
-                  </button>
-                  <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn">
-                    <svg
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <polyline points="1,5 1,1 5,1" />
-                      <polyline points="9,1 13,1 13,5" />
-                      <polyline points="13,9 13,13 9,13" />
-                      <polyline points="5,13 1,13 1,9" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="vc-result">
-              <ul class="vc-bullets">
-                <li>Website exceeded all expectations</li>
-                <li>
-                  Previous agency took months &amp; just copied existing content
-                </li>
-                <li>
-                  <strong
-                    >"Best decision we could have made for our company"</strong
-                  >
-                </li>
-                <li>
-                  <strong
-                    >Fast, attentive, and genuinely invested in the
-                    business</strong
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="video-card-wrap anim d1">
-            <div class="vp">
-              <video playsinline preload="metadata" data-start="28">
-                <source
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a2552e4081f401cc4.mp4#t=0.001"
-                  type="video/mp4"
-                />
-              </video>
-              <div class="vp-center">
-                <div class="vp-big-btn">
-                  <svg viewBox="0 0 12 12">
-                    <polygon points="2,1 10,6 2,11" />
-                  </svg>
-                </div>
-              </div>
-              <div class="vp-bar">
-                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
-                <div class="vp-row">
-                  <button class="vp-btn vp-play-btn">
-                    <svg viewBox="0 0 12 12">
-                      <polygon points="2,1 10,6 2,11" />
-                    </svg>
-                  </button>
-                  <span class="vp-time">0:00</span
-                  ><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn">
-                    <svg viewBox="0 0 16 14">
-                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
-                      <path
-                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                      <path
-                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                    </svg>
-                  </button>
-                  <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn">
-                    <svg
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <polyline points="1,5 1,1 5,1" />
-                      <polyline points="9,1 13,1 13,5" />
-                      <polyline points="13,9 13,13 9,13" />
-                      <polyline points="5,13 1,13 1,9" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="vc-result">
-              <ul class="vc-bullets">
-                <li>Built full CRM database from the ground up</li>
-                <li>System works perfectly, "exactly what I wanted"</li>
-                <li>
-                  <strong
-                    >Made complex tech simple for a non-tech business
-                    owner</strong
-                  >
-                </li>
-                <li>Patient, thorough, goes above and beyond</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="video-card-wrap anim d2">
-            <div class="vp">
-              <video playsinline preload="metadata" data-start="37">
-                <source
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699bb11b480c4fd4ef95cd91.mov#t=0.001"
-                  type="video/mp4"
-                />
-              </video>
-              <div class="vp-center">
-                <div class="vp-big-btn">
-                  <svg viewBox="0 0 12 12">
-                    <polygon points="2,1 10,6 2,11" />
-                  </svg>
-                </div>
-              </div>
-              <div class="vp-bar">
-                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
-                <div class="vp-row">
-                  <button class="vp-btn vp-play-btn">
-                    <svg viewBox="0 0 12 12">
-                      <polygon points="2,1 10,6 2,11" />
-                    </svg>
-                  </button>
-                  <span class="vp-time">0:00</span
-                  ><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn">
-                    <svg viewBox="0 0 16 14">
-                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
-                      <path
-                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                      <path
-                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                    </svg>
-                  </button>
-                  <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn">
-                    <svg
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <polyline points="1,5 1,1 5,1" />
-                      <polyline points="9,1 13,1 13,5" />
-                      <polyline points="13,9 13,13 9,13" />
-                      <polyline points="5,13 1,13 1,9" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="vc-result">
-              <ul class="vc-bullets">
-                <li>Website built &amp; live in just a few days</li>
-                <li>
-                  <strong
-                    >Eliminated years of manual heavy lifting overnight</strong
-                  >
-                </li>
-                <li>
-                  <strong
-                    >Streamlined &amp; optimized entire business
-                    operations</strong
-                  >
-                </li>
-                <li>
-                  <strong
-                    >Immediate response to every request, nothing falls
-                    through</strong
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="video-card-wrap anim d3">
-            <div class="vp">
-              <video playsinline preload="metadata" data-start="43">
-                <source
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6998d8f4df9bdf0b337051ed.mov#t=0.001"
-                  type="video/mp4"
-                />
-              </video>
-              <div class="vp-center">
-                <div class="vp-big-btn">
-                  <svg viewBox="0 0 12 12">
-                    <polygon points="2,1 10,6 2,11" />
-                  </svg>
-                </div>
-              </div>
-              <div class="vp-bar">
-                <div class="vp-seek"><div class="vp-seek-fill"></div></div>
-                <div class="vp-row">
-                  <button class="vp-btn vp-play-btn">
-                    <svg viewBox="0 0 12 12">
-                      <polygon points="2,1 10,6 2,11" />
-                    </svg>
-                  </button>
-                  <span class="vp-time">0:00</span
-                  ><span class="vp-spacer"></span>
-                  <button class="vp-btn vp-mute-btn">
-                    <svg viewBox="0 0 16 14">
-                      <polygon points="1,4 5,4 9,1 9,13 5,10 1,10" />
-                      <path
-                        d="M11 4.5C12.5 5.5 12.5 8.5 11 9.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                      <path
-                        d="M13 2.5C16 4.5 16 9.5 13 11.5"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                      />
-                    </svg>
-                  </button>
-                  <button class="vp-btn vp-speed-btn">1x</button>
-                  <button class="vp-btn vp-fs-btn">
-                    <svg
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <polyline points="1,5 1,1 5,1" />
-                      <polyline points="9,1 13,1 13,5" />
-                      <polyline points="13,9 13,13 9,13" />
-                      <polyline points="5,13 1,13 1,9" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="vc-result">
-              <ul class="vc-bullets">
-                <li>Website updated to rank in Google's eyes</li>
-                <li>
-                  Customer reviews fully automated, no more manual posting
-                </li>
-                <li>
-                  <strong>Freed up hours of wasted time every week</strong>
-                </li>
-                <li>
-                  <strong>"Now I can focus on revenue-generating tasks"</strong>
-                </li>
-              </ul>
-            </div>
+            <p class="ft-pullquote">"Best decision we could have made for our company."</p>
+            <ul class="ft-bullets">
+              <li>Website exceeded all expectations</li>
+              <li>Previous agency took months &amp; just copied existing content</li>
+              <li>Fast, attentive, and genuinely invested in the business</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -4840,15 +4521,16 @@
           </svg>
           Zero-Risk Guarantee
         </div>
-        <h2 class="guarantee-h anim d1">What do you have to lose?</h2>
+        <h2 class="guarantee-h anim d1">If we don't deliver,<br>you don't pay.</h2>
         <p class="guarantee-p anim d2">
-          Within 30 days of starting with us, we will beat your industry's
-          average cost per lead, or you don't pay our monthly retainer until we
-          do.
+          Here's exactly how it works: every industry has a published average
+          cost per lead. Before we start, we look yours up together. Then we
+          launch your campaign. Within 30 days, we beat that number. If we don't,
+          your monthly retainer pauses and we keep working for free until we do.
         </p>
         <p class="guarantee-note anim d3">
-          After working with over 100 businesses, we've only had to honor that
-          guarantee once.
+          We've done this with 100+ businesses. We've had to honor this guarantee
+          exactly <strong>once</strong>.
         </p>
         <div class="guarantee-grid anim d4">
           <div class="guarantee-item">
@@ -4863,13 +4545,18 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="4"/>
+                <line x1="21.17" y1="8" x2="12" y2="8"/>
+                <line x1="3.95" y1="6.06" x2="8.54" y2="14"/>
+                <line x1="10.88" y1="21.94" x2="15.46" y2="14"/>
               </svg>
             </div>
-            <div class="guarantee-item-h">Beat the Average or Don't Pay</div>
+            <div class="guarantee-item-h">A clear target from day one</div>
             <div class="guarantee-item-p">
-              We beat your industry's cost per lead in 30 days or we work for
-              free until we do.
+              We find your industry's average cost per lead before we touch
+              anything. That's the number we're on the hook to beat. No
+              surprises, no moving goalposts.
             </div>
           </div>
           <div class="guarantee-item">
@@ -4888,10 +4575,11 @@
                 <polyline points="12 6 12 12 16 14" />
               </svg>
             </div>
-            <div class="guarantee-item-h">Live in 14 Days</div>
+            <div class="guarantee-item-h">30 days to prove it</div>
             <div class="guarantee-item-p">
-              Give us 1 to 2 hours of your time. We handle everything. You're
-              live in two weeks.
+              We launch your ads and run them for 30 days. If your cost per
+              lead beats the industry average, we keep going. If it
+              doesn't, the guarantee kicks in automatically.
             </div>
           </div>
           <div class="guarantee-item">
@@ -4906,13 +4594,18 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0110 0v4" />
+                <polyline points="20 12 20 22 4 22 4 12"/>
+                <rect x="2" y="7" width="20" height="5"/>
+                <line x1="12" y1="22" x2="12" y2="7"/>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
               </svg>
             </div>
-            <div class="guarantee-item-h">You Own Everything</div>
+            <div class="guarantee-item-h">We work free until it's fixed</div>
             <div class="guarantee-item-p">
-              Your funnel, your ad account, your data, always yours to keep.
+              Miss the target? Your retainer stops that day. We keep running
+              your ads, optimizing, improving at zero cost to you until
+              we beat the benchmark. Then billing resumes.
             </div>
           </div>
         </div>
@@ -5143,11 +4836,11 @@
     <footer class="footer">
       <img
         class="footer-logo"
-        src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png"
+        src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png"
         alt="Nils Digital"
       />
       <p class="footer-p">
-        © 2025 Nils Digital. All rights reserved.<br />
+        © <span id="footer-year"></span> Nils Digital. All rights reserved.<br />
         *4x result is based on average client conversion rate improvement vs.
         their previous website within the first 30 days. Results vary by
         industry and market. Individual results may vary.
@@ -5177,14 +4870,6 @@
           </svg>
         </button>
 
-        <div class="modal-header">
-          <div class="modal-eyebrow">Apply Now</div>
-          <h2 class="modal-h">Is this the right fit for your business?</h2>
-          <p class="modal-sub">
-            Answer 4 quick questions and we'll reach out within 24 hours.
-          </p>
-        </div>
-
         <div class="survey-progress">
           <div class="survey-bar">
             <div class="survey-fill" id="sfill" style="width: 20%"></div>
@@ -5195,35 +4880,20 @@
         <!-- Q1 -->
         <div class="survey-step active" data-step="1">
           <div class="survey-q">
-            Can your business handle new clients right now?
+            Do you have room to take on more clients right now?
           </div>
           <div class="survey-hint">
-            Be honest, this helps us understand where you are.
+            Just pick whichever option sounds most like you.
           </div>
           <div class="survey-opts">
-            <button
-              class="survey-opt"
-              data-name="capacity"
-              onclick="pick(this, 1)"
-            >
-              <span class="survey-check"></span> Yes, I have capacity and I'm
-              ready to scale
+            <button class="survey-opt" data-name="capacity" onclick="pick(this, 1)">
+              <span class="survey-check"></span> Yes, I'm ready for more clients
             </button>
-            <button
-              class="survey-opt"
-              data-name="capacity"
-              onclick="pick(this, 1)"
-            >
-              <span class="survey-check"></span> I could make room if the right
-              opportunity came up
+            <button class="survey-opt" data-name="capacity" onclick="pick(this, 1)">
+              <span class="survey-check"></span> I could make room for the right ones
             </button>
-            <button
-              class="survey-opt"
-              data-name="capacity"
-              onclick="pick(this, 1)"
-            >
-              <span class="survey-check"></span> Not right now, we're already
-              stretched thin
+            <button class="survey-opt" data-name="capacity" onclick="pick(this, 1)">
+              <span class="survey-check"></span> Not right now, I'm already at full capacity
             </button>
           </div>
         </div>
@@ -5231,202 +4901,82 @@
         <!-- Q2 -->
         <div class="survey-step" data-step="2">
           <div class="survey-q">
-            Are you financially comfortable investing at least $3,000/month into
-            Google Ads?
+            Can you spend at least $3,000/month on ads?
           </div>
           <div class="survey-hint">
-            This is your ad budget, it goes directly to Google, not us.
+            This money goes directly to Google to run your ads. It does not go to us.
           </div>
           <div class="survey-opts">
-            <button
-              class="survey-opt"
-              data-name="budget"
-              onclick="pick(this, 2)"
-            >
-              <span class="survey-check"></span> Yes, that's not a problem
+            <button class="survey-opt" data-name="budget" onclick="pick(this, 2)">
+              <span class="survey-check"></span> Yes, that works for me
             </button>
-            <button
-              class="survey-opt"
-              data-name="budget"
-              onclick="pick(this, 2)"
-            >
-              <span class="survey-check"></span> I'd need to move some things
-              around
+            <button class="survey-opt" data-name="budget" onclick="pick(this, 2)">
+              <span class="survey-check"></span> Maybe, I'd need to check my finances
             </button>
-            <button
-              class="survey-opt"
-              data-name="budget"
-              onclick="pick(this, 2)"
-            >
-              <span class="survey-check"></span> No, that's outside my budget
-              right now
+            <button class="survey-opt" data-name="budget" onclick="pick(this, 2)">
+              <span class="survey-check"></span> No, that's too much for me right now
             </button>
           </div>
           <button class="survey-back" onclick="goStep(1)">← Back</button>
         </div>
 
-        <!-- Q3, text input -->
+        <!-- Q3 -->
         <div class="survey-step" data-step="3">
-          <div class="survey-q">How much is each client worth to you?</div>
+          <div class="survey-q">How much does one client pay you in total over their entire time with you?</div>
           <div class="survey-hint">
-            Think about the average total value of a new client over time, not
-            just the first job.
+            Add up everything they spend with you from start to finish, not just the first job. A rough number is totally fine.
           </div>
           <div class="survey-input-wrap">
             <input
               class="survey-text-input"
               type="text"
               id="q3-value"
-              placeholder="e.g. $500, $2,000, $10,000 per year..."
+              placeholder="e.g. $1,000, $5,000, $20,000 total..."
             />
             <div class="survey-text-hint">
-              There's no wrong answer. This just helps us run the numbers for
-              your business.
+              There's no wrong answer. This just helps us run the numbers for your business.
             </div>
           </div>
-          <button class="btn survey-next-btn" onclick="nextFromInput()">
-            Continue →
-          </button>
+          <button class="btn survey-next-btn" onclick="nextFromInput()">Continue →</button>
           <button class="survey-back" onclick="goStep(2)">← Back</button>
         </div>
 
         <!-- Q4 -->
         <div class="survey-step" data-step="4">
           <div class="survey-q">
-            Are you the sole decision maker in your business?
+            Are you the one who makes the final call in your business?
           </div>
           <div class="survey-hint">
-            We want to make sure the right person is on the strategy call.
+            We just want to make sure we're talking to the right person.
           </div>
           <div class="survey-opts">
-            <button
-              class="survey-opt"
-              data-name="decision"
-              onclick="pick(this, 4)"
-            >
-              <span class="survey-check"></span> Yes, the decision is mine to
-              make
+            <button class="survey-opt" data-name="decision" onclick="pick(this, 4)">
+              <span class="survey-check"></span> Yes, I make the decisions
             </button>
-            <button
-              class="survey-opt"
-              data-name="decision"
-              onclick="pick(this, 4)"
-            >
-              <span class="survey-check"></span> No, I'd need to involve someone
-              else
+            <button class="survey-opt" data-name="decision" onclick="pick(this, 4)">
+              <span class="survey-check"></span> No, I'd need to check with someone else first
             </button>
           </div>
           <button class="survey-back" onclick="goStep(3)">← Back</button>
         </div>
 
-        <!-- Contact form -->
-        <div class="survey-step" data-step="5">
-          <div class="survey-q">Great! Where should we reach you?</div>
-          <div class="survey-hint">
-            We'll reach out within 24 hours to schedule your free strategy call
-            with Nils.
-          </div>
-          <div class="survey-form">
-            <div class="survey-row">
-              <div class="survey-field">
-                <label class="survey-label">First Name</label
-                ><input
-                  class="survey-input"
-                  type="text"
-                  placeholder="John"
-                  id="f-first"
-                />
-              </div>
-              <div class="survey-field">
-                <label class="survey-label">Last Name</label
-                ><input
-                  class="survey-input"
-                  type="text"
-                  placeholder="Smith"
-                  id="f-last"
-                />
-              </div>
-            </div>
-            <div class="survey-field">
-              <label class="survey-label">Phone Number</label
-              ><input
-                class="survey-input"
-                type="tel"
-                placeholder="+1 (555) 000-0000"
-                id="f-phone"
-              />
-            </div>
-            <div class="survey-field">
-              <label class="survey-label">Email Address</label
-              ><input
-                class="survey-input"
-                type="email"
-                placeholder="john@yourbusiness.com"
-                id="f-email"
-              />
-            </div>
-            <button class="btn survey-submit" onclick="submitForm(event)">
-              Submit &amp; Book My Strategy Call
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-            <p
-              style="
-                font-size: 12px;
-                color: var(--muted);
-                text-align: center;
-                margin-top: 4px;
-              "
-            >
-              100% secure. We'll never share your info.
+
+        <!-- Calendar (shown after questions) -->
+        <div id="scalendar" style="display:none;">
+          <div style="padding: 0 4px 20px;">
+            <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#046bd2;margin:0 0 8px;">You qualify</p>
+            <p style="font-size:22px;font-weight:700;color:#111;line-height:1.3;margin:0 0 8px;">
+              Good news 🎉 you're a fit. Grab a time below.
+            </p>
+            <p style="font-size:14px;color:#666;margin:0;line-height:1.6;">
+              This is a free strategy call. We'll show you exactly what a campaign would look like for your business, what results to expect, and what it costs. No fluff, no pressure.
             </p>
           </div>
-          <button class="survey-back" onclick="goStep(4)">← Back</button>
-        </div>
-
-        <!-- Success -->
-        <div class="survey-success" id="ssuccess">
-          <div class="survey-success-icon">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#00b67a"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          </div>
-          <div class="survey-success-h">
-            You're in. We'll be in touch within 24 hours.
-          </div>
-          <p class="survey-success-p">
-            Check your inbox. Most clients hear from us within a few hours.
-            Worst case, you walk away with real actionable advice.
-          </p>
-          <div style="margin-top: 28px">
-            <a
-              href="https://nilsdigital.com/strategy"
-              target="_blank"
-              class="btn"
-              style="display: inline-flex"
-            >
-              Schedule Your Call Now →
-            </a>
-          </div>
+          <iframe
+            src="https://link.nilsdigital.com/widget/booking/wFhAJTJLU3Urtmxztnb5"
+            scrolling="yes"
+            id="5ZY5mQXXFUQ1bXxwyAuq_1774303721367"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -5446,15 +4996,35 @@
       );
       document.querySelectorAll(".anim").forEach((el) => obs.observe(el));
 
-      /* ── FAQ (instant toggle) ─────────────── */
+      /* ── FAQ accordion ─────────────── */
       document.querySelectorAll(".faq-q").forEach((btn) => {
         btn.addEventListener("click", () => {
-          const item = btn.closest(".faq-item");
-          const wasOpen = item.classList.contains("open");
-          document
-            .querySelectorAll(".faq-item.open")
-            .forEach((i) => i.classList.remove("open"));
-          if (!wasOpen) item.classList.add("open");
+          const item   = btn.closest(".faq-item");
+          const ans    = item.querySelector(".faq-ans");
+          const isOpen = item.classList.contains("open");
+
+          // Close every currently-open item
+          document.querySelectorAll(".faq-item.open").forEach((openItem) => {
+            const a = openItem.querySelector(".faq-ans");
+            a.style.height = a.scrollHeight + "px"; // pin auto → px
+            openItem.classList.remove("open");
+            a.offsetHeight;                          // force reflow
+            a.style.height = "0px";
+          });
+
+          // Open clicked item only if it wasn't already open
+          if (!isOpen) {
+            const target = ans.scrollHeight;
+            ans.style.height = "0px";
+            item.classList.add("open");
+            ans.offsetHeight;                        // force reflow
+            ans.style.height = target + "px";
+            ans.addEventListener("transitionend", function done(e) {
+              if (e.propertyName !== "height") return;
+              ans.style.height = "auto";
+              ans.removeEventListener("transitionend", done);
+            });
+          }
         });
       });
 
@@ -5475,10 +5045,10 @@
           const monthly = val * clients;
           const annual = monthly * 12;
           const daily = Math.round(monthly / 30);
-          document.getElementById("calc-monthly").textContent = fmt(monthly);
+          document.getElementById("calc-monthly").textContent = "-" + fmt(monthly) + "/Month";
           document.getElementById("calc-annual").textContent =
-            fmt(annual) + " / yr";
-          document.getElementById("calc-daily").textContent = fmt(daily);
+            "-" + fmt(annual) + " / Year";
+          document.getElementById("calc-daily").textContent = "-" + fmt(daily);
           document.getElementById("calc-value-slider").value = val;
           document.getElementById("calc-clients-slider").value = clients;
           document.getElementById("calc-value-display").textContent = fmt(val);
@@ -5615,6 +5185,13 @@
             : el.requestFullscreen().catch(() => {});
         });
 
+        const initSpeed = parseFloat(video.dataset.speed);
+        if (!isNaN(initSpeed) && speeds.includes(initSpeed)) {
+          sIdx = speeds.indexOf(initSpeed);
+          video.playbackRate = initSpeed;
+          speedBtn.textContent = initSpeed + "x";
+        }
+
         const startTime = parseFloat(video.dataset.start);
         if (!isNaN(startTime)) {
           video.currentTime = startTime;
@@ -5732,13 +5309,11 @@
           s.classList.remove("active");
           s.style.display = "";
         });
-        document
-          .querySelector('.survey-step[data-step="1"]')
-          .classList.add("active");
-        document.getElementById("ssuccess").style.display = "none";
-        document
-          .querySelectorAll(".survey-opt")
-          .forEach((o) => o.classList.remove("selected"));
+        document.querySelector('.survey-step[data-step="1"]').classList.add("active");
+        document.getElementById("scalendar").style.display = "none";
+        document.querySelector(".survey-progress").style.display = "";
+        document.getElementById("apply-modal").classList.remove("calendar-mode");
+        document.querySelectorAll(".survey-opt").forEach((o) => o.classList.remove("selected"));
         document.getElementById("sfill").style.width = "20%";
         document.getElementById("slabel").textContent = "Question 1 of 4";
         curStep = 1;
@@ -5770,7 +5345,15 @@
           .querySelectorAll('[data-name="' + btn.dataset.name + '"]')
           .forEach((o) => o.classList.remove("selected"));
         btn.classList.add("selected");
-        setTimeout(() => goStep(stepNum + 1), 300);
+        setTimeout(() => stepNum === 4 ? showCalendar() : goStep(stepNum + 1), 300);
+      }
+
+      function showCalendar() {
+        document.querySelectorAll(".survey-step").forEach((s) => (s.style.display = "none"));
+        document.querySelector(".survey-progress").style.display = "none";
+        document.getElementById("apply-modal").classList.add("calendar-mode");
+        document.getElementById("scalendar").style.display = "flex";
+        document.querySelector(".modal-box").scrollTop = 0;
       }
 
       function nextFromInput() {
@@ -5782,22 +5365,6 @@
         goStep(4);
       }
 
-      function submitForm(e) {
-        e.preventDefault();
-        const first = document.getElementById("f-first").value.trim();
-        const email = document.getElementById("f-email").value.trim();
-        const phone = document.getElementById("f-phone").value.trim();
-        if (!first || !email || !phone) {
-          alert("Please fill in your name, email, and phone.");
-          return;
-        }
-        document
-          .querySelectorAll(".survey-step")
-          .forEach((s) => (s.style.display = "none"));
-        document.getElementById("sfill").style.width = "100%";
-        document.getElementById("slabel").textContent = "Submitted!";
-        document.getElementById("ssuccess").style.display = "block";
-      }
     </script>
 
     <script>
@@ -5828,55 +5395,88 @@
         setTimeout(type, 600);
       })();
 
-      // Cursor-light border on CTA buttons
-      document.querySelectorAll(".hero-cta-full").forEach((btn) => {
-        const glow = document.createElement("div");
-        glow.className = "btn-border-glow";
-        btn.appendChild(glow);
-        btn.addEventListener("mousemove", (e) => {
-          const r = btn.getBoundingClientRect();
-          glow.style.setProperty("--cx", e.clientX - r.left + "px");
-          glow.style.setProperty("--cy", e.clientY - r.top + "px");
-        });
-        btn.addEventListener("mouseleave", () => {
-          glow.style.setProperty("--cx", "50%");
-          glow.style.setProperty("--cy", "-50px");
-        });
-      });
-
-      // Cursor-light border on video
+      // === CURSOR-LIGHT BORDER GLOW — single document-level listener ===
       (function () {
-        const vid = document.querySelector(".hero-video-col");
-        if (!vid) return;
-        const glow = document.createElement("div");
-        glow.className = "video-border-glow";
-        vid.appendChild(glow);
-        vid.addEventListener("mousemove", (e) => {
-          const r = vid.getBoundingClientRect();
-          glow.style.setProperty("--cx", e.clientX - r.left + "px");
-          glow.style.setProperty("--cy", e.clientY - r.top + "px");
+        var glowEls = new Set();
+
+        function inject(el, className, jsOpacity) {
+          var glow = document.createElement("div");
+          glow.className = className;
+          if (className === "proof-border-glow") {
+            glow.style.borderRadius = getComputedStyle(el).borderRadius;
+          }
+          el.style.position = "relative";
+          el.appendChild(glow);
+          el._glowDiv = glow;
+          el._glowOpacity = jsOpacity;
+          glowEls.add(el);
+        }
+
+        // Hero CTA buttons — CSS :hover handles opacity
+        document.querySelectorAll(".hero-cta-full").forEach(function (el) {
+          inject(el, "btn-border-glow", false);
         });
-        vid.addEventListener("mouseleave", () => {
-          glow.style.setProperty("--cx", "50%");
-          glow.style.setProperty("--cy", "-50px");
+
+        // Hero video — CSS :hover handles opacity
+        var vid = document.querySelector(".hero-video-col");
+        if (vid) inject(vid, "video-border-glow", false);
+
+        // Hero proof cards — JS toggles opacity
+        document.querySelectorAll(".hero-proof-item").forEach(function (el) {
+          inject(el, "proof-border-glow", true);
+        });
+
+        // Sitewide elements — JS toggles opacity
+        [
+          ".calc-cta", ".calc-table", ".gmock",
+          ".diff-photos", ".diff-photo",
+          ".case-study-video-col", ".case-study-right", ".cs-screenshot-card",
+          ".case-study-card", ".review-card", ".faq-item",
+          ".diff-cred-pill", ".step-tag",
+          ".diff-good", ".diff-bad",
+          ".adspend-strip",
+          ".guarantee-box", ".fix-divider", ".case-study-pull-quote",
+        ].forEach(function (sel) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            inject(el, "proof-border-glow", true);
+          });
+        });
+
+        var activeEl = null;
+
+        function resetGlow(el) {
+          if (!el) return;
+          var g = el._glowDiv;
+          g.style.setProperty("--cx", "50%");
+          g.style.setProperty("--cy", "-50px");
+          if (el._glowOpacity) g.style.opacity = "0";
+        }
+
+        document.addEventListener("mousemove", function (e) {
+          var target = e.target;
+          var found = null;
+          while (target && target !== document.body) {
+            if (glowEls.has(target)) { found = target; break; }
+            target = target.parentElement;
+          }
+          if (activeEl !== found) {
+            resetGlow(activeEl);
+            activeEl = found;
+          }
+          if (found) {
+            var r = found.getBoundingClientRect();
+            var g = found._glowDiv;
+            g.style.setProperty("--cx", e.clientX - r.left + "px");
+            g.style.setProperty("--cy", e.clientY - r.top + "px");
+            if (found._glowOpacity) g.style.opacity = "1";
+          }
+        }, { passive: true });
+
+        document.addEventListener("mouseleave", function () {
+          resetGlow(activeEl);
+          activeEl = null;
         });
       })();
-
-      // Cursor-light border on proof cards
-      document.querySelectorAll(".hero-proof-item").forEach((card) => {
-        const glow = document.createElement("div");
-        glow.className = "proof-border-glow";
-        card.appendChild(glow);
-        card.addEventListener("mousemove", (e) => {
-          const r = card.getBoundingClientRect();
-          glow.style.setProperty("--cx", e.clientX - r.left + "px");
-          glow.style.setProperty("--cy", e.clientY - r.top + "px");
-        });
-        card.addEventListener("mouseleave", () => {
-          glow.style.setProperty("--cx", "50%");
-          glow.style.setProperty("--cy", "-50px");
-        });
-      });
 
       // Global tooltip for [data-tip] elements
       (function () {
@@ -5993,5 +5593,9 @@
         obs.observe(calc);
       })();
     </script>
+    <script>
+      document.getElementById('footer-year').textContent = new Date().getFullYear();
+    </script>
+    <script src="https://link.nilsdigital.com/js/form_embed.js" type="text/javascript"></script>
   </body>
 </html>
