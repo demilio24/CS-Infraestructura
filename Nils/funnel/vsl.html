@@ -2035,29 +2035,20 @@
       /* Credentials bar */
       .diff-creds-wrap {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 24px;
+        gap: 0;
         margin-top: 0;
         width: 100%;
         box-sizing: border-box;
         overflow: hidden;
-      }
-      .diff-creds-line {
-        flex: 1 1 0;
-        min-width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.18));
-        border-radius: 2px;
-      }
-      .diff-creds-line:last-child {
-        background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), transparent);
       }
       .diff-creds {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         justify-content: center;
-        flex: 1;
+        padding: 20px 0;
       }
       .diff-cred-pill {
         display: flex;
@@ -3414,7 +3405,6 @@
           grid-template-columns: 1fr 1fr;
         }
         /* Hide decorative lines on mobile */
-        .diff-creds-line { display: none; }
         /* Compact horizontal pills — wrap into ~2 rows */
         .diff-creds {
           display: flex;
@@ -4782,7 +4772,6 @@
 
         <!-- Credentials pills -->
         <div class="diff-creds-wrap anim d3">
-          <div class="diff-creds-line"></div>
           <div class="diff-creds">
             <div class="diff-cred-pill">
               <svg
@@ -4909,7 +4898,6 @@
               100+ Happy Clients
             </div>
           </div>
-          <div class="diff-creds-line"></div>
         </div>
 
         <!-- Photos + closing copy -->
