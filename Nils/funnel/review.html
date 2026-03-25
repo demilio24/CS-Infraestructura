@@ -277,8 +277,10 @@
       padding: 20px;
       opacity: 0; pointer-events: none;
       transition: opacity 0.22s;
+      /* Hide iframe completely when closed so form elements can't capture taps */
+      visibility: hidden;
     }
-    .checkout-overlay.open { opacity: 1; pointer-events: all; }
+    .checkout-overlay.open { opacity: 1; pointer-events: all; visibility: visible; }
     .checkout-modal {
       background: #fff;
       border-radius: 18px;
@@ -302,6 +304,7 @@
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 24px 14px;
       border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
     .checkout-modal-title { font-family: var(--font-main); font-size: 17px; font-weight: 700; color: var(--text); }
     .checkout-modal-sub { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; }
@@ -313,16 +316,25 @@
     }
     .checkout-modal-close:hover { background: var(--gold-pale); color: var(--gold); }
     .checkout-modal-body {
-      flex: 1; min-height: 0; overflow: hidden;
+      flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
       padding: 0;
     }
     .checkout-modal-body iframe {
       display: block; border: none;
-      /* Scale the form ~16% smaller so the full checkout fits in one viewport.
-         zoom: 0.84 shrinks both visual and layout dimensions.
-         width: 119% pre-expands the iframe so it fills 100% of modal after zoom. */
       zoom: 0.84;
       width: calc(100% / 0.84);
+    }
+    /* Mobile: full-screen checkout modal */
+    @media (max-width: 600px) {
+      .checkout-overlay { padding: 0; }
+      .checkout-modal {
+        width: 100%; max-height: 100%; height: 100%;
+        border-radius: 0; border: none;
+      }
+      .checkout-modal-bar { border-radius: 0; }
+      .checkout-modal-body iframe {
+        zoom: 1; width: 100%; min-height: 100vh;
+      }
     }
     .hero-form-section {
       font-family: var(--font-main); font-size: 11px; font-weight: 700;
@@ -2097,11 +2109,12 @@
           <div class="checkout-modal-title">Complete Your Order — $27</div>
           <div class="checkout-modal-sub">One-time payment. Instant access. 30-day money-back guarantee.</div>
         </div>
-        <button class="checkout-modal-close" onclick="document.getElementById('checkoutOverlay').classList.remove('open')" aria-label="Close">&times;</button>
+        <button class="checkout-modal-close" onclick="closeCheckout()" aria-label="Close">&times;</button>
       </div>
       <div class="checkout-modal-body">
         <iframe
-          src="https://link.nilsdigital.com/widget/form/UysljT6xMjajmWcidTbO"
+          src="about:blank"
+          data-src="https://link.nilsdigital.com/widget/form/UysljT6xMjajmWcidTbO"
           style="width:100%;height:666px;border:none;"
           id="inline-UysljT6xMjajmWcidTbO"
           data-layout="{'id':'INLINE'}"
@@ -2121,25 +2134,36 @@
     </div>
   </div>
   <script>
-    // Open checkout modal — lazy-load GHL embed script on first open
-    // (loading it on page load injects GHL DOM that blocks the CTA button)
+    // Open checkout modal — lazy-load iframe src + GHL embed script on first open
+    // (loading on page load injects GHL DOM that blocks CTA buttons and leaks form elements)
     var _ghlLoaded = false;
     function openCheckout() {
-      document.getElementById('checkoutOverlay').classList.add('open');
+      var overlay = document.getElementById('checkoutOverlay');
+      overlay.classList.add('open');
+      // Prevent body scroll while modal is open
+      document.body.style.overflow = 'hidden';
       if (!_ghlLoaded) {
         _ghlLoaded = true;
+        // Set the real iframe src
+        var iframe = overlay.querySelector('iframe[data-src]');
+        if (iframe) iframe.src = iframe.dataset.src;
+        // Load GHL embed script
         var s = document.createElement('script');
         s.src = 'https://link.nilsdigital.com/js/form_embed.js';
         document.body.appendChild(s);
       }
     }
+    function closeCheckout() {
+      document.getElementById('checkoutOverlay').classList.remove('open');
+      document.body.style.removeProperty('overflow');
+    }
     // Close on overlay backdrop click
     document.getElementById('checkoutOverlay').addEventListener('click', function(e) {
-      if (e.target === this) this.classList.remove('open');
+      if (e.target === this) closeCheckout();
     });
     // Close on Escape
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') document.getElementById('checkoutOverlay').classList.remove('open');
+      if (e.key === 'Escape') closeCheckout();
     });
   </script>
 </body>
