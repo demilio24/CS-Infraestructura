@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NILS Digital — Results Carousel Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: #0e0e10;
+      padding: 40px 20px;
+    }
+    .group { max-width: 4600px; margin: 0 auto 64px; }
+    .group-title {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 24px; padding-left: 8px;
+    }
+    .row { display: flex; gap: 32px; overflow-x: auto; padding-bottom: 16px; }
+
+    /* ── Slide canvas ── */
+    .slide {
+      width: 1080px; height: 1350px;
+      position: relative; overflow: hidden; flex-shrink: 0; border-radius: 12px;
+    }
+
+    /* ── Variation label ── */
+    .vl {
+      position: absolute; top: 28px; right: 28px;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 8px 18px; border-radius: 8px; z-index: 20;
+    }
+    .vl-w { background: rgba(255,255,255,0.12); backdrop-filter: blur(12px); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
+    .vl-d { background: rgba(0,0,0,0.04); backdrop-filter: blur(12px); color: rgba(13,27,53,0.3); border: 1px solid rgba(0,0,0,0.05); }
+
+    /* ── Dots ── */
+    .dots { position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+    .dt { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.25); }
+    .dt.on { background: #fff; width: 32px; border-radius: 5px; }
+    .dots.dk .dt { background: rgba(13,71,194,0.12); }
+    .dots.dk .dt.on { background: #0d47c2; }
+
+    /* ── Swipe ── */
+    .swp {
+      position: absolute; bottom: 78px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 8px; z-index: 10;
+    }
+    .swp svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Logos ── */
+    .logo-w { width: 170px; height: auto; }
+    .logo-b { width: 160px; height: auto; }
+
+    /* star svg path reused inline */
+
+
+    /* ══════════════════════════════════════════════════════════
+       BACKGROUNDS
+       ══════════════════════════════════════════════════════════ */
+
+    /* A: Solid blue + stars */
+    .bg-a {
+      background: linear-gradient(170deg, #1a5fe0 0%, #0d47c2 35%, #0a3ba8 70%, #0835a0 100%);
+    }
+    .bg-a::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 110% 45% at 50% -8%, rgba(60,140,255,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 35% at 85% 90%, rgba(0,40,180,0.20) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .bg-a::after {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M70 15l5.5 16.9h17.8l-14.4 10.5 5.5 16.9L70 48.8l-14.4 10.5 5.5-16.9-14.4-10.5h17.8z' fill='rgba(255,255,255,0.035)'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+    /* B: White clean */
+    .bg-b {
+      background: radial-gradient(ellipse 90% 50% at 50% 0%, rgba(13,71,194,0.03) 0%, transparent 60%), #f8f9fc;
+    }
+
+    /* C: Light blue gradient */
+    .bg-c {
+      background: linear-gradient(180deg, #e8f1ff 0%, #d4e4fb 40%, #c5d9f8 100%);
+    }
+    .bg-c::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 40% at 20% 0%, rgba(13,71,194,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 35% at 80% 100%, rgba(13,71,194,0.06) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* D: Blue top + white bottom split */
+    .bg-d {
+      background: linear-gradient(180deg, #0d47c2 0%, #0d47c2 45%, #ffffff 45%, #ffffff 100%);
+    }
+    .bg-d::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M70 15l5.5 16.9h17.8l-14.4 10.5 5.5 16.9L70 48.8l-14.4 10.5 5.5-16.9-14.4-10.5h17.8z' fill='rgba(255,255,255,0.035)'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+    /* D-inverted: white top, blue bottom */
+    .bg-d2 {
+      background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #0d47c2 50%, #0d47c2 100%);
+    }
+    .bg-d2::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M70 15l5.5 16.9h17.8l-14.4 10.5 5.5 16.9L70 48.8l-14.4 10.5 5.5-16.9-14.4-10.5h17.8z' fill='rgba(13,71,194,0.03)'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SLIDE 1 — OUR RESULTS
+       ══════════════════════════════════════════════════════════ */
+
+    /* 1A: Solid blue bold */
+    .s1a { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 80px 110px; }
+    .s1a-ey { margin-top: 48px; font-size: 15px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .s1a-h { margin-top: 28px; font-size: 140px; font-weight: 800; color: #fff; line-height: 0.92; letter-spacing: -0.04em; }
+    .s1a-stats { position: absolute; top: 340px; right: 72px; display: flex; flex-direction: column; gap: 16px; z-index: 5; }
+    .s1a-st { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 22px 32px; text-align: center; min-width: 195px; }
+    .s1a-st-n { font-size: 44px; font-weight: 800; color: #fff; line-height: 1; }
+    .s1a-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .s1a-box { margin-top: auto; max-width: 540px; background: rgba(0,0,0,0.18); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 28px 36px; }
+    .s1a-box p { font-size: 20px; font-weight: 600; color: #fff; line-height: 1.55; }
+    .s1a-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(60,140,255,0.25) 0%, transparent 70%); bottom: -100px; right: -100px; pointer-events: none; z-index: 1; }
+
+    /* 1B: White minimal */
+    .s1b { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 80px; }
+    .s1b-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0d47c2; margin-bottom: 48px; }
+    .s1b-h { font-size: 120px; font-weight: 800; color: #0d1b35; line-height: 0.92; letter-spacing: -0.04em; }
+    .s1b-h span { color: #0d47c2; }
+    .s1b-sub { margin-top: 32px; font-size: 20px; color: rgba(13,27,53,0.5); line-height: 1.6; max-width: 520px; }
+    .s1b-bar { margin-top: auto; display: flex; border-radius: 20px; overflow: hidden; border: 1px solid rgba(13,71,194,0.08); box-shadow: 0 4px 32px rgba(13,71,194,0.06); }
+    .s1b-st { flex: 1; padding: 32px; text-align: center; background: #fff; border-right: 1px solid rgba(13,71,194,0.06); }
+    .s1b-st:last-child { border-right: none; }
+    .s1b-st-n { font-size: 44px; font-weight: 800; color: #0d47c2; line-height: 1; }
+    .s1b-st-l { font-size: 12px; font-weight: 700; color: rgba(13,27,53,0.35); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* 1C: Light blue gradient */
+    .s1c { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 72px 80px 110px; }
+    .s1c-ey { margin-top: 32px; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0d47c2; }
+    .s1c-h { margin-top: 28px; font-size: 130px; font-weight: 800; color: #0d1b35; line-height: 0.92; letter-spacing: -0.04em; }
+    .s1c-sub { margin-top: 28px; font-size: 20px; color: rgba(13,27,53,0.55); line-height: 1.6; max-width: 500px; }
+    .s1c-stats { margin-top: auto; display: flex; gap: 16px; }
+    .s1c-st { flex: 1; background: #fff; border-radius: 18px; padding: 28px; text-align: center; box-shadow: 0 4px 24px rgba(13,71,194,0.08); border: 1px solid rgba(13,71,194,0.06); }
+    .s1c-st-n { font-size: 44px; font-weight: 800; color: #0d47c2; line-height: 1; }
+    .s1c-st-l { font-size: 12px; font-weight: 700; color: rgba(13,27,53,0.4); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* 1D: Split blue top / white bottom */
+    .s1d { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 80px 110px; }
+    .s1d-top { flex: 1; }
+    .s1d-ey { margin-top: 40px; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+    .s1d-h { margin-top: 24px; font-size: 130px; font-weight: 800; color: #fff; line-height: 0.92; letter-spacing: -0.04em; }
+    .s1d-sub { margin-top: 20px; font-size: 19px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 500px; }
+    .s1d-stats { display: flex; gap: 16px; margin-top: auto; }
+    .s1d-st { flex: 1; background: #fff; border-radius: 18px; padding: 32px; text-align: center; box-shadow: 0 12px 40px rgba(13,71,194,0.15); }
+    .s1d-st-n { font-size: 46px; font-weight: 800; color: #0d47c2; line-height: 1; }
+    .s1d-st-l { font-size: 12px; font-weight: 700; color: rgba(13,27,53,0.4); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SLIDE 2 — TESTIMONIAL
+       ══════════════════════════════════════════════════════════ */
+
+    /* Shared testimonial content */
+    .tq-stars { display: flex; gap: 5px; margin-bottom: 14px; }
+    .tq-stars svg { width: 24px; height: 24px; fill: #f59e0b; }
+    .tq-stars-big svg { width: 28px; height: 28px; }
+    .tq { font-size: 26px; font-weight: 700; color: #0d1b35; line-height: 1.35; margin-bottom: 20px; }
+    .tq-w { color: #fff; }
+    .tbl { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .tbl li { display: flex; gap: 12px; font-size: 16px; color: rgba(13,27,53,0.68); line-height: 1.5; }
+    .tbl-w li { color: rgba(255,255,255,0.7); }
+    .tbl .ck { flex-shrink: 0; width: 22px; height: 22px; margin-top: 1px; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='8' fill='%230d47c2' fill-opacity='0.1'/%3E%3Cpath d='M4.5 8l2.5 2.5 4.5-5' stroke='%230d47c2' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; }
+    .tbl-w .ck { background: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23fff' fill-opacity='0.15'/%3E%3Cpath d='M4.5 8l2.5 2.5 4.5-5' stroke='%23fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat; }
+    .ta { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid rgba(13,27,53,0.06); }
+    .ta-w { border-top-color: rgba(255,255,255,0.1); }
+    .ta-av { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #0d47c2, #1a6eff); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 18px; }
+    .ta-nm { font-weight: 700; font-size: 16px; color: #0d1b35; }
+    .ta-nm-w { color: #fff; }
+    .ta-rl { font-size: 13px; color: rgba(13,27,53,0.4); margin-top: 1px; }
+    .ta-rl-w { color: rgba(255,255,255,0.4); }
+
+    /* 2A: White + phone mockup */
+    .s2a { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; height: 100%; padding: 64px 72px 110px; }
+    .s2a-head { text-align: center; margin: 24px 0 40px; }
+    .s2a-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0d47c2; margin-bottom: 14px; }
+    .s2a-h { font-size: 50px; font-weight: 800; color: #0d1b35; line-height: 1.08; letter-spacing: -0.025em; }
+    .s2a-h span { color: #0d47c2; }
+    .tc { width: 100%; flex: 1; background: #fff; border-radius: 28px; border: 1px solid rgba(13,71,194,0.06); box-shadow: 0 2px 8px rgba(13,71,194,0.04), 0 12px 48px rgba(13,71,194,0.08); display: flex; flex-direction: column; overflow: hidden; }
+    .tc-top { flex: 1; background: linear-gradient(145deg, #e8f0fe 0%, #d4e4fb 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .tc-bubble { position: absolute; top: 32px; left: 50%; transform: translateX(-50%); background: #0d47c2; border-radius: 16px 16px 16px 4px; padding: 14px 24px; display: flex; gap: 6px; box-shadow: 0 8px 24px rgba(13,71,194,0.3); z-index: 3; }
+    .tc-bubble svg { width: 26px; height: 26px; fill: #fff; }
+    .tc-phone { width: 280px; height: 520px; background: #0a0a0a; border-radius: 40px; border: 4px solid #2a2a2a; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.28); position: relative; z-index: 2; margin-top: 48px; }
+    .tc-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 26px; background: #0a0a0a; border-radius: 0 0 18px 18px; z-index: 3; }
+    .tc-screen { width: 100%; height: 100%; background: linear-gradient(160deg, #1a5fe0, #0d47c2 40%, #0835a0); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 32px 32px; text-align: center; }
+    .tc-play { width: 60px; height: 60px; background: rgba(255,255,255,0.18); border: 2px solid rgba(255,255,255,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+    .tc-play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+    .tc-play-l { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7); }
+    .tc-body { padding: 40px 48px 44px; }
+
+    /* 2B: Light blue gradient full card */
+    .s2b { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; height: 100%; padding: 72px 80px 110px; }
+    .s2b-head { text-align: center; margin: 16px 0 40px; }
+    .s2b-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0d47c2; margin-bottom: 14px; }
+    .s2b-h { font-size: 48px; font-weight: 800; color: #0d1b35; line-height: 1.1; letter-spacing: -0.02em; }
+    .s2b-h span { color: #0d47c2; }
+    .s2b-card { width: 100%; flex: 1; background: #fff; border-radius: 28px; padding: 56px 60px; display: flex; flex-direction: column; box-shadow: 0 8px 40px rgba(13,71,194,0.08); border: 1px solid rgba(13,71,194,0.06); }
+    .s2b-big-q { font-family: 'Instrument Serif', serif; font-size: 140px; color: rgba(13,71,194,0.08); line-height: 0.7; margin-bottom: -10px; }
+
+    /* 2C: Blue full with white card overlay */
+    .s2c { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; height: 100%; padding: 64px 72px 110px; }
+    .s2c-head { text-align: center; margin: 20px 0 40px; }
+    .s2c-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+    .s2c-h { font-size: 48px; font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
+    .s2c-card { width: 100%; flex: 1; background: #fff; border-radius: 28px; padding: 56px 60px; display: flex; flex-direction: column; box-shadow: 0 16px 56px rgba(0,0,0,0.12); }
+
+    /* 2D: Split — video left, quote right */
+    .s2d { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 72px 80px 110px; }
+    .s2d-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0d47c2; margin-bottom: 16px; }
+    .s2d-h { font-size: 48px; font-weight: 800; color: #0d1b35; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 44px; }
+    .s2d-h span { color: #0d47c2; }
+    .s2d-main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .s2d-left { background: linear-gradient(160deg, #0d47c2 0%, #0835a0 100%); border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+    .s2d-left::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M70 15l5.5 16.9h17.8l-14.4 10.5 5.5 16.9L70 48.8l-14.4 10.5 5.5-16.9-14.4-10.5h17.8z' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") repeat; pointer-events: none; }
+    .s2d-play { width: 90px; height: 90px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 2; }
+    .s2d-play svg { width: 32px; height: 32px; fill: #fff; margin-left: 4px; }
+    .s2d-vid-l { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.7); position: relative; z-index: 2; }
+    .s2d-right { display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SLIDE 3 — REVIEWS
+       ══════════════════════════════════════════════════════════ */
+
+    /* Shared review card elements */
+    .rc-top { display: flex; align-items: center; justify-content: space-between; }
+    .rc-who { display: flex; align-items: center; gap: 14px; }
+    .rc-av { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, #0d47c2, #1a6eff); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 17px; flex-shrink: 0; }
+    .rc-nm { font-weight: 700; font-size: 16px; color: #0d1b35; }
+    .rc-mt { font-size: 12px; color: rgba(13,27,53,0.4); margin-top: 1px; }
+    .rc-dt { font-size: 13px; color: rgba(13,27,53,0.35); font-weight: 500; }
+    .rc-stars { display: flex; gap: 3px; }
+    .rc-stars svg { width: 24px; height: 24px; fill: #00b67a; }
+    .rc-tt { font-size: 19px; font-weight: 700; color: #0d1b35; }
+    .rc-bd { font-size: 15.5px; color: rgba(13,27,53,0.68); line-height: 1.65; }
+    .rc-bd strong { color: #0d47c2; font-weight: 600; }
+    .rc-tags { display: flex; gap: 8px; margin-top: 4px; }
+    .rc-tg { font-size: 11px; font-weight: 600; color: rgba(13,27,53,0.4); background: rgba(13,27,53,0.04); padding: 5px 14px; border-radius: 100px; }
+
+    /* 3A: Blue bg + white cards */
+    .s3a { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 72px 110px; }
+    .s3a-head { text-align: center; margin: 20px 0 36px; }
+    .s3a-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.18); border-radius: 100px; padding: 10px 22px; margin-bottom: 20px; }
+    .s3a-badge svg { fill: #f59e0b; width: 18px; height: 18px; }
+    .s3a-badge span { font-size: 14px; font-weight: 700; color: #fff; }
+    .s3a-h { font-size: 50px; font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
+    .s3a-sub { font-size: 17px; color: rgba(255,255,255,0.55); margin-top: 10px; }
+    .rcards { display: flex; flex-direction: column; gap: 24px; flex: 1; }
+    .rc-a { background: #fff; border-radius: 24px; padding: 36px 44px 32px; box-shadow: 0 8px 44px rgba(0,0,0,0.10); display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+    /* 3B: White bg + blue left border */
+    .s3b { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 72px 80px 110px; }
+    .s3b-head { margin-bottom: 40px; }
+    .s3b-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0d47c2; margin-bottom: 12px; }
+    .s3b-h { font-size: 48px; font-weight: 800; color: #0d1b35; line-height: 1.1; letter-spacing: -0.02em; }
+    .s3b-h span { color: #0d47c2; }
+    .rc-b { background: #fff; border-radius: 24px; border: 1px solid rgba(13,71,194,0.06); box-shadow: 0 2px 16px rgba(13,71,194,0.05); padding: 40px 48px 36px; display: flex; flex-direction: column; gap: 14px; flex: 1; border-left: 4px solid #0d47c2; }
+
+    /* 3C: Light blue bg + floating cards */
+    .s3c { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 72px 110px; }
+    .s3c-head { text-align: center; margin: 16px 0 36px; }
+    .s3c-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0d47c2; margin-bottom: 12px; }
+    .s3c-h { font-size: 48px; font-weight: 800; color: #0d1b35; line-height: 1.1; letter-spacing: -0.02em; }
+    .s3c-sub { font-size: 16px; color: rgba(13,27,53,0.45); margin-top: 10px; }
+    .rc-c { background: #fff; border-radius: 24px; padding: 36px 44px 32px; box-shadow: 0 6px 32px rgba(13,71,194,0.10), 0 1px 4px rgba(13,71,194,0.06); display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+    /* 3D: Blue bg + single stacked card with separator */
+    .s3d { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 72px 110px; }
+    .s3d-head { text-align: center; margin: 20px 0 36px; }
+    .s3d-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+    .s3d-h { font-size: 48px; font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -0.02em; }
+    .s3d-sub { font-size: 16px; color: rgba(255,255,255,0.45); margin-top: 10px; }
+    .rc-d-wrap { flex: 1; background: #fff; border-radius: 28px; padding: 44px 48px; display: flex; flex-direction: column; box-shadow: 0 16px 56px rgba(0,0,0,0.12); }
+    .rc-d-sep { height: 1px; background: rgba(13,71,194,0.08); margin: 28px 0; }
+    .rc-d-item { display: flex; flex-direction: column; gap: 14px; flex: 1; }
+
+
+    /* ══════════════════════════════════════════════════════════
+       SLIDE 4 — FEATURES & PRESS
+       ══════════════════════════════════════════════════════════ */
+
+    /* Shared credential pills */
+    .creds { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; width: 100%; }
+    .cr { display: inline-flex; align-items: center; gap: 10px; border-radius: 100px; padding: 11px 22px; font-size: 13.5px; font-weight: 600; }
+    .cr svg { width: 16px; height: 16px; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .cr-w { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.14); color: rgba(255,255,255,0.9); }
+    .cr-w svg { stroke: rgba(255,255,255,0.85); fill: none; }
+    .cr-w svg.sf { fill: rgba(255,255,255,0.85); stroke: none; }
+    .cr-b { background: rgba(13,71,194,0.04); border: 1px solid rgba(13,71,194,0.08); color: rgba(13,27,53,0.7); }
+    .cr-b svg { stroke: #0d47c2; fill: none; }
+    .cr-b svg.sf { fill: #0d47c2; stroke: none; }
+
+    /* Photo grid helpers */
+    .pg { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; }
+    .pg-img { border-radius: 20px; overflow: hidden; aspect-ratio: 1; }
+    .pg-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pg-img-a { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 40px rgba(0,0,0,0.12); }
+    .pg-img-b { border: 1px solid rgba(13,71,194,0.06); box-shadow: 0 4px 24px rgba(13,71,194,0.06); }
+    .pg-img-c { box-shadow: 0 6px 32px rgba(13,71,194,0.10); }
+
+    /* Featured + row layout */
+    .pg-feat { width: 100%; border-radius: 24px; overflow: hidden; box-shadow: 0 12px 48px rgba(13,71,194,0.12); border: 1px solid rgba(13,71,194,0.06); }
+    .pg-feat img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pg-row { display: flex; gap: 16px; width: 100%; }
+    .pg-thumb { flex: 1; aspect-ratio: 1; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(13,71,194,0.08); border: 1px solid rgba(13,71,194,0.06); }
+    .pg-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* 4A: Blue + grid */
+    .s4a { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; height: 100%; padding: 64px 72px 110px; }
+    .s4a-ey { margin-top: 16px; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+    .s4a-h { font-size: 46px; font-weight: 800; color: #fff; line-height: 1.12; letter-spacing: -0.02em; text-align: center; margin-bottom: 44px; }
+    .s4a-tag { margin-top: auto; text-align: center; }
+    .s4a-tag-h { font-size: 24px; font-weight: 700; color: #fff; }
+    .s4a-tag-sub { font-size: 15px; color: rgba(255,255,255,0.45); margin-top: 6px; }
+
+    /* 4B: White editorial */
+    .s4b { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 72px 80px 110px; }
+    .s4b-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0d47c2; margin-bottom: 14px; }
+    .s4b-h { font-size: 44px; font-weight: 800; color: #0d1b35; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 44px; }
+    .s4b-h span { color: #0d47c2; }
+    .s4b-tag { margin-top: auto; }
+    .s4b-tag-h { font-size: 22px; font-weight: 700; color: #0d1b35; }
+    .s4b-tag-sub { font-size: 14px; color: rgba(13,27,53,0.4); margin-top: 4px; }
+
+    /* 4C: Light blue + featured hero */
+    .s4c { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; height: 100%; padding: 64px 72px 110px; }
+    .s4c-ey { margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0d47c2; margin-bottom: 14px; }
+    .s4c-h { font-size: 44px; font-weight: 800; color: #0d1b35; line-height: 1.12; letter-spacing: -0.02em; text-align: center; margin-bottom: 36px; }
+    .s4c-tag { margin-top: auto; text-align: center; }
+    .s4c-tag-h { font-size: 22px; font-weight: 700; color: #0d1b35; }
+    .s4c-tag-sub { font-size: 14px; color: rgba(13,27,53,0.45); margin-top: 4px; }
+
+    /* 4D: Split — blue header, white photo area */
+    .s4d { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; }
+    .s4d-top { padding: 64px 80px 48px; }
+    .s4d-ey { margin-top: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+    .s4d-h { font-size: 44px; font-weight: 800; color: #fff; line-height: 1.12; letter-spacing: -0.02em; }
+    .s4d-bottom { flex: 1; padding: 0 72px 110px; display: flex; flex-direction: column; gap: 28px; justify-content: center; }
+    .s4d-tag { text-align: center; margin-top: 12px; }
+    .s4d-tag-h { font-size: 22px; font-weight: 700; color: #0d1b35; }
+    .s4d-tag-sub { font-size: 14px; color: rgba(13,27,53,0.4); margin-top: 4px; }
+
+    @media print { body { background: #fff; gap: 0; padding: 0; } .slide { page-break-after: always; } }
+  </style>
+</head>
+<body>
+
+<!-- ████ SLIDE 1 — OUR RESULTS ████ -->
+<div class="group">
+  <div class="group-title">Slide 1 — Our Results</div>
+  <div class="row">
+
+    <!-- 1A: Solid Blue -->
+    <div class="slide bg-a" id="s1a">
+      <div class="vl vl-w">Slide #1 &middot; Variation A</div>
+      <div class="s1a-glow"></div>
+      <div class="s1a">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s1a-ey">Case Studies &amp; Proof</div>
+        <div class="s1a-h">OUR<br>RESULTS</div>
+        <div class="s1a-stats">
+          <div class="s1a-st"><div class="s1a-st-n">100+</div><div class="s1a-st-l">Happy Clients</div></div>
+          <div class="s1a-st"><div class="s1a-st-n">5.0</div><div class="s1a-st-l">Trustpilot Rating</div></div>
+          <div class="s1a-st"><div class="s1a-st-n">$2M+</div><div class="s1a-st-l">Ad Spend Managed</div></div>
+        </div>
+        <div class="s1a-box"><p>Get familiar with who we are, what we do, and the results we deliver.</p></div>
+      </div>
+      <div class="swp">Swipe <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="dots"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 1B: White Minimal -->
+    <div class="slide bg-b" id="s1b">
+      <div class="vl vl-d">Slide #1 &middot; Variation B</div>
+      <div class="s1b">
+        <div class="s1b-ey">Case Studies &amp; Proof</div>
+        <div class="s1b-h">OUR<br><span>RESULTS</span></div>
+        <div class="s1b-sub">Get familiar with who we are, what we do, and the results we deliver.</div>
+        <div class="s1b-bar">
+          <div class="s1b-st"><div class="s1b-st-n">100+</div><div class="s1b-st-l">Happy Clients</div></div>
+          <div class="s1b-st"><div class="s1b-st-n">5.0</div><div class="s1b-st-l">Trustpilot</div></div>
+          <div class="s1b-st"><div class="s1b-st-n">$2M+</div><div class="s1b-st-l">Ad Spend</div></div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 1C: Light Blue Gradient -->
+    <div class="slide bg-c" id="s1c">
+      <div class="vl vl-d">Slide #1 &middot; Variation C</div>
+      <div class="s1c">
+        <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+        <div class="s1c-ey">Case Studies &amp; Proof</div>
+        <div class="s1c-h">OUR<br>RESULTS</div>
+        <div class="s1c-sub">Get familiar with who we are, what we do, and the results we deliver.</div>
+        <div class="s1c-stats">
+          <div class="s1c-st"><div class="s1c-st-n">100+</div><div class="s1c-st-l">Happy Clients</div></div>
+          <div class="s1c-st"><div class="s1c-st-n">5.0</div><div class="s1c-st-l">Trustpilot</div></div>
+          <div class="s1c-st"><div class="s1c-st-n">$2M+</div><div class="s1c-st-l">Ad Spend</div></div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 1D: Split Blue/White -->
+    <div class="slide bg-d" id="s1d">
+      <div class="vl vl-w">Slide #1 &middot; Variation D</div>
+      <div class="s1d">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s1d-ey">Case Studies &amp; Proof</div>
+        <div class="s1d-h">OUR<br>RESULTS</div>
+        <div class="s1d-sub">Get familiar with who we are, what we do, and the results we deliver.</div>
+        <div class="s1d-stats">
+          <div class="s1d-st"><div class="s1d-st-n">100+</div><div class="s1d-st-l">Happy Clients</div></div>
+          <div class="s1d-st"><div class="s1d-st-n">5.0</div><div class="s1d-st-l">Trustpilot</div></div>
+          <div class="s1d-st"><div class="s1d-st-n">$2M+</div><div class="s1d-st-l">Ad Spend</div></div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ████ SLIDE 2 — TESTIMONIAL ████ -->
+<div class="group">
+  <div class="group-title">Slide 2 — Testimonial</div>
+  <div class="row">
+
+    <!-- 2A: White + Phone -->
+    <div class="slide bg-b" id="s2a">
+      <div class="vl vl-d">Slide #2 &middot; Variation A</div>
+      <div class="s2a">
+        <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+        <div class="s2a-head">
+          <div class="s2a-ey">Client Testimonial</div>
+          <div class="s2a-h">What our clients<br><span>say about us</span></div>
+        </div>
+        <div class="tc">
+          <div class="tc-top">
+            <div class="tc-bubble"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div>
+            <div class="tc-phone"><div class="tc-notch"></div><div class="tc-screen"><div class="tc-play"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></div><div class="tc-play-l">Watch Video Testimonial</div></div></div>
+          </div>
+          <div class="tc-body">
+            <div class="tq-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div>
+            <div class="tq">"Best decision we could have made for our company."</div>
+            <ul class="tbl"><li><span class="ck"></span>Website exceeded all expectations</li><li><span class="ck"></span>Previous agency took months and just copied existing content</li><li><span class="ck"></span>Fast, attentive, and genuinely invested in the business</li></ul>
+            <div class="ta"><div class="ta-av">W</div><div><div class="ta-nm">Wendy</div><div class="ta-rl">Business Owner</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt on"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 2B: Light blue + big quote card -->
+    <div class="slide bg-c" id="s2b">
+      <div class="vl vl-d">Slide #2 &middot; Variation B</div>
+      <div class="s2b">
+        <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+        <div class="s2b-head">
+          <div class="s2b-ey">Client Testimonial</div>
+          <div class="s2b-h">What our clients <span>say about us</span></div>
+        </div>
+        <div class="s2b-card">
+          <div class="tq-stars tq-stars-big"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div>
+          <div class="s2b-big-q">"</div>
+          <div class="tq" style="font-size:30px;">Best decision we could have made for our company.</div>
+          <ul class="tbl" style="font-size:17px;"><li><span class="ck"></span>Website exceeded all expectations</li><li><span class="ck"></span>Previous agency took months and just copied existing content</li><li><span class="ck"></span>Fast, attentive, and genuinely invested in the business</li></ul>
+          <div class="ta" style="margin-top:auto;"><div class="ta-av">W</div><div><div class="ta-nm">Wendy</div><div class="ta-rl">Business Owner</div></div></div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt on"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 2C: Blue bg + white card -->
+    <div class="slide bg-a" id="s2c">
+      <div class="vl vl-w">Slide #2 &middot; Variation C</div>
+      <div class="s2c">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s2c-head">
+          <div class="s2c-ey">Client Testimonial</div>
+          <div class="s2c-h">What our clients say about us</div>
+        </div>
+        <div class="s2c-card">
+          <div class="tq-stars tq-stars-big"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div>
+          <div class="tq" style="font-size:30px;">"Best decision we could have made for our company."</div>
+          <ul class="tbl" style="font-size:17px;"><li><span class="ck"></span>Website exceeded all expectations</li><li><span class="ck"></span>Previous agency took months and just copied existing content</li><li><span class="ck"></span>Fast, attentive, and genuinely invested in the business</li></ul>
+          <div class="ta" style="margin-top:auto;"><div class="ta-av">W</div><div><div class="ta-nm">Wendy</div><div class="ta-rl">Business Owner</div></div></div>
+        </div>
+      </div>
+      <div class="dots"><div class="dt"></div><div class="dt on"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 2D: White split -->
+    <div class="slide bg-b" id="s2d">
+      <div class="vl vl-d">Slide #2 &middot; Variation D</div>
+      <div class="s2d">
+        <div class="s2d-ey">Client Testimonial</div>
+        <div class="s2d-h">What our clients <span>say about us</span></div>
+        <div class="s2d-main">
+          <div class="s2d-left">
+            <div class="s2d-play"><svg viewBox="0 0 16 16"><polygon points="4,2 14,8 4,14"/></svg></div>
+            <div class="s2d-vid-l">Watch Video<br>Testimonial</div>
+          </div>
+          <div class="s2d-right">
+            <div class="tq-stars tq-stars-big"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div>
+            <div class="tq" style="font-size:28px;">"Best decision we could have made for our company."</div>
+            <ul class="tbl"><li><span class="ck"></span>Website exceeded all expectations</li><li><span class="ck"></span>Previous agency took months and just copied content</li><li><span class="ck"></span>Fast, attentive, genuinely invested</li></ul>
+            <div class="ta"><div class="ta-av">W</div><div><div class="ta-nm">Wendy</div><div class="ta-rl">Business Owner</div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt on"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ████ SLIDE 3 — REVIEWS ████ -->
+<div class="group">
+  <div class="group-title">Slide 3 — Reviews</div>
+  <div class="row">
+
+    <!-- 3A: Blue + white cards -->
+    <div class="slide bg-a" id="s3a">
+      <div class="vl vl-w">Slide #3 &middot; Variation A</div>
+      <div class="s3a">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s3a-head">
+          <div class="s3a-badge"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><span>5.0 on Trustpilot</span></div>
+          <div class="s3a-h">Real Reviews,<br>Real Clients</div>
+          <div class="s3a-sub">100+ businesses. Unfiltered feedback.</div>
+        </div>
+        <div class="rcards">
+          <div class="rc-a"><div class="rc-top"><div class="rc-who"><div class="rc-av">H</div><div><div class="rc-nm">Hamani</div><div class="rc-mt">US &middot; 1 review</div></div></div><div class="rc-dt">Jan 20, 2026</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Twice as many clients!</div><div class="rc-bd">They helped me get more clients just by improving my website. I started getting about twice as many inquiries without changing anything else. <strong>It works and I'd definitely recommend them to any business owner looking for more clients.</strong></div><div class="rc-tags"><span class="rc-tg">January 19, 2026</span><span class="rc-tg">Unprompted review</span></div></div>
+          <div class="rc-a"><div class="rc-top"><div class="rc-who"><div class="rc-av">R</div><div><div class="rc-nm">Roko Serdar</div><div class="rc-mt">HR &middot; 1 review</div></div></div><div class="rc-dt">Oct 27, 2025</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Outstanding experience from start to finish</div><div class="rc-bd">Emilio and his team are outstanding to work with, highly responsive, proactive, and reliable. <strong>They get the job done right the first time and consistently deliver excellent results.</strong> We've gained more clients and saved valuable time.</div><div class="rc-tags"><span class="rc-tg">October 27, 2025</span><span class="rc-tg">Unprompted review</span></div></div>
+        </div>
+      </div>
+      <div class="dots"><div class="dt"></div><div class="dt"></div><div class="dt on"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 3B: White + blue border cards -->
+    <div class="slide bg-b" id="s3b">
+      <div class="vl vl-d">Slide #3 &middot; Variation B</div>
+      <div class="s3b">
+        <div class="s3b-head">
+          <div class="s3b-ey">Verified Reviews</div>
+          <div class="s3b-h">Real Reviews, <span>Real Clients</span></div>
+        </div>
+        <div class="rcards">
+          <div class="rc-b"><div class="rc-top"><div class="rc-who"><div class="rc-av">H</div><div><div class="rc-nm">Hamani</div><div class="rc-mt">US &middot; 1 review</div></div></div><div class="rc-dt">Jan 20, 2026</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Twice as many clients!</div><div class="rc-bd">They helped me get more clients just by improving my website. I started getting about twice as many inquiries without changing anything else. <strong>It works and I'd definitely recommend them to any business owner looking for more clients.</strong></div><div class="rc-tags"><span class="rc-tg">January 19, 2026</span><span class="rc-tg">Unprompted review</span></div></div>
+          <div class="rc-b"><div class="rc-top"><div class="rc-who"><div class="rc-av">R</div><div><div class="rc-nm">Roko Serdar</div><div class="rc-mt">HR &middot; 1 review</div></div></div><div class="rc-dt">Oct 27, 2025</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Outstanding experience from start to finish</div><div class="rc-bd">Emilio and his team are outstanding to work with, highly responsive, proactive, and reliable. <strong>They get the job done right the first time and consistently deliver excellent results.</strong> We've gained more clients and saved valuable time.</div><div class="rc-tags"><span class="rc-tg">October 27, 2025</span><span class="rc-tg">Unprompted review</span></div></div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt"></div><div class="dt on"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 3C: Light blue + floating cards -->
+    <div class="slide bg-c" id="s3c">
+      <div class="vl vl-d">Slide #3 &middot; Variation C</div>
+      <div class="s3c">
+        <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+        <div class="s3c-head">
+          <div class="s3c-ey">Verified Reviews</div>
+          <div class="s3c-h">Real Reviews, Real Clients</div>
+          <div class="s3c-sub">100+ businesses. Unfiltered feedback.</div>
+        </div>
+        <div class="rcards">
+          <div class="rc-c"><div class="rc-top"><div class="rc-who"><div class="rc-av">H</div><div><div class="rc-nm">Hamani</div><div class="rc-mt">US &middot; 1 review</div></div></div><div class="rc-dt">Jan 20, 2026</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Twice as many clients!</div><div class="rc-bd">They helped me get more clients just by improving my website. I started getting about twice as many inquiries without changing anything else. <strong>It works and I'd definitely recommend them to any business owner looking for more clients.</strong></div><div class="rc-tags"><span class="rc-tg">January 19, 2026</span><span class="rc-tg">Unprompted review</span></div></div>
+          <div class="rc-c"><div class="rc-top"><div class="rc-who"><div class="rc-av">R</div><div><div class="rc-nm">Roko Serdar</div><div class="rc-mt">HR &middot; 1 review</div></div></div><div class="rc-dt">Oct 27, 2025</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Outstanding experience from start to finish</div><div class="rc-bd">Emilio and his team are outstanding to work with, highly responsive, proactive, and reliable. <strong>They get the job done right the first time and consistently deliver excellent results.</strong> We've gained more clients and saved valuable time.</div><div class="rc-tags"><span class="rc-tg">October 27, 2025</span><span class="rc-tg">Unprompted review</span></div></div>
+        </div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt"></div><div class="dt on"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 3D: Blue bg + single white container -->
+    <div class="slide bg-a" id="s3d">
+      <div class="vl vl-w">Slide #3 &middot; Variation D</div>
+      <div class="s3d">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s3d-head">
+          <div class="s3d-ey">Verified Reviews</div>
+          <div class="s3d-h">Real Reviews, Real Clients</div>
+          <div class="s3d-sub">100+ businesses. Unfiltered feedback.</div>
+        </div>
+        <div class="rc-d-wrap">
+          <div class="rc-d-item"><div class="rc-top"><div class="rc-who"><div class="rc-av">H</div><div><div class="rc-nm">Hamani</div><div class="rc-mt">US &middot; 1 review</div></div></div><div class="rc-dt">Jan 20, 2026</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Twice as many clients!</div><div class="rc-bd">They helped me get more clients just by improving my website. <strong>It works and I'd definitely recommend them to any business owner looking for more clients.</strong></div><div class="rc-tags"><span class="rc-tg">January 19, 2026</span><span class="rc-tg">Unprompted review</span></div></div>
+          <div class="rc-d-sep"></div>
+          <div class="rc-d-item"><div class="rc-top"><div class="rc-who"><div class="rc-av">R</div><div><div class="rc-nm">Roko Serdar</div><div class="rc-mt">HR &middot; 1 review</div></div></div><div class="rc-dt">Oct 27, 2025</div></div><div class="rc-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div><div class="rc-tt">Outstanding experience from start to finish</div><div class="rc-bd">Emilio and his team are outstanding to work with. <strong>They get the job done right the first time and consistently deliver excellent results.</strong> We've gained more clients and saved valuable time.</div><div class="rc-tags"><span class="rc-tg">October 27, 2025</span><span class="rc-tg">Unprompted review</span></div></div>
+        </div>
+      </div>
+      <div class="dots"><div class="dt"></div><div class="dt"></div><div class="dt on"></div><div class="dt"></div></div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ████ SLIDE 4 — FEATURES & PRESS ████ -->
+<div class="group">
+  <div class="group-title">Slide 4 — Features &amp; Press</div>
+  <div class="row">
+
+    <!-- 4A: Blue + grid -->
+    <div class="slide bg-a" id="s4a">
+      <div class="vl vl-w">Slide #4 &middot; Variation A</div>
+      <div class="s4a">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s4a-ey">Recognition &amp; Credentials</div>
+        <div class="s4a-h">Recognized and Featured<br>in Major Business<br>Publications</div>
+        <div class="pg" style="margin-bottom:40px;"><div class="pg-img pg-img-a"><img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="GoHighLevel award" /></div><div class="pg-img pg-img-a"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg" alt="Award plaque" /></div><div class="pg-img pg-img-a"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg" alt="Times Square" /></div><div class="pg-img pg-img-a"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg" alt="Presenting" /></div></div>
+        <div class="creds" style="margin-bottom:32px;"><div class="cr cr-w"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Partner</div><div class="cr cr-w"><svg viewBox="0 0 24 24" class="sf"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>5.0 Trustpilot</div><div class="cr cr-w"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>Award-Winning</div><div class="cr cr-w"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>100+ Clients</div></div>
+        <div class="s4a-tag"><div class="s4a-tag-h">The team that actually delivers.</div><div class="s4a-tag-sub">nilsdigital.com</div></div>
+      </div>
+      <div class="dots"><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt on"></div></div>
+    </div>
+
+    <!-- 4B: White editorial -->
+    <div class="slide bg-b" id="s4b">
+      <div class="vl vl-d">Slide #4 &middot; Variation B</div>
+      <div class="s4b">
+        <div class="s4b-ey">Recognition &amp; Credentials</div>
+        <div class="s4b-h">Recognized and Featured in<br><span>Major Business Publications</span></div>
+        <div class="pg" style="margin-bottom:40px;"><div class="pg-img pg-img-b"><img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="GoHighLevel award" /></div><div class="pg-img pg-img-b"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg" alt="Award plaque" /></div><div class="pg-img pg-img-b"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg" alt="Times Square" /></div><div class="pg-img pg-img-b"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg" alt="Presenting" /></div></div>
+        <div class="creds" style="margin-bottom:36px;"><div class="cr cr-b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Partner</div><div class="cr cr-b"><svg viewBox="0 0 24 24" class="sf"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>5.0 Trustpilot</div><div class="cr cr-b"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>Award-Winning</div><div class="cr cr-b"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>$2M+ Ad Spend</div><div class="cr cr-b"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>100+ Clients</div></div>
+        <div class="s4b-tag"><div class="s4b-tag-h">The team that actually delivers.</div><div class="s4b-tag-sub">nilsdigital.com</div></div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt on"></div></div>
+    </div>
+
+    <!-- 4C: Light blue + featured hero -->
+    <div class="slide bg-c" id="s4c">
+      <div class="vl vl-d">Slide #4 &middot; Variation C</div>
+      <div class="s4c">
+        <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+        <div class="s4c-ey">Recognition &amp; Credentials</div>
+        <div class="s4c-h">Recognized and Featured<br>in Major Business Publications</div>
+        <div class="pg-feat" style="aspect-ratio:16/9; margin-bottom:20px;"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg" alt="Times Square" /></div>
+        <div class="pg-row" style="margin-bottom:36px;"><div class="pg-thumb"><img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="GoHighLevel award" /></div><div class="pg-thumb"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg" alt="Award plaque" /></div><div class="pg-thumb"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg" alt="Presenting" /></div></div>
+        <div class="creds" style="margin-bottom:28px;"><div class="cr cr-b"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Partner</div><div class="cr cr-b"><svg viewBox="0 0 24 24" class="sf"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>5.0 Trustpilot</div><div class="cr cr-b"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>Award-Winning</div><div class="cr cr-b"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>100+ Clients</div></div>
+        <div class="s4c-tag"><div class="s4c-tag-h">The team that actually delivers.</div><div class="s4c-tag-sub">nilsdigital.com</div></div>
+      </div>
+      <div class="dots dk"><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt on"></div></div>
+    </div>
+
+    <!-- 4D: Split blue/white -->
+    <div class="slide bg-d2" id="s4d">
+      <div class="vl vl-d">Slide #4 &middot; Variation D</div>
+      <div class="s4d">
+        <div class="s4d-top">
+          <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+          <div class="s4d-ey" style="color:#0d47c2;">Recognition &amp; Credentials</div>
+          <div class="s4d-h" style="color:#0d1b35;">Recognized and Featured in<br>Major Business Publications</div>
+        </div>
+        <div class="s4d-bottom">
+          <div class="pg"><div class="pg-img pg-img-a" style="box-shadow:0 8px 32px rgba(0,0,0,0.15);"><img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="GoHighLevel award" /></div><div class="pg-img pg-img-a" style="box-shadow:0 8px 32px rgba(0,0,0,0.15);"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d3aae4071024855a3e.jpg" alt="Award plaque" /></div><div class="pg-img pg-img-a" style="box-shadow:0 8px 32px rgba(0,0,0,0.15);"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42b3b3a588539e628ff.jpg" alt="Times Square" /></div><div class="pg-img pg-img-a" style="box-shadow:0 8px 32px rgba(0,0,0,0.15);"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b42bad1400e266fb9783.jpg" alt="Presenting" /></div></div>
+          <div class="creds"><div class="cr cr-w"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Google Partner</div><div class="cr cr-w"><svg viewBox="0 0 24 24" class="sf"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>5.0 Trustpilot</div><div class="cr cr-w"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>Award-Winning</div><div class="cr cr-w"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>100+ Clients</div></div>
+          <div class="s4d-tag"><div class="s4d-tag-h" style="color:#fff;">The team that actually delivers.</div><div class="s4d-tag-sub" style="color:rgba(255,255,255,0.5);">nilsdigital.com</div></div>
+        </div>
+      </div>
+      <div class="dots"><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt on"></div></div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
