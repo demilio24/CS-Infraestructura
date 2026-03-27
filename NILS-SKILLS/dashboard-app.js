@@ -1,8 +1,7 @@
-// Client-side dashboard rendering — inlined by scrape-dashboard.js at build time
+// Client-side dashboard rendering
 var MY = DATA.myAccount;
-var COMPARE_ACCOUNT = 'max_sher';
+var COMP = 'max_sher';
 
-// Prepare reels for both accounts
 function prepReels(arr) {
   return arr.map(function(r) {
     var copy = Object.assign({}, r);
@@ -12,15 +11,9 @@ function prepReels(arr) {
 }
 
 var myReels = prepReels(DATA.myReels);
-// Normalize competitor data: could be { stats, reels } objects or flat arrays
-var compData = {};
 var rawComp = DATA.competitors;
-var ck = Object.keys(rawComp);
-for (var ci = 0; ci < ck.length; ci++) {
-  var val = rawComp[ck[ci]];
-  compData[ck[ci]] = Array.isArray(val) ? val : (val.reels || []);
-}
-var compareReels = compData[COMPARE_ACCOUNT] ? prepReels(compData[COMPARE_ACCOUNT]) : [];
+var compArr = rawComp[COMP] ? (Array.isArray(rawComp[COMP]) ? rawComp[COMP] : (rawComp[COMP].reels || [])) : [];
+var compReels = prepReels(compArr);
 
 var today = new Date(DATA.date + 'T12:00:00');
 function daysAgo(d, n) { var x = new Date(d); x.setDate(x.getDate() - n); return x; }
@@ -34,16 +27,6 @@ function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(
 function num(n) { return n.toLocaleString(); }
 
 var currentFilter = 0;
-var activeTab = 'me'; // 'me' or 'compare'
-
-function delta(curr, prev) {
-  if (prev === 0 && curr === 0) return '<span class="delta flat">--</span>';
-  if (prev === 0) return '<span class="delta up">NEW</span>';
-  var pct = Math.round((curr - prev) / prev * 100);
-  if (pct > 0) return '<span class="delta up">+' + pct + '%</span>';
-  if (pct < 0) return '<span class="delta down">' + pct + '%</span>';
-  return '<span class="delta flat">0%</span>';
-}
 
 function calcStats(arr) {
   var n = arr.length;
@@ -57,33 +40,16 @@ function calcStats(arr) {
 }
 
 function render() {
-  var sourceReels = activeTab === 'me' ? myReels : compareReels;
-  var accountName = activeTab === 'me' ? MY : COMPARE_ACCOUNT;
-  var filtered = filterReels(sourceReels, currentFilter);
-  var prevPeriodReels = currentFilter > 0
-    ? sourceReels.filter(function(r) {
-        var cutStart = fmtDate(daysAgo(today, currentFilter * 2));
-        var cutEnd = fmtDate(daysAgo(today, currentFilter));
-        return r._date >= cutStart && r._date < cutEnd;
-      })
-    : [];
+  var myFiltered = filterReels(myReels, currentFilter);
+  var compFiltered = filterReels(compReels, currentFilter);
+  var mySt = calcStats(myFiltered);
+  var compSt = calcStats(compFiltered);
 
-  var st = calcStats(filtered);
-  var prev = calcStats(prevPeriodReels);
-  var showDelta = currentFilter > 0;
-
-  // Comparison bar: show the other account's stats side by side
-  var otherReels = activeTab === 'me' ? compareReels : myReels;
-  var otherFiltered = filterReels(otherReels, currentFilter);
-  var otherSt = calcStats(otherFiltered);
-  var otherName = activeTab === 'me' ? COMPARE_ACCOUNT : MY;
-
-  // Activity Grid (always show your own)
-  var gridReels = myReels;
+  // Activity Grid (compact)
   var gridDays = 91;
   var postMap = {};
   var viewMap = {};
-  gridReels.forEach(function(r) {
+  myReels.forEach(function(r) {
     if (!r._date) return;
     postMap[r._date] = (postMap[r._date] || 0) + 1;
     viewMap[r._date] = (viewMap[r._date] || 0) + r.views;
@@ -123,11 +89,11 @@ function render() {
   }
 
   var gridHtml = '<div class="activity-grid">' + weeks.join('') + '</div>';
-  gridHtml += '<div class="grid-legend"><span>Less</span><div class="swatch" style="background:var(--surface2)"></div><div class="swatch" style="background:#1e3a5f"></div><div class="swatch" style="background:#1d4ed8"></div><div class="swatch" style="background:#3b82f6"></div><div class="swatch" style="background:#60a5fa"></div><span>More</span></div>';
+  gridHtml += '<div class="grid-legend"><span>Less</span><div class="swatch" style="background:var(--surface2)"></div><div class="swatch" style="background:#bfdbfe"></div><div class="swatch" style="background:#60a5fa"></div><div class="swatch" style="background:#3b82f6"></div><div class="swatch" style="background:#1d4ed8"></div><span>More</span></div>';
 
-  // Posts table
-  var sortedFiltered = filtered.slice().sort(function(a, b) { return b.timestamp < a.timestamp ? -1 : 1; });
-  var filteredViews = filtered.map(function(r) { return r.views; });
+  // Posts table (only my reels)
+  var sortedFiltered = myFiltered.slice().sort(function(a, b) { return b.timestamp < a.timestamp ? -1 : 1; });
+  var filteredViews = myFiltered.map(function(r) { return r.views; });
   var maxV = filteredViews.length > 0 ? Math.max.apply(null, filteredViews) : 1;
   var postsHtml = sortedFiltered.map(function(r) {
     var perf = r.views >= maxV * 0.6 ? 'high' : r.views >= maxV * 0.25 ? 'mid' : 'low';
@@ -139,39 +105,6 @@ function render() {
     postsHtml = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:20px">No posts in this period</td></tr>';
   }
 
-  // Top competitor reels (all competitors)
-  var allComp = [];
-  var compKeys = Object.keys(compData);
-  for (var j = 0; j < compKeys.length; j++) {
-    var arr = compData[compKeys[j]];
-    for (var k = 0; k < arr.length; k++) {
-      var rc = Object.assign({}, arr[k]);
-      rc._date = rc.timestamp ? rc.timestamp.split('T')[0] : '';
-      allComp.push(rc);
-    }
-  }
-  allComp.sort(function(a, b) { return b.views - a.views; });
-
-  // Find outliers: reels that got 3x+ the account's average
-  var compAvgs = {};
-  for (var ci = 0; ci < compKeys.length; ci++) {
-    var cs = calcStats(compData[compKeys[ci]].map(function(r) {
-      var c2 = Object.assign({}, r);
-      c2._date = r.timestamp ? r.timestamp.split('T')[0] : '';
-      return c2;
-    }));
-    compAvgs[compKeys[ci]] = cs.avgViews;
-  }
-
-  var topReels = allComp.slice(0, 15);
-  var topReelsHtml = topReels.map(function(r, i) {
-    var avg = compAvgs[r.username] || 1;
-    var multiplier = avg > 0 ? (r.views / avg).toFixed(1) : '-';
-    var isOutlier = r.views >= avg * 3;
-    var outlierBadge = isOutlier ? ' <span class="outlier-badge">' + multiplier + 'x avg</span>' : '';
-    return '<tr><td>' + (i + 1) + '</td><td>@' + r.username + '</td><td>' + num(r.views) + outlierBadge + '</td><td>' + r.likes + '</td><td>' + r.engagement + '%</td><td class="hook-td" title="' + esc(r.hook) + '">' + esc(r.hook) + '</td><td><a href="' + r.url + '" target="_blank">View</a></td></tr>';
-  }).join('');
-
   // Filter buttons
   var filterBtns = [7, 14, 30, 90, 0].map(function(d) {
     var label = d === 0 ? 'All' : d + 'd';
@@ -179,40 +112,41 @@ function render() {
     return '<button class="' + cls + '" onclick="setFilter(' + d + ')">' + label + '</button>';
   }).join('');
 
-  // Account toggle
-  var meClass = activeTab === 'me' ? 'tab active' : 'tab';
-  var compClass = activeTab === 'compare' ? 'tab active' : 'tab';
-  var toggleHtml = '<div class="toggle"><button class="' + meClass + '" onclick="setTab(\'me\')">@' + MY + '</button><button class="' + compClass + '" onclick="setTab(\'compare\')">@' + COMPARE_ACCOUNT + '</button></div>';
-
-  // KPI cards with vs comparison
-  function kpi(label, val, prevVal, otherVal) {
-    var d = showDelta ? delta(val, prevVal) : '';
-    var vs = otherVal !== undefined ? '<div class="vs">vs @' + otherName + ': <b>' + (typeof otherVal === 'number' ? num(otherVal) : otherVal) + '</b></div>' : '';
-    return '<div class="kpi"><div class="label">' + label + '</div><div class="val">' + (typeof val === 'number' ? num(val) : val) + '</div>' + d + vs + '</div>';
+  // KPI cards: side by side comparison built in
+  function kpi(label, myVal, compVal) {
+    var myStr = typeof myVal === 'number' ? num(myVal) : myVal;
+    var compStr = typeof compVal === 'number' ? num(compVal) : compVal;
+    return '<div class="kpi">' +
+      '<div class="kpi-label">' + label + '</div>' +
+      '<div class="kpi-compare">' +
+        '<div class="kpi-col me"><div class="kpi-val">' + myStr + '</div><div class="kpi-who">You</div></div>' +
+        '<div class="kpi-vs">vs</div>' +
+        '<div class="kpi-col them"><div class="kpi-val">' + compStr + '</div><div class="kpi-who">@' + COMP + '</div></div>' +
+      '</div>' +
+    '</div>';
   }
 
-  var periodLabel = currentFilter > 0 ? '(past ' + currentFilter + ' days)' : '(all time)';
-
-  var refreshHtml = '<div class="refresh-info"><span class="refresh-dot"></span>Last scraped: ' + DATA.date + ' <span class="refresh-hint">Refreshes every Monday via GitHub Actions</span></div>';
+  var periodLabel = currentFilter > 0 ? 'past ' + currentFilter + ' days' : 'all time';
 
   document.getElementById('app').innerHTML =
-    '<div class="hdr"><div><h1>Nils Digital Dashboard</h1>' + refreshHtml + '</div><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">' + toggleHtml + '<div class="filters">' + filterBtns + '</div></div></div>' +
-    '<div class="kpis">' +
-      kpi('Posts', st.posts, prev.posts, otherSt.posts) +
-      kpi('Total Views', st.totalViews, prev.totalViews, otherSt.totalViews) +
-      kpi('Avg Views', st.avgViews, prev.avgViews, otherSt.avgViews) +
-      kpi('Total Likes', st.totalLikes, prev.totalLikes, otherSt.totalLikes) +
-      kpi('Total Comments', st.totalComments, prev.totalComments, otherSt.totalComments) +
-      kpi('Avg Engagement', st.avgEng + '%', undefined, otherSt.avgEng + '%') +
-      kpi('Avg Duration', st.avgDur + 's', undefined, otherSt.avgDur + 's') +
+    '<div class="hdr">' +
+      '<div><h1>Nils Digital Dashboard</h1><div class="refresh-info"><span class="refresh-dot"></span>Last scraped: ' + DATA.date + ' <span class="refresh-hint">Auto-refreshes every Monday</span></div></div>' +
+      '<div class="filters">' + filterBtns + '</div>' +
     '</div>' +
-    '<div class="activity-section"><div class="title">Your Posting Activity (past 90 days)</div><div class="grid-wrap">' + gridHtml + '</div></div>' +
-    '<div class="posts-section"><div class="title">@' + accountName + ' Reels ' + periodLabel + '</div><div class="tbl-wrap"><table><tr><th>Date</th><th>Views</th><th>Likes</th><th>Comments</th><th>Eng%</th><th>Dur</th><th>Hook</th><th></th></tr>' + postsHtml + '</table></div></div>' +
-    '<div class="posts-section"><div class="title">Top Competitor Reels <span style="font-weight:400;color:var(--muted)">(across all tracked accounts)</span></div><div class="tbl-wrap"><table><tr><th>#</th><th>Account</th><th>Views</th><th>Likes</th><th>Eng%</th><th>Hook</th><th></th></tr>' + topReelsHtml + '</table></div></div>' +
-    '<div style="text-align:center;padding:20px;color:var(--muted);font-size:11px"><code>node scrape-dashboard.js</code> to refresh &middot; <code>--build-only</code> to rebuild from cache</div>';
+    '<div class="kpis">' +
+      kpi('Posts', mySt.posts, compSt.posts) +
+      kpi('Total Views', mySt.totalViews, compSt.totalViews) +
+      kpi('Avg Views', mySt.avgViews, compSt.avgViews) +
+      kpi('Total Likes', mySt.totalLikes, compSt.totalLikes) +
+      kpi('Comments', mySt.totalComments, compSt.totalComments) +
+      kpi('Avg Eng', mySt.avgEng + '%', compSt.avgEng + '%') +
+      kpi('Avg Duration', mySt.avgDur + 's', compSt.avgDur + 's') +
+    '</div>' +
+    '<div class="activity-section"><div class="section-label">Posting Activity <span class="period-label">' + periodLabel + '</span></div><div class="grid-wrap">' + gridHtml + '</div></div>' +
+    '<div class="posts-section"><div class="section-label">Your Reels <span class="period-label">' + periodLabel + '</span></div><div class="tbl-wrap"><table><tr><th>Date</th><th>Views</th><th>Likes</th><th>Comments</th><th>Eng%</th><th>Dur</th><th>Hook</th><th></th></tr>' + postsHtml + '</table></div></div>' +
+    '<div style="text-align:center;padding:16px;color:var(--muted);font-size:11px"><code>node scrape-dashboard.js</code> to refresh</div>';
 }
 
 function setFilter(d) { currentFilter = d; render(); }
-function setTab(t) { activeTab = t; render(); }
 
 render();
