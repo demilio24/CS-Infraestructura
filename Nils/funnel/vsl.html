@@ -475,8 +475,10 @@
       .hvp video { width:100%;height:100%;object-fit:cover;display:block; }
 
       /* Center play button */
-      .hvp-center { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;transition:opacity .25s; }
+      .hvp-center { position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3;transition:opacity .25s;pointer-events:none; }
+      .hvp-center .hvp-play-btn { pointer-events:auto; }
       .hvp.playing .hvp-center { opacity:0;pointer-events:none; }
+      .hvp .hvp-unmute-overlay:not(.hvp-hidden) ~ .hvp-center { opacity:0;pointer-events:none; }
       .hvp-play-btn { width:76px;height:76px;border-radius:50%;background:rgba(4,107,210,.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(4,107,210,.22),0 8px 32px rgba(0,0,0,.45);transition:transform .18s,background .18s; }
       .hvp-play-btn:hover { transform:scale(1.08);background:rgba(4,107,210,1); }
       .hvp-play-btn svg { margin-left:5px; }
@@ -1084,15 +1086,10 @@
         z-index: 1;
       }
       .step01-copy > p {
-        font-size: 20px;
+        font-size: 18px;
         color: var(--muted);
         line-height: 1.75;
         margin-bottom: 28px;
-      }
-      .step01-copy > p {
-        font-size: 18px;
-        line-height: 1.75;
-        color: var(--muted);
       }
       .step01-copy .bullet-list {
         margin-bottom: 20px;
@@ -3591,7 +3588,7 @@
               <div class="hvp paused" id="hvp">
                 <video
                   id="hvp-vid"
-                  src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c083b8ad14007264f62950.mp4"
+                  src=""
                   playsinline
                   preload="metadata"
                   muted
@@ -3956,7 +3953,7 @@
               You'll never know what you missed, that's the worst part
             </li>
           </ul>
-          <div style="text-align: center; margin-top: 40px" class="anim">
+          <div style="text-align: center; margin-top: 40px">
             <button class="hero-cta-full" onclick="openModal()">
               Get More Clients Than Your Competitors. Apply Now
               <svg
@@ -4062,7 +4059,7 @@
               >Award-winning quality. See our client funnels
             </li>
           </ul>
-          <div style="text-align: center; margin-top: 40px" class="anim">
+          <div style="text-align: center; margin-top: 40px">
             <button class="hero-cta-full" onclick="openModal()">
               Get a Funnel That Converts at 10–20%. Apply Now
               <svg
@@ -4512,9 +4509,9 @@
       <div class="case-study-inner">
         <div class="case-study-card anim">
           <div class="case-study-card-header">
-            <div class="section-eyebrow anim">Proof of Concept</div>
+            <div class="section-eyebrow">Proof of Concept</div>
             <h2
-              class="section-h anim d2"
+              class="section-h"
               style="max-width: 100%; margin-bottom: 0"
             >
               And if you think this is too simple to work,<br />
@@ -4949,7 +4946,7 @@
               proven track record, and a team that actually cares at a rate that
               makes the math easy."
             </div>
-            <div style="text-align: center; margin-top: 40px" class="anim">
+            <div style="text-align: center; margin-top: 40px">
               <button class="hero-cta-full" onclick="openModal()">
                 Get the Team That Actually Delivers. Apply Now
                 <svg
@@ -6600,8 +6597,8 @@
         );
         obs.observe(calc);
       })();
-      document.getElementById("footer-year").textContent =
-        new Date().getFullYear();
+      var _fy = document.getElementById("footer-year");
+      if (_fy) _fy.textContent = new Date().getFullYear();
     </script>
     <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
   </body>
