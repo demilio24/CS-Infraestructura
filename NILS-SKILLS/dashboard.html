@@ -31,11 +31,15 @@ body{font-family:'Instrument Sans',-apple-system,sans-serif;background:var(--bg)
 .kpi-vs{font-size:10px;color:var(--border);font-weight:600}
 .section-label{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:8px}
 .period-label{font-weight:400;opacity:.6}
-.activity-section{margin-bottom:16px}
-.grid-wrap{overflow-x:auto;padding-bottom:2px}
-.activity-grid{display:flex;gap:2px;max-height:40px}
-.week-col{display:flex;flex-direction:column;gap:2px;flex:1}
-.day-cell{width:100%;aspect-ratio:1;max-height:5px;min-width:4px;border-radius:1px;background:var(--surface2);position:relative;cursor:default}
+.refresh-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;text-decoration:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:4px}
+.refresh-btn:hover{border-color:var(--blue);color:var(--blue);text-decoration:none}
+.inactive-note{font-size:9px;opacity:.5;font-weight:400}
+.kpi-na{font-size:18px;color:var(--border)}
+.activity-section{margin-bottom:16px;overflow:visible}
+.grid-wrap{overflow-x:auto;overflow-y:visible;padding-top:28px;padding-bottom:2px}
+.activity-grid{display:flex;gap:2px;max-height:40px;overflow:visible}
+.week-col{display:flex;flex-direction:column;gap:2px;flex:1;overflow:visible}
+.day-cell{width:100%;aspect-ratio:1;max-height:5px;min-width:4px;border-radius:1px;background:var(--surface2);position:relative;cursor:default;overflow:visible}
 .day-cell[data-level="1"]{background:#bfdbfe}
 .day-cell[data-level="2"]{background:#60a5fa}
 .day-cell[data-level="3"]{background:#3b82f6}
@@ -66,6 +70,7 @@ var DATA = {"date":"2026-03-27","myAccount":"nilsdigital","myReels":[{"username"
 // Client-side dashboard rendering
 var MY = DATA.myAccount;
 var COMP = 'max_sher';
+var GH_ACTIONS_URL = 'https://github.com/demilio24/Websites/actions/workflows/refresh-dashboard.yml';
 
 function prepReels(arr) {
   return arr.map(function(r) {
@@ -181,22 +186,26 @@ function render() {
   function kpi(label, myVal, compVal) {
     var myStr = typeof myVal === 'number' ? num(myVal) : myVal;
     var compStr = typeof compVal === 'number' ? num(compVal) : compVal;
+    var themVal = compSt.posts === 0 && currentFilter > 0 ? '<span class="kpi-na">--</span>' : compStr;
     return '<div class="kpi">' +
       '<div class="kpi-label">' + label + '</div>' +
       '<div class="kpi-compare">' +
         '<div class="kpi-col me"><div class="kpi-val">' + myStr + '</div><div class="kpi-who">You</div></div>' +
         '<div class="kpi-vs">vs</div>' +
-        '<div class="kpi-col them"><div class="kpi-val">' + compStr + '</div><div class="kpi-who">@' + COMP + '</div></div>' +
+        '<div class="kpi-col them"><div class="kpi-val">' + themVal + '</div><div class="kpi-who">@' + COMP + compNote + '</div></div>' +
       '</div>' +
     '</div>';
   }
 
   var periodLabel = currentFilter > 0 ? 'past ' + currentFilter + ' days' : 'all time';
 
+  // If comp has no posts in filtered period, show a note
+  var compNote = compSt.posts === 0 && currentFilter > 0 ? ' <span class="inactive-note">(no posts in this period)</span>' : '';
+
   document.getElementById('app').innerHTML =
     '<div class="hdr">' +
       '<div><h1>Nils Digital Dashboard</h1><div class="refresh-info"><span class="refresh-dot"></span>Last scraped: ' + DATA.date + ' <span class="refresh-hint">Auto-refreshes every Monday</span></div></div>' +
-      '<div class="filters">' + filterBtns + '</div>' +
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="filters">' + filterBtns + '</div><a href="' + GH_ACTIONS_URL + '" target="_blank" class="refresh-btn">Refresh</a></div>' +
     '</div>' +
     '<div class="kpis">' +
       kpi('Posts', mySt.posts, compSt.posts) +

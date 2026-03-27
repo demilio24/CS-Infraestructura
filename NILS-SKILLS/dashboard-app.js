@@ -1,6 +1,7 @@
 // Client-side dashboard rendering
 var MY = DATA.myAccount;
 var COMP = 'max_sher';
+var GH_ACTIONS_URL = 'https://github.com/demilio24/Websites/actions/workflows/refresh-dashboard.yml';
 
 function prepReels(arr) {
   return arr.map(function(r) {
@@ -116,22 +117,26 @@ function render() {
   function kpi(label, myVal, compVal) {
     var myStr = typeof myVal === 'number' ? num(myVal) : myVal;
     var compStr = typeof compVal === 'number' ? num(compVal) : compVal;
+    var themVal = compSt.posts === 0 && currentFilter > 0 ? '<span class="kpi-na">--</span>' : compStr;
     return '<div class="kpi">' +
       '<div class="kpi-label">' + label + '</div>' +
       '<div class="kpi-compare">' +
         '<div class="kpi-col me"><div class="kpi-val">' + myStr + '</div><div class="kpi-who">You</div></div>' +
         '<div class="kpi-vs">vs</div>' +
-        '<div class="kpi-col them"><div class="kpi-val">' + compStr + '</div><div class="kpi-who">@' + COMP + '</div></div>' +
+        '<div class="kpi-col them"><div class="kpi-val">' + themVal + '</div><div class="kpi-who">@' + COMP + compNote + '</div></div>' +
       '</div>' +
     '</div>';
   }
 
   var periodLabel = currentFilter > 0 ? 'past ' + currentFilter + ' days' : 'all time';
 
+  // If comp has no posts in filtered period, show a note
+  var compNote = compSt.posts === 0 && currentFilter > 0 ? ' <span class="inactive-note">(no posts in this period)</span>' : '';
+
   document.getElementById('app').innerHTML =
     '<div class="hdr">' +
       '<div><h1>Nils Digital Dashboard</h1><div class="refresh-info"><span class="refresh-dot"></span>Last scraped: ' + DATA.date + ' <span class="refresh-hint">Auto-refreshes every Monday</span></div></div>' +
-      '<div class="filters">' + filterBtns + '</div>' +
+      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="filters">' + filterBtns + '</div><a href="' + GH_ACTIONS_URL + '" target="_blank" class="refresh-btn">Refresh</a></div>' +
     '</div>' +
     '<div class="kpis">' +
       kpi('Posts', mySt.posts, compSt.posts) +
