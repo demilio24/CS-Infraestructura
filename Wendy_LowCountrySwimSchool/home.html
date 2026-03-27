@@ -154,6 +154,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   transform: rotate(180deg);
 }
 
+.mobile-highlight {
+  background: rgba(76, 175, 80, 0.1) !important;
+  color: #2e7d32 !important;
+  border-radius: 10px;
+}
 .lc-nav-dropdown li a {
   display: flex;
   align-items: center;
@@ -199,6 +204,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 .lc-nav-cta {
   flex-shrink: 0;
   margin-left: -8px;
+}
+.lc-nav-cta--register a {
+  background: #d2f9b5 !important;
+  color: #1a2a3a !important;
+  box-shadow: 0 4px 18px rgba(76, 175, 80, 0.3), 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}
+.lc-nav-cta--register a:hover {
+  background: #c0f0a0 !important;
+  color: #1a2a3a !important;
+  box-shadow: 0 8px 28px rgba(76, 175, 80, 0.35), 0 3px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 .lc-nav-cta a {
@@ -588,9 +603,9 @@ ul li.menu-item.menu-item-has-children:hover .sub-menu {
         </a>
         <ul class="lc-nav-dropdown">
           <li>
-            <a href="https://app.jackrabbitclass.com/jr3.0/TimeClock/StaffLogin?orgId=547536" target="_blank">
-              <div class="dd-icon">👤</div>
-              <div class="dd-label"><span>Staff Portal</span><span>Employee login</span></div>
+            <a href="https://form.jotform.com/220023340442033" target="_blank">
+              <div class="dd-icon">⏸️</div>
+              <div class="dd-label"><span>Withdrawal / Pause</span><span>Pause or cancel enrollment</span></div>
             </a>
           </li>
           <li>
@@ -600,22 +615,21 @@ ul li.menu-item.menu-item-has-children:hover .sub-menu {
             </a>
           </li>
           <li>
-            <a href="https://form.jotform.com/220023340442033" target="_blank">
-              <div class="dd-icon">⏸️</div>
-              <div class="dd-label"><span>Withdrawal / Pause</span><span>Pause or cancel enrollment</span></div>
-            </a>
-          </li>
-          <li>
-            <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank">
-              <div class="dd-icon">📋</div>
-              <div class="dd-label"><span>Registration Form</span><span>Enroll in classes</span></div>
+            <a href="https://app.jackrabbitclass.com/jr3.0/TimeClock/StaffLogin?orgId=547536" target="_blank">
+              <div class="dd-icon">👤</div>
+              <div class="dd-label"><span>Staff Portal</span><span>Employee login</span></div>
             </a>
           </li>
         </ul>
       </li>
     </ul>
 
-    <!-- Desktop CTA -->
+    <!-- Desktop CTAs -->
+    <div class="lc-nav-cta lc-nav-cta--register">
+      <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank">
+        📋 Registration Form
+      </a>
+    </div>
     <div class="lc-nav-cta">
       <a href="#inline-OBmhoPhXwagt95nin53Y">
         👋 Get a Free Consultation
@@ -654,10 +668,10 @@ ul li.menu-item.menu-item-has-children:hover .sub-menu {
 
     <div class="mobile-divider"></div>
     <span class="mobile-section-label">Portals</span>
-    <a href="https://app.jackrabbitclass.com/jr3.0/TimeClock/StaffLogin?orgId=547536" target="_blank">👤&nbsp;&nbsp;Staff Portal</a>
-    <a href="https://app.jackrabbitclass.com/jr3.0/ParentPortal/Login?orgID=547536" target="_blank">👨‍👩‍👧&nbsp;&nbsp;Parent Portal</a>
+    <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank" class="mobile-highlight">📋&nbsp;&nbsp;Registration Form</a>
     <a href="https://form.jotform.com/220023340442033" target="_blank">⏸️&nbsp;&nbsp;Withdrawal / Pause</a>
-    <a href="https://app.jackrabbitclass.com/regv2.asp?id=547536" target="_blank">📋&nbsp;&nbsp;Registration Form</a>
+    <a href="https://app.jackrabbitclass.com/jr3.0/ParentPortal/Login?orgID=547536" target="_blank">👨‍👩‍👧&nbsp;&nbsp;Parent Portal</a>
+    <a href="https://app.jackrabbitclass.com/jr3.0/TimeClock/StaffLogin?orgId=547536" target="_blank">👤&nbsp;&nbsp;Staff Portal</a>
 
     <div class="mobile-divider"></div>
     <a href="#inline-OBmhoPhXwagt95nin53Y" class="mobile-cta" onclick="closeLcMenu()">Get a Free Consultation ✨</a>
@@ -894,8 +908,8 @@ function closeLcMenu() {
 
 /* ── RIGHT form card ── */
 .lc-hero-form-wrap {
-  flex: 0 0 420px;
-  width: 420px;
+  flex: 0 0 460px;
+  width: 460px;
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
