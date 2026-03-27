@@ -764,7 +764,7 @@
         height: 100%;
         min-height: 520px;
         object-fit: cover;
-        object-position: top center;
+        object-position: center 10%;
         display: block;
       }
       .becca-photo-overlay {
@@ -774,8 +774,9 @@
         right: 0;
         background: linear-gradient(
           to top,
-          rgba(24, 73, 76, 0.95) 0%,
-          rgba(24, 73, 76, 0.4) 65%,
+          rgba(24, 73, 76, 0.97) 0%,
+          rgba(24, 73, 76, 0.85) 40%,
+          rgba(24, 73, 76, 0.4) 70%,
           transparent 100%
         );
         padding: var(--space-lg) var(--space-md) var(--space-sm);
@@ -2941,14 +2942,16 @@
           border-radius: 14px;
         }
         .becca-photo-wrap img {
-          height: 480px;
+          height: 520px;
+          object-position: center 10%;
         }
         .becca-photo-overlay {
           padding: var(--space-2xl) var(--space-md) var(--space-md);
           background: linear-gradient(
             to top,
             rgba(24, 73, 76, 0.97) 0%,
-            rgba(24, 73, 76, 0.6) 55%,
+            rgba(24, 73, 76, 0.88) 40%,
+            rgba(24, 73, 76, 0.4) 70%,
             transparent 100%
           );
         }
@@ -3144,7 +3147,8 @@
 
         /* --- About Becca card --- */
         .becca-photo-wrap img {
-          height: 460px;
+          height: 500px;
+          object-position: center 10%;
         }
         .becca-creds {
           display: flex;
@@ -3597,7 +3601,7 @@
           <!-- Photo with overlay credentials -->
           <div class="becca-photo-wrap fade-up">
             <img
-              src="https://assets.cdn.filesafe.space/Y6gwSTjgTSm8n6V1SQed/media/6997664a2a2f154f7e03c54f.jpg"
+              src="https://assets.cdn.filesafe.space/vlShPNZKvXfgiMxkHRDS/media/69c6f2b29fc63ae6e529c82f.jpeg"
               alt="Becca, AquaSquad Swim instructor, in pool during a lesson"
               loading="lazy"
             />
