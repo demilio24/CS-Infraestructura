@@ -86,7 +86,14 @@ function prepReels(arr) {
 }
 
 var myReels = prepReels(DATA.myReels);
-var compData = DATA.competitors;
+// Normalize competitor data: could be { stats, reels } objects or flat arrays
+var compData = {};
+var rawComp = DATA.competitors;
+var ck = Object.keys(rawComp);
+for (var ci = 0; ci < ck.length; ci++) {
+  var val = rawComp[ck[ci]];
+  compData[ck[ci]] = Array.isArray(val) ? val : (val.reels || []);
+}
 var compareReels = compData[COMPARE_ACCOUNT] ? prepReels(compData[COMPARE_ACCOUNT]) : [];
 
 var today = new Date(DATA.date + 'T12:00:00');
