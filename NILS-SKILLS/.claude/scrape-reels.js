@@ -15,7 +15,7 @@ const fs = require("fs");
 const path = require("path");
 
 // ── Config ──────────────────────────────────────────────
-const ENV_PATH = path.join(__dirname, ".env");
+const ENV_PATH = path.join(__dirname, "..", ".env");
 const REPORT_DIR = path.join(__dirname, "reports");
 const ACTOR_ID = "apify~instagram-reel-scraper";
 

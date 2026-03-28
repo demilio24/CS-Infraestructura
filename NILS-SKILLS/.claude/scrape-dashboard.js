@@ -11,9 +11,10 @@
 const fs = require("fs");
 const path = require("path");
 
-const ENV_PATH = path.join(__dirname, ".env");
+const ROOT = path.join(__dirname, "..");
+const ENV_PATH = path.join(ROOT, ".env");
 const DATA_DIR = path.join(__dirname, "dashboard-data");
-const DASHBOARD_PATH = path.join(__dirname, "dashboard.html");
+const DASHBOARD_PATH = path.join(ROOT, "dashboard.html");
 const ACTOR_ID = "apify~instagram-reel-scraper";
 
 const MY_ACCOUNT = "nilsdigital";
