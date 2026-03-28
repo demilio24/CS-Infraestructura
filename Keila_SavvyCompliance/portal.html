@@ -619,9 +619,97 @@
       .video-wrapper { padding-bottom: 56.25%; }
       .guide-section h2 { font-size: 1.25rem; }
     }
+    /* ── Password Gate ── */
+    .pw-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pw-gate.hidden { display: none; }
+    .pw-card {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 48px 40px;
+      max-width: 420px;
+      width: 100%;
+      margin: 0 20px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .pw-card img {
+      height: 48px;
+      margin: 0 auto 24px;
+    }
+    .pw-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .pw-card p {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    .pw-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+    .pw-input:focus { border-color: #2563eb; }
+    .pw-input.error { border-color: #dc2626; }
+    .pw-btn {
+      width: 100%;
+      padding: 14px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .pw-btn:hover { background: #1d4ed8; }
+    .pw-error {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+    .pw-error.show { display: block; }
   </style>
 </head>
 <body>
+
+<!-- Password Gate -->
+<div class="pw-gate" id="pwGate">
+  <div class="pw-card">
+    <img
+      src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/Hcu6uHQKmO8IeN93taxz/media/b0992a4e-16d8-4975-8770-180623cdb803.png"
+      alt="Savvy Compliance"
+    >
+    <h2 data-es="Portal de Administración" data-en="Admin Portal">Portal de Administración</h2>
+    <p data-es="Ingrese la contraseña para acceder" data-en="Enter the password to access">Ingrese la contraseña para acceder</p>
+    <form onsubmit="return checkPw(event)">
+      <input type="password" class="pw-input" id="pwInput" placeholder="Contraseña" autocomplete="off">
+      <button type="submit" class="pw-btn" data-es="Acceder" data-en="Enter">Acceder</button>
+      <div class="pw-error" id="pwError" data-es="Contraseña incorrecta. Intente de nuevo." data-en="Incorrect password. Try again.">Contraseña incorrecta. Intente de nuevo.</div>
+    </form>
+  </div>
+</div>
 
 <!-- Header -->
 <header class="portal-header">
@@ -1075,6 +1163,26 @@
 
 <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 <script>
+  // Password gate
+  function checkPw(e) {
+    e.preventDefault();
+    var input = document.getElementById('pwInput');
+    if (input.value === 'Savvy26!') {
+      document.getElementById('pwGate').classList.add('hidden');
+      sessionStorage.setItem('savvy_auth', '1');
+    } else {
+      input.classList.add('error');
+      document.getElementById('pwError').classList.add('show');
+      input.value = '';
+      setTimeout(function() { input.classList.remove('error'); }, 1500);
+    }
+    return false;
+  }
+  // Auto-unlock if already authenticated this session
+  if (sessionStorage.getItem('savvy_auth') === '1') {
+    document.getElementById('pwGate').classList.add('hidden');
+  }
+
   // Tab switching
   document.querySelectorAll('.tab-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
