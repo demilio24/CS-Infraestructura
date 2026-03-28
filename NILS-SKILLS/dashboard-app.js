@@ -1,7 +1,20 @@
 // Client-side dashboard rendering
 var MY = DATA.myAccount;
-var COMP = 'max_sher';
-var GH_ACTIONS_URL = 'https://github.com/demilio24/Websites/actions/workflows/refresh-dashboard.yml';
+
+// Build competitor list from data
+var compList = [];
+var rawComp = DATA.competitors;
+var compReelsMap = {};
+var ck = Object.keys(rawComp);
+for (var i = 0; i < ck.length; i++) {
+  var val = rawComp[ck[i]];
+  var arr = Array.isArray(val) ? val : (val.reels || []);
+  if (arr.length > 0) {
+    compList.push(ck[i]);
+    compReelsMap[ck[i]] = prepReels(arr);
+  }
+}
+var activeComp = compList.length > 0 ? compList[0] : null;
 
 function prepReels(arr) {
   return arr.map(function(r) {
@@ -12,9 +25,6 @@ function prepReels(arr) {
 }
 
 var myReels = prepReels(DATA.myReels);
-var rawComp = DATA.competitors;
-var compArr = rawComp[COMP] ? (Array.isArray(rawComp[COMP]) ? rawComp[COMP] : (rawComp[COMP].reels || [])) : [];
-var compReels = prepReels(compArr);
 
 var today = new Date(DATA.date + 'T12:00:00');
 function daysAgo(d, n) { var x = new Date(d); x.setDate(x.getDate() - n); return x; }
@@ -41,6 +51,7 @@ function calcStats(arr) {
 }
 
 function render() {
+  var compReels = activeComp ? compReelsMap[activeComp] : [];
   var myFiltered = filterReels(myReels, currentFilter);
   var compFiltered = filterReels(compReels, currentFilter);
   var mySt = calcStats(myFiltered);
@@ -92,7 +103,7 @@ function render() {
   var gridHtml = '<div class="activity-grid">' + weeks.join('') + '</div>';
   gridHtml += '<div class="grid-legend"><span>Less</span><div class="swatch" style="background:var(--surface2)"></div><div class="swatch" style="background:#bfdbfe"></div><div class="swatch" style="background:#60a5fa"></div><div class="swatch" style="background:#3b82f6"></div><div class="swatch" style="background:#1d4ed8"></div><span>More</span></div>';
 
-  // Posts table (only my reels)
+  // Posts table
   var sortedFiltered = myFiltered.slice().sort(function(a, b) { return b.timestamp < a.timestamp ? -1 : 1; });
   var filteredViews = myFiltered.map(function(r) { return r.views; });
   var maxV = filteredViews.length > 0 ? Math.max.apply(null, filteredViews) : 1;
@@ -113,7 +124,15 @@ function render() {
     return '<button class="' + cls + '" onclick="setFilter(' + d + ')">' + label + '</button>';
   }).join('');
 
-  // KPI cards: side by side comparison built in
+  // Competitor selector
+  var compOptions = compList.map(function(name) {
+    var sel = name === activeComp ? ' selected' : '';
+    return '<option value="' + name + '"' + sel + '>@' + name + '</option>';
+  }).join('');
+  var compSelector = '<select class="comp-select" onchange="setComp(this.value)">' + compOptions + '</select>';
+
+  // KPI cards
+  var compNote = compSt.posts === 0 && currentFilter > 0 ? ' <span class="inactive-note">(inactive)</span>' : '';
   function kpi(label, myVal, compVal) {
     var myStr = typeof myVal === 'number' ? num(myVal) : myVal;
     var compStr = typeof compVal === 'number' ? num(compVal) : compVal;
@@ -123,20 +142,18 @@ function render() {
       '<div class="kpi-compare">' +
         '<div class="kpi-col me"><div class="kpi-val">' + myStr + '</div><div class="kpi-who">You</div></div>' +
         '<div class="kpi-vs">vs</div>' +
-        '<div class="kpi-col them"><div class="kpi-val">' + themVal + '</div><div class="kpi-who">@' + COMP + compNote + '</div></div>' +
+        '<div class="kpi-col them"><div class="kpi-val">' + themVal + '</div><div class="kpi-who">' + (activeComp ? '@' + activeComp : '--') + compNote + '</div></div>' +
       '</div>' +
     '</div>';
   }
 
   var periodLabel = currentFilter > 0 ? 'past ' + currentFilter + ' days' : 'all time';
-
-  // If comp has no posts in filtered period, show a note
-  var compNote = compSt.posts === 0 && currentFilter > 0 ? ' <span class="inactive-note">(no posts in this period)</span>' : '';
+  var GH_ACTIONS_URL = 'https://github.com/demilio24/Websites/actions/workflows/refresh-dashboard.yml';
 
   document.getElementById('app').innerHTML =
     '<div class="hdr">' +
-      '<div><h1>Nils Digital Dashboard</h1><div class="refresh-info"><span class="refresh-dot"></span>Last scraped: ' + DATA.date + ' <span class="refresh-hint">Auto-refreshes every Monday</span></div></div>' +
-      '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="filters">' + filterBtns + '</div><a href="' + GH_ACTIONS_URL + '" target="_blank" class="refresh-btn">Refresh</a></div>' +
+      '<div><h1>Nils Digital Dashboard</h1><div class="refresh-info"><span class="refresh-dot"></span>Last scraped: ' + DATA.date + '</div></div>' +
+      '<div class="hdr-controls"><div class="control-row"><span class="control-label">Compare</span>' + compSelector + '</div><div class="control-row"><div class="filters">' + filterBtns + '</div><a href="' + GH_ACTIONS_URL + '" target="_blank" class="refresh-btn">Refresh</a></div></div>' +
     '</div>' +
     '<div class="kpis">' +
       kpi('Posts', mySt.posts, compSt.posts) +
@@ -153,5 +170,6 @@ function render() {
 }
 
 function setFilter(d) { currentFilter = d; render(); }
+function setComp(name) { activeComp = name; render(); }
 
 render();

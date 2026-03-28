@@ -21,12 +21,9 @@ const ACTOR_ID = "apify~instagram-reel-scraper";
 
 // Default accounts to track
 const DEFAULT_ACCOUNTS = [
-  "hormozi",
-  "imangadzhireels",
-  "wesmcdowell",
-  "leilahormozi",
-  "max_sher",
+  "badmarketing",
   "funnelslayer",
+  "cardinaldigitalmarketing",
 ];
 
 const DEFAULT_LIMIT = 20;

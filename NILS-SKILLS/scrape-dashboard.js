@@ -18,12 +18,9 @@ const ACTOR_ID = "apify~instagram-reel-scraper";
 
 const MY_ACCOUNT = "nilsdigital";
 const COMPETITORS = [
-  "hormozi",
-  "imangadzhireels",
-  "wesmcdowell",
-  "leilahormozi",
-  "max_sher",
+  "badmarketing",
   "funnelslayer",
+  "cardinaldigitalmarketing",
 ];
 const DEFAULT_LIMIT = 20;
 
@@ -167,6 +164,11 @@ function buildDashboard() {
     '.period-label{font-weight:400;opacity:.6}',
     '.refresh-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:600;text-decoration:none;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:4px}',
     '.refresh-btn:hover{border-color:var(--blue);color:var(--blue);text-decoration:none}',
+    '.hdr-controls{display:flex;flex-direction:column;gap:8px;align-items:flex-end}',
+    '.control-row{display:flex;gap:8px;align-items:center}',
+    '.control-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}',
+    '.comp-select{padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;appearance:auto}',
+    '.comp-select:hover{border-color:var(--blue)}',
     '.inactive-note{font-size:9px;opacity:.5;font-weight:400}',
     '.kpi-na{font-size:18px;color:var(--border)}',
     // Activity grid — compact with tooltip overflow visible
