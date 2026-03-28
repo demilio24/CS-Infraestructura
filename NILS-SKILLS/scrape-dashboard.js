@@ -20,7 +20,8 @@ const MY_ACCOUNT = "nilsdigital";
 const COMPETITORS = [
   "badmarketing",
   "funnelslayer",
-  "cardinaldigitalmarketing",
+  "hookagency",
+  "kickchargecreative",
 ];
 const DEFAULT_LIMIT = 20;
 
@@ -171,6 +172,7 @@ function buildDashboard() {
     '.comp-select:hover{border-color:var(--blue)}',
     '.inactive-note{font-size:9px;opacity:.5;font-weight:400}',
     '.kpi-na{font-size:18px;color:var(--border)}',
+    '.outlier-badge{display:inline-block;background:var(--blue-dim);color:var(--blue);font-size:10px;font-weight:700;padding:1px 6px;border-radius:8px;margin-left:4px}',
     // Activity grid — compact with tooltip overflow visible
     '.activity-section{margin-bottom:16px;overflow:visible}',
     '.grid-wrap{overflow-x:auto;overflow-y:visible;padding-top:28px;padding-bottom:2px}',

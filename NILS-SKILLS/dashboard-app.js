@@ -147,6 +147,34 @@ function render() {
     '</div>';
   }
 
+  // Outlier posts: reels that got 2x+ the account's average
+  var allCompReels = [];
+  var compAvgs = {};
+  for (var oi = 0; oi < compList.length; oi++) {
+    var oname = compList[oi];
+    var oreels = compReelsMap[oname];
+    var oavg = oreels.length > 0 ? oreels.reduce(function(s,r){return s+r.views},0) / oreels.length : 0;
+    compAvgs[oname] = oavg;
+    for (var oj = 0; oj < oreels.length; oj++) allCompReels.push(oreels[oj]);
+  }
+  // Also add my reels to find my own outliers
+  var myAvg = myReels.length > 0 ? myReels.reduce(function(s,r){return s+r.views},0) / myReels.length : 0;
+  compAvgs[MY] = myAvg;
+  for (var mi = 0; mi < myReels.length; mi++) allCompReels.push(myReels[mi]);
+
+  allCompReels.sort(function(a,b){return b.views - a.views});
+  // Only show reels that are 2x+ their account's average
+  var outliers = allCompReels.filter(function(r) {
+    var avg = compAvgs[r.username] || 1;
+    return r.views >= avg * 2 && r.views > 0;
+  }).slice(0, 10);
+
+  var outliersHtml = outliers.map(function(r, idx) {
+    var avg = compAvgs[r.username] || 1;
+    var mult = (r.views / avg).toFixed(1);
+    return '<tr><td>' + (idx+1) + '</td><td>@' + r.username + '</td><td>' + num(r.views) + ' <span class="outlier-badge">' + mult + 'x</span></td><td>' + r.engagement + '%</td><td class="hook-td" title="' + esc(r.hook) + '">' + esc(r.hook) + '</td><td><a href="' + r.url + '" target="_blank">View</a></td></tr>';
+  }).join('');
+
   var periodLabel = currentFilter > 0 ? 'past ' + currentFilter + ' days' : 'all time';
   var GH_ACTIONS_URL = 'https://github.com/demilio24/Websites/actions/workflows/refresh-dashboard.yml';
 
@@ -166,6 +194,7 @@ function render() {
     '</div>' +
     '<div class="activity-section"><div class="section-label">Posting Activity <span class="period-label">' + periodLabel + '</span></div><div class="grid-wrap">' + gridHtml + '</div></div>' +
     '<div class="posts-section"><div class="section-label">Your Reels <span class="period-label">' + periodLabel + '</span></div><div class="tbl-wrap"><table><tr><th>Date</th><th>Views</th><th>Likes</th><th>Comments</th><th>Eng%</th><th>Dur</th><th>Hook</th><th></th></tr>' + postsHtml + '</table></div></div>' +
+    (outliers.length > 0 ? '<div class="posts-section"><div class="section-label">Outlier Posts <span class="period-label">reels that beat their account avg by 2x+</span></div><div class="tbl-wrap"><table><tr><th>#</th><th>Account</th><th>Views</th><th>Eng%</th><th>Hook</th><th></th></tr>' + outliersHtml + '</table></div></div>' : '') +
     '<div style="text-align:center;padding:16px;color:var(--muted);font-size:11px"><code>node scrape-dashboard.js</code> to refresh</div>';
 }
 
