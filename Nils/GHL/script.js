@@ -15,6 +15,17 @@
   var CONFIG_URL = 'https://cdn.jsdelivr.net/gh/demilio24/Websites@main/Nils/GHL/config.json';
 
   // ============================================================
+  //  DOMAIN REDIRECT — app.gohighlevel.com → app.nilsdigital.com
+  //  Applies to ALL users before anything else runs.
+  // ============================================================
+  if (window.location.hostname === 'app.gohighlevel.com') {
+    window.location.replace(
+      'https://app.nilsdigital.com' + window.location.pathname + window.location.search + window.location.hash
+    );
+    return; // Stop executing the rest of the script
+  }
+
+  // ============================================================
   //  INTERNALS
   // ============================================================
 
