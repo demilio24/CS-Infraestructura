@@ -669,6 +669,24 @@
     }
     .pw-input:focus { border-color: #2563eb; }
     .pw-input.error { border-color: #dc2626; }
+    .pw-field {
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .pw-field .pw-input { margin-bottom: 0; padding-right: 48px; }
+    .pw-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #94a3b8;
+      transition: color 0.2s;
+    }
+    .pw-toggle:hover { color: #475569; }
     .pw-btn {
       width: 100%;
       padding: 14px;
@@ -704,7 +722,12 @@
     <h2 data-es="Portal de Administración" data-en="Admin Portal">Portal de Administración</h2>
     <p data-es="Ingrese la contraseña para acceder" data-en="Enter the password to access">Ingrese la contraseña para acceder</p>
     <form onsubmit="return checkPw(event)">
-      <input type="password" class="pw-input" id="pwInput" placeholder="Contraseña" autocomplete="off">
+      <div class="pw-field">
+        <input type="password" class="pw-input" id="pwInput" placeholder="Contraseña" autocomplete="off">
+        <button type="button" class="pw-toggle" onclick="togglePwVis()" aria-label="Mostrar contraseña">
+          <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
       <button type="submit" class="pw-btn" data-es="Acceder" data-en="Enter">Acceder</button>
       <div class="pw-error" id="pwError" data-es="Contraseña incorrecta. Intente de nuevo." data-en="Incorrect password. Try again.">Contraseña incorrecta. Intente de nuevo.</div>
     </form>
@@ -1163,6 +1186,19 @@
 
 <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 <script>
+  // Password visibility toggle
+  function togglePwVis() {
+    var input = document.getElementById('pwInput');
+    var icon = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    } else {
+      input.type = 'password';
+      icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    }
+  }
+
   // Password gate
   function checkPw(e) {
     e.preventDefault();
