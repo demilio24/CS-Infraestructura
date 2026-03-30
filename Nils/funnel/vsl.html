@@ -6360,11 +6360,16 @@
           vid.currentTime = realPct * (vid.duration || 0);
         });
 
-        // Fullscreen
+        // Fullscreen toggle
         fsBtn.addEventListener('click', function (e) {
           e.stopPropagation();
-          if (wrap.requestFullscreen) wrap.requestFullscreen();
-          else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+          if (document.fullscreenElement || document.webkitFullscreenElement) {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+          } else {
+            if (wrap.requestFullscreen) wrap.requestFullscreen();
+            else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+          }
         });
 
         vid.addEventListener('timeupdate', updateUI);
