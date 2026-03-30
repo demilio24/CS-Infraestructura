@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Pool Partnership — LowCountry Swim School</title>
   <meta name="description" content="Earn extra income this summer by renting your pool to LowCountry Swim School. We cover maintenance, insurance, and scheduling.">
 
@@ -86,7 +86,7 @@
     @media (max-width: 600px) {
       .lc-nav-inner { padding: 6px 20px; }
       .lc-nav-logo img { height: 56px; }
-      .lc-nav-cta a { padding: 10px 18px; font-size: 13px; }
+      .lc-nav-cta a { padding: 12px 18px; font-size: 13px; min-height: 44px; }
       .lc-nav-spacer { height: 68px; }
     }
 
@@ -461,8 +461,22 @@
       color: var(--blue);
       text-decoration: none;
       font-weight: 600;
+      display: inline-block;
+      padding: 6px 0;
+      min-height: 44px;
+      line-height: 44px;
+      word-break: break-all;
+      overflow-wrap: anywhere;
     }
     .lc-contact-note-text a:hover { text-decoration: underline; }
+
+    @media (max-width: 360px) {
+      .lc-contact-note {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+    }
 
     /* ═══════════════════════════════
        TRUST BAR
