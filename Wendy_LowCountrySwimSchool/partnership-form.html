@@ -238,8 +238,8 @@
 
     /* ── RIGHT image ── */
     .lc-hero-img-wrap {
-      flex: 0 0 480px;
-      width: 480px;
+      flex: 0 0 560px;
+      width: 560px;
       position: relative;
     }
 
@@ -302,7 +302,7 @@
 
     /* ── Responsive hero ── */
     @media (max-width: 1024px) {
-      .lc-hero-img-wrap { flex: 0 0 380px; width: 380px; }
+      .lc-hero-img-wrap { flex: 0 0 440px; width: 440px; }
     }
 
     @media (max-width: 860px) {
@@ -497,16 +497,25 @@
        FOOTER
     ═══════════════════════════════ */
     .lc-footer {
-      background: var(--navy-mid);
-      padding: 32px 24px;
+      background: #fff;
+      border-top: 1px solid rgba(26,91,135,0.1);
+      padding: 40px 24px;
       text-align: center;
     }
 
-    .lc-footer img { height: 56px; width: auto; margin-bottom: 16px; opacity: 0.9; }
+    .lc-footer img { height: 72px; width: auto; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto; }
+
+    .lc-footer-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--green);
+      border-radius: 4px;
+      margin: 0 auto 14px;
+    }
 
     .lc-footer p {
       font-size: 13px;
-      color: rgba(255,255,255,0.45);
+      color: var(--text-soft);
     }
 
     /* ═══════════════════════════════
@@ -719,6 +728,7 @@
   ═══════════════════════════════ -->
   <footer class="lc-footer">
     <img src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/696481d3f8a93b4538e2117f.jpg" alt="LowCountry Swim School">
+    <div class="lc-footer-divider"></div>
     <p>&copy; 2025 LowCountry Swim School. All rights reserved.</p>
   </footer>
 
