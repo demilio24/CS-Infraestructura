@@ -1,17 +1,10 @@
-# Environment variables — never commit
-.env
+# All tooling lives in .claude/ — ignore its local artifacts
+.claude/.env
+.claude/node_modules/
+.claude/package-lock.json
+.claude/screenshots/
+.claude/qa-screenshots/
 
-# Node / Puppeteer (QA tooling — local only, not needed on GitHub Pages)
-node_modules/
-package-lock.json
-package.json
-
-# QA screenshots (local only)
-qa-screenshots/
-
-# Uploaded images (transient, not tracked)
+# Uploaded images (transient)
 uploads/*
 !uploads/.gitkeep
-
-# Reference designs ARE tracked (needed across machines)
-# references/ is fully committed — no exclusions

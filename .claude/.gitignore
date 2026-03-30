@@ -1,0 +1,17 @@
+# Environment variables — never commit
+.env
+
+# Node / Puppeteer (QA tooling — local only, not needed on GitHub Pages)
+node_modules/
+package-lock.json
+package.json
+
+# QA screenshots (local only)
+qa-screenshots/
+
+# Uploaded images (transient, not tracked)
+uploads/*
+!uploads/.gitkeep
+
+# Reference designs ARE tracked (needed across machines)
+# references/ is fully committed — no exclusions

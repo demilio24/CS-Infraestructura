@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nils Digital - The Offer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --font-main: "Google Sans", "DM Sans", sans-serif;
+        --font-secondary: "DM Sans", "Google Sans", sans-serif;
+        --font-emphasis: "Instrument Sans", "Google Sans", sans-serif;
+        --blue: #046bd2;
+        --blue-dark: #0358b0;
+        --blue-rgb: 4, 107, 210;
+        --gray-bg: #f5f7fa;
+        --text: #0a0a0a;
+        --muted: rgba(10, 10, 10, 0.5);
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: var(--font-main);
+        background: #000;
+        cursor: pointer;
+        user-select: none;
+        color: var(--text);
+      }
+
+      /* Font assignments */
+      h1, h2, h3, h4,
+      .headline, .eyebrow, .badge,
+      .title-outcome, .title-pill,
+      .cta-btn, .price-card__amount,
+      .price-card__monthly,
+      .onboard-step__num,
+      .included-row__title,
+      .flow-step__label,
+      .guarantee__title {
+        font-family: var(--font-emphasis);
+      }
+      p, .subtext, .chat-bubble,
+      .guarantee__body, .result-label,
+      .chat-label, .deliverable__sub,
+      .price-card__label,
+      .price-card__monthly-label,
+      .onboard-step__text {
+        font-family: var(--font-secondary);
+      }
+
+      /* SLIDE SYSTEM */
+      .deck {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 80px 48px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(28px);
+        transition:
+          opacity 0.38s ease,
+          transform 0.38s ease;
+        overflow: hidden;
+      }
+      .slide.active {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      .slide.leaving {
+        opacity: 0;
+        transform: translateY(-28px);
+        transition:
+          opacity 0.28s ease,
+          transform 0.28s ease;
+      }
+
+      /* ── THEME BACKGROUNDS ─────────────────────────── */
+
+      /* Hero blue — radial glows + dot grid baked into background */
+      .theme-hero-blue {
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.18) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          radial-gradient(ellipse 70% 85% at 0% 0%, rgba(30, 140, 255, 0.95) 0%, rgba(4, 107, 210, 0.55) 45%, transparent 65%),
+          radial-gradient(ellipse 70% 85% at 100% 0%, rgba(30, 140, 255, 0.95) 0%, rgba(4, 107, 210, 0.55) 45%, transparent 65%),
+          #0447a8;
+        color: #fff;
+      }
+
+      /* Light with blue dot grid (problem style) */
+      .theme-light-dots {
+        background:
+          radial-gradient(circle, rgba(4, 107, 210, 0.1) 1.5px, transparent 1.5px) 0 0 / 28px 28px,
+          #eef5ff;
+        color: var(--text);
+      }
+
+      /* Navy — deep dark + subtle grid + blue glow */
+      .theme-navy {
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
+          radial-gradient(ellipse 60% 60% at 20% 90%, rgba(4, 107, 210, 0.18) 0%, transparent 70%),
+          radial-gradient(ellipse 60% 60% at 80% 10%, rgba(4, 107, 210, 0.12) 0%, transparent 70%),
+          #0a1628;
+        color: #fff;
+      }
+
+      /* Green guarantee — gradient + subtle grid */
+      .theme-green {
+        background:
+          radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 28px 28px,
+          radial-gradient(ellipse 60% 70% at 30% 20%, rgba(16, 185, 129, 0.35) 0%, transparent 65%),
+          radial-gradient(ellipse 50% 60% at 80% 80%, rgba(4, 107, 210, 0.2) 0%, transparent 65%),
+          #052e16;
+        color: #fff;
+      }
+
+      .slide > *:not(.bg-icon):not(.arc-ring) {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Concentric arc ring decoration */
+      .arc-ring {
+        position: absolute;
+        top: -320px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 860px;
+        height: 660px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow:
+          0 0 0 36px rgba(255, 255, 255, 0.04),
+          0 0 0 72px rgba(255, 255, 255, 0.02);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* WATERMARK BG ICON */
+      .bg-icon {
+        position: absolute;
+        font-size: clamp(160px, 25vw, 300px);
+        opacity: 0.03;
+        z-index: 0 !important;
+        pointer-events: none;
+        user-select: none;
+        right: -10px;
+        bottom: -10px;
+      }
+
+      /* ── TYPOGRAPHY ─────────────────────────────────── */
+      .eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .theme-hero-blue .eyebrow {
+        display: inline-block;
+        color: rgba(255, 255, 255, 0.88);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 100px;
+        padding: 7px 22px;
+        font-size: 14px;
+        letter-spacing: 0.1em;
+      }
+      .theme-navy .eyebrow {
+        color: rgba(79, 163, 247, 0.9);
+      }
+      .theme-light-dots .eyebrow {
+        color: var(--blue);
+      }
+      .theme-green .eyebrow {
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .headline {
+        font-size: clamp(28px, 5vw, 58px);
+        font-weight: 700;
+        line-height: 1.12;
+        text-align: center;
+        max-width: 920px;
+        letter-spacing: -0.02em;
+      }
+      .headline.xl {
+        font-size: clamp(32px, 6.5vw, 76px);
+      }
+      .headline.huge {
+        font-size: clamp(40px, 8vw, 96px);
+      }
+
+      .subtext {
+        font-size: clamp(15px, 2vw, 20px);
+        font-weight: 500;
+        line-height: 1.55;
+        text-align: center;
+        max-width: 680px;
+        margin-top: 18px;
+      }
+      .theme-navy .subtext {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .theme-light-dots .subtext {
+        color: var(--muted);
+      }
+      .theme-hero-blue .subtext {
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .theme-green .subtext {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .accent {
+        color: var(--blue);
+      }
+      .theme-navy .accent {
+        color: #4fa3f7;
+      }
+      .theme-hero-blue .accent,
+      .theme-green .accent {
+        color: #fff;
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.4);
+        text-underline-offset: 5px;
+        text-decoration-thickness: 2px;
+      }
+
+      /* BADGE */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--blue);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 7px 18px;
+        border-radius: 100px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 16px rgba(var(--blue-rgb), 0.35);
+      }
+
+      /* TITLE SLIDE */
+      .title-outcomes {
+        margin-top: 36px;
+        text-align: center;
+        max-width: 920px;
+      }
+      .title-outcome {
+        font-size: clamp(26px, 4.5vw, 54px);
+        font-weight: 700;
+        color: #fff;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+      }
+      .title-outcome__num {
+        opacity: 0.4;
+        font-weight: 600;
+        margin-right: 6px;
+      }
+      .title-divider {
+        font-size: clamp(14px, 2vw, 20px);
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.4);
+        margin: 10px 0;
+      }
+
+      /* SCROLLING GALLERY */
+      .scroll-gallery {
+        display: flex;
+        gap: 14px;
+        width: 100%;
+        overflow: hidden;
+        margin-top: 20px;
+        mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+      }
+      .scroll-track {
+        display: flex;
+        gap: 14px;
+        animation: scrollGallery 60s linear infinite;
+        will-change: transform;
+      }
+      .scroll-track img {
+        height: clamp(160px, 32vh, 320px);
+        width: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        flex-shrink: 0;
+      }
+      @keyframes scrollGallery {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* RESULTS */
+      .results-slide {
+        padding: 48px 0 32px;
+      }
+      .results-slide .eyebrow,
+      .results-slide .headline {
+        padding: 0 48px;
+      }
+      .results-slide .result-hero {
+        margin-top: 16px;
+        margin-bottom: 4px;
+      }
+      .results-slide .result-hero .result-img img {
+        max-height: 20vh;
+      }
+      .result-item {
+        text-align: center;
+      }
+      .result-img {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+          0 12px 48px rgba(0, 0, 0, 0.13),
+          0 1px 4px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e0e0e0;
+      }
+      .result-img img {
+        display: block;
+        width: auto;
+        max-height: 52vh;
+        max-width: min(380px, 40vw);
+        object-fit: contain;
+      }
+      .result-label {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 10px;
+      }
+
+      /* REVIEW FLOW — glassmorphism cards */
+      .review-flow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 32px;
+      }
+      .flow-step {
+        background: rgba(3, 18, 60, 0.5);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 16px 20px;
+        text-align: center;
+        min-width: 130px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      }
+      .flow-step__icon {
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+      .flow-step__label {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .flow-arrow {
+        font-size: 22px;
+        color: #4fa3f7;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* CHAT MOCK */
+      .chat-mock {
+        margin-top: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 440px;
+        width: 100%;
+      }
+      .chat-bubble {
+        padding: 12px 18px;
+        border-radius: 18px;
+        font-size: 14px;
+        font-weight: 500;
+        max-width: 82%;
+        line-height: 1.4;
+      }
+      .chat-bubble.review {
+        background: rgba(3, 18, 60, 0.5);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.85);
+        align-self: flex-start;
+        border-bottom-left-radius: 4px;
+      }
+      .chat-bubble.reply {
+        background: linear-gradient(135deg, #1a72e8 0%, var(--blue) 50%, var(--blue-dark) 100%);
+        color: #fff;
+        align-self: flex-end;
+        border-bottom-right-radius: 4px;
+        box-shadow: 0 4px 16px rgba(var(--blue-rgb), 0.4);
+      }
+      .chat-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.35);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .chat-label.right {
+        text-align: right;
+      }
+
+      /* CONSOLIDATED REVIEW */
+      .consolidated-review {
+        display: flex;
+        gap: 36px;
+        align-items: center;
+        max-width: 960px;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .consolidated-review__left {
+        flex: 1;
+        min-width: 0;
+      }
+      .consolidated-review__right {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      @media (max-width: 768px) {
+        .consolidated-review {
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+
+      /* GUARANTEE — glassmorphism */
+      .guarantee {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        padding: 20px 24px;
+        max-width: 580px;
+        margin-top: 20px;
+        text-align: left;
+      }
+      .guarantee__icon {
+        font-size: 28px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .guarantee__title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+      .guarantee__body {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.6;
+      }
+
+      /* INCLUDED LIST */
+      .included-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 600px;
+        width: 100%;
+        margin-top: 20px;
+      }
+      .included-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        background: #fff;
+        border-left: 3px solid var(--blue);
+        border-radius: 0 12px 12px 0;
+        padding: 13px 18px;
+        transition: background 0.2s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      }
+      .included-row:hover {
+        background: #f8fafd;
+      }
+      .theme-hero-blue .included-row {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-left-color: rgba(255, 255, 255, 0.5);
+        box-shadow: none;
+      }
+      .theme-hero-blue .included-row:hover {
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .included-row__icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .included-row__title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .theme-hero-blue .included-row__title {
+        color: #fff;
+      }
+
+      /* PRICING */
+      .price-cards {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 28px;
+      }
+      .price-card {
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 36px 64px;
+        text-align: center;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
+      }
+      /* Subtle inner glow */
+      .price-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      }
+      .price-card__amount {
+        font-size: 72px;
+        font-weight: 700;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 8px;
+        letter-spacing: -0.03em;
+      }
+      .price-card__label {
+        font-size: 13px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.55);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .price-card__monthly {
+        font-size: 22px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.75);
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        letter-spacing: 0.01em;
+      }
+      .price-card__monthly-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-top: 4px;
+      }
+
+      /* CTA BUTTON — gradient like hero CTA in vsl */
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 18px 42px;
+        background: linear-gradient(135deg, #1a72e8 0%, var(--blue) 50%, var(--blue-dark) 100%);
+        color: #fff;
+        font-family: var(--font-emphasis);
+        font-size: 17px;
+        font-weight: 700;
+        border-radius: 100px;
+        text-decoration: none;
+        margin-top: 24px;
+        pointer-events: all;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+        box-shadow:
+          0 8px 32px rgba(var(--blue-rgb), 0.55),
+          0 2px 8px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        letter-spacing: 0;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+        border-radius: inherit;
+        pointer-events: none;
+      }
+      .cta-btn:hover {
+        transform: translateY(-3px);
+        box-shadow:
+          0 16px 48px rgba(var(--blue-rgb), 0.65),
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        filter: brightness(1.06);
+      }
+      .cta-btn .cta-arrow {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s, transform 0.2s;
+      }
+      .cta-btn:hover .cta-arrow {
+        background: rgba(255, 255, 255, 0.28);
+        transform: translateX(3px);
+      }
+
+      /* ONBOARDING STEPS */
+      .onboard-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 520px;
+        width: 100%;
+        margin-top: 28px;
+      }
+      .onboard-step {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: rgba(3, 18, 60, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 14px 20px;
+        transition: background 0.2s, border-color 0.2s;
+      }
+      .onboard-step:hover {
+        background: rgba(3, 18, 60, 0.55);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .onboard-step__num {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #1a72e8 0%, var(--blue) 100%);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 12px rgba(var(--blue-rgb), 0.4);
+      }
+      .onboard-step__text {
+        font-size: 15px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.4;
+      }
+
+      .deliverable__sub {
+        font-size: 17px;
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      /* ── CHROME ─────────────────────────────────────── */
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: var(--blue);
+        transition: width 0.4s ease;
+        z-index: 200;
+      }
+      .brand-mark {
+        position: fixed;
+        top: 22px;
+        left: 26px;
+        font-family: var(--font-emphasis);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        z-index: 200;
+        transition: color 0.3s;
+      }
+      .counter {
+        position: fixed;
+        top: 22px;
+        right: 26px;
+        font-family: var(--font-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        z-index: 200;
+        transition: color 0.3s;
+      }
+      .nav-dots {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        z-index: 200;
+      }
+      .dot {
+        height: 6px;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+      .click-hint {
+        position: fixed;
+        bottom: 62px;
+        right: 26px;
+        font-family: var(--font-secondary);
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        animation: pulse 2.2s ease-in-out infinite;
+        transition: opacity 0.5s;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.4; }
+        50% { opacity: 0.9; }
+      }
+
+      /* ARROWS */
+      .arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.5);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 200;
+        transition: all 0.2s;
+        pointer-events: all;
+      }
+      .arrow:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
+      .arrow-prev { left: 18px; }
+      .arrow-next { right: 18px; }
+      .arrow.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .light-chrome .arrow {
+        background: rgba(0, 0, 0, 0.04);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-color: rgba(0, 0, 0, 0.08);
+        color: rgba(0, 0, 0, 0.35);
+      }
+      .light-chrome .arrow:hover {
+        background: rgba(0, 0, 0, 0.1);
+        color: #000;
+      }
+
+      /* ── MOBILE ─────────────────────────────────────── */
+      @media (max-width: 640px) {
+        .slide { padding: 60px 24px; }
+        .results-slide .eyebrow,
+        .results-slide .headline { padding: 0 24px; }
+        .price-card { padding: 28px 36px; }
+        .price-card__amount { font-size: 56px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="brand-mark" id="brandMark">Nils Digital</div>
+    <div class="counter" id="counter">1 / 8</div>
+
+    <button class="arrow arrow-prev hidden" id="arrowPrev" onclick="event.stopPropagation(); prev();">&#8249;</button>
+    <button class="arrow arrow-next" id="arrowNext" onclick="event.stopPropagation(); next();">&#8250;</button>
+
+    <div class="deck" id="deck">
+
+      <!-- ━━━ SLIDE 1: Title ━━━ -->
+      <div class="slide theme-hero-blue active" data-theme="dark">
+        <div class="arc-ring"></div>
+        <div class="eyebrow">Nils Digital</div>
+        <h1 class="headline xl">We install custom systems that:</h1>
+        <div class="title-outcomes">
+          <div class="title-outcome">
+            <span class="title-outcome__num">1.</span> Generate more revenue
+          </div>
+          <div class="title-divider">and</div>
+          <div class="title-outcome">
+            <span class="title-outcome__num">2.</span> Save you time in the process
+          </div>
+        </div>
+      </div>
+
+      <!-- ━━━ SLIDE 2: The Foundation ━━━ -->
+      <div class="slide theme-light-dots" data-theme="light">
+        <div class="badge">Step #1 of the System</div>
+        <div class="eyebrow" style="margin-bottom: 8px; font-size: 13px; letter-spacing: 0.12em">The Foundation</div>
+        <h2 class="headline" style="font-size: clamp(26px, 5vw, 54px)">
+          We will make your website get you <span class="accent">2x more clients</span>, or you don't pay.
+        </h2>
+        <p class="subtext">Our irresistible offer to you.</p>
+      </div>
+
+      <!-- ━━━ SLIDE 3: Super-Optimized Website ━━━ -->
+      <div class="slide theme-light-dots results-slide" data-theme="light">
+        <div class="eyebrow">Step #1: We Build You a Super-Optimized Website</div>
+        <h3 class="headline" style="font-size: clamp(20px, 3vw, 30px)">
+          The average website converts at 2-3%. <span class="accent">Ours convert at 10-20%.</span>
+        </h3>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin-top: 16px; margin-bottom: 4px">
+          <div class="result-item">
+            <div class="result-img">
+              <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png" alt="20% Conversion Rate" style="max-height: 20vh" />
+            </div>
+            <div class="result-label">Our Conversion Rate</div>
+          </div>
+        </div>
+        <div class="scroll-gallery">
+          <div class="scroll-track">
+            <img src="https://demilio24.github.io/Websites/references/1.png" alt="Funnel 1" />
+            <img src="https://demilio24.github.io/Websites/references/2.png" alt="Funnel 2" />
+            <img src="https://demilio24.github.io/Websites/references/3.png" alt="Funnel 3" />
+            <img src="https://demilio24.github.io/Websites/references/4.png" alt="Funnel 4" />
+            <img src="https://demilio24.github.io/Websites/references/5.png" alt="Funnel 5" />
+            <img src="https://demilio24.github.io/Websites/references/6.png" alt="Funnel 6" />
+            <img src="https://demilio24.github.io/Websites/references/7.png" alt="Funnel 7" />
+            <img src="https://demilio24.github.io/Websites/references/8.png" alt="Funnel 8" />
+            <img src="https://demilio24.github.io/Websites/references/9.png" alt="Funnel 9" />
+            <img src="https://demilio24.github.io/Websites/references/10.png" alt="Funnel 10" />
+            <img src="https://demilio24.github.io/Websites/references/11.png" alt="Funnel 11" />
+            <img src="https://demilio24.github.io/Websites/references/12.png" alt="Funnel 12" />
+            <img src="https://demilio24.github.io/Websites/references/13.png" alt="Funnel 13" />
+            <img src="https://demilio24.github.io/Websites/references/14.png" alt="Funnel 14" />
+            <img src="https://demilio24.github.io/Websites/references/15.png" alt="Funnel 15" />
+            <img src="https://demilio24.github.io/Websites/references/16.png" alt="Funnel 16" />
+            <img src="https://demilio24.github.io/Websites/references/17.png" alt="Funnel 17" />
+            <img src="https://demilio24.github.io/Websites/references/18.png" alt="Funnel 18" />
+            <!-- duplicate for seamless loop -->
+            <img src="https://demilio24.github.io/Websites/references/1.png" alt="Funnel 1" />
+            <img src="https://demilio24.github.io/Websites/references/2.png" alt="Funnel 2" />
+            <img src="https://demilio24.github.io/Websites/references/3.png" alt="Funnel 3" />
+            <img src="https://demilio24.github.io/Websites/references/4.png" alt="Funnel 4" />
+            <img src="https://demilio24.github.io/Websites/references/5.png" alt="Funnel 5" />
+            <img src="https://demilio24.github.io/Websites/references/6.png" alt="Funnel 6" />
+            <img src="https://demilio24.github.io/Websites/references/7.png" alt="Funnel 7" />
+            <img src="https://demilio24.github.io/Websites/references/8.png" alt="Funnel 8" />
+            <img src="https://demilio24.github.io/Websites/references/9.png" alt="Funnel 9" />
+            <img src="https://demilio24.github.io/Websites/references/10.png" alt="Funnel 10" />
+            <img src="https://demilio24.github.io/Websites/references/11.png" alt="Funnel 11" />
+            <img src="https://demilio24.github.io/Websites/references/12.png" alt="Funnel 12" />
+            <img src="https://demilio24.github.io/Websites/references/13.png" alt="Funnel 13" />
+            <img src="https://demilio24.github.io/Websites/references/14.png" alt="Funnel 14" />
+            <img src="https://demilio24.github.io/Websites/references/15.png" alt="Funnel 15" />
+            <img src="https://demilio24.github.io/Websites/references/16.png" alt="Funnel 16" />
+            <img src="https://demilio24.github.io/Websites/references/17.png" alt="Funnel 17" />
+            <img src="https://demilio24.github.io/Websites/references/18.png" alt="Funnel 18" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ━━━ SLIDE 4: Review Automation ━━━ -->
+      <div class="slide theme-hero-blue" data-theme="dark" style="padding: 48px 36px">
+        <div class="badge" style="background: #4fa3f7; box-shadow: 0 4px 16px rgba(79, 163, 247, 0.4)">Step #2 of the System</div>
+        <h2 class="headline" style="font-size: clamp(24px, 4vw, 44px); margin-bottom: 8px">
+          Review Automation System
+        </h2>
+        <p class="subtext" style="margin-top: 0; max-width: 620px; margin-bottom: 4px">
+          Collect only five-star reviews, and we auto-reply with AI SEO to every review to push you to the top.
+        </p>
+        <div class="consolidated-review">
+          <div class="consolidated-review__left">
+            <div class="review-flow" style="margin-top: 0; gap: 6px; justify-content: flex-start">
+              <div class="flow-step" style="min-width: 90px; padding: 10px 12px">
+                <div class="flow-step__icon" style="font-size: 20px; margin-bottom: 4px">&#9989;</div>
+                <div class="flow-step__label" style="font-size: 11px">Job Complete</div>
+              </div>
+              <div class="flow-arrow" style="font-size: 16px">&rarr;</div>
+              <div class="flow-step" style="min-width: 90px; padding: 10px 12px">
+                <div class="flow-step__icon" style="font-size: 20px; margin-bottom: 4px">&#128279;</div>
+                <div class="flow-step__label" style="font-size: 11px">Share QR / Link</div>
+              </div>
+              <div class="flow-arrow" style="font-size: 16px">&rarr;</div>
+              <div class="flow-step" style="min-width: 90px; padding: 10px 12px">
+                <div class="flow-step__icon" style="font-size: 20px; margin-bottom: 4px">&#11088;</div>
+                <div class="flow-step__label" style="font-size: 11px">5-Star on Google</div>
+              </div>
+            </div>
+            <div class="chat-mock" style="margin-top: 18px; max-width: 100%">
+              <div class="chat-label" style="font-size: 10px">Customer review</div>
+              <div class="chat-bubble review" style="font-size: 12px; padding: 10px 14px">
+                "Great service, very professional!"
+              </div>
+              <div class="chat-label right" style="font-size: 10px">AI SEO Auto-reply</div>
+              <div class="chat-bubble reply" style="font-size: 12px; padding: 10px 14px">
+                Thank you so much! We truly appreciate your kind words about our [service keyword] in [city]. We look forward to serving you again!
+              </div>
+            </div>
+          </div>
+          <div class="consolidated-review__right">
+            <div class="result-img" style="box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.08)">
+              <img
+                src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/7125df2addbb42059ce54ca514996d04/original/Review-Filtering-1--8610-Patriot-Blvd-North-Charleston-SC-29420-1.png"
+                alt="Review Filtering QR Code"
+                style="max-height: 42vh; max-width: 100%; width: auto"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ━━━ SLIDE 5: 60-Day Guarantee ━━━ -->
+      <div class="slide theme-light-dots" data-theme="light">
+        <div style="font-size: 72px; margin-bottom: 20px">&#128737;&#65039;</div>
+        <h2 class="headline" style="font-size: clamp(26px, 5vw, 52px); max-width: 800px">
+          Within 60 days, we'll <strong>double your website conversion rate</strong> or we will refund you everything.
+        </h2>
+      </div>
+
+      <!-- ━━━ SLIDE 6: Questions + Onboarding ━━━ -->
+      <div class="slide theme-hero-blue" data-theme="dark">
+        <h2 class="headline" style="font-size: clamp(32px, 6vw, 64px); margin-bottom: 8px">
+          Any Questions?
+        </h2>
+        <p class="subtext" style="margin-bottom: 28px">
+          If you decide to move forward, onboarding is straightforward:
+        </p>
+        <div class="onboard-steps">
+          <div class="onboard-step">
+            <div class="onboard-step__num">1</div>
+            <div class="onboard-step__text">We scan your website</div>
+          </div>
+          <div class="onboard-step">
+            <div class="onboard-step__num">2</div>
+            <div class="onboard-step__text">If we need any additional information, we'll let you know</div>
+          </div>
+          <div class="onboard-step">
+            <div class="onboard-step__num">3</div>
+            <div class="onboard-step__text">Everything should be up within 14 business days</div>
+          </div>
+          <div class="onboard-step">
+            <div class="onboard-step__num">4</div>
+            <div class="onboard-step__text">We have an onboarding call to go over everything and make sure you like it</div>
+          </div>
+        </div>
+        <p class="subtext" style="margin-top: 24px; font-size: 16px; opacity: 0.5">We can go from there.</p>
+      </div>
+
+      <!-- ━━━ SLIDE 7: The Offer + Deliverables ━━━ -->
+      <div class="slide theme-light-dots" data-theme="light" style="padding: 48px 36px">
+        <div class="eyebrow">The Offer</div>
+        <h2 class="headline" style="font-size: clamp(22px, 3.5vw, 40px); max-width: 760px">
+          We'll double your website conversion rate, guaranteed, or we'll refund you.
+        </h2>
+        <p class="subtext" style="margin-top: 6px; margin-bottom: 20px; font-size: 15px; max-width: 600px">
+          Design, development, and conversion rate optimization for your website.
+        </p>
+        <div class="included-list">
+          <div class="included-row">
+            <div class="included-row__icon">&#9881;&#65039;</div>
+            <div><div class="included-row__title">Full system setup and management</div></div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">&#128222;</div>
+            <div><div class="included-row__title">24/7/365 support + access to the GoHighLevel platform</div></div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">&#9999;&#65039;</div>
+            <div><div class="included-row__title">Unlimited changes</div></div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">&#128737;&#65039;</div>
+            <div><div class="included-row__title">Money-back and satisfaction guarantees</div></div>
+          </div>
+          <div class="included-row">
+            <div class="included-row__icon">&#128421;&#65039;</div>
+            <div><div class="included-row__title">All system maintenance, hosting, and email support</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ━━━ SLIDE 8: Pricing + CTA ━━━ -->
+      <div class="slide theme-hero-blue" data-theme="dark">
+        <div class="eyebrow">Investment</div>
+        <div class="price-cards">
+          <div class="price-card">
+            <div class="price-card__amount">$650</div>
+            <div class="price-card__label">One-Time Setup</div>
+            <div class="price-card__monthly">$165 / month</div>
+            <div class="price-card__monthly-label">Ongoing</div>
+          </div>
+        </div>
+        <div class="guarantee">
+          <div class="guarantee__icon">&#128737;&#65039;</div>
+          <div>
+            <div class="guarantee__title">60-Day Guarantee</div>
+            <div class="guarantee__body">We'll double your conversion rate within 60 days, or you get a full refund. Zero risk.</div>
+          </div>
+        </div>
+        <a class="cta-btn" href="https://nilsdigital.com/client" target="_blank" onclick="event.stopPropagation()">
+          Get Started
+          <span class="cta-arrow">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+
+    </div><!-- /deck -->
+
+    <div class="nav-dots" id="navDots"></div>
+    <div class="click-hint" id="clickHint" style="color: rgba(255, 255, 255, 0.4)">Click anywhere to continue &rarr;</div>
+
+    <script>
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const total  = slides.length;
+      const dotsEl = document.getElementById('navDots');
+      const barEl  = document.getElementById('progressBar');
+      const counterEl = document.getElementById('counter');
+      const brandEl   = document.getElementById('brandMark');
+      const hintEl    = document.getElementById('clickHint');
+      const prevBtn   = document.getElementById('arrowPrev');
+      const nextBtn   = document.getElementById('arrowNext');
+      let cur = 0;
+
+      slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot';
+        d.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
+        dotsEl.appendChild(d);
+      });
+
+      function isLight(theme) { return theme === 'light'; }
+
+      function updateChrome() {
+        const theme = slides[cur].dataset.theme;
+        const light = isLight(theme);
+
+        barEl.style.width = ((cur + 1) / total) * 100 + '%';
+        barEl.style.background = light ? 'var(--blue)' : '#4fa3f7';
+
+        const textColor = light ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.35)';
+        counterEl.style.color = textColor;
+        counterEl.textContent  = (cur + 1) + ' / ' + total;
+        brandEl.style.color = textColor;
+
+        document.body.className = light ? 'light-chrome' : '';
+        prevBtn.classList.toggle('hidden', cur === 0);
+        nextBtn.classList.toggle('hidden', cur === total - 1);
+
+        hintEl.style.opacity = cur >= 3 ? '0' : '1';
+        hintEl.style.color = light ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.4)';
+
+        const dots = dotsEl.querySelectorAll('.dot');
+        dots.forEach((d, i) => {
+          const active = i === cur;
+          d.style.width = active ? '22px' : '6px';
+          d.style.background = light
+            ? (active ? 'var(--blue)' : 'rgba(0,0,0,0.18)')
+            : (active ? '#fff' : 'rgba(255,255,255,0.25)');
+        });
+      }
+
+      function goTo(index) {
+        if (index < 0 || index >= total || index === cur) return;
+        const leaving = cur;
+        slides[leaving].classList.remove('active');
+        slides[leaving].classList.add('leaving');
+        setTimeout(() => slides[leaving].classList.remove('leaving'), 320);
+        cur = index;
+        slides[cur].classList.add('active');
+        updateChrome();
+      }
+
+      function next() { goTo(cur + 1); }
+      function prev() { goTo(cur - 1); }
+
+      document.getElementById('deck').addEventListener('click', next);
+
+      document.addEventListener('keydown', e => {
+        if (['ArrowRight', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); next(); }
+        if (['ArrowLeft', 'Backspace'].includes(e.key))    { e.preventDefault(); prev(); }
+      });
+
+      let touchX = 0;
+      document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+      document.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+      });
+
+      updateChrome();
+    </script>
+  </body>
+</html>

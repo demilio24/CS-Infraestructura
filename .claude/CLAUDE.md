@@ -5,21 +5,20 @@
 ### GitHub Pages Links
 Whenever the user asks for a public link or GitHub Pages link, always return it wrapped in the GHL iframe embed code — never a bare URL. This is so it can be pasted directly into GoHighLevel custom code elements.
 
-Use this format:
+Use this format (with email passthrough so GHL contact data flows through):
 
 ```html
 <style>
-/* Override ALL GHL containers */
+html, body {
+    overflow: hidden !important;
+}
 body,
 .hl_page-preview--content,
 .hl_page-preview--content > div,
 .custom-code-element,
-section,
-.section,
-.row,
-.inner-row,
-.col,
-.inner-col,
+section, .section,
+.row, .inner-row,
+.col, .inner-col,
 .container,
 [class*="container"],
 [class*="wrapper"] {
@@ -28,26 +27,28 @@ section,
     padding: 0 !important;
     margin: 0 !important;
 }
-
-/* Full-width iframe - break out of container */
 iframe {
     width: 100vw !important;
-    min-height: 100vh !important;
+    height: 100vh !important;
     border: none !important;
     display: block !important;
     margin: 0 !important;
     padding: 0 !important;
-    position: relative !important;
-    left: 50% !important;
-    right: 50% !important;
-    margin-left: -50vw !important;
-    margin-right: -50vw !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
 }
 </style>
-<iframe
-    src="https://demilio24.github.io/Websites/PATH/TO/FILE.html"
-    frameborder="0"
-></iframe>
+
+<iframe id="uniqueFrameId" src="about:blank" frameborder="0"></iframe>
+
+<script>
+  var base  = 'https://demilio24.github.io/Websites/PATH/TO/FILE.html';
+  var email = new URLSearchParams(window.location.search).get('email');
+  document.getElementById('uniqueFrameId').src = email
+    ? base + '?email=' + encodeURIComponent(email)
+    : base;
+</script>
 ```
 
 ---
@@ -61,7 +62,7 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | `/build-funnel` | **Full pipeline** — project manager coordinates the entire team end-to-end automatically |
 | `/ghl-embed` | Wraps a GitHub Pages URL in the full GHL iframe embed code |
 | `/research-client` | Scrapes a client's website — returns structured context report for richer copy |
-| `/write-copy` | Writes copy in the exact voice + structure of our best funnels (Charles, Wendy, Becca, Ignacio, Kimberely) |
+| `/write-copy` | Writes copy in the exact voice + structure of our best funnels (Charles, Wendy, Becca, Ignacio, Kimberely, Nils) |
 | `/new-funnel` | Builds the full HTML funnel from copy + reference designs in `references/` |
 | `/svg-design` | Generates custom inline SVGs — icons, wave dividers, decorative elements, illustrations |
 | `/animate` | Adds the full animation layer — scroll triggers, counters, FAQ toggles, hover effects, form pulse |
@@ -74,6 +75,25 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | `/qa-master` | **Final check** — runs ALL 8 audit categories (copy, structure, visual, SVG, animations, SEO, code, mobile). Fixes everything. Returns "READY FOR CLIENT" report. |
 | `/live-test` | Simulates a real user on desktop + mobile — clicks, scrolls, screenshots every key state |
 | `/critique` | CRO + UX + copy review — scores the page, identifies missed opportunities, fixes priority issues |
+| `/audit` | **Functional bug hunt** — iframes, modals, iOS quirks, scroll overflow, checkout flows, tap targets. Catches bugs that visual QA misses. |
+
+## Page Types We Build
+
+Beyond VSL/sales funnels, we also build these standalone pages that match the client's funnel design system:
+
+| Page Type | Description | Reference |
+|---|---|---|
+| **Product sales page** | Long-form page selling a product/service (hero, problem, steps, proof, pricing, FAQ, CTA) | `Nils/funnel/review.html` |
+| **Onboarding / calendar page** | Post-purchase page with progress steps, strategy call framing, embedded GHL booking calendar (~70% width on desktop, full on mobile) | `Nils/funnel/review-onboarding-calendar.html` |
+| **VSL funnel** | Video-first sales page with custom HVP player, comparison table, credential pills, case studies | `Nils/funnel/vsl.html` |
+
+### Design patterns for new page types:
+- Match the client's existing token system (colors, fonts, gold/blue, border-radius, shadows)
+- Premium backgrounds: gold grid lines, dot overlays, radial glows, seamless section transitions
+- Progress steps pattern: done (green check) / active (gold, highlighted) / upcoming (muted)
+- Calendar embeds: 70% width card on desktop, full-width on mobile, gold top bar
+- Always mobile-responsive from the start
+- Scroll animations (`.anim` + IntersectionObserver)
 
 ## Recommended Funnel Workflow
 
@@ -105,3 +125,8 @@ Run `/build-funnel` — the project manager coordinates the entire team automati
 | `uploads/` | Drop images here before running `/upload-to-ghl` |
 | `.env` | API credentials — gitignored, never committed |
 | `.env.example` | Template showing which keys are needed |
+| `.claude/screenshots/` | All Puppeteer/QA screenshots go here — never in the project root |
+| `.claude/node_modules/` | Puppeteer and other dev dependencies — run `npm install` inside `.claude/` |
+| `.claude/package.json` | Node dependencies for tooling (Puppeteer, http-server) |
+
+> **Rule:** Any file Claude generates as a side-effect of testing (screenshots, audit outputs, temp scripts) goes inside `.claude/`. Never write these to the project root or client folders.
