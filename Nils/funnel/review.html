@@ -750,18 +750,29 @@
         }
         .checkout-modal {
           width: 100%;
-          max-height: 100%;
-          height: 100%;
+          max-height: 100dvh;
+          height: 100dvh;
           border-radius: 0;
           border: none;
         }
         .checkout-modal-bar {
           border-radius: 0;
         }
+        .checkout-modal-body {
+          position: relative; /* anchor for scroll proxy */
+        }
         .checkout-modal-body iframe {
           zoom: 1;
           width: 100%;
-          min-height: 100vh;
+          min-height: calc(100dvh - 64px);
+        }
+        /* Transparent div that sits over the iframe and relays scroll
+           gestures to the modal body (iframes swallow all touch events). */
+        #iframeScrollProxy {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          touch-action: none;
         }
       }
       .hero-form-section {
@@ -4926,6 +4937,8 @@
             data-form-id="UysljT6xMjajmWcidTbO"
             title="Review Filtering System — Order Form"
           ></iframe>
+          <!-- Scroll proxy: intercepts touch-scroll on the iframe on mobile -->
+          <div id="iframeScrollProxy"></div>
         </div>
       </div>
     </div>
@@ -5027,6 +5040,39 @@
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") closeCheckout();
       });
+    </script>
+    <script>
+      // Mobile scroll relay — iframes swallow all touch events so swiping
+      // on the checkout form never reaches the modal-body scroll container.
+      // A transparent proxy div sits over the iframe, intercepts touchmove
+      // and forwards it as scrollTop changes. On a tap (no movement) the
+      // proxy briefly disables itself so native clicks reach the iframe
+      // (form inputs, purchase button, etc. still work normally).
+      (function () {
+        if (window.innerWidth > 600) return;
+        var proxy = document.getElementById("iframeScrollProxy");
+        var body = document.querySelector(".checkout-modal-body");
+        if (!proxy || !body) return;
+        var startY = 0, startTop = 0, moved = false, TAP_THRESHOLD = 8;
+        proxy.addEventListener("touchstart", function (e) {
+          startY = e.touches[0].clientY;
+          startTop = body.scrollTop;
+          moved = false;
+        }, { passive: true });
+        proxy.addEventListener("touchmove", function (e) {
+          var dy = startY - e.touches[0].clientY;
+          if (!moved && Math.abs(dy) < TAP_THRESHOLD) return;
+          moved = true;
+          body.scrollTop = startTop + dy;
+        }, { passive: true });
+        proxy.addEventListener("touchend", function () {
+          if (!moved) {
+            // Tap — step aside so the click reaches the iframe
+            proxy.style.pointerEvents = "none";
+            setTimeout(function () { proxy.style.pointerEvents = ""; }, 500);
+          }
+        }, { passive: true });
+      })();
     </script>
   </body>
 </html>
