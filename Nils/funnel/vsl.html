@@ -3451,20 +3451,22 @@
         .modal-overlay.calendar-mode {
           padding: 0;
           align-items: flex-start;
+          overflow-y: scroll;
+          -webkit-overflow-scrolling: touch;
         }
         .modal-overlay.calendar-mode .modal-box {
           width: 100vw;
-          min-height: 100vh;
+          min-height: auto;
           height: auto;
           max-height: none;
           border-radius: 0;
           padding: 16px 16px 48px;
-          overflow-y: auto;
+          overflow: visible;
         }
         /* Hide "You qualify" copy on mobile — saves space for the calendar */
         #scalendar > div:first-child { display: none; }
         /* Iframe tall enough for GHL to fully render */
-        #scalendar iframe { min-height: 720px; }
+        #scalendar iframe { min-height: 820px; }
         .survey-row {
           grid-template-columns: 1fr;
         }
