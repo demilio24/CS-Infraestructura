@@ -3465,9 +3465,9 @@
         }
         /* Hide "You qualify" copy on mobile — saves space for the calendar */
         #scalendar > div:first-child { display: none; }
-        /* Iframe tall enough for GHL to fully render */
-        #scalendar iframe { min-height: 820px; }
-        #calendar-scroll-hint { display: block !important; }
+        /* Iframe tall enough for GHL to fully render without scrolling */
+        #scalendar iframe { min-height: 1050px; }
+        #calendar-scroll-hint { display: none !important; }
         .survey-row {
           grid-template-columns: 1fr;
         }
