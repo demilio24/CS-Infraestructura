@@ -6,11 +6,11 @@
   <title>NILS Digital — Results Carousel Variations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Instrument Sans', sans-serif;
+      font-family: 'Google Sans', sans-serif;
       background: #0e0e10;
       padding: 40px 20px;
     }
@@ -25,7 +25,7 @@
     /* ── Slide canvas ── */
     .slide {
       width: 1080px; height: 1350px;
-      position: relative; overflow: hidden; flex-shrink: 0; border-radius: 12px;
+      position: relative; overflow: hidden; flex-shrink: 0; border-radius: 0;
     }
 
     /* ── Variation label ── */
@@ -44,13 +44,22 @@
     .dots.dk .dt { background: rgba(13,71,194,0.12); }
     .dots.dk .dt.on { background: #0d47c2; }
 
-    /* ── Swipe ── */
+    /* ── Swipe arrow ── */
     .swp {
-      position: absolute; bottom: 78px; left: 50%; transform: translateX(-50%);
-      font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(255,255,255,0.3); display: flex; align-items: center; gap: 8px; z-index: 10;
+      position: absolute; bottom: 52px; right: 56px;
+      display: flex; align-items: center; gap: 9px; z-index: 10;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.14);
+      padding: 13px 20px 13px 18px; border-radius: 100px;
     }
-    .swp svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .swp.dk {
+      color: rgba(13,27,53,0.4);
+      background: rgba(13,71,194,0.06);
+      border-color: rgba(13,71,194,0.12);
+    }
+    .swp svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
     /* ── Logos ── */
     .logo-w { width: 170px; height: auto; }
@@ -124,49 +133,51 @@
        ══════════════════════════════════════════════════════════ */
 
     /* 1A: Solid blue bold */
-    .s1a { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 80px 110px; }
-    .s1a-ey { margin-top: 48px; font-size: 15px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
-    .s1a-h { margin-top: 28px; font-size: 140px; font-weight: 800; color: #fff; line-height: 0.92; letter-spacing: -0.04em; }
-    .s1a-stats { position: absolute; top: 340px; right: 72px; display: flex; flex-direction: column; gap: 16px; z-index: 5; }
-    .s1a-st { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 22px 32px; text-align: center; min-width: 195px; }
-    .s1a-st-n { font-size: 44px; font-weight: 800; color: #fff; line-height: 1; }
-    .s1a-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
-    .s1a-box { margin-top: auto; max-width: 540px; background: rgba(0,0,0,0.18); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.1); border-radius: 18px; padding: 28px 36px; }
-    .s1a-box p { font-size: 20px; font-weight: 600; color: #fff; line-height: 1.55; }
+    .s1a { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 64px 80px 80px; }
+    .s1a-ey { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .s1a-h { font-size: 152px; font-weight: 800; color: #fff; line-height: 0.9; letter-spacing: -0.04em; }
+    .s1a-stats { display: flex; gap: 16px; z-index: 5; }
+    .s1a-st { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 40px 20px; text-align: center; flex: 1; }
+    .s1a-st-n { font-size: 52px; font-weight: 800; color: #fff; line-height: 1; }
+    .s1a-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .s1a-box { width: 100%; }
+    .s1a-box p { font-size: 44px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.45; letter-spacing: -0.02em; }
     .s1a-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(60,140,255,0.25) 0%, transparent 70%); bottom: -100px; right: -100px; pointer-events: none; z-index: 1; }
 
-    /* 1B: White minimal */
-    .s1b { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 80px; }
-    .s1b-ey { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #0d47c2; margin-bottom: 48px; }
-    .s1b-h { font-size: 120px; font-weight: 800; color: #0d1b35; line-height: 0.92; letter-spacing: -0.04em; }
-    .s1b-h span { color: #0d47c2; }
-    .s1b-sub { margin-top: 32px; font-size: 20px; color: rgba(13,27,53,0.5); line-height: 1.6; max-width: 520px; }
-    .s1b-bar { margin-top: auto; display: flex; border-radius: 20px; overflow: hidden; border: 1px solid rgba(13,71,194,0.08); box-shadow: 0 4px 32px rgba(13,71,194,0.06); }
-    .s1b-st { flex: 1; padding: 32px; text-align: center; background: #fff; border-right: 1px solid rgba(13,71,194,0.06); }
-    .s1b-st:last-child { border-right: none; }
-    .s1b-st-n { font-size: 44px; font-weight: 800; color: #0d47c2; line-height: 1; }
-    .s1b-st-l { font-size: 12px; font-weight: 700; color: rgba(13,27,53,0.35); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    /* 1B: Two-column — headline left, stacked stats right */
+    .s1b { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 80px 80px; }
+    .s1b-top { display: flex; gap: 48px; flex: 1; margin-top: 40px; }
+    .s1b-left { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .s1b-right { flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; }
+    .s1b-ey { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .s1b-h { font-size: 112px; font-weight: 800; color: #fff; line-height: 0.9; letter-spacing: -0.04em; }
+    .s1b-desc { font-size: 24px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.65; }
+    .s1b-st { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 36px 32px; text-align: center; width: 230px; }
+    .s1b-st-n { font-size: 52px; font-weight: 800; color: #fff; line-height: 1; }
+    .s1b-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
 
-    /* 1C: Light blue gradient */
-    .s1c { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 72px 80px 110px; }
-    .s1c-ey { margin-top: 32px; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #0d47c2; }
-    .s1c-h { margin-top: 28px; font-size: 130px; font-weight: 800; color: #0d1b35; line-height: 0.92; letter-spacing: -0.04em; }
-    .s1c-sub { margin-top: 28px; font-size: 20px; color: rgba(13,27,53,0.55); line-height: 1.6; max-width: 500px; }
-    .s1c-stats { margin-top: auto; display: flex; gap: 16px; }
-    .s1c-st { flex: 1; background: #fff; border-radius: 18px; padding: 28px; text-align: center; box-shadow: 0 4px 24px rgba(13,71,194,0.08); border: 1px solid rgba(13,71,194,0.06); }
-    .s1c-st-n { font-size: 44px; font-weight: 800; color: #0d47c2; line-height: 1; }
-    .s1c-st-l { font-size: 12px; font-weight: 700; color: rgba(13,27,53,0.4); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    /* 1C: Hero stat — $2M+ featured large */
+    .s1c { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 64px 80px 80px; }
+    .s1c-ey { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .s1c-hero { font-size: 204px; font-weight: 800; color: #fff; line-height: 0.85; letter-spacing: -0.06em; }
+    .s1c-hero-label { font-size: 24px; font-weight: 500; color: rgba(255,255,255,0.45); }
+    .s1c-divider { height: 1px; background: rgba(255,255,255,0.1); }
+    .s1c-h { font-size: 68px; font-weight: 800; color: #fff; line-height: 1.0; letter-spacing: -0.03em; }
+    .s1c-stats { display: flex; gap: 16px; }
+    .s1c-st { flex: 1; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 36px 20px; text-align: center; }
+    .s1c-st-n { font-size: 52px; font-weight: 800; color: #fff; line-height: 1; }
+    .s1c-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .s1c-desc { font-size: 24px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.65; }
 
-    /* 1D: Split blue top / white bottom */
-    .s1d { position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding: 64px 80px 110px; }
-    .s1d-top { flex: 1; }
-    .s1d-ey { margin-top: 40px; font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
-    .s1d-h { margin-top: 24px; font-size: 130px; font-weight: 800; color: #fff; line-height: 0.92; letter-spacing: -0.04em; }
-    .s1d-sub { margin-top: 20px; font-size: 19px; color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 500px; }
-    .s1d-stats { display: flex; gap: 16px; margin-top: auto; }
-    .s1d-st { flex: 1; background: #fff; border-radius: 18px; padding: 32px; text-align: center; box-shadow: 0 12px 40px rgba(13,71,194,0.15); }
-    .s1d-st-n { font-size: 46px; font-weight: 800; color: #0d47c2; line-height: 1; }
-    .s1d-st-l { font-size: 12px; font-weight: 700; color: rgba(13,27,53,0.4); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    /* 1D: Centered editorial */
+    .s1d { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: space-between; height: 100%; padding: 64px 80px 80px; }
+    .s1d-ey { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .s1d-h { font-size: 148px; font-weight: 800; color: #fff; line-height: 0.9; letter-spacing: -0.04em; }
+    .s1d-stats { display: flex; gap: 16px; width: 100%; }
+    .s1d-st { flex: 1; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 40px 20px; text-align: center; }
+    .s1d-st-n { font-size: 52px; font-weight: 800; color: #fff; line-height: 1; }
+    .s1d-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .s1d-desc { font-size: 24px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.65; max-width: 800px; }
 
 
     /* ══════════════════════════════════════════════════════════
@@ -362,6 +373,38 @@
     .s4d-tag-h { font-size: 22px; font-weight: 700; color: #0d1b35; }
     .s4d-tag-sub { font-size: 14px; color: rgba(13,27,53,0.4); margin-top: 4px; }
 
+    /* ── Hide slide counter dots ── */
+    .dots { display: none !important; }
+
+    /* ── Slide wrapper (for export button) ── */
+    .slide-wrap { flex-shrink: 0; display: inline-flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .slide-wrap .slide { flex-shrink: 0; }
+
+    /* ── Export button ── */
+    .export-btn {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55); padding: 10px 22px; border-radius: 8px;
+      font-family: 'Google Sans', sans-serif; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: all 0.15s;
+    }
+    .export-btn:hover { background: rgba(255,255,255,0.11); color: rgba(255,255,255,0.9); }
+    .export-btn:disabled { opacity: 0.4; cursor: wait; }
+
+    /* 1E: Trustpilot rating focus */
+    .s1e { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 64px 80px 80px; }
+    .s1e-ey { font-size: 14px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .s1e-rating { font-size: 188px; font-weight: 800; color: #fff; line-height: 0.85; letter-spacing: -0.06em; }
+    .s1e-stars { display: flex; gap: 10px; }
+    .s1e-stars svg { width: 40px; height: 40px; fill: #f59e0b; }
+    .s1e-platform { font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 0.02em; }
+    .s1e-divider { height: 1px; background: rgba(255,255,255,0.1); }
+    .s1e-h { font-size: 60px; font-weight: 800; color: #fff; line-height: 1.05; letter-spacing: -0.03em; }
+    .s1e-stats { display: flex; gap: 16px; }
+    .s1e-st { flex: 1; background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; padding: 36px 20px; text-align: center; }
+    .s1e-st-n { font-size: 52px; font-weight: 800; color: #fff; line-height: 1; }
+    .s1e-st-l { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.55); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .s1e-desc { font-size: 24px; font-weight: 400; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
     @media print { body { background: #fff; gap: 0; padding: 0; } .slide { page-break-after: always; } }
   </style>
 </head>
@@ -391,54 +434,89 @@
       <div class="dots"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
     </div>
 
-    <!-- 1B: White Minimal -->
-    <div class="slide bg-b" id="s1b">
-      <div class="vl vl-d">Slide #1 &middot; Variation B</div>
+    <!-- 1B: Two-column -->
+    <div class="slide bg-a" id="s1b">
+      <div class="vl vl-w">Slide #1 &middot; Variation B</div>
+      <div class="s1a-glow"></div>
       <div class="s1b">
-        <div class="s1b-ey">Case Studies &amp; Proof</div>
-        <div class="s1b-h">OUR<br><span>RESULTS</span></div>
-        <div class="s1b-sub">Get familiar with who we are, what we do, and the results we deliver.</div>
-        <div class="s1b-bar">
-          <div class="s1b-st"><div class="s1b-st-n">100+</div><div class="s1b-st-l">Happy Clients</div></div>
-          <div class="s1b-st"><div class="s1b-st-n">5.0</div><div class="s1b-st-l">Trustpilot</div></div>
-          <div class="s1b-st"><div class="s1b-st-n">$2M+</div><div class="s1b-st-l">Ad Spend</div></div>
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s1b-top">
+          <div class="s1b-left">
+            <div class="s1b-ey">Case Studies &amp; Proof</div>
+            <div class="s1b-h">OUR<br>RESULTS</div>
+            <div class="s1b-desc">Get familiar with who we are, what we do, and the results we deliver.</div>
+          </div>
+          <div class="s1b-right">
+            <div class="s1b-st"><div class="s1b-st-n">100+</div><div class="s1b-st-l">Happy Clients</div></div>
+            <div class="s1b-st"><div class="s1b-st-n">5.0</div><div class="s1b-st-l">Trustpilot Rating</div></div>
+            <div class="s1b-st"><div class="s1b-st-n">$2M+</div><div class="s1b-st-l">Ad Spend Managed</div></div>
+          </div>
         </div>
       </div>
-      <div class="dots dk"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+      <div class="swp">Swipe <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="dots"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
     </div>
 
-    <!-- 1C: Light Blue Gradient -->
-    <div class="slide bg-c" id="s1c">
-      <div class="vl vl-d">Slide #1 &middot; Variation C</div>
+    <!-- 1C: Hero stat — $2M+ -->
+    <div class="slide bg-a" id="s1c">
+      <div class="vl vl-w">Slide #1 &middot; Variation C</div>
+      <div class="s1a-glow"></div>
       <div class="s1c">
-        <img class="logo-b" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="NILS Digital" />
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
         <div class="s1c-ey">Case Studies &amp; Proof</div>
-        <div class="s1c-h">OUR<br>RESULTS</div>
-        <div class="s1c-sub">Get familiar with who we are, what we do, and the results we deliver.</div>
+        <div class="s1c-hero">$2M+</div>
+        <div class="s1c-hero-label">in managed ad spend for clients</div>
+        <div class="s1c-divider"></div>
+        <div class="s1c-h">Our Results</div>
         <div class="s1c-stats">
           <div class="s1c-st"><div class="s1c-st-n">100+</div><div class="s1c-st-l">Happy Clients</div></div>
-          <div class="s1c-st"><div class="s1c-st-n">5.0</div><div class="s1c-st-l">Trustpilot</div></div>
-          <div class="s1c-st"><div class="s1c-st-n">$2M+</div><div class="s1c-st-l">Ad Spend</div></div>
+          <div class="s1c-st"><div class="s1c-st-n">5.0</div><div class="s1c-st-l">Trustpilot Rating</div></div>
         </div>
+        <div class="s1c-desc">Get familiar with who we are, what we do, and the results we deliver.</div>
       </div>
-      <div class="dots dk"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+      <div class="swp">Swipe <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="dots"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
     </div>
 
-    <!-- 1D: Split Blue/White -->
-    <div class="slide bg-d" id="s1d">
+    <!-- 1D: Centered -->
+    <div class="slide bg-a" id="s1d">
       <div class="vl vl-w">Slide #1 &middot; Variation D</div>
+      <div class="s1a-glow"></div>
       <div class="s1d">
         <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
         <div class="s1d-ey">Case Studies &amp; Proof</div>
         <div class="s1d-h">OUR<br>RESULTS</div>
-        <div class="s1d-sub">Get familiar with who we are, what we do, and the results we deliver.</div>
         <div class="s1d-stats">
           <div class="s1d-st"><div class="s1d-st-n">100+</div><div class="s1d-st-l">Happy Clients</div></div>
-          <div class="s1d-st"><div class="s1d-st-n">5.0</div><div class="s1d-st-l">Trustpilot</div></div>
-          <div class="s1d-st"><div class="s1d-st-n">$2M+</div><div class="s1d-st-l">Ad Spend</div></div>
+          <div class="s1d-st"><div class="s1d-st-n">5.0</div><div class="s1d-st-l">Trustpilot Rating</div></div>
+          <div class="s1d-st"><div class="s1d-st-n">$2M+</div><div class="s1d-st-l">Ad Spend Managed</div></div>
         </div>
+        <div class="s1d-desc">Get familiar with who we are, what we do, and the results we deliver.</div>
       </div>
-      <div class="dots dk"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+      <div class="swp">Swipe <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="dots"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
+    </div>
+
+    <!-- 1E: Trustpilot rating -->
+    <div class="slide bg-a" id="s1e">
+      <div class="vl vl-w">Slide #1 &middot; Variation E</div>
+      <div class="s1a-glow"></div>
+      <div class="s1e">
+        <img class="logo-w" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94e4a14a2603e.png" alt="NILS Digital" />
+        <div class="s1e-ey">Case Studies &amp; Proof</div>
+        <div class="s1e-rating">5.0</div>
+        <div class="s1e-stars"><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg></div>
+        <div class="s1e-platform">Verified on Trustpilot</div>
+        <div class="s1e-divider"></div>
+        <div class="s1e-h">Our Results Speak<br>for Themselves</div>
+        <div class="s1e-stats">
+          <div class="s1e-st"><div class="s1e-st-n">100+</div><div class="s1e-st-l">Happy Clients</div></div>
+          <div class="s1e-st"><div class="s1e-st-n">$2M+</div><div class="s1e-st-l">Ad Spend Managed</div></div>
+        </div>
+        <div class="s1e-desc">Get familiar with who we are, what we do, and the results we deliver.</div>
+      </div>
+      <div class="swp">Swipe <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      <div class="dots"><div class="dt on"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div><div class="dt"></div></div>
     </div>
 
   </div>
@@ -688,5 +766,42 @@
   </div>
 </div>
 
+
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.slide').forEach(function (slide) {
+      var wrap = document.createElement('div');
+      wrap.className = 'slide-wrap';
+      slide.parentNode.insertBefore(wrap, slide);
+      wrap.appendChild(slide);
+
+      var btn = document.createElement('button');
+      btn.className = 'export-btn';
+      btn.textContent = '⬇ Export PNG';
+      btn.addEventListener('click', function () {
+        btn.textContent = 'Exporting…';
+        btn.disabled = true;
+        html2canvas(slide, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: false,
+          logging: false
+        }).then(function (canvas) {
+          var a = document.createElement('a');
+          a.download = (slide.id || 'slide') + '.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+          btn.textContent = '⬇ Export PNG';
+          btn.disabled = false;
+        }).catch(function () {
+          btn.textContent = '⬇ Export PNG';
+          btn.disabled = false;
+        });
+      });
+      wrap.appendChild(btn);
+    });
+  });
+</script>
 </body>
 </html>
