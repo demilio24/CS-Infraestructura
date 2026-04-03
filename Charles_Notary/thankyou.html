@@ -1111,5 +1111,16 @@
       initNavbarScroll();
     });
   </script>
+
+  <!-- Fix tel: links inside GHL iframe -->
+  <script>
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href^="tel:"]');
+      if (link && window.top !== window.self) {
+        e.preventDefault();
+        window.top.location.href = link.href;
+      }
+    });
+  </script>
 </body>
 </html>
