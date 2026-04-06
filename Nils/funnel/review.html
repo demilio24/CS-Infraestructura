@@ -4974,6 +4974,10 @@
       }
 
       function openCheckout() {
+        if (window.innerWidth < 768) {
+          window.location.href = "https://link.nilsdigital.com/widget/form/UysljT6xMjajmWcidTbO";
+          return;
+        }
         var overlay = document.getElementById("checkoutOverlay");
         // Show overlay (display:flex) then trigger fade-in on next frame
         overlay.style.display = "flex";
