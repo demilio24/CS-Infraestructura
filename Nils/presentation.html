@@ -297,28 +297,92 @@
       .scroll-gallery {
         display: flex;
         gap: 14px;
-        width: 100%;
+        width: 100vw;
         overflow: hidden;
-        margin-top: 20px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 20px 0 24px;
         mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
         -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
       }
       .scroll-track {
         display: flex;
-        gap: 14px;
+        gap: 16px;
         animation: scrollGallery 60s linear infinite;
         will-change: transform;
       }
+      .scroll-track.paused {
+        animation-play-state: paused;
+      }
       .scroll-track img {
-        height: clamp(160px, 32vh, 320px);
+        height: clamp(200px, 40vh, 420px);
         width: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        box-shadow: 0 6px 28px rgba(0, 0, 0, 0.12);
         flex-shrink: 0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+      .scroll-track img:hover {
+        transform: scale(1.08);
+        box-shadow: 0 12px 48px rgba(4, 107, 210, 0.25);
+        z-index: 10;
+        position: relative;
       }
       @keyframes scrollGallery {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
+      }
+
+      /* LIGHTBOX */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+      }
+      .lightbox.open {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 16px;
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+      .lightbox.open img {
+        transform: scale(1);
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 28px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+      .lightbox-close:hover {
+        background: rgba(255, 255, 255, 0.3);
       }
 
       /* RESULTS */
@@ -848,51 +912,27 @@
   <body>
     <div class="progress-bar" id="progressBar"></div>
     <div class="brand-mark" id="brandMark">Nils Digital</div>
-    <div class="counter" id="counter">1 / 8</div>
+    <div class="counter" id="counter">1 / 6</div>
 
     <button class="arrow arrow-prev hidden" id="arrowPrev" onclick="event.stopPropagation(); prev();">&#8249;</button>
     <button class="arrow arrow-next" id="arrowNext" onclick="event.stopPropagation(); next();">&#8250;</button>
 
     <div class="deck" id="deck">
 
-      <!-- ━━━ SLIDE 1: Title ━━━ -->
-      <div class="slide theme-hero-blue active" data-theme="dark">
-        <div class="arc-ring"></div>
-        <div class="eyebrow">Nils Digital</div>
-        <h1 class="headline xl">We install custom systems that:</h1>
-        <div class="title-outcomes">
-          <div class="title-outcome">
-            <span class="title-outcome__num">1.</span> Generate more revenue
-          </div>
-          <div class="title-divider">and</div>
-          <div class="title-outcome">
-            <span class="title-outcome__num">2.</span> Save you time in the process
-          </div>
-        </div>
-      </div>
-
-      <!-- ━━━ SLIDE 2: The Foundation ━━━ -->
-      <div class="slide theme-light-dots" data-theme="light">
-        <div class="badge">Step #1 of the System</div>
-        <div class="eyebrow" style="margin-bottom: 8px; font-size: 13px; letter-spacing: 0.12em">The Foundation</div>
+      <!-- ━━━ SLIDE 1: Step #1 ━━━ -->
+      <div class="slide theme-light-dots active" data-theme="light" style="justify-content: flex-start; padding-top: 80px">
+        <div class="badge">Step #1</div>
         <h2 class="headline" style="font-size: clamp(26px, 5vw, 54px)">
-          We will make your website get you <span class="accent">2x more clients</span>, or you don't pay.
+          Super-Optimized Website
         </h2>
-        <p class="subtext">Our irresistible offer to you.</p>
-      </div>
-
-      <!-- ━━━ SLIDE 3: Super-Optimized Website ━━━ -->
-      <div class="slide theme-light-dots results-slide" data-theme="light">
-        <div class="eyebrow">Step #1: We Build You a Super-Optimized Website</div>
-        <h3 class="headline" style="font-size: clamp(20px, 3vw, 30px)">
-          The average website converts at 2-3%. <span class="accent">Ours convert at 10-20%.</span>
-        </h3>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin-top: 16px; margin-bottom: 4px">
+        <p class="subtext" style="max-width: 620px">
+          The average website converts at 2-3%. Ours convert at 10-20%.
+        </p>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin-top: 16px">
           <div class="result-item">
             <div class="result-img">
-              <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png" alt="20% Conversion Rate" style="max-height: 20vh" />
+              <img src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/54fc41112ed94ae38855fe7e1386d086/original/image.png" alt="20% Conversion Rate" style="max-height: 16vh" />
             </div>
-            <div class="result-label">Our Conversion Rate</div>
           </div>
         </div>
         <div class="scroll-gallery">
@@ -915,7 +955,6 @@
             <img src="https://demilio24.github.io/Websites/references/16.png" alt="Funnel 16" />
             <img src="https://demilio24.github.io/Websites/references/17.png" alt="Funnel 17" />
             <img src="https://demilio24.github.io/Websites/references/18.png" alt="Funnel 18" />
-            <!-- duplicate for seamless loop -->
             <img src="https://demilio24.github.io/Websites/references/1.png" alt="Funnel 1" />
             <img src="https://demilio24.github.io/Websites/references/2.png" alt="Funnel 2" />
             <img src="https://demilio24.github.io/Websites/references/3.png" alt="Funnel 3" />
@@ -938,142 +977,128 @@
         </div>
       </div>
 
-      <!-- ━━━ SLIDE 4: Review Automation ━━━ -->
-      <div class="slide theme-hero-blue" data-theme="dark" style="padding: 48px 36px">
-        <div class="badge" style="background: #4fa3f7; box-shadow: 0 4px 16px rgba(79, 163, 247, 0.4)">Step #2 of the System</div>
-        <h2 class="headline" style="font-size: clamp(24px, 4vw, 44px); margin-bottom: 8px">
-          Review Automation System
+      <!-- ━━━ SLIDE 2: Step #2 — Google Ads ━━━ -->
+      <div class="slide theme-light-dots" data-theme="light">
+        <div class="badge" style="background: #10b981; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4)">Step #2</div>
+        <h2 class="headline" style="font-size: clamp(24px, 4.5vw, 48px); max-width: 860px">
+          Send you <span style="color: #10b981">high-intent traffic</span>
         </h2>
-        <p class="subtext" style="margin-top: 0; max-width: 620px; margin-bottom: 4px">
-          Collect only five-star reviews, and we auto-reply with AI SEO to every review to push you to the top.
+        <p class="subtext" style="max-width: 640px; margin-top: 12px">
+          Precision Google Ads targeting people already searching for what you offer. When they see you're clearly the best option &mdash; they're not going to your competitor.
         </p>
-        <div class="consolidated-review">
-          <div class="consolidated-review__left">
-            <div class="review-flow" style="margin-top: 0; gap: 6px; justify-content: flex-start">
-              <div class="flow-step" style="min-width: 90px; padding: 10px 12px">
-                <div class="flow-step__icon" style="font-size: 20px; margin-bottom: 4px">&#9989;</div>
-                <div class="flow-step__label" style="font-size: 11px">Job Complete</div>
-              </div>
-              <div class="flow-arrow" style="font-size: 16px">&rarr;</div>
-              <div class="flow-step" style="min-width: 90px; padding: 10px 12px">
-                <div class="flow-step__icon" style="font-size: 20px; margin-bottom: 4px">&#128279;</div>
-                <div class="flow-step__label" style="font-size: 11px">Share QR / Link</div>
-              </div>
-              <div class="flow-arrow" style="font-size: 16px">&rarr;</div>
-              <div class="flow-step" style="min-width: 90px; padding: 10px 12px">
-                <div class="flow-step__icon" style="font-size: 20px; margin-bottom: 4px">&#11088;</div>
-                <div class="flow-step__label" style="font-size: 11px">5-Star on Google</div>
-              </div>
-            </div>
-            <div class="chat-mock" style="margin-top: 18px; max-width: 100%">
-              <div class="chat-label" style="font-size: 10px">Customer review</div>
-              <div class="chat-bubble review" style="font-size: 12px; padding: 10px 14px">
-                "Great service, very professional!"
-              </div>
-              <div class="chat-label right" style="font-size: 10px">AI SEO Auto-reply</div>
-              <div class="chat-bubble reply" style="font-size: 12px; padding: 10px 14px">
-                Thank you so much! We truly appreciate your kind words about our [service keyword] in [city]. We look forward to serving you again!
-              </div>
-            </div>
+        <div class="review-flow" style="margin-top: 28px">
+          <div class="flow-step" style="background: #fff; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1)">
+            <div class="flow-step__icon">&#128270;</div>
+            <div class="flow-step__label" style="color: var(--text)">They Search</div>
           </div>
-          <div class="consolidated-review__right">
-            <div class="result-img" style="box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.08)">
-              <img
-                src="https://imgproxy.gamma.app/resize/quality:80/resizing_type:fit/width:500/https://cdn.gamma.app/53q4o972mi6mu4k/7125df2addbb42059ce54ca514996d04/original/Review-Filtering-1--8610-Patriot-Blvd-North-Charleston-SC-29420-1.png"
-                alt="Review Filtering QR Code"
-                style="max-height: 42vh; max-width: 100%; width: auto"
-              />
-            </div>
+          <div class="flow-arrow" style="color: #10b981">&rarr;</div>
+          <div class="flow-step" style="background: #fff; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1)">
+            <div class="flow-step__icon">&#128204;</div>
+            <div class="flow-step__label" style="color: var(--text)">Your Ad Shows</div>
+          </div>
+          <div class="flow-arrow" style="color: #10b981">&rarr;</div>
+          <div class="flow-step" style="background: #fff; border: 1px solid rgba(16, 185, 129, 0.2); box-shadow: 0 4px 16px rgba(16, 185, 129, 0.1)">
+            <div class="flow-step__icon">&#127919;</div>
+            <div class="flow-step__label" style="color: var(--text)">Land on Your Site</div>
+          </div>
+          <div class="flow-arrow" style="color: #10b981">&rarr;</div>
+          <div class="flow-step" style="background: linear-gradient(135deg, #10b981, #059669); border: none; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35)">
+            <div class="flow-step__icon">&#128222;</div>
+            <div class="flow-step__label" style="color: #fff">They Call You</div>
+          </div>
+        </div>
+        <div style="margin-top: 28px">
+          <div class="result-img lightbox-trigger" style="border-color: rgba(16, 185, 129, 0.2); box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseenter="this.style.transform='scale(1.03)'; this.style.boxShadow='0 16px 48px rgba(16,185,129,0.25)'" onmouseleave="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 32px rgba(16,185,129,0.12)'">
+            <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg" alt="$2M+ in managed ad spend" style="max-height: 50vh; max-width: min(720px, 85vw); width: auto" />
           </div>
         </div>
       </div>
 
-      <!-- ━━━ SLIDE 5: 60-Day Guarantee ━━━ -->
+      <!-- ━━━ SLIDE 3: The Science ━━━ -->
       <div class="slide theme-light-dots" data-theme="light">
-        <div style="font-size: 72px; margin-bottom: 20px">&#128737;&#65039;</div>
-        <h2 class="headline" style="font-size: clamp(26px, 5vw, 52px); max-width: 800px">
-          Within 60 days, we'll <strong>double your website conversion rate</strong> or we will refund you everything.
+        <div class="bg-icon" style="opacity: 0.04; color: var(--blue)">&#128202;</div>
+        <div class="eyebrow">The Result</div>
+        <h2 class="headline" style="font-size: clamp(24px, 4.5vw, 48px); max-width: 860px">
+          Put <span class="accent">$X</span> in, get <span class="accent">$Y</span> out.
         </h2>
+        <p class="subtext" style="max-width: 640px">
+          We know exactly how much a click costs, how many clicks become leads, and how many leads become clients. It's a science &mdash; not a guess.
+        </p>
+        <div class="review-flow" style="margin-top: 32px">
+          <div class="flow-step" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.15); box-shadow: 0 4px 16px rgba(4, 107, 210, 0.08)">
+            <div class="flow-step__icon">&#128184;</div>
+            <div class="flow-step__label" style="color: var(--text)">Ad Spend</div>
+          </div>
+          <div class="flow-arrow" style="color: var(--blue)">&rarr;</div>
+          <div class="flow-step" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.15); box-shadow: 0 4px 16px rgba(4, 107, 210, 0.08)">
+            <div class="flow-step__icon">&#128065;</div>
+            <div class="flow-step__label" style="color: var(--text)">Clicks</div>
+          </div>
+          <div class="flow-arrow" style="color: var(--blue)">&rarr;</div>
+          <div class="flow-step" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.15); box-shadow: 0 4px 16px rgba(4, 107, 210, 0.08)">
+            <div class="flow-step__icon">&#128100;</div>
+            <div class="flow-step__label" style="color: var(--text)">Leads</div>
+          </div>
+          <div class="flow-arrow" style="color: var(--blue)">&rarr;</div>
+          <div class="flow-step" style="background: linear-gradient(135deg, var(--blue), var(--blue-dark)); border: none; box-shadow: 0 4px 16px rgba(var(--blue-rgb), 0.35)">
+            <div class="flow-step__icon">&#129309;</div>
+            <div class="flow-step__label" style="color: #fff">Clients</div>
+          </div>
+        </div>
+        <p class="subtext" style="margin-top: 28px; font-size: 15px; max-width: 580px">
+          Every week we test and optimize &mdash; ads, landing page, and Google profile. The longer you're with us, the better your results get.
+        </p>
       </div>
 
-      <!-- ━━━ SLIDE 6: Questions + Onboarding ━━━ -->
-      <div class="slide theme-hero-blue" data-theme="dark">
-        <h2 class="headline" style="font-size: clamp(32px, 6vw, 64px); margin-bottom: 8px">
+      <!-- ━━━ SLIDE 4: Onboarding ━━━ -->
+      <div class="slide theme-light-dots" data-theme="light">
+        <div class="eyebrow">Getting Started</div>
+        <h2 class="headline" style="font-size: clamp(28px, 5vw, 52px); margin-bottom: 8px">
+          Onboarding is simple.
+        </h2>
+        <div class="onboard-steps">
+          <div class="onboard-step" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.12); box-shadow: 0 2px 12px rgba(4, 107, 210, 0.06)">
+            <div class="onboard-step__num">1</div>
+            <div class="onboard-step__text" style="color: var(--text)">Fill out a form with your business info</div>
+          </div>
+          <div class="onboard-step" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.12); box-shadow: 0 2px 12px rgba(4, 107, 210, 0.06)">
+            <div class="onboard-step__num">2</div>
+            <div class="onboard-step__text" style="color: var(--text)">One call to connect &amp; activate everything</div>
+          </div>
+          <div class="onboard-step" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.12); box-shadow: 0 2px 12px rgba(4, 107, 210, 0.06)">
+            <div class="onboard-step__num">3</div>
+            <div class="onboard-step__text" style="color: var(--text)">Biweekly reports + 24/7 support</div>
+          </div>
+        </div>
+        <p class="subtext" style="margin-top: 28px; max-width: 520px">
+          You're not building anything or dealing with the tech &mdash; we handle all of that. You just give us the details and show up to the call.
+        </p>
+      </div>
+
+      <!-- ━━━ SLIDE 5: Questions ━━━ -->
+      <div class="slide" data-theme="light" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%); color: var(--text);">
+        <div style="font-size: 72px; margin-bottom: 20px">&#x1F64B;</div>
+        <h2 class="headline" style="font-size: clamp(32px, 6vw, 64px); color: #065f46">
           Any Questions?
         </h2>
-        <p class="subtext" style="margin-bottom: 28px">
-          If you decide to move forward, onboarding is straightforward:
-        </p>
-        <div class="onboard-steps">
-          <div class="onboard-step">
-            <div class="onboard-step__num">1</div>
-            <div class="onboard-step__text">We scan your website</div>
-          </div>
-          <div class="onboard-step">
-            <div class="onboard-step__num">2</div>
-            <div class="onboard-step__text">If we need any additional information, we'll let you know</div>
-          </div>
-          <div class="onboard-step">
-            <div class="onboard-step__num">3</div>
-            <div class="onboard-step__text">Everything should be up within 14 business days</div>
-          </div>
-          <div class="onboard-step">
-            <div class="onboard-step__num">4</div>
-            <div class="onboard-step__text">We have an onboarding call to go over everything and make sure you like it</div>
-          </div>
-        </div>
-        <p class="subtext" style="margin-top: 24px; font-size: 16px; opacity: 0.5">We can go from there.</p>
       </div>
 
-      <!-- ━━━ SLIDE 7: The Offer + Deliverables ━━━ -->
-      <div class="slide theme-light-dots" data-theme="light" style="padding: 48px 36px">
-        <div class="eyebrow">The Offer</div>
-        <h2 class="headline" style="font-size: clamp(22px, 3.5vw, 40px); max-width: 760px">
-          We'll double your website conversion rate, guaranteed, or we'll refund you.
-        </h2>
-        <p class="subtext" style="margin-top: 6px; margin-bottom: 20px; font-size: 15px; max-width: 600px">
-          Design, development, and conversion rate optimization for your website.
-        </p>
-        <div class="included-list">
-          <div class="included-row">
-            <div class="included-row__icon">&#9881;&#65039;</div>
-            <div><div class="included-row__title">Full system setup and management</div></div>
-          </div>
-          <div class="included-row">
-            <div class="included-row__icon">&#128222;</div>
-            <div><div class="included-row__title">24/7/365 support + access to the GoHighLevel platform</div></div>
-          </div>
-          <div class="included-row">
-            <div class="included-row__icon">&#9999;&#65039;</div>
-            <div><div class="included-row__title">Unlimited changes</div></div>
-          </div>
-          <div class="included-row">
-            <div class="included-row__icon">&#128737;&#65039;</div>
-            <div><div class="included-row__title">Money-back and satisfaction guarantees</div></div>
-          </div>
-          <div class="included-row">
-            <div class="included-row__icon">&#128421;&#65039;</div>
-            <div><div class="included-row__title">All system maintenance, hosting, and email support</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ━━━ SLIDE 8: Pricing + CTA ━━━ -->
-      <div class="slide theme-hero-blue" data-theme="dark">
+      <!-- ━━━ SLIDE 6: Pricing + CTA ━━━ -->
+      <div class="slide theme-light-dots" data-theme="light">
         <div class="eyebrow">Investment</div>
         <div class="price-cards">
-          <div class="price-card">
-            <div class="price-card__amount">$650</div>
-            <div class="price-card__label">One-Time Setup</div>
-            <div class="price-card__monthly">$165 / month</div>
-            <div class="price-card__monthly-label">Ongoing</div>
+          <div class="price-card" style="background: #fff; border: 1px solid rgba(4, 107, 210, 0.12); box-shadow: 0 12px 48px rgba(4, 107, 210, 0.1)">
+            <div class="price-card__amount" style="color: var(--blue)">$650</div>
+            <div class="price-card__label" style="color: var(--muted)">One-Time Setup</div>
+            <div class="price-card__monthly" style="color: var(--text); border-top-color: rgba(4, 107, 210, 0.12)">$165 / month</div>
+            <div class="price-card__monthly-label" style="color: var(--muted)">Ongoing</div>
           </div>
         </div>
-        <div class="guarantee">
+        <div class="guarantee" style="background: rgba(4, 107, 210, 0.06); border-color: rgba(4, 107, 210, 0.12); backdrop-filter: none">
           <div class="guarantee__icon">&#128737;&#65039;</div>
           <div>
-            <div class="guarantee__title">60-Day Guarantee</div>
-            <div class="guarantee__body">We'll double your conversion rate within 60 days, or you get a full refund. Zero risk.</div>
+            <div class="guarantee__title" style="color: var(--text)">60-Day Guarantee</div>
+            <div class="guarantee__body" style="color: var(--muted)">We'll double your conversion rate within 60 days, or you get a full refund. Zero risk.</div>
           </div>
         </div>
         <a class="cta-btn" href="https://nilsdigital.com/client" target="_blank" onclick="event.stopPropagation()">
@@ -1088,6 +1113,11 @@
 
     <div class="nav-dots" id="navDots"></div>
     <div class="click-hint" id="clickHint" style="color: rgba(255, 255, 255, 0.4)">Click anywhere to continue &rarr;</div>
+
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <img id="lightboxImg" src="" alt="Preview" />
+    </div>
 
     <script>
       const slides = Array.from(document.querySelectorAll('.slide'));
@@ -1168,6 +1198,50 @@
       });
 
       updateChrome();
+
+      // Pause gallery scroll on hover + lightbox on click
+      const lightboxEl = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+
+      document.querySelectorAll('.scroll-gallery').forEach(gallery => {
+        const track = gallery.querySelector('.scroll-track');
+        gallery.addEventListener('mouseenter', () => track.classList.add('paused'));
+        gallery.addEventListener('mouseleave', () => track.classList.remove('paused'));
+      });
+
+      document.querySelectorAll('.scroll-track img').forEach(img => {
+        img.addEventListener('click', e => {
+          e.stopPropagation();
+          lightboxImg.src = img.src;
+          lightboxEl.classList.add('open');
+        });
+      });
+
+      function closeLightbox() {
+        lightboxEl.classList.remove('open');
+      }
+
+      document.querySelectorAll('.lightbox-trigger').forEach(el => {
+        el.addEventListener('click', e => {
+          e.stopPropagation();
+          const img = el.querySelector('img');
+          if (img) {
+            lightboxImg.src = img.src;
+            lightboxEl.classList.add('open');
+          }
+        });
+      });
+
+      lightboxEl.addEventListener('click', e => {
+        if (e.target !== lightboxImg) closeLightbox();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && lightboxEl.classList.contains('open')) {
+          e.stopPropagation();
+          closeLightbox();
+        }
+      });
     </script>
   </body>
 </html>
