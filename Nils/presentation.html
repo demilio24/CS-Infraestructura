@@ -2387,7 +2387,9 @@
       const nextBtn = document.getElementById("arrowNext");
       let cur = 0;
 
+      const visibleTotal = total - 2; // hide downsell + call-only offer
       slides.forEach((_, i) => {
+        if (i >= visibleTotal) return; // no dots for hidden slides
         const d = document.createElement("div");
         d.className = "dot";
         d.addEventListener("click", (e) => {
@@ -2405,23 +2407,25 @@
         const theme = slides[cur].dataset.theme;
         const light = isLight(theme);
 
-        barEl.style.width = ((cur + 1) / total) * 100 + "%";
+        const isHidden = cur >= visibleTotal;
+        barEl.style.width = (isHidden ? 100 : ((cur + 1) / visibleTotal) * 100) + "%";
         barEl.style.background = light ? "var(--blue)" : "#4fa3f7";
 
         const textColor = light ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.35)";
         counterEl.style.color = textColor;
-        counterEl.textContent = cur + 1 + " / " + total;
+        counterEl.textContent = isHidden ? "" : (cur + 1 + " / " + visibleTotal);
         brandEl.style.color = textColor;
 
         document.body.className = light ? "light-chrome" : "";
         prevBtn.classList.toggle("hidden", cur === 0);
         nextBtn.classList.toggle("hidden", cur === total - 1);
 
-        hintEl.style.opacity = cur >= 3 ? "0" : "1";
+        hintEl.style.opacity = cur >= 3 || isHidden ? "0" : "1";
         hintEl.style.color = light
           ? "rgba(0,0,0,0.3)"
           : "rgba(255,255,255,0.4)";
 
+        dotsEl.style.opacity = isHidden ? "0" : "1";
         const dots = dotsEl.querySelectorAll(".dot");
         dots.forEach((d, i) => {
           const active = i === cur;
@@ -2456,7 +2460,34 @@
 
       document.getElementById("deck").addEventListener("click", next);
 
+      // ArrowDown to jump to call-only offer slide
+      let savedSlide = null;
+      const bonusSlide = total - 1; // last slide
+      const downsellSlide = total - 2;
+
       document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (cur !== bonusSlide) {
+            savedSlide = cur;
+            goTo(bonusSlide);
+          }
+          return;
+        }
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (cur === bonusSlide && savedSlide !== null) {
+            goTo(savedSlide);
+            savedSlide = null;
+          }
+          return;
+        }
+        if (e.key === "Escape" && cur === bonusSlide && savedSlide !== null) {
+          e.preventDefault();
+          goTo(savedSlide);
+          savedSlide = null;
+          return;
+        }
         if (["ArrowRight", " ", "Enter"].includes(e.key)) {
           e.preventDefault();
           next();
