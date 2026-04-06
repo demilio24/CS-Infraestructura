@@ -5881,11 +5881,28 @@
         document.getElementById("apply-modal").classList.add("open");
         document.body.style.overflow = "hidden";
         resetSurvey();
+        // Preload calendar while user fills the form
+        const calIframe = document.querySelector("#scalendar iframe");
+        if (!calIframe.src || calIframe.src === window.location.href) {
+          calIframe.src = "https://link.nilsdigital.com/widget/booking/wFhAJTJLU3Urtmxztnb5";
+        }
       }
       function closeModal() {
         document.getElementById("apply-modal").classList.remove("open");
         document.body.style.overflow = "";
       }
+
+      // Prevent iOS auto-zoom when typing inside the calendar iframe
+      (function () {
+        let snapTimer;
+        window.addEventListener("resize", function () {
+          clearTimeout(snapTimer);
+          snapTimer = setTimeout(function () {
+            const vp = document.querySelector("meta[name=viewport]");
+            if (vp) vp.content = "width=device-width, initial-scale=1, maximum-scale=1";
+          }, 80);
+        });
+      })();
       function handleOverlayClick(e) {
         if (e.target === document.getElementById("apply-modal")) closeModal();
       }
