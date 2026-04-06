@@ -3026,6 +3026,18 @@
         flex-direction: column;
         flex: 1;
         min-height: 0;
+        position: relative;
+      }
+      #cal-scroll-proxy {
+        display: none;
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        background: transparent;
+        touch-action: pan-y;
+      }
+      @media (max-width: 767px) {
+        #cal-scroll-proxy { display: block; }
       }
       #scalendar iframe {
         width: 100%;
@@ -5545,6 +5557,7 @@
             scrolling="yes"
             id="5ZY5mQXXFUQ1bXxwyAuq_1774303721367"
           ></iframe>
+          <div id="cal-scroll-proxy"></div>
           <p id="calendar-scroll-hint" style="display:none;text-align:center;font-size:14px;color:#666;padding:16px 8px 8px;line-height:1.5;">
             👇 Make sure you scroll down and press <strong style="color:#111;">Schedule Meeting</strong>
           </p>
@@ -6020,6 +6033,36 @@
         sessionStorage.setItem("cs_ltv", "$" + val);
         goStep(4);
       }
+
+      // Calendar iframe scroll proxy — lets users drag-to-scroll the modal
+      // even when their finger is over the iframe, while still letting taps
+      // fall through to the calendar for date/input interaction.
+      (function () {
+        var proxy = document.getElementById("cal-scroll-proxy");
+        if (!proxy) return;
+        var scrollEl = document.getElementById("apply-modal");
+        var startY = 0, startTop = 0, didScroll = false;
+
+        proxy.addEventListener("touchstart", function (e) {
+          startY = e.touches[0].clientY;
+          startTop = scrollEl.scrollTop;
+          didScroll = false;
+        }, { passive: true });
+
+        proxy.addEventListener("touchmove", function (e) {
+          var dy = startY - e.touches[0].clientY;
+          if (Math.abs(dy) > 5) didScroll = true;
+          scrollEl.scrollTop = startTop + dy;
+        }, { passive: true });
+
+        proxy.addEventListener("touchend", function () {
+          if (!didScroll) {
+            // Tap — hide proxy briefly so the click reaches the iframe
+            proxy.style.pointerEvents = "none";
+            setTimeout(function () { proxy.style.pointerEvents = ""; }, 350);
+          }
+        });
+      })();
     </script>
 
     <script>
