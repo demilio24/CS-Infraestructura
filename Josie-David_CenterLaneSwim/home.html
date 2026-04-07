@@ -1,0 +1,1595 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Center Lane Swim School | Swim Lessons for Kids | Edgewater & Calvert, MD</title>
+  <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes, swim currents, and certified instructors in Edgewater, Calvert, and St. Mary's MD." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; padding: 0; font-family: 'DM Sans', sans-serif; background: #ffffff; color: #0f3635; overflow-x: hidden; line-height: 1.6; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; margin: 0; line-height: 1.2; }
+p { margin: 0 0 1em; }
+
+/* ═══════════════════════════════════════════════════════
+   CSS VARIABLES
+═══════════════════════════════════════════════════════ */
+:root {
+  --coral: #fea46c;
+  --teal: #1a8f8a;
+  --teal-light: #3ad8d4;
+  --lime: #c8f116;
+  --dark: #0f3635;
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════════ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.badge { display: inline-block; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: rgba(26,143,138,0.12); color: #1a8f8a; margin-bottom: 12px; }
+.section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #0f3635; margin-bottom: 16px; }
+.section-sub { font-size: 1.1rem; color: #3a6665; max-width: 600px; margin-bottom: 32px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 50px; padding: 14px 32px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+.btn-lime { background: #c8f116; color: #0f3635; box-shadow: 0 4px 16px rgba(200,241,22,0.35); }
+.btn-lime:hover { background: #b5d914; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(200,241,22,0.45); }
+.btn-coral { background: #fea46c; color: #fff; box-shadow: 0 4px 16px rgba(254,164,108,0.35); }
+.btn-coral:hover { background: #fd924f; transform: translateY(-2px); }
+.btn-outline { background: transparent; border: 2px solid #1a8f8a; color: #1a8f8a; }
+.btn-outline:hover { background: #1a8f8a; color: #fff; }
+.btn-white { background: #fff; color: #0f3635; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+
+/* ── Animations ── */
+.anim { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.anim.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════════
+   GOGGLES SVG (reusable decoration)
+═══════════════════════════════════════════════════════ */
+.goggles-deco { display: flex; justify-content: center; padding: 20px 0; background: transparent; }
+.goggles-deco svg { width: 80px; height: auto; opacity: 0.6; }
+
+/* ═══════════════════════════════════════════════════════
+   WAVY DIVIDERS
+═══════════════════════════════════════════════════════ */
+.wave-divider { width: 100%; line-height: 0; overflow: hidden; margin-top: -1px; margin-bottom: -1px; position: relative; z-index: 2; }
+.wave-divider svg { display: block; width: 100%; height: auto; }
+
+/* ═══════════════════════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+  background: #fff; border-bottom: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: 0 3px 16px rgba(0,0,0,0.1); }
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 32px;
+}
+.nav-logo img { height: 48px; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { font-weight: 600; font-size: 0.9rem; color: #0f3635; transition: color 0.2s; }
+.nav-links a:hover { color: #1a8f8a; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+/* Portal dropdown */
+.portal-dropdown { position: relative; }
+.portal-dropdown-btn {
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem;
+  padding: 10px 20px; border-radius: 50px; border: 2px solid #1a8f8a;
+  color: #1a8f8a; background: transparent; cursor: pointer; transition: all 0.2s;
+}
+.portal-dropdown-btn:hover { background: #1a8f8a; color: #fff; }
+.portal-dropdown-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px;
+  background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 12px; opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: all 0.25s ease; z-index: 100;
+}
+.portal-dropdown:hover .portal-dropdown-menu {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
+.portal-dropdown-menu a {
+  display: block; padding: 12px 16px; border-radius: 10px; font-weight: 600;
+  font-size: 0.9rem; color: #0f3635; transition: background 0.2s;
+}
+.portal-dropdown-menu a:hover { background: #f0faf9; color: #1a8f8a; }
+.portal-dropdown-menu a span { display: block; font-size: 0.78rem; font-weight: 400; color: #5a8a89; margin-top: 2px; }
+
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 3px; background: #0f3635; border-radius: 2px; margin: 5px 0; transition: all 0.3s; }
+.mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #fff; z-index: 998; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { font-family: 'Baloo 2', cursive; font-size: 1.5rem; font-weight: 700; color: #0f3635; }
+.mobile-menu .btn { font-size: 1rem; }
+.mobile-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #0f3635; }
+
+@media (max-width: 900px) {
+  .nav-links, .nav-right { display: none; }
+  .hamburger { display: block; }
+  .nav-logo img { height: 36px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero {
+  padding: 120px 0 0;
+  background: linear-gradient(180deg, #f0faf9 0%, #edf9f8 50%, #ffffff 100%);
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(58,216,212,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.85rem; font-weight: 600; color: #1a8f8a;
+  background: rgba(26,143,138,0.1); padding: 8px 18px;
+  border-radius: 50px; margin-bottom: 16px;
+}
+.hero-eyebrow svg { width: 16px; height: 16px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800;
+  color: #0f3635; margin-bottom: 16px; line-height: 1.15;
+}
+.hero h1 span { color: #1a8f8a; }
+.hero-sub { font-size: 1.15rem; color: #3a6665; margin-bottom: 28px; max-width: 480px; }
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero-form-card {
+  background: #fff; border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(15,54,53,0.12);
+  padding: 28px 24px; position: relative; overflow: hidden;
+}
+.hero-form-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, #1a8f8a, #3ad8d4, #c8f116);
+}
+.hero-form-card h3 { font-size: 1.3rem; text-align: center; margin-bottom: 4px; color: #0f3635; }
+.hero-form-card .form-sub { text-align: center; font-size: 0.9rem; color: #5a8a89; margin-bottom: 16px; }
+.hero-form-card iframe { width: 100%; height: 480px; border: none; border-radius: 8px; }
+
+/* Trust bar */
+.trust-bar {
+  background: #0f3635; padding: 28px 0; margin-top: -1px;
+}
+.trust-bar-inner {
+  display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+  max-width: 1000px; margin: 0 auto; padding: 0 24px;
+}
+.trust-item { text-align: center; color: #fff; }
+.trust-item .num { font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800; color: #c8f116; display: block; line-height: 1; }
+.trust-item .label { font-size: 0.85rem; opacity: 0.8; }
+
+@media (max-width: 768px) {
+  .hero { padding: 100px 0 0; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-form-card { margin: 0 -8px; }
+  .trust-bar-inner { gap: 24px; }
+  .trust-item .num { font-size: 1.5rem; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT
+═══════════════════════════════════════════════════════ */
+.about {
+  padding: 80px 0; background: #fff; position: relative;
+}
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 56px;
+  align-items: center;
+}
+.about-img-wrap {
+  position: relative;
+}
+.about-img-wrap img {
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(15,54,53,0.12);
+}
+.about-img-wrap .otter-float {
+  position: absolute; bottom: -30px; right: -20px;
+  width: 90px; height: 90px;
+  background: #fff; border-radius: 50%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  display: flex; align-items: center; justify-content: center;
+  padding: 12px;
+}
+.about-img-wrap .otter-float img { border-radius: 0; box-shadow: none; }
+.about-list {
+  list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;
+}
+.about-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 1rem; color: #2a5554;
+}
+.about-list li svg { flex-shrink: 0; margin-top: 3px; }
+
+@media (max-width: 768px) {
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   PROGRAMS
+═══════════════════════════════════════════════════════ */
+.programs {
+  padding: 80px 0; background: #f0faf9; position: relative;
+}
+.programs-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+}
+.program-card {
+  background: #fff; border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(15,54,53,0.08);
+  overflow: hidden; transition: all 0.35s ease;
+}
+.program-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(15,54,53,0.15);
+}
+.program-card-img {
+  height: 200px; overflow: hidden; position: relative;
+}
+.program-card-img img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.program-card-age {
+  position: absolute; bottom: 12px; left: 12px;
+  background: #c8f116; color: #0f3635;
+  font-weight: 700; font-size: 0.8rem;
+  padding: 6px 14px; border-radius: 50px;
+}
+.program-card-body { padding: 24px; }
+.program-card-body h3 { font-size: 1.35rem; margin-bottom: 8px; color: #0f3635; }
+.program-card-body p { font-size: 0.95rem; color: #3a6665; margin-bottom: 16px; }
+.program-card-body .btn { font-size: 0.9rem; padding: 10px 24px; width: 100%; justify-content: center; }
+
+@media (max-width: 768px) {
+  .programs-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   GETTING STARTED
+═══════════════════════════════════════════════════════ */
+.steps {
+  padding: 80px 0; background: #fff;
+}
+.steps-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+}
+.step-card {
+  text-align: center; padding: 32px 20px;
+  background: #f0faf9; border-radius: 24px;
+  position: relative;
+  transition: all 0.35s ease;
+}
+.step-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(15,54,53,0.1); }
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a8f8a, #3ad8d4);
+  color: #fff; font-family: 'Baloo 2', cursive;
+  font-size: 1.5rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+.step-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #0f3635; }
+.step-card p { font-size: 0.9rem; color: #3a6665; margin: 0; }
+
+@media (max-width: 768px) {
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .steps-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   WHY CHOOSE US
+═══════════════════════════════════════════════════════ */
+.why {
+  padding: 80px 0; background: #f0faf9; position: relative; overflow: hidden;
+}
+.why-intro {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+  align-items: center; margin-bottom: 56px;
+}
+.why-img-collage {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.why-img-collage img {
+  border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  width: 100%; height: 200px; object-fit: cover;
+}
+.why-img-collage img:first-child { border-radius: 20px 20px 8px 8px; }
+.values-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.value-card {
+  background: #fff; border-radius: 20px;
+  padding: 28px 24px; text-align: center;
+  box-shadow: 0 2px 16px rgba(15,54,53,0.06);
+  transition: all 0.3s ease;
+}
+.value-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(15,54,53,0.1); }
+.value-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px; font-size: 1.6rem;
+}
+.value-card h4 { font-size: 1.05rem; margin-bottom: 6px; }
+.value-card p { font-size: 0.88rem; color: #3a6665; margin: 0; }
+
+@media (max-width: 768px) {
+  .why-intro { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .values-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   REVIEWS
+═══════════════════════════════════════════════════════ */
+.reviews {
+  padding: 80px 0; background: #fff;
+}
+.reviews iframe {
+  min-width: 100%; width: 100%; border: none;
+  border-radius: 16px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════════════════════ */
+.gallery {
+  padding: 80px 0; background: #f0faf9;
+}
+.gallery-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.gallery-item {
+  position: relative; border-radius: 20px;
+  overflow: hidden; aspect-ratio: 1;
+  cursor: pointer;
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: rgba(15,54,53,0.25);
+  opacity: 0; transition: opacity 0.3s;
+}
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+@media (max-width: 768px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   LOCATIONS
+═══════════════════════════════════════════════════════ */
+.locations {
+  padding: 80px 0; background: #fff;
+}
+.locations-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.loc-card {
+  background: #f0faf9; border-radius: 24px;
+  overflow: hidden; box-shadow: 0 4px 20px rgba(15,54,53,0.06);
+  transition: all 0.35s ease;
+}
+.loc-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(15,54,53,0.12); }
+.loc-card-img { height: 200px; overflow: hidden; }
+.loc-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.loc-card-body { padding: 24px; }
+.loc-card-body h3 { font-size: 1.25rem; margin-bottom: 8px; }
+.loc-card-body p { font-size: 0.9rem; color: #3a6665; margin-bottom: 4px; }
+.loc-card-body .btn { margin-top: 16px; font-size: 0.9rem; width: 100%; justify-content: center; }
+.loc-card.coming-soon { opacity: 0.7; }
+.loc-card.coming-soon .loc-card-img { position: relative; }
+.loc-card.coming-soon .loc-card-img::after {
+  content: 'Coming Soon'; position: absolute; inset: 0;
+  background: rgba(15,54,53,0.5); color: #c8f116;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Baloo 2', cursive; font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .locations-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TEAM
+═══════════════════════════════════════════════════════ */
+.team {
+  padding: 80px 0; background: #f0faf9;
+}
+.team-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  margin-bottom: 32px;
+}
+.team-card {
+  text-align: center; background: #fff;
+  border-radius: 24px; padding: 32px 20px;
+  box-shadow: 0 2px 16px rgba(15,54,53,0.06);
+  transition: all 0.3s ease;
+}
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(15,54,53,0.1); }
+.team-card-avatar {
+  width: 100px; height: 100px; border-radius: 50%;
+  overflow: hidden; margin: 0 auto 16px;
+  border: 4px solid #3ad8d4;
+}
+.team-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.team-card-avatar.placeholder {
+  background: linear-gradient(135deg, #1a8f8a, #3ad8d4);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800;
+}
+.team-card h4 { font-size: 1.1rem; margin-bottom: 4px; }
+.team-card p { font-size: 0.85rem; color: #3a6665; margin: 0; }
+.team-hire {
+  text-align: center; padding: 40px;
+  background: linear-gradient(135deg, #1a8f8a, #3ad8d4);
+  border-radius: 24px; color: #fff;
+}
+.team-hire h3 { font-size: 1.5rem; margin-bottom: 8px; color: #fff; }
+.team-hire p { color: rgba(255,255,255,0.9); }
+
+@media (max-width: 768px) {
+  .team-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .team-grid { grid-template-columns: 1fr; max-width: 300px; margin: 0 auto 32px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   FAQ — Tabbed
+═══════════════════════════════════════════════════════ */
+.faq {
+  padding: 80px 0; background: #fff;
+}
+.faq-tabs {
+  display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.faq-tab {
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
+  padding: 10px 22px; border-radius: 50px; border: 2px solid #e0eded;
+  background: #fff; color: #3a6665; cursor: pointer; transition: all 0.25s;
+}
+.faq-tab:hover { border-color: #1a8f8a; color: #1a8f8a; }
+.faq-tab.active { background: #1a8f8a; color: #fff; border-color: #1a8f8a; }
+.faq-list {
+  max-width: 800px; margin: 0 auto;
+  display: grid; gap: 12px;
+}
+.faq-item {
+  background: #f0faf9; border-radius: 16px;
+  overflow: hidden; transition: all 0.3s ease;
+}
+.faq-item.faq-hidden { display: none; }
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 24px; cursor: pointer;
+  font-weight: 700; font-size: 1rem; color: #0f3635;
+  border: none; background: none; width: 100%;
+  text-align: left; font-family: 'DM Sans', sans-serif;
+}
+.faq-q:hover { color: #1a8f8a; }
+.faq-q .arrow {
+  width: 24px; height: 24px;
+  transition: transform 0.3s;
+  flex-shrink: 0; margin-left: 16px;
+}
+.faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.faq-a-inner {
+  padding: 0 24px 20px;
+  font-size: 0.95rem; color: #3a6665; line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════════
+   APP DOWNLOAD — Clean centered
+═══════════════════════════════════════════════════════ */
+.app-section {
+  padding: 80px 0; background: #f0faf9;
+}
+.app-center {
+  text-align: center; max-width: 640px; margin: 0 auto;
+}
+.app-center h2 { margin-bottom: 12px; }
+.app-center .section-sub { margin-left: auto; margin-right: auto; margin-bottom: 28px; }
+.app-chips {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin-bottom: 32px;
+}
+.app-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.88rem;
+  background: #fff; border: 1px solid #d6efee; border-radius: 50px;
+  padding: 10px 20px; color: #0f3635;
+}
+.app-chip svg { width: 18px; height: 18px; flex-shrink: 0; }
+.app-badges-center {
+  display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
+}
+.app-badges-center img { height: 48px; border-radius: 8px; }
+.app-badges-center a { font-weight: 600; color: #1a8f8a; font-size: 0.95rem; transition: color 0.2s; }
+.app-badges-center a:hover { color: #0f3635; }
+
+/* ═══════════════════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════════════════ */
+.final-cta {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #0f3635 0%, #1a8f8a 100%);
+  text-align: center; position: relative; overflow: hidden;
+}
+.final-cta::before,
+.final-cta::after {
+  content: ''; position: absolute;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.final-cta::before { top: -60px; left: -60px; width: 300px; height: 300px; }
+.final-cta::after { bottom: -80px; right: -40px; width: 250px; height: 250px; }
+.final-cta .bubble {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  animation: floatBubble 8s ease-in-out infinite;
+}
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+.final-cta h2 { color: #fff; font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 16px; position: relative; z-index: 1; }
+.final-cta p { color: rgba(255,255,255,0.85); font-size: 1.1rem; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; position: relative; z-index: 1; }
+.cta-stats {
+  display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+  margin-bottom: 36px; position: relative; z-index: 1;
+}
+.cta-stat { text-align: center; }
+.cta-stat .num { font-family: 'Baloo 2', cursive; font-size: 2.5rem; font-weight: 800; color: #c8f116; display: block; line-height: 1; }
+.cta-stat .label { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
+.final-cta .btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+.footer {
+  background: #0a2a2a; color: rgba(255,255,255,0.8);
+  padding: 60px 0 24px; position: relative;
+}
+.footer-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px;
+  margin-bottom: 40px;
+}
+.footer h4 { font-family: 'Baloo 2', cursive; font-size: 1.2rem; color: #fff; margin-bottom: 16px; }
+.footer p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 8px; }
+.footer a { color: #3ad8d4; transition: color 0.2s; }
+.footer a:hover { color: #c8f116; }
+.footer-logo { height: 40px; margin-bottom: 16px; filter: brightness(0) invert(1); }
+.footer-links { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+.footer-links a:hover { color: #c8f116; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  font-size: 0.82rem; color: rgba(255,255,255,0.5);
+}
+.footer-social { display: flex; gap: 12px; }
+.footer-social a {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.footer-social a:hover { background: #1a8f8a; }
+.footer-social svg { width: 18px; height: 18px; fill: #fff; }
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/1ff76337-09af-4800-946f-a1cdbb377d5f.png" alt="Center Lane Swim School">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#locations">Locations</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="portal-dropdown">
+        <button class="portal-dropdown-btn">Portals &#9662;</button>
+        <div class="portal-dropdown-menu">
+          <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal<span>iClassPro &mdash; Edgewater</span></a>
+          <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal<span>iClassPro &mdash; Calvert</span></a>
+        </div>
+      </div>
+      <a href="#hero" class="btn btn-lime" style="padding:10px 22px;font-size:0.85rem;">Get Started</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">&times;</button>
+  <a href="#about" class="mob-link">About</a>
+  <a href="#programs" class="mob-link">Programs</a>
+  <a href="#why" class="mob-link">Why Us</a>
+  <a href="#locations" class="mob-link">Locations</a>
+  <a href="#team" class="mob-link">Team</a>
+  <a href="#faq" class="mob-link">FAQ</a>
+  <a href="https://portal.iclasspro.com/clssedgewater" target="_blank" class="btn btn-outline">Edgewater Portal</a>
+  <a href="https://portal.iclasspro.com/clsscalvert" target="_blank" class="btn btn-coral">Calvert Portal</a>
+  <a href="#hero" class="btn btn-lime">Get Started</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left: copy -->
+      <div class="anim">
+        <div class="hero-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.5-12.5h4m14 0h4m-3.5-7-2.8 2.8M6.3 17.7l-2.8 2.8m14.2 0-2.8-2.8M6.3 6.3 3.5 3.5"/></svg>
+          Edgewater &amp; Calvert, MD
+        </div>
+        <h1>Swimming Lessons Kids <span style="color:var(--coral)">Love</span> &amp; Parents Trust</h1>
+        <p class="hero-sub">Safe, fun, and nurturing swim lessons for ages 3 months and up. Small groups. Big confidence. Red Cross certified instructors.</p>
+        <div class="hero-btns">
+          <a href="#hero-form" class="btn btn-lime">Request a Free Trial</a>
+          <a href="#hero" class="btn btn-outline">Swim Stage Checker</a>
+        </div>
+      </div>
+      <!-- Right: form -->
+      <div class="hero-form-card anim" id="hero-form" style="animation-delay:0.2s">
+        <h3>Start Your Free Trial</h3>
+        <p class="form-sub">Fill out the form and we'll get you in the water!</p>
+        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:480px;border:none;border-radius:8px" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="541" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
+        <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider: hero → trust bar -->
+<div class="wave-divider" style="background:#fff;">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block">
+    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80Z" fill="#0f3635"/>
+  </svg>
+</div>
+
+<!-- Trust bar — 3 items -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item anim"><span class="num">18+</span><span class="label">Years Experience</span></div>
+    <div class="trust-item anim"><span class="num">3</span><span class="label">Locations</span></div>
+    <div class="trust-item anim"><span class="num">5&#9733;</span><span class="label">Google Rating</span></div>
+  </div>
+</div>
+
+<!-- Wave divider: trust bar → about -->
+<div class="wave-divider" style="background:#0f3635;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,0 C240,50 480,10 720,30 C960,50 1200,10 1440,30 L1440,60 L0,60Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+<!-- Goggles decoration -->
+<div class="goggles-deco">
+  <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="30" cy="25" rx="22" ry="18" stroke="#3ad8d4" stroke-width="3" fill="rgba(58,216,212,0.08)"/>
+    <ellipse cx="90" cy="25" rx="22" ry="18" stroke="#3ad8d4" stroke-width="3" fill="rgba(58,216,212,0.08)"/>
+    <path d="M52 25 C56 18, 64 18, 68 25" stroke="#3ad8d4" stroke-width="3" stroke-linecap="round"/>
+    <path d="M8 20 C2 16, 0 14, 0 10" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M112 20 C118 16, 120 14, 120 10" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="25" cy="25" r="6" fill="rgba(58,216,212,0.15)"/>
+    <circle cx="85" cy="25" r="6" fill="rgba(58,216,212,0.15)"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ABOUT
+═══════════════════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ec292593-387e-446e-8f6a-1534d817f761.jpg" alt="Josie teaching swim lesson with kickboard">
+        <div class="otter-float">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/26d30c8e-b715-4a23-8c2c-c64adf2478cd.png" alt="Center Lane otter mascot">
+        </div>
+      </div>
+      <div class="anim">
+        <span class="badge">WHO WE ARE</span>
+        <h2 class="section-title">Swimming Lessons For Every Stage</h2>
+        <p class="section-sub">At Center Lane Swim School, we believe every child deserves to feel safe and confident in the water. Our curriculum is designed to meet swimmers where they are — from first-time babies to advanced competitive swimmers.</p>
+        <ul class="about-list">
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            All instructors are Red Cross Certified
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Small groups — max 3 students per instructor
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Proprietary curriculum from infant to advanced
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            4 Swim Currents for unique training environment
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Underwater mirrors for instructor feedback
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#fff;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,20 C200,60 400,0 600,30 C800,60 1000,10 1200,35 C1320,50 1400,20 1440,30 L1440,60 L0,60Z" fill="#f0faf9"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PROGRAMS
+═══════════════════════════════════════════════════════ -->
+<section class="programs" id="programs">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">OUR CLASSES</span>
+      <h2 class="section-title">Lessons For Every Stage</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">From first splash to confident strokes — we have a class for your child.</p>
+    </div>
+
+    <!-- Goggles decoration -->
+    <div class="goggles-deco" style="padding:8px 0 24px">
+      <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:60px">
+        <ellipse cx="30" cy="25" rx="22" ry="18" stroke="#fea46c" stroke-width="3" fill="rgba(254,164,108,0.08)"/>
+        <ellipse cx="90" cy="25" rx="22" ry="18" stroke="#fea46c" stroke-width="3" fill="rgba(254,164,108,0.08)"/>
+        <path d="M52 25 C56 18, 64 18, 68 25" stroke="#fea46c" stroke-width="3" stroke-linecap="round"/>
+        <path d="M8 20 C2 16, 0 14, 0 10" stroke="#fea46c" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M112 20 C118 16, 120 14, 120 10" stroke="#fea46c" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="programs-grid">
+      <!-- Card 1: Infant & Parent -->
+      <div class="program-card anim">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e7aff989-d04e-4df7-8447-e5d2588351cd.jpeg" alt="Baby swimming lesson">
+          <span class="program-card-age">Ages 3mo – 2yrs</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Infant &amp; Parent</h3>
+          <p>Parent-Tot Combo and Acclimation classes designed to build water comfort and safety in a warm, nurturing environment with mom or dad in the pool.</p>
+          <a href="#hero" class="btn btn-lime">Enroll Now</a>
+        </div>
+      </div>
+      <!-- Card 2: Learn to Swim -->
+      <div class="program-card anim" style="animation-delay:0.1s">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/f193db99-5924-4e91-b532-3a673e088323.jpg" alt="Kids swimming lessons">
+          <span class="program-card-age">Ages 2+</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Learn to Swim</h3>
+          <p>Beginner through Advanced levels. Children progress from water comfort to mastering all four competitive strokes with proper technique and endurance.</p>
+          <a href="#hero" class="btn btn-lime">Enroll Now</a>
+        </div>
+      </div>
+      <!-- Card 3: Events & Parties -->
+      <div class="program-card anim" style="animation-delay:0.2s">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/44e54732-0039-46d3-bf15-c818a5a6605b.jpg" alt="Pool party">
+          <span class="program-card-age" style="background:#fea46c;color:#fff;">Events</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Events &amp; Parties</h3>
+          <p>Birthday parties, Parents Night Out, and seasonal drop-off camps. Make a splash at your next celebration with private pool access and lifeguard supervision.</p>
+          <a href="#hero" class="btn btn-coral">Book a Party</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#f0faf9;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,30 C180,0 360,50 540,20 C720,0 900,50 1080,25 C1200,10 1380,40 1440,20 L1440,60 L0,60Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     GETTING STARTED
+═══════════════════════════════════════════════════════ -->
+<section class="steps" id="steps">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">HOW IT WORKS</span>
+      <h2 class="section-title">Everything You Need To Get Started</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Four simple steps from sign-up to swimming success.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card anim">
+        <div class="step-num">1</div>
+        <h3>Choose Your Level</h3>
+        <p>Use our Swim Stage Checker or speak with our team to find the right class for your child.</p>
+      </div>
+      <div class="step-card anim" style="animation-delay:0.1s">
+        <div class="step-num">2</div>
+        <h3>Enroll Online</h3>
+        <p>Register through the iClassPro portal or download our mobile app to secure your spot.</p>
+      </div>
+      <div class="step-card anim" style="animation-delay:0.2s">
+        <div class="step-num">3</div>
+        <h3>Attend Weekly Classes</h3>
+        <p>Show up for 30-minute weekly sessions. Consistency is the key to confident swimmers.</p>
+      </div>
+      <div class="step-card anim" style="animation-delay:0.3s">
+        <div class="step-num">4</div>
+        <h3>Watch Them Grow</h3>
+        <p>See your child progress through levels and unlock new skills with every session.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#fff;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,40 C240,10 480,50 720,25 C960,0 1200,45 1440,15 L1440,60 L0,60Z" fill="#f0faf9"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     WHY CHOOSE US
+═══════════════════════════════════════════════════════ -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why-intro">
+      <div class="anim">
+        <span class="badge">WHY CENTER LANE</span>
+        <h2 class="section-title">A Swim School Built On Care</h2>
+        <p style="color:#3a6665;font-size:1.05rem;margin-bottom:16px;">Founded by <strong>Josie &amp; David Howdyshell</strong>, Center Lane Swim School was born from 18+ years of passion for teaching children to be safe and confident in the water.</p>
+        <p style="color:#3a6665;font-size:1.05rem;margin-bottom:16px;">Josie specializes in working with fearful swimmers, creating an environment where every child feels encouraged and supported. David ensures operations run smoothly across all locations, maintaining the highest standards of safety and excellence.</p>
+        <p style="color:#3a6665;font-size:1.05rem;">Together, they've built a team that treats every student like family.</p>
+      </div>
+      <div class="why-img-collage anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b233e4f1-7f5c-4ac3-ab27-4398838ffb3c.jpg" alt="Josie Howdyshell" style="height:240px;">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5978332b-559c-4a9a-994c-6689cb6c4121.jpg" alt="David teaching in pool" style="height:240px;">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/23fb9989-aa0f-4bc7-aa4e-9f864eff09bd.jpg" alt="Center Lane team" style="grid-column:span 2;height:180px;">
+      </div>
+    </div>
+
+    <!-- Goggles decoration -->
+    <div class="goggles-deco" style="padding:0 0 32px">
+      <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:60px">
+        <ellipse cx="30" cy="25" rx="22" ry="18" stroke="#1a8f8a" stroke-width="3" fill="rgba(26,143,138,0.08)"/>
+        <ellipse cx="90" cy="25" rx="22" ry="18" stroke="#1a8f8a" stroke-width="3" fill="rgba(26,143,138,0.08)"/>
+        <path d="M52 25 C56 18, 64 18, 68 25" stroke="#1a8f8a" stroke-width="3" stroke-linecap="round"/>
+        <path d="M8 20 C2 16, 0 14, 0 10" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M112 20 C118 16, 120 14, 120 10" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card anim">
+        <div class="value-icon" style="background:rgba(26,143,138,0.1);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4>Safety First</h4>
+        <p>Every decision starts with your child's safety. Small groups, certified instructors, and constant supervision.</p>
+      </div>
+      <div class="value-card anim">
+        <div class="value-icon" style="background:rgba(254,164,108,0.12);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fea46c" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h4>Kindness &amp; Patience</h4>
+        <p>We meet every child where they are. Fearful swimmers get extra care and time to build confidence.</p>
+      </div>
+      <div class="value-card anim">
+        <div class="value-icon" style="background:rgba(200,241,22,0.15);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8db300" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h4>Encouraging</h4>
+        <p>Positive reinforcement fuels progress. Every milestone is celebrated — big or small.</p>
+      </div>
+      <div class="value-card anim">
+        <div class="value-icon" style="background:rgba(58,216,212,0.1);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h4>Fun &amp; Uplifting</h4>
+        <p>Learning to swim should be joyful. Our lessons are designed to keep kids smiling and excited.</p>
+      </div>
+      <div class="value-card anim">
+        <div class="value-icon" style="background:rgba(79,195,247,0.12);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4fc3f7" stroke-width="2" stroke-linecap="round"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M2 19c6.667-6 13.333 0 20-6"/></svg>
+        </div>
+        <h4>Swim Currents Tech</h4>
+        <p>4 adjustable swim currents create a unique training environment that builds endurance faster than traditional pools.</p>
+      </div>
+      <div class="value-card anim">
+        <div class="value-icon" style="background:rgba(26,143,138,0.1);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Small Groups (3:1)</h4>
+        <p>Maximum 3 students per instructor ensures personalized attention and faster progress for every swimmer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#f0faf9;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,20 C360,60 720,0 1080,40 C1260,55 1380,20 1440,30 L1440,60 L0,60Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     REVIEWS
+═══════════════════════════════════════════════════════ -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">TESTIMONIALS</span>
+      <h2 class="section-title">Trusted By Families</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">See what parents are saying about Center Lane Swim School.</p>
+    </div>
+    <div class="anim">
+      <script type='text/javascript' src='https://reputationhub.site/reputation/assets/review-widget.js'></script>
+      <iframe class='lc_reviews_widget' src='https://reputationhub.site/reputation/widgets/review_widget/JL5Xsreqcpi8naffNZWe' frameborder='0' scrolling='no' style='min-width:100%;width:100%;border:none;border-radius:16px;'></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#fff;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,30 C200,0 400,50 600,20 C800,-5 1000,45 1200,20 C1350,5 1440,35 1440,25 L1440,60 L0,60Z" fill="#f0faf9"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     GALLERY
+═══════════════════════════════════════════════════════ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">GALLERY</span>
+      <h2 class="section-title">Inside Our Swimming Lessons</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3d7072c5-9fa8-40b4-86a9-5e7acdc8ba60.jpg" alt="Kids with swim caps">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ec292593-387e-446e-8f6a-1534d817f761.jpg" alt="Josie teaching">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5978332b-559c-4a9a-994c-6689cb6c4121.jpg" alt="Don with baby in pool">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/96318914-2851-4479-9e52-33f9eb809607.jpeg" alt="Parent and child in pool">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2dac6ec9-19a3-4061-af66-5f97db4808a2.jpg" alt="Edgewater pool room">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/f0da892c-7852-4f03-92f2-7b36599b8415.jpg" alt="Calvert pool room">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/44e54732-0039-46d3-bf15-c818a5a6605b.jpg" alt="Summer swim event">
+        <div class="gallery-overlay"></div>
+      </div>
+      <div class="gallery-item anim">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/05a74da7-ca0f-4bd8-9930-7a55e5ea556f.jpg" alt="Pool aerial view">
+        <div class="gallery-overlay"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#f0faf9;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,40 C240,10 480,55 720,20 C960,-5 1200,50 1440,25 L1440,60 L0,60Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     LOCATIONS
+═══════════════════════════════════════════════════════ -->
+<section class="locations" id="locations">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">OUR LOCATIONS</span>
+      <h2 class="section-title">Find Us Near You</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Three convenient locations across Maryland. Choose yours and jump in.</p>
+    </div>
+    <div class="locations-grid">
+      <!-- Edgewater -->
+      <div class="loc-card anim">
+        <div class="loc-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2dac6ec9-19a3-4061-af66-5f97db4808a2.jpg" alt="Edgewater pool room">
+        </div>
+        <div class="loc-card-body">
+          <h3>Edgewater</h3>
+          <p>3 Lee Airpark Dr, Suite 10<br>Edgewater, MD 21037</p>
+          <p><strong>Email:</strong> ew@centerlaneswim.com</p>
+          <a href="#hero" class="btn btn-lime">Register Here</a>
+        </div>
+      </div>
+      <!-- Calvert -->
+      <div class="loc-card anim" style="animation-delay:0.1s">
+        <div class="loc-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/f0da892c-7852-4f03-92f2-7b36599b8415.jpg" alt="Calvert pool room">
+        </div>
+        <div class="loc-card-body">
+          <h3>Calvert</h3>
+          <p>120 Stoakley Rd, Suite 5<br>Prince Frederick, MD 20678</p>
+          <p><strong>Email:</strong> calvert@centerlaneswim.com</p>
+          <a href="#hero" class="btn btn-lime">Register Here</a>
+        </div>
+      </div>
+      <!-- St. Mary's -->
+      <div class="loc-card coming-soon anim" style="animation-delay:0.2s">
+        <div class="loc-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/602eab61-4bce-480b-8827-ed6cb28cd42a.png" alt="St. Mary's location coming soon">
+        </div>
+        <div class="loc-card-body">
+          <h3>St. Mary's</h3>
+          <p>Coming Soon to St. Mary's County, MD</p>
+          <p>Stay tuned for updates!</p>
+          <span class="btn btn-outline" style="opacity:0.5;pointer-events:none;width:100%;justify-content:center;">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#fff;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,20 C200,55 400,5 600,35 C800,60 1000,10 1200,40 C1340,55 1440,20 1440,30 L1440,60 L0,60Z" fill="#f0faf9"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TEAM
+═══════════════════════════════════════════════════════ -->
+<section class="team" id="team">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">OUR TEAM</span>
+      <h2 class="section-title">Meet The Center Lane Family</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Passionate instructors and staff dedicated to your child's success.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card anim">
+        <div class="team-card-avatar">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b233e4f1-7f5c-4ac3-ab27-4398838ffb3c.jpg" alt="Josie Howdyshell">
+        </div>
+        <h4>Josie Howdyshell</h4>
+        <p>Owner</p>
+      </div>
+      <div class="team-card anim">
+        <div class="team-card-avatar placeholder">H</div>
+        <h4>Hannah</h4>
+        <p>Aquatics Manager</p>
+      </div>
+      <div class="team-card anim">
+        <div class="team-card-avatar placeholder">H</div>
+        <h4>Heather</h4>
+        <p>Calvert General Manager</p>
+      </div>
+      <div class="team-card anim">
+        <div class="team-card-avatar placeholder">B</div>
+        <h4>Brittany</h4>
+        <p>Lead Instructor</p>
+      </div>
+      <div class="team-card anim">
+        <div class="team-card-avatar placeholder">K</div>
+        <h4>Kristin</h4>
+        <p>Administrative Assistant</p>
+      </div>
+      <div class="team-card anim">
+        <div class="team-card-avatar placeholder">V</div>
+        <h4>Venus</h4>
+        <p>Administrative Assistant</p>
+      </div>
+    </div>
+    <div class="team-hire anim">
+      <h3>Want To Join Our Team?</h3>
+      <p style="margin-bottom:20px;">We're always looking for passionate people who love working with kids.</p>
+      <a href="#hero" class="btn btn-white">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#f0faf9;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,35 C180,5 360,55 540,25 C720,-5 900,50 1080,20 C1260,0 1440,40 1440,30 L1440,60 L0,60Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FAQ — Tabbed Categories
+═══════════════════════════════════════════════════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">FAQ</span>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-tabs anim">
+      <button class="faq-tab active" data-filter="lessons">Lessons</button>
+      <button class="faq-tab" data-filter="registration">Registration</button>
+      <button class="faq-tab" data-filter="absences">Absences &amp; Make-ups</button>
+      <button class="faq-tab" data-filter="facility">Facility</button>
+    </div>
+
+    <div class="faq-list">
+      <!-- ── LESSONS ── -->
+      <div class="faq-item anim" data-category="lessons">
+        <button class="faq-q">
+          How long are lessons? How often?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Each lesson is 30 minutes long, once per week. Consistent weekly attendance is the best way to ensure steady progress. We offer a discount if you enroll for multiple days per week.</div></div>
+      </div>
+      <div class="faq-item anim" data-category="lessons">
+        <button class="faq-q">
+          Do I need to stay for my child's lesson?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Parents are encouraged to stay and watch but it's not required — except for Parent-Tot Combo classes where a parent is in the water. We have viewing areas at all locations.</div></div>
+      </div>
+      <div class="faq-item anim" data-category="lessons">
+        <button class="faq-q">
+          What do I need to bring?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A comfortable swimsuit, goggles (optional), a towel, and a change of clothes. We provide all training equipment needed for class.</div></div>
+      </div>
+      <div class="faq-item anim" data-category="lessons">
+        <button class="faq-q">
+          What is the swim diaper policy?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Children ages 3 and under must wear a Splash About or Happy Nappy reusable swim diaper. Disposable swim diapers are not allowed in our pools. These are available at our front desk or online.</div></div>
+      </div>
+      <div class="faq-item anim" data-category="lessons">
+        <button class="faq-q">
+          Which level should I sign up for?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><strong>Parent-Tot Combo (PTC):</strong> Ages 6-24 months<br><strong>Beginner:</strong> Ages 2+ with no swimming experience<br><strong>Intermediate:</strong> Can swim 15 feet unassisted<br><strong>Advanced:</strong> Can swim 30+ feet with proper technique<br><br>Not sure? Contact us and we'll help you find the right fit.</div></div>
+      </div>
+      <div class="faq-item anim" data-category="lessons">
+        <button class="faq-q">
+          My child is 3+, can I do parent-taught?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Parent-Tot Combo classes are designed for ages 6-24 months. Children age 2 and older move into our Beginner level with our instructors. This transition helps children learn independence in the water.</div></div>
+      </div>
+
+      <!-- ── REGISTRATION ── -->
+      <div class="faq-item anim faq-hidden" data-category="registration">
+        <button class="faq-q">
+          What should my child wear?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A comfortable swimsuit is all that's needed. For children with long hair, we recommend a swim cap to keep hair out of their face. Goggles are optional but encouraged.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="registration">
+        <button class="faq-q">
+          How do I enroll?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">You can enroll directly through our website or iClassPro portal. You can also contact our office by email and we'll help you get set up.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="registration">
+        <button class="faq-q">
+          What is your cancellation policy?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Please refer to our website or contact our office for full details on our cancellation and refund policy.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="registration">
+        <button class="faq-q">
+          Are make-up classes available?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! If you need to miss a class, contact us to arrange a make-up lesson. Make-ups can be scheduled through the iClassPro portal or mobile app.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="registration">
+        <button class="faq-q">
+          What safety measures are in place?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">We maintain a low student-to-instructor ratio (max 3:1) and follow strict safety protocols. All instructors are Red Cross certified and trained in water rescue and first aid.</div></div>
+      </div>
+
+      <!-- ── ABSENCES & MAKE-UPS ── -->
+      <div class="faq-item anim faq-hidden" data-category="absences">
+        <button class="faq-q">
+          I need to miss a lesson — what do I do?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Please provide 48 hours notice via the iClassPro portal. For same-day absences, email us directly. This helps us manage class sizes and offer spots to others.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="absences">
+        <button class="faq-q">
+          What is the make-up policy?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Make-ups are available for scheduled absences. The portal shows available spots within a 7-day window. You can schedule make-ups through the portal or the phone app.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="absences">
+        <button class="faq-q">
+          Best way to schedule a make-up?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The easiest way is through the online iClassPro portal or the phone app. You can see available spots in real time and book instantly.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="absences">
+        <button class="faq-q">
+          Can I get a refund for unused lessons?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No, we do not offer refunds for unused lessons. However, you can schedule make-ups for any missed classes within the policy window.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="absences">
+        <button class="faq-q">
+          Can unused lessons apply to future enrollment?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No, unused lessons cannot be rolled over or applied to a future enrollment period.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="absences">
+        <button class="faq-q">
+          Do make-ups expire?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Scheduled absence make-ups expire after 1 year. Unscheduled absence make-ups expire after 10 days. There is no cap on the number of make-ups you can schedule.</div></div>
+      </div>
+
+      <!-- ── FACILITY ── -->
+      <div class="faq-item anim faq-hidden" data-category="facility">
+        <button class="faq-q">
+          Your pools seem small — is that enough space?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Our pools feature 4 adjustable swim currents, which means swimmers cover significantly more distance than in a conventional pool. Combined with underwater mirrors for real-time feedback, our compact pools are actually a more effective training environment.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="facility">
+        <button class="faq-q">
+          Can I use the rear door?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No, the rear door is for staff only. All visitors should enter and exit through the main entrance for safety and security purposes.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="facility">
+        <button class="faq-q">
+          Is there WiFi available?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes! WiFi is available at our facilities. Just ask at the front desk for the password.</div></div>
+      </div>
+      <div class="faq-item anim faq-hidden" data-category="facility">
+        <button class="faq-q">
+          How do I reach you?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The best way to reach us is by email: <a href="mailto:ew@centerlaneswim.com" style="color:#1a8f8a;">ew@centerlaneswim.com</a> for Edgewater, or <a href="mailto:calvert@centerlaneswim.com" style="color:#1a8f8a;">calvert@centerlaneswim.com</a> for Calvert. Our phone lines are not continuously staffed, so email is the most reliable way to get a timely response.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#fff;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,25 C240,55 480,5 720,35 C960,60 1200,10 1440,35 L1440,60 L0,60Z" fill="#f0faf9"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     APP DOWNLOAD — Clean centered
+═══════════════════════════════════════════════════════ -->
+<section class="app-section" id="app">
+  <div class="container">
+    <div class="app-center anim">
+      <span class="badge">MOBILE APP</span>
+      <h2 class="section-title">Download Our App</h2>
+      <p class="section-sub">Enroll, check attendance, book parties, and more — all on the go.</p>
+      <div class="app-chips">
+        <span class="app-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Enroll on the go
+        </span>
+        <span class="app-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Track attendance
+        </span>
+        <span class="app-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Book parties
+        </span>
+        <span class="app-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          Push notifications
+        </span>
+      </div>
+      <div class="app-badges-center">
+        <a href="#" target="_blank"><img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/8c95a117-15dc-4cea-8ca0-25b2a9865d83.png" alt="Get it on Google Play"></a>
+        <a href="#">Download on App Store</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave-divider" style="background:#f0faf9;">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block">
+    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80Z" fill="#0f3635"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     FINAL CTA
+═══════════════════════════════════════════════════════ -->
+<section class="final-cta">
+  <div class="bubble" style="width:80px;height:80px;top:15%;left:8%;animation-delay:0s;"></div>
+  <div class="bubble" style="width:50px;height:50px;top:60%;left:20%;animation-delay:2s;"></div>
+  <div class="bubble" style="width:120px;height:120px;top:20%;right:10%;animation-delay:1s;"></div>
+  <div class="bubble" style="width:40px;height:40px;bottom:20%;right:25%;animation-delay:3s;"></div>
+  <div class="bubble" style="width:65px;height:65px;bottom:10%;left:35%;animation-delay:4s;"></div>
+
+  <div class="container">
+    <div class="anim">
+      <h2>Come And Swim With Us</h2>
+      <p>Give your child the gift of water confidence. Start with a free trial lesson today.</p>
+    </div>
+    <div class="cta-stats anim">
+      <div class="cta-stat"><span class="num">18+</span><span class="label">Years Experience</span></div>
+      <div class="cta-stat"><span class="num">3</span><span class="label">Locations</span></div>
+      <div class="cta-stat"><span class="num">5&#9733;</span><span class="label">Google Rating</span></div>
+    </div>
+    <div class="btns anim">
+      <a href="#hero" class="btn btn-lime">Request a Free Trial</a>
+      <a href="#hero" class="btn btn-white">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<!-- Wave divider into footer -->
+<div class="wave-divider" style="background:linear-gradient(135deg, #0f3635 0%, #1a8f8a 100%);">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <path d="M0,20 C360,55 720,5 1080,40 C1260,55 1380,20 1440,30 L1440,60 L0,60Z" fill="#0a2a2a"/>
+  </svg>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/1ff76337-09af-4800-946f-a1cdbb377d5f.png" alt="Center Lane Swim School" class="footer-logo">
+        <p>Safe, fun, and nurturing swim lessons for ages 3 months and up. Building water confidence one stroke at a time across Maryland.</p>
+        <div class="footer-social" style="margin-top:16px;">
+          <a href="https://facebook.com/clssedgewater" target="_blank" aria-label="Facebook Edgewater">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://facebook.com/clsscalvert" target="_blank" aria-label="Facebook Calvert">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#locations">Locations</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal</a></li>
+          <li><a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Locations</h4>
+        <p><strong>Edgewater</strong><br>3 Lee Airpark Dr, Suite 10<br>Edgewater, MD 21037<br><a href="mailto:ew@centerlaneswim.com">ew@centerlaneswim.com</a></p>
+        <p style="margin-top:16px;"><strong>Calvert</strong><br>120 Stoakley Rd, Suite 5<br>Prince Frederick, MD 20678<br><a href="mailto:calvert@centerlaneswim.com">calvert@centerlaneswim.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Center Lane Swim School. All rights reserved.</span>
+      <span>Website and marketing systems developed by <a href="https://nilsdigital.com" target="_blank" style="color:#3ad8d4;">Nilsdigital.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════ -->
+<script>
+/* ── Nav scroll effect ── */
+(function(){
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+})();
+
+/* ── Mobile menu ── */
+(function(){
+  var btn = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  var close = document.getElementById('mobileClose');
+  btn.addEventListener('click', function(){ menu.classList.add('open'); });
+  close.addEventListener('click', function(){ menu.classList.remove('open'); });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ menu.classList.remove('open'); });
+  });
+})();
+
+/* ── Scroll animations with 4s fallback ── */
+(function(){
+  var els = document.querySelectorAll('.anim');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el){ obs.observe(el); });
+  }
+  // 4s fallback
+  setTimeout(function(){
+    els.forEach(function(el){ el.classList.add('visible'); });
+  }, 4000);
+})();
+
+/* ── FAQ accordion ── */
+(function(){
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = this.closest('.faq-item');
+      var answer = item.querySelector('.faq-a');
+      var isOpen = item.classList.contains('open');
+      // Close all open items
+      document.querySelectorAll('.faq-item.open').forEach(function(fi){
+        fi.classList.remove('open');
+        fi.querySelector('.faq-a').style.maxHeight = null;
+      });
+      // Open clicked if was closed
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+})();
+
+/* ── FAQ tab filtering ── */
+(function(){
+  var tabs = document.querySelectorAll('.faq-tab');
+  var items = document.querySelectorAll('.faq-item[data-category]');
+
+  function filterFaq(category) {
+    // Close all open items first
+    document.querySelectorAll('.faq-item.open').forEach(function(fi){
+      fi.classList.remove('open');
+      fi.querySelector('.faq-a').style.maxHeight = null;
+    });
+    // Show/hide items
+    items.forEach(function(item){
+      if (item.getAttribute('data-category') === category) {
+        item.classList.remove('faq-hidden');
+      } else {
+        item.classList.add('faq-hidden');
+      }
+    });
+    // Update active tab
+    tabs.forEach(function(t){ t.classList.remove('active'); });
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var filter = this.getAttribute('data-filter');
+      filterFaq(filter);
+      this.classList.add('active');
+    });
+  });
+})();
+
+/* ── Smooth scroll for anchor links ── */
+(function(){
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        var offset = 80;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

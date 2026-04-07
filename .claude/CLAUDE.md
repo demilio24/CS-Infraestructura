@@ -76,6 +76,8 @@ Slash commands live in `.claude/commands/`. Each `.md` file is a `/command-name`
 | `/live-test` | Simulates a real user on desktop + mobile — clicks, scrolls, screenshots every key state |
 | `/critique` | CRO + UX + copy review — scores the page, identifies missed opportunities, fixes priority issues |
 | `/audit` | **Functional bug hunt** — iframes, modals, iOS quirks, scroll overflow, checkout flows, tap targets. Catches bugs that visual QA misses. |
+| `/scrape-images` | Scrapes all image + video URLs from a website (sitemap → crawl → extract), deduplicates by size, lists in chat |
+| `/scrape-and-catalog` | **Full media pipeline** — scrapes images + videos, uploads to GHL (binary with retry), AI-analyzes each one visually, returns catalog with CDN URLs + descriptions + placement suggestions. Auto-reads API key from `.env`. |
 
 ## Page Types We Build
 
