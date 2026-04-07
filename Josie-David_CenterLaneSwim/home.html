@@ -7,14 +7,14 @@
   <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes, swim currents, and certified instructors in Edgewater, Calvert, and St. Mary's MD." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
 /* ═══════════════════════════════════════════════════════
    RESET & BASE
 ═══════════════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
-body { margin: 0; padding: 0; font-family: 'DM Sans', sans-serif; background: #ffffff; color: #0f3635; overflow-x: hidden; line-height: 1.6; }
+body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #ffffff; color: #0f3634; overflow-x: hidden; line-height: 1.6; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; margin: 0; line-height: 1.2; }
@@ -24,29 +24,46 @@ p { margin: 0 0 1em; }
    CSS VARIABLES
 ═══════════════════════════════════════════════════════ */
 :root {
-  --coral: #fea46c;
-  --teal: #1a8f8a;
+  --coral: #faa56b;
+  --teal: #3ad8d4;
   --teal-light: #3ad8d4;
-  --lime: #c8f116;
-  --dark: #0f3635;
+  --lime: #faa56b;
+  --dark: #0f3634;
 }
 
 /* ═══════════════════════════════════════════════════════
    UTILITY
 ═══════════════════════════════════════════════════════ */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.badge { display: inline-block; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: rgba(26,143,138,0.12); color: #1a8f8a; margin-bottom: 12px; }
-.section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #0f3635; margin-bottom: 16px; }
+.badge { display: inline-block; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: rgba(58,216,212,0.15); color: #3ad8d4; margin-bottom: 12px; }
+.section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #0f3634; margin-bottom: 16px; }
 .section-sub { font-size: 1.1rem; color: #3a6665; max-width: 600px; margin-bottom: 32px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 50px; padding: 14px 32px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
-.btn-lime { background: #c8f116; color: #0f3635; box-shadow: 0 4px 16px rgba(200,241,22,0.35); }
-.btn-lime:hover { background: #b5d914; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(200,241,22,0.45); }
-.btn-coral { background: #fea46c; color: #fff; box-shadow: 0 4px 16px rgba(254,164,108,0.35); }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+.btn-lime { background: #faa56b; color: #0f3634; box-shadow: 0 4px 16px rgba(250,165,107,0.35); }
+.btn-lime:hover { background: #e8946a; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(250,165,107,0.45); }
+.btn-coral { background: #faa56b; color: #fff; box-shadow: 0 4px 16px rgba(250,165,107,0.35); }
 .btn-coral:hover { background: #fd924f; transform: translateY(-2px); }
-.btn-outline { background: transparent; border: 2px solid #1a8f8a; color: #1a8f8a; }
-.btn-outline:hover { background: #1a8f8a; color: #fff; }
-.btn-white { background: #fff; color: #0f3635; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.btn-outline { background: transparent; border: 2px solid #3ad8d4; color: #3ad8d4; }
+.btn-outline:hover { background: #3ad8d4; color: #fff; }
+.btn-white { background: #fff; color: #0f3634; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
 .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.15); }
+.btn-nav-cta {
+  background: #3ad8d4; color: #0f3634;
+  box-shadow: 0 4px 18px rgba(58,216,212,0.4);
+  font-weight: 800; font-size: 0.9rem !important;
+  padding: 11px 26px !important;
+  border-radius: 8px;
+  animation: navCtaPulse 2.5s ease-in-out infinite;
+}
+.btn-nav-cta:hover {
+  background: #2bc4c0; transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(58,216,212,0.55);
+  animation: none;
+}
+@keyframes navCtaPulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(58,216,212,0.4); }
+  50% { box-shadow: 0 4px 28px rgba(58,216,212,0.65); }
+}
 
 /* ── Animations ── */
 .anim { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
@@ -81,41 +98,61 @@ p { margin: 0 0 1em; }
 }
 .nav-logo img { height: 48px; }
 .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
-.nav-links a { font-weight: 600; font-size: 0.9rem; color: #0f3635; transition: color 0.2s; }
-.nav-links a:hover { color: #1a8f8a; }
+.nav-links a { font-weight: 600; font-size: 0.9rem; color: #0f3634; transition: color 0.2s; }
+.nav-links a:hover { color: #3ad8d4; }
 .nav-right { display: flex; align-items: center; gap: 12px; }
 
 /* Portal dropdown */
 .portal-dropdown { position: relative; }
 .portal-dropdown-btn {
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.85rem;
-  padding: 10px 20px; border-radius: 50px; border: 2px solid #1a8f8a;
-  color: #1a8f8a; background: transparent; cursor: pointer; transition: all 0.2s;
+  font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.2s;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 18px; border-radius: 8px; border: none;
+  background: #fea46c; color: #fff; line-height: 1.2;
+  box-shadow: 0 3px 12px rgba(254,164,108,0.4);
 }
-.portal-dropdown-btn:hover { background: #1a8f8a; color: #fff; }
+.portal-dropdown-btn:hover { background: #e8924e; box-shadow: 0 4px 18px rgba(254,164,108,0.55); transform: translateY(-1px); }
+.portal-dropdown-btn .pdb-label { font-weight: 800; font-size: 0.82rem; letter-spacing: 0.02em; }
+.portal-dropdown-btn .pdb-sub { font-weight: 500; font-size: 0.72rem; opacity: 0.88; }
 .portal-dropdown-menu {
-  position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px;
-  background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  position: absolute; top: calc(100% + 10px); right: 0; min-width: 240px;
+  background: #fff; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.14);
   padding: 12px; opacity: 0; visibility: hidden; transform: translateY(-8px);
   transition: all 0.25s ease; z-index: 100;
 }
-.portal-dropdown:hover .portal-dropdown-menu {
+.portal-dropdown:hover .portal-dropdown-menu,
+.portal-dropdown-menu:hover {
   opacity: 1; visibility: visible; transform: translateY(0);
 }
+.portal-dropdown-menu .pdd-section {
+  font-size: 0.7rem; font-weight: 700; color: #9ab5b4; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 6px 16px 4px;
+}
 .portal-dropdown-menu a {
-  display: block; padding: 12px 16px; border-radius: 10px; font-weight: 600;
-  font-size: 0.9rem; color: #0f3635; transition: background 0.2s;
+  display: block; padding: 10px 16px; border-radius: 10px; font-weight: 600;
+  font-size: 0.9rem; color: #0f3634; transition: background 0.2s;
 }
 .portal-dropdown-menu a:hover { background: #f0faf9; color: #1a8f8a; }
 .portal-dropdown-menu a span { display: block; font-size: 0.78rem; font-weight: 400; color: #5a8a89; margin-top: 2px; }
+.portal-dropdown-menu .pdd-divider { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0; }
+/* App nav button */
+.nav-app-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 16px; border-radius: 12px; text-decoration: none;
+  background: #0f3635; color: #fff; line-height: 1.2; transition: all 0.2s;
+  box-shadow: 0 3px 12px rgba(15,54,53,0.25);
+}
+.nav-app-btn:hover { background: #1a8f8a; box-shadow: 0 4px 18px rgba(15,54,53,0.35); transform: translateY(-1px); }
+.nav-app-btn .nab-label { font-weight: 800; font-size: 0.82rem; letter-spacing: 0.02em; }
+.nav-app-btn .nab-sub { font-weight: 500; font-size: 0.72rem; opacity: 0.8; }
 
 .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
-.hamburger span { display: block; width: 24px; height: 3px; background: #0f3635; border-radius: 2px; margin: 5px 0; transition: all 0.3s; }
+.hamburger span { display: block; width: 24px; height: 3px; background: #0f3634; border-radius: 2px; margin: 5px 0; transition: all 0.3s; }
 .mobile-menu { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #fff; z-index: 998; flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
 .mobile-menu.open { display: flex; }
-.mobile-menu a { font-family: 'Baloo 2', cursive; font-size: 1.5rem; font-weight: 700; color: #0f3635; }
+.mobile-menu a { font-family: 'Baloo 2', cursive; font-size: 1.5rem; font-weight: 700; color: #0f3634; }
 .mobile-menu .btn { font-size: 1rem; }
-.mobile-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #0f3635; }
+.mobile-close { position: absolute; top: 20px; right: 24px; background: none; border: none; font-size: 2rem; cursor: pointer; color: #0f3634; }
 
 @media (max-width: 900px) {
   .nav-links, .nav-right { display: none; }
@@ -127,35 +164,62 @@ p { margin: 0 0 1em; }
    HERO
 ═══════════════════════════════════════════════════════ */
 .hero {
-  padding: 120px 0 0;
-  background: linear-gradient(180deg, #f0faf9 0%, #edf9f8 50%, #ffffff 100%);
+  padding: 120px 0 80px;
+  background: #0f3634;
   position: relative; overflow: hidden;
+  min-height: 100vh;
 }
-.hero::before {
+.hero-video-bg {
+  position: absolute; inset: 0; z-index: 0;
+  overflow: hidden;
+}
+.hero-video-bg video {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
+}
+.hero-video-bg::after {
   content: '';
-  position: absolute; top: -100px; right: -100px;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(58,216,212,0.15) 0%, transparent 70%);
-  border-radius: 50%;
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(10,30,30,0.72) 0%, rgba(15,54,53,0.55) 100%);
 }
+.hero > .container { position: relative; z-index: 1; }
+.hero::before { display: none; }
 .hero-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
   align-items: center;
 }
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.85rem; font-weight: 600; color: #1a8f8a;
-  background: rgba(26,143,138,0.1); padding: 8px 18px;
-  border-radius: 50px; margin-bottom: 16px;
+  font-size: 0.85rem; font-weight: 600; color: #3ad8d4;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  padding: 8px 18px; border-radius: 12px; margin-bottom: 16px;
+  border: 1px solid rgba(255,255,255,0.2);
 }
-.hero-eyebrow svg { width: 16px; height: 16px; }
+.hero-eyebrow svg { width: 16px; height: 16px; stroke: #3ad8d4; }
 .hero h1 {
   font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800;
-  color: #0f3635; margin-bottom: 16px; line-height: 1.15;
+  color: #fff; margin-bottom: 16px; line-height: 1.15;
 }
-.hero h1 span { color: #1a8f8a; }
-.hero-sub { font-size: 1.15rem; color: #3a6665; margin-bottom: 28px; max-width: 480px; }
+.hero h1 span { color: #faa56b; }
+.hero-sub { font-size: 1.15rem; color: rgba(255,255,255,0.85); margin-bottom: 28px; max-width: 480px; }
 .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 24px; }
+.hero-social-proof {
+  display: flex; align-items: center; gap: 12px; margin-top: 8px; flex-wrap: wrap;
+}
+.hsp-stat {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px; padding: 12px 20px; min-width: 90px;
+}
+.hsp-num {
+  font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 800;
+  color: #fff; line-height: 1;
+}
+.hsp-label { font-size: 0.75rem; color: #3ad8d4; font-weight: 600; margin-top: 4px; text-align: center; }
 .hero-form-card {
   background: #fff; border-radius: 24px;
   box-shadow: 0 8px 40px rgba(15,54,53,0.12);
@@ -163,30 +227,16 @@ p { margin: 0 0 1em; }
 }
 .hero-form-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
-  background: linear-gradient(90deg, #1a8f8a, #3ad8d4, #c8f116);
+  background: linear-gradient(90deg, #3ad8d4, #3ad8d4, #faa56b);
 }
-.hero-form-card h3 { font-size: 1.3rem; text-align: center; margin-bottom: 4px; color: #0f3635; }
+.hero-form-card h3 { font-size: 1.3rem; text-align: center; margin-bottom: 4px; color: #0f3634; }
 .hero-form-card .form-sub { text-align: center; font-size: 0.9rem; color: #5a8a89; margin-bottom: 16px; }
 .hero-form-card iframe { width: 100%; height: 480px; border: none; border-radius: 8px; }
-
-/* Trust bar */
-.trust-bar {
-  background: #0f3635; padding: 28px 0; margin-top: -1px;
-}
-.trust-bar-inner {
-  display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
-  max-width: 1000px; margin: 0 auto; padding: 0 24px;
-}
-.trust-item { text-align: center; color: #fff; }
-.trust-item .num { font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800; color: #c8f116; display: block; line-height: 1; }
-.trust-item .label { font-size: 0.85rem; opacity: 0.8; }
 
 @media (max-width: 768px) {
   .hero { padding: 100px 0 0; }
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-form-card { margin: 0 -8px; }
-  .trust-bar-inner { gap: 24px; }
-  .trust-item .num { font-size: 1.5rem; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -216,13 +266,15 @@ p { margin: 0 0 1em; }
 }
 .about-img-wrap .otter-float img { border-radius: 0; box-shadow: none; }
 .about-list {
-  list-style: none; padding: 0; margin: 0; display: grid; gap: 12px;
+  list-style: none; padding: 0; margin: 0; display: grid; gap: 10px;
 }
 .about-list li {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: 1rem; color: #2a5554;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.95rem; font-weight: 600; color: #0f3634;
+  background: #f0faf9; border: 1px solid #d0eeec;
+  border-radius: 10px; padding: 12px 16px;
 }
-.about-list li svg { flex-shrink: 0; margin-top: 3px; }
+.about-list li svg { flex-shrink: 0; }
 
 @media (max-width: 768px) {
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -234,71 +286,159 @@ p { margin: 0 0 1em; }
 .programs {
   padding: 80px 0; background: #f0faf9; position: relative;
 }
+.programs .section-title { color: #0f3634; }
+.programs .badge { background: rgba(15,54,52,0.08); color: #0f3634; }
+.programs .section-sub { color: #3a6665; }
 .programs-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 6px; border-radius: 16px; overflow: hidden; height: 540px;
 }
 .program-card {
-  background: #fff; border-radius: 24px;
-  box-shadow: 0 4px 24px rgba(15,54,53,0.08);
-  overflow: hidden; transition: all 0.35s ease;
-}
-.program-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 40px rgba(15,54,53,0.15);
+  position: relative; overflow: hidden; cursor: pointer;
 }
 .program-card-img {
-  height: 200px; overflow: hidden; position: relative;
+  position: absolute; inset: 0;
 }
 .program-card-img img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.6s ease;
 }
-.program-card-age {
-  position: absolute; bottom: 12px; left: 12px;
-  background: #c8f116; color: #0f3635;
-  font-weight: 700; font-size: 0.8rem;
-  padding: 6px 14px; border-radius: 50px;
+.program-card:hover .program-card-img img { transform: scale(1.08); }
+.program-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,28,28,0.92) 0%, rgba(10,28,28,0.3) 50%, transparent 100%);
+  transition: background 0.4s ease;
 }
-.program-card-body { padding: 24px; }
-.program-card-body h3 { font-size: 1.35rem; margin-bottom: 8px; color: #0f3635; }
-.program-card-body p { font-size: 0.95rem; color: #3a6665; margin-bottom: 16px; }
-.program-card-body .btn { font-size: 0.9rem; padding: 10px 24px; width: 100%; justify-content: center; }
+.program-card:hover::after {
+  background: linear-gradient(to top, rgba(10,28,28,0.97) 0%, rgba(10,28,28,0.6) 65%, rgba(10,28,28,0.15) 100%);
+}
+.program-card-body {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 22px 18px; z-index: 2;
+  display: flex; flex-direction: column;
+}
+.prog-badge-slot {
+  height: 24px; margin-bottom: 6px;
+  display: flex; align-items: center;
+}
+.prog-free-badge {
+  display: inline-block; background: #c8f116; color: #0f3634;
+  font-weight: 700; font-size: 0.68rem; padding: 3px 10px;
+  border-radius: 6px;
+}
+.program-card-meta {
+  font-size: 0.68rem; font-weight: 700; color: #3ad8d4;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  min-height: 2.2em; margin-bottom: 4px;
+  display: flex; align-items: flex-end;
+}
+.program-card-body h3 {
+  font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 0;
+}
+.program-card-body p {
+  font-size: 0.8rem; color: rgba(255,255,255,0.82); line-height: 1.5;
+  margin: 8px 0 0;
+}
+.program-card-footer { margin-top: 4px; }
+.program-card-footer .btn {
+  font-size: 0.78rem; padding: 8px 16px;
+  background: #3ad8d4; color: #0f3634;
+}
+.program-card-footer .btn:hover { background: #c8f116; }
 
-@media (max-width: 768px) {
-  .programs-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+@media (max-width: 900px) {
+  .programs-grid { grid-template-columns: 1fr 1fr; height: auto; }
+  .program-card { height: 320px; }
+  .program-card-body p, .program-card-footer { opacity: 1; transform: none; }
+}
+@media (max-width: 500px) {
+  .programs-grid { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════════════════════════
-   GETTING STARTED
+   GETTING STARTED — Timeline
 ═══════════════════════════════════════════════════════ */
 .steps {
-  padding: 80px 0; background: #fff;
+  padding: 100px 0;
+  background: linear-gradient(180deg, #fff 0%, #f0fdfb 100%);
+  position: relative; overflow: hidden;
 }
-.steps-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+.steps::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle, rgba(58,216,212,0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
 }
-.step-card {
-  text-align: center; padding: 32px 20px;
-  background: #f0faf9; border-radius: 24px;
-  position: relative;
-  transition: all 0.35s ease;
+.steps-timeline {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; position: relative; margin-top: 56px;
 }
-.step-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(15,54,53,0.1); }
-.step-num {
-  width: 56px; height: 56px; border-radius: 50%;
-  background: linear-gradient(135deg, #1a8f8a, #3ad8d4);
-  color: #fff; font-family: 'Baloo 2', cursive;
-  font-size: 1.5rem; font-weight: 800;
+/* connector line */
+.steps-timeline::before {
+  content: '';
+  position: absolute; top: 52px; left: 12.5%; right: 12.5%;
+  height: 3px;
+  background: linear-gradient(90deg, #3ad8d4, #faa56b, #3ad8d4, #faa56b);
+  z-index: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.steps-timeline.line-visible::before {
+  transform: scaleX(1);
+}
+.step-item {
+  text-align: center; padding: 0 16px;
+  position: relative; z-index: 1;
+}
+.step-icon-wrap {
+  width: 104px; height: 104px;
+  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
+  margin: 0 auto 20px;
+  position: relative;
+  transition: transform 0.3s ease;
 }
-.step-card h3 { font-size: 1.15rem; margin-bottom: 8px; color: #0f3635; }
-.step-card p { font-size: 0.9rem; color: #3a6665; margin: 0; }
+.step-item:hover .step-icon-wrap { transform: translateY(-6px) scale(1.05); }
+.step-icon-wrap.teal {
+  background: linear-gradient(135deg, #3ad8d4, #28c4c0);
+  box-shadow: 0 8px 32px rgba(58,216,212,0.35);
+}
+.step-icon-wrap.coral {
+  background: linear-gradient(135deg, #faa56b, #f0854a);
+  box-shadow: 0 8px 32px rgba(250,165,107,0.35);
+}
+.step-icon-wrap svg { width: 44px; height: 44px; }
+.step-badge {
+  position: absolute; top: -6px; right: -6px;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #0f3634; color: #fff;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.85rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.step-item h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 1.2rem; font-weight: 800;
+  color: #0f3634; margin-bottom: 10px;
+}
+.step-item p { font-size: 0.88rem; color: #3a6665; line-height: 1.65; margin: 0; }
+.step-item .step-tag {
+  display: inline-block; margin-bottom: 12px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 50px;
+}
+.step-item .step-tag.teal { background: rgba(58,216,212,0.12); color: #1bada9; }
+.step-item .step-tag.coral { background: rgba(250,165,107,0.12); color: #d97040; }
 
-@media (max-width: 768px) {
-  .steps-grid { grid-template-columns: 1fr 1fr; }
+@media (max-width: 900px) {
+  .steps-timeline { grid-template-columns: 1fr 1fr; gap: 48px 16px; }
+  .steps-timeline::before { display: none; }
 }
 @media (max-width: 480px) {
-  .steps-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+  .steps-timeline { grid-template-columns: 1fr; max-width: 320px; margin: 40px auto 0; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -411,7 +551,7 @@ p { margin: 0 0 1em; }
 .loc-card.coming-soon .loc-card-img { position: relative; }
 .loc-card.coming-soon .loc-card-img::after {
   content: 'Coming Soon'; position: absolute; inset: 0;
-  background: rgba(15,54,53,0.5); color: #c8f116;
+  background: rgba(15,54,53,0.5); color: #faa56b;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Baloo 2', cursive; font-size: 1.5rem;
 }
@@ -442,9 +582,9 @@ p { margin: 0 0 1em; }
   overflow: hidden; margin: 0 auto 16px;
   border: 4px solid #3ad8d4;
 }
-.team-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.team-card-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .team-card-avatar.placeholder {
-  background: linear-gradient(135deg, #1a8f8a, #3ad8d4);
+  background: linear-gradient(135deg, #3ad8d4, #3ad8d4);
   display: flex; align-items: center; justify-content: center;
   color: #fff; font-family: 'Baloo 2', cursive; font-size: 2rem; font-weight: 800;
 }
@@ -452,7 +592,7 @@ p { margin: 0 0 1em; }
 .team-card p { font-size: 0.85rem; color: #3a6665; margin: 0; }
 .team-hire {
   text-align: center; padding: 40px;
-  background: linear-gradient(135deg, #1a8f8a, #3ad8d4);
+  background: linear-gradient(135deg, #3ad8d4, #3ad8d4);
   border-radius: 24px; color: #fff;
 }
 .team-hire h3 { font-size: 1.5rem; margin-bottom: 8px; color: #fff; }
@@ -476,12 +616,12 @@ p { margin: 0 0 1em; }
   margin-bottom: 32px;
 }
 .faq-tab {
-  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.9rem;
   padding: 10px 22px; border-radius: 50px; border: 2px solid #e0eded;
   background: #fff; color: #3a6665; cursor: pointer; transition: all 0.25s;
 }
-.faq-tab:hover { border-color: #1a8f8a; color: #1a8f8a; }
-.faq-tab.active { background: #1a8f8a; color: #fff; border-color: #1a8f8a; }
+.faq-tab:hover { border-color: #3ad8d4; color: #3ad8d4; }
+.faq-tab.active { background: #3ad8d4; color: #fff; border-color: #3ad8d4; }
 .faq-list {
   max-width: 800px; margin: 0 auto;
   display: grid; gap: 12px;
@@ -494,11 +634,11 @@ p { margin: 0 0 1em; }
 .faq-q {
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 24px; cursor: pointer;
-  font-weight: 700; font-size: 1rem; color: #0f3635;
+  font-weight: 700; font-size: 1rem; color: #0f3634;
   border: none; background: none; width: 100%;
-  text-align: left; font-family: 'DM Sans', sans-serif;
+  text-align: left; font-family: 'Poppins', sans-serif;
 }
-.faq-q:hover { color: #1a8f8a; }
+.faq-q:hover { color: #3ad8d4; }
 .faq-q .arrow {
   width: 24px; height: 24px;
   transition: transform 0.3s;
@@ -531,24 +671,24 @@ p { margin: 0 0 1em; }
 }
 .app-chip {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.88rem;
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.88rem;
   background: #fff; border: 1px solid #d6efee; border-radius: 50px;
-  padding: 10px 20px; color: #0f3635;
+  padding: 10px 20px; color: #0f3634;
 }
 .app-chip svg { width: 18px; height: 18px; flex-shrink: 0; }
 .app-badges-center {
   display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
 }
 .app-badges-center img { height: 48px; border-radius: 8px; }
-.app-badges-center a { font-weight: 600; color: #1a8f8a; font-size: 0.95rem; transition: color 0.2s; }
-.app-badges-center a:hover { color: #0f3635; }
+.app-badges-center a { font-weight: 600; color: #3ad8d4; font-size: 0.95rem; transition: color 0.2s; }
+.app-badges-center a:hover { color: #0f3634; }
 
 /* ═══════════════════════════════════════════════════════
    FINAL CTA
 ═══════════════════════════════════════════════════════ */
 .final-cta {
   padding: 80px 0;
-  background: linear-gradient(135deg, #0f3635 0%, #1a8f8a 100%);
+  background: linear-gradient(135deg, #0f3634 0%, #3ad8d4 100%);
   text-align: center; position: relative; overflow: hidden;
 }
 .final-cta::before,
@@ -575,7 +715,7 @@ p { margin: 0 0 1em; }
   margin-bottom: 36px; position: relative; z-index: 1;
 }
 .cta-stat { text-align: center; }
-.cta-stat .num { font-family: 'Baloo 2', cursive; font-size: 2.5rem; font-weight: 800; color: #c8f116; display: block; line-height: 1; }
+.cta-stat .num { font-family: 'Baloo 2', cursive; font-size: 2.5rem; font-weight: 800; color: #faa56b; display: block; line-height: 1; }
 .cta-stat .label { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
 .final-cta .btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
 
@@ -593,11 +733,11 @@ p { margin: 0 0 1em; }
 .footer h4 { font-family: 'Baloo 2', cursive; font-size: 1.2rem; color: #fff; margin-bottom: 16px; }
 .footer p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 8px; }
 .footer a { color: #3ad8d4; transition: color 0.2s; }
-.footer a:hover { color: #c8f116; }
+.footer a:hover { color: #faa56b; }
 .footer-logo { height: 40px; margin-bottom: 16px; filter: brightness(0) invert(1); }
 .footer-links { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .footer-links a { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
-.footer-links a:hover { color: #c8f116; }
+.footer-links a:hover { color: #faa56b; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 20px;
@@ -611,7 +751,7 @@ p { margin: 0 0 1em; }
   display: flex; align-items: center; justify-content: center;
   transition: all 0.3s;
 }
-.footer-social a:hover { background: #1a8f8a; }
+.footer-social a:hover { background: #3ad8d4; }
 .footer-social svg { width: 18px; height: 18px; fill: #fff; }
 
 @media (max-width: 768px) {
@@ -640,13 +780,21 @@ p { margin: 0 0 1em; }
     </ul>
     <div class="nav-right">
       <div class="portal-dropdown">
-        <button class="portal-dropdown-btn">Portals &#9662;</button>
+        <button class="portal-dropdown-btn">
+          <span class="pdb-label">Current Clients &#9662;</span>
+          <span class="pdb-sub">Portals &amp; Account</span>
+        </button>
         <div class="portal-dropdown-menu">
-          <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal<span>iClassPro &mdash; Edgewater</span></a>
-          <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal<span>iClassPro &mdash; Calvert</span></a>
+          <div class="pdd-section">Client Portals</div>
+          <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal<span>Manage classes &amp; make-ups</span></a>
+          <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal<span>Manage classes &amp; make-ups</span></a>
+          <hr class="pdd-divider">
+          <div class="pdd-section">Download App</div>
+          <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">App Store<span>Download on iPhone</span></a>
+          <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">Google Play<span>Download on Android</span></a>
         </div>
       </div>
-      <a href="#hero" class="btn btn-lime" style="padding:10px 22px;font-size:0.85rem;">Get Started</a>
+      <a href="#hero" class="btn btn-nav-cta">🏊 Get Started</a>
     </div>
     <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -663,8 +811,12 @@ p { margin: 0 0 1em; }
   <a href="#locations" class="mob-link">Locations</a>
   <a href="#team" class="mob-link">Team</a>
   <a href="#faq" class="mob-link">FAQ</a>
+  <div style="text-align:center;font-size:0.75rem;font-weight:700;color:#9ab5b4;text-transform:uppercase;letter-spacing:0.08em;margin-top:8px;">Current Clients</div>
   <a href="https://portal.iclasspro.com/clssedgewater" target="_blank" class="btn btn-outline">Edgewater Portal</a>
   <a href="https://portal.iclasspro.com/clsscalvert" target="_blank" class="btn btn-coral">Calvert Portal</a>
+  <div style="text-align:center;font-size:0.75rem;font-weight:700;color:#9ab5b4;text-transform:uppercase;letter-spacing:0.08em;margin-top:8px;">Download App</div>
+  <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank" class="btn" style="background:#0f3635;color:#fff;">App Store</a>
+  <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank" class="btn" style="background:#0f3635;color:#fff;">Google Play</a>
   <a href="#hero" class="btn btn-lime">Get Started</a>
 </div>
 
@@ -672,19 +824,25 @@ p { margin: 0 0 1em; }
      HERO
 ═══════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/69d56b78f5ebf27de323de33.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="container">
     <div class="hero-grid">
       <!-- Left: copy -->
       <div class="anim">
         <div class="hero-eyebrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.5-12.5h4m14 0h4m-3.5-7-2.8 2.8M6.3 17.7l-2.8 2.8m14.2 0-2.8-2.8M6.3 6.3 3.5 3.5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.5-12.5h4m14 0h4m-3.5-7-2.8 2.8M6.3 17.7l-2.8 2.8m14.2 0-2.8-2.8M6.3 6.3 3.5 3.5"/></svg>
           Edgewater &amp; Calvert, MD
         </div>
         <h1>Swimming Lessons Kids <span style="color:var(--coral)">Love</span> &amp; Parents Trust</h1>
         <p class="hero-sub">Safe, fun, and nurturing swim lessons for ages 3 months and up. Small groups. Big confidence. Red Cross certified instructors.</p>
-        <div class="hero-btns">
-          <a href="#hero-form" class="btn btn-lime">Request a Free Trial</a>
-          <a href="#hero" class="btn btn-outline">Swim Stage Checker</a>
+        <div class="hero-social-proof">
+          <div class="hsp-stat"><span class="hsp-num">18+</span><span class="hsp-label">Years Experience</span></div>
+          <div class="hsp-stat"><span class="hsp-num">3</span><span class="hsp-label">Locations</span></div>
+          <div class="hsp-stat"><span class="hsp-num">5&#9733;</span><span class="hsp-label">Google Rating</span></div>
         </div>
       </div>
       <!-- Right: form -->
@@ -699,23 +857,8 @@ p { margin: 0 0 1em; }
 </section>
 
 <!-- Wave divider: hero → trust bar -->
+<!-- Wave divider: hero → about -->
 <div class="wave-divider" style="background:#fff;">
-  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block">
-    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80Z" fill="#0f3635"/>
-  </svg>
-</div>
-
-<!-- Trust bar — 3 items -->
-<div class="trust-bar">
-  <div class="trust-bar-inner">
-    <div class="trust-item anim"><span class="num">18+</span><span class="label">Years Experience</span></div>
-    <div class="trust-item anim"><span class="num">3</span><span class="label">Locations</span></div>
-    <div class="trust-item anim"><span class="num">5&#9733;</span><span class="label">Google Rating</span></div>
-  </div>
-</div>
-
-<!-- Wave divider: trust bar → about -->
-<div class="wave-divider" style="background:#0f3635;">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
     <path d="M0,0 C240,50 480,10 720,30 C960,50 1200,10 1440,30 L1440,60 L0,60Z" fill="#ffffff"/>
   </svg>
@@ -741,7 +884,7 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="about-grid">
       <div class="about-img-wrap anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ec292593-387e-446e-8f6a-1534d817f761.jpg" alt="Josie teaching swim lesson with kickboard">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/23fb9989-aa0f-4bc7-aa4e-9f864eff09bd.jpg" alt="Josie teaching swim lesson with kickboard">
         <div class="otter-float">
           <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/26d30c8e-b715-4a23-8c2c-c64adf2478cd.png" alt="Center Lane otter mascot">
         </div>
@@ -752,23 +895,23 @@ p { margin: 0 0 1em; }
         <p class="section-sub">At Center Lane Swim School, we believe every child deserves to feel safe and confident in the water. Our curriculum is designed to meet swimmers where they are — from first-time babies to advanced competitive swimmers.</p>
         <ul class="about-list">
           <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
             All instructors are Red Cross Certified
           </li>
           <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
             Small groups — max 3 students per instructor
           </li>
           <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
             Proprietary curriculum from infant to advanced
           </li>
           <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
             4 Swim Currents for unique training environment
           </li>
           <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
             Underwater mirrors for instructor feedback
           </li>
         </ul>
@@ -795,54 +938,78 @@ p { margin: 0 0 1em; }
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">From first splash to confident strokes — we have a class for your child.</p>
     </div>
 
-    <!-- Goggles decoration -->
-    <div class="goggles-deco" style="padding:8px 0 24px">
-      <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:60px">
-        <ellipse cx="30" cy="25" rx="22" ry="18" stroke="#fea46c" stroke-width="3" fill="rgba(254,164,108,0.08)"/>
-        <ellipse cx="90" cy="25" rx="22" ry="18" stroke="#fea46c" stroke-width="3" fill="rgba(254,164,108,0.08)"/>
-        <path d="M52 25 C56 18, 64 18, 68 25" stroke="#fea46c" stroke-width="3" stroke-linecap="round"/>
-        <path d="M8 20 C2 16, 0 14, 0 10" stroke="#fea46c" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M112 20 C118 16, 120 14, 120 10" stroke="#fea46c" stroke-width="2.5" stroke-linecap="round"/>
-      </svg>
+    <div class="programs-grid anim">
+
+      <!-- Card 1: Infant Acclimation -->
+      <div class="program-card">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/97412683-3661-4d51-be7f-01b99dda6264.jpeg" alt="Infant acclimation class">
+        </div>
+        <div class="program-card-body">
+          <div class="prog-badge-slot"><span class="prog-free-badge">FREE Program</span></div>
+          <div class="program-card-meta">3 – 6 Months</div>
+          <h3>Infant Acclimation</h3>
+          <p>Gentle water introduction for infants 3–6 months. Builds early water comfort in a warm, nurturing environment.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Parent Teacher Class -->
+      <div class="program-card">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/acba38e6-ba4f-4d07-ab94-229ad2a98e32.jpeg" alt="Parent teacher class">
+        </div>
+        <div class="program-card-body">
+          <div class="prog-badge-slot"></div>
+          <div class="program-card-meta">6 – 24 Months</div>
+          <h3>Parent Teacher Class</h3>
+          <p>Parent-guided lessons where you're in the water with your child, building water safety and confidence together.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Beginner -->
+      <div class="program-card">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2d96c72d-a148-458e-91d1-efdbf8af3d3e.jpeg" alt="Beginner swim lessons">
+        </div>
+        <div class="program-card-body">
+          <div class="prog-badge-slot"></div>
+          <div class="program-card-meta">Ages 2+ · No Experience</div>
+          <h3>Beginner</h3>
+          <p>No experience required. Children learn to float, kick, and take their first independent strokes.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Intermediate -->
+      <div class="program-card">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/8f9e3964-07b1-4982-bf30-19ab8e168be3.jpg" alt="Intermediate swim lessons">
+        </div>
+        <div class="program-card-body">
+          <div class="prog-badge-slot"></div>
+          <div class="program-card-meta">Ages 2+ · Independent Swimmer</div>
+          <h3>Intermediate</h3>
+          <p>For independent swimmers ready to develop stronger technique. Refine freestyle and backstroke with endurance training.</p>
+        </div>
+      </div>
+
+      <!-- Card 5: Advanced -->
+      <div class="program-card">
+        <div class="program-card-img">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/8a0c841d-66bf-4834-972c-bfbf489abb9e.jpg" alt="Advanced swim lessons">
+        </div>
+        <div class="program-card-body">
+          <div class="prog-badge-slot"></div>
+          <div class="program-card-meta">Ages 2+ · Stroke Development</div>
+          <h3>Advanced</h3>
+          <p>Master all four competitive strokes with proper technique, flip turns, and endurance training.</p>
+        </div>
+      </div>
+
     </div>
 
-    <div class="programs-grid">
-      <!-- Card 1: Infant & Parent -->
-      <div class="program-card anim">
-        <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e7aff989-d04e-4df7-8447-e5d2588351cd.jpeg" alt="Baby swimming lesson">
-          <span class="program-card-age">Ages 3mo – 2yrs</span>
-        </div>
-        <div class="program-card-body">
-          <h3>Infant &amp; Parent</h3>
-          <p>Parent-Tot Combo and Acclimation classes designed to build water comfort and safety in a warm, nurturing environment with mom or dad in the pool.</p>
-          <a href="#hero" class="btn btn-lime">Enroll Now</a>
-        </div>
-      </div>
-      <!-- Card 2: Learn to Swim -->
-      <div class="program-card anim" style="animation-delay:0.1s">
-        <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/f193db99-5924-4e91-b532-3a673e088323.jpg" alt="Kids swimming lessons">
-          <span class="program-card-age">Ages 2+</span>
-        </div>
-        <div class="program-card-body">
-          <h3>Learn to Swim</h3>
-          <p>Beginner through Advanced levels. Children progress from water comfort to mastering all four competitive strokes with proper technique and endurance.</p>
-          <a href="#hero" class="btn btn-lime">Enroll Now</a>
-        </div>
-      </div>
-      <!-- Card 3: Events & Parties -->
-      <div class="program-card anim" style="animation-delay:0.2s">
-        <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/44e54732-0039-46d3-bf15-c818a5a6605b.jpg" alt="Pool party">
-          <span class="program-card-age" style="background:#fea46c;color:#fff;">Events</span>
-        </div>
-        <div class="program-card-body">
-          <h3>Events &amp; Parties</h3>
-          <p>Birthday parties, Parents Night Out, and seasonal drop-off camps. Make a splash at your next celebration with private pool access and lifeguard supervision.</p>
-          <a href="#hero" class="btn btn-coral">Book a Party</a>
-        </div>
-      </div>
+    <!-- Section CTA -->
+    <div style="text-align:center;margin-top:40px;">
+      <a href="#hero" class="btn btn-nav-cta" style="font-size:1.05rem;padding:16px 44px;">Find the Right Class for Your Child →</a>
     </div>
   </div>
 </section>
@@ -864,27 +1031,60 @@ p { margin: 0 0 1em; }
       <h2 class="section-title">Everything You Need To Get Started</h2>
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">Four simple steps from sign-up to swimming success.</p>
     </div>
-    <div class="steps-grid">
-      <div class="step-card anim">
-        <div class="step-num">1</div>
+    <div class="steps-timeline">
+
+      <!-- Step 1 -->
+      <div class="step-item anim">
+        <div class="step-icon-wrap teal">
+          <span class="step-badge">1</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+        </div>
+        <span class="step-tag teal">Start Here</span>
+        <h3>Register Online</h3>
+        <p>Sign up through the iClassPro portal or download our mobile app to create your account.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-item anim" style="transition-delay:0.1s">
+        <div class="step-icon-wrap coral">
+          <span class="step-badge">2</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <span class="step-tag coral">Pick Your Fit</span>
         <h3>Choose Your Level</h3>
         <p>Use our Swim Stage Checker or speak with our team to find the right class for your child.</p>
       </div>
-      <div class="step-card anim" style="animation-delay:0.1s">
-        <div class="step-num">2</div>
-        <h3>Enroll Online</h3>
-        <p>Register through the iClassPro portal or download our mobile app to secure your spot.</p>
-      </div>
-      <div class="step-card anim" style="animation-delay:0.2s">
-        <div class="step-num">3</div>
-        <h3>Attend Weekly Classes</h3>
+
+      <!-- Step 3 -->
+      <div class="step-item anim" style="transition-delay:0.2s">
+        <div class="step-icon-wrap teal">
+          <span class="step-badge">3</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C8 2 4 5.5 4 10c0 5.25 6 12 8 12s8-6.75 8-12c0-4.5-4-8-8-8z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <span class="step-tag teal">Weekly</span>
+        <h3>Attend Classes</h3>
         <p>Show up for 30-minute weekly sessions. Consistency is the key to confident swimmers.</p>
       </div>
-      <div class="step-card anim" style="animation-delay:0.3s">
-        <div class="step-num">4</div>
+
+      <!-- Step 4 -->
+      <div class="step-item anim" style="transition-delay:0.3s">
+        <div class="step-icon-wrap coral">
+          <span class="step-badge">4</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </div>
+        <span class="step-tag coral">Ongoing</span>
         <h3>Watch Them Grow</h3>
         <p>See your child progress through levels and unlock new skills with every session.</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -919,32 +1119,32 @@ p { margin: 0 0 1em; }
     <!-- Goggles decoration -->
     <div class="goggles-deco" style="padding:0 0 32px">
       <svg viewBox="0 0 120 50" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:60px">
-        <ellipse cx="30" cy="25" rx="22" ry="18" stroke="#1a8f8a" stroke-width="3" fill="rgba(26,143,138,0.08)"/>
-        <ellipse cx="90" cy="25" rx="22" ry="18" stroke="#1a8f8a" stroke-width="3" fill="rgba(26,143,138,0.08)"/>
-        <path d="M52 25 C56 18, 64 18, 68 25" stroke="#1a8f8a" stroke-width="3" stroke-linecap="round"/>
-        <path d="M8 20 C2 16, 0 14, 0 10" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M112 20 C118 16, 120 14, 120 10" stroke="#1a8f8a" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="30" cy="25" rx="22" ry="18" stroke="#3ad8d4" stroke-width="3" fill="rgba(58,216,212,0.08)"/>
+        <ellipse cx="90" cy="25" rx="22" ry="18" stroke="#3ad8d4" stroke-width="3" fill="rgba(58,216,212,0.08)"/>
+        <path d="M52 25 C56 18, 64 18, 68 25" stroke="#3ad8d4" stroke-width="3" stroke-linecap="round"/>
+        <path d="M8 20 C2 16, 0 14, 0 10" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M112 20 C118 16, 120 14, 120 10" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
     </div>
 
     <div class="values-grid">
       <div class="value-card anim">
-        <div class="value-icon" style="background:rgba(26,143,138,0.1);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="value-icon" style="background:rgba(58,216,212,0.1);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h4>Safety First</h4>
         <p>Every decision starts with your child's safety. Small groups, certified instructors, and constant supervision.</p>
       </div>
       <div class="value-card anim">
-        <div class="value-icon" style="background:rgba(254,164,108,0.12);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fea46c" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <div class="value-icon" style="background:rgba(250,165,107,0.12);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#faa56b" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
         <h4>Kindness &amp; Patience</h4>
         <p>We meet every child where they are. Fearful swimmers get extra care and time to build confidence.</p>
       </div>
       <div class="value-card anim">
-        <div class="value-icon" style="background:rgba(200,241,22,0.15);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8db300" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        <div class="value-icon" style="background:rgba(250,165,107,0.15);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#faa56b" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
         </div>
         <h4>Encouraging</h4>
         <p>Positive reinforcement fuels progress. Every milestone is celebrated — big or small.</p>
@@ -964,8 +1164,8 @@ p { margin: 0 0 1em; }
         <p>4 adjustable swim currents create a unique training environment that builds endurance faster than traditional pools.</p>
       </div>
       <div class="value-card anim">
-        <div class="value-icon" style="background:rgba(26,143,138,0.1);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="value-icon" style="background:rgba(58,216,212,0.1);">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
         <h4>Small Groups (3:1)</h4>
         <p>Maximum 3 students per instructor ensures personalized attention and faster progress for every swimmer.</p>
@@ -1020,7 +1220,7 @@ p { margin: 0 0 1em; }
         <div class="gallery-overlay"></div>
       </div>
       <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ec292593-387e-446e-8f6a-1534d817f761.jpg" alt="Josie teaching">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/23fb9989-aa0f-4bc7-aa4e-9f864eff09bd.jpg" alt="Josie teaching">
         <div class="gallery-overlay"></div>
       </div>
       <div class="gallery-item anim">
@@ -1135,27 +1335,37 @@ p { margin: 0 0 1em; }
         <p>Owner</p>
       </div>
       <div class="team-card anim">
-        <div class="team-card-avatar placeholder">H</div>
+        <div class="team-card-avatar">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c1f3b4bb-69fa-4430-98df-999a51f32bc3.jpg" alt="Hannah">
+        </div>
         <h4>Hannah</h4>
         <p>Aquatics Manager</p>
       </div>
       <div class="team-card anim">
-        <div class="team-card-avatar placeholder">H</div>
+        <div class="team-card-avatar">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2ec2b229-d782-46f7-a9af-b53c5ec7ba68.jpeg" alt="Heather">
+        </div>
         <h4>Heather</h4>
         <p>Calvert General Manager</p>
       </div>
       <div class="team-card anim">
-        <div class="team-card-avatar placeholder">B</div>
+        <div class="team-card-avatar">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/6b1059b5-69a5-46e0-9e37-21a2644b36b2.jpeg" alt="Brittany">
+        </div>
         <h4>Brittany</h4>
         <p>Lead Instructor</p>
       </div>
       <div class="team-card anim">
-        <div class="team-card-avatar placeholder">K</div>
+        <div class="team-card-avatar">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a123ec6c-fac4-4ecb-8326-23c469a110b7.jpeg" alt="Kristin" style="object-position: 60% top;">
+        </div>
         <h4>Kristin</h4>
         <p>Administrative Assistant</p>
       </div>
       <div class="team-card anim">
-        <div class="team-card-avatar placeholder">V</div>
+        <div class="team-card-avatar">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ee0cfc48-a297-4893-bad2-963ffd1f25d1.jpeg" alt="Venus">
+        </div>
         <h4>Venus</h4>
         <p>Administrative Assistant</p>
       </div>
@@ -1187,9 +1397,10 @@ p { margin: 0 0 1em; }
 
     <div class="faq-tabs anim">
       <button class="faq-tab active" data-filter="lessons">Lessons</button>
-      <button class="faq-tab" data-filter="registration">Registration</button>
+      <button class="faq-tab" data-filter="registration">Registration &amp; Billing</button>
       <button class="faq-tab" data-filter="absences">Absences &amp; Make-ups</button>
       <button class="faq-tab" data-filter="facility">Facility</button>
+      <button class="faq-tab" data-filter="other">Other</button>
     </div>
 
     <div class="faq-list">
@@ -1197,42 +1408,42 @@ p { margin: 0 0 1em; }
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           How long are lessons? How often?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Each lesson is 30 minutes long, once per week. Consistent weekly attendance is the best way to ensure steady progress. We offer a discount if you enroll for multiple days per week.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           Do I need to stay for my child's lesson?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Parents are encouraged to stay and watch but it's not required — except for Parent-Tot Combo classes where a parent is in the water. We have viewing areas at all locations.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           What do I need to bring?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">A comfortable swimsuit, goggles (optional), a towel, and a change of clothes. We provide all training equipment needed for class.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           What is the swim diaper policy?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Children ages 3 and under must wear a Splash About or Happy Nappy reusable swim diaper. Disposable swim diapers are not allowed in our pools. These are available at our front desk or online.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           Which level should I sign up for?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner"><strong>Parent-Tot Combo (PTC):</strong> Ages 6-24 months<br><strong>Beginner:</strong> Ages 2+ with no swimming experience<br><strong>Intermediate:</strong> Can swim 15 feet unassisted<br><strong>Advanced:</strong> Can swim 30+ feet with proper technique<br><br>Not sure? Contact us and we'll help you find the right fit.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           My child is 3+, can I do parent-taught?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Parent-Tot Combo classes are designed for ages 6-24 months. Children age 2 and older move into our Beginner level with our instructors. This transition helps children learn independence in the water.</div></div>
       </div>
@@ -1241,35 +1452,35 @@ p { margin: 0 0 1em; }
       <div class="faq-item anim faq-hidden" data-category="registration">
         <button class="faq-q">
           What should my child wear?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">A comfortable swimsuit is all that's needed. For children with long hair, we recommend a swim cap to keep hair out of their face. Goggles are optional but encouraged.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="registration">
         <button class="faq-q">
           How do I enroll?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">You can enroll directly through our website or iClassPro portal. You can also contact our office by email and we'll help you get set up.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="registration">
         <button class="faq-q">
           What is your cancellation policy?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Please refer to our website or contact our office for full details on our cancellation and refund policy.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="registration">
         <button class="faq-q">
           Are make-up classes available?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Yes! If you need to miss a class, contact us to arrange a make-up lesson. Make-ups can be scheduled through the iClassPro portal or mobile app.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="registration">
         <button class="faq-q">
           What safety measures are in place?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">We maintain a low student-to-instructor ratio (max 3:1) and follow strict safety protocols. All instructors are Red Cross certified and trained in water rescue and first aid.</div></div>
       </div>
@@ -1278,42 +1489,42 @@ p { margin: 0 0 1em; }
       <div class="faq-item anim faq-hidden" data-category="absences">
         <button class="faq-q">
           I need to miss a lesson — what do I do?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Please provide 48 hours notice via the iClassPro portal. For same-day absences, email us directly. This helps us manage class sizes and offer spots to others.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="absences">
         <button class="faq-q">
           What is the make-up policy?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Make-ups are available for scheduled absences. The portal shows available spots within a 7-day window. You can schedule make-ups through the portal or the phone app.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="absences">
         <button class="faq-q">
           Best way to schedule a make-up?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">The easiest way is through the online iClassPro portal or the phone app. You can see available spots in real time and book instantly.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="absences">
         <button class="faq-q">
           Can I get a refund for unused lessons?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">No, we do not offer refunds for unused lessons. However, you can schedule make-ups for any missed classes within the policy window.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="absences">
         <button class="faq-q">
           Can unused lessons apply to future enrollment?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">No, unused lessons cannot be rolled over or applied to a future enrollment period.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="absences">
         <button class="faq-q">
           Do make-ups expire?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Scheduled absence make-ups expire after 1 year. Unscheduled absence make-ups expire after 10 days. There is no cap on the number of make-ups you can schedule.</div></div>
       </div>
@@ -1322,30 +1533,31 @@ p { margin: 0 0 1em; }
       <div class="faq-item anim faq-hidden" data-category="facility">
         <button class="faq-q">
           Your pools seem small — is that enough space?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Our pools feature 4 adjustable swim currents, which means swimmers cover significantly more distance than in a conventional pool. Combined with underwater mirrors for real-time feedback, our compact pools are actually a more effective training environment.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="facility">
         <button class="faq-q">
           Can I use the rear door?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">No, the rear door is for staff only. All visitors should enter and exit through the main entrance for safety and security purposes.</div></div>
       </div>
       <div class="faq-item anim faq-hidden" data-category="facility">
         <button class="faq-q">
           Is there WiFi available?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="faq-a"><div class="faq-a-inner">Yes! WiFi is available at our facilities. Just ask at the front desk for the password.</div></div>
       </div>
-      <div class="faq-item anim faq-hidden" data-category="facility">
+      <!-- ── OTHER ── -->
+      <div class="faq-item anim faq-hidden" data-category="other">
         <button class="faq-q">
-          How do I reach you?
-          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3635" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          I've tried calling and no one has gotten back to me. How do I reach you?
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">The best way to reach us is by email: <a href="mailto:ew@centerlaneswim.com" style="color:#1a8f8a;">ew@centerlaneswim.com</a> for Edgewater, or <a href="mailto:calvert@centerlaneswim.com" style="color:#1a8f8a;">calvert@centerlaneswim.com</a> for Calvert. Our phone lines are not continuously staffed, so email is the most reliable way to get a timely response.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">The best way to reach us is by email: <a href="mailto:ew@centerlaneswim.com" style="color:#3ad8d4;">ew@centerlaneswim.com</a> for Edgewater, or <a href="mailto:calvert@centerlaneswim.com" style="color:#3ad8d4;">calvert@centerlaneswim.com</a> for Calvert. Our phone lines are not continuously staffed, so email is the most reliable way to get a timely response.</div></div>
       </div>
     </div>
   </div>
@@ -1369,19 +1581,19 @@ p { margin: 0 0 1em; }
       <p class="section-sub">Enroll, check attendance, book parties, and more — all on the go.</p>
       <div class="app-chips">
         <span class="app-chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
           Enroll on the go
         </span>
         <span class="app-chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
           Track attendance
         </span>
         <span class="app-chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
           Book parties
         </span>
         <span class="app-chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#1a8f8a" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
           Push notifications
         </span>
       </div>
@@ -1396,7 +1608,7 @@ p { margin: 0 0 1em; }
 <!-- Wave divider -->
 <div class="wave-divider" style="background:#f0faf9;">
   <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block">
-    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80Z" fill="#0f3635"/>
+    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80Z" fill="#0f3634"/>
   </svg>
 </div>
 
@@ -1431,7 +1643,7 @@ p { margin: 0 0 1em; }
      FOOTER
 ═══════════════════════════════════════════════════════ -->
 <!-- Wave divider into footer -->
-<div class="wave-divider" style="background:linear-gradient(135deg, #0f3635 0%, #1a8f8a 100%);">
+<div class="wave-divider" style="background:linear-gradient(135deg, #0f3634 0%, #3ad8d4 100%);">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
     <path d="M0,20 C360,55 720,5 1080,40 C1260,55 1380,20 1440,30 L1440,60 L0,60Z" fill="#0a2a2a"/>
   </svg>
@@ -1464,6 +1676,14 @@ p { margin: 0 0 1em; }
           <li><a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal</a></li>
           <li><a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal</a></li>
         </ul>
+      </div>
+      <div>
+        <h4>Download Our App</h4>
+        <img src="https://lirp.cdn-website.com/32acc81c/dms3rep/multi/opt/center-lane-swim-icon-mockup-1920w.png" alt="Center Lane Swim School App" style="width:100%;max-width:180px;border-radius:12px;margin-bottom:10px;display:block;">
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank" style="color:#3ad8d4;font-size:0.9rem;font-weight:600;">Download on App Store</a>
+          <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank"><img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/8c95a117-15dc-4cea-8ca0-25b2a9865d83.png" alt="Get it on Google Play" style="height:36px;border-radius:8px;display:block;"></a>
+        </div>
       </div>
       <div>
         <h4>Locations</h4>
@@ -1502,6 +1722,7 @@ p { margin: 0 0 1em; }
   });
 })();
 
+
 /* ── Scroll animations with 4s fallback ── */
 (function(){
   var els = document.querySelectorAll('.anim');
@@ -1520,6 +1741,26 @@ p { margin: 0 0 1em; }
   setTimeout(function(){
     els.forEach(function(el){ el.classList.add('visible'); });
   }, 4000);
+})();
+
+/* ── Steps connector line — draws after last bubble appears ── */
+(function(){
+  var timeline = document.querySelector('.steps-timeline');
+  var lastStep = document.querySelector('.steps-timeline .step-item:last-child');
+  if (!timeline || !lastStep) return;
+  if ('IntersectionObserver' in window) {
+    var lineObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          setTimeout(function(){ timeline.classList.add('line-visible'); }, 300);
+          lineObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    lineObs.observe(lastStep);
+  } else {
+    setTimeout(function(){ timeline.classList.add('line-visible'); }, 4300);
+  }
 })();
 
 /* ── FAQ accordion ── */
