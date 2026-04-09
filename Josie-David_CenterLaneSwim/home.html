@@ -308,7 +308,8 @@ p { margin: 0 0 1em; }
 }
 .hero-form-card h3 { font-size: 1.3rem; text-align: center; margin-bottom: 4px; color: #0f3634; }
 .hero-form-card .form-sub { text-align: center; font-size: 0.9rem; color: #5a8a89; margin-bottom: 16px; }
-.hero-form-card iframe { width: 100%; height: 480px; border: none; border-radius: 8px; }
+.hero-form-card iframe { width: 100%; height: 600px; border: none; border-radius: 8px; overflow: hidden; scrollbar-width: none; -ms-overflow-style: none; }
+.hero-form-card iframe::-webkit-scrollbar { display: none; }
 
 @media (max-width: 768px) {
   .hero { padding: 100px 0 0; }
@@ -1129,7 +1130,7 @@ p { margin: 0 0 1em; }
   .hsp-num { font-size: 1.3rem; }
   .hsp-label { font-size: 0.68rem; }
   .hero-form-card { padding: 20px 16px; }
-  .hero-form-card iframe { height: 520px; }
+  .hero-form-card iframe { height: 620px; }
 
   /* About */
   .about { padding: 40px 0 48px; }
@@ -1197,7 +1198,7 @@ p { margin: 0 0 1em; }
   .hero-form-card { padding: 16px 12px; border-radius: 18px; }
   .hero-form-card h3 { font-size: 1.1rem; }
   .hero-form-card .form-sub { font-size: 0.82rem; }
-  .hero-form-card iframe { height: 500px; }
+  .hero-form-card iframe { height: 620px; }
 
   /* About */
   .about { padding: 32px 0 40px; }
@@ -1264,7 +1265,7 @@ p { margin: 0 0 1em; }
   .hsp-num { font-size: 1rem; }
   .btn { padding: 10px 18px; font-size: 0.85rem; }
   .section-title { font-size: 1.4rem; }
-  .hero-form-card iframe { height: 480px; }
+  .hero-form-card iframe { height: 600px; }
   .program-card { height: 240px; }
   .step-icon-wrap { width: 64px; height: 64px; }
   .step-icon-wrap svg { width: 28px; height: 28px; }
@@ -1377,8 +1378,17 @@ p { margin: 0 0 1em; }
         <div class="splash-ring"></div>
         <h3>Start Your Free Trial</h3>
         <p class="form-sub">Fill out the form and we'll get you in the water!</p>
-        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:480px;border:none;border-radius:8px" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="541" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
+        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:600px;border:none;border-radius:8px;overflow:hidden;" scrolling="no" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="600" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
         <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+        <script>
+        (function(){
+          var f = document.getElementById('inline-giAMs7ax6rJPENTGe40M');
+          if (!f) return;
+          new MutationObserver(function(){
+            if (f.getAttribute('scrolling') !== 'no') f.setAttribute('scrolling','no');
+          }).observe(f, { attributes: true, attributeFilter: ['scrolling'] });
+        })();
+        </script>
       </div>
     </div>
   </div>
@@ -1679,6 +1689,9 @@ p { margin: 0 0 1em; }
         <p>See your child progress through levels and unlock new skills with every session.</p>
       </div>
 
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="anim">
+      <a href="#hero-form" class="btn btn-nav-cta" style="font-size:1.05rem;padding:16px 44px;">Start Your Free Trial →</a>
     </div>
   </div>
 </section>
