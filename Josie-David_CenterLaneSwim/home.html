@@ -233,49 +233,54 @@ p { margin: 0 0 1em; }
   display: flex; flex-direction: column; padding: 0;
   transform: translateY(-110%); visibility: hidden;
   transition: transform 0.38s cubic-bezier(0.4,0,0.2,1), visibility 0s 0.38s;
-  overflow-y: auto; max-height: 85vh;
+  overflow-y: auto; max-height: 80vh;
   box-shadow: 0 8px 32px rgba(0,0,0,0.14);
   border-top: 3px solid #3ad8d4;
 }
 .mobile-menu.open { transform: translateY(0); visibility: visible; transition: transform 0.38s cubic-bezier(0.4,0,0.2,1), visibility 0s 0s; }
 
-/* Mobile menu links */
-.mobile-menu-links { display: flex; flex-direction: column; padding: 10px 16px; gap: 2px; }
-.mobile-menu-links a {
-  font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 600; color: #0f3634;
-  padding: 14px 16px; border-radius: 10px;
-  transition: background 0.2s, color 0.2s;
-  display: flex; align-items: center; gap: 10px;
-  border-bottom: 1px solid #f0f0f0;
+/* Mobile menu CTA (pinned top) */
+.mobile-menu-cta {
+  padding: 16px 16px 12px;
 }
-.mobile-menu-links a:last-child { border-bottom: none; }
-.mobile-menu-links a:hover, .mobile-menu-links a:active { background: rgba(58,216,212,0.08); color: #1a8f8a; }
-.mobile-menu-links .mnav-num { font-size: 0.7rem; font-weight: 700; color: #3ad8d4; width: 20px; flex-shrink: 0; }
-
-/* Mobile menu sections (portals, app) */
-.mobile-menu-section { padding: 8px 16px; }
-.mobile-menu-section-title { font-size: 0.7rem; font-weight: 700; color: #9ab5b4; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 16px 6px; }
-.mobile-menu-section a {
-  display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 10px;
-  font-family: 'Arboria', 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; color: #0f3634;
-  transition: background 0.2s;
-}
-.mobile-menu-section a:hover { background: rgba(58,216,212,0.08); }
-.mobile-menu-section a .ms-sub { font-size: 0.75rem; font-weight: 500; color: #5a8a89; }
-.mobile-menu-divider { border: none; border-top: 1px solid #f0f0f0; margin: 4px 16px; }
-
-/* Mobile CTA pinned at bottom */
-.mobile-menu-cta { padding: 16px 16px 20px; }
 .mobile-menu-cta a {
   display: flex; align-items: center; justify-content: center;
   background: #3ad8d4; color: #0f3634;
   font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700;
-  padding: 16px 24px; border-radius: 12px; text-align: center;
+  padding: 14px 24px; border-radius: 12px; text-align: center;
   transition: background 0.25s, box-shadow 0.25s;
   box-shadow: 0 4px 18px rgba(58,216,212,0.35);
 }
 .mobile-menu-cta a:hover { background: #2bc4c0; box-shadow: 0 6px 28px rgba(58,216,212,0.5); }
-.mobile-menu-cta p { text-align: center; font-size: 0.75rem; color: #5a8a89; margin-top: 8px; }
+
+/* Mobile accordion groups */
+.mobile-accordion { padding: 0 16px; }
+.mobile-accordion-group { border-bottom: 1px solid #f0f0f0; }
+.mobile-accordion-group:last-child { border-bottom: none; }
+.mobile-accordion-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; padding: 14px 8px; border: none; background: none; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-size: 0.95rem; font-weight: 700; color: #0f3634;
+}
+.mobile-accordion-trigger svg {
+  width: 18px; height: 18px; stroke: #3ad8d4; stroke-width: 2.5;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); flex-shrink: 0;
+}
+.mobile-accordion-group.open .mobile-accordion-trigger svg {
+  transform: rotate(180deg);
+}
+.mobile-accordion-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.mobile-accordion-body a {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 10px;
+  font-family: 'Montserrat', sans-serif; font-size: 0.88rem; font-weight: 600; color: #0f3634;
+  transition: background 0.2s;
+}
+.mobile-accordion-body a:hover { background: rgba(58,216,212,0.08); color: #1a8f8a; }
+.mobile-accordion-body .ms-sub { font-size: 0.75rem; font-weight: 500; color: #5a8a89; margin-left: auto; }
 
 @media (max-width: 900px) {
   .nav-links, .nav-right { display: none; }
@@ -1440,36 +1445,53 @@ p { margin: 0 0 1em; }
 
 <!-- Mobile Dropdown Menu -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <nav class="mobile-menu-links">
-    <a href="#about"><span class="mnav-num">01</span> About</a>
-    <a href="#programs"><span class="mnav-num">02</span> Programs</a>
-    <a href="#locations"><span class="mnav-num">03</span> Locations</a>
-    <a href="#team"><span class="mnav-num">04</span> Team</a>
-    <a href="#why"><span class="mnav-num">05</span> Why Us</a>
-    <a href="#events"><span class="mnav-num">06</span> Events</a>
-  </nav>
-  <hr class="mobile-menu-divider">
-  <div class="mobile-menu-section">
-    <div class="mobile-menu-section-title">Events</div>
-    <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank">🎂 Birthday Parties <span class="ms-sub">Book a party</span></a>
-    <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank">🌙 Parents Night Out <span class="ms-sub">View dates</span></a>
-    <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank">🏕️ Drop Off Camp <span class="ms-sub">View sessions</span></a>
-  </div>
-  <hr class="mobile-menu-divider">
-  <div class="mobile-menu-section">
-    <div class="mobile-menu-section-title">Current Clients</div>
-    <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal <span class="ms-sub">Manage classes</span></a>
-    <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal <span class="ms-sub">Manage classes</span></a>
-  </div>
-  <hr class="mobile-menu-divider">
-  <div class="mobile-menu-section">
-    <div class="mobile-menu-section-title">Download App</div>
-    <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">App Store <span class="ms-sub">iPhone</span></a>
-    <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">Google Play <span class="ms-sub">Android</span></a>
-  </div>
   <div class="mobile-menu-cta">
-    <a href="#hero-form">🏊 Get Started</a>
-    <p>Find the right class for your child</p>
+    <a href="#hero-form">Register Now</a>
+  </div>
+
+  <div class="mobile-accordion">
+    <!-- Center Lane Swim -->
+    <div class="mobile-accordion-group">
+      <button class="mobile-accordion-trigger">
+        Center Lane Swim
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mobile-accordion-body">
+        <a href="#about">About</a>
+        <a href="#programs">Programs</a>
+        <a href="#locations">Locations</a>
+        <a href="#team">Team</a>
+        <a href="#why">Why Us</a>
+        <a href="#events">Events</a>
+        <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank">Birthday Parties <span class="ms-sub">Book</span></a>
+        <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank">Parents Night Out <span class="ms-sub">Dates</span></a>
+        <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank">Drop Off Camp <span class="ms-sub">Sessions</span></a>
+      </div>
+    </div>
+
+    <!-- Current Clients -->
+    <div class="mobile-accordion-group">
+      <button class="mobile-accordion-trigger">
+        Current Clients
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mobile-accordion-body">
+        <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal <span class="ms-sub">Manage classes</span></a>
+        <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal <span class="ms-sub">Manage classes</span></a>
+      </div>
+    </div>
+
+    <!-- Download App -->
+    <div class="mobile-accordion-group">
+      <button class="mobile-accordion-trigger">
+        Download App
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="mobile-accordion-body">
+        <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">App Store <span class="ms-sub">iPhone</span></a>
+        <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">Google Play <span class="ms-sub">Android</span></a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2518,6 +2540,31 @@ p { margin: 0 0 1em; }
   backdrop.addEventListener('click', closeMobileMenu);
   menu.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click', closeMobileMenu);
+  });
+
+  /* Accordion toggles */
+  menu.querySelectorAll('.mobile-accordion-trigger').forEach(function(trigger){
+    trigger.addEventListener('click', function(){
+      var group = this.closest('.mobile-accordion-group');
+      var body = group.querySelector('.mobile-accordion-body');
+      var isOpen = group.classList.contains('open');
+
+      /* Close all other groups */
+      menu.querySelectorAll('.mobile-accordion-group.open').forEach(function(g){
+        if (g !== group) {
+          g.classList.remove('open');
+          g.querySelector('.mobile-accordion-body').style.maxHeight = null;
+        }
+      });
+
+      if (isOpen) {
+        group.classList.remove('open');
+        body.style.maxHeight = null;
+      } else {
+        group.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
   });
 })();
 
