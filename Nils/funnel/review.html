@@ -471,6 +471,7 @@
         background: #fff;
         border: 1px solid var(--gold-border);
         border-radius: 18px;
+        overflow: hidden;
         padding: 36px 28px 32px 32px;
         display: flex;
         flex-direction: column;
@@ -842,9 +843,19 @@
           0 4px 20px rgba(201, 150, 59, 0.45),
           0 0 0 1px rgba(201, 150, 59, 0.25);
         transition:
-          transform 0.18s,
           box-shadow 0.18s,
           filter 0.18s;
+        animation: btn-shake 4s ease-in-out 3s infinite;
+      }
+      @keyframes btn-shake {
+        0% { transform: translateX(0); }
+        2% { transform: translateX(-4px) rotate(-1.5deg); }
+        4% { transform: translateX(4px) rotate(1.5deg); }
+        6% { transform: translateX(-3px) rotate(-1deg); }
+        8% { transform: translateX(3px) rotate(1deg); }
+        10% { transform: translateX(-1px); }
+        12% { transform: translateX(0); }
+        100% { transform: translateX(0); }
       }
       .hero-form-submit:hover {
         transform: translateY(-2px);
@@ -3211,7 +3222,7 @@
             <div class="hvp paused" id="hvp">
               <video
                 id="hvp-vid"
-                src=""
+                src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69da91cf197b3bd7e5e8f6f7.mp4"
                 playsinline
                 preload="auto"
                 fetchpriority="high"
