@@ -7,17 +7,60 @@
   <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes, swim currents, and certified instructors in Edgewater, Calvert, and St. Mary's MD." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ══════════════════════════════════════════════════════════
+       PREMIUM FONTS — Choose ONE loading method below:
+
+       OPTION A: Adobe Fonts (Typekit) — paste your project embed here
+       <link rel="stylesheet" href="https://use.typekit.net/YOUR_PROJECT_ID.css">
+
+       OPTION B: Self-host — place .woff2/.woff files in a /fonts/ folder
+       and uncomment the @font-face rules in the <style> block below.
+  ══════════════════════════════════════════════════════════ -->
+
   <style>
+/* ═══════════════════════════════════════════════════════
+   FONT-FACE — Uncomment if self-hosting font files
+   (Skip if using Adobe Fonts / Typekit embed above)
+═══════════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'HWT Artz';
+  src: url('fonts/hwt-artz.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/*
+@font-face {
+  font-family: 'Arboria';
+  src: url('fonts/Arboria-Medium.woff2') format('woff2'),
+       url('fonts/Arboria-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Arboria';
+  src: url('fonts/Arboria-Light.woff2') format('woff2'),
+       url('fonts/Arboria-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+*/
 /* ═══════════════════════════════════════════════════════
    RESET & BASE
 ═══════════════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
-body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #ffffff; color: #0f3634; overflow-x: hidden; line-height: 1.6; }
+body { margin: 0; padding: 0; font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500; background: #ffffff; color: #0f3634; overflow-x: hidden; line-height: 1.6; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
-h1, h2, h3, h4 { font-family: 'Baloo 2', cursive; margin: 0; line-height: 1.2; }
+h1 { font-family: 'HWT Artz', 'Montserrat', sans-serif; font-weight: 700; margin: 0; line-height: 1.2; }
+h2 { font-family: 'HWT Artz', 'Montserrat', sans-serif; font-weight: 700; margin: 0; line-height: 1.2; }
+h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; margin: 0; line-height: 1.2; }
+h4 { font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500; margin: 0; line-height: 1.2; }
 p { margin: 0 0 1em; }
 
 /* ═══════════════════════════════════════════════════════
@@ -35,10 +78,10 @@ p { margin: 0 0 1em; }
    UTILITY
 ═══════════════════════════════════════════════════════ */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.badge { display: inline-block; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: rgba(58,216,212,0.15); color: #3ad8d4; margin-bottom: 12px; }
+.badge { display: inline-block; font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: #3ad8d4; color: #fff; margin-bottom: 12px; }
 .section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #0f3634; margin-bottom: 16px; }
 .section-sub { font-size: 1.1rem; color: #3a6665; max-width: 600px; margin-bottom: 32px; }
-.btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
 .btn-lime { background: #faa56b; color: #0f3634; box-shadow: 0 4px 16px rgba(250,165,107,0.35); }
 .btn-lime:hover { background: #e8946a; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(250,165,107,0.45); }
 .btn-coral { background: #faa56b; color: #0f3634; box-shadow: 0 4px 16px rgba(250,165,107,0.35); }
@@ -99,14 +142,37 @@ p { margin: 0 0 1em; }
 }
 .nav-logo img { height: 48px; }
 .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
-.nav-links a { font-weight: 600; font-size: 0.9rem; color: #0f3634; transition: background 0.25s ease, box-shadow 0.25s ease; padding: 6px 14px; border-radius: 8px; }
+.nav-links a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; color: #0f3634; transition: background 0.25s ease, box-shadow 0.25s ease; padding: 6px 14px; border-radius: 8px; }
 .nav-links a:hover { background: rgba(58,216,212,0.12); box-shadow: 0 2px 8px rgba(58,216,212,0.15); }
 .nav-right { display: flex; align-items: center; gap: 12px; }
+
+/* Nav events dropdown */
+.nav-events-dropdown { position: relative; }
+.nav-events-trigger { cursor: pointer; }
+.nav-events-menu {
+  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-8px);
+  min-width: 280px; background: #fff; border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.14); padding: 12px;
+  opacity: 0; visibility: hidden; transition: all 0.25s ease; z-index: 100;
+}
+.nav-events-dropdown:hover .nav-events-menu {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+.nav-events-menu a {
+  display: block; padding: 12px 16px; border-radius: 10px; transition: background 0.2s;
+}
+.nav-events-menu a:hover { background: #f0faf9; }
+.nav-events-menu a strong {
+  display: block; font-size: 0.9rem; color: #0f3634; font-weight: 700;
+}
+.nav-events-menu a span {
+  display: block; font-size: 0.78rem; font-weight: 500; color: #5a8a89; margin-top: 2px;
+}
 
 /* Portal dropdown */
 .portal-dropdown { position: relative; }
 .portal-dropdown-btn {
-  font-family: 'Poppins', sans-serif; cursor: pointer; transition: all 0.2s;
+  font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.2s;
   display: flex; flex-direction: column; align-items: center;
   padding: 8px 18px; border-radius: 8px; border: none;
   background: #fea46c; color: #fff; line-height: 1.2;
@@ -130,11 +196,12 @@ p { margin: 0 0 1em; }
   letter-spacing: 0.08em; padding: 6px 16px 4px;
 }
 .portal-dropdown-menu a {
-  display: block; padding: 10px 16px; border-radius: 10px; font-weight: 600;
+  display: block; padding: 10px 16px; border-radius: 10px;
+  font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500;
   font-size: 0.9rem; color: #0f3634; transition: background 0.2s;
 }
 .portal-dropdown-menu a:hover { background: #f0faf9; color: #1a8f8a; }
-.portal-dropdown-menu a span { display: block; font-size: 0.78rem; font-weight: 400; color: #5a8a89; margin-top: 2px; }
+.portal-dropdown-menu a span { display: block; font-size: 0.78rem; font-weight: 500; color: #5a8a89; margin-top: 2px; }
 .portal-dropdown-menu .pdd-divider { border: none; border-top: 1px solid #f0f0f0; margin: 8px 0; }
 /* App nav button */
 .nav-app-btn {
@@ -175,7 +242,7 @@ p { margin: 0 0 1em; }
 /* Mobile menu links */
 .mobile-menu-links { display: flex; flex-direction: column; padding: 10px 16px; gap: 2px; }
 .mobile-menu-links a {
-  font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; color: #0f3634;
+  font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 600; color: #0f3634;
   padding: 14px 16px; border-radius: 10px;
   transition: background 0.2s, color 0.2s;
   display: flex; align-items: center; gap: 10px;
@@ -190,11 +257,11 @@ p { margin: 0 0 1em; }
 .mobile-menu-section-title { font-size: 0.7rem; font-weight: 700; color: #9ab5b4; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 16px 6px; }
 .mobile-menu-section a {
   display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 10px;
-  font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 600; color: #0f3634;
+  font-family: 'Arboria', 'Montserrat', sans-serif; font-size: 0.9rem; font-weight: 500; color: #0f3634;
   transition: background 0.2s;
 }
 .mobile-menu-section a:hover { background: rgba(58,216,212,0.08); }
-.mobile-menu-section a .ms-sub { font-size: 0.75rem; font-weight: 400; color: #5a8a89; }
+.mobile-menu-section a .ms-sub { font-size: 0.75rem; font-weight: 500; color: #5a8a89; }
 .mobile-menu-divider { border: none; border-top: 1px solid #f0f0f0; margin: 4px 16px; }
 
 /* Mobile CTA pinned at bottom */
@@ -202,7 +269,7 @@ p { margin: 0 0 1em; }
 .mobile-menu-cta a {
   display: flex; align-items: center; justify-content: center;
   background: #3ad8d4; color: #0f3634;
-  font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 800;
+  font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700;
   padding: 16px 24px; border-radius: 12px; text-align: center;
   transition: background 0.25s, box-shadow 0.25s;
   box-shadow: 0 4px 18px rgba(58,216,212,0.35);
@@ -272,7 +339,7 @@ p { margin: 0 0 1em; }
   border-radius: 12px; padding: 12px 20px; min-width: 90px;
 }
 .hsp-num {
-  font-family: 'Baloo 2', cursive; font-size: 1.6rem; font-weight: 800;
+  font-family: 'Montserrat', sans-serif; font-size: 1.6rem; font-weight: 800;
   color: #fff; line-height: 1;
 }
 .hsp-label { font-size: 0.75rem; color: #3ad8d4; font-weight: 600; margin-top: 4px; text-align: center; }
@@ -371,7 +438,7 @@ p { margin: 0 0 1em; }
   padding: 80px 0; scroll-margin-top: 70px; background: #e0f4f4; position: relative;
 }
 .programs .section-title { color: #0f3634; }
-.programs .badge { background: rgba(15,54,52,0.08); color: #0f3634; }
+.programs .badge { background: #0f3634; color: #fff; }
 .programs .section-sub { color: #3a6665; }
 .programs-grid {
   display: grid; grid-template-columns: repeat(5, 1fr);
@@ -511,13 +578,13 @@ p { margin: 0 0 1em; }
   position: absolute; top: -6px; right: -6px;
   width: 28px; height: 28px; border-radius: 50%;
   background: #0f3634; color: #fff;
-  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 0.85rem;
+  font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem;
   display: flex; align-items: center; justify-content: center;
   border: 2px solid #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 .step-item h3 {
-  font-family: 'Baloo 2', cursive;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.2rem; font-weight: 800;
   color: #0f3634; margin-bottom: 10px;
 }
@@ -575,7 +642,7 @@ p { margin: 0 0 1em; }
 .why-intro-text .founder-block strong { color: #0f3634; }
 .why-intro-text .founder-tagline {
   display: flex; align-items: center; gap: 12px;
-  font-family: 'Baloo 2', cursive; font-size: 1.15rem;
+  font-family: 'Montserrat', sans-serif; font-size: 1.15rem;
   color: var(--teal); font-weight: 700;
 }
 .why-intro-text .founder-tagline svg { flex-shrink: 0; }
@@ -699,7 +766,7 @@ p { margin: 0 0 1em; }
   padding: 80px 0; background: #fff; scroll-margin-top: 70px;
 }
 .locations-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
 }
 .loc-card {
   background: #f0faf9; border-radius: 24px;
@@ -721,9 +788,12 @@ p { margin: 0 0 1em; }
   content: 'Coming Soon'; position: absolute; inset: 0;
   background: rgba(15,54,53,0.5); color: #faa56b;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Baloo 2', cursive; font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif; font-size: 1.5rem;
 }
 
+@media (max-width: 1024px) {
+  .locations-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 768px) {
   .locations-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
 }
@@ -810,6 +880,32 @@ p { margin: 0 0 1em; }
 }
 
 /* ═══════════════════════════════════════════════════════
+   EVENTS
+═══════════════════════════════════════════════════════ */
+.events { padding: 80px 0; background: #fff; scroll-margin-top: 70px; }
+.events-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.event-card {
+  background: #f0faf9; border-radius: 20px; padding: 36px 28px; text-align: center;
+  box-shadow: 0 4px 20px rgba(15,54,53,0.06); transition: all 0.35s ease;
+  display: flex; flex-direction: column; align-items: center;
+}
+.event-card:hover { transform: translateY(-6px); box-shadow: 0 8px 32px rgba(15,54,53,0.12); }
+.event-card-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #3ad8d4; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.event-card h3 { font-size: 1.25rem; margin-bottom: 10px; font-weight: 700; }
+.event-card p { font-size: 0.95rem; color: #3a6665; margin-bottom: 20px; flex: 1; }
+.event-card .btn { width: 100%; justify-content: center; font-size: 0.9rem; }
+@media (max-width: 768px) {
+  .events-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+}
+
+/* ═══════════════════════════════════════════════════════
    FAQ — Tabbed
 ═══════════════════════════════════════════════════════ */
 .faq {
@@ -820,7 +916,7 @@ p { margin: 0 0 1em; }
   margin-bottom: 32px;
 }
 .faq-tab {
-  font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.9rem;
+  font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem;
   padding: 10px 22px; border-radius: 50px; border: 2px solid #f0e6db;
   background: #fef8f2; color: #3a6665; cursor: pointer; transition: all 0.25s;
 }
@@ -842,7 +938,7 @@ p { margin: 0 0 1em; }
   padding: 20px 24px; cursor: pointer;
   font-weight: 700; font-size: 1rem; color: #0f3634;
   border: none; background: none; width: 100%;
-  text-align: left; font-family: 'Poppins', sans-serif;
+  text-align: left; font-family: 'Arboria', 'Montserrat', sans-serif;
 }
 .faq-q:hover { color: #faa56b; }
 .faq-q .arrow {
@@ -877,7 +973,7 @@ p { margin: 0 0 1em; }
 }
 .app-chip {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.88rem;
+  font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500; font-size: 0.88rem;
   background: #fff; border: none; border-radius: 50px;
   padding: 10px 20px; color: #0f3634;
   box-shadow: 0 2px 12px rgba(15,54,53,0.08);
@@ -966,7 +1062,7 @@ p { margin: 0 0 1em; }
 }
 .cta-stat:hover { transform: translateY(-4px); background: rgba(255,255,255,0.08); }
 .cta-stat .num {
-  font-family: 'Baloo 2', cursive; font-size: 2.5rem; font-weight: 800;
+  font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800;
   color: #faa56b; display: block; line-height: 1;
 }
 .cta-stat .label { font-size: 0.85rem; color: rgba(255,255,255,0.65); margin-top: 4px; display: block; }
@@ -1006,7 +1102,7 @@ p { margin: 0 0 1em; }
   padding: 40px 0;
 }
 .footer h4 {
-  font-family: 'Baloo 2', cursive; font-size: 1rem; color: #3ad8d4;
+  font-family: 'Montserrat', sans-serif; font-size: 1rem; color: #3ad8d4;
   margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 700;
 }
 .footer p { font-size: 0.88rem; line-height: 1.7; margin-bottom: 8px; }
@@ -1289,7 +1385,23 @@ p { margin: 0 0 1em; }
       <li><a href="#locations">Locations</a></li>
       <li><a href="#team">Team</a></li>
       <li><a href="#why">Why Us</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li class="nav-events-dropdown">
+        <a href="#events" class="nav-events-trigger">Events &#9662;</a>
+        <div class="nav-events-menu">
+          <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank">
+            <strong>🎂 Birthday Parties</strong>
+            <span>Private pool parties for their special day</span>
+          </a>
+          <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank">
+            <strong>🌙 Parents Night Out</strong>
+            <span>Drop the kids off for a fun evening</span>
+          </a>
+          <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank">
+            <strong>🏕️ Drop Off Camp</strong>
+            <span>Full-day swim camp for kids</span>
+          </a>
+        </div>
+      </li>
     </ul>
     <div class="nav-right">
       <div class="portal-dropdown">
@@ -1326,8 +1438,15 @@ p { margin: 0 0 1em; }
     <a href="#locations"><span class="mnav-num">03</span> Locations</a>
     <a href="#team"><span class="mnav-num">04</span> Team</a>
     <a href="#why"><span class="mnav-num">05</span> Why Us</a>
-    <a href="#faq"><span class="mnav-num">06</span> FAQ</a>
+    <a href="#events"><span class="mnav-num">06</span> Events</a>
   </nav>
+  <hr class="mobile-menu-divider">
+  <div class="mobile-menu-section">
+    <div class="mobile-menu-section-title">Events</div>
+    <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank">🎂 Birthday Parties <span class="ms-sub">Book a party</span></a>
+    <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank">🌙 Parents Night Out <span class="ms-sub">View dates</span></a>
+    <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank">🏕️ Drop Off Camp <span class="ms-sub">View sessions</span></a>
+  </div>
   <hr class="mobile-menu-divider">
   <div class="mobile-menu-section">
     <div class="mobile-menu-section-title">Current Clients</div>
@@ -1367,7 +1486,7 @@ p { margin: 0 0 1em; }
         <p class="hero-sub">Safe, fun, and nurturing swim lessons for ages 3 months and up. Small groups. Big confidence. Red Cross certified instructors.</p>
         <div class="hero-social-proof">
           <div class="hsp-stat"><span class="hsp-num">18+</span><span class="hsp-label">Years Experience</span></div>
-          <div class="hsp-stat"><span class="hsp-num">3</span><span class="hsp-label">Locations</span></div>
+          <div class="hsp-stat"><span class="hsp-num">4</span><span class="hsp-label">Locations</span></div>
           <div class="hsp-stat"><span class="hsp-num">5&#9733;</span><span class="hsp-label">Google Rating</span></div>
         </div>
       </div>
@@ -1376,7 +1495,7 @@ p { margin: 0 0 1em; }
         <div class="splash-ring"></div>
         <div class="splash-ring"></div>
         <div class="splash-ring"></div>
-        <h3>Start Your Free Trial</h3>
+        <h3>Register Now</h3>
         <p class="form-sub">Fill out the form and we'll get you in the water!</p>
         <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:600px;border:none;border-radius:8px;overflow:hidden;" scrolling="no" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="600" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
         <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
@@ -1569,7 +1688,7 @@ p { margin: 0 0 1em; }
     <div style="text-align:center" class="anim">
       <span class="badge">OUR LOCATIONS</span>
       <h2 class="section-title">Find Us Near You</h2>
-      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Three convenient locations across Maryland. Choose yours and jump in.</p>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">Four locations across Maryland. Choose yours and jump in.</p>
     </div>
     <div class="locations-grid">
       <!-- Edgewater -->
@@ -1579,12 +1698,12 @@ p { margin: 0 0 1em; }
         </div>
         <div class="loc-card-body">
           <h3>Edgewater</h3>
-          <p>3 Lee Airpark Dr, Suite 10<br>Edgewater, MD 21037</p>
+          <p>175 Mitchells Chance Rd<br>Edgewater, MD 21037</p>
           <p><strong>Email:</strong> ew@centerlaneswim.com</p>
           <a href="#hero-form" class="btn btn-lime">Register Here</a>
         </div>
         <div class="loc-card-map">
-          <iframe src="https://www.google.com/maps?q=3+Lee+Airpark+Dr+Suite+10,+Edgewater,+MD+21037&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.8234802881375!2d-76.56652242349334!3d38.928011944896404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7f3ef058d26b7%3A0xcc62c2b2348082ee!2sCenter%20Lane%20Swim%20School!5e0!3m2!1sen!2sus!4v1775926202831!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
       <!-- Calvert -->
@@ -1594,24 +1713,39 @@ p { margin: 0 0 1em; }
         </div>
         <div class="loc-card-body">
           <h3>Calvert</h3>
-          <p>120 Stoakley Rd, Suite 5<br>Prince Frederick, MD 20678</p>
+          <p>4145 Hunting Creek Rd<br>Huntingtown, MD 20639</p>
           <p><strong>Email:</strong> calvert@centerlaneswim.com</p>
           <a href="#hero-form" class="btn btn-lime">Register Here</a>
         </div>
         <div class="loc-card-map">
-          <iframe src="https://www.google.com/maps?q=120+Stoakley+Rd+Suite+5,+Prince+Frederick,+MD+20678&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3117.3504224973867!2d-76.623583723504!3d38.61781886315131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b785f2d5b07c07%3A0xdb1e76bc429ef48d!2sCenter%20Lane%20Swim%20School!5e0!3m2!1sen!2sus!4v1775926292550!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
       <!-- St. Mary's -->
-      <div class="loc-card coming-soon anim" style="animation-delay:0.2s">
+      <div class="loc-card anim" style="animation-delay:0.2s">
         <div class="loc-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/602eab61-4bce-480b-8827-ed6cb28cd42a.png" alt="St. Mary's location coming soon">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/602eab61-4bce-480b-8827-ed6cb28cd42a.png" alt="St. Mary's pool room">
         </div>
         <div class="loc-card-body">
           <h3>St. Mary's</h3>
-          <p>Coming Soon to St. Mary's County, MD</p>
-          <p>Stay tuned for updates!</p>
-          <span class="btn btn-outline" style="opacity:0.5;pointer-events:none;width:100%;justify-content:center;">Coming Soon</span>
+          <p>45820 Highway to Heaven Ln<br>Great Mills, MD 20634</p>
+          <p><strong>Email:</strong> flatiron@centerlaneswim.com</p>
+          <a href="#hero-form" class="btn btn-lime">Register Here</a>
+        </div>
+        <div class="loc-card-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.651223561706!2d-76.49299242409562!3d38.217993371877036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7606f67b045a7%3A0x6b5a298c6d0c509e!2s45820%20Hwy%20to%20Heaven%20Ln%2C%20Great%20Mills%2C%20MD%2020634!5e0!3m2!1sen!2sus!4v1775926458239!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      <!-- Sabrina Park -->
+      <div class="loc-card coming-soon anim" style="animation-delay:0.3s">
+        <div class="loc-card-img">
+          <img src="" alt="Sabrina Park, coming soon">
+        </div>
+        <div class="loc-card-body">
+          <h3>Sabrina Park</h3>
+          <p>Location details coming soon</p>
+          <p><strong>Under Construction</strong></p>
+          <span class="btn btn-lime" style="opacity:0.5;pointer-events:none;">Coming Soon</span>
         </div>
       </div>
     </div>
@@ -1691,14 +1825,23 @@ p { margin: 0 0 1em; }
 
     </div>
     <div style="text-align:center;margin-top:48px;" class="anim">
-      <a href="#hero-form" class="btn btn-nav-cta" style="font-size:1.05rem;padding:16px 44px;">Start Your Free Trial →</a>
+      <a href="#hero-form" class="btn btn-nav-cta" style="font-size:1.05rem;padding:16px 44px;">Register Now →</a>
     </div>
   </div>
 </section>
 
 <!-- Wave divider: Steps → Reviews -->
-<div class="wave-divider" style="background:#e8f4fd;border-top:2px solid #eaf8f6;">
+<div class="wave-divider" style="border-top:2px solid #eaf8f6;">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
+    <defs>
+      <pattern id="reviewsWavePatternTop" patternUnits="userSpaceOnUse" width="100" height="20">
+        <rect width="100" height="20" fill="#e8f4fd"/>
+        <path d="M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z" fill="#c8e4f5" fill-opacity="0.3" fill-rule="evenodd"/>
+      </pattern>
+    </defs>
+    <!-- Background with pattern -->
+    <rect width="1440" height="60" fill="url(#reviewsWavePatternTop)"/>
+    <!-- Wave shape (section above) on top -->
     <path d="M0,0 L0,25 C200,55 400,5 600,30 C800,55 1000,10 1200,35 C1350,50 1440,25 1440,30 L1440,0Z" fill="#eaf8f6"/>
   </svg>
 </div>
@@ -1723,7 +1866,13 @@ p { margin: 0 0 1em; }
 <!-- Wave divider: Reviews → Gallery -->
 <div class="wave-divider" style="background:#fff;border-top:2px solid #e8f4fd;">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
-    <path d="M0,0 L0,30 C200,0 400,50 600,20 C800,-5 1000,45 1200,20 C1350,5 1440,35 1440,25 L1440,0Z" fill="#e8f4fd"/>
+    <defs>
+      <pattern id="reviewsWavePattern" patternUnits="userSpaceOnUse" width="100" height="20">
+        <rect width="100" height="20" fill="#e8f4fd"/>
+        <path d="M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z" fill="#c8e4f5" fill-opacity="0.3" fill-rule="evenodd"/>
+      </pattern>
+    </defs>
+    <path d="M0,0 L0,30 C200,0 400,50 600,20 C800,-5 1000,45 1200,20 C1350,5 1440,35 1440,25 L1440,0Z" fill="url(#reviewsWavePattern)"/>
   </svg>
 </div>
 
@@ -1955,12 +2104,54 @@ p { margin: 0 0 1em; }
   </svg>
 </div>
 
-<!-- Wave divider: Values → FAQ -->
-<div class="wave-divider" style="background:#fff8f0;border-top:2px solid #e8f4fd;">
+<!-- Wave divider: Values → Events -->
+<div class="wave-divider" style="background:#fff;border-top:2px solid #e8f4fd;">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
     <path d="M0,0 L0,35 C180,5 360,55 540,25 C720,-5 900,50 1080,20 C1260,0 1440,40 1440,30 L1440,0Z" fill="#e8f4fd"/>
   </svg>
 </div>
+
+<!-- ═══════════════════════════════════════════════════════
+     EVENTS
+═══════════════════════════════════════════════════════ -->
+<section class="events" id="events">
+  <div class="container">
+    <div style="text-align:center" class="anim">
+      <span class="badge">EVENTS</span>
+      <h2 class="section-title">Beyond Swim Lessons</h2>
+      <p class="section-sub" style="margin-left:auto;margin-right:auto;">From birthday parties to camps, there's always something fun happening at Center Lane.</p>
+    </div>
+    <div class="events-grid">
+      <!-- Birthday Party -->
+      <div class="event-card anim">
+        <div class="event-card-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6"/><path d="M8 6h8"/><rect x="4" y="12" width="16" height="10" rx="2"/><path d="M2 22h20"/><path d="M12 8a2 2 0 0 0 0 4"/><path d="M9 12c0-1 .5-2 1.5-2.5"/><path d="M15 12c0-1-.5-2-1.5-2.5"/></svg>
+        </div>
+        <h3>Birthday Parties</h3>
+        <p>Make a splash on their special day! Private pool parties with everything you need for an unforgettable celebration.</p>
+        <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank" class="btn btn-lime">Book a Party →</a>
+      </div>
+      <!-- Parents Night Out -->
+      <div class="event-card anim" style="animation-delay:0.1s">
+        <div class="event-card-icon" style="background:#faa56b;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Parents Night Out</h3>
+        <p>Drop the kids off for a fun evening of swimming, games, and activities while you enjoy a well-deserved night out.</p>
+        <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank" class="btn btn-lime">View Dates →</a>
+      </div>
+      <!-- Drop Off Camp -->
+      <div class="event-card anim" style="animation-delay:0.2s">
+        <div class="event-card-icon" style="background:#0f3634;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Drop Off Camp</h3>
+        <p>Full-day swim camp for kids. Structured lessons, free swim, and water-based activities to build skills and confidence.</p>
+        <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank" class="btn btn-lime">View Sessions →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════════════════════════════════════════════════
      FAQ — Tabbed Categories
@@ -2167,15 +2358,15 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="anim">
       <h2>Come And Swim With Us</h2>
-      <p>Give your child the gift of water confidence. Start with a free trial lesson today.</p>
+      <p>Give your child the gift of water confidence. Register today to get started.</p>
     </div>
     <div class="cta-stats anim">
       <div class="cta-stat"><span class="num">18+</span><span class="label">Years Experience</span></div>
-      <div class="cta-stat"><span class="num">3</span><span class="label">Locations</span></div>
+      <div class="cta-stat"><span class="num">4</span><span class="label">Locations</span></div>
       <div class="cta-stat"><span class="num">5&#9733;</span><span class="label">Google Rating</span></div>
     </div>
     <div class="btns anim">
-      <a href="#hero-form" class="btn btn-lime">Request a Free Trial</a>
+      <a href="#hero-form" class="btn btn-lime">Register Now</a>
     </div>
   </div>
 </section>
@@ -2220,7 +2411,7 @@ p { margin: 0 0 1em; }
           <li><a href="#why">Why Choose Us</a></li>
           <li><a href="#locations">Locations</a></li>
           <li><a href="#team">Our Team</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#events">Events</a></li>
         </ul>
       </div>
 
@@ -2253,11 +2444,15 @@ p { margin: 0 0 1em; }
         <h4>Locations</h4>
         <div class="footer-location">
           <strong>Edgewater</strong>
-          <p>3 Lee Airpark Dr, Suite 10<br>Edgewater, MD 21037<br><a href="mailto:ew@centerlaneswim.com">ew@centerlaneswim.com</a></p>
+          <p>175 Mitchells Chance Rd<br>Edgewater, MD 21037<br><a href="mailto:ew@centerlaneswim.com">ew@centerlaneswim.com</a></p>
         </div>
         <div class="footer-location">
           <strong>Calvert</strong>
-          <p>120 Stoakley Rd, Suite 5<br>Prince Frederick, MD 20678<br><a href="mailto:calvert@centerlaneswim.com">calvert@centerlaneswim.com</a></p>
+          <p>4145 Hunting Creek Rd<br>Huntingtown, MD 20639<br><a href="mailto:calvert@centerlaneswim.com">calvert@centerlaneswim.com</a></p>
+        </div>
+        <div class="footer-location" style="opacity:0.6;">
+          <strong>Sabrina Park</strong>
+          <p>Coming Soon</p>
         </div>
       </div>
 
