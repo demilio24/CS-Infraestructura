@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>VeLUS Interiors</title>
 <meta name="description" content="VeLUS Interiors designs spaces defined by restraint, proportion, and intention.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,25 +68,26 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .mobile-menu a:hover{color:var(--white)}
 
 /* ===== HERO A — Rotating images, no text ===== */
-.hero{position:relative;height:100vh;overflow:hidden;background:var(--black)}
+.hero{position:relative;height:100vh;height:100dvh;overflow:hidden;background:var(--black)}
 .hero-bg{position:absolute;inset:0}
 .hero-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
 .hero-bg img:first-child{opacity:1}
 .hero-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35)}
-.hero-scroll{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1.5s 2.5s forwards}
-.hero-scroll-line{width:1px;height:56px;background:rgba(255,255,255,.12);position:relative;overflow:hidden}
-.hero-scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:1px;height:100%;background:rgba(255,255,255,.5);animation:scrollLine 3s infinite}
-@keyframes scrollLine{0%{top:-100%}100%{top:100%}}
 @keyframes fadeIn{to{opacity:1}}
 
+/* Hero CTA */
+.hero-cta{position:absolute;bottom:88px;left:50%;transform:translateX(-50%);z-index:3;opacity:0;animation:fadeIn 1.5s 1.2s forwards}
+.hero-cta-btn{font-family:var(--serif);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.7);background:none;border:1px solid rgba(255,255,255,.2);padding:14px 36px;cursor:pointer;transition:all .5s}
+.hero-cta-btn:hover{border-color:var(--gold);color:var(--white);background:rgba(184,154,106,.1)}
+
 /* Hero dots toggle */
-.hero-dots{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:12px;align-items:center}
+.hero-dots{position:absolute;bottom:52px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:12px;align-items:center}
 .hero-dot{width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:transparent;cursor:pointer;transition:all .4s;padding:0}
 .hero-dot.active{background:var(--white);border-color:var(--white)}
 .hero-dot:hover{border-color:rgba(255,255,255,.8)}
 
 /* ===== MONOGRAM (tight, no padding) ===== */
-.monogram{padding:48px 24px;text-align:center;background:var(--white)}
+.monogram{padding:48px 24px 24px;text-align:center;background:var(--white)}
 .monogram-letter{font-family:var(--serif);font-size:160px;font-weight:300;color:var(--black);line-height:1;letter-spacing:12px;opacity:.1}
 
 /* ===== FULL-BLEED IMAGE BREAK ===== */
@@ -104,23 +105,11 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
 .about-portrait-wrap{position:relative}
 .about-portrait{width:100%;border-radius:0;aspect-ratio:3/4;object-fit:cover;object-position:center}
-.about-quote-card{position:absolute;bottom:-24px;left:20px;right:20px;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:20px 24px;border:1px solid rgba(255,255,255,.06)}
-.about-quote-card p{font-family:var(--serif);font-size:17px;font-style:italic;color:rgba(255,255,255,.9);line-height:1.5;margin-bottom:8px}
-.about-quote-card img{height:20px;opacity:.4;filter:brightness(10)}
 .about-text{padding-top:8px}
 .about-label{font-family:var(--serif);font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--black);margin-bottom:14px;font-weight:300;opacity:.6}
 .about-text h2{font-family:var(--serif);font-size:34px;font-weight:300;color:var(--black);line-height:1.15;margin-bottom:18px}
 .about-text h2 em{font-style:italic;color:#444}
 .about-bio{font-size:14px;color:var(--warm-grey);line-height:1.9;margin-bottom:24px}
-.about-points{display:flex;flex-direction:column;gap:16px}
-.about-point{padding:18px 22px;border-left:2px solid var(--light-grey);background:var(--off-white);transition:border-color .3s}
-.about-point:hover{border-left-color:var(--black)}
-.about-point-title{font-family:var(--serif);font-size:20px;font-weight:300;color:var(--black);margin-bottom:4px}
-.about-point p{font-size:13px;color:var(--warm-grey);line-height:1.6}
-
-/* ===== DIVIDER ===== */
-.divider-horizontal{max-width:1200px;height:1px;background:var(--light-grey);margin:0 auto}
-
 /* ===== OUR WORK / LOOKBOOK ===== */
 .work{padding:140px 24px;background:var(--white)}
 .work-inner{max-width:1400px;margin:0 auto}
@@ -145,6 +134,18 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .work-item.showing{opacity:0;transform:scale(.97)}
 .work-item.showing.show-in{opacity:1;transform:scale(1)}
 .work-cta{text-align:center;margin-top:64px}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.92);opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:2px;transform:scale(.95);transition:transform .4s cubic-bezier(.25,.46,.45,.94)}
+.lightbox.open img{transform:scale(1)}
+.lightbox-close{position:absolute;top:20px;right:24px;background:none;font-size:32px;color:var(--white);opacity:.5;transition:opacity .3s;z-index:1;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+.lightbox-close:hover{opacity:1}
+.lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:var(--white);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;opacity:.5;transition:opacity .3s,background .3s}
+.lightbox-prev:hover,.lightbox-next:hover{opacity:1;background:rgba(255,255,255,.15)}
+.lightbox-prev{left:16px}
+.lightbox-next{right:16px}
 
 /* Subtle inline CTAs */
 .inline-cta{padding:64px 24px;text-align:center;background:var(--white)}
@@ -204,12 +205,18 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .footer-copy{font-family:var(--body);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px}
 
 /* ===== FORM MODAL ===== */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:3000;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .5s}
-.modal-overlay.open{display:flex;opacity:1}
-.modal-card{background:transparent;border-radius:18px;padding:0;max-width:620px;width:94%;position:relative;max-height:90vh;overflow-y:auto}
-.modal-close{position:absolute;top:12px;right:16px;background:none;font-size:22px;color:var(--white);opacity:.5;transition:opacity .3s;z-index:1}
+.modal-overlay{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;pointer-events:none;transition:opacity 1s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-bg{position:absolute;inset:0}
+.modal-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2.5s ease}
+.modal-bg img:first-child{opacity:1}
+.modal-bg-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.modal-card{position:relative;z-index:2;background:none;border:none;border-radius:0;padding:0;max-width:600px;width:96%;max-height:90vh;overflow-y:auto;transform:translateY(24px);opacity:0;transition:transform .9s cubic-bezier(.25,.46,.45,.94) .25s,opacity .9s cubic-bezier(.25,.46,.45,.94) .25s}
+.modal-overlay.open .modal-card{transform:translateY(0);opacity:1}
+.modal-close{position:absolute;top:24px;right:28px;background:none;font-size:28px;color:var(--white);opacity:0;transition:opacity .6s .5s;z-index:10}
+.modal-overlay.open .modal-close{opacity:.6}
 .modal-close:hover{opacity:1}
-.modal-title{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--white);text-align:center;letter-spacing:2px;padding:32px 0 8px;margin:0}
+.modal-title{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--white);text-align:center;letter-spacing:3px;padding:0 0 8px;margin:0}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
@@ -219,7 +226,6 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   .cta-text .section-label{text-align:center}
   .cta-text{text-align:center}
   .cta-signature{margin:20px auto 0}
-  .lookbook-row-2-1,.lookbook-row-1-2{grid-template-columns:1fr 1fr}
 }
 @media(max-width:960px){
   .nav{padding:20px 24px 12px}
@@ -238,16 +244,16 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 @media(max-width:768px){
   .nav-links{display:none}
   .hamburger{display:flex}
-  .monogram{padding:32px 24px}
+  .monogram{padding:28px 24px 16px}
   .monogram-letter{font-size:80px}
   .about{padding:60px 24px 60px}
   .about-text h2{font-size:28px}
-  .about-quote-card{bottom:-20px;left:12px;right:12px}
-  .about-quote-card p{font-size:15px}
-  .work{padding:100px 24px}
+  .work{padding:80px 24px}
   .work-header{margin-bottom:48px}
+  .inline-cta{padding:40px 24px}
   .work-gallery{grid-template-columns:repeat(2,1fr)}
   .work-filters{gap:20px}
+  .work-filter{padding:8px 4px;font-size:11px;letter-spacing:3px}
   .process{padding:100px 24px}
   .process-header{margin-bottom:48px}
   .process-step{grid-template-columns:1fr}
@@ -258,21 +264,34 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   .cta-section{padding:60px 24px 80px}
   .cta-img img{height:300px}
   .cta-text h2{font-size:30px}
+  .cta-btn{padding:16px 36px;font-size:12px;letter-spacing:3px}
   .image-break-tall{height:50vh}
   .image-break-medium{height:40vh}
   .image-break-text-large{font-size:28px}
   .footer{padding:32px 24px}
+  .footer-links{gap:20px}
+  .footer-links a{font-size:9px;letter-spacing:2px}
+  .hero-cta{bottom:100px}
+  .hero-cta-btn{padding:16px 32px;font-size:11px;letter-spacing:3px;min-height:48px}
+  .hero-dots{bottom:56px}
+  .hero-dot{width:44px;height:44px;border:none;background:transparent!important;position:relative;border-radius:0;padding:0}
+  .hero-dot::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:transparent;transition:all .4s}
+  .hero-dot.active::after{background:var(--white);border-color:var(--white)}
+  .modal-card{width:98%;max-height:85vh}
+  .modal-title{font-size:28px;letter-spacing:2px}
+  .modal-close{top:16px;right:16px;font-size:32px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .inline-cta-link{font-size:11px;letter-spacing:3px;min-height:44px;display:inline-flex;align-items:center}
 }
 @media(max-width:480px){
   .monogram-letter{font-size:56px}
   .about-text h2{font-size:24px}
   .about-bio{font-size:13px}
   .work-desc{font-size:13px}
+  .work-gallery{grid-template-columns:1fr}
   .reflections-quote p{font-size:22px}
   .cta-text h2{font-size:26px}
   .cta-img img{height:240px}
-  .mobile-menu a{font-size:22px;letter-spacing:4px}
-  .modal-card{padding:40px 28px}
+  .mobile-menu a{font-size:22px;letter-spacing:4px;padding:20px 0;min-height:48px}
   .image-break-tall{height:40vh}
   .image-break-text-large{font-size:22px}
 }
@@ -302,7 +321,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   <a href="#work" onclick="closeMenu()">Portfolio</a>
   <a href="#process" onclick="closeMenu()">Process</a>
   <a href="#reflections" onclick="closeMenu()">Reflections</a>
-  <a href="javascript:void(0)" onclick="closeMenu();openForm()">Inquiry</a>
+  <a href="javascript:void(0)" onclick="closeMenu();setTimeout(openForm,400)">Inquiry</a>
 </div>
 
 <!-- ===== HERO A — Rotating images, no text ===== -->
@@ -313,6 +332,9 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
     <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0f3.jpg" alt="Interior 3">
   </div>
   <div class="hero-overlay"></div>
+  <div class="hero-cta">
+    <button class="hero-cta-btn" onclick="openForm()">Begin Your Project</button>
+  </div>
   <div class="hero-dots">
     <button class="hero-dot active" data-index="0" aria-label="Image 1"></button>
     <button class="hero-dot" data-index="1" aria-label="Image 2"></button>
@@ -331,11 +353,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 <section class="about" id="about">
   <div class="about-inner">
     <div class="about-portrait-wrap reveal">
-      <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/21ed982d-5c2a-4805-9faa-dcf01adb2934.jpeg" alt="Mandy VeLUS" class="about-portrait">
-      <div class="about-quote-card">
-        <p>"This is not decoration. It is composition."</p>
-        <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d139427a-6212-4ae6-987f-1b17681c42cc.png" alt="Signature">
-      </div>
+      <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/21ed982d-5c2a-4805-9faa-dcf01adb2934.jpeg" alt="Mandy VeLUS" class="about-portrait" loading="lazy">
     </div>
     <div class="about-text reveal reveal-delay-1">
       <p class="about-label">Mandy Velus</p>
@@ -360,7 +378,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 
 <!-- ===== IMAGE BREAK 2 ===== -->
 <div class="image-break image-break-tall reveal">
-  <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0e0.jpg" alt="Interior">
+  <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0e0.jpg" alt="Interior" loading="lazy">
   <div class="image-break-overlay">
     <span class="image-break-text">The Portfolio</span>
   </div>
@@ -383,29 +401,27 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 
     <div class="work-gallery">
       <!-- Living -->
-      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e74a0b20-884a-4e6c-8ccb-4c60e682cd28.jpg" alt="Living Room"></div>
-      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/015d8616-a468-40a7-b21c-45564aa022e6.jpg" alt="Living Room"></div>
-      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4ad8cbdb-b492-415c-8ac6-3dde21d30e46.jpg" alt="Living Room"></div>
-      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/60658542-b879-441b-a986-955c15a46f2c.jpg" alt="Living Room"></div>
-      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8e1903be-49e0-4ba4-bac3-bfdf287d13a0.jpg" alt="Living Room"></div>
-      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/b7ddbac2-55db-42ef-bf8e-49db2681e21e.jpg" alt="Living Room"></div>
+      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e74a0b20-884a-4e6c-8ccb-4c60e682cd28.jpg" alt="Living Room" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/015d8616-a468-40a7-b21c-45564aa022e6.jpg" alt="Living Room" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4ad8cbdb-b492-415c-8ac6-3dde21d30e46.jpg" alt="Living Room" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/60658542-b879-441b-a986-955c15a46f2c.jpg" alt="Living Room" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8e1903be-49e0-4ba4-bac3-bfdf287d13a0.jpg" alt="Living Room" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/b7ddbac2-55db-42ef-bf8e-49db2681e21e.jpg" alt="Living Room" loading="lazy"></div>
       <!-- Kitchen -->
-      <div class="work-item reveal" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e23f4a3d-37ee-4d7b-a01b-9ebb95cc6901.jpg" alt="Kitchen"></div>
-      <div class="work-item reveal" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/0c7b09c7-acbc-4634-ad53-80c9a8906664.jpg" alt="Kitchen"></div>
+      <div class="work-item reveal" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e23f4a3d-37ee-4d7b-a01b-9ebb95cc6901.jpg" alt="Kitchen" loading="lazy"></div>
       <!-- Bathroom -->
-      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/faada81f-d8e3-4347-bf39-82dad0dad9d4.jpg" alt="Bathroom"></div>
-      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/c72114cd-c431-4ca9-a8ad-a80796049a56.jpg" alt="Bathroom"></div>
-      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/dbd22cee-2ae9-4357-8a29-bcf6df705bea.jpg" alt="Bathroom"></div>
-      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/5820d685-7f2f-4ed2-8f3f-bfd98c6f4e80.jpg" alt="Bathroom"></div>
-      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1221be03-8b0e-4d43-a904-13b90ad9cc31.jpg" alt="Bathroom"></div>
+      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/faada81f-d8e3-4347-bf39-82dad0dad9d4.jpg" alt="Bathroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/c72114cd-c431-4ca9-a8ad-a80796049a56.jpg" alt="Bathroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/dbd22cee-2ae9-4357-8a29-bcf6df705bea.jpg" alt="Bathroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/5820d685-7f2f-4ed2-8f3f-bfd98c6f4e80.jpg" alt="Bathroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1221be03-8b0e-4d43-a904-13b90ad9cc31.jpg" alt="Bathroom" loading="lazy"></div>
       <!-- Bedroom -->
-      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/9bc2e8a4-ae1b-49b8-82f2-1665e85cf35c.jpg" alt="Bedroom"></div>
-      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/0fb4ff41-a5bc-4704-92df-a1f631b22a5d.jpg" alt="Bedroom"></div>
-      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e840332e-a0eb-42a4-a5a0-017db1243e67.jpg" alt="Bedroom"></div>
-      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/01e38a10-801a-4137-b041-bc842bae1765.jpg" alt="Bedroom"></div>
-      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4f57825e-0350-4dcd-ad71-a108efd708e1.jpg" alt="Bedroom"></div>
+      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/9bc2e8a4-ae1b-49b8-82f2-1665e85cf35c.jpg" alt="Bedroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/0fb4ff41-a5bc-4704-92df-a1f631b22a5d.jpg" alt="Bedroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e840332e-a0eb-42a4-a5a0-017db1243e67.jpg" alt="Bedroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/01e38a10-801a-4137-b041-bc842bae1765.jpg" alt="Bedroom" loading="lazy"></div>
+      <div class="work-item reveal" data-cat="bedroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4f57825e-0350-4dcd-ad71-a108efd708e1.jpg" alt="Bedroom" loading="lazy"></div>
     </div>
-    <div class="work-cta reveal"><a href="#" class="text-link">View Portfolio</a></div>
   </div>
 </section>
 
@@ -419,7 +435,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 
 <!-- ===== IMAGE BREAK 3 ===== -->
 <div class="image-break image-break-medium reveal">
-  <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0f3.jpg" alt="">
+  <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0f3.jpg" alt="" loading="lazy">
   <div class="image-break-overlay"><span class="image-break-text-large">The Process</span></div>
 </div>
 
@@ -467,7 +483,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 
 <!-- ===== REFLECTIONS C — Quote over image ===== -->
 <section class="reflections" id="reflections">
-  <img class="reflections-bg" src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/b7ddbac2-55db-42ef-bf8e-49db2681e21e.jpg" alt="">
+  <img class="reflections-bg" src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/b7ddbac2-55db-42ef-bf8e-49db2681e21e.jpg" alt="" loading="lazy">
   <div class="reflections-overlay"></div>
   <div class="reflections-inner">
     <h2 class="reflections-title reveal">Client Reflections</h2>
@@ -494,7 +510,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 <section class="cta-section" id="inquiry">
   <div class="cta-inner">
     <div class="cta-img reveal">
-      <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8e1903be-49e0-4ba4-bac3-bfdf287d13a0.jpg" alt="VeLUS Interior Design">
+      <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8e1903be-49e0-4ba4-bac3-bfdf287d13a0.jpg" alt="VeLUS Interior Design" loading="lazy">
     </div>
     <div class="cta-text reveal reveal-delay-1">
       <p class="section-label">Begin Here</p>
@@ -523,12 +539,26 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   </div>
 </footer>
 
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev">&#8249;</button>
+  <button class="lightbox-next" id="lightboxNext">&#8250;</button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <!-- ===== FORM MODAL ===== -->
 <div class="modal-overlay" id="formModal">
+  <div class="modal-bg" id="modalBg">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0e0.jpg" alt="">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e602cd38b17c2f49bb.jpg" alt="">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0f3.jpg" alt="">
+  </div>
+  <div class="modal-bg-overlay"></div>
+  <button class="modal-close" onclick="closeForm()">&times;</button>
   <div class="modal-card" id="modalCard">
-    <button class="modal-close" onclick="closeForm()">&times;</button>
     <h3 class="modal-title">Start Your Project</h3>
-    <iframe src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ" style="border:none;width:100%;min-height:650px;display:block;" scrolling="no" id="b1hs6JDC3YZx5XUqa2oJ" title="VeLUS Inquiry Survey"></iframe>
+    <iframe data-src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ" style="border:none;width:100%;min-height:480px;display:block;" scrolling="no" id="b1hs6JDC3YZx5XUqa2oJ" title="VeLUS Inquiry Survey"></iframe>
   </div>
 </div>
 <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
@@ -536,8 +566,15 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 <script>
 /* ===== NAV SCROLL ===== */
 const nav = document.getElementById('nav');
+let scrollTick = false;
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 80);
+  if (!scrollTick) {
+    requestAnimationFrame(() => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+      scrollTick = false;
+    });
+    scrollTick = true;
+  }
 });
 
 /* ===== MOBILE MENU ===== */
@@ -618,6 +655,25 @@ setTimeout(() => {
   startHeroAuto();
 }, 500);
 
+/* ===== HERO TOUCH SWIPE ===== */
+const heroEl = document.getElementById('hero');
+let touchStartX = 0;
+let touchEndX = 0;
+heroEl.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+heroEl.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      currentHero = (currentHero + 1) % heroImages.length;
+    } else {
+      currentHero = (currentHero - 1 + heroImages.length) % heroImages.length;
+    }
+    showHeroImage(currentHero);
+    startHeroAuto();
+  }
+});
+
 /* ===== WORK FILTERS (smooth) ===== */
 const filters = document.querySelectorAll('.work-filter');
 const workItems = document.querySelectorAll('.work-item');
@@ -678,17 +734,99 @@ filters.forEach(btn => {
   });
 });
 
+/* ===== DEFERRED IFRAME LOAD ===== */
+const surveyFrame = document.getElementById('b1hs6JDC3YZx5XUqa2oJ');
+function loadSurvey() {
+  if (!surveyFrame.src || surveyFrame.src === 'about:blank') {
+    surveyFrame.src = surveyFrame.dataset.src;
+  }
+}
+setTimeout(loadSurvey, 2000);
+
 /* ===== FORM MODAL ===== */
+const modalImages = document.querySelectorAll('#modalBg img');
+let modalSlide = 0;
+let modalTimer = null;
+
+function rotateModal() {
+  modalSlide = (modalSlide + 1) % modalImages.length;
+  modalImages.forEach((img, i) => {
+    img.style.opacity = i === modalSlide ? '1' : '0';
+  });
+}
+
 function openForm() {
+  loadSurvey();
   document.getElementById('formModal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  modalSlide = 0;
+  modalImages.forEach((img, i) => { img.style.opacity = i === 0 ? '1' : '0'; });
+  modalTimer = setInterval(rotateModal, 12000);
 }
 function closeForm() {
   document.getElementById('formModal').classList.remove('open');
   document.body.style.overflow = '';
+  clearInterval(modalTimer);
 }
 document.getElementById('formModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('formModal')) closeForm();
+  const card = document.getElementById('modalCard');
+  if (!card.contains(e.target) && !e.target.classList.contains('modal-close')) closeForm();
+});
+
+/* ===== LIGHTBOX ===== */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+let lightboxItems = [];
+let lightboxIndex = 0;
+
+function updateLightboxItems() {
+  lightboxItems = Array.from(document.querySelectorAll('.work-item:not(.hidden) img'));
+}
+
+function openLightbox(img) {
+  updateLightboxItems();
+  lightboxIndex = lightboxItems.indexOf(img);
+  lightboxImg.src = img.src;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lightboxNav(dir) {
+  updateLightboxItems();
+  if (lightboxItems.length === 0) return;
+  lightboxIndex = (lightboxIndex + dir + lightboxItems.length) % lightboxItems.length;
+  lightboxImg.src = lightboxItems[lightboxIndex].src;
+}
+
+document.querySelectorAll('.work-item').forEach(item => {
+  item.style.cursor = 'pointer';
+  item.addEventListener('click', () => openLightbox(item.querySelector('img')));
+});
+
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+document.getElementById('lightboxPrev').addEventListener('click', () => lightboxNav(-1));
+document.getElementById('lightboxNext').addEventListener('click', () => lightboxNav(1));
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+/* Lightbox keyboard + swipe */
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+});
+let lbTouchX = 0;
+lightbox.addEventListener('touchstart', e => { lbTouchX = e.changedTouches[0].screenX; }, { passive: true });
+lightbox.addEventListener('touchend', e => {
+  const diff = lbTouchX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) lightboxNav(diff > 0 ? 1 : -1);
 });
 
 </script>
