@@ -205,8 +205,9 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .footer-copy{font-family:var(--body);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px}
 
 /* ===== FORM MODAL ===== */
-.modal-overlay{position:fixed;inset:0;z-index:3000;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 1s cubic-bezier(.4,0,.2,1),visibility 0s 1s}
-.modal-overlay.open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity 1s cubic-bezier(.4,0,.2,1),visibility 0s 0s}
+.modal-overlay{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .8s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.visible{display:flex}
+.modal-overlay.open{opacity:1}
 .modal-bg{position:absolute;inset:0}
 .modal-bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2.5s ease}
 .modal-bg img:first-child{opacity:1}
@@ -747,20 +748,34 @@ function rotateModal() {
 }
 
 function openForm() {
-  document.getElementById('formModal').classList.add('open');
+  const modal = document.getElementById('formModal');
+  modal.classList.add('visible');
   document.body.style.overflow = 'hidden';
   modalSlide = 0;
   modalImages.forEach((img, i) => { img.style.opacity = i === 0 ? '1' : '0'; });
+  // Allow display:flex to render, then trigger fade-in
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      modal.classList.add('open');
+    });
+  });
   modalTimer = setInterval(rotateModal, 12000);
 }
 function closeForm() {
-  document.getElementById('formModal').classList.remove('open');
-  document.body.style.overflow = '';
+  const modal = document.getElementById('formModal');
+  modal.classList.remove('open');
   clearInterval(modalTimer);
+  // Wait for fade-out, then hide completely
+  setTimeout(() => {
+    modal.classList.remove('visible');
+    document.body.style.overflow = '';
+  }, 800);
 }
 document.getElementById('formModal').addEventListener('click', e => {
   const card = document.getElementById('modalCard');
-  if (!card.contains(e.target) && !e.target.classList.contains('modal-close')) closeForm();
+  const closeBtn = document.querySelector('.modal-close');
+  if (e.target === card || card.contains(e.target) || e.target === closeBtn) return;
+  closeForm();
 });
 
 /* ===== LIGHTBOX ===== */
