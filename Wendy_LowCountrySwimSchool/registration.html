@@ -4,1883 +4,923 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Student Registration — LowCountry Swim School</title>
-  <meta name="description" content="Register your child for swim lessons at LowCountry Swim School. Safe, fun, expert instruction for all ages.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue:       #2773b1;
-      --blue-dark:  #1a5b87;
-      --blue-light: #e8f3fb;
-      --navy:       #081c30;
-      --navy-mid:   #1a2a3a;
-      --green:      #d2f9b5;
-      --green-dark: #4caf50;
-      --red:        #e74c3c;
-      --text-muted: #4a6375;
-      --text-soft:  #5a7082;
-      --border:     #d8e6f0;
-      --bg:         #f4f8fb;
-      --white:      #ffffff;
-      --shadow-sm:  0 2px 8px rgba(26,42,58,0.07);
-      --shadow-md:  0 6px 28px rgba(26,42,58,0.11);
-      --shadow-lg:  0 12px 48px rgba(26,42,58,0.14);
-      --radius:     14px;
+      --blue:    #2773b1;
+      --navy:    #081c30;
+      --green:   #d2f9b5;
+      --border:  #d1d5db;
+      --bg:      #f9fafb;
+      --text:    #111827;
+      --muted:   #6b7280;
+      --error:   #dc2626;
+      --radius:  8px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
-      color: var(--navy-mid);
+      color: var(--text);
       min-height: 100vh;
     }
 
-    /* ───────────────────────────────
-       HEADER
-    ─────────────────────────────── */
-    .reg-header {
-      background: linear-gradient(135deg, var(--navy) 0%, #0d2d4a 55%, #0f3460 100%);
-      position: relative;
-      overflow: hidden;
+    /* ── TOP BAR ── */
+    .survey-topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .reg-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 70% 80% at 15% 50%, rgba(39,115,177,0.3) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 60% at 85% 30%, rgba(210,249,181,0.07) 0%, transparent 70%);
-      pointer-events: none;
+    .survey-topbar img {
+      height: 56px;
+      width: auto;
     }
-    .reg-header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
+
+    /* ── PROGRESS BAR ── */
+    .survey-progress-wrap {
+      background: #e5e7eb;
+      height: 5px;
+      width: 100%;
     }
-    .reg-header-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 40px 24px 48px;
+    .survey-progress-bar {
+      height: 5px;
+      background: var(--blue);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* ── HERO ── */
+    .survey-hero {
+      background: var(--navy);
+      padding: 36px 24px 40px;
       text-align: center;
     }
-    .reg-logo {
-      height: 80px;
-      width: auto;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.3));
-    }
-    .reg-header h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(28px, 5vw, 46px);
-      font-weight: 800;
+    .survey-hero h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 700;
       color: #fff;
-      line-height: 1.15;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      line-height: 1.25;
     }
-    .reg-header h1 span { color: var(--green); }
-    .reg-header-sub {
-      font-size: clamp(14px, 1.5vw, 16px);
-      color: rgba(255,255,255,0.72);
-      line-height: 1.65;
-      margin-bottom: 22px;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
+    .survey-hero p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin: 0 auto 18px;
+      line-height: 1.6;
     }
-    .reg-login-link {
+    .survey-login-link {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 50px;
-      padding: 10px 22px;
-      font-size: 13.5px;
-      font-weight: 600;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 500;
       color: #fff;
       text-decoration: none;
-      transition: all 0.2s ease;
     }
-    .reg-login-link:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-1px);
-    }
-    .reg-login-link svg { width: 15px; height: 15px; }
+    .survey-login-link:hover { background: rgba(255,255,255,0.2); }
 
-    /* ───────────────────────────────
-       PROGRESS STEPPER
-    ─────────────────────────────── */
-    .reg-stepper-wrap {
-      background: var(--white);
-      border-bottom: 1px solid rgba(39,115,177,0.1);
-      box-shadow: 0 2px 10px rgba(26,42,58,0.06);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .reg-stepper {
-      max-width: 860px;
+    /* ── MAIN FORM ── */
+    .survey-wrap {
+      max-width: 680px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
       display: flex;
       align-items: center;
-      overflow-x: auto;
-      scrollbar-width: none;
+      gap: 12px;
+      margin: 40px 0 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--blue);
     }
-    .reg-stepper::-webkit-scrollbar { display: none; }
-    .reg-step {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-      padding: 16px 0;
-      cursor: pointer;
-      position: relative;
-    }
-    .reg-step:not(:last-child)::after {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--border);
-      margin: 0 6px;
-      flex-shrink: 0;
-      border-radius: 2px;
-    }
-    .reg-step.completed:not(:last-child)::after {
-      background: var(--blue);
-    }
-    .reg-step-num {
+    .section-header:first-child { margin-top: 0; }
+    .section-num {
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: var(--border);
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.25s ease;
-    }
-    .reg-step.active .reg-step-num {
       background: var(--blue);
       color: #fff;
-      box-shadow: 0 3px 10px rgba(39,115,177,0.35);
-    }
-    .reg-step.completed .reg-step-num {
-      background: var(--green-dark);
-      color: #fff;
-    }
-    .reg-step-label {
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      white-space: nowrap;
-      transition: color 0.2s;
-    }
-    .reg-step.active .reg-step-label { color: var(--blue); }
-    .reg-step.completed .reg-step-label { color: var(--green-dark); }
-
-    /* ───────────────────────────────
-       MAIN BODY
-    ─────────────────────────────── */
-    .reg-body {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
-    }
-
-    /* ───────────────────────────────
-       FORM STEPS
-    ─────────────────────────────── */
-    .form-step { display: none; }
-    .form-step.active { display: block; }
-
-    /* ───────────────────────────────
-       SECTION CARDS
-    ─────────────────────────────── */
-    .lc-card {
-      background: var(--white);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      border: 1px solid rgba(39,115,177,0.07);
-      margin-bottom: 24px;
-    }
-    .lc-card-header {
-      background: linear-gradient(135deg, var(--navy) 0%, #0d2d4a 100%);
-      padding: 20px 28px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .lc-card-header-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      background: rgba(210,249,181,0.15);
-      border: 1px solid rgba(210,249,181,0.25);
+      font-size: 13px;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 20px;
     }
-    .lc-card-header-text h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 17px;
+    .section-title {
+      font-size: 16px;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 2px;
+      color: var(--navy);
     }
-    .lc-card-header-text p {
+    .section-subtitle {
       font-size: 12.5px;
-      color: rgba(255,255,255,0.6);
-    }
-    .lc-card-body {
-      padding: 28px 28px 32px;
+      color: var(--muted);
+      margin-top: 1px;
     }
 
-    /* ───────────────────────────────
-       FORM GRID & FIELDS
-    ─────────────────────────────── */
-    .form-grid {
+    /* ── FIELD GROUP ── */
+    .field-row {
       display: grid;
-      gap: 18px;
+      gap: 16px;
+      margin-bottom: 16px;
     }
-    .form-grid-2 { grid-template-columns: 1fr 1fr; }
-    .form-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-    .form-grid-232 { grid-template-columns: 2fr 3fr 2fr; }
-    .col-span-2 { grid-column: span 2; }
-    .col-span-3 { grid-column: span 3; }
+    .field-row.cols-2 { grid-template-columns: 1fr 1fr; }
+    .field-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .field-row.cols-2-1 { grid-template-columns: 2fr 1fr; }
 
-    .form-field {
+    .field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-    }
-    .form-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--navy-mid);
-      display: flex;
-      align-items: center;
       gap: 5px;
     }
-    .form-label .req {
-      color: var(--red);
-      font-size: 12px;
+
+    label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
     }
-    .form-label .opt {
-      font-size: 11px;
+    label .req { color: var(--error); margin-left: 2px; }
+    label .opt {
       font-weight: 400;
-      color: var(--text-muted);
-      background: rgba(74,99,117,0.08);
-      border-radius: 4px;
-      padding: 1px 6px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 4px;
     }
-    .form-input,
-    .form-select,
-    .form-textarea {
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="date"],
+    textarea,
+    select {
       width: 100%;
-      padding: 12px 14px;
+      padding: 11px 13px;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14.5px;
-      color: var(--navy-mid);
+      border-radius: var(--radius);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text);
       background: #fff;
-      transition: border-color 0.2s, box-shadow 0.2s;
       outline: none;
-      min-height: 48px;
+      min-height: 44px;
+      transition: border-color 0.15s, box-shadow 0.15s;
       appearance: none;
       -webkit-appearance: none;
     }
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
+    input:focus, textarea:focus, select:focus {
       border-color: var(--blue);
       box-shadow: 0 0 0 3px rgba(39,115,177,0.12);
     }
-    .form-input::placeholder { color: #aab8c2; }
-    .form-textarea { resize: vertical; min-height: 90px; line-height: 1.55; }
-    .form-select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6375' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    input::placeholder, textarea::placeholder { color: #9ca3af; font-size: 13.5px; }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 38px;
+      background-position: right 12px center;
+      padding-right: 34px;
       cursor: pointer;
     }
-    .form-hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.45;
-    }
-
-    /* Phone input with icon */
-    .input-icon-wrap {
-      position: relative;
-    }
-    .input-icon-wrap .input-icon {
-      position: absolute;
-      left: 13px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #aab8c2;
-      font-size: 15px;
-      pointer-events: none;
-    }
-    .input-icon-wrap .form-input { padding-left: 38px; }
-
-    /* ───────────────────────────────
-       DIVIDER
-    ─────────────────────────────── */
-    .form-divider {
-      border: none;
-      border-top: 1.5px dashed var(--border);
-      margin: 24px 0;
-    }
-    .form-section-label {
+    .field-hint {
       font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.9px;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 14px;
-    }
-
-    /* ───────────────────────────────
-       CONSENT BOX
-    ─────────────────────────────── */
-    .consent-box {
-      background: var(--blue-light);
-      border: 1.5px solid rgba(39,115,177,0.2);
-      border-radius: 12px;
-      padding: 16px 18px;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-    .consent-box input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      accent-color: var(--blue);
-      cursor: pointer;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .consent-box label {
-      font-size: 13px;
-      color: var(--text-soft);
-      line-height: 1.55;
-      cursor: pointer;
-    }
-
-    /* ───────────────────────────────
-       POLICY BOX
-    ─────────────────────────────── */
-    .policy-card {
-      background: var(--white);
-      border-radius: 16px;
-      border: 1.5px solid var(--border);
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .policy-card-header {
-      background: var(--bg);
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      gap: 12px;
-    }
-    .policy-card-header:hover { background: #eaf2f8; }
-    .policy-card-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--navy-mid);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .policy-card-title .policy-icon {
-      width: 28px; height: 28px;
-      border-radius: 8px;
-      background: rgba(39,115,177,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .policy-chevron {
-      color: var(--text-muted);
-      transition: transform 0.2s;
-      flex-shrink: 0;
-    }
-    .policy-card.open .policy-chevron { transform: rotate(180deg); }
-    .policy-card-body {
-      padding: 0 20px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.2s;
-    }
-    .policy-card.open .policy-card-body {
-      padding: 0 20px 16px;
-      max-height: 400px;
-    }
-    .policy-card-body p {
-      font-size: 13px;
-      color: var(--text-soft);
-      line-height: 1.65;
-      margin-top: 12px;
-    }
-    .policy-agree-row {
-      padding: 14px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #fafcfe;
-    }
-    .policy-agree-row input[type="checkbox"] {
-      width: 20px; height: 20px;
-      accent-color: var(--blue);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .policy-agree-row label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--blue-dark);
-      cursor: pointer;
-    }
-
-    /* ───────────────────────────────
-       STUDENT CARD
-    ─────────────────────────────── */
-    .student-card {
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 22px;
-      margin-bottom: 16px;
-      position: relative;
-    }
-    .student-card-label {
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--blue);
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .student-card-label::before {
-      content: '';
-      display: block;
-      width: 4px;
-      height: 18px;
-      background: var(--blue);
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-    .remove-student-btn {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(231,76,60,0.08);
-      border: 1px solid rgba(231,76,60,0.2);
-      color: var(--red);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .remove-student-btn:hover {
-      background: rgba(231,76,60,0.15);
-    }
-
-    /* ───────────────────────────────
-       SKILLS GRID
-    ─────────────────────────────── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 10px;
-    }
-    .skill-option {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 13px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--navy-mid);
-    }
-    .skill-option input { accent-color: var(--blue); cursor: pointer; }
-    .skill-option:has(input:checked) {
-      border-color: var(--blue);
-      background: var(--blue-light);
-      color: var(--blue-dark);
-    }
-
-    /* ───────────────────────────────
-       NOTE BOX
-    ─────────────────────────────── */
-    .info-note {
-      background: linear-gradient(135deg, #e8f3fb 0%, #f0f8ff 100%);
-      border: 1.5px solid rgba(39,115,177,0.2);
-      border-radius: 14px;
-      padding: 18px 20px;
-      margin-bottom: 24px;
-    }
-    .info-note-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--blue-dark);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-    .info-note p {
-      font-size: 13px;
-      color: var(--text-soft);
-      line-height: 1.6;
-    }
-    .info-note p + p { margin-top: 6px; }
-
-    /* Special needs note */
-    .special-note {
-      background: linear-gradient(135deg, #fff8e1 0%, #fffde7 100%);
-      border: 1.5px solid rgba(255,160,0,0.25);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: #795548;
-      line-height: 1.55;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .special-note svg { flex-shrink: 0; margin-top: 1px; }
-
-    /* ───────────────────────────────
-       PAYMENT SECTION
-    ─────────────────────────────── */
-    .payment-badges {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-    .payment-badge {
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 7px 14px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .secure-badge {
-      background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
-      border-color: rgba(76,175,80,0.25);
-      color: #2e7d32;
-    }
-    .card-row { display: flex; gap: 10px; }
-    .card-brand {
-      background: #f0f0f0;
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-    }
-
-    /* ───────────────────────────────
-       NAV BUTTONS
-    ─────────────────────────────── */
-    .reg-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 32px;
-      gap: 16px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 14px 28px;
-      border-radius: 12px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      transition: all 0.25s ease;
-      min-height: 50px;
-      text-decoration: none;
-    }
-    .btn-primary {
-      background: var(--blue);
-      color: #fff;
-      box-shadow: 0 4px 18px rgba(39,115,177,0.35);
-    }
-    .btn-primary:hover {
-      background: #2282c9;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 26px rgba(39,115,177,0.4);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-muted);
-      border: 1.5px solid var(--border);
-    }
-    .btn-ghost:hover {
-      background: var(--bg);
-      border-color: #b8cedf;
-      color: var(--navy-mid);
-    }
-    .btn-success {
-      background: linear-gradient(135deg, #2e7d32, #43a047);
-      color: #fff;
-      box-shadow: 0 4px 18px rgba(46,125,50,0.35);
-    }
-    .btn-success:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 26px rgba(46,125,50,0.42);
-    }
-    .btn-add {
-      background: rgba(39,115,177,0.07);
-      color: var(--blue);
-      border: 1.5px dashed rgba(39,115,177,0.3);
-      font-size: 14px;
-      padding: 11px 20px;
-    }
-    .btn-add:hover {
-      background: rgba(39,115,177,0.12);
-      border-color: var(--blue);
-    }
-
-    /* ───────────────────────────────
-       REQUIRED NOTICE
-    ─────────────────────────────── */
-    .required-notice {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .required-notice span { color: var(--red); font-weight: 700; }
-
-    /* ───────────────────────────────
-       CONFIRM EMAIL NOTE
-    ─────────────────────────────── */
-    .confirm-note {
-      font-size: 12px;
-      color: var(--text-muted);
-      background: #f7fafc;
-      border-radius: 8px;
-      padding: 8px 12px;
-      border-left: 3px solid var(--blue);
-      margin-top: 2px;
-    }
-
-    /* ───────────────────────────────
-       RESPONSIVE
-    ─────────────────────────────── */
-    @media (max-width: 640px) {
-      .form-grid-2 { grid-template-columns: 1fr; }
-      .form-grid-3 { grid-template-columns: 1fr 1fr; }
-      .form-grid-232 { grid-template-columns: 1fr 1fr; }
-      .form-grid-232 .form-field:first-child { grid-column: span 2; }
-      .col-span-2 { grid-column: span 1; }
-      .col-span-3 { grid-column: span 2; }
-      .lc-card-body { padding: 20px 18px 24px; }
-      .lc-card-header { padding: 16px 18px; }
-      .reg-body { padding: 24px 16px 60px; }
-      .btn { padding: 13px 20px; font-size: 14px; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-      .payment-badges { gap: 8px; }
-    }
-    @media (max-width: 400px) {
-      .form-grid-3 { grid-template-columns: 1fr; }
-      .col-span-3 { grid-column: span 1; }
-    }
-
-    /* ───────────────────────────────
-       VALIDATION STATES
-    ─────────────────────────────── */
-    .form-input.invalid,
-    .form-select.invalid,
-    .form-textarea.invalid {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(231,76,60,0.1);
+      color: var(--muted);
+      line-height: 1.4;
     }
     .field-error {
       font-size: 12px;
-      color: var(--red);
+      color: var(--error);
       font-weight: 500;
       display: none;
     }
     .field-error.show { display: block; }
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+    }
+
+    /* ── DIVIDER ── */
+    .field-divider {
+      border: none;
+      border-top: 1px dashed #e5e7eb;
+      margin: 20px 0;
+    }
+    .subsection-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    /* ── CONSENT ── */
+    .consent-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #f0f7ff;
+      border: 1.5px solid #c3daf5;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .consent-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--blue);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+      min-height: unset;
+      border: none;
+      box-shadow: none;
+    }
+    .consent-row input[type="checkbox"]:focus {
+      box-shadow: none;
+      border-color: transparent;
+    }
+    .consent-row label {
+      font-size: 12.5px;
+      font-weight: 400;
+      color: #374151;
+      line-height: 1.55;
+      cursor: pointer;
+    }
+
+    /* ── STUDENT CARD ── */
+    .student-block {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .student-block-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .student-block-label::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: var(--blue);
+      border-radius: 2px;
+      display: block;
+    }
+    .remove-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: 1px solid #fca5a5;
+      color: var(--error);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .remove-btn:hover { background: #fef2f2; }
+
+    /* ── SKILL PILLS ── */
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      background: #fff;
+      transition: all 0.15s;
+    }
+    .skill-pill input[type="radio"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--blue);
+      cursor: pointer;
+      min-height: unset;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    .skill-pill input:focus { box-shadow: none; border-color: transparent; }
+    .skill-pill:has(input:checked) {
+      border-color: var(--blue);
+      background: #eff6ff;
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ── POLICY BOX ── */
+    .policy-box {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .policy-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 16px;
+      cursor: pointer;
+      gap: 10px;
+      background: #f9fafb;
+    }
+    .policy-toggle:hover { background: #f3f4f6; }
+    .policy-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .policy-chevron {
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .policy-box.open .policy-chevron { transform: rotate(180deg); }
+    .policy-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      font-size: 13px;
+      color: #4b5563;
+      line-height: 1.65;
+    }
+    .policy-box.open .policy-body {
+      max-height: 300px;
+      padding: 0 16px 14px;
+    }
+    .policy-agree {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
+    }
+    .policy-agree input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: var(--blue);
+      cursor: pointer;
+      min-height: unset;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+    .policy-agree input:focus { box-shadow: none; border-color: transparent; }
+    .policy-agree label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      cursor: pointer;
+    }
+
+    /* ── NOTE BOX ── */
+    .note-box {
+      background: #eff6ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #1e40af;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .note-box strong { font-weight: 600; }
+    .warn-box {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 13px;
+      color: #92400e;
+      line-height: 1.55;
+      margin-bottom: 16px;
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    /* ── PAYMENT ── */
+    .card-brands {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .card-brand-badge {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      background: #fff;
+    }
+    .secure-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #166534;
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 5px 11px;
+    }
+
+    /* ── ADD BUTTON ── */
+    .btn-add-student {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: none;
+      border: 1.5px dashed var(--blue);
+      color: var(--blue);
+      border-radius: var(--radius);
+      padding: 10px 18px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-add-student:hover { background: #eff6ff; }
+
+    /* ── SUBMIT BUTTON ── */
+    .submit-section {
+      margin-top: 36px;
+      text-align: center;
+    }
+    .submit-section p {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 15px 40px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(39,115,177,0.3);
+      transition: all 0.2s;
+      width: 100%;
+      justify-content: center;
+      max-width: 400px;
+    }
+    .btn-submit:hover {
+      background: #1e64a0;
+      box-shadow: 0 6px 20px rgba(39,115,177,0.38);
+      transform: translateY(-1px);
+    }
+
+    /* ── REQUIRED NOTE ── */
+    .required-note {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .required-note span { color: var(--error); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 580px) {
+      .field-row.cols-2,
+      .field-row.cols-3,
+      .field-row.cols-2-1 { grid-template-columns: 1fr; }
+      .survey-wrap { padding: 28px 16px 64px; }
+    }
+    @media (max-width: 400px) {
+      .skill-pills { gap: 6px; }
+      .skill-pill { font-size: 12.5px; padding: 6px 11px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════ HEADER ═══════════════════ -->
-  <header class="reg-header">
-    <div class="reg-header-inner">
-      <img
-        src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/696481d3f8a93b4538e2117f.jpg"
-        alt="LowCountry Swim School"
-        class="reg-logo"
-      >
-      <h1>Student <span>Registration</span></h1>
-      <p class="reg-header-sub">
-        Enroll your child in safe, fun, expert swim lessons.
-        Complete the form below to secure your spot.
-      </p>
-      <a href="#" class="reg-login-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Already a customer? Log in
-      </a>
-    </div>
-  </header>
-
-  <!-- ═══════════════════ STEPPER ═══════════════════ -->
-  <div class="reg-stepper-wrap">
-    <nav class="reg-stepper" aria-label="Form steps">
-      <div class="reg-step active" data-step="1" onclick="goToStep(1)">
-        <div class="reg-step-num">1</div>
-        <span class="reg-step-label">Family</span>
-      </div>
-      <div class="reg-step" data-step="2" onclick="goToStep(2)">
-        <div class="reg-step-num">2</div>
-        <span class="reg-step-label">Primary Contact</span>
-      </div>
-      <div class="reg-step" data-step="3" onclick="goToStep(3)">
-        <div class="reg-step-num">3</div>
-        <span class="reg-step-label">2nd Contact</span>
-      </div>
-      <div class="reg-step" data-step="4" onclick="goToStep(4)">
-        <div class="reg-step-num">4</div>
-        <span class="reg-step-label">Students</span>
-      </div>
-      <div class="reg-step" data-step="5" onclick="goToStep(5)">
-        <div class="reg-step-num">5</div>
-        <span class="reg-step-label">Classes</span>
-      </div>
-      <div class="reg-step" data-step="6" onclick="goToStep(6)">
-        <div class="reg-step-num">6</div>
-        <span class="reg-step-label">Policies &amp; Pay</span>
-      </div>
-    </nav>
+  <!-- TOP BAR -->
+  <div class="survey-topbar">
+    <img src="https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/696481d3f8a93b4538e2117f.jpg" alt="LowCountry Swim School">
   </div>
 
-  <!-- ═══════════════════ FORM BODY ═══════════════════ -->
-  <main class="reg-body">
+  <!-- PROGRESS BAR -->
+  <div class="survey-progress-wrap">
+    <div class="survey-progress-bar" id="progress-bar"></div>
+  </div>
+
+  <!-- HERO -->
+  <div class="survey-hero">
+    <h1>Summer Swim Registration</h1>
+    <p>NOW ENROLLING AT ALL LOCATIONS. Complete every section below — your spot isn't reserved until you submit.</p>
+    <a href="#" class="survey-login-link">Already a customer? Click here to log in</a>
+  </div>
+
+  <!-- FORM -->
+  <div class="survey-wrap">
     <form id="regForm" novalidate>
 
-      <!-- ─────────────────────────────────────────────
-           STEP 1: FAMILY & REFERRAL
-      ───────────────────────────────────────────── -->
-      <div class="form-step active" id="step-1">
+      <p class="required-note"><span>*</span> Required fields</p>
 
-        <p class="required-notice"><span>*</span> Required fields</p>
-
-        <!-- Referral -->
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">📣</div>
-            <div class="lc-card-header-text">
-              <h3>How Did You Hear About Us?</h3>
-              <p>Help us understand how you found LowCountry Swim School</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-            <div class="form-grid form-grid-2">
-              <div class="form-field">
-                <label class="form-label" for="referral_source">
-                  Referral Source <span class="opt">optional</span>
-                </label>
-                <select class="form-select" id="referral_source" name="referral_source">
-                  <option value="">Select how you heard about us…</option>
-                  <option>Friend or Family</option>
-                  <option>Google Search</option>
-                  <option>Facebook / Instagram</option>
-                  <option>Nextdoor</option>
-                  <option>School or Teacher</option>
-                  <option>Flyer / Mailer</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="referral_name">
-                  Referral Name <span class="opt">optional</span>
-                </label>
-                <input type="text" class="form-input" id="referral_name" name="referral_name" placeholder="First and last name">
-              </div>
-            </div>
-          </div>
+      <!-- ════════════════════════════
+           1. REFERRAL
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div>
+          <div class="section-title">Referral Information</div>
+          <div class="section-subtitle">How did you find us?</div>
         </div>
+      </div>
 
-        <!-- Family Info -->
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">🏠</div>
-            <div class="lc-card-header-text">
-              <h3>Family Information</h3>
-              <p>Your household details and home address</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-            <div class="form-grid">
-              <div class="form-field">
-                <label class="form-label" for="family_last_name">
-                  Family Last Name <span class="req">*</span>
-                </label>
-                <input type="text" class="form-input" id="family_last_name" name="family_last_name" placeholder="e.g. Johnson" required>
-                <span class="field-error" id="err_family_last_name">Please enter your family last name.</span>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-            <p class="form-section-label">Home Address</p>
-
-            <div class="form-grid">
-              <div class="form-field">
-                <label class="form-label" for="address">
-                  Street Address <span class="req">*</span>
-                </label>
-                <input type="text" class="form-input" id="address" name="address" placeholder="123 Main St" required>
-                <span class="field-error" id="err_address">Please enter your street address.</span>
-              </div>
-            </div>
-            <div class="form-grid form-grid-232" style="margin-top:18px;">
-              <div class="form-field">
-                <label class="form-label" for="city">City <span class="req">*</span></label>
-                <input type="text" class="form-input" id="city" name="city" placeholder="City" required>
-                <span class="field-error" id="err_city">Please enter your city.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="state">State <span class="req">*</span></label>
-                <select class="form-select" id="state" name="state" required>
-                  <option value="">State…</option>
-                  <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
-                  <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
-                  <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
-                  <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
-                  <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
-                  <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
-                  <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
-                  <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
-                  <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
-                  <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
-                  <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
-                  <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
-                  <option>WI</option><option>WY</option>
-                </select>
-                <span class="field-error" id="err_state">Please select your state.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="zip">Zip <span class="req">*</span></label>
-                <input type="text" class="form-input" id="zip" name="zip" placeholder="ZIP" maxlength="10" required>
-                <span class="field-error" id="err_zip">Please enter your ZIP code.</span>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-
-            <div class="form-grid form-grid-2">
-              <div class="form-field">
-                <label class="form-label" for="primary_phone">
-                  Primary Phone <span class="req">*</span>
-                </label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">📞</span>
-                  <input type="tel" class="form-input" id="primary_phone" name="primary_phone" placeholder="(555) 000-0000" required>
-                </div>
-                <span class="field-error" id="err_primary_phone">Please enter your phone number.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="emergency_contact">
-                  Emergency Contact Info <span class="opt">optional</span>
-                </label>
-                <input type="text" class="form-input" id="emergency_contact" name="emergency_contact" placeholder="Name — Phone #1, Phone #2">
-                <span class="form-hint">Contact #1 and contact #2 (if applicable)</span>
-              </div>
-            </div>
-          </div>
+      <div class="field-row cols-2">
+        <div class="field">
+          <label for="referral_source">How did you hear about us? <span class="opt">(optional)</span></label>
+          <select id="referral_source" name="referral_source">
+            <option value="">Select…</option>
+            <option>Friend or Family</option>
+            <option>Google Search</option>
+            <option>Facebook / Instagram</option>
+            <option>Nextdoor</option>
+            <option>School or Teacher</option>
+            <option>Flyer / Mailer</option>
+            <option>Other</option>
+          </select>
         </div>
-
-        <div class="reg-nav">
-          <div></div>
-          <button type="button" class="btn btn-primary" onclick="nextStep(1)">
-            Continue — Primary Contact
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+        <div class="field">
+          <label for="referral_name">Referral Name <span class="opt">(optional)</span></label>
+          <input type="text" id="referral_name" name="referral_name" placeholder="First and last name">
         </div>
+      </div>
 
-      </div><!-- /step-1 -->
 
-
-      <!-- ─────────────────────────────────────────────
-           STEP 2: CONTACT #1
-      ───────────────────────────────────────────── -->
-      <div class="form-step" id="step-2">
-
-        <p class="required-notice"><span>*</span> Required fields</p>
-
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">👤</div>
-            <div class="lc-card-header-text">
-              <h3>Primary Contact</h3>
-              <p>Main parent or guardian information</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-
-            <div class="form-grid form-grid-3">
-              <div class="form-field col-span-2">
-                <div class="form-grid form-grid-2">
-                  <div class="form-field">
-                    <label class="form-label" for="c1_first">First Name <span class="req">*</span></label>
-                    <input type="text" class="form-input" id="c1_first" name="c1_first" placeholder="First" required>
-                    <span class="field-error" id="err_c1_first">Please enter first name.</span>
-                  </div>
-                  <div class="form-field">
-                    <label class="form-label" for="c1_last">Last Name <span class="req">*</span></label>
-                    <input type="text" class="form-input" id="c1_last" name="c1_last" placeholder="Last" required>
-                    <span class="field-error" id="err_c1_last">Please enter last name.</span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c1_type">Relationship <span class="req">*</span></label>
-                <select class="form-select" id="c1_type" name="c1_type" required>
-                  <option value="">Select…</option>
-                  <option>Mother</option>
-                  <option>Father</option>
-                  <option>Guardian</option>
-                  <option>Other</option>
-                </select>
-                <span class="field-error" id="err_c1_type">Please select a relationship.</span>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-            <p class="form-section-label">How Can We Reach You?</p>
-
-            <div class="form-grid form-grid-3">
-              <div class="form-field">
-                <label class="form-label" for="c1_home">Home Phone</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">📞</span>
-                  <input type="tel" class="form-input" id="c1_home" name="c1_home" placeholder="(555) 000-0000">
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c1_work">Work Phone</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">🏢</span>
-                  <input type="tel" class="form-input" id="c1_work" name="c1_work" placeholder="(555) 000-0000">
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c1_cell">Cell Phone <span class="req">*</span></label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">📱</span>
-                  <input type="tel" class="form-input" id="c1_cell" name="c1_cell" placeholder="(555) 000-0000" required>
-                </div>
-                <span class="field-error" id="err_c1_cell">Please enter a cell phone number.</span>
-              </div>
-            </div>
-
-            <div style="margin-top:20px;">
-              <div class="consent-box">
-                <input type="checkbox" id="c1_consent" name="c1_consent">
-                <label for="c1_consent">
-                  By checking this box, I consent to receive transactional and informational alert SMS
-                  communications regarding account notifications, class updates, and customer care from
-                  LowCountry Swim School. Message frequency may vary. Message and data rates may apply.
-                  Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for help.
-                </label>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-            <p class="form-section-label">Portal Account</p>
-            <p class="form-hint" style="margin-bottom:16px;">Your email becomes your portal login. You'll use it to view schedules, invoices, and communicate with us.</p>
-
-            <div class="form-grid form-grid-2">
-              <div class="form-field">
-                <label class="form-label" for="c1_email">Email Address <span class="req">*</span></label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">✉️</span>
-                  <input type="email" class="form-input" id="c1_email" name="c1_email" placeholder="your@email.com" required>
-                </div>
-                <span class="field-error" id="err_c1_email">Please enter a valid email address.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c1_email_confirm">Confirm Email <span class="req">*</span></label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">✉️</span>
-                  <input type="email" class="form-input" id="c1_email_confirm" name="c1_email_confirm" placeholder="your@email.com" required>
-                </div>
-                <span class="field-error" id="err_c1_email_confirm">Emails do not match.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c1_password">Portal Password <span class="req">*</span></label>
-                <input type="password" class="form-input" id="c1_password" name="c1_password" placeholder="Minimum 5 characters" minlength="5" required>
-                <span class="form-hint">At least 5 characters</span>
-                <span class="field-error" id="err_c1_password">Password must be at least 5 characters.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c1_password_confirm">Confirm Password <span class="req">*</span></label>
-                <input type="password" class="form-input" id="c1_password_confirm" name="c1_password_confirm" placeholder="Re-enter password" required>
-                <span class="field-error" id="err_c1_password_confirm">Passwords do not match.</span>
-              </div>
-            </div>
-
-          </div>
+      <!-- ════════════════════════════
+           2. FAMILY INFORMATION
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div>
+          <div class="section-title">Family Information</div>
+          <div class="section-subtitle">Your household details and home address</div>
         </div>
+      </div>
 
-        <div class="reg-nav">
-          <button type="button" class="btn btn-ghost" onclick="prevStep(2)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
-          </button>
-          <button type="button" class="btn btn-primary" onclick="nextStep(2)">
-            Continue — 2nd Contact
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+      <div class="field-row">
+        <div class="field">
+          <label for="family_last_name">Family Last Name <span class="req">*</span></label>
+          <input type="text" id="family_last_name" name="family_last_name" placeholder="e.g. Johnson" required>
+          <span class="field-error" id="err_family_last_name">Please enter your family last name.</span>
         </div>
+      </div>
 
-      </div><!-- /step-2 -->
-
-
-      <!-- ─────────────────────────────────────────────
-           STEP 3: CONTACT #2
-      ───────────────────────────────────────────── -->
-      <div class="form-step" id="step-3">
-
-        <div class="info-note">
-          <div class="info-note-title">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a5b87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Secondary Contact (Optional)
-          </div>
-          <p>Add a second parent, guardian, or emergency contact. This person can also be granted portal access.</p>
+      <div class="field-row">
+        <div class="field">
+          <label for="address">Home Address <span class="req">*</span></label>
+          <input type="text" id="address" name="address" placeholder="Street address" required>
+          <span class="field-error" id="err_address">Please enter your address.</span>
         </div>
+      </div>
 
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">👥</div>
-            <div class="lc-card-header-text">
-              <h3>Contact #2</h3>
-              <p>Second parent, guardian, or emergency contact</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-
-            <div class="form-grid form-grid-3">
-              <div class="form-field col-span-2">
-                <div class="form-grid form-grid-2">
-                  <div class="form-field">
-                    <label class="form-label" for="c2_first">First Name</label>
-                    <input type="text" class="form-input" id="c2_first" name="c2_first" placeholder="First">
-                  </div>
-                  <div class="form-field">
-                    <label class="form-label" for="c2_last">Last Name</label>
-                    <input type="text" class="form-input" id="c2_last" name="c2_last" placeholder="Last">
-                  </div>
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c2_type">Relationship</label>
-                <select class="form-select" id="c2_type" name="c2_type">
-                  <option value="">Select…</option>
-                  <option>Mother</option>
-                  <option>Father</option>
-                  <option>Guardian</option>
-                  <option>Other</option>
-                </select>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-            <p class="form-section-label">How Can We Reach Them?</p>
-
-            <div class="form-grid form-grid-3">
-              <div class="form-field">
-                <label class="form-label" for="c2_home">Home Phone</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">📞</span>
-                  <input type="tel" class="form-input" id="c2_home" name="c2_home" placeholder="(555) 000-0000">
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c2_work">Work Phone</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">🏢</span>
-                  <input type="tel" class="form-input" id="c2_work" name="c2_work" placeholder="(555) 000-0000">
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c2_cell">Cell Phone</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">📱</span>
-                  <input type="tel" class="form-input" id="c2_cell" name="c2_cell" placeholder="(555) 000-0000">
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:20px;">
-              <div class="consent-box">
-                <input type="checkbox" id="c2_consent" name="c2_consent">
-                <label for="c2_consent">
-                  By checking this box, this contact consents to receive transactional and informational alert SMS
-                  communications regarding account notifications, class updates, and customer care from LowCountry
-                  Swim School. Message frequency may vary. Message and data rates may apply.
-                  Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for help.
-                </label>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-            <p class="form-section-label">Portal Access (Optional)</p>
-
-            <div class="form-grid form-grid-2">
-              <div class="form-field">
-                <label class="form-label" for="c2_email">Email Address</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">✉️</span>
-                  <input type="email" class="form-input" id="c2_email" name="c2_email" placeholder="their@email.com">
-                </div>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="c2_email_confirm">Confirm Email</label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">✉️</span>
-                  <input type="email" class="form-input" id="c2_email_confirm" name="c2_email_confirm" placeholder="their@email.com">
-                </div>
-              </div>
-            </div>
-
-          </div>
+      <div class="field-row cols-3">
+        <div class="field">
+          <label for="city">City <span class="req">*</span></label>
+          <input type="text" id="city" name="city" placeholder="City" required>
+          <span class="field-error" id="err_city">Required.</span>
         </div>
-
-        <div class="reg-nav">
-          <button type="button" class="btn btn-ghost" onclick="prevStep(3)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
-          </button>
-          <button type="button" class="btn btn-primary" onclick="nextStep(3)">
-            Continue — Students
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+        <div class="field">
+          <label for="state">State <span class="req">*</span></label>
+          <select id="state" name="state" required>
+            <option value="">State…</option>
+            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+            <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+            <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+            <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+            <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+            <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+            <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+            <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+            <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+            <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+            <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+            <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+            <option>WI</option><option>WY</option>
+          </select>
+          <span class="field-error" id="err_state">Required.</span>
         </div>
-
-      </div><!-- /step-3 -->
-
-
-      <!-- ─────────────────────────────────────────────
-           STEP 4: STUDENT(S)
-      ───────────────────────────────────────────── -->
-      <div class="form-step" id="step-4">
-
-        <p class="required-notice"><span>*</span> Required fields</p>
-
-        <div class="lc-card" style="margin-bottom:20px;">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">🏊</div>
-            <div class="lc-card-header-text">
-              <h3>Student Information</h3>
-              <p>Tell us about the swimmer(s) enrolling</p>
-            </div>
-          </div>
-          <div class="lc-card-body" id="students-container">
-
-            <!-- Student 1 (cannot be removed) -->
-            <div class="student-card" id="student-1">
-              <div class="student-card-label">Student #1</div>
-
-              <div class="form-grid form-grid-3">
-                <div class="form-field">
-                  <label class="form-label" for="s1_first">First Name <span class="req">*</span></label>
-                  <input type="text" class="form-input" id="s1_first" name="s1_first" placeholder="First" required>
-                  <span class="field-error" id="err_s1_first">Please enter student's first name.</span>
-                </div>
-                <div class="form-field">
-                  <label class="form-label" for="s1_last">Last Name <span class="req">*</span></label>
-                  <input type="text" class="form-input" id="s1_last" name="s1_last" placeholder="Last" required>
-                  <span class="field-error" id="err_s1_last">Please enter student's last name.</span>
-                </div>
-                <div class="form-field">
-                  <label class="form-label" for="s1_gender">Gender <span class="req">*</span></label>
-                  <select class="form-select" id="s1_gender" name="s1_gender" required>
-                    <option value="">Select…</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Prefer not to say</option>
-                  </select>
-                  <span class="field-error" id="err_s1_gender">Please select a gender.</span>
-                </div>
-              </div>
-
-              <div class="form-grid form-grid-2" style="margin-top:18px;">
-                <div class="form-field">
-                  <label class="form-label" for="s1_dob">Date of Birth <span class="req">*</span></label>
-                  <input type="date" class="form-input" id="s1_dob" name="s1_dob" required>
-                  <span class="field-error" id="err_s1_dob">Please enter the student's date of birth.</span>
-                </div>
-                <div></div>
-              </div>
-
-              <hr class="form-divider">
-              <p class="form-section-label">Health &amp; Additional Info</p>
-
-              <div class="form-grid form-grid-3">
-                <div class="form-field">
-                  <label class="form-label" for="s1_disabilities">Disabilities <span class="opt">optional</span></label>
-                  <input type="text" class="form-input" id="s1_disabilities" name="s1_disabilities" placeholder="Leave blank if none">
-                </div>
-                <div class="form-field">
-                  <label class="form-label" for="s1_special_needs">Special Needs <span class="opt">optional</span></label>
-                  <input type="text" class="form-input" id="s1_special_needs" name="s1_special_needs" placeholder="Leave blank if none">
-                </div>
-                <div class="form-field">
-                  <label class="form-label" for="s1_allergies">Allergies <span class="opt">optional</span></label>
-                  <input type="text" class="form-input" id="s1_allergies" name="s1_allergies" placeholder="Leave blank if none">
-                </div>
-              </div>
-            </div><!-- /student-1 -->
-
-          </div><!-- /lc-card-body -->
-
-          <div style="padding: 0 28px 24px;">
-            <button type="button" class="btn btn-add" onclick="addStudent()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add Another Student
-            </button>
-          </div>
-
+        <div class="field">
+          <label for="zip">ZIP <span class="req">*</span></label>
+          <input type="text" id="zip" name="zip" placeholder="00000" maxlength="10" required>
+          <span class="field-error" id="err_zip">Required.</span>
         </div>
+      </div>
 
-        <div class="special-note">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <span>Adaptive (special needs) classes are available — please use the <strong>Adaptive Classes</strong> enrollment button in the next step.</span>
+      <div class="field-row cols-2">
+        <div class="field">
+          <label for="primary_phone">Primary Phone <span class="req">*</span></label>
+          <input type="tel" id="primary_phone" name="primary_phone" placeholder="(555) 000-0000" required>
+          <span class="field-error" id="err_primary_phone">Please enter a phone number.</span>
         </div>
-
-        <div class="reg-nav">
-          <button type="button" class="btn btn-ghost" onclick="prevStep(4)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
-          </button>
-          <button type="button" class="btn btn-primary" onclick="nextStep(4)">
-            Continue — Class Enrollment
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+        <div class="field">
+          <label for="emergency_contact">Emergency Contact Info <span class="opt">(optional)</span></label>
+          <input type="text" id="emergency_contact" name="emergency_contact" placeholder="Name — Phone #1, Phone #2">
+          <span class="field-hint">Contacts #1 and #2 if applicable</span>
         </div>
+      </div>
 
-      </div><!-- /step-4 -->
 
-
-      <!-- ─────────────────────────────────────────────
-           STEP 5: CLASS ENROLLMENT
-      ───────────────────────────────────────────── -->
-      <div class="form-step" id="step-5">
-
-        <div class="info-note">
-          <div class="info-note-title">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1a5b87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Important: How Class Matching Works
-          </div>
-          <p>After completing registration, include the following details in the <strong>Comments</strong> field (Step 6) so we can match you to the best class:</p>
-          <p style="margin-top:8px;">
-            📍 <strong>Preferred Location</strong> · 💪 <strong>Current Skill Level</strong> · 📅 <strong>Preferred Days &amp; Times</strong>
-          </p>
-          <p style="margin-top:6px; font-size:12px; color: var(--blue);">Adaptive classes are only for students with special needs. Reply ASAP to confirm your spot once we match you.</p>
+      <!-- ════════════════════════════
+           3. CONTACT #1
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div>
+          <div class="section-title">Contact #1</div>
+          <div class="section-subtitle">Primary parent or guardian</div>
         </div>
+      </div>
 
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">📅</div>
-            <div class="lc-card-header-text">
-              <h3>Enroll in Classes</h3>
-              <p>Select classes for each student — we'll confirm availability</p>
-            </div>
-          </div>
-          <div class="lc-card-body" id="enrollment-container">
-
-            <div class="student-card" id="enroll-1">
-              <div class="student-card-label">Student #1 — Class Selection</div>
-              <div class="form-grid form-grid-2">
-                <div class="form-field col-span-2">
-                  <label class="form-label" for="e1_class">Select Class <span class="req">*</span></label>
-                  <select class="form-select" id="e1_class" name="e1_class" required>
-                    <option value="">Choose a class type…</option>
-                    <option>Parent &amp; Tot (6 mos – 3 yrs)</option>
-                    <option>Preschool Beginner (3–5 yrs)</option>
-                    <option>Level 1 — Water Acclimation</option>
-                    <option>Level 2 — Primary Skills</option>
-                    <option>Level 3 — Stroke Introduction</option>
-                    <option>Level 4 — Stroke Development</option>
-                    <option>Level 5 — Stroke Refinement</option>
-                    <option>Level 6 — Advanced Skills</option>
-                    <option>Teen / Adult Beginner</option>
-                    <option>Private Lessons</option>
-                  </select>
-                </div>
-                <div class="form-field">
-                  <label class="form-label" for="e1_location">Preferred Location <span class="opt">optional</span></label>
-                  <input type="text" class="form-input" id="e1_location" name="e1_location" placeholder="e.g. Downtown, Bluffton…">
-                </div>
-                <div class="form-field">
-                  <label class="form-label" for="e1_days">Preferred Days &amp; Times <span class="opt">optional</span></label>
-                  <input type="text" class="form-input" id="e1_days" name="e1_days" placeholder="e.g. Mon/Wed mornings">
-                </div>
-              </div>
-
-              <hr class="form-divider" style="margin:20px 0 16px;">
-              <p class="form-section-label">Current Skill Level</p>
-              <div class="skills-grid" id="skills-1">
-                <label class="skill-option"><input type="radio" name="s1_skill" value="Never been in water"> Never been in water</label>
-                <label class="skill-option"><input type="radio" name="s1_skill" value="Comfortable in water"> Comfortable in water</label>
-                <label class="skill-option"><input type="radio" name="s1_skill" value="Can float on back"> Can float on back</label>
-                <label class="skill-option"><input type="radio" name="s1_skill" value="Beginner strokes"> Beginner strokes</label>
-                <label class="skill-option"><input type="radio" name="s1_skill" value="Intermediate swimmer"> Intermediate swimmer</label>
-                <label class="skill-option"><input type="radio" name="s1_skill" value="Advanced swimmer"> Advanced swimmer</label>
-              </div>
-            </div>
-
-          </div><!-- /lc-card-body #enrollment-container -->
-
-          <div style="padding: 0 28px 24px; display:flex; gap:12px; flex-wrap:wrap;">
-            <button type="button" class="btn btn-add" onclick="addEnrollment()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              Add Another Student Enrollment
-            </button>
-            <button type="button" class="btn btn-add" style="border-color:rgba(76,175,80,0.4); color:#2e7d32; background:rgba(76,175,80,0.07);">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              Adaptive Classes (Special Needs)
-            </button>
-          </div>
-
+      <div class="field-row cols-3">
+        <div class="field">
+          <label for="c1_first">First Name <span class="req">*</span></label>
+          <input type="text" id="c1_first" name="c1_first" placeholder="First" required>
+          <span class="field-error" id="err_c1_first">Required.</span>
         </div>
-
-        <div class="reg-nav">
-          <button type="button" class="btn btn-ghost" onclick="prevStep(5)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
-          </button>
-          <button type="button" class="btn btn-primary" onclick="nextStep(5)">
-            Continue — Policies &amp; Payment
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
+        <div class="field">
+          <label for="c1_last">Last Name <span class="req">*</span></label>
+          <input type="text" id="c1_last" name="c1_last" placeholder="Last" required>
+          <span class="field-error" id="err_c1_last">Required.</span>
         </div>
-
-      </div><!-- /step-5 -->
-
-
-      <!-- ─────────────────────────────────────────────
-           STEP 6: POLICIES, COMMENTS & PAYMENT
-      ───────────────────────────────────────────── -->
-      <div class="form-step" id="step-6">
-
-        <!-- Required Policies -->
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">📋</div>
-            <div class="lc-card-header-text">
-              <h3>Required Policies</h3>
-              <p>Please review and agree to each policy before submitting</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-
-            <!-- Policy 1 -->
-            <div class="policy-card" id="policy-1">
-              <div class="policy-card-header" onclick="togglePolicy('policy-1')">
-                <div class="policy-card-title">
-                  <div class="policy-icon">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2773b1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  </div>
-                  Low Country Swim School — Enrollment Conditions &amp; Billing Agreement
-                </div>
-                <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="policy-card-body">
-                <p>By enrolling with LowCountry Swim School, you agree to our billing and enrollment terms. Monthly tuition is due on the 1st of each month. A 30-day written notice is required for cancellations. No refunds are issued for missed classes.</p>
-              </div>
-              <div class="policy-agree-row">
-                <input type="checkbox" id="agree_billing" name="agree_billing" required>
-                <label for="agree_billing">I've read the above and agree</label>
-              </div>
-            </div>
-
-            <!-- Policy 2 -->
-            <div class="policy-card" id="policy-2">
-              <div class="policy-card-header" onclick="togglePolicy('policy-2')">
-                <div class="policy-card-title">
-                  <div class="policy-icon">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2773b1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  </div>
-                  Waiver of Liability
-                </div>
-                <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="policy-card-body">
-                <p>I understand that swimming involves inherent risks. I voluntarily waive any claims against LowCountry Swim School, its owners, instructors, or staff for injury or loss arising from participation in swim lessons, except in cases of gross negligence.</p>
-              </div>
-              <div class="policy-agree-row">
-                <input type="checkbox" id="agree_waiver" name="agree_waiver" required>
-                <label for="agree_waiver">I've read the above and agree</label>
-              </div>
-            </div>
-
-            <!-- Policy 3 -->
-            <div class="policy-card" id="policy-3">
-              <div class="policy-card-header" onclick="togglePolicy('policy-3')">
-                <div class="policy-card-title">
-                  <div class="policy-icon">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2773b1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  </div>
-                  Rainout &amp; Withdrawal Policy
-                </div>
-                <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="policy-card-body">
-                <p>Classes cancelled due to weather will be rescheduled. Makeups are offered within the same session. No tuition credit is given for student absences. Withdrawals require written notice 30 days in advance.</p>
-              </div>
-              <div class="policy-agree-row">
-                <input type="checkbox" id="agree_rainout" name="agree_rainout" required>
-                <label for="agree_rainout">I've read the above and agree</label>
-              </div>
-            </div>
-
-            <!-- Policy 4 -->
-            <div class="policy-card" id="policy-4">
-              <div class="policy-card-header" onclick="togglePolicy('policy-4')">
-                <div class="policy-card-title">
-                  <div class="policy-icon">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2773b1" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  </div>
-                  Photo / Video Consent, Membership &amp; Credit Agreement
-                </div>
-                <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="policy-card-body">
-                <p>I authorize LowCountry Swim School to photograph or video record students for promotional use. I agree to the credit card authorization terms for auto-pay enrollment. I understand my card will be charged on the billing date each month.</p>
-              </div>
-              <div class="policy-agree-row">
-                <input type="checkbox" id="agree_media" name="agree_media" required>
-                <label for="agree_media">I've read the above and agree</label>
-              </div>
-            </div>
-
-            <hr class="form-divider">
-
-            <div class="form-field">
-              <label class="form-label" for="full_name_agree">
-                I agree to all of the above — enter your full name <span class="req">*</span>
-              </label>
-              <input type="text" class="form-input" id="full_name_agree" name="full_name_agree"
-                placeholder="Type your full legal name" required
-                style="max-width:400px;">
-              <span class="form-hint">Today's date: <span id="today-date"></span></span>
-              <span class="field-error" id="err_full_name">Please enter your full name.</span>
-            </div>
-
-          </div>
+        <div class="field">
+          <label for="c1_type">Type <span class="req">*</span></label>
+          <select id="c1_type" name="c1_type" required>
+            <option value="">Select…</option>
+            <option>Mother</option>
+            <option>Father</option>
+            <option>Guardian</option>
+            <option>Other</option>
+          </select>
+          <span class="field-error" id="err_c1_type">Required.</span>
         </div>
+      </div>
 
-        <!-- Comments -->
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">💬</div>
-            <div class="lc-card-header-text">
-              <h3>Questions or Concerns</h3>
-              <p>Share your preferred location, schedule, skill level, or anything else</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-            <div class="form-field">
-              <label class="form-label" for="comments">
-                Comments <span class="opt">optional</span>
-              </label>
-              <textarea class="form-textarea" id="comments" name="comments" rows="4"
-                placeholder="e.g. Preferred location: Downtown. Student is comfortable in water but can't swim yet. Available Monday and Wednesday mornings."></textarea>
-            </div>
-          </div>
+      <p class="subsection-label">How can we contact you?</p>
+
+      <div class="field-row cols-3">
+        <div class="field">
+          <label for="c1_home">Home Phone</label>
+          <input type="tel" id="c1_home" name="c1_home" placeholder="(555) 000-0000">
         </div>
-
-        <!-- Payment -->
-        <div class="lc-card">
-          <div class="lc-card-header">
-            <div class="lc-card-header-icon">💳</div>
-            <div class="lc-card-header-text">
-              <h3>Payment Information</h3>
-              <p>Your card is securely stored for monthly auto-pay</p>
-            </div>
-          </div>
-          <div class="lc-card-body">
-
-            <div class="payment-badges">
-              <div class="payment-badge secure-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                SSL Secured
-              </div>
-              <div class="payment-badge">
-                <span style="font-weight:800; font-size:11px; color:#1a1f71;">VISA</span>
-              </div>
-              <div class="payment-badge">
-                <span style="font-weight:800; font-size:11px; color:#eb001b;">MC</span>
-              </div>
-              <div class="payment-badge">
-                <span style="font-weight:800; font-size:10px; color:#2e77bc;">AMEX</span>
-              </div>
-              <div class="payment-badge">
-                <span style="font-weight:800; font-size:10px; color:#ff6600;">DISC</span>
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="form-field">
-                <label class="form-label" for="card_number">
-                  Card Number <span class="req">*</span>
-                </label>
-                <div class="input-icon-wrap">
-                  <span class="input-icon">💳</span>
-                  <input type="text" class="form-input" id="card_number" name="card_number"
-                    placeholder="1234  5678  9012  3456"
-                    maxlength="19" inputmode="numeric" autocomplete="cc-number" required>
-                </div>
-                <span class="field-error" id="err_card_number">Please enter your card number.</span>
-              </div>
-            </div>
-
-            <div class="form-grid form-grid-3" style="margin-top:18px;">
-              <div class="form-field col-span-2">
-                <label class="form-label">
-                  Expiration Date <span class="req">*</span>
-                </label>
-                <div style="display:flex; gap:10px;">
-                  <select class="form-select" id="exp_month" name="exp_month" required style="flex:1;">
-                    <option value="">Month</option>
-                    <option value="01">01 — Jan</option>
-                    <option value="02">02 — Feb</option>
-                    <option value="03">03 — Mar</option>
-                    <option value="04">04 — Apr</option>
-                    <option value="05">05 — May</option>
-                    <option value="06">06 — Jun</option>
-                    <option value="07">07 — Jul</option>
-                    <option value="08">08 — Aug</option>
-                    <option value="09">09 — Sep</option>
-                    <option value="10">10 — Oct</option>
-                    <option value="11">11 — Nov</option>
-                    <option value="12">12 — Dec</option>
-                  </select>
-                  <select class="form-select" id="exp_year" name="exp_year" required style="flex:1;"></select>
-                </div>
-                <span class="field-error" id="err_exp">Please select expiration month and year.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="cvv">
-                  CVV <span class="req">*</span>
-                </label>
-                <input type="text" class="form-input" id="cvv" name="cvv"
-                  placeholder="3–4 digits" maxlength="4" inputmode="numeric"
-                  autocomplete="cc-csc" required>
-                <span class="field-error" id="err_cvv">Please enter the CVV.</span>
-              </div>
-            </div>
-
-            <div class="form-grid form-grid-2" style="margin-top:18px;">
-              <div class="form-field col-span-2">
-                <label class="form-label" for="card_name">
-                  Name on Card <span class="req">*</span>
-                </label>
-                <input type="text" class="form-input" id="card_name" name="card_name"
-                  placeholder="As it appears on the card"
-                  autocomplete="cc-name" required>
-                <span class="field-error" id="err_card_name">Please enter the name on your card.</span>
-              </div>
-            </div>
-
-            <div class="form-grid form-grid-2" style="margin-top:18px;">
-              <div class="form-field">
-                <label class="form-label" for="card_nickname">Card Nickname <span class="opt">optional</span></label>
-                <input type="text" class="form-input" id="card_nickname" name="card_nickname" placeholder="e.g. My Visa">
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="billing_address">Billing Address <span class="req">*</span></label>
-                <input type="text" class="form-input" id="billing_address" name="billing_address"
-                  placeholder="Street address"
-                  autocomplete="billing street-address" required>
-                <span class="field-error" id="err_billing_address">Please enter your billing address.</span>
-              </div>
-            </div>
-
-            <div class="form-grid form-grid-3" style="margin-top:18px;">
-              <div class="form-field">
-                <label class="form-label" for="billing_city">City <span class="req">*</span></label>
-                <input type="text" class="form-input" id="billing_city" name="billing_city" placeholder="City" required>
-                <span class="field-error" id="err_billing_city">Required.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="billing_state">State <span class="req">*</span></label>
-                <input type="text" class="form-input" id="billing_state" name="billing_state" placeholder="SC" maxlength="2" required>
-                <span class="field-error" id="err_billing_state">Required.</span>
-              </div>
-              <div class="form-field">
-                <label class="form-label" for="billing_zip">ZIP <span class="req">*</span></label>
-                <input type="text" class="form-input" id="billing_zip" name="billing_zip" placeholder="ZIP" maxlength="10" required>
-                <span class="field-error" id="err_billing_zip">Required.</span>
-              </div>
-            </div>
-
-          </div>
+        <div class="field">
+          <label for="c1_work">Work #</label>
+          <input type="tel" id="c1_work" name="c1_work" placeholder="(555) 000-0000">
         </div>
-
-        <div class="reg-nav">
-          <button type="button" class="btn btn-ghost" onclick="prevStep(6)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
-          </button>
-          <button type="submit" class="btn btn-success">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            Submit Registration
-          </button>
+        <div class="field">
+          <label for="c1_cell">Cell # <span class="req">*</span></label>
+          <input type="tel" id="c1_cell" name="c1_cell" placeholder="(555) 000-0000" required>
+          <span class="field-error" id="err_c1_cell">Required.</span>
         </div>
+      </div>
 
-      </div><!-- /step-6 -->
+      <div class="consent-row" style="margin-bottom:16px;">
+        <input type="checkbox" id="c1_consent" name="c1_consent">
+        <label for="c1_consent">By checking this box, you are consenting to receive transactional and informational alert SMS communications regarding account notifications, class updates, and customer care from Low Country Swim School. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for help.</label>
+      </div>
 
-    </form>
-  </main>
+      <p class="subsection-label" style="margin-top:20px;">Portal Account — Your Email is Your Login</p>
+      <p class="field-hint" style="margin-bottom:14px;">If you are not yet enrolled, you may leave the portal fields blank.</p>
 
-  <script>
-    // ─── CURRENT STEP ───────────────────────────────
-    let currentStep = 1;
-    const TOTAL_STEPS = 6;
+      <div class="field-row cols-2">
+        <div class="field">
+          <label for="c1_email">Email <span class="req">*</span></label>
+          <input type="email" id="c1_email" name="c1_email" placeholder="your@email.com" required>
+          <span class="field-error" id="err_c1_email">Please enter a valid email.</span>
+        </div>
+        <div class="field">
+          <label for="c1_email_confirm">Confirm Email <span class="req">*</span></label>
+          <input type="email" id="c1_email_confirm" name="c1_email_confirm" placeholder="your@email.com" required>
+          <span class="field-error" id="err_c1_email_confirm">Emails do not match.</span>
+        </div>
+        <div class="field">
+          <label for="c1_password">Portal Password <span class="req">*</span></label>
+          <input type="password" id="c1_password" name="c1_password" placeholder="Minimum 5 characters" required>
+          <span class="field-hint">Minimum 5 characters</span>
+          <span class="field-error" id="err_c1_password">Must be at least 5 characters.</span>
+        </div>
+        <div class="field">
+          <label for="c1_password_confirm">Confirm Password <span class="req">*</span></label>
+          <input type="password" id="c1_password_confirm" name="c1_password_confirm" placeholder="Re-enter password" required>
+          <span class="field-error" id="err_c1_password_confirm">Passwords do not match.</span>
+        </div>
+      </div>
 
-    function goToStep(n) {
-      // Only allow going back or to completed steps
-      if (n >= currentStep) return;
-      showStep(n);
-    }
 
-    function showStep(n) {
-      document.querySelectorAll('.form-step').forEach(el => el.classList.remove('active'));
-      document.getElementById('step-' + n).classList.add('active');
+      <!-- ════════════════════════════
+           4. CONTACT #2
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div>
+          <div class="section-title">Contact #2</div>
+          <div class="section-subtitle">Second parent, guardian, or emergency contact (optional)</div>
+        </div>
+      </div>
 
-      document.querySelectorAll('.reg-step').forEach((el, i) => {
-        const num = i + 1;
-        el.classList.remove('active', 'completed');
-        if (num === n) el.classList.add('active');
-        else if (num < n) el.classList.add('completed', 'active');
-      });
+      <div class="field-row cols-3">
+        <div class="field">
+          <label for="c2_first">First Name <span class="opt">(optional)</span></label>
+          <input type="text" id="c2_first" name="c2_first" placeholder="First">
+        </div>
+        <div class="field">
+          <label for="c2_last">Last Name</label>
+          <input type="text" id="c2_last" name="c2_last" placeholder="Last">
+        </div>
+        <div class="field">
+          <label for="c2_type">Type</label>
+          <select id="c2_type" name="c2_type">
+            <option value="">Select…</option>
+            <option>Mother</option>
+            <option>Father</option>
+            <option>Guardian</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
 
-      // Update checkmarks on completed steps
-      document.querySelectorAll('.reg-step.completed .reg-step-num').forEach(el => {
-        if (!el.dataset.orig) el.dataset.orig = el.textContent;
-        el.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-      });
-      // Restore active step number
-      const activeNum = document.querySelector('.reg-step.active:not(.completed) .reg-step-num');
-      if (activeNum && activeNum.dataset.orig) {
-        activeNum.innerHTML = activeNum.dataset.orig;
-      }
+      <p class="subsection-label">How can we contact them?</p>
 
-      currentStep = n;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+      <div class="field-row cols-3">
+        <div class="field">
+          <label for="c2_home">Home Phone</label>
+          <input type="tel" id="c2_home" name="c2_home" placeholder="(555) 000-0000">
+        </div>
+        <div class="field">
+          <label for="c2_work">Work #</label>
+          <input type="tel" id="c2_work" name="c2_work" placeholder="(555) 000-0000">
+        </div>
+        <div class="field">
+          <label for="c2_cell">Cell #</label>
+          <input type="tel" id="c2_cell" name="c2_cell" placeholder="(555) 000-0000">
+        </div>
+      </div>
 
-    // ─── VALIDATION HELPERS ─────────────────────────
-    function showError(id, show) {
-      const el = document.getElementById('err_' + id);
-      if (el) el.classList.toggle('show', show);
-    }
-    function markInvalid(id, invalid) {
-      const el = document.getElementById(id);
-      if (el) el.classList.toggle('invalid', invalid);
-    }
-    function validate(id, condition) {
-      markInvalid(id, !condition);
-      showError(id, !condition);
-      return condition;
-    }
-    function notEmpty(id) {
-      const el = document.getElementById(id);
-      return el && el.value.trim() !== '';
-    }
-    function isEmail(id) {
-      const el = document.getElementById(id);
-      return el && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
-    }
-    function val(id) {
-      const el = document.getElementById(id);
-      return el ? el.value.trim() : '';
-    }
+      <div class="consent-row" style="margin-bottom:16px;">
+        <input type="checkbox" id="c2_consent" name="c2_consent">
+        <label for="c2_consent">By checking this box, you are consenting to receive transactional and informational alert SMS communications regarding account notifications, class updates, and customer care from Low Country Swim School. Message frequency may vary. Message and data rates may apply. Reply STOP to opt out or HELP for help.</label>
+      </div>
 
-    function validateStep(n) {
-      let ok = true;
-      if (n === 1) {
-        ok = validate('family_last_name', notEmpty('family_last_name')) && ok;
-        ok = validate('address', notEmpty('address')) && ok;
-        ok = validate('city', notEmpty('city')) && ok;
-        ok = validate('state', notEmpty('state')) && ok;
-        ok = validate('zip', notEmpty('zip')) && ok;
-        ok = validate('primary_phone', notEmpty('primary_phone')) && ok;
-      } else if (n === 2) {
-        ok = validate('c1_first', notEmpty('c1_first')) && ok;
-        ok = validate('c1_last', notEmpty('c1_last')) && ok;
-        ok = validate('c1_type', notEmpty('c1_type')) && ok;
-        ok = validate('c1_cell', notEmpty('c1_cell')) && ok;
-        ok = validate('c1_email', isEmail('c1_email')) && ok;
-        const emailsMatch = val('c1_email') === val('c1_email_confirm');
-        ok = validate('c1_email_confirm', emailsMatch && notEmpty('c1_email_confirm')) && ok;
-        ok = validate('c1_password', val('c1_password').length >= 5) && ok;
-        const pwMatch = val('c1_password') === val('c1_password_confirm') && notEmpty('c1_password_confirm');
-        ok = validate('c1_password_confirm', pwMatch) && ok;
-      } else if (n === 4) {
-        ok = validate('s1_first', notEmpty('s1_first')) && ok;
-        ok = validate('s1_last', notEmpty('s1_last')) && ok;
-        ok = validate('s1_gender', notEmpty('s1_gender')) && ok;
-        ok = validate('s1_dob', notEmpty('s1_dob')) && ok;
-      }
-      return ok;
-    }
+      <div class="field-row cols-2">
+        <div class="field">
+          <label for="c2_email">Email <span class="opt">(optional)</span></label>
+          <input type="email" id="c2_email" name="c2_email" placeholder="their@email.com">
+        </div>
+        <div class="field">
+          <label for="c2_email_confirm">Confirm Email</label>
+          <input type="email" id="c2_email_confirm" name="c2_email_confirm" placeholder="their@email.com">
+        </div>
+      </div>
 
-    function nextStep(n) {
-      if (!validateStep(n)) {
-        // Scroll to first error
-        const firstInvalid = document.querySelector('#step-' + n + ' .form-input.invalid, #step-' + n + ' .form-select.invalid');
-        if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-      showStep(n + 1);
-    }
 
-    function prevStep(n) {
-      showStep(n - 1);
-    }
+      <!-- ════════════════════════════
+           5. STUDENT(S)
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div>
+          <div class="section-title">Student #1</div>
+          <div class="section-subtitle">Tell us about the swimmer enrolling</div>
+        </div>
+      </div>
 
-    // ─── DYNAMIC STUDENTS ───────────────────────────
-    let studentCount = 1;
-    function addStudent() {
-      studentCount++;
-      const n = studentCount;
-      const container = document.getElementById('students-container');
-      const html = `
-        <div class="student-card" id="student-${n}">
-          <div class="student-card-label">Student #${n}</div>
-          <button type="button" class="remove-student-btn" onclick="removeStudent(${n})">Remove</button>
-          <div class="form-grid form-grid-3">
-            <div class="form-field">
-              <label class="form-label" for="s${n}_first">First Name <span class="req">*</span></label>
-              <input type="text" class="form-input" id="s${n}_first" name="s${n}_first" placeholder="First" required>
+      <div id="students-container">
+        <!-- Student 1 -->
+        <div class="student-block" id="student-1">
+          <div class="student-block-label">Student #1</div>
+
+          <div class="field-row cols-3">
+            <div class="field">
+              <label for="s1_first">First Name <span class="req">*</span></label>
+              <input type="text" id="s1_first" name="s1_first" placeholder="First" required>
+              <span class="field-error" id="err_s1_first">Required.</span>
             </div>
-            <div class="form-field">
-              <label class="form-label" for="s${n}_last">Last Name <span class="req">*</span></label>
-              <input type="text" class="form-input" id="s${n}_last" name="s${n}_last" placeholder="Last" required>
+            <div class="field">
+              <label for="s1_last">Last Name <span class="req">*</span></label>
+              <input type="text" id="s1_last" name="s1_last" placeholder="Last" required>
+              <span class="field-error" id="err_s1_last">Required.</span>
             </div>
-            <div class="form-field">
-              <label class="form-label" for="s${n}_gender">Gender <span class="req">*</span></label>
-              <select class="form-select" id="s${n}_gender" name="s${n}_gender" required>
+            <div class="field">
+              <label for="s1_gender">Gender <span class="req">*</span></label>
+              <select id="s1_gender" name="s1_gender" required>
                 <option value="">Select…</option>
                 <option>Male</option>
                 <option>Female</option>
                 <option>Prefer not to say</option>
               </select>
+              <span class="field-error" id="err_s1_gender">Required.</span>
             </div>
           </div>
-          <div class="form-grid form-grid-2" style="margin-top:18px;">
-            <div class="form-field">
-              <label class="form-label" for="s${n}_dob">Date of Birth <span class="req">*</span></label>
-              <input type="date" class="form-input" id="s${n}_dob" name="s${n}_dob" required>
+
+          <div class="field-row cols-2" style="margin-top:2px;">
+            <div class="field">
+              <label for="s1_dob">Date of Birth <span class="req">*</span></label>
+              <input type="date" id="s1_dob" name="s1_dob" required>
+              <span class="field-error" id="err_s1_dob">Required.</span>
             </div>
             <div></div>
           </div>
-          <hr class="form-divider">
-          <p class="form-section-label">Health &amp; Additional Info</p>
-          <div class="form-grid form-grid-3">
-            <div class="form-field">
-              <label class="form-label">Disabilities <span class="opt">optional</span></label>
-              <input type="text" class="form-input" name="s${n}_disabilities" placeholder="Leave blank if none">
+
+          <hr class="field-divider">
+          <p class="subsection-label">Additional Info</p>
+
+          <div class="field-row cols-3">
+            <div class="field">
+              <label>Disabilities <span class="opt">(optional)</span></label>
+              <input type="text" name="s1_disabilities" placeholder="Leave blank if none">
             </div>
-            <div class="form-field">
-              <label class="form-label">Special Needs <span class="opt">optional</span></label>
-              <input type="text" class="form-input" name="s${n}_special_needs" placeholder="Leave blank if none">
+            <div class="field">
+              <label>Special Needs <span class="opt">(optional)</span></label>
+              <input type="text" name="s1_special_needs" placeholder="Leave blank if none">
             </div>
-            <div class="form-field">
-              <label class="form-label">Allergies <span class="opt">optional</span></label>
-              <input type="text" class="form-input" name="s${n}_allergies" placeholder="Leave blank if none">
+            <div class="field">
+              <label>Allergies <span class="opt">(optional)</span></label>
+              <input type="text" name="s1_allergies" placeholder="Leave blank if none">
             </div>
           </div>
-        </div>`;
-      container.insertAdjacentHTML('beforeend', html);
-      // Also add enrollment slot
-      addEnrollmentForStudent(n);
-    }
+        </div>
+      </div><!-- /students-container -->
 
-    function removeStudent(n) {
-      const el = document.getElementById('student-' + n);
-      if (el) el.remove();
-      const enroll = document.getElementById('enroll-' + n);
-      if (enroll) enroll.remove();
-    }
+      <button type="button" class="btn-add-student" onclick="addStudent()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Another Student
+      </button>
 
-    // ─── DYNAMIC ENROLLMENTS ────────────────────────
-    let enrollCount = 1;
-    function addEnrollment() {
-      enrollCount++;
-      addEnrollmentForStudent(enrollCount);
-    }
-    function addEnrollmentForStudent(n) {
-      const container = document.getElementById('enrollment-container');
-      const html = `
-        <div class="student-card" id="enroll-${n}">
-          <div class="student-card-label">Student #${n} — Class Selection</div>
-          <button type="button" class="remove-student-btn" onclick="document.getElementById('enroll-${n}').remove()">Remove</button>
-          <div class="form-grid form-grid-2">
-            <div class="form-field col-span-2">
-              <label class="form-label">Select Class <span class="req">*</span></label>
-              <select class="form-select" name="e${n}_class">
+
+      <!-- ════════════════════════════
+           6. ENROLL IN CLASSES
+      ════════════════════════════ -->
+      <div class="section-header" style="margin-top:40px;">
+        <div class="section-num">6</div>
+        <div>
+          <div class="section-title">Enroll in Classes</div>
+          <div class="section-subtitle">Select a class for each student</div>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-bottom:20px;">
+        <strong>Important:</strong> After completing registration, be sure to include the following in the <strong>Statement portion</strong> of your form — Preferred Location · Current Swim Skills · Preferred Days &amp; Times. This helps us match you to the best class as quickly as possible.
+        <br><br>
+        <strong style="color:#dc2626;">Adaptive Classes are ONLY for Special Needs students.</strong>
+      </div>
+
+      <div id="enrollment-container">
+        <!-- Enrollment 1 -->
+        <div class="student-block" id="enroll-1">
+          <div class="student-block-label">Student #1 — Class Selection</div>
+          <div class="field-row">
+            <div class="field">
+              <label for="e1_class">Select Class <span class="req">*</span></label>
+              <select id="e1_class" name="e1_class" required>
                 <option value="">Choose a class type…</option>
                 <option>Parent &amp; Tot (6 mos – 3 yrs)</option>
                 <option>Preschool Beginner (3–5 yrs)</option>
@@ -1892,98 +932,454 @@
                 <option>Level 6 — Advanced Skills</option>
                 <option>Teen / Adult Beginner</option>
                 <option>Private Lessons</option>
+                <option>Adaptive — Special Needs</option>
               </select>
             </div>
-            <div class="form-field">
-              <label class="form-label">Preferred Location <span class="opt">optional</span></label>
-              <input type="text" class="form-input" name="e${n}_location" placeholder="e.g. Downtown, Bluffton…">
-            </div>
-            <div class="form-field">
-              <label class="form-label">Preferred Days &amp; Times <span class="opt">optional</span></label>
-              <input type="text" class="form-input" name="e${n}_days" placeholder="e.g. Mon/Wed mornings">
-            </div>
           </div>
-          <hr class="form-divider" style="margin:20px 0 16px;">
-          <p class="form-section-label">Current Skill Level</p>
-          <div class="skills-grid">
-            <label class="skill-option"><input type="radio" name="s${n}_skill" value="Never been in water"> Never been in water</label>
-            <label class="skill-option"><input type="radio" name="s${n}_skill" value="Comfortable in water"> Comfortable in water</label>
-            <label class="skill-option"><input type="radio" name="s${n}_skill" value="Can float on back"> Can float on back</label>
-            <label class="skill-option"><input type="radio" name="s${n}_skill" value="Beginner strokes"> Beginner strokes</label>
-            <label class="skill-option"><input type="radio" name="s${n}_skill" value="Intermediate swimmer"> Intermediate swimmer</label>
-            <label class="skill-option"><input type="radio" name="s${n}_skill" value="Advanced swimmer"> Advanced swimmer</label>
+
+          <hr class="field-divider" style="margin:16px 0;">
+          <p class="subsection-label">Swimmer's Current Skill Level</p>
+          <div class="skill-pills">
+            <label class="skill-pill"><input type="radio" name="s1_skill" value="Never been in water"> Never been in water</label>
+            <label class="skill-pill"><input type="radio" name="s1_skill" value="Comfortable in water"> Comfortable in water</label>
+            <label class="skill-pill"><input type="radio" name="s1_skill" value="Can float on back"> Can float on back</label>
+            <label class="skill-pill"><input type="radio" name="s1_skill" value="Beginner strokes"> Beginner strokes</label>
+            <label class="skill-pill"><input type="radio" name="s1_skill" value="Intermediate swimmer"> Intermediate swimmer</label>
+            <label class="skill-pill"><input type="radio" name="s1_skill" value="Advanced swimmer"> Advanced swimmer</label>
           </div>
-        </div>`;
-      container.insertAdjacentHTML('beforeend', html);
-    }
+        </div>
+      </div><!-- /enrollment-container -->
 
-    // ─── POLICY TOGGLE ──────────────────────────────
-    function togglePolicy(id) {
-      document.getElementById(id).classList.toggle('open');
-    }
+      <button type="button" class="btn-add-student" onclick="addEnrollment()" style="margin-bottom:8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Another Student
+      </button>
 
-    // ─── CARD NUMBER FORMATTING ─────────────────────
+      <button type="button" class="btn-add-student" style="margin-bottom:0; border-color:#16a34a; color:#16a34a;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Adaptive Classes (Special Needs Only)
+      </button>
+
+
+      <!-- ════════════════════════════
+           7. REQUIRED POLICIES
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div>
+          <div class="section-title">Required Policies</div>
+          <div class="section-subtitle">Read and agree to each policy to continue</div>
+        </div>
+      </div>
+
+      <!-- Policy 1 -->
+      <div class="policy-box" id="p1">
+        <div class="policy-toggle" onclick="togglePolicy('p1')">
+          <span class="policy-name">Low Country Swim School Enrollment Conditions &amp; Billing Agreement</span>
+          <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="policy-body">
+          Monthly tuition is due on the 1st of each month. A 30-day written notice is required for cancellations. No refunds are issued for missed classes. By enrolling, you authorize LowCountry Swim School to charge your payment method on file each billing cycle.
+        </div>
+        <div class="policy-agree">
+          <input type="checkbox" id="agree_billing" name="agree_billing" required>
+          <label for="agree_billing">I've read the above and agree</label>
+        </div>
+      </div>
+
+      <!-- Policy 2 -->
+      <div class="policy-box" id="p2">
+        <div class="policy-toggle" onclick="togglePolicy('p2')">
+          <span class="policy-name">Waiver of Liability</span>
+          <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="policy-body">
+          I understand that swimming involves inherent risks. I voluntarily waive any claims against LowCountry Swim School, its owners, instructors, or staff for injury or loss arising from participation in swim lessons, except in cases of gross negligence.
+        </div>
+        <div class="policy-agree">
+          <input type="checkbox" id="agree_waiver" name="agree_waiver" required>
+          <label for="agree_waiver">I've read the above and agree</label>
+        </div>
+      </div>
+
+      <!-- Policy 3 -->
+      <div class="policy-box" id="p3">
+        <div class="policy-toggle" onclick="togglePolicy('p3')">
+          <span class="policy-name">Rainout &amp; Withdrawal Policy</span>
+          <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="policy-body">
+          Classes cancelled due to weather will be rescheduled. Makeups are offered within the same session. No tuition credit is given for student absences. Withdrawals require written notice 30 days in advance.
+        </div>
+        <div class="policy-agree">
+          <input type="checkbox" id="agree_rainout" name="agree_rainout" required>
+          <label for="agree_rainout">I've read the above and agree</label>
+        </div>
+      </div>
+
+      <!-- Policy 4 -->
+      <div class="policy-box" id="p4">
+        <div class="policy-toggle" onclick="togglePolicy('p4')">
+          <span class="policy-name">Enrollment, Membership, Rescheduling &amp; Credit Agreement</span>
+          <svg class="policy-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="policy-body">
+          I authorize LowCountry Swim School to photograph or video record students for promotional use. I agree to the credit card authorization terms for auto-pay enrollment. I understand my card will be charged on the billing date each month.
+        </div>
+        <div class="policy-agree">
+          <input type="checkbox" id="agree_media" name="agree_media" required>
+          <label for="agree_media">I've read the above and agree</label>
+        </div>
+      </div>
+
+      <div class="field-row" style="margin-top:20px;">
+        <div class="field">
+          <label for="full_name_agree">I Agree to All of the Above — Enter Your Full Name <span class="req">*</span></label>
+          <input type="text" id="full_name_agree" name="full_name_agree" placeholder="Type your full legal name" required style="max-width:380px;">
+          <span class="field-hint" id="today-date-label"></span>
+          <span class="field-error" id="err_full_name">Please enter your full name.</span>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════
+           8. QUESTIONS / COMMENTS
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">8</div>
+        <div>
+          <div class="section-title">Questions or Concerns</div>
+          <div class="section-subtitle">Preferred location, schedule, skill level, or anything else</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="comments">Comments <span class="opt">(optional)</span></label>
+          <textarea id="comments" name="comments" rows="4" placeholder="e.g. Preferred location: Downtown. Student is comfortable in water but can't swim yet. Available Mon & Wed mornings."></textarea>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════
+           9. PAYMENT
+      ════════════════════════════ -->
+      <div class="section-header">
+        <div class="section-num">9</div>
+        <div>
+          <div class="section-title">Payment Information</div>
+          <div class="section-subtitle">Securely stored for monthly auto-pay</div>
+        </div>
+      </div>
+
+      <div class="card-brands">
+        <div class="secure-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          SSL Secured
+        </div>
+        <div class="card-brand-badge" style="color:#1a1f71;">VISA</div>
+        <div class="card-brand-badge" style="color:#eb001b;">MC</div>
+        <div class="card-brand-badge" style="color:#2e77bc;">AMEX</div>
+        <div class="card-brand-badge" style="color:#ff6600;">DISC</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="card_number">Card Number <span class="req">*</span></label>
+          <input type="text" id="card_number" name="card_number" placeholder="1234  5678  9012  3456" maxlength="19" inputmode="numeric" autocomplete="cc-number" required>
+          <span class="field-error" id="err_card_number">Please enter your card number.</span>
+        </div>
+      </div>
+
+      <div class="field-row cols-3">
+        <div class="field" style="grid-column: span 2;">
+          <label>Expiration Date <span class="req">*</span></label>
+          <div style="display:flex; gap:10px;">
+            <select id="exp_month" name="exp_month" required style="flex:1;">
+              <option value="">Month</option>
+              <option value="01">01 — Jan</option><option value="02">02 — Feb</option>
+              <option value="03">03 — Mar</option><option value="04">04 — Apr</option>
+              <option value="05">05 — May</option><option value="06">06 — Jun</option>
+              <option value="07">07 — Jul</option><option value="08">08 — Aug</option>
+              <option value="09">09 — Sep</option><option value="10">10 — Oct</option>
+              <option value="11">11 — Nov</option><option value="12">12 — Dec</option>
+            </select>
+            <select id="exp_year" name="exp_year" required style="flex:1;"></select>
+          </div>
+          <span class="field-error" id="err_exp">Please select expiry month and year.</span>
+        </div>
+        <div class="field">
+          <label for="cvv">CVV <span class="req">*</span></label>
+          <input type="text" id="cvv" name="cvv" placeholder="3–4 digits" maxlength="4" inputmode="numeric" autocomplete="cc-csc" required>
+          <span class="field-error" id="err_cvv">Required.</span>
+        </div>
+      </div>
+
+      <div class="field-row cols-2">
+        <div class="field">
+          <label for="card_name">Name on Card <span class="req">*</span></label>
+          <input type="text" id="card_name" name="card_name" placeholder="As it appears on card" autocomplete="cc-name" required>
+          <span class="field-error" id="err_card_name">Required.</span>
+        </div>
+        <div class="field">
+          <label for="card_nickname">Card Nickname <span class="opt">(optional)</span></label>
+          <input type="text" id="card_nickname" name="card_nickname" placeholder="e.g. My Visa">
+        </div>
+      </div>
+
+      <p class="subsection-label" style="margin-top:20px;">Billing Address</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="billing_address">Address Line 1 <span class="req">*</span></label>
+          <input type="text" id="billing_address" name="billing_address" placeholder="Street address" required>
+          <span class="field-error" id="err_billing_address">Required.</span>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="billing_address2">Address Line 2 <span class="opt">(optional)</span></label>
+          <input type="text" id="billing_address2" name="billing_address2" placeholder="Apt, suite, unit…">
+        </div>
+      </div>
+      <div class="field-row cols-3">
+        <div class="field">
+          <label for="billing_city">City <span class="req">*</span></label>
+          <input type="text" id="billing_city" name="billing_city" placeholder="City" required>
+          <span class="field-error" id="err_billing_city">Required.</span>
+        </div>
+        <div class="field">
+          <label for="billing_state">State <span class="req">*</span></label>
+          <input type="text" id="billing_state" name="billing_state" placeholder="SC" maxlength="2" required>
+          <span class="field-error" id="err_billing_state">Required.</span>
+        </div>
+        <div class="field">
+          <label for="billing_zip">ZIP <span class="req">*</span></label>
+          <input type="text" id="billing_zip" name="billing_zip" placeholder="ZIP" maxlength="10" required>
+          <span class="field-error" id="err_billing_zip">Required.</span>
+        </div>
+      </div>
+
+
+      <!-- ════════════════════════════
+           SUBMIT
+      ════════════════════════════ -->
+      <div class="submit-section">
+        <p>By submitting, you agree to all policies listed above.</p>
+        <button type="submit" class="btn-submit">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Submit Registration
+        </button>
+      </div>
+
+    </form>
+  </div><!-- /survey-wrap -->
+
+
+  <script>
+    // ── PROGRESS BAR ──────────────────────────────
+    function updateProgress() {
+      const allRequired = document.querySelectorAll('[required]');
+      const filled = Array.from(allRequired).filter(el => {
+        if (el.type === 'checkbox') return el.checked;
+        return el.value.trim() !== '';
+      });
+      const pct = Math.min(100, Math.round((filled.length / allRequired.length) * 100));
+      document.getElementById('progress-bar').style.width = pct + '%';
+    }
+    document.getElementById('regForm').addEventListener('input', updateProgress);
+    document.getElementById('regForm').addEventListener('change', updateProgress);
+
+    // ── PHONE FORMAT ──────────────────────────────
+    document.querySelectorAll('input[type="tel"]').forEach(function(el) {
+      el.addEventListener('input', function() {
+        let v = this.value.replace(/\D/g, '').substring(0, 10);
+        if (v.length >= 6) this.value = '(' + v.slice(0,3) + ') ' + v.slice(3,6) + '-' + v.slice(6);
+        else if (v.length >= 3) this.value = '(' + v.slice(0,3) + ') ' + v.slice(3);
+        else if (v.length > 0) this.value = '(' + v;
+      });
+    });
+
+    // ── CARD NUMBER FORMAT ────────────────────────
     document.getElementById('card_number').addEventListener('input', function() {
       let v = this.value.replace(/\D/g, '').substring(0, 16);
       this.value = v.replace(/(.{4})/g, '$1  ').trim();
     });
 
-    // ─── PHONE FORMATTING ───────────────────────────
-    document.querySelectorAll('input[type="tel"]').forEach(function(input) {
-      input.addEventListener('input', function() {
-        let v = this.value.replace(/\D/g, '').substring(0, 10);
-        if (v.length >= 6) {
-          this.value = '(' + v.substring(0,3) + ') ' + v.substring(3,6) + '-' + v.substring(6);
-        } else if (v.length >= 3) {
-          this.value = '(' + v.substring(0,3) + ') ' + v.substring(3);
-        } else if (v.length > 0) {
-          this.value = '(' + v;
-        }
-      });
-    });
-
-    // ─── YEAR DROPDOWN ──────────────────────────────
+    // ── YEAR DROPDOWN ─────────────────────────────
     (function() {
       const sel = document.getElementById('exp_year');
-      const now = new Date().getFullYear();
+      const y = new Date().getFullYear();
       sel.innerHTML = '<option value="">Year</option>';
-      for (let y = now; y <= now + 12; y++) {
-        sel.innerHTML += '<option value="' + y + '">' + y + '</option>';
+      for (let i = y; i <= y + 12; i++) {
+        sel.innerHTML += '<option>' + i + '</option>';
       }
     })();
 
-    // ─── TODAY'S DATE ───────────────────────────────
-    document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
+    // ── DATE LABEL ────────────────────────────────
+    document.getElementById('today-date-label').textContent =
+      'Date: ' + new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
 
-    // ─── FORM SUBMIT ────────────────────────────────
+    // ── POLICY TOGGLE ─────────────────────────────
+    function togglePolicy(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+
+    // ── ADD STUDENT ───────────────────────────────
+    let sCount = 1;
+    function addStudent() {
+      sCount++;
+      const n = sCount;
+      document.getElementById('students-container').insertAdjacentHTML('beforeend', `
+        <div class="student-block" id="student-${n}">
+          <div class="student-block-label">Student #${n}</div>
+          <button type="button" class="remove-btn" onclick="document.getElementById('student-${n}').remove(); document.getElementById('enroll-${n}') && document.getElementById('enroll-${n}').remove();">Remove</button>
+          <div class="field-row cols-3">
+            <div class="field">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" name="s${n}_first" placeholder="First" required>
+            </div>
+            <div class="field">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" name="s${n}_last" placeholder="Last" required>
+            </div>
+            <div class="field">
+              <label>Gender <span class="req">*</span></label>
+              <select name="s${n}_gender" required>
+                <option value="">Select…</option>
+                <option>Male</option><option>Female</option><option>Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row cols-2" style="margin-top:2px;">
+            <div class="field">
+              <label>Date of Birth <span class="req">*</span></label>
+              <input type="date" name="s${n}_dob" required>
+            </div>
+            <div></div>
+          </div>
+          <hr class="field-divider">
+          <p class="subsection-label">Additional Info</p>
+          <div class="field-row cols-3">
+            <div class="field">
+              <label>Disabilities <span class="opt">(optional)</span></label>
+              <input type="text" name="s${n}_disabilities" placeholder="Leave blank if none">
+            </div>
+            <div class="field">
+              <label>Special Needs <span class="opt">(optional)</span></label>
+              <input type="text" name="s${n}_special_needs" placeholder="Leave blank if none">
+            </div>
+            <div class="field">
+              <label>Allergies <span class="opt">(optional)</span></label>
+              <input type="text" name="s${n}_allergies" placeholder="Leave blank if none">
+            </div>
+          </div>
+        </div>`);
+      addEnrollmentBlock(n);
+    }
+
+    let eCount = 1;
+    function addEnrollment() {
+      eCount++;
+      addEnrollmentBlock(eCount);
+    }
+    function addEnrollmentBlock(n) {
+      document.getElementById('enrollment-container').insertAdjacentHTML('beforeend', `
+        <div class="student-block" id="enroll-${n}">
+          <div class="student-block-label">Student #${n} — Class Selection</div>
+          <button type="button" class="remove-btn" onclick="document.getElementById('enroll-${n}').remove()">Remove</button>
+          <div class="field-row">
+            <div class="field">
+              <label>Select Class <span class="req">*</span></label>
+              <select name="e${n}_class">
+                <option value="">Choose a class type…</option>
+                <option>Parent &amp; Tot (6 mos – 3 yrs)</option>
+                <option>Preschool Beginner (3–5 yrs)</option>
+                <option>Level 1 — Water Acclimation</option>
+                <option>Level 2 — Primary Skills</option>
+                <option>Level 3 — Stroke Introduction</option>
+                <option>Level 4 — Stroke Development</option>
+                <option>Level 5 — Stroke Refinement</option>
+                <option>Level 6 — Advanced Skills</option>
+                <option>Teen / Adult Beginner</option>
+                <option>Private Lessons</option>
+                <option>Adaptive — Special Needs</option>
+              </select>
+            </div>
+          </div>
+          <hr class="field-divider" style="margin:16px 0;">
+          <p class="subsection-label">Swimmer's Current Skill Level</p>
+          <div class="skill-pills">
+            <label class="skill-pill"><input type="radio" name="s${n}_skill" value="Never been in water"> Never been in water</label>
+            <label class="skill-pill"><input type="radio" name="s${n}_skill" value="Comfortable in water"> Comfortable in water</label>
+            <label class="skill-pill"><input type="radio" name="s${n}_skill" value="Can float on back"> Can float on back</label>
+            <label class="skill-pill"><input type="radio" name="s${n}_skill" value="Beginner strokes"> Beginner strokes</label>
+            <label class="skill-pill"><input type="radio" name="s${n}_skill" value="Intermediate swimmer"> Intermediate swimmer</label>
+            <label class="skill-pill"><input type="radio" name="s${n}_skill" value="Advanced swimmer"> Advanced swimmer</label>
+          </div>
+        </div>`);
+    }
+
+    // ── VALIDATION ────────────────────────────────
+    function v(id) { const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    function markErr(inputId, errId, cond) {
+      const el = document.getElementById(inputId);
+      const err = document.getElementById(errId);
+      if (el) el.classList.toggle('invalid', !cond);
+      if (err) err.classList.toggle('show', !cond);
+      return cond;
+    }
+
     document.getElementById('regForm').addEventListener('submit', function(e) {
       e.preventDefault();
       let ok = true;
 
-      ok = validate('full_name', notEmpty('full_name_agree')) && ok;
-      ok = validate('card_number', notEmpty('card_number')) && ok;
-      ok = validate('card_name', notEmpty('card_name')) && ok;
-      ok = validate('billing_address', notEmpty('billing_address')) && ok;
-      ok = validate('billing_city', notEmpty('billing_city')) && ok;
-      ok = validate('billing_state', notEmpty('billing_state')) && ok;
-      ok = validate('billing_zip', notEmpty('billing_zip')) && ok;
-      ok = validate('cvv', notEmpty('cvv')) && ok;
-      const expOk = notEmpty('exp_month') && notEmpty('exp_year');
-      markInvalid('exp_month', !expOk);
-      showError('exp', !expOk);
+      ok = markErr('family_last_name','err_family_last_name', v('family_last_name') !== '') && ok;
+      ok = markErr('address','err_address', v('address') !== '') && ok;
+      ok = markErr('city','err_city', v('city') !== '') && ok;
+      ok = markErr('state','err_state', v('state') !== '') && ok;
+      ok = markErr('zip','err_zip', v('zip') !== '') && ok;
+      ok = markErr('primary_phone','err_primary_phone', v('primary_phone') !== '') && ok;
+      ok = markErr('c1_first','err_c1_first', v('c1_first') !== '') && ok;
+      ok = markErr('c1_last','err_c1_last', v('c1_last') !== '') && ok;
+      ok = markErr('c1_type','err_c1_type', v('c1_type') !== '') && ok;
+      ok = markErr('c1_cell','err_c1_cell', v('c1_cell') !== '') && ok;
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('c1_email'));
+      ok = markErr('c1_email','err_c1_email', emailOk) && ok;
+      ok = markErr('c1_email_confirm','err_c1_email_confirm', v('c1_email') === v('c1_email_confirm') && v('c1_email_confirm') !== '') && ok;
+      ok = markErr('c1_password','err_c1_password', v('c1_password').length >= 5) && ok;
+      ok = markErr('c1_password_confirm','err_c1_password_confirm', v('c1_password') === v('c1_password_confirm') && v('c1_password_confirm') !== '') && ok;
+
+      ok = markErr('s1_first','err_s1_first', v('s1_first') !== '') && ok;
+      ok = markErr('s1_last','err_s1_last', v('s1_last') !== '') && ok;
+      ok = markErr('s1_gender','err_s1_gender', v('s1_gender') !== '') && ok;
+      ok = markErr('s1_dob','err_s1_dob', v('s1_dob') !== '') && ok;
+
+      ok = markErr('full_name_agree','err_full_name', v('full_name_agree') !== '') && ok;
+      ok = markErr('card_number','err_card_number', v('card_number') !== '') && ok;
+      ok = markErr('card_name','err_card_name', v('card_name') !== '') && ok;
+      ok = markErr('billing_address','err_billing_address', v('billing_address') !== '') && ok;
+      ok = markErr('billing_city','err_billing_city', v('billing_city') !== '') && ok;
+      ok = markErr('billing_state','err_billing_state', v('billing_state') !== '') && ok;
+      ok = markErr('billing_zip','err_billing_zip', v('billing_zip') !== '') && ok;
+      ok = markErr('cvv','err_cvv', v('cvv') !== '') && ok;
+
+      const expOk = v('exp_month') !== '' && v('exp_year') !== '';
+      if (document.getElementById('exp_month')) document.getElementById('exp_month').classList.toggle('invalid', !expOk);
+      if (document.getElementById('err_exp')) document.getElementById('err_exp').classList.toggle('show', !expOk);
       ok = expOk && ok;
 
       if (!ok) {
-        const firstInvalid = document.querySelector('#step-6 .form-input.invalid, #step-6 .form-select.invalid');
-        if (firstInvalid) firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const first = document.querySelector('.invalid');
+        if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
-      // Replace with actual submission logic
       alert('Registration submitted! We\'ll contact you shortly to confirm your class placement.');
     });
+
+    updateProgress();
   </script>
 
 </body>
