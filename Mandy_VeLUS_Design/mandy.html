@@ -60,16 +60,13 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .nav.scrolled .hamburger span{background:var(--black)}
 
 /* Mobile menu */
-.mobile-menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1040;opacity:0;pointer-events:none;transition:opacity .4s}
-.mobile-menu-overlay.open{opacity:1;pointer-events:auto}
-.mobile-menu{position:fixed;top:0;right:-100%;width:320px;max-width:85vw;height:100vh;background:var(--black);z-index:1050;padding:100px 40px 40px;transition:right .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;gap:0;overflow-y:auto}
-.mobile-menu.open{right:0}
+.mobile-menu{position:fixed;inset:0;width:100%;height:100vh;background:var(--black);z-index:1050;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.4,0,.2,1);overflow-y:auto}
+.mobile-menu.open{opacity:1;pointer-events:auto}
 .mobile-menu-logo{width:120px;margin-bottom:36px}
-.mobile-close{position:absolute;top:24px;right:24px;background:none;color:var(--white);font-size:28px;line-height:1;opacity:.6;transition:opacity .3s;z-index:1}
+.mobile-close{position:absolute;top:28px;right:28px;background:none;color:var(--white);font-size:24px;line-height:1;opacity:.4;transition:opacity .3s;z-index:1}
 .mobile-close:hover{opacity:1}
-.mobile-menu a{display:block;font-family:var(--serif);font-size:22px;color:rgba(255,255,255,.8);padding:18px 0;border-bottom:1px solid rgba(184,154,106,.25);transition:color .3s}
-.mobile-menu a:hover{color:var(--gold)}
-.mobile-menu a:last-of-type{border-bottom:none;margin-top:12px;text-align:center;padding:14px 28px}
+.mobile-menu a{display:block;font-family:var(--serif);font-size:28px;letter-spacing:6px;text-transform:uppercase;font-weight:300;color:rgba(255,255,255,.7);padding:24px 0;border-bottom:none;text-align:center;transition:color .3s}
+.mobile-menu a:hover{color:var(--white)}
 
 /* ===== HERO A — Rotating images, no text ===== */
 .hero{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--black)}
@@ -321,7 +318,6 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   </button>
 </nav>
 
-<div class="mobile-menu-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose">&times;</button>
   <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png" alt="VeLUS Interiors" class="mobile-menu-logo">
@@ -587,21 +583,17 @@ window.addEventListener('scroll', () => {
 /* ===== MOBILE MENU ===== */
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
-const mobileOverlay = document.getElementById('mobileOverlay');
 const mobileClose = document.getElementById('mobileClose');
 
 function openMenu() {
   mobileMenu.classList.add('open');
-  mobileOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeMenu() {
   mobileMenu.classList.remove('open');
-  mobileOverlay.classList.remove('open');
   document.body.style.overflow = '';
 }
 hamburger.addEventListener('click', openMenu);
-mobileOverlay.addEventListener('click', closeMenu);
 mobileClose.addEventListener('click', closeMenu);
 
 /* ===== SCROLL REVEAL ===== */
