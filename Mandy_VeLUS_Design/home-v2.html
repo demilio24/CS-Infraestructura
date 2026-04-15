@@ -92,8 +92,8 @@ input,select,textarea{font-family:var(--body);font-size:15px}
 .hero-stat-label{font-size:12px;color:rgba(243,235,221,.6);letter-spacing:.5px;margin-top:2px}
 
 /* Hero Form */
-.hero-form-card{background:rgba(255,255,255,.07);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:36px 32px}
-.hero-form-card h3{font-family:var(--heading);font-size:26px;color:#fff;font-weight:400;margin-bottom:6px}
+.hero-form-card{background:transparent;border:none;border-radius:0;padding:0;overflow:visible}
+.hero-form-card h3{display:none}
 .hero-form-card .form-sub{font-size:13px;color:rgba(243,235,221,.6);margin-bottom:24px}
 .hero-form-card input,.hero-form-card textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 16px;color:#fff;font-size:14px;margin-bottom:14px;transition:border .3s}
 .hero-form-card input::placeholder,.hero-form-card textarea::placeholder{color:rgba(243,235,221,.4)}
@@ -366,15 +366,7 @@ input,select,textarea{font-family:var(--body);font-size:15px}
   </div>
   <div class="hero-form-card">
    <h3>Start Your Project</h3>
-   <p class="form-sub">Tell us about your vision.</p>
-   <form id="heroForm" onsubmit="handleHeroForm(event)">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Email Address" required>
-    <input type="tel" placeholder="Phone Number">
-    <textarea placeholder="Tell us about your project..."></textarea>
-    <button type="submit" class="hero-form-btn">Start Your Project</button>
-   </form>
-   <p class="hero-form-note">We respond within 24 hours</p>
+   <iframe src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ" style="border:none;width:100%;min-height:400px;display:block;" scrolling="no" id="heroSurvey" title="VeLUS Inquiry Survey"></iframe>
   </div>
  </div>
 </section>
@@ -386,27 +378,28 @@ input,select,textarea{font-family:var(--body);font-size:15px}
   <div class="about-portrait-wrap anim">
    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/21ed982d-5c2a-4805-9faa-dcf01adb2934.jpeg" alt="Mandy VeLUS" class="about-portrait">
    <div class="about-quote-card">
-    <p>"Design should whisper luxury, never shout it."</p>
+    <p>"This is not decoration. It is composition."</p>
     <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d139427a-6212-4ae6-987f-1b17681c42cc.png" alt="Signature">
    </div>
   </div>
   <!-- Right: heading + bio + points -->
   <div class="about-text anim anim-delay-1">
    <p class="about-label">Meet Mandy</p>
-   <h2>Designing With <em>Soul</em></h2>
-   <p class="about-bio">With a background in fashion and an eye for architectural detail, Mandy VeLUS founded VeLUS Interiors to bring a fresh, soulful perspective to luxury home design. Every project begins with listening: understanding how you live, what you value, and the feeling you want your home to evoke.</p>
+   <h2>My Study in Restraint, Proportion, and Architectural <em>Clarity</em></h2>
+   <p class="about-bio">VeLUS Interiors is committed to a disciplined approach to design, where intention guides every decision and excess is consistently removed in pursuit of clarity.</p>
+   <p class="about-bio">This approach is not driven by trend, but by a continuous pursuit of refinement, coherence, and architectural honesty within the built environment.</p>
    <div class="about-points">
     <div class="about-point">
-     <h5 class="about-point-title">Holistic Vision</h5>
-     <p>We design the entire experience, from spatial flow to the texture of every surface.</p>
+     <h5 class="about-point-title">Spatial Integrity</h5>
+     <p>Each project is shaped through a lens of spatial integrity, ensuring interiors that are resolved and balanced.</p>
     </div>
     <div class="about-point">
-     <h5 class="about-point-title">Hands-On Management</h5>
-     <p>Mandy leads every project personally, coordinating contractors, vendors, and timelines.</p>
+     <h5 class="about-point-title">Material Precision</h5>
+     <p>Every material is selected with precision and purpose, contributing to a composition that is enduring.</p>
     </div>
     <div class="about-point">
-     <h5 class="about-point-title">Lasting Relationships</h5>
-     <p>Most clients return for their next room, next home, or next chapter. That trust is everything.</p>
+     <h5 class="about-point-title">Considered Restraint</h5>
+     <p>This is not decoration. It is composition.</p>
     </div>
    </div>
   </div>
@@ -510,9 +503,7 @@ input,select,textarea{font-family:var(--body);font-size:15px}
    <div class="gallery-item anim" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8c170be3-32a7-47ec-8259-4a29aebaa377.jpg" alt="Living Room"></div>
    <div class="gallery-item anim" data-cat="living"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/b7ddbac2-55db-42ef-bf8e-49db2681e21e.jpg" alt="Living Room"></div>
    <!-- Kitchen -->
-   <div class="gallery-item anim" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/5c5f1580-b05f-4755-b41d-57d43533a552.jpg" alt="Kitchen"></div>
    <div class="gallery-item anim" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e23f4a3d-37ee-4d7b-a01b-9ebb95cc6901.jpg" alt="Kitchen"></div>
-   <div class="gallery-item anim" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/5fedffc8-ce4a-4a2e-96d7-302bcbf1fb4e.jpg" alt="Kitchen"></div>
    <div class="gallery-item anim" data-cat="kitchen"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/0c7b09c7-acbc-4634-ad53-80c9a8906664.jpg" alt="Kitchen"></div>
    <!-- Bathroom -->
    <div class="gallery-item anim" data-cat="bathroom"><img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/faada81f-d8e3-4347-bf39-82dad0dad9d4.jpg" alt="Bathroom"></div>
@@ -738,33 +729,10 @@ input,select,textarea{font-family:var(--body);font-size:15px}
 <div class="modal-overlay" id="formModal">
  <div class="modal-card" id="modalCard">
   <button class="modal-close" onclick="closeForm()">&times;</button>
-  <div id="modalForm">
-   <h3>Let's Create Together</h3>
-   <p class="form-sub">Tell us about your project and we'll be in touch within 24 hours.</p>
-   <form onsubmit="handleModalForm(event)">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Email Address" required>
-    <input type="tel" placeholder="Phone Number">
-    <input type="text" placeholder="Location (City / Neighborhood)">
-    <select required>
-     <option value="" disabled selected>Project Scope</option>
-     <option>Full Home Remodel</option>
-     <option>Kitchen Design</option>
-     <option>Bathroom Design</option>
-     <option>Interior Design</option>
-     <option>Single Room Refresh</option>
-     <option>Other</option>
-    </select>
-    <textarea placeholder="Tell us about your vision..."></textarea>
-    <button type="submit" class="btn-gold" style="width:100%">Send Message</button>
-   </form>
-  </div>
-  <div class="modal-success" id="modalSuccess">
-   <h3>Thank You!</h3>
-   <p>We've received your message and will be in touch within 24 hours.</p>
-  </div>
+  <iframe src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ" style="border:none;width:100%;min-height:500px;" scrolling="no" id="b1hs6JDC3YZx5XUqa2oJ_v2" title="VeLUS Inquiry Survey"></iframe>
  </div>
 </div>
+<script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 
 <!-- ===== LIGHTBOX ===== -->
 <div class="lightbox" id="lightbox">
@@ -896,8 +864,6 @@ document.addEventListener('keydown', e => {
 /* ===== FORM MODAL ===== */
 function openForm() {
  document.getElementById('formModal').classList.add('open');
- document.getElementById('modalForm').style.display = '';
- document.getElementById('modalSuccess').style.display = 'none';
  document.body.style.overflow = 'hidden';
 }
 function closeForm() {
@@ -907,13 +873,6 @@ function closeForm() {
 document.getElementById('formModal').addEventListener('click', e => {
  if (e.target === document.getElementById('formModal')) closeForm();
 });
-
-function handleModalForm(e) {
- e.preventDefault();
- document.getElementById('modalForm').style.display = 'none';
- document.getElementById('modalSuccess').style.display = 'block';
- setTimeout(closeForm, 3000);
-}
 function handleHeroForm(e) {
  e.preventDefault();
  alert('Thank you! We will be in touch within 24 hours.');
