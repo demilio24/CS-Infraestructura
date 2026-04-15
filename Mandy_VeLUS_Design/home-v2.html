@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <title>VeLUS Interiors | Luxury Interior Design | Chicago</title>
     <meta
       name="description"
@@ -639,7 +639,7 @@
         font-family: var(--heading);
         font-size: 56px;
         font-weight: 700;
-        color: rgba(243, 235, 221, 0.35);
+        color: rgba(42, 30, 26, 0.45);
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         line-height: 1;
       }
@@ -1317,9 +1317,18 @@
         .hero-content {
           padding: 100px 20px 60px;
           align-items: start;
+          text-align: center;
+        }
+        .hero-left {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .hero h1 {
-          font-size: 34px;
+          font-size: 40px;
+        }
+        .hero-sub {
+          font-size: 15px;
         }
         .hero-stats {
           flex-direction: row;
@@ -1396,7 +1405,7 @@
       }
       @media (max-width: 480px) {
         .hero h1 {
-          font-size: 28px;
+          font-size: 34px;
         }
         .hero-sub {
           font-size: 14px;
@@ -1405,7 +1414,8 @@
           font-size: 11px;
         }
         .hero-form-card {
-          padding: 28px 20px;
+          padding: 0;
+          margin: 0 -8px;
         }
         .about {
           padding: 48px 16px;
@@ -1577,13 +1587,6 @@
             alt="Mandy VeLUS"
             class="about-portrait"
           />
-          <div class="about-quote-card">
-            <p>"This is not decoration. It is composition."</p>
-            <img loading="lazy"
-              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d139427a-6212-4ae6-987f-1b17681c42cc.png"
-              alt="Signature"
-            />
-          </div>
         </div>
         <!-- Right: heading + bio + points -->
         <div class="about-text anim anim-delay-1">
@@ -2491,9 +2494,11 @@
 
       /* ===== FORM MODAL ===== */
       function openForm() {
-        document
-          .getElementById("hero")
-          .scrollIntoView({ behavior: "smooth", block: "start" });
+        if (window.innerWidth <= 768) {
+          document.querySelector('.hero-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          document.getElementById('hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
       function handleHeroForm(e) {
         e.preventDefault();
