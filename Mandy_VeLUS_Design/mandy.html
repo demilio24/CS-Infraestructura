@@ -60,12 +60,16 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .nav.scrolled .hamburger span{background:var(--black)}
 
 /* Mobile menu */
-.mobile-menu{position:fixed;inset:0;width:100%;height:100vh;background:var(--black);z-index:1050;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity .5s cubic-bezier(.4,0,.2,1);overflow-y:auto}
-.mobile-menu.open{opacity:1;pointer-events:auto}
-.mobile-close{position:absolute;top:28px;right:28px;background:none;color:var(--white);font-size:24px;line-height:1;opacity:.4;transition:opacity .3s;z-index:1}
+.mobile-menu-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1040;opacity:0;pointer-events:none;transition:opacity .4s}
+.mobile-menu-overlay.open{opacity:1;pointer-events:auto}
+.mobile-menu{position:fixed;top:0;right:-100%;width:320px;max-width:85vw;height:100vh;background:var(--black);z-index:1050;padding:100px 40px 40px;transition:right .4s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;gap:0;overflow-y:auto}
+.mobile-menu.open{right:0}
+.mobile-menu-logo{width:120px;margin-bottom:36px}
+.mobile-close{position:absolute;top:24px;right:24px;background:none;color:var(--white);font-size:28px;line-height:1;opacity:.6;transition:opacity .3s;z-index:1}
 .mobile-close:hover{opacity:1}
-.mobile-menu a{display:block;font-family:var(--serif);font-size:28px;letter-spacing:6px;text-transform:uppercase;font-weight:300;color:rgba(255,255,255,.7);padding:24px 0;border-bottom:none;text-align:center;transition:color .3s}
-.mobile-menu a:hover{color:var(--white)}
+.mobile-menu a{display:block;font-family:var(--serif);font-size:22px;color:rgba(255,255,255,.8);padding:18px 0;border-bottom:1px solid rgba(184,154,106,.25);transition:color .3s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu a:last-of-type{border-bottom:none;margin-top:12px;text-align:center;padding:14px 28px}
 
 /* ===== HERO A — Rotating images, no text ===== */
 .hero{position:relative;height:100vh;height:100svh;overflow:hidden;background:var(--black)}
@@ -111,7 +115,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .about-text h2 em{font-style:italic;color:#444}
 .about-bio{font-size:14px;color:var(--warm-grey);line-height:1.9;margin-bottom:24px}
 /* ===== OUR WORK / LOOKBOOK ===== */
-.work{padding:140px 24px;background:var(--white)}
+.work{padding:140px 24px 60px;background:var(--white)}
 .work-inner{max-width:1400px;margin:0 auto}
 .work-header{text-align:center;margin-bottom:80px}
 .work-title{font-family:var(--serif);font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--black);margin-bottom:32px;font-weight:300}
@@ -148,7 +152,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .lightbox-next{right:16px}
 
 /* Subtle inline CTAs */
-.inline-cta{padding:64px 24px;text-align:center;background:var(--white)}
+.inline-cta{padding:32px 24px;text-align:center;background:var(--white)}
 .inline-cta-inner{max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:24px}
 .inline-cta-line{flex:1;height:1px;background:var(--light-grey);max-width:80px}
 .inline-cta-link{font-family:var(--serif);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--black);transition:opacity .4s;cursor:pointer;white-space:nowrap;background:none;padding:0}
@@ -158,7 +162,7 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 .text-link:hover::after{transform:scaleX(1)}
 
 /* ===== PROCESS A — Numbered 3-col grid ===== */
-.process{padding:140px 24px;background:var(--white)}
+.process{padding:80px 24px;background:var(--white)}
 .process-inner{max-width:1000px;margin:0 auto}
 .process-header{text-align:center;margin-bottom:80px}
 .process-title{font-family:var(--serif);font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--black);font-weight:300}
@@ -249,13 +253,13 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   .monogram-letter{font-size:80px}
   .about{padding:40px 24px 60px}
   .about-text h2{font-size:28px}
-  .work{padding:80px 24px}
+  .work{padding:80px 24px 40px}
   .work-header{margin-bottom:48px}
-  .inline-cta{padding:40px 24px}
+  .inline-cta{padding:24px 24px}
   .work-gallery{grid-template-columns:repeat(2,1fr)}
   .work-filters{gap:20px}
   .work-filter{padding:8px 4px;font-size:11px;letter-spacing:3px}
-  .process{padding:100px 24px}
+  .process{padding:60px 24px}
   .process-header{margin-bottom:48px}
   .process-step{grid-template-columns:1fr}
   .step-number{font-size:36px;margin-bottom:4px}
@@ -317,8 +321,10 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
   </button>
 </nav>
 
+<div class="mobile-menu-overlay" id="mobileOverlay"></div>
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose">&times;</button>
+  <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png" alt="VeLUS Interiors" class="mobile-menu-logo">
   <a href="#work" onclick="closeMenu()">Portfolio</a>
   <a href="#process" onclick="closeMenu()">Process</a>
   <a href="#reflections" onclick="closeMenu()">Reflections</a>
@@ -581,17 +587,21 @@ window.addEventListener('scroll', () => {
 /* ===== MOBILE MENU ===== */
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
 const mobileClose = document.getElementById('mobileClose');
 
 function openMenu() {
   mobileMenu.classList.add('open');
+  mobileOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 function closeMenu() {
   mobileMenu.classList.remove('open');
+  mobileOverlay.classList.remove('open');
   document.body.style.overflow = '';
 }
 hamburger.addEventListener('click', openMenu);
+mobileOverlay.addEventListener('click', closeMenu);
 mobileClose.addEventListener('click', closeMenu);
 
 /* ===== SCROLL REVEAL ===== */
