@@ -350,8 +350,8 @@
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 40px;
-        padding: 8px 22px;
-        font-size: 13px;
+        padding: 9px 24px;
+        font-size: 14px;
         font-weight: 500;
         color: var(--cream);
         letter-spacing: 0.8px;
@@ -359,8 +359,8 @@
       }
       .hero h1 {
         font-family: var(--heading);
-        font-size: 52px;
-        font-weight: 400;
+        font-size: 58px;
+        font-weight: 600;
         line-height: 1.15;
         color: #fff;
         margin-bottom: 20px;
@@ -402,8 +402,8 @@
         color: var(--gold);
       }
       .hero-stat-label {
-        font-size: 12px;
-        color: rgba(243, 235, 221, 0.6);
+        font-size: 13px;
+        color: rgba(243, 235, 221, 0.65);
         letter-spacing: 0.5px;
         margin-top: 2px;
       }
@@ -526,7 +526,7 @@
         padding-top: 8px;
       }
       .about-label {
-        font-size: 11px;
+        font-size: 12px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--gold);
@@ -545,7 +545,7 @@
         color: var(--gold);
       }
       .about-bio {
-        font-size: 14px;
+        font-size: 15px;
         color: rgba(58, 36, 30, 0.65);
         line-height: 1.8;
         margin-bottom: 32px;
@@ -582,7 +582,7 @@
         padding-top: 80px;
       }
       .section-label {
-        font-size: 13px;
+        font-size: 14px;
         text-transform: uppercase;
         letter-spacing: 2px;
         color: var(--gold);
@@ -643,6 +643,9 @@
         text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         line-height: 1;
       }
+      .service-row.reverse .service-number {
+        color: rgba(255, 255, 255, 0.45);
+      }
       .service-text {
         padding: 12px 0;
       }
@@ -659,7 +662,7 @@
         margin-bottom: 10px;
       }
       .service-text p {
-        font-size: 15px;
+        font-size: 16px;
         color: rgba(58, 36, 30, 0.7);
         line-height: 1.7;
         margin-bottom: 18px;
@@ -898,9 +901,9 @@
         margin-bottom: 6px;
       }
       .process-step p {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(58, 36, 30, 0.6);
-        max-width: 160px;
+        max-width: 180px;
         margin: 0 auto;
         line-height: 1.5;
       }
@@ -997,7 +1000,7 @@
       }
       .review-card p {
         font-family: var(--heading);
-        font-size: 15px;
+        font-size: 16px;
         font-style: italic;
         color: rgba(58, 36, 30, 0.8);
         line-height: 1.6;
@@ -1008,7 +1011,7 @@
         text-underline-offset: 3px;
       }
       .review-card .review-name {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         color: var(--primary);
       }
@@ -1090,7 +1093,7 @@
         align-items: start;
       }
       .footer-brand p {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(58, 36, 30, 0.55);
         line-height: 1.7;
         margin: 10px 0;
@@ -1098,7 +1101,7 @@
       .footer-brand a {
         color: var(--gold);
         font-weight: 500;
-        font-size: 13px;
+        font-size: 14px;
       }
       .footer-logo {
         width: 100px;
@@ -1117,7 +1120,7 @@
         gap: 6px;
       }
       .footer-links a {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(58, 36, 30, 0.6);
         transition: color 0.3s;
       }
@@ -1130,7 +1133,7 @@
         gap: 24px;
       }
       .footer-contact {
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(58, 36, 30, 0.6);
         line-height: 1.8;
       }
@@ -1525,7 +1528,7 @@
           <div class="hero-eyebrow">
             Full-Service Design &amp; Remodel &middot; Chicago
           </div>
-          <h1>We Transform Homes<br />With <em>Intention</em></h1>
+          <h1>We'll Bring Your<br />Dream Space to <em>Life</em></h1>
           <p class="hero-sub">
             VeLUS Interiors brings cohesive design and meticulous project
             management to every room we touch, from first sketch to final
@@ -1552,27 +1555,14 @@
             style="
               border: none;
               width: 100%;
-              height: 580px;
+              height: 0;
               display: block;
-              transition: height 0.3s ease;
             "
             scrolling="no"
-            id="heroSurvey"
+            id="b1hs6JDC3YZx5XUqa2oJ_1750049400000"
             title="VeLUS Inquiry Survey"
           ></iframe>
-          <script>
-            // GHL surveys post resize messages — listen and adapt
-            window.addEventListener("message", function (e) {
-              try {
-                var d =
-                  typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-                if (d && d.height && d.height > 100) {
-                  document.getElementById("heroSurvey").style.height =
-                    Math.max(420, d.height) + "px";
-                }
-              } catch (x) {}
-            });
-          </script>
+          <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
         </div>
       </div>
     </section>
