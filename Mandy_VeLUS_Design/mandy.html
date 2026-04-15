@@ -206,21 +206,10 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 /* ===== FORM MODAL ===== */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:3000;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .5s}
 .modal-overlay.open{display:flex;opacity:1}
-.modal-card{background:var(--white);border-radius:2px;padding:24px 24px 8px;max-width:560px;width:92%;position:relative;max-height:90vh;overflow-y:auto}
-.modal-close{position:absolute;top:12px;right:16px;background:none;font-size:22px;color:var(--black);opacity:.3;transition:opacity .3s;z-index:1}
+.modal-card{background:transparent;border-radius:18px;padding:0;max-width:620px;width:94%;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:12px;right:16px;background:none;font-size:22px;color:var(--white);opacity:.5;transition:opacity .3s;z-index:1}
 .modal-close:hover{opacity:1}
-.modal-card h3{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--white);margin-bottom:6px;letter-spacing:3px}
-.modal-card .form-sub{font-family:var(--body);font-size:13px;color:rgba(255,255,255,.55);margin-bottom:40px}
-.modal-card input,.modal-card select,.modal-card textarea{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.12);padding:16px 0;font-family:var(--body);font-size:14px;color:var(--white);margin-bottom:8px;transition:border-color .3s;border-radius:0;outline:none}
-.modal-card input:focus,.modal-card select:focus,.modal-card textarea:focus{border-color:rgba(255,255,255,.5)}
-.modal-card input::placeholder,.modal-card textarea::placeholder{color:rgba(255,255,255,.4)}
-.modal-card textarea{height:80px;resize:vertical}
-.modal-card select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 0 center;cursor:pointer;color:rgba(255,255,255,.4)}
-.modal-submit{width:100%;font-family:var(--serif);font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--black);background:var(--white);padding:18px;margin-top:32px;transition:opacity .3s}
-.modal-submit:hover{opacity:.85}
-.modal-success{display:none;text-align:center;padding:40px 20px}
-.modal-success h3{margin-bottom:12px;color:var(--white)}
-.modal-success p{font-family:var(--body);font-size:14px;color:rgba(255,255,255,.6)}
+.modal-title{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--white);text-align:center;letter-spacing:2px;padding:32px 0 8px;margin:0}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
@@ -349,24 +338,14 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
       </div>
     </div>
     <div class="about-text reveal reveal-delay-1">
-      <p class="about-label">VeLUS Interiors</p>
-      <h2>We design interiors defined by restraint, proportion, and intention.</h2>
-      <p class="about-bio">Spaces shaped through material, light, and form, where function and beauty exist in quiet balance.</p>
-      <p class="about-bio">This approach is not driven by trend, but by a continuous pursuit of refinement, coherence, and architectural honesty within the built environment.</p>
-      <div class="about-points">
-        <div class="about-point">
-          <h5 class="about-point-title">Spatial Integrity</h5>
-          <p>Each project is shaped through a lens of spatial integrity, ensuring interiors that are resolved and balanced.</p>
-        </div>
-        <div class="about-point">
-          <h5 class="about-point-title">Material Precision</h5>
-          <p>Every material is selected with precision and purpose, contributing to a composition that is enduring.</p>
-        </div>
-        <div class="about-point">
-          <h5 class="about-point-title">Considered Restraint</h5>
-          <p>This is not decoration. It is composition.</p>
-        </div>
-      </div>
+      <p class="about-label">Mandy Velus</p>
+      <h2>Founder, VeLUS Interiors</h2>
+      <p class="about-bio">Mandy is the founder and principal designer of VeLUS INTERIORS, a Chicago-based studio focused on creating interiors defined by restraint, material clarity, and intention.</p>
+      <p class="about-bio">Her work is guided by an instinct for composition, where form, texture, and spatial rhythm are considered in quiet relationship to one another. Each interior is approached as a complete environment, shaped to feel both composed and lived in.</p>
+      <p class="about-bio">Rather than following trends, she begins with curiosity. Each project unfolds as a dialogue, resulting in spaces that feel personal, considered, and enduring.</p>
+      <p class="about-bio">With a background in interior design and project management, she leads each project from concept through completion with clarity and precision, ensuring that the integrity of the design is carried through in every detail.</p>
+      <p class="about-bio">As both a designer and a mother, she understands that the most successful interiors are not only visually resolved, but thoughtfully lived in.</p>
+      <p class="about-bio">Through VeLUS INTERIORS, she continues to shape residential and commercial spaces across Chicago with a distinct and disciplined point of view.</p>
     </div>
   </div>
 </section>
@@ -548,7 +527,8 @@ button{cursor:pointer;border:none;font-family:inherit;background:none}
 <div class="modal-overlay" id="formModal">
   <div class="modal-card" id="modalCard">
     <button class="modal-close" onclick="closeForm()">&times;</button>
-    <iframe src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ" style="border:none;width:100%;min-height:500px;" scrolling="no" id="b1hs6JDC3YZx5XUqa2oJ" title="VeLUS Inquiry Survey"></iframe>
+    <h3 class="modal-title">Start Your Project</h3>
+    <iframe src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ" style="border:none;width:100%;min-height:650px;display:block;" scrolling="no" id="b1hs6JDC3YZx5XUqa2oJ" title="VeLUS Inquiry Survey"></iframe>
   </div>
 </div>
 <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
