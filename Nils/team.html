@@ -361,6 +361,64 @@
     }
   }
 
+  /* ── LIGHTBOX ───────────────────────────── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    animation: lbFadeIn 0.2s ease;
+  }
+  .lightbox.open { display: flex; }
+  @keyframes lbFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .lightbox img {
+    max-width: min(420px, 90vw);
+    max-height: 90vh;
+    border-radius: 20px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+    object-fit: cover;
+    animation: lbZoomIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+  }
+  @keyframes lbZoomIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .lightbox-name {
+    position: absolute;
+    bottom: calc(50% - min(210px, 45vh) - 44px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    color: rgba(255,255,255,0.7);
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .lightbox-close:hover { color: #fff; }
+
+  /* Make avatars show zoom cursor */
+  .avatar, .detail-avatar { cursor: zoom-in; }
+
   /* ── PRINT ──────────────────────────────── */
   @media print {
     body { background: #fff; }
@@ -372,6 +430,13 @@
 </style>
 </head>
 <body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <div class="lightbox-name" id="lightbox-name"></div>
+</div>
 
 <div class="page">
 
@@ -709,6 +774,44 @@ function show(id) {
 
 // Init with Emilio selected
 show('emilio');
+
+// ── LIGHTBOX ─────────────────────────────────
+function openLightbox(src, name) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = name;
+  document.getElementById('lightbox-name').textContent = name;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Wire up card avatars
+document.querySelectorAll('.card .avatar').forEach(function(img) {
+  img.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var name = this.closest('.card').querySelector('.card-name').textContent;
+    openLightbox(this.src, name);
+  });
+});
+
+// Wire up detail panel avatar (re-wire after each show())
+var _origShow = show;
+show = function(id) {
+  _origShow(id);
+  var detailAvatar = document.querySelector('.detail-avatar');
+  if (detailAvatar) {
+    detailAvatar.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openLightbox(this.src, DATA[id].name);
+    });
+  }
+};
 </script>
 
 </body>
