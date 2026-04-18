@@ -1,0 +1,2484 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <title>VeLUS Interiors | Luxury Interior Design | Chicago</title>
+    <meta
+      name="description"
+      content="VeLUS Interiors is a full-service luxury interior design and remodel studio in Chicago and the North Shore. Led by Mandy VeLUS."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===== RESET & VARIABLES ===== */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --primary: #3a241e;
+        --deep: #2a1e1a;
+        --cream: #f3ebdd;
+        --ivory: #faf6f0;
+        --gold: #b89a6a;
+        --gold-light: #d4b87a;
+        --gold-dark: #9a6d1f;
+        --heading: "Cormorant Garamond", Georgia, serif;
+        --body: "Inter", system-ui, sans-serif;
+        --max: 1200px;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--body);
+        color: var(--primary);
+        background: var(--ivory);
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+      input,
+      select,
+      textarea {
+        font-family: var(--body);
+        font-size: 15px;
+      }
+
+      /* ===== SCROLL ANIMATIONS ===== */
+      .anim {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .anim.anim-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .anim-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .anim-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .anim-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .anim-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      /* ===== NAV ===== */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 18px 24px;
+        transition:
+          background 0.4s,
+          padding 0.4s,
+          box-shadow 0.4s;
+      }
+      .nav.scrolled {
+        background: rgba(250, 246, 240, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 12px 24px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+      }
+      .nav-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-logo {
+        position: relative;
+        width: 140px;
+        height: 50px;
+        flex-shrink: 0;
+        display: block;
+      }
+      .logo-light,
+      .logo-dark {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        transition: opacity 0.4s;
+      }
+      .logo-light {
+        position: relative;
+        z-index: 1;
+      }
+      .logo-dark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        filter: brightness(0.2);
+      }
+      .nav.scrolled .logo-light {
+        opacity: 0;
+      }
+      .nav.scrolled .logo-dark {
+        opacity: 1;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .nav-links a {
+        font-family: var(--heading);
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: var(--cream);
+        transition: color 0.3s;
+      }
+      .nav.scrolled .nav-links a {
+        color: var(--primary);
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-cta {
+        display: inline-block;
+        background: var(--gold);
+        color: #fff !important;
+        padding: 10px 26px;
+        border-radius: 10px;
+        font-family: var(--heading);
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition:
+          background 0.3s,
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .nav-cta:hover {
+        background: var(--gold-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(184, 154, 106, 0.35);
+      }
+
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        padding: 4px;
+        z-index: 1100;
+      }
+      .hamburger span {
+        display: block;
+        width: 26px;
+        height: 2px;
+        background: var(--cream);
+        border-radius: 2px;
+        transition: background 0.3s;
+      }
+      .nav.scrolled .hamburger span {
+        background: var(--primary);
+      }
+
+      /* Mobile menu — fullscreen centered */
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--deep);
+        z-index: 1050;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow-y: auto;
+      }
+      .mobile-menu.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .mobile-menu-logo {
+        width: 120px;
+        margin-bottom: 36px;
+      }
+      .mobile-menu a {
+        display: block;
+        font-family: var(--heading);
+        font-size: 28px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 24px 0;
+        border-bottom: none;
+        text-align: center;
+        transition: color 0.3s;
+      }
+      .mobile-menu a:hover {
+        color: #fff;
+      }
+      .mobile-menu .nav-cta {
+        margin-top: 28px;
+        padding: 14px 28px;
+      }
+      .mobile-close {
+        position: absolute;
+        top: 28px;
+        right: 28px;
+        background: none;
+        color: var(--cream);
+        font-size: 24px;
+        line-height: 1;
+        opacity: 0.4;
+        transition: opacity 0.3s;
+      }
+      .mobile-close:hover {
+        opacity: 1;
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+      }
+      .hero-bg img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 0;
+        animation: heroFade 24s infinite;
+      }
+      .hero-bg img:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .hero-bg img:nth-child(2) {
+        animation-delay: 8s;
+      }
+      .hero-bg img:nth-child(3) {
+        animation-delay: 16s;
+      }
+      @keyframes heroFade {
+        0% {
+          opacity: 0;
+        }
+        4% {
+          opacity: 1;
+        }
+        33.33% {
+          opacity: 1;
+        }
+        37.33% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(42, 30, 26, 0.6);
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 120px 24px 120px;
+        display: grid;
+        grid-template-columns: 1fr 520px;
+        gap: 56px;
+        align-items: center;
+      }
+      .hero-eyebrow {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 40px;
+        padding: 9px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--cream);
+        letter-spacing: 0.8px;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-family: var(--heading);
+        font-size: 58px;
+        font-weight: 600;
+        line-height: 1.15;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .hero-sub {
+        font-size: 16px;
+        color: rgba(243, 235, 221, 0.8);
+        line-height: 1.7;
+        margin-bottom: 36px;
+        max-width: 480px;
+      }
+      .hero-stats {
+        display: flex;
+        gap: 0;
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .hero-stat {
+        flex: 1;
+        padding: 16px 20px;
+        text-align: center;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .hero-stat:last-child {
+        border-right: none;
+      }
+      .hero-stat-value {
+        font-family: var(--heading);
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--gold);
+      }
+      .hero-stat-label {
+        font-size: 13px;
+        color: rgba(243, 235, 221, 0.65);
+        letter-spacing: 0.5px;
+        margin-top: 2px;
+      }
+
+      /* Hero Form */
+      .hero-form-card {
+        background: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        overflow: visible;
+        margin-bottom: -90px;
+      }
+      .hero-form-card h3 {
+        display: none;
+      }
+      .hero-form-card .form-sub {
+        font-size: 13px;
+        color: rgba(243, 235, 221, 0.6);
+        margin-bottom: 24px;
+      }
+      .hero-form-card input,
+      .hero-form-card textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        padding: 12px 16px;
+        color: #fff;
+        font-size: 14px;
+        margin-bottom: 14px;
+        transition: border 0.3s;
+      }
+      .hero-form-card input::placeholder,
+      .hero-form-card textarea::placeholder {
+        color: rgba(243, 235, 221, 0.4);
+      }
+      .hero-form-card input:focus,
+      .hero-form-card textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+      }
+      .hero-form-card textarea {
+        height: 80px;
+        resize: vertical;
+      }
+      .hero-form-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #9a6d1f, #b89a6a, #d4b87a);
+        color: #fff;
+        padding: 14px;
+        border-radius: 10px;
+        font-family: var(--heading);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .hero-form-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(184, 154, 106, 0.4);
+      }
+      .hero-form-note {
+        text-align: center;
+        font-size: 12px;
+        color: rgba(243, 235, 221, 0.45);
+        margin-top: 12px;
+      }
+
+      /* ===== ABOUT ===== */
+      .about {
+        padding: 80px 24px;
+      }
+      .about-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .about-portrait-wrap {
+        position: relative;
+      }
+      .about-portrait {
+        width: 100%;
+        border-radius: 14px;
+        aspect-ratio: 3/4;
+        object-fit: cover;
+        object-position: center;
+      }
+      .about-quote-card {
+        position: absolute;
+        bottom: -24px;
+        left: 20px;
+        right: 20px;
+        background: rgba(42, 30, 26, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 20px 24px;
+        border: 1px solid rgba(243, 235, 221, 0.08);
+      }
+      .about-quote-card p {
+        font-family: var(--heading);
+        font-size: 17px;
+        font-style: italic;
+        color: rgba(243, 235, 221, 0.8);
+        line-height: 1.5;
+        margin-bottom: 8px;
+      }
+      .about-quote-card img {
+        height: 20px;
+        opacity: 0.4;
+        filter: brightness(10);
+      }
+      .about-text {
+        padding-top: 8px;
+      }
+      .about-label {
+        font-size: 12px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+      }
+      .about-text h2 {
+        font-family: var(--heading);
+        font-size: 34px;
+        font-weight: 300;
+        color: var(--primary);
+        line-height: 1.15;
+        margin-bottom: 18px;
+      }
+      .about-text h2 em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .about-bio {
+        font-size: 15px;
+        color: rgba(58, 36, 30, 0.65);
+        line-height: 1.8;
+        margin-bottom: 32px;
+      }
+      .about-points {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .about-point {
+        padding: 18px 22px;
+        border-left: 3px solid rgba(184, 154, 106, 0.3);
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 0 10px 10px 0;
+      }
+      .about-point-title {
+        font-family: var(--heading);
+        font-size: 20px;
+        font-weight: 400;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+      .about-point p {
+        font-size: 13px;
+        color: rgba(58, 36, 30, 0.6);
+        line-height: 1.6;
+      }
+
+      /* ===== SECTION INTRO ===== */
+      .section-intro {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto 48px;
+        padding-top: 80px;
+      }
+      .section-label {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+      .section-heading {
+        font-family: var(--heading);
+        font-size: 40px;
+        font-weight: 400;
+        color: var(--primary);
+        line-height: 1.2;
+      }
+
+      /* ===== SERVICES ===== */
+      .services {
+        padding: 0 24px 80px;
+      }
+      .services-list {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+      .service-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+        align-items: center;
+      }
+      .service-row.reverse {
+        direction: rtl;
+      }
+      .service-row.reverse > * {
+        direction: ltr;
+      }
+      .service-img-wrap {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        height: 300px;
+      }
+      .service-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .service-number {
+        position: absolute;
+        bottom: 16px;
+        right: 20px;
+        font-family: var(--heading);
+        font-size: 56px;
+        font-weight: 700;
+        color: rgba(42, 30, 26, 0.45);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        line-height: 1;
+      }
+      .service-row.reverse .service-number {
+        color: rgba(255, 255, 255, 0.45);
+      }
+      .service-text {
+        padding: 12px 0;
+      }
+      .service-icon {
+        height: 32px;
+        opacity: 0.5;
+        margin-bottom: 14px;
+      }
+      .service-text h3 {
+        font-family: var(--heading);
+        font-size: 28px;
+        font-weight: 500;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+      .service-text p {
+        font-size: 16px;
+        color: rgba(58, 36, 30, 0.7);
+        line-height: 1.7;
+        margin-bottom: 18px;
+      }
+      .service-line {
+        width: 48px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        border-radius: 2px;
+      }
+
+      /* ===== GALLERY ===== */
+      .gallery {
+        padding: 0 24px 80px;
+      }
+      .gallery-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+      .gallery-filters {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+      }
+      .gallery-pill {
+        font-family: var(--heading);
+        font-size: 15px;
+        padding: 8px 22px;
+        border-radius: 40px;
+        border: 1px solid rgba(58, 36, 30, 0.2);
+        background: transparent;
+        color: var(--primary);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .gallery-pill:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .gallery-pill.active {
+        background: var(--primary);
+        color: var(--cream);
+        border-color: var(--primary);
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .gallery-item {
+        aspect-ratio: 4/3;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        transition:
+          transform 0.4s,
+          opacity 0.4s;
+      }
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.5s;
+      }
+      .gallery-item:hover img {
+        transform: scale(1.04);
+      }
+      .gallery-item.hidden {
+        display: none;
+      }
+      .gallery-cta {
+        text-align: center;
+        margin-top: 48px;
+      }
+      .gallery-cta p {
+        font-family: var(--heading);
+        font-size: 24px;
+        color: var(--primary);
+        margin-bottom: 16px;
+      }
+
+      /* Gold button generic */
+      .btn-gold {
+        display: inline-block;
+        background: var(--gold);
+        color: #fff;
+        padding: 14px 36px;
+        border-radius: 10px;
+        font-family: var(--heading);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition:
+          background 0.3s,
+          transform 0.3s,
+          box-shadow 0.3s;
+        border: none;
+      }
+      .btn-gold:hover {
+        background: var(--gold-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(184, 154, 106, 0.35);
+      }
+
+      /* ===== LIGHTBOX ===== */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 14, 10, 0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        z-index: 2000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .lightbox.open {
+        display: flex;
+        opacity: 1;
+      }
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 10px;
+        object-fit: contain;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 28px;
+        background: none;
+        color: #fff;
+        font-size: 32px;
+        cursor: pointer;
+        z-index: 10;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+      }
+      .lightbox-close:hover {
+        opacity: 1;
+      }
+      .lightbox-prev,
+      .lightbox-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #fff;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .lightbox-prev {
+        left: 20px;
+      }
+      .lightbox-next {
+        right: 20px;
+      }
+      .lightbox-prev:hover,
+      .lightbox-next:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      /* ===== PROCESS ===== */
+      .process {
+        padding: 0 24px 80px;
+      }
+      .process-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+      .process-timeline {
+        display: flex;
+        align-items: flex-start;
+        position: relative;
+        padding: 40px 0 0;
+      }
+      .process-line {
+        position: absolute;
+        top: 59px;
+        left: 10%;
+        right: 10%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          var(--gold-dark),
+          var(--gold),
+          var(--gold-light)
+        );
+      }
+      .process-step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .process-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid var(--gold);
+        background: var(--ivory);
+        margin: 0 auto 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--heading);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--gold);
+        transition: all 0.3s;
+      }
+      .process-step:first-child .process-circle {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: #fff;
+      }
+      .process-step h4 {
+        font-family: var(--heading);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 6px;
+      }
+      .process-step p {
+        font-size: 14px;
+        color: rgba(58, 36, 30, 0.6);
+        max-width: 180px;
+        margin: 0 auto;
+        line-height: 1.5;
+      }
+      .process-cta {
+        text-align: center;
+        margin-top: 56px;
+      }
+      .process-cta p {
+        font-family: var(--heading);
+        font-size: 22px;
+        color: var(--primary);
+        margin-bottom: 16px;
+      }
+
+      /* ===== REVIEWS ===== */
+      .reviews {
+        padding: 0 24px 80px;
+      }
+      .reviews-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+      .review-featured {
+        max-width: 760px;
+        margin: 0 auto 48px;
+        border: 1px solid var(--gold);
+        border-radius: 18px;
+        padding: 44px 40px;
+        text-align: center;
+        background: var(--ivory);
+        position: relative;
+      }
+      .review-featured::before {
+        content: "\201C";
+        font-family: var(--heading);
+        font-size: 80px;
+        color: var(--gold);
+        opacity: 0.25;
+        position: absolute;
+        top: 10px;
+        left: 28px;
+        line-height: 1;
+      }
+      .review-featured p {
+        font-family: var(--heading);
+        font-size: 24px;
+        font-style: italic;
+        color: var(--primary);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .review-featured .review-name {
+        font-family: var(--body);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gold);
+        font-style: normal;
+        letter-spacing: 0.5px;
+      }
+      .review-stars {
+        color: var(--gold);
+        font-size: 16px;
+        margin-bottom: 12px;
+        letter-spacing: 2px;
+      }
+      .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .review-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 28px 24px;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(58, 36, 30, 0.06);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .review-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+      }
+      .review-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .review-google {
+        width: 22px;
+        height: 22px;
+      }
+      .review-card p {
+        font-family: var(--heading);
+        font-size: 16px;
+        font-style: italic;
+        color: rgba(58, 36, 30, 0.8);
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+      .review-card p u {
+        text-decoration-color: var(--gold);
+        text-underline-offset: 3px;
+      }
+      .review-card .review-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--primary);
+      }
+
+      /* ===== CTA SECTION ===== */
+      .cta-section {
+        padding: 40px 24px 80px;
+      }
+      .cta-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .cta-img {
+        height: 380px;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+      }
+      .cta-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .cta-text .section-label {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+      .cta-text h2 {
+        font-family: var(--heading);
+        font-size: 38px;
+        font-weight: 400;
+        color: var(--primary);
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+      .cta-text h2 em {
+        font-style: italic;
+        color: var(--gold);
+      }
+      .cta-text p {
+        font-size: 15px;
+        color: rgba(58, 36, 30, 0.7);
+        line-height: 1.8;
+        margin-bottom: 28px;
+      }
+      .cta-signature {
+        width: 140px;
+        opacity: 0.6;
+        margin-top: 12px;
+      }
+
+      /* ===== FOOTER ===== */
+      .footer {
+        padding: 0 24px 32px;
+      }
+      .footer-line {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin-bottom: 36px;
+      }
+      .footer-inner {
+        max-width: var(--max);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        padding-bottom: 28px;
+        align-items: start;
+      }
+      .footer-brand p {
+        font-size: 14px;
+        color: rgba(58, 36, 30, 0.55);
+        line-height: 1.7;
+        margin: 10px 0;
+      }
+      .footer-brand a {
+        color: var(--gold);
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .footer-logo {
+        width: 100px;
+        filter: brightness(0.2);
+      }
+      .footer h4 {
+        font-family: var(--heading);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+      .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .footer-links a {
+        font-size: 14px;
+        color: rgba(58, 36, 30, 0.6);
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--gold);
+      }
+      .footer-right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .footer-contact {
+        font-size: 14px;
+        color: rgba(58, 36, 30, 0.6);
+        line-height: 1.8;
+      }
+      .footer-contact a {
+        color: var(--gold);
+      }
+      .footer-copy {
+        text-align: center;
+        font-size: 12px;
+        color: rgba(58, 36, 30, 0.35);
+        padding-top: 20px;
+        border-top: 1px solid rgba(58, 36, 30, 0.06);
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+
+      /* ===== FORM MODAL ===== */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(20, 14, 10, 0.65);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .modal-overlay.open {
+        display: flex;
+        opacity: 1;
+      }
+      .modal-card {
+        background: var(--ivory);
+        border-radius: 20px;
+        padding: 44px 40px;
+        max-width: 520px;
+        width: 90%;
+        position: relative;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        background: none;
+        font-size: 26px;
+        color: var(--primary);
+        opacity: 0.5;
+        transition: opacity 0.3s;
+      }
+      .modal-close:hover {
+        opacity: 1;
+      }
+      .modal-card h3 {
+        font-family: var(--heading);
+        font-size: 30px;
+        font-weight: 400;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+      .modal-card .form-sub {
+        font-size: 14px;
+        color: rgba(58, 36, 30, 0.55);
+        margin-bottom: 28px;
+      }
+      .modal-card input,
+      .modal-card select,
+      .modal-card textarea {
+        width: 100%;
+        background: #fff;
+        border: 1px solid rgba(58, 36, 30, 0.12);
+        border-radius: 10px;
+        padding: 13px 16px;
+        font-size: 15px;
+        color: var(--primary);
+        margin-bottom: 14px;
+        transition: border 0.3s;
+      }
+      .modal-card input:focus,
+      .modal-card select:focus,
+      .modal-card textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+      }
+      .modal-card textarea {
+        height: 100px;
+        resize: vertical;
+      }
+      .modal-card select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233A241E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .modal-success {
+        display: none;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      .modal-success h3 {
+        margin-bottom: 10px;
+      }
+      .modal-success p {
+        color: rgba(58, 36, 30, 0.6);
+        font-size: 15px;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 960px) {
+        .hero-content {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .hero-form-card {
+          max-width: 100%;
+          margin-bottom: 0;
+        }
+        .hero h1 {
+          font-size: 42px;
+        }
+        .about-inner {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+        .about-portrait-wrap {
+          max-width: 400px;
+          margin: 0 auto;
+        }
+        .about-quote-card {
+          bottom: -20px;
+          left: 16px;
+          right: 16px;
+        }
+        .about-text {
+          padding-top: 24px;
+        }
+        .service-row,
+        .service-row.reverse {
+          grid-template-columns: 1fr;
+          direction: ltr;
+        }
+        .service-row.reverse > * {
+          direction: ltr;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .reviews-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cta-inner {
+          grid-template-columns: 1fr;
+        }
+        .cta-img {
+          max-width: 600px;
+          margin: 0 auto;
+        }
+        .cta-text {
+          text-align: center;
+        }
+        .cta-text .section-label {
+          text-align: center;
+        }
+        .cta-signature {
+          margin: 12px auto 0;
+        }
+        .footer-inner {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+        .hero-content {
+          padding: 100px 20px 60px;
+          align-items: start;
+          text-align: center;
+        }
+        .hero-left {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .hero h1 {
+          font-size: 40px;
+        }
+        .hero-sub {
+          font-size: 15px;
+        }
+        .hero-stats {
+          flex-direction: row;
+        }
+        .hero-stat {
+          padding: 10px 12px;
+          text-align: center;
+        }
+        .hero-stat:last-child {
+          border-bottom: none;
+        }
+        .about-quote-card p {
+          font-size: 15px;
+        }
+        .section-heading {
+          font-size: 32px;
+        }
+        .gallery-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .process-timeline {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 28px;
+          padding-left: 40px;
+        }
+        .process-line {
+          display: none;
+        }
+        .process-step {
+          text-align: left;
+          display: flex;
+          gap: 16px;
+          align-items: flex-start;
+          width: 100%;
+        }
+        .process-step::before {
+          content: "";
+          position: absolute;
+          left: -21px;
+          top: 0;
+          bottom: -28px;
+          width: 2px;
+          background: var(--gold);
+        }
+        .process-step:last-child::before {
+          display: none;
+        }
+        .process-circle {
+          margin: 0;
+          flex-shrink: 0;
+          position: relative;
+          left: -40px;
+          margin-right: -40px;
+        }
+        .process-step p {
+          max-width: none;
+        }
+        .reviews-grid {
+          grid-template-columns: 1fr;
+        }
+        .review-featured {
+          padding: 32px 24px;
+        }
+        .review-featured p {
+          font-size: 20px;
+        }
+        .footer-inner {
+          grid-template-columns: 1fr;
+        }
+        .footer-right {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 34px;
+        }
+        .hero-sub {
+          font-size: 14px;
+        }
+        .hero-eyebrow {
+          font-size: 11px;
+        }
+        .hero-form-card {
+          padding: 0;
+          margin: 0 -8px;
+        }
+        .about {
+          padding: 48px 16px;
+        }
+        .about-quote-card p {
+          font-size: 14px;
+        }
+        .about-text h2 {
+          font-size: 28px;
+        }
+        .section-heading {
+          font-size: 28px;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .gallery-pill {
+          font-size: 13px;
+          padding: 6px 16px;
+        }
+        .service-img-wrap {
+          height: 220px;
+        }
+        .cta-img {
+          height: 280px;
+        }
+        .modal-card {
+          padding: 32px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== NAV ===== -->
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">
+          <img
+            src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png"
+            alt="VeLUS Interiors"
+            class="logo-light"
+          />
+          <img
+            src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png"
+            alt="VeLUS Interiors"
+            class="logo-dark"
+          />
+        </a>
+        <div class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#gallery">Portfolio</a>
+          <a href="#process">Process</a>
+          <a href="#reviews">Reviews</a>
+          <a href="javascript:void(0)" class="nav-cta" onclick="openForm()"
+            >Get In Touch</a
+          >
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-close" id="mobileClose">&times;</button>
+      <a href="#services" onclick="closeMenu()">Services</a>
+      <a href="#gallery" onclick="closeMenu()">Portfolio</a>
+      <a href="#process" onclick="closeMenu()">Process</a>
+      <a href="#reviews" onclick="closeMenu()">Reviews</a>
+      <a
+        href="javascript:void(0)"
+        class="nav-cta"
+        onclick="
+          closeMenu();
+          setTimeout(openForm, 400);
+        "
+        >Get In Touch</a
+      >
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <img
+          src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e602cd38b17c2f49bb.jpg"
+          alt="Luxury Interior 1"
+        />
+        <img
+          src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0f3.jpg"
+          alt="Luxury Interior 2"
+        />
+        <img
+          src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0e0.jpg"
+          alt="Luxury Interior 3"
+        />
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-left">
+          <div class="hero-eyebrow">
+            Full-Service Design &amp; Remodel &middot; Chicago
+          </div>
+          <h1>We'll Bring Your<br />Dream Space to <em>Life</em></h1>
+          <p class="hero-sub">
+            VeLUS Interiors brings cohesive design and meticulous project
+            management to every room we touch, from first sketch to final
+            reveal.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="hero-stat-value">2018</div>
+              <div class="hero-stat-label">Founded</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-value">Chicago</div>
+              <div class="hero-stat-label">&amp; North Shore</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-value">Full</div>
+              <div class="hero-stat-label">White Glove</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-form-card">
+          <iframe
+            src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ"
+            style="
+              border: none;
+              width: 100%;
+              height: 0;
+              display: block;
+            "
+            scrolling="no"
+            id="b1hs6JDC3YZx5XUqa2oJ_1750049400000"
+            title="VeLUS Inquiry Survey"
+          ></iframe>
+          <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+      <div class="about-inner">
+        <!-- Left: portrait with quote overlay card -->
+        <div class="about-portrait-wrap anim">
+          <img loading="lazy"
+            src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/21ed982d-5c2a-4805-9faa-dcf01adb2934.jpeg"
+            alt="Mandy VeLUS"
+            class="about-portrait"
+          />
+        </div>
+        <!-- Right: heading + bio + points -->
+        <div class="about-text anim anim-delay-1">
+          <p class="about-label">Mandy Velus</p>
+          <h2>Founder, VeLUS <em>Interiors</em></h2>
+          <p class="about-bio">
+            Mandy is the founder and principal designer of VeLUS INTERIORS, a
+            Chicago-based studio focused on creating interiors defined by
+            restraint, material clarity, and intention.
+          </p>
+          <p class="about-bio">
+            Her work is guided by an instinct for composition, where form,
+            texture, and spatial rhythm are considered in quiet relationship to
+            one another. Each interior is approached as a complete environment,
+            shaped to feel both composed and lived in.
+          </p>
+          <p class="about-bio">
+            Rather than following trends, she begins with curiosity. Each
+            project unfolds as a dialogue, resulting in spaces that feel
+            personal, considered, and enduring.
+          </p>
+          <p class="about-bio">
+            With a background in interior design and project management, she
+            leads each project from concept through completion with clarity and
+            precision, ensuring that the integrity of the design is carried
+            through in every detail.
+          </p>
+          <p class="about-bio">
+            As both a designer and a mother, she understands that the most
+            successful interiors are not only visually resolved, but
+            thoughtfully lived in.
+          </p>
+          <p class="about-bio">
+            Through VeLUS INTERIORS, she continues to shape residential and
+            commercial spaces across Chicago with a distinct and disciplined
+            point of view.
+          </p>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 40px 24px 0" class="anim">
+        <button class="btn-gold" onclick="openForm()">Get In Touch</button>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+      <div class="section-intro anim">
+        <p class="section-label">What We Do</p>
+        <h2 class="section-heading">Full-Service Design &amp; Remodel</h2>
+      </div>
+      <div class="services-list">
+        <!-- Service 1 -->
+        <div class="service-row anim">
+          <div class="service-img-wrap">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/0b3e2897-7da8-4c35-adce-755ed7523f3b.jpg"
+              alt="Remodel"
+            />
+            <span class="service-number">01</span>
+          </div>
+          <div class="service-text">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8cdcaa47-3154-4431-b56f-7b4039d5ef30.png"
+              alt=""
+              class="service-icon"
+            />
+            <h3>Full Home Remodel</h3>
+            <p>
+              Comprehensive renovation from concept to completion. We manage
+              every detail so you can focus on the excitement of transformation.
+            </p>
+            <div class="service-line"></div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-row reverse anim">
+          <div class="service-img-wrap">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8e1903be-49e0-4ba4-bac3-bfdf287d13a0.jpg"
+              alt="Interior Design"
+            />
+            <span class="service-number">02</span>
+          </div>
+          <div class="service-text">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1b436400-6249-4c8b-b713-58656e7ad027.png"
+              alt=""
+              class="service-icon"
+            />
+            <h3>Interior Design</h3>
+            <p>
+              From furniture curation to color palettes and custom millwork, we
+              craft interiors that feel both timeless and uniquely yours. Spaces
+              that tell your story.
+            </p>
+            <div class="service-line"></div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-row anim">
+          <div class="service-img-wrap">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1221be03-8b0e-4d43-a904-13b90ad9cc31.jpg"
+              alt="Bathroom"
+            />
+            <span class="service-number">03</span>
+          </div>
+          <div class="service-text">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8cdcaa47-3154-4431-b56f-7b4039d5ef30.png"
+              alt=""
+              class="service-icon"
+            />
+            <h3>Bathroom Design</h3>
+            <p>
+              Spa-worthy bathrooms that blend beauty with function. Custom tile,
+              luxury fixtures, and smart layouts designed for daily indulgence.
+            </p>
+            <div class="service-line"></div>
+          </div>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-row reverse anim">
+          <div class="service-img-wrap">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e23f4a3d-37ee-4d7b-a01b-9ebb95cc6901.jpg"
+              alt="Kitchen"
+            />
+            <span class="service-number">04</span>
+          </div>
+          <div class="service-text">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d5f2e4d4-7604-4cc5-af38-1c0f651e9013.png"
+              alt=""
+              class="service-icon"
+            />
+            <h3>Kitchen Design</h3>
+            <p>
+              The heart of the home deserves the finest treatment. We design
+              kitchens that are equal parts beautiful and functional, where
+              gathering happens naturally.
+            </p>
+            <div class="service-line"></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 48px 24px 0" class="anim">
+        <button class="btn-gold" onclick="openForm()">Get In Touch</button>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="gallery" id="gallery">
+      <div class="section-intro anim">
+        <p class="section-label">Portfolio</p>
+        <h2 class="section-heading">Our Work</h2>
+      </div>
+      <div class="gallery-inner">
+        <div class="gallery-filters anim">
+          <button class="gallery-pill active" data-filter="all">All</button>
+          <button class="gallery-pill" data-filter="living">Living</button>
+          <button class="gallery-pill" data-filter="kitchen">Kitchen</button>
+          <button class="gallery-pill" data-filter="bathroom">Bathroom</button>
+          <button class="gallery-pill" data-filter="bedroom">Bedroom</button>
+        </div>
+        <div class="gallery-grid">
+          <!-- Living -->
+          <div class="gallery-item" data-cat="living">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e74a0b20-884a-4e6c-8ccb-4c60e682cd28.jpg"
+              alt="Living Room"
+            />
+          </div>
+          <div class="gallery-item" data-cat="living">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/015d8616-a468-40a7-b21c-45564aa022e6.jpg"
+              alt="Living Room"
+            />
+          </div>
+          <div class="gallery-item" data-cat="living">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4ad8cbdb-b492-415c-8ac6-3dde21d30e46.jpg"
+              alt="Living Room"
+            />
+          </div>
+          <div class="gallery-item" data-cat="living">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/60658542-b879-441b-a986-955c15a46f2c.jpg"
+              alt="Living Room"
+            />
+          </div>
+          <div class="gallery-item" data-cat="living">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/3fc94637-65b1-4d49-9b95-11d5a01f06f0.jpg"
+              alt="Living Room"
+            />
+          </div>
+          <div class="gallery-item" data-cat="living">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/b7ddbac2-55db-42ef-bf8e-49db2681e21e.jpg"
+              alt="Living Room"
+            />
+          </div>
+          <!-- Kitchen -->
+          <div class="gallery-item" data-cat="kitchen">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e23f4a3d-37ee-4d7b-a01b-9ebb95cc6901.jpg"
+              alt="Kitchen"
+            />
+          </div>
+          <!-- Bathroom -->
+          <div class="gallery-item" data-cat="bathroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/faada81f-d8e3-4347-bf39-82dad0dad9d4.jpg"
+              alt="Bathroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bathroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/c72114cd-c431-4ca9-a8ad-a80796049a56.jpg"
+              alt="Bathroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bathroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/dbd22cee-2ae9-4357-8a29-bcf6df705bea.jpg"
+              alt="Bathroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bathroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/5820d685-7f2f-4ed2-8f3f-bfd98c6f4e80.jpg"
+              alt="Bathroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bathroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d96f32b5-f66f-416b-9651-6580b54002e6.jpg"
+              alt="Bathroom"
+            />
+          </div>
+          <!-- Bedroom -->
+          <div class="gallery-item" data-cat="bedroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/9bc2e8a4-ae1b-49b8-82f2-1665e85cf35c.jpg"
+              alt="Bedroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bedroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e12bb222-a6e7-4fb9-a581-6ad2645a0c39.jpg"
+              alt="Bedroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bedroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/0fb4ff41-a5bc-4704-92df-a1f631b22a5d.jpg"
+              alt="Bedroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bedroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e840332e-a0eb-42a4-a5a0-017db1243e67.jpg"
+              alt="Bedroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bedroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/01e38a10-801a-4137-b041-bc842bae1765.jpg"
+              alt="Bedroom"
+            />
+          </div>
+          <div class="gallery-item" data-cat="bedroom">
+            <img loading="lazy"
+              src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4f57825e-0350-4dcd-ad71-a108efd708e1.jpg"
+              alt="Bedroom"
+            />
+          </div>
+        </div>
+        <div class="gallery-cta anim">
+          <p>See Something You Love?</p>
+          <button class="btn-gold" onclick="openForm()">Get In Touch</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="process" id="process">
+      <div class="section-intro anim">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-heading">Five Steps to Your Fully Realized Home</h2>
+      </div>
+      <div class="process-inner">
+        <div class="process-timeline anim">
+          <div class="process-line"></div>
+          <div class="process-step">
+            <div class="process-circle">1</div>
+            <div>
+              <h4>Discovery Call</h4>
+              <p>
+                We learn about your lifestyle, aesthetic, and goals in a
+                complimentary conversation.
+              </p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-circle">2</div>
+            <div>
+              <h4>Site Visit</h4>
+              <p>
+                We walk your space together, take measurements, and discuss
+                possibilities.
+              </p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-circle">3</div>
+            <div>
+              <h4>Design Concept</h4>
+              <p>
+                Mood boards, renderings, and material selections bring the
+                vision to life.
+              </p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-circle">4</div>
+            <div>
+              <h4>Procurement</h4>
+              <p>
+                We source furnishings, fixtures, and finishes from our trusted
+                vendor network.
+              </p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-circle">5</div>
+            <div>
+              <h4>Installation</h4>
+              <p>
+                White-glove delivery and styling. You walk into a fully realized
+                home.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="process-cta anim">
+          <p>It All Starts With a Conversation</p>
+          <button class="btn-gold" onclick="openForm()">
+            Book Your Discovery Call
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section class="reviews" id="reviews">
+      <div class="section-intro anim">
+        <p class="section-label">Client Love</p>
+        <h2 class="section-heading">What Our Clients Say</h2>
+      </div>
+      <div class="reviews-inner">
+        <!-- Featured Review -->
+        <div class="review-featured anim">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>
+            Mandy and her team transformed our home beyond what we could have
+            imagined. From the very first meeting, she listened carefully to our
+            vision and elevated every single detail. Her ability to balance
+            beauty with functionality is truly remarkable. We now walk into our
+            home every day feeling like we're stepping into a luxury retreat.
+            She didn't just design rooms. She designed how we experience our
+            life at home.
+          </p>
+          <span class="review-name">Nicole Karkalis</span>
+        </div>
+
+        <!-- Review Grid -->
+        <div class="reviews-grid">
+          <div class="review-card anim">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              Working with VeLUS Interiors was an absolute dream.
+              <u>Mandy's attention to detail is unmatched</u> and she made the
+              entire process feel effortless.
+            </p>
+            <span class="review-name">Shaandj</span>
+          </div>
+          <div class="review-card anim anim-delay-1">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              Mandy redesigned our living room and kitchen and the result was
+              stunning.
+              <u>She truly understands how to make a space feel like home</u>
+              while looking magazine-worthy.
+            </p>
+            <span class="review-name">Zakiya</span>
+          </div>
+          <div class="review-card anim anim-delay-2">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              From start to finish, the experience was seamless.
+              <u
+                >The level of professionalism and creativity exceeded all
+                expectations.</u
+              >
+              Our home has never looked better.
+            </p>
+            <span class="review-name">Ghire</span>
+          </div>
+          <div class="review-card anim">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              VeLUS Interiors brought our dated condo into the modern age while
+              keeping it warm and inviting.
+              <u
+                >Mandy has an incredible eye for balancing luxury with
+                livability.</u
+              >
+            </p>
+            <span class="review-name">Troy</span>
+          </div>
+          <div class="review-card anim anim-delay-1">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              I cannot say enough good things about working with Mandy.
+              <u>She turned our vision into reality and then some.</u> Every
+              detail was thoughtfully considered.
+            </p>
+            <span class="review-name">Roni</span>
+          </div>
+          <div class="review-card anim anim-delay-2">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              Professional, creative, and genuinely passionate about design.
+              <u
+                >Our bathroom renovation is now our favorite room in the
+                house.</u
+              >
+              Thank you, VeLUS!
+            </p>
+            <span class="review-name">Nicholas</span>
+          </div>
+          <div class="review-card anim">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              Mandy has a rare talent for making you feel heard while also
+              pushing the design in directions you wouldn't have imagined.
+              <u>The result is a home that feels authentically ours.</u>
+            </p>
+            <span class="review-name">Jay</span>
+          </div>
+          <div class="review-card anim anim-delay-1">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              We hired VeLUS for a complete home remodel and
+              <u>the transformation was absolutely breathtaking.</u> Mandy's
+              project management skills kept everything on track and
+              stress-free.
+            </p>
+            <span class="review-name">Vashti</span>
+          </div>
+          <div class="review-card anim anim-delay-2">
+            <div class="review-card-header">
+              <svg class="review-google" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
+                />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <div class="review-stars">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+            </div>
+            <p>
+              Exceptional from day one.
+              <u>Mandy's design instincts are impeccable</u> and she brings a
+              warmth and joy to the process that makes it genuinely fun.
+            </p>
+            <span class="review-name">Therese</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; padding: 48px 24px 0" class="anim">
+        <button class="btn-gold" onclick="openForm()">Get In Touch</button>
+      </div>
+    </section>
+
+    <!-- ===== CTA SECTION ===== -->
+    <section class="cta-section" id="cta">
+      <div class="cta-inner">
+        <div class="cta-img anim">
+          <img loading="lazy"
+            src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/8e1903be-49e0-4ba4-bac3-bfdf287d13a0.jpg"
+            alt="VeLUS Interior Design"
+          />
+        </div>
+        <div class="cta-text anim anim-delay-1">
+          <p class="section-label">Begin Here</p>
+          <h2>Connection Sparks <em>Creation</em></h2>
+          <p>
+            Every extraordinary space starts with a single conversation. Tell us
+            about your home, your lifestyle, and your dreams. We'll show you
+            what's possible when design meets intention.
+          </p>
+          <button class="btn-gold" onclick="openForm()">
+            Start Your Project
+          </button>
+          <br />
+          <img loading="lazy"
+            src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d139427a-6212-4ae6-987f-1b17681c42cc.png"
+            alt="Signature"
+            class="cta-signature"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" id="footer">
+      <div class="footer-line"></div>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img loading="lazy"
+            src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png"
+            alt="VeLUS Interiors"
+            class="footer-logo"
+          />
+          <p>
+            Luxury interior design and full-home remodel in Chicago and the
+            North Shore.
+          </p>
+        </div>
+        <div class="footer-right">
+          <div>
+            <h4>Studio</h4>
+            <div class="footer-links">
+              <a href="#services">Services</a>
+              <a href="#gallery">Portfolio</a>
+              <a href="#process">Process</a>
+              <a href="#reviews">Reviews</a>
+            </div>
+          </div>
+          <div>
+            <h4>Connect</h4>
+            <div class="footer-contact">
+              <p>Chicago, Illinois</p>
+              <p>
+                <a href="mailto:mandy@velusinteriors.com"
+                  >mandy@velusinteriors.com</a
+                >
+              </p>
+              <p><a href="tel:+19545409039">(954) 540-9039</a></p>
+              <p><a href="https://www.instagram.com/velusinteriors/" target="_blank" rel="noopener">@velusinteriors</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copy">
+        <span>&copy; 2026 VeLUS INTERIORS. All rights reserved.</span>
+        <span
+          style="
+            display: block;
+            margin-top: 4px;
+            font-size: 10px;
+            color: rgba(58, 36, 30, 0.25);
+          "
+          >Developed by
+          <a
+            href="https://nilsdigital.com"
+            target="_blank"
+            rel="noopener"
+            style="
+              color: rgba(58, 36, 30, 0.3);
+              text-decoration: none;
+              border-bottom: 1px solid rgba(58, 36, 30, 0.1);
+            "
+            >Nils Digital</a
+          ></span
+        >
+      </div>
+    </footer>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lbClose">&times;</button>
+      <button class="lightbox-prev" id="lbPrev">&#8592;</button>
+      <button class="lightbox-next" id="lbNext">&#8594;</button>
+      <img src="" alt="Gallery Image" id="lbImg" />
+    </div>
+
+    <script>
+      /* ===== NAV SCROLL ===== */
+      const nav = document.getElementById("nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      /* ===== MOBILE MENU ===== */
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const mobileClose = document.getElementById("mobileClose");
+
+      function openMenu() {
+        mobileMenu.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeMenu() {
+        mobileMenu.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      hamburger.addEventListener("click", openMenu);
+      mobileClose.addEventListener("click", closeMenu);
+
+      /* ===== SCROLL ANIMATIONS ===== */
+      const animEls = document.querySelectorAll(".anim");
+      const animObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("anim-visible");
+              animObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      animEls.forEach((el) => animObs.observe(el));
+
+      /* ===== SMOOTH SCROLL ===== */
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      /* ===== GALLERY FILTER ===== */
+      const pills = document.querySelectorAll(".gallery-pill");
+      const items = document.querySelectorAll(".gallery-item");
+
+      pills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+          pills.forEach((p) => p.classList.remove("active"));
+          pill.classList.add("active");
+          const filter = pill.dataset.filter;
+          items.forEach((item) => {
+            if (filter === "all" || item.dataset.cat === filter) {
+              item.classList.remove("hidden");
+            } else {
+              item.classList.add("hidden");
+            }
+          });
+        });
+      });
+
+      /* ===== LIGHTBOX ===== */
+      const lightbox = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lbImg");
+      const lbClose = document.getElementById("lbClose");
+      const lbPrev = document.getElementById("lbPrev");
+      const lbNext = document.getElementById("lbNext");
+      let lbItems = [];
+      let lbIndex = 0;
+
+      function getVisibleItems() {
+        return Array.from(
+          document.querySelectorAll(".gallery-item:not(.hidden)"),
+        );
+      }
+
+      function openLightbox(index) {
+        lbItems = getVisibleItems();
+        lbIndex = index;
+        lbImg.src = lbItems[lbIndex].querySelector("img").src;
+        lightbox.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeLightbox() {
+        lightbox.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      function lbNavigate(dir) {
+        lbIndex = (lbIndex + dir + lbItems.length) % lbItems.length;
+        lbImg.src = lbItems[lbIndex].querySelector("img").src;
+      }
+
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          const visible = getVisibleItems();
+          const idx = visible.indexOf(item);
+          openLightbox(idx >= 0 ? idx : 0);
+        });
+      });
+
+      lbClose.addEventListener("click", closeLightbox);
+      lbPrev.addEventListener("click", () => lbNavigate(-1));
+      lbNext.addEventListener("click", () => lbNavigate(1));
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("open")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") lbNavigate(-1);
+        if (e.key === "ArrowRight") lbNavigate(1);
+      });
+
+      /* ===== FORM MODAL ===== */
+      function openForm() {
+        if (window.innerWidth <= 768) {
+          document.querySelector('.hero-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          document.getElementById('hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+      function handleHeroForm(e) {
+        e.preventDefault();
+        alert("Thank you! We will be in touch within 24 hours.");
+        e.target.reset();
+      }
+    </script>
+  </body>
+</html>

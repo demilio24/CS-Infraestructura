@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VeLUS Interiors</title>
+<meta name="description" content="VeLUS Interiors — a Chicago design studio creating interiors defined by restraint, proportion, and clarity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F6F3EF;
+  --ink:#1a1a1a;
+  --muted:#6b6560;
+  --muted-light:#9e9590;
+  --chocolate:#3E2C1F;
+  --editorial:#D1B8A5;
+  --divider:#E6E6E6;
+  --heading:'Playfair Display',Georgia,serif;
+  --body:'Montserrat',Helvetica,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-weight:300}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;font-family:inherit;background:none;color:inherit}
+
+/* ===== MOTION ===== */
+.fade{opacity:0;transform:translateY(28px);transition:opacity 1.1s cubic-bezier(.25,.46,.45,.94),transform 1.1s cubic-bezier(.25,.46,.45,.94)}
+.fade.in{opacity:1;transform:translateY(0)}
+.fade-d1{transition-delay:.2s}
+.fade-d2{transition-delay:.4s}
+.fade-d3{transition-delay:.6s}
+
+/* ===== DIVIDER ===== */
+.rule{width:100%;height:1px;background:var(--divider);opacity:.7;border:none;margin:0}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;text-align:center;padding:28px 48px 0;background:transparent;transition:background .6s ease,padding .6s ease,box-shadow .6s ease,backdrop-filter .6s ease,-webkit-backdrop-filter .6s ease}
+.nav.scrolled{background:rgba(246,243,239,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:16px 48px 0;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.nav-logo{display:inline-block;margin-bottom:16px}
+.nav-logo img{height:34px;width:auto;transition:filter .5s ease,opacity .5s ease}
+.nav-logo .logo-hero{filter:brightness(10)}
+.nav-logo .logo-scroll{display:none;filter:brightness(.18)}
+.nav.scrolled .logo-hero{display:none}
+.nav.scrolled .logo-scroll{display:block}
+.nav-links{display:flex;justify-content:center;gap:44px;padding:12px 0 14px}
+.nav-links a{font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:#fff;transition:opacity .3s;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+.nav.scrolled .nav-links a{color:var(--ink);text-shadow:none}
+.nav-links a:hover{opacity:.55}
+.nav-links a.current{color:var(--chocolate)}
+.nav.scrolled .nav-links a.current{color:var(--chocolate)}
+
+.hamburger{display:none;position:absolute;top:30px;right:24px;flex-direction:column;gap:5px;padding:8px;z-index:1100}
+.hamburger span{display:block;width:22px;height:1.3px;background:#fff;transition:background .4s}
+.nav.scrolled .hamburger span{background:var(--ink)}
+
+.mobile-menu{position:fixed;inset:0;width:100%;height:100vh;background:var(--bg);z-index:1050;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s ease}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-close{position:absolute;top:24px;right:24px;font-size:28px;line-height:1;opacity:.5;transition:opacity .3s;color:var(--ink)}
+.mobile-close:hover{opacity:1}
+.mobile-menu a{font-family:var(--body);font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:400;color:var(--ink);padding:18px 0;transition:color .3s}
+.mobile-menu a:hover{color:var(--chocolate)}
+
+/* ===== HERO ===== */
+.hero{position:relative;height:100vh;height:100svh;overflow:hidden;background:#0c0c0c}
+.hero-bg{position:absolute;inset:0}
+.hero-bg img,.hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-bg img{opacity:0;transition:opacity 2.2s ease}
+.hero-bg img.active{opacity:1}
+.hero-vignette{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,0) 70%,rgba(0,0,0,.25) 100%);pointer-events:none}
+
+/* ===== MONOGRAM ===== */
+.monogram{padding:160px 32px;background:var(--bg);text-align:center}
+.monogram-svg{display:inline-block;width:42vw;max-width:540px;opacity:0;transform:translateY(32px);transition:opacity 1.4s ease,transform 1.4s ease}
+.monogram-svg.in{opacity:.92;transform:translateY(0)}
+.monogram-svg svg{width:100%;height:auto;display:block}
+
+/* ===== STATEMENT ===== */
+.statement{padding:120px 32px 160px;background:var(--bg)}
+.statement-inner{max-width:720px;margin:0 auto;text-align:left}
+.statement-rule{width:100%;height:1px;background:var(--divider);opacity:.7;margin-bottom:48px}
+.statement-eyebrow{font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--muted-light);margin-bottom:28px}
+.statement-title{font-family:var(--heading);font-size:64px;font-weight:400;line-height:1.08;color:var(--ink);margin-bottom:42px;letter-spacing:.2px}
+.statement-title em{font-style:italic;font-weight:400}
+.statement-body{font-family:var(--body);font-size:17px;font-weight:300;color:var(--ink);line-height:1.85;margin-bottom:22px;max-width:620px}
+.statement-body.quiet{color:var(--muted);font-size:16px}
+.statement-close{font-family:var(--body);font-size:15px;font-weight:400;color:var(--ink);line-height:1.9;margin-top:32px;letter-spacing:.5px}
+.cta{display:inline-block;margin-top:56px;font-family:var(--body);font-size:13px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;color:var(--chocolate);padding-bottom:4px;border-bottom:1px solid var(--chocolate);transition:opacity .35s ease}
+.cta:hover{opacity:.55}
+
+/* ===== OUR WORK ===== */
+.work{padding:0;background:var(--bg)}
+.work-head{max-width:720px;margin:0 auto;padding:120px 32px 80px}
+.work-head .statement-rule{margin-bottom:48px}
+.work-title{font-family:var(--heading);font-size:56px;font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:36px}
+.work-title em{font-style:italic}
+.work-intro{font-family:var(--body);font-size:16px;font-weight:300;color:var(--muted);line-height:1.9;max-width:600px}
+.work-images{display:flex;flex-direction:column;gap:0}
+.work-image{width:100%;height:85vh;overflow:hidden}
+.work-image img{width:100%;height:100%;object-fit:cover}
+.work-cta-wrap{max-width:720px;margin:0 auto;padding:100px 32px 160px}
+
+/* ===== FEATURED EDITORIAL ===== */
+.featured{background:var(--editorial);padding:160px 32px;position:relative}
+.featured-inner{max-width:720px;margin:0 auto}
+.featured-eyebrow{font-family:var(--body);font-size:11px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:rgba(62,44,31,.7);margin-bottom:32px}
+.featured-title{font-family:var(--heading);font-size:52px;font-weight:400;line-height:1.12;color:var(--chocolate);margin-bottom:44px;font-style:italic}
+.featured-body{font-family:var(--body);font-size:16px;font-weight:300;color:var(--chocolate);line-height:1.95;margin-bottom:24px;opacity:.88}
+.featured-image{width:100%;height:70vh;margin-top:80px;overflow:hidden}
+.featured-image img{width:100%;height:100%;object-fit:cover}
+
+/* ===== FOOTER ===== */
+.footer{background:var(--bg);padding:120px 32px 60px}
+.footer-inner{max-width:720px;margin:0 auto;text-align:left}
+.footer-rule{width:100%;height:1px;background:var(--divider);opacity:.6;margin-bottom:64px}
+.footer-name{font-family:var(--heading);font-size:28px;font-weight:400;color:var(--ink);margin-bottom:8px;letter-spacing:.3px}
+.footer-location{font-family:var(--body);font-size:14px;font-weight:300;color:var(--muted);margin-bottom:48px;letter-spacing:.5px}
+.footer-list{display:flex;flex-direction:column;gap:14px;margin-bottom:64px}
+.footer-list a{font-family:var(--body);font-size:13px;font-weight:400;letter-spacing:1.5px;color:var(--ink);transition:color .3s;display:inline-block}
+.footer-list a:hover{color:var(--chocolate)}
+.footer-label{font-family:var(--body);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted-light);margin-right:18px;display:inline-block;min-width:90px}
+.footer-copy{font-family:var(--body);font-size:10px;color:var(--muted-light);letter-spacing:1.5px;text-transform:uppercase;margin-top:48px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .statement-title{font-size:44px}
+  .work-title{font-size:40px}
+  .featured-title{font-size:38px}
+  .monogram{padding:100px 24px}
+  .monogram-svg{width:68vw}
+  .statement{padding:80px 24px 100px}
+  .work-head{padding:80px 24px 56px}
+  .work-image{height:60vh}
+  .work-cta-wrap{padding:70px 24px 100px}
+  .featured{padding:100px 24px}
+  .featured-image{height:50vh;margin-top:56px}
+  .footer{padding:80px 24px 40px}
+}
+@media(max-width:540px){
+  .nav{padding:20px 24px 0}
+  .nav.scrolled{padding:12px 24px 0}
+  .statement-title{font-size:36px}
+  .work-title{font-size:32px}
+  .featured-title{font-size:30px}
+  .statement-body{font-size:15.5px}
+  .work-intro{font-size:15px}
+  .featured-body{font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <a href="v4.html" class="nav-logo">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png" alt="VeLUS Interiors" class="logo-hero">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ba8849c4-3a31-4cff-b52b-131a44f4f6d1.png" alt="VeLUS Interiors" class="logo-scroll">
+  </a>
+  <div class="nav-links">
+    <a href="v4.html" class="current">Home</a>
+    <a href="v4-about.html">About</a>
+    <a href="v4.html#work">Work</a>
+    <a href="v4-contact.html">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">&times;</button>
+  <a href="v4.html">Home</a>
+  <a href="v4-about.html">About</a>
+  <a href="v4.html#work">Work</a>
+  <a href="v4-contact.html">Contact</a>
+</div>
+
+<!-- ===== HERO — full-screen cinematic background ===== -->
+<!-- To swap in a video, replace the .hero-bg contents with:
+     <video autoplay loop muted playsinline><source src="hero.mp4" type="video/mp4"></video> -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <img class="active" src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0e0.jpg" alt="">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e602cd38b17c2f49bb.jpg" alt="">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69dd06e6caf24b80a0e1f0f3.jpg" alt="">
+  </div>
+  <div class="hero-vignette"></div>
+</section>
+
+<!-- ===== V MONOGRAM ===== -->
+<section class="monogram">
+  <div class="monogram-svg" id="monogram">
+    <svg viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg" aria-label="VeLUS monogram">
+      <g fill="none" stroke="#1a1a1a" stroke-width="1.2">
+        <path d="M40 40 L200 380 L360 40" stroke-linejoin="miter" stroke-linecap="square"/>
+        <path d="M118 40 L200 216 L282 40" stroke-linejoin="miter" stroke-linecap="square" opacity=".38"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== BRAND STATEMENT ===== -->
+<section class="statement">
+  <div class="statement-inner">
+    <hr class="statement-rule fade">
+    <p class="statement-eyebrow fade">VE LUS INTERIORS</p>
+    <h1 class="statement-title fade fade-d1"><em>A studio</em> grounded in restraint.</h1>
+    <p class="statement-body fade fade-d2">VeLUS Interiors is a full-service design studio based in Chicago, creating interiors defined by restraint, proportion, and clarity.</p>
+    <p class="statement-body quiet fade fade-d2">Each project begins with a reading of space, light, and material, shaping environments that feel composed and quietly resolved.</p>
+    <p class="statement-body quiet fade fade-d2">The work is guided by precision and restraint. Nothing excessive, nothing without intention.</p>
+    <p class="statement-close fade fade-d3">Considered. Lived in. Enduring.</p>
+    <a href="v4-about.html" class="cta fade fade-d3">Discover</a>
+  </div>
+</section>
+
+<!-- ===== OUR WORK ===== -->
+<section id="work">
+  <div class="work-head">
+    <hr class="statement-rule fade">
+    <h2 class="work-title fade"><em>Our</em> Work</h2>
+    <p class="work-intro fade fade-d1">We create interiors that feel considered, composed, and quietly personal. A sense of permanence runs through each space.</p>
+  </div>
+  <div class="work-images">
+    <div class="work-image fade">
+      <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e74a0b20-884a-4e6c-8ccb-4c60e682cd28.jpg" alt="" loading="lazy">
+    </div>
+    <div class="work-image fade">
+      <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4ad8cbdb-b492-415c-8ac6-3dde21d30e46.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+  <div class="work-cta-wrap">
+    <a href="v4.html#work" class="cta fade">View Portfolio</a>
+  </div>
+</section>
+
+<!-- ===== FEATURED EDITORIAL ===== -->
+<section class="featured">
+  <div class="featured-inner">
+    <p class="featured-eyebrow fade">Featured · Editorial</p>
+    <h2 class="featured-title fade fade-d1">A residence composed slowly, in continuity with the light of its hours.</h2>
+    <p class="featured-body fade fade-d2">This home was developed as a study in material continuity, where the palette of stone, oak, and linen is allowed to move quietly across each room.</p>
+    <p class="featured-body fade fade-d2">Decisions were made through proportion rather than ornament. The result is a residence that settles into itself with time.</p>
+  </div>
+  <div class="featured-image fade fade-d3">
+    <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/015d8616-a468-40a7-b21c-45564aa022e6.jpg" alt="" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <hr class="footer-rule">
+    <div class="footer-name fade">VeLUS Interiors</div>
+    <div class="footer-location fade">Chicago, Illinois</div>
+    <div class="footer-list">
+      <a href="v4-contact.html" class="fade"><span class="footer-label">Email</span>hello@velusinteriors.com</a>
+      <a href="tel:+19545409039" class="fade"><span class="footer-label">Phone</span>+1 (954) 540-9039</a>
+      <a href="https://www.instagram.com/velusinteriors/" target="_blank" rel="noopener" class="fade"><span class="footer-label">Instagram</span>@velusinteriors</a>
+    </div>
+    <div class="footer-copy fade">&copy; 2026 VeLUS Interiors</div>
+  </div>
+</footer>
+
+<script>
+/* NAV SCROLL */
+const nav=document.getElementById('nav');
+let tick=false;
+window.addEventListener('scroll',()=>{
+  if(!tick){requestAnimationFrame(()=>{nav.classList.toggle('scrolled',window.scrollY>80);tick=false});tick=true}
+});
+
+/* MOBILE MENU */
+const mm=document.getElementById('mobileMenu');
+document.getElementById('hamburger').onclick=()=>{mm.classList.add('open');document.body.style.overflow='hidden'};
+document.getElementById('mobileClose').onclick=()=>{mm.classList.remove('open');document.body.style.overflow=''};
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.classList.remove('open');document.body.style.overflow=''}));
+
+/* FADE-UP REVEAL */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+/* MONOGRAM */
+const mono=document.getElementById('monogram');
+const monoIo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');monoIo.unobserve(e.target)}});
+},{threshold:.3});
+monoIo.observe(mono);
+
+/* HERO CROSSFADE (cinematic, no UI) */
+const heroImgs=document.querySelectorAll('.hero-bg img');
+let hi=0;
+setInterval(()=>{
+  heroImgs[hi].classList.remove('active');
+  hi=(hi+1)%heroImgs.length;
+  heroImgs[hi].classList.add('active');
+},7000);
+
+/* SMOOTH ANCHOR */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+</script>
+</body>
+</html>
