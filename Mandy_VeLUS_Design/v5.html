@@ -64,12 +64,13 @@
     nav.top .mark .w{font-size:18px}
   }
 
-  /* ---------- ENTRY MONOGRAM (Mandy's SVG, size per spec 3.2) ---------- */
+  /* ---------- ENTRY MONOGRAM (Cormorant Garamond V, weight 300) ---------- */
   #entry{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;transition:opacity 1.1s ease}
-  #entry .velus-v{width:clamp(240px, 40vw, 480px);height:auto;opacity:0;transform:translateY(14px);transition:opacity 1.1s ease, transform 1.1s ease}
-  #entry.in .velus-v{opacity:.92;transform:translateY(0)}
-  #entry .velus-v path{stroke:var(--ink)}
-  @media (max-width:768px){#entry .velus-v{width:65vw}}
+  #entry .v-letter{font-family:'Cormorant Garamond', 'Playfair Display', Georgia, serif;font-size:160px;font-weight:300;color:#000;line-height:1;letter-spacing:12px;opacity:0;transform:translateY(14px);transition:opacity 1.1s ease, transform 1.1s ease}
+  #entry.in .v-letter{opacity:.92;transform:translateY(0)}
+  @media (max-width:1024px){#entry .v-letter{font-size:120px}}
+  @media (max-width:768px){#entry .v-letter{font-size:80px}}
+  @media (max-width:480px){#entry .v-letter{font-size:56px}}
   #entry.out{opacity:0;pointer-events:none}
 
   /* ---------- ROUTER ---------- */
@@ -95,6 +96,13 @@
   .hero-dots{position:absolute;right:36px;bottom:32px;display:flex;gap:8px;z-index:3}
   .hero-dots span{width:22px;height:1px;background:#F3EBDD;opacity:.35;transition:opacity .5s ease}
   .hero-dots span.on{opacity:1}
+
+  /* ---------- V MONOGRAM (inline watermark section) ---------- */
+  section.monogram{padding:48px 24px 0;text-align:center;background:var(--bg)}
+  .monogram-letter{font-family:'Cormorant Garamond','Playfair Display',Georgia,serif;font-size:160px;font-weight:300;color:#000;line-height:1;letter-spacing:12px;opacity:.1;display:inline-block}
+  @media (max-width:1024px){.monogram-letter{font-size:120px}}
+  @media (max-width:768px){section.monogram{padding:24px 24px 0}.monogram-letter{font-size:80px}}
+  @media (max-width:480px){.monogram-letter{font-size:56px}}
 
   /* ---------- STATEMENT ---------- */
   section.statement{padding:140px 24px 200px;text-align:center}
@@ -215,31 +223,32 @@
   .c-open .eyebrow{opacity:.6}
   .c-open h1{font-family:var(--serif);font-size:clamp(40px,5vw,72px);font-weight:400;margin-top:24px;letter-spacing:0.08em;text-transform:uppercase;line-height:1.05}
   .c-open .lede{margin-top:40px;font-family:var(--serif);font-size:clamp(20px,1.8vw,26px);font-style:italic;font-weight:400;line-height:1.5;opacity:.9}
-  .c-intro{max-width:720px;margin:0 auto;padding:60px 40px 40px;font-size:15px;line-height:1.8;opacity:.7}
+  .c-intro{max-width:720px;margin:0 auto;padding:60px 40px 40px;font-size:17px;line-height:1.8;opacity:.8;font-weight:400}
   .inquiry{max-width:720px;margin:0 auto;padding:60px 40px 40px;display:flex;flex-direction:column;gap:12px}
-  .inquiry .sec-lbl{margin-top:80px;margin-bottom:8px;font-family:var(--sans);font-size:10px;letter-spacing:0.4em;text-transform:uppercase;opacity:.55}
+  .inquiry .sec-lbl{margin-top:80px;margin-bottom:8px;font-family:var(--sans);font-size:12px;letter-spacing:0.32em;text-transform:uppercase;opacity:.75;font-weight:500}
   .inquiry .sec-lbl:first-child{margin-top:0}
   .inquiry .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:36px}
   @media (max-width:700px){.inquiry .grid-2{grid-template-columns:1fr}}
-  .field{display:flex;flex-direction:column;gap:12px;padding:22px 0}
-  .field label{font-family:var(--sans);font-size:11px;letter-spacing:0.32em;text-transform:uppercase;opacity:.7}
+  .field{display:flex;flex-direction:column;gap:14px;padding:22px 0}
+  .field label{font-family:var(--sans);font-size:13px;letter-spacing:0.22em;text-transform:uppercase;opacity:.9;font-weight:500;color:var(--ink)}
   .field input[type=text],.field input[type=email],.field input[type=tel],.field textarea{
-    background:transparent;border:0;border-bottom:1px solid #E6E6E6;padding:10px 0;
-    font-family:var(--serif);font-size:20px;color:var(--ink);font-weight:400;outline:none;transition:border-color .4s ease;
+    background:transparent;border:0;border-bottom:1px solid #E6E6E6;padding:12px 0;
+    font-family:var(--serif);font-size:21px;color:var(--ink);font-weight:400;outline:none;transition:border-color .4s ease;
   }
   .field input:focus,.field textarea:focus{border-bottom-color:var(--ink)}
-  .field textarea{resize:vertical;min-height:110px;font-size:18px;line-height:1.6;font-family:var(--serif);font-style:italic}
-  .field input::placeholder,.field textarea::placeholder{color:var(--ink);opacity:.3;font-style:italic}
-  .choice{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-  .chip{border:1px solid #E6E6E6;padding:10px 18px;border-radius:999px;font-family:var(--sans);font-size:11px;letter-spacing:0.24em;text-transform:uppercase;cursor:pointer;transition:all .4s ease;background:transparent;color:var(--ink)}
+  .field textarea{resize:vertical;min-height:120px;font-size:19px;line-height:1.65;font-family:var(--serif);font-style:italic}
+  .field input::placeholder,.field textarea::placeholder{color:var(--ink);opacity:.45;font-style:italic}
+  .choice{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .chip{border:1px solid #D6D0C7;padding:12px 22px;border-radius:999px;font-family:var(--sans);font-size:13px;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:all .4s ease;background:transparent;color:var(--ink);font-weight:500}
   .chip:hover{border-color:var(--ink)}
   .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-  .c-close{max-width:720px;margin:60px auto 0;padding:0 40px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.5;opacity:.7}
+  .c-close{max-width:720px;margin:60px auto 0;padding:0 40px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.55;opacity:.85;font-weight:400}
   .c-submit{max-width:720px;margin:80px auto 160px;padding:0 40px}
-  .c-submit .btn{font-family:var(--sans);font-size:13px;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink);padding:16px 0;background:none;border:0;cursor:pointer;transition:opacity .4s ease}
-  .c-submit .btn:hover{opacity:.6}
-  .sent-note{max-width:720px;margin:36px auto 0;padding:0 40px;font-family:var(--serif);font-style:italic;opacity:0;transition:opacity .6s ease}
-  .sent-note.show{opacity:.8}
+  .c-submit .btn{font-family:var(--sans);font-size:14px;letter-spacing:0.3em;text-transform:uppercase;color:var(--bg);background:var(--ink);padding:20px 44px;border:0;border-radius:2px;cursor:pointer;transition:background .4s ease, opacity .4s ease, transform .4s ease;font-weight:600}
+  .c-submit .btn:hover{background:var(--ink-deep);transform:translateY(-1px)}
+  .c-submit .btn:disabled{opacity:.55;cursor:default;transform:none}
+  .sent-note{max-width:720px;margin:36px auto 0;padding:0 40px;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.55;opacity:0;transition:opacity .6s ease;font-weight:400}
+  .sent-note.show{opacity:.95}
 
   /* ---------- TWEAKS ---------- */
   #tweaks{position:fixed;bottom:22px;right:22px;z-index:50;width:280px;background:#FAF6F0;border:1px solid #E6E6E6;padding:20px;display:none;font-family:var(--sans);box-shadow:0 20px 60px rgba(58,36,30,0.12)}
@@ -255,13 +264,9 @@
 </head>
 <body>
 
-<!-- ENTRY MONOGRAM (Mandy's SVG — Apr 16 email; keep proportions/stroke weights) -->
+<!-- ENTRY MONOGRAM (Cormorant Garamond V, weight 300) -->
 <div id="entry" class="in">
-  <svg class="velus-v" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M55 40 L110 180" stroke-width="3" stroke-linecap="square"/>
-    <path d="M165 40 L110 180" stroke-width="4" stroke-linecap="square"/>
-    <path d="M105 180 L115 180" stroke-width="4" stroke-linecap="square"/>
-  </svg>
+  <span class="v-letter">V</span>
 </div>
 
 <!-- NAV -->
@@ -296,6 +301,11 @@
     </div>
     <div class="hero-dots"><span class="on"></span><span></span><span></span></div>
     <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- V MONOGRAM (inline watermark — precedes brand statement) -->
+  <section class="monogram">
+    <div class="monogram-letter fu">V</div>
   </section>
 
   <!-- BRAND STATEMENT -->
@@ -367,16 +377,16 @@
     </div>
     <div class="testimonies">
       <div class="t fu">
-        <blockquote>“The studio reshaped how our home functions, not just how it looks. Every room feels composed in a way we could not have articulated ourselves.”</blockquote>
-        <cite>— K. Chen · Lincoln Park Residence</cite>
+        <blockquote>"Her eye for everything from fixtures, to flooring, to small timeless touches is impeccable. She is great at understanding your style comfort zone while also making suggestions that elevate your space."</blockquote>
+        <cite>— Zakiya B.</cite>
       </div>
       <div class="t fu">
-        <blockquote>“Working with Mandy was unlike any renovation we had attempted before. The clarity of the process allowed us to enjoy the work rather than manage it.”</blockquote>
-        <cite>— J. Whitfield · North Shore Residence</cite>
+        <blockquote>"Mandy transformed my homes in New York and Chicago into spaces that truly reflect my style."</blockquote>
+        <cite>— Shaandj F. · New York &amp; Chicago</cite>
       </div>
       <div class="t fu">
-        <blockquote>“A level of restraint and precision that is rare. The house feels like it has always been this way.”</blockquote>
-        <cite>— M. Brown · Gold Coast Residence</cite>
+        <blockquote>"They understood our style perfectly and created a beautiful, functional space."</blockquote>
+        <cite>— Troy V. · Maryland</cite>
       </div>
     </div>
   </section>
@@ -607,15 +617,15 @@ const IMG = {
   bedKid: 'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/4f57825e-0350-4dcd-ad71-a108efd708e1.jpg'
 };
 
-/* One hero image per project on Collections (even though project has up to 3 in viewer) */
+/* Real projects. No family names until confirmed — using Chicago neighborhoods + property types. */
 const PROJECTS = [
-  { name:"Chen Residence",       loc:"Lincoln Park",           hero:IMG.livingWalnutA, gallery:[IMG.livingWalnutA, IMG.livingWalnutB, IMG.bathMarble] },
-  { name:"Whitfield Residence",  loc:"North Shore",            hero:IMG.chalet,        gallery:[IMG.chalet, IMG.mountain, IMG.bedTrans] },
-  { name:"Brown Residence",      loc:"Gold Coast",             hero:IMG.bathMarbleAlt, gallery:[IMG.bathMarbleAlt, IMG.bathMarble, IMG.bathRemodel] },
-  { name:"Martinez Residence",   loc:"Winnetka",               hero:IMG.livingScandi,  gallery:[IMG.livingScandi, IMG.scandi, IMG.kitchenNavy] },
-  { name:"Langley Residence",    loc:"Bucktown",               hero:IMG.bedUrban,      gallery:[IMG.bedUrban, IMG.bedUrbanWide, IMG.bedLoft] },
-  { name:"Ashford Residence",    loc:"Lake Forest",            hero:IMG.coastal,       gallery:[IMG.coastal, IMG.bathScallop, IMG.bedKid] },
-  { name:"Holloway Residence",   loc:"River North",            hero:IMG.bathGreyA,     gallery:[IMG.bathGreyA, IMG.bathGreyB, IMG.bathDeco] }
+  { name:"Lincoln Park Residence", loc:"Chicago",  hero:IMG.livingWalnutA, gallery:[IMG.livingWalnutA, IMG.livingWalnutB, IMG.bathMarble] },
+  { name:"North Shore Retreat",    loc:"Illinois", hero:IMG.chalet,        gallery:[IMG.chalet, IMG.mountain, IMG.bedTrans] },
+  { name:"Gold Coast Home",        loc:"Chicago",  hero:IMG.bathMarbleAlt, gallery:[IMG.bathMarbleAlt, IMG.bathMarble, IMG.bathRemodel] },
+  { name:"Winnetka Residence",     loc:"Illinois", hero:IMG.livingScandi,  gallery:[IMG.livingScandi, IMG.scandi, IMG.kitchenNavy] },
+  { name:"Bucktown Loft",          loc:"Chicago",  hero:IMG.bedUrban,      gallery:[IMG.bedUrban, IMG.bedUrbanWide, IMG.bedLoft] },
+  { name:"Lake Forest Residence",  loc:"Illinois", hero:IMG.coastal,       gallery:[IMG.coastal, IMG.bathScallop, IMG.bedKid] },
+  { name:"River North Apartment",  loc:"Chicago",  hero:IMG.bathGreyA,     gallery:[IMG.bathGreyA, IMG.bathGreyB, IMG.bathDeco] }
 ];
 
 /* ENTRY */
