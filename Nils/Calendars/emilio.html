@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NILS Strategy — Book a Call with Emilio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --blue: #046bd2;
+        --blue-dark: #0357ae;
+        --blue-light: #e8f2fc;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #d1d5db;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--blue);
+        min-height: 100vh;
+      }
+
+      /* HEADER */
+      .site-header {
+        background: #fff;
+        text-align: center;
+        padding: 28px 20px 24px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .site-header img.logo {
+        height: 50px;
+        width: auto;
+        display: block;
+        margin: 0 auto 16px;
+        object-fit: contain;
+      }
+      .site-header h1 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 5px;
+      }
+      .site-header p {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text);
+      }
+      .site-header p.sub {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: #374151;
+        margin-top: 3px;
+      }
+
+      /* PAGE */
+      .page-body {
+        padding: 40px 24px 72px;
+      }
+
+      /* CARD */
+      .card {
+        background: #fff;
+        border-radius: 14px;
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 40px 52px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.13);
+      }
+      @media (max-width: 540px) {
+        .card {
+          padding: 28px 16px;
+        }
+      }
+
+      /* INTRO */
+      .card-intro {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+      .card-intro h2 {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .card-intro p {
+        font-size: 15px;
+        color: var(--muted);
+        font-weight: 500;
+        line-height: 1.6;
+      }
+
+      /* CALENDAR EMBED */
+      .calendar-wrap {
+        width: 100%;
+        min-height: 600px;
+      }
+      .calendar-wrap iframe {
+        width: 100%;
+        border: none;
+        overflow: hidden;
+        display: block;
+      }
+
+      /* FOOTER */
+      .site-footer {
+        text-align: center;
+        padding: 28px 20px;
+        color: rgba(255,255,255,0.7);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .site-footer a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+
+    <header class="site-header">
+      <img
+        class="logo"
+        src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png"
+        alt="NILS Digital"
+      />
+      <h1>Strategy Call with Emilio</h1>
+    </header>
+
+    <main class="page-body">
+      <div class="card">
+        <div class="calendar-wrap">
+          <iframe
+            src="https://link.nilsdigital.com/widget/booking/HXCsLL3wdXotaipxdLE4"
+            scrolling="no"
+            id="U8aGhyy7qR9NDqNGM2Il_1776577087275"
+          ></iframe>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      &copy; <span id="yr"></span> <a href="https://nilsdigital.com" target="_blank">NILS Digital</a> — All rights reserved.
+    </footer>
+
+    <script src="https://link.nilsdigital.com/js/form_embed.js" type="text/javascript"></script>
+    <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+
+  </body>
+</html>
