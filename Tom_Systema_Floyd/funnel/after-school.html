@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ffffff" />
+<title>After School Systema — Martial Arts at Your Child's Campus | Systema Floyd</title>
+<meta name="description" content="Martial arts right at your child's school. Pickup, class, character building — 3 days a week at 5 West Palm Beach partner campuses. Ages 5–12." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" />
+
+<style>
+:root{--sf-white:#fff;--sf-cream:#f7f9fc;--sf-cream-2:#eef2f8;--sf-border:#e2e8f2;--sf-border-strong:#c6d1e4;--sf-ink:#0d1534;--sf-ink-60:#475067;--sf-ink-50:#6b7490;--sf-ink-40:#8b95ad;--sf-blue-900:#0a1028;--sf-blue-800:#111a3d;--sf-blue-700:#1b2f6e;--sf-blue-600:#234091;--sf-blue-500:#2f82c4;--sf-blue-400:#4aa3e0;--sf-blue-100:#e8f1fb;--sf-blue-50:#f4f8fd;--sf-red-600:#b91c1c;--radius-sm:8px;--radius-md:16px;--radius-lg:24px;--grad-blue:linear-gradient(135deg,#2f82c4,#1b2f6e);--grad-blue-deep:linear-gradient(135deg,#1b2f6e,#0a1028);--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-sm:0 2px 8px rgba(15,27,61,.06),0 1px 3px rgba(15,27,61,.04);--shadow-md:0 12px 32px -12px rgba(27,47,110,.18),0 4px 10px -4px rgba(15,27,61,.06);--shadow-lg:0 24px 60px -20px rgba(27,47,110,.24),0 8px 16px -8px rgba(15,27,61,.08)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--sf-ink);background:var(--sf-white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3,h4{font-family:'Oswald','Inter',sans-serif;font-weight:700;line-height:1.05;letter-spacing:.01em;margin:0 0 .5em;text-transform:uppercase;color:var(--sf-ink)}
+p{margin:0 0 1em;color:var(--sf-ink-60)}
+.anim{transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
+.js-ready .anim{opacity:0;transform:translateY(28px)}
+.js-ready .anim.in{opacity:1;transform:translateY(0)}
+.anim.d1{transition-delay:.08s}.anim.d2{transition-delay:.16s}.anim.d3{transition-delay:.24s}.anim.d4{transition-delay:.32s}.anim.d5{transition-delay:.4s}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:14px 28px;border-radius:var(--radius-sm);font-weight:600;font-size:15px;letter-spacing:.02em;transition:all .3s var(--ease-out);min-height:48px;white-space:nowrap}
+.btn-primary{background:var(--grad-blue);color:#fff;box-shadow:0 10px 26px -10px rgba(47,130,196,.55)}
+.btn-primary:hover{transform:translateY(-2px);background:var(--sf-blue-900);box-shadow:0 18px 40px -12px rgba(27,47,110,.7)}
+.btn-secondary{background:var(--sf-white);color:var(--sf-blue-700);border:1.5px solid var(--sf-border-strong)}
+.btn-secondary:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-500)}
+.btn-lg{padding:18px 36px;font-size:17px;min-height:56px}
+
+/* NAV */
+.sf-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;background:rgba(255,255,255,.82);backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:background .3s,border-color .3s,box-shadow .3s,padding .3s}
+.sf-nav.scrolled{background:rgba(255,255,255,.96);border-bottom-color:var(--sf-border);box-shadow:0 8px 30px -16px rgba(15,27,61,.12);padding:10px 32px}
+.sf-nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.sf-nav-logo{height:48px}.sf-nav.scrolled .sf-nav-logo{height:40px}
+.sf-nav-logo img{height:100%}
+.sf-nav-links{display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:0}
+.sf-nav-links a{color:var(--sf-ink);font-size:14px;font-weight:600;padding:10px 14px;border-radius:var(--radius-sm);transition:all .2s}
+.sf-nav-links a:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
+.sf-nav-cta{background:var(--grad-blue);color:#fff !important;padding:12px 24px !important;font-weight:700;box-shadow:0 8px 22px -8px rgba(47,130,196,.5)}
+.sf-nav-cta:hover{background:var(--sf-blue-900) !important}
+.sf-nav-toggle{display:none;width:44px;height:44px;border-radius:var(--radius-sm);background:var(--sf-blue-50);align-items:center;justify-content:center}
+.sf-nav-toggle span{display:block;width:22px;height:2px;background:var(--sf-ink);position:relative}
+.sf-nav-toggle span::before,.sf-nav-toggle span::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--sf-ink)}
+.sf-nav-toggle span::before{top:-7px}.sf-nav-toggle span::after{top:7px}
+.sf-mobile-menu{position:fixed;inset:0;z-index:99;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;padding:90px 32px 32px;overflow-y:auto}
+.sf-mobile-menu.open{opacity:1;visibility:visible}
+.sf-mobile-menu ul{list-style:none;padding:0;margin:0}
+.sf-mobile-menu li{border-bottom:1px solid var(--sf-border)}
+.sf-mobile-menu a{display:block;padding:22px 0;font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--sf-ink)}
+.sf-mobile-menu a:hover{color:var(--sf-blue-500)}
+
+/* HERO */
+.page-hero{position:relative;min-height:72vh;padding:160px 32px 80px;background:linear-gradient(180deg,var(--sf-blue-50) 0%,var(--sf-white) 60%,var(--sf-white) 100%);overflow:hidden;isolation:isolate}
+.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 10%,rgba(47,130,196,.14),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(27,47,110,.08),transparent 60%)}
+.page-hero::after{content:'';position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(27,47,110,.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);opacity:.5}
+.page-hero-slashes{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.page-hero-slash{position:absolute;height:2px;width:140vw;left:-20vw;background:linear-gradient(90deg,transparent,rgba(47,130,196,.45),transparent);transform:rotate(-28deg);animation:slash-sweep 14s linear infinite}
+.page-hero-slash:nth-child(1){top:30%}
+.page-hero-slash:nth-child(2){top:70%;animation-delay:7s;background:linear-gradient(90deg,transparent,rgba(27,47,110,.4),transparent)}
+@keyframes slash-sweep{0%{opacity:0;transform:rotate(-28deg) translateX(-30vw)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:rotate(-28deg) translateX(30vw)}}
+.page-hero-inner{position:relative;z-index:10;max-width:1100px;margin:0 auto;text-align:center}
+.page-hero-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:100px;background:var(--sf-blue-100);border:1px solid var(--sf-blue-500);color:var(--sf-blue-700);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
+.page-hero h1{font-size:clamp(40px,7vw,76px);line-height:.95;margin-bottom:24px}
+.page-hero h1 .accent{background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page-hero-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.6;color:var(--sf-ink-60);max-width:720px;margin:0 auto 36px}
+.page-hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* sections */
+.sec{padding:100px 32px;background:var(--sf-white)}
+.sec-alt{background:var(--sf-cream)}
+.sec-inner{max-width:1280px;margin:0 auto}
+.sec-inner-narrow{max-width:980px;margin:0 auto}
+.sec-header{max-width:720px;margin:0 auto 56px;text-align:center}
+.sec-badge{display:inline-flex;gap:8px;padding:8px 18px;border-radius:100px;background:var(--sf-blue-100);border:1px solid rgba(47,130,196,.3);color:var(--sf-blue-700);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.sec-title{font-size:clamp(32px,4.5vw,52px);line-height:1.05;margin-bottom:16px}
+.sec-title .accent{background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-sub{font-size:17px;color:var(--sf-ink-60);line-height:1.65}
+
+/* expect grid */
+.expect-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.expect-card{padding:28px 24px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-lg);transition:all .4s var(--ease-out);box-shadow:var(--shadow-sm)}
+.expect-card:hover{transform:translateY(-6px);border-color:var(--sf-blue-500);box-shadow:var(--shadow-md)}
+.expect-num{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;color:var(--sf-blue-500);line-height:1;margin-bottom:12px}
+.expect-card h3{font-size:18px;margin:0 0 8px;color:var(--sf-ink)}
+.expect-card p{margin:0;font-size:14px;color:var(--sf-ink-60);line-height:1.55}
+
+/* schedule */
+.schedule-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.schedule-card{padding:28px 24px;background:var(--sf-white);border:2px solid var(--sf-border);border-radius:var(--radius-lg);transition:all .4s var(--ease-out);display:flex;flex-direction:column;gap:14px;color:var(--sf-ink);position:relative;overflow:hidden;box-shadow:var(--shadow-sm)}
+.schedule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-blue)}
+.schedule-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:var(--sf-blue-500)}
+.schedule-card-logo{height:60px;display:flex;align-items:center;justify-content:center}
+.schedule-card-logo img{max-height:100%;max-width:100%;object-fit:contain}
+.schedule-card h3{font-size:16px;margin:0;color:var(--sf-ink);text-align:center;font-family:'Oswald',sans-serif;line-height:1.2}
+.schedule-card-meta{font-size:13px;color:var(--sf-ink-60);text-align:center;line-height:1.5;font-family:'Space Grotesk',sans-serif;font-weight:500}
+.schedule-card-meta b{color:var(--sf-ink);display:block;margin-bottom:2px;font-weight:700}
+.schedule-card .btn{margin-top:auto;min-height:40px;padding:10px 16px;font-size:13px}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:12px}
+.faq details{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);overflow:hidden;transition:border-color .3s,box-shadow .3s;box-shadow:var(--shadow-sm)}
+.faq details[open]{border-color:var(--sf-blue-500);box-shadow:var(--shadow-md)}
+.faq summary{padding:22px 26px;font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;letter-spacing:.02em;color:var(--sf-ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-size:26px;font-weight:300;color:var(--sf-blue-500);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq-body{padding:0 26px 22px;color:var(--sf-ink-60);line-height:1.7}
+.faq-body p{margin:0 0 .8em}.faq-body p:last-child{margin:0}
+
+/* CTA */
+.cta-banner{padding:100px 32px;background:var(--grad-blue-deep);color:#fff;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(47,130,196,.35),transparent 60%);pointer-events:none;animation:pulse-glow 6s ease-in-out infinite alternate}
+@keyframes pulse-glow{0%{opacity:.6}100%{opacity:1}}
+.cta-banner-inner{position:relative;max-width:820px;margin:0 auto}
+.cta-banner h2{font-size:clamp(32px,5vw,56px);margin-bottom:20px;line-height:1;color:#fff}
+.cta-banner h2 .accent{background:linear-gradient(135deg,#fff,#4aa3e0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta-banner p{font-size:18px;color:rgba(255,255,255,.82);margin-bottom:32px}
+.cta-banner .btn{background:var(--sf-white);color:var(--sf-blue-700)}
+.cta-banner .btn:hover{background:var(--sf-blue-50);color:var(--sf-blue-900)}
+
+/* footer */
+.sf-footer{padding:80px 32px 32px;background:var(--sf-cream);border-top:1px solid var(--sf-border)}
+.sf-footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px}
+.sf-footer-brand img{height:72px;margin-bottom:16px}
+.sf-footer-brand p{color:var(--sf-ink-60);font-size:14px;max-width:320px;line-height:1.65}
+.sf-footer-col h4{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-blue-700);margin:0 0 16px}
+.sf-footer-col ul{list-style:none;padding:0;margin:0}
+.sf-footer-col li{margin-bottom:10px}
+.sf-footer-col a{color:var(--sf-ink-60);font-size:14px;transition:color .2s}
+.sf-footer-col a:hover{color:var(--sf-blue-500)}
+.sf-footer-bottom{max-width:1280px;margin:0 auto;padding-top:24px;border-top:1px solid var(--sf-border);display:flex;justify-content:space-between;color:var(--sf-ink-50);font-size:13px}
+
+@media (max-width:1100px){.expect-grid{grid-template-columns:repeat(2,1fr)}.schedule-grid{grid-template-columns:repeat(3,1fr)}.sf-footer-inner{grid-template-columns:1fr 1fr}}
+@media (max-width:720px){.sf-nav,.sf-nav.scrolled{padding:12px 20px}.sf-nav-links,.sf-nav-cta{display:none}.sf-nav-toggle{display:flex}.page-hero{padding:120px 20px 60px;min-height:auto}.sec{padding:70px 20px}.expect-grid{grid-template-columns:1fr}.schedule-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}.sec-title,.cta-banner h2{font-size:clamp(28px,8vw,40px)}.sf-footer{padding:60px 20px 24px}.sf-footer-inner{grid-template-columns:1fr;gap:32px;padding-bottom:32px}.sf-footer-bottom{flex-direction:column;gap:12px;text-align:center}.cta-banner{padding:70px 20px}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}.page-hero-slash{animation:none !important}}
+</style>
+</head>
+<body>
+
+<nav class="sf-nav" id="sfNav">
+  <div class="sf-nav-inner">
+    <a href="home.html" class="sf-nav-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" /></a>
+    <ul class="sf-nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="after-school.html" style="color:var(--sf-blue-500)">After School</a></li>
+      <li><a href="camps.html">Camps</a></li>
+      <li><a href="spirit-dance.html">Spirit Dance</a></li>
+      <li><a href="home.html#campuses">Campuses</a></li>
+      <li><a class="sf-nav-cta" href="home.html#contact">Schedule a Trial</a></li>
+    </ul>
+    <button class="sf-nav-toggle" id="sfNavToggle" aria-label="Open menu"><span></span></button>
+  </div>
+</nav>
+<div class="sf-mobile-menu" id="sfMobileMenu">
+  <ul>
+    <li><a href="home.html">Home</a></li>
+    <li><a href="home.html#contact">Schedule a Trial</a></li>
+    <li><a href="after-school.html">After School</a></li>
+    <li><a href="camps.html">Summer Camps</a></li>
+    <li><a href="spirit-dance.html">Spirit Dance</a></li>
+    <li><a href="home.html#campuses">Campuses</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-slashes"><div class="page-hero-slash"></div><div class="page-hero-slash"></div></div>
+  <div class="page-hero-inner">
+    <span class="page-hero-badge anim">⚔ After School Program</span>
+    <h1 class="anim d1">Martial Arts Right at <span class="accent">Your Child's School.</span></h1>
+    <p class="page-hero-sub anim d2">Pickup, class, and character-building — done before you even finish the work commute. Three days a week at five West Palm Beach campuses.</p>
+    <div class="page-hero-ctas anim d3">
+      <a class="btn btn-primary btn-lg" href="home.html#contact">Claim a Free Trial</a>
+      <a class="btn btn-secondary btn-lg" href="#schedule">See Campus Schedules</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT TO EXPECT -->
+<section class="sec sec-alt">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <span class="sec-badge anim">What to Expect</span>
+      <h2 class="sec-title anim d1">Your Child's <span class="accent">Week, Mapped.</span></h2>
+      <p class="sec-sub anim d2">Structured sessions that build skills, discipline, and real confidence — week after week.</p>
+    </div>
+    <div class="expect-grid">
+      <div class="expect-card anim d1"><div class="expect-num">01</div><h3>Campus Pickup</h3><p>Our instructors pick up your child directly from class. No extra driving, no scramble.</p></div>
+      <div class="expect-card anim d2"><div class="expect-num">02</div><h3>Warm-Up &amp; Drills</h3><p>Structured movement, bodyweight conditioning, and martial fundamentals — age-appropriate.</p></div>
+      <div class="expect-card anim d3"><div class="expect-num">03</div><h3>Character Lesson</h3><p>Every class anchors a core value: respect, focus, effort, discipline, courage.</p></div>
+      <div class="expect-card anim d4"><div class="expect-num">04</div><h3>Skill Practice</h3><p>Technique work with a clear progression. Every kid sees how far they've come at belt tests.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="sec" id="schedule">
+  <div class="sec-inner">
+    <div class="sec-header">
+      <span class="sec-badge anim">Campus Schedules</span>
+      <h2 class="sec-title anim d1">Find <span class="accent">Your School.</span></h2>
+      <p class="sec-sub anim d2">Typical days and times shown below — exact schedule for the current session is confirmed when you sign up. Click any card to reserve a trial at that location.</p>
+    </div>
+    <div class="schedule-grid">
+      <!-- TODO(tom): confirm exact days + times per campus -->
+      <div class="schedule-card anim d1">
+        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/534712b6-9937-4f67-944e-4a3c4d347dd2.png" alt="Seacrest Presbyterian" /></div>
+        <h3>Seacrest Presbyterian</h3>
+        <div class="schedule-card-meta"><b>Mon / Wed / Fri</b>3:00 – 4:30 PM</div>
+        <a class="btn btn-primary" href="home.html?campus=seacrest#contact">Reserve</a>
+      </div>
+      <div class="schedule-card anim d2">
+        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8b3e2704-8c10-429a-b423-71671d75ee91.png" alt="St. Jude Catholic" /></div>
+        <h3>St. Jude Catholic</h3>
+        <div class="schedule-card-meta"><b>Tue / Thu</b>3:15 – 4:45 PM</div>
+        <a class="btn btn-primary" href="home.html?campus=st-jude#contact">Reserve</a>
+      </div>
+      <div class="schedule-card anim d3">
+        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/41db1364-3171-4e83-ae08-a993c1bb7cc7.png" alt="St. Ann Catholic" /></div>
+        <h3>St. Ann Catholic</h3>
+        <div class="schedule-card-meta"><b>Mon / Wed</b>3:00 – 4:30 PM</div>
+        <a class="btn btn-primary" href="home.html?campus=st-ann#contact">Reserve</a>
+      </div>
+      <div class="schedule-card anim d4">
+        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/179be408-7c83-4462-8226-63d420f73df1.png" alt="Discovery Dayschool" /></div>
+        <h3>Discovery Dayschool</h3>
+        <div class="schedule-card-meta"><b>Tue / Thu</b>2:45 – 4:15 PM</div>
+        <a class="btn btn-primary" href="home.html?campus=discovery#contact">Reserve</a>
+      </div>
+      <div class="schedule-card anim d5">
+        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2b9b6a7c-2bf8-4c82-b428-89f56ae30c21.png" alt="Holy Cross" /></div>
+        <h3>Holy Cross</h3>
+        <div class="schedule-card-meta"><b>Mon / Fri</b>3:00 – 4:30 PM</div>
+        <a class="btn btn-primary" href="home.html?campus=holy-cross#contact">Reserve</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec sec-alt">
+  <div class="sec-inner-narrow">
+    <div class="sec-header"><span class="sec-badge anim">FAQ</span><h2 class="sec-title anim d1">Parent <span class="accent">Questions.</span></h2></div>
+    <div class="faq">
+      <details class="anim d1"><summary>What ages do you accept?</summary><div class="faq-body"><p>Systema Floyd welcomes students from age 2.5 through adults. Our after-school program at partner campuses focuses on kids roughly ages 5–14, with age-appropriate groupings. For toddler classes (ages 2.5–5) and teen/adult classes, we run sessions at our West Palm Beach studio — just ask on the form.</p></div></details>
+      <details class="anim d1"><summary>Do you pick up from the classroom?</summary><div class="faq-body"><p>Yes — our instructors coordinate directly with campus staff. Your child is escorted from their classroom or the designated pickup area to our class space.</p></div></details>
+      <details class="anim d1"><summary>How much does it cost?</summary><div class="faq-body"><p>Pricing varies slightly by campus and session length. The easiest way to get exact numbers is to request a trial — we'll send pricing for your specific campus along with the trial confirmation.</p></div></details>
+      <details class="anim d1"><summary>What does my child need to bring?</summary><div class="faq-body"><p>For the first class, just comfortable athletic clothes and a water bottle. Once enrolled, you'll receive a uniform (gi) and a belt. We provide everything else.</p></div></details>
+      <details class="anim d1"><summary>Can my child try a class first?</summary><div class="faq-body"><p>Absolutely. The first class is always free — no pressure, no commitment. <a href="home.html#contact" style="color:var(--sf-blue-500);font-weight:600">Book a trial here.</a></p></div></details>
+      <details class="anim d1"><summary>Do you run during summer and school breaks?</summary><div class="faq-body"><p>Our After School program runs with the academic calendar. During summer and extended breaks, we offer our <a href="camps.html" style="color:var(--sf-blue-500);font-weight:600">full-day camps</a>.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="cta-banner-inner">
+    <h2 class="anim">Ready to get your child <span class="accent">started?</span></h2>
+    <p class="anim d1">Pick your campus. Pick a day. We'll handle the rest.</p>
+    <a class="btn btn-lg anim d2" href="home.html#contact">Claim Your Free Trial</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="sf-footer">
+  <div class="sf-footer-inner">
+    <div class="sf-footer-brand">
+      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
+      <p>Raising disciplined, confident kids through martial arts, camps, and Spirit Dance at five West Palm Beach campuses.</p>
+    </div>
+    <div class="sf-footer-col"><h4>Programs</h4><ul><li><a href="after-school.html">After School</a></li><li><a href="camps.html">Summer Camps</a></li><li><a href="spirit-dance.html">Spirit Dance</a></li></ul></div>
+    <div class="sf-footer-col"><h4>Campuses</h4><ul><li><a href="home.html#campuses">Seacrest</a></li><li><a href="home.html#campuses">St. Jude</a></li><li><a href="home.html#campuses">St. Ann</a></li><li><a href="home.html#campuses">Discovery</a></li><li><a href="home.html#campuses">Holy Cross</a></li></ul></div>
+    <div class="sf-footer-col"><h4>Contact</h4><ul><li><a href="tel:+15617858480">(561) 785-8480</a></li><li><a href="https://maps.google.com/?q=435+6th+St+West+Palm+Beach+FL+33401" target="_blank" rel="noopener">435 6th St<br/>West Palm Beach, FL 33401</a></li><li><a href="home.html#contact">Schedule a Trial</a></li></ul></div>
+  </div>
+  <div class="sf-footer-bottom"><div>© <span id="yr">2026</span> Systema Floyd Martial Arts.</div><div>Raise a warrior.</div></div>
+</footer>
+
+<script>
+(function(){
+  document.body.classList.add('js-ready');
+  const nav=document.getElementById('sfNav'),toggle=document.getElementById('sfNavToggle'),mm=document.getElementById('sfMobileMenu');
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>40);
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  toggle.addEventListener('click',()=>{const o=mm.classList.toggle('open');document.body.style.overflow=o?'hidden':''});
+  mm.addEventListener('click',e=>{if(e.target.matches('a')){mm.classList.remove('open');document.body.style.overflow=''}});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.anim').forEach(el=>io.observe(el));
+  document.getElementById('yr').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

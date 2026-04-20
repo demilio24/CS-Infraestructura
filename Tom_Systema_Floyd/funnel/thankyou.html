@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ffffff" />
+<title>You're In — Next Step | Systema Floyd Martial Arts</title>
+<meta name="description" content="Your spot is reserved. One more quick step to complete your campus registration." />
+<meta name="robots" content="noindex" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" />
+
+<style>
+:root{--sf-white:#fff;--sf-cream:#f7f9fc;--sf-border:#e2e8f2;--sf-border-strong:#c6d1e4;--sf-ink:#0d1534;--sf-ink-60:#475067;--sf-ink-50:#6b7490;--sf-ink-40:#8b95ad;--sf-blue-900:#0a1028;--sf-blue-700:#1b2f6e;--sf-blue-500:#2f82c4;--sf-blue-400:#4aa3e0;--sf-blue-100:#e8f1fb;--sf-blue-50:#f4f8fd;--radius-sm:8px;--radius-md:16px;--radius-lg:24px;--grad-blue:linear-gradient(135deg,#2f82c4,#1b2f6e);--ease-out:cubic-bezier(0.16,1,0.3,1);--shadow-lg:0 24px 60px -20px rgba(27,47,110,.24);--shadow-xl:0 40px 100px -30px rgba(27,47,110,.3)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:16px;line-height:1.6;color:var(--sf-ink);background:var(--sf-white);-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:'Oswald','Inter',sans-serif;font-weight:700;line-height:1.05;margin:0 0 .5em;text-transform:uppercase;letter-spacing:.01em;color:var(--sf-ink)}
+p{margin:0 0 1em;color:var(--sf-ink-60)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:14px 28px;border-radius:var(--radius-sm);font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.04em;transition:all .3s var(--ease-out);min-height:48px;cursor:pointer;border:0;font-family:inherit}
+.btn-primary{background:var(--grad-blue);color:#fff;box-shadow:0 10px 26px -10px rgba(47,130,196,.55)}
+.btn-primary:hover{transform:translateY(-2px);background:var(--sf-blue-900);box-shadow:0 18px 40px -12px rgba(27,47,110,.7)}
+.btn-secondary{background:var(--sf-white);color:var(--sf-blue-700);border:1.5px solid var(--sf-border-strong)}
+.btn-secondary:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-500)}
+
+/* page */
+.page{position:relative;flex:1;padding:100px 32px 80px;overflow:hidden;isolation:isolate;background:linear-gradient(180deg,var(--sf-blue-50) 0%,var(--sf-white) 50%,var(--sf-white) 100%)}
+.page::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 70% 60% at 30% 20%,rgba(47,130,196,.14),transparent 60%),radial-gradient(ellipse 60% 50% at 80% 80%,rgba(27,47,110,.08),transparent 60%)}
+.page::after{content:'';position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(27,47,110,.08) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);opacity:.5}
+.page-slashes{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.page-slash{position:absolute;height:2px;width:140vw;left:-20vw;background:linear-gradient(90deg,transparent,rgba(47,130,196,.45),transparent);transform:rotate(-28deg);animation:slash-sweep 14s linear infinite}
+.page-slash:nth-child(1){top:25%}
+.page-slash:nth-child(2){top:70%;animation-delay:7s;background:linear-gradient(90deg,transparent,rgba(27,47,110,.4),transparent)}
+@keyframes slash-sweep{0%{opacity:0;transform:rotate(-28deg) translateX(-30vw)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:rotate(-28deg) translateX(30vw)}}
+
+.page-inner{position:relative;z-index:10;max-width:840px;margin:0 auto}
+
+/* hero */
+.done-hero{text-align:center;margin-bottom:56px}
+.done-logo{display:flex;justify-content:center;margin-bottom:32px}
+.done-logo img{height:64px;width:auto}
+.done-check{width:96px;height:96px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#15803d);display:grid;place-items:center;color:#fff;box-shadow:0 20px 60px -20px rgba(34,197,94,.5),0 0 0 8px rgba(34,197,94,.12);animation:success-pop .6s var(--ease-out),check-pulse 2.5s ease-in-out infinite}
+.done-check svg{width:52px;height:52px;stroke-width:3}
+@keyframes success-pop{0%{transform:scale(0.4);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes check-pulse{0%,100%{box-shadow:0 20px 60px -20px rgba(34,197,94,.5),0 0 0 8px rgba(34,197,94,.12)}50%{box-shadow:0 20px 60px -20px rgba(34,197,94,.7),0 0 0 14px rgba(34,197,94,.18)}}
+.done-hero h1{font-size:clamp(36px,6vw,60px);line-height:.95;margin-bottom:16px}
+.done-hero h1 .accent{background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;color:transparent}
+.done-hero p{font-size:clamp(17px,1.5vw,20px);color:var(--sf-ink-60);max-width:620px;margin:0 auto}
+
+/* campus lockup */
+.campus-lockup{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-lg);padding:32px 32px 36px;margin-bottom:36px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.campus-lockup::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-blue)}
+.campus-lockup-head{display:flex;align-items:center;gap:24px;padding-bottom:24px;border-bottom:1px solid var(--sf-border);margin-bottom:24px}
+.campus-lockup-logo{flex-shrink:0;width:88px;height:88px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);display:grid;place-items:center;padding:12px}
+.campus-lockup-logo img{width:100%;height:100%;object-fit:contain}
+.campus-lockup-info{flex:1;min-width:0}
+.campus-lockup-kicker{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-blue-500);margin-bottom:4px}
+.campus-lockup-info h2{font-size:clamp(22px,3vw,30px);margin:0 0 4px;line-height:1.1;color:var(--sf-ink)}
+.campus-lockup-info p{margin:0;color:var(--sf-ink-60);font-size:14px}
+
+.next-steps h3{font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:.08em;color:var(--sf-blue-700);margin:0 0 14px;text-transform:uppercase}
+.next-steps ol{list-style:none;padding:0;margin:0;counter-reset:step;display:flex;flex-direction:column;gap:14px}
+.next-steps li{counter-increment:step;display:flex;gap:16px;align-items:flex-start;color:var(--sf-ink);font-size:15px;line-height:1.55}
+.next-steps li::before{content:counter(step);flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--grad-blue);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:#fff;box-shadow:0 6px 18px -6px rgba(47,130,196,.6)}
+
+/* GHL embed */
+.ghl-embed{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-xl);margin-bottom:40px;position:relative;overflow:hidden}
+.ghl-embed::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad-blue)}
+.ghl-embed-head{text-align:center;margin-bottom:20px}
+.ghl-embed-head h3{font-size:22px;margin:8px 0 6px;color:var(--sf-ink)}
+.ghl-embed-head p{margin:0;font-size:14px;color:var(--sf-ink-60)}
+.ghl-embed iframe{width:100%;min-height:620px;border:0;border-radius:var(--radius-md);display:block}
+.ghl-placeholder{padding:40px 24px;border:2px dashed rgba(47,130,196,.4);border-radius:var(--radius-md);text-align:center;color:var(--sf-ink-60);font-size:14px;line-height:1.6;background:var(--sf-blue-50)}
+.ghl-placeholder b{color:var(--sf-ink);display:block;margin-bottom:6px;font-family:'Oswald',sans-serif;font-size:16px;text-transform:uppercase;letter-spacing:.05em}
+.ghl-placeholder code{background:var(--sf-white);color:var(--sf-blue-700);padding:2px 6px;border-radius:4px;font-size:12px;border:1px solid var(--sf-border)}
+
+.done-back{text-align:center}
+.done-back a{color:var(--sf-ink-60);font-size:14px;font-weight:600;transition:color .2s}
+.done-back a:hover{color:var(--sf-blue-500)}
+
+.sf-footer{padding:32px;background:var(--sf-cream);border-top:1px solid var(--sf-border);text-align:center;color:var(--sf-ink-50);font-size:13px}
+
+@media (max-width:640px){
+  .page{padding:60px 20px 50px}
+  .campus-lockup{padding:24px 22px 26px}
+  .campus-lockup-head{flex-direction:column;text-align:center;gap:16px}
+  .campus-lockup-logo{width:72px;height:72px}
+  .ghl-embed{padding:20px}
+  .ghl-embed iframe{min-height:560px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}.done-check,.page-slash{animation:none !important}}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <div class="page-slashes"><div class="page-slash"></div><div class="page-slash"></div></div>
+  <div class="page-inner">
+
+    <div class="done-hero">
+      <a class="done-logo" href="home.html" aria-label="Systema Floyd home">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
+      </a>
+      <div class="done-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h1>You're <span class="accent">in, warrior.</span></h1>
+      <p id="welcomeMsg">Your spot's reserved. Complete one more quick form and we'll confirm your trial class at your campus.</p>
+    </div>
+
+    <div class="campus-lockup" id="campusLockup">
+      <div class="campus-lockup-head">
+        <div class="campus-lockup-logo"><img id="campusLogo" src="" alt="" /></div>
+        <div class="campus-lockup-info">
+          <div class="campus-lockup-kicker">Your Campus</div>
+          <h2 id="campusName">Your selected campus</h2>
+          <p id="campusMeta">We'll route your trial request here.</p>
+        </div>
+      </div>
+      <div class="next-steps">
+        <h3>What Happens Next</h3>
+        <ol>
+          <li>Fill out the full campus registration form below</li>
+          <li>We'll review your info and confirm your trial class time within 24 hours</li>
+          <li>Your child shows up ready to train — we handle the rest</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="ghl-embed">
+      <div class="ghl-embed-head">
+        <h3 id="formTitle">Complete Your Campus Registration</h3>
+        <p>This form goes directly to your campus coordinator.</p>
+      </div>
+      <div id="ghlFormSlot">
+        <div class="ghl-placeholder">
+          <b>Campus form will appear here</b>
+          Tom — paste your 5 GHL form IDs into the <code>CAMPUS_FORMS</code> object in this page's <code>&lt;script&gt;</code> block and this placeholder swaps out automatically.
+        </div>
+      </div>
+    </div>
+
+    <div class="done-back"><a href="home.html">← Back to Home</a></div>
+
+  </div>
+</main>
+
+<footer class="sf-footer">
+  © <span id="yr">2026</span> Systema Floyd Martial Arts. Raise a warrior.
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // TODO(tom): replace placeholders with real GHL form IDs.
+  // Lookup order: PROGRAM_FORMS[program + '-' + campus] first, then PROGRAM_FORMS[program], then fall back to campus-only.
+  const PROGRAM_FORMS = {
+    // Program-level forms (used for camps / spirit dance which aren't campus-specific)
+    'camps':              'REPLACE_WITH_CAMPS_FORM_ID',
+    'spirit-dance':       'REPLACE_WITH_SPIRIT_DANCE_FORM_ID',
+
+    // After-school forms per campus (program + '-' + campus)
+    'after-school-seacrest':   'REPLACE_WITH_SEACREST_AS_FORM_ID',
+    'after-school-st-jude':    'REPLACE_WITH_ST_JUDE_AS_FORM_ID',
+    'after-school-st-ann':     'REPLACE_WITH_ST_ANN_AS_FORM_ID',
+    'after-school-discovery':  'REPLACE_WITH_DISCOVERY_AS_FORM_ID',
+    'after-school-holy-cross': 'REPLACE_WITH_HOLY_CROSS_AS_FORM_ID',
+    'after-school-unsure':     'REPLACE_WITH_GENERAL_INQUIRY_FORM_ID',
+  };
+
+  const CAMPUSES = {
+    'seacrest':   { name:'Seacrest Presbyterian', logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/534712b6-9937-4f67-944e-4a3c4d347dd2.png', meta:'After-school program meets Mon / Wed / Fri — 3:00–4:30 PM.' },
+    'st-jude':    { name:'St. Jude Catholic',     logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8b3e2704-8c10-429a-b423-71671d75ee91.png', meta:'After-school program meets Tue / Thu — 3:15–4:45 PM.' },
+    'st-ann':     { name:'St. Ann Catholic',      logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/41db1364-3171-4e83-ae08-a993c1bb7cc7.png', meta:'After-school program meets Mon / Wed — 3:00–4:30 PM.' },
+    'discovery':  { name:'Discovery Dayschool',   logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/179be408-7c83-4462-8226-63d420f73df1.png', meta:'After-school program meets Tue / Thu — 2:45–4:15 PM.' },
+    'holy-cross': { name:'Holy Cross',             logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2b9b6a7c-2bf8-4c82-b428-89f56ae30c21.png', meta:'After-school program meets Mon / Fri — 3:00–4:30 PM.' },
+    'unsure':     { name:"We'll help you pick",    logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png', meta:'A coordinator will match you to the best campus for your family.' },
+  };
+
+  const params = new URLSearchParams(location.search);
+  const campusKey = (params.get('campus') || 'unsure').toLowerCase();
+  const programKey = (params.get('program') || 'after-school').toLowerCase();
+  const campus = CAMPUSES[campusKey] || CAMPUSES.unsure;
+
+  const PROGRAM_LABELS = {
+    'after-school': 'After School',
+    'camps':        'Summer Camps',
+    'spirit-dance': 'Spirit Dance',
+  };
+  const programLabel = PROGRAM_LABELS[programKey] || 'Program';
+
+  document.getElementById('campusLogo').src = campus.logo;
+  document.getElementById('campusLogo').alt = campus.name + ' logo';
+  document.getElementById('campusName').textContent = campus.name;
+
+  // Tailor copy by program
+  if (programKey === 'camps') {
+    document.getElementById('campusMeta').textContent = `Your Summer Camps inquiry — we'll email session options, pricing, and next steps within 24 hours.`;
+    document.getElementById('welcomeMsg').innerHTML = `Your <b style="color:var(--sf-blue-700)">Summer Camps</b> spot is being saved. One more quick form and we'll confirm.`;
+    document.getElementById('formTitle').textContent = `Complete Your Camps Registration`;
+  } else if (programKey === 'spirit-dance') {
+    document.getElementById('campusMeta').textContent = `Your Spirit Dance inquiry — we'll email schedule, pricing, and your trial class within 24 hours.`;
+    document.getElementById('welcomeMsg').innerHTML = `Your <b style="color:var(--sf-blue-700)">Spirit Dance</b> trial is being saved. One more quick form and we'll confirm.`;
+    document.getElementById('formTitle').textContent = `Complete Your Spirit Dance Registration`;
+  } else if (campusKey !== 'unsure') {
+    document.getElementById('welcomeMsg').innerHTML = `Your spot's reserved for <b style="color:var(--sf-blue-700)">${programLabel}</b> at <b style="color:var(--sf-blue-700)">${campus.name}</b>. One more quick form and we're done.`;
+    document.getElementById('formTitle').textContent = `Complete Your ${campus.name} Registration`;
+  } else {
+    document.getElementById('welcomeMsg').innerHTML = `Your <b style="color:var(--sf-blue-700)">${programLabel}</b> trial is being saved. We'll help you pick the right campus on the next step.`;
+    document.getElementById('formTitle').textContent = `Complete Your Registration`;
+  }
+
+  const slot = document.getElementById('ghlFormSlot');
+  // Lookup order: program-campus → program-only
+  const formId = PROGRAM_FORMS[programKey + '-' + campusKey] || PROGRAM_FORMS[programKey];
+  const looksReal = formId && !formId.startsWith('REPLACE_WITH_');
+  if (looksReal) {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://api.leadconnectorhq.com/widget/form/${formId}`;
+    iframe.id = `inline-${formId}`;
+    iframe.title = `${campus.name} registration form`;
+    iframe.setAttribute('data-form-id', formId);
+    slot.innerHTML = '';
+    slot.appendChild(iframe);
+    // Kill GHL scroll attribute (feedback_ghl_iframe_scrollbars memory)
+    const mo = new MutationObserver((muts) => {
+      muts.forEach((m) => { if (m.attributeName === 'scrolling') iframe.removeAttribute('scrolling'); });
+    });
+    mo.observe(iframe, { attributes: true, attributeFilter: ['scrolling'] });
+  }
+
+  const yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
