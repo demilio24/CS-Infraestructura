@@ -455,13 +455,7 @@
           <div><div class="card-name">Emilio</div><div class="card-role">Owner & Manager</div></div>
         </div>
       </div>
-      <div class="card" data-accent="purple" data-person="jessica" onclick="show('jessica')">
-        <div class="card-row">
-          <img class="avatar" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69e1433650b9a3263a5f811d.jpg" alt="Jessica" />
-          <div><div class="card-name">Jessica</div><div class="card-role">Admin</div></div>
-        </div>
-      </div>
-      <div class="card" data-accent="green" data-person="amina" onclick="show('amina')">
+<div class="card" data-accent="green" data-person="amina" onclick="show('amina')">
         <div class="card-row">
           <img class="avatar" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69dfaa3b06cfeed5501559ce.jpg" alt="Amina" />
           <div><div class="card-name">Amina Shah</div><div class="card-role">GoHighLevel Engineer</div></div>
@@ -508,7 +502,7 @@
       </div>
       <div class="note-step">
         <div class="note-num">2</div>
-        <p><strong>Not sure?</strong> Start with Jessica.</p>
+        <p><strong>Not sure?</strong> Start with Emilio.</p>
       </div>
       <div class="note-step">
         <div class="note-num">3</div>
@@ -537,46 +531,12 @@ var DATA = {
     loopIn: ["Everyone (as needed)"],
     examples: [
       {
-        flow: [["Jessica", false], ["Emilio", true]],
-        desc: "Jessica escalates when a client issue needs a final call, a new account approval, or something outside her scope."
-      },
-      {
         flow: [["Anyone", false], ["Emilio", true]],
         desc: "For urgent or time-sensitive issues, anyone can message Emilio directly. Quick Slack or text is fine — don't wait."
       },
       {
-        flow: [["Emilio", true], ["Jessica", false]],
-        desc: "After an onboarding call, Emilio hands off to Jessica with notes. She assigns setup tasks to Amina, Jude, and Umair."
-      }
-    ]
-  },
-  jessica: {
-    name: "Jessica",
-    role: "Admin",
-    accent: "purple",
-    avatarType: "img",
-    avatarSrc: "https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69e1433650b9a3263a5f811d.jpg",
-    responsibilities: [
-      "Client-facing email support & tickets",
-      "Reviews call transcripts, assigns tasks to the team",
-      "Follows up with clients after meetings",
-      "Follows up with team members if late or have questions",
-      "Adds team members to GoHighLevel accounts",
-      "First point of contact for all handoffs"
-    ],
-    loopIn: ["Emilio", "Everyone"],
-    examples: [
-      {
-        flow: [["Client", false], ["Jessica", true], ["Amina", false]],
-        desc: "Client emails asking for a GHL revision. Jessica adds it to Amina's board and notifies her."
-      },
-      {
-        flow: [["Client", false], ["Jessica", true], ["Brian", false]],
-        desc: "Client reports a review filtering bug. Jessica creates a task for Brian with the details."
-      },
-      {
-        flow: [["Jessica", true], ["AK", false]],
-        desc: "Savvy Link client needs support. Jessica goes directly to AK — he's the go-to for that account."
+        flow: [["Emilio", true], ["Amina", false]],
+        desc: "After an onboarding call, Emilio assigns setup tasks directly to Amina, Jude, and Umair."
       }
     ]
   },
@@ -591,19 +551,19 @@ var DATA = {
       "Backend automations, forms, surveys, dashboards, pipelines",
       "Builds and maintains client GHL infrastructure"
     ],
-    loopIn: ["Jessica", "AK", "Emilio"],
+    loopIn: ["AK", "Emilio"],
     examples: [
       {
         flow: [["Umair", false], ["Amina", true]],
         desc: "Tracking isn't working on a GHL form. Umair contacts Amina directly — this is a GHL-side fix."
       },
       {
-        flow: [["Jessica", false], ["Amina", true]],
-        desc: "Client wants a change to their dashboard or pipeline. Jessica adds it to Amina's board."
+        flow: [["Emilio", false], ["Amina", true]],
+        desc: "Client wants a change to their dashboard or pipeline. Emilio adds it to Amina's board."
       },
       {
-        flow: [["Amina", true], ["Jessica", false]],
-        desc: "Amina needs access to a sub-account. Jessica handles the provisioning or escalates to Emilio for new accounts."
+        flow: [["Amina", true], ["Emilio", false]],
+        desc: "Amina needs access to a sub-account. Emilio handles the provisioning or approves new accounts."
       },
       {
         flow: [["Amina", true], ["AK", false]],
@@ -622,15 +582,15 @@ var DATA = {
       "Monitors and optimizes ad performance",
       "Keyword research, bid strategy, conversion tracking"
     ],
-    loopIn: ["Jessica", "Emilio"],
+    loopIn: ["Emilio"],
     examples: [
       {
         flow: [["Umair", true], ["Amina", false]],
         desc: "Form tracking is broken on a landing page. Umair contacts Amina directly to fix the GHL-side tracking."
       },
       {
-        flow: [["Umair", true], ["Jessica", false]],
-        desc: "Campaign is live and performing well. Umair updates Jessica so she can relay results to the client."
+        flow: [["Umair", true], ["Emilio", false]],
+        desc: "Campaign is live and performing well. Umair updates Emilio so he can relay results to the client."
       },
       {
         flow: [["Umair", true], ["Emilio", false]],
@@ -649,19 +609,19 @@ var DATA = {
       "All modifications, customizations, and bug fixes",
       "Technical implementation and code-level changes"
     ],
-    loopIn: ["Jessica", "AK", "Emilio"],
+    loopIn: ["AK", "Emilio"],
     examples: [
       {
-        flow: [["Jessica", false], ["Brian", true]],
-        desc: "Client reports reviews aren't filtering correctly. Jessica creates a task and Brian investigates."
+        flow: [["Emilio", false], ["Brian", true]],
+        desc: "Client reports reviews aren't filtering correctly. Emilio creates a task and Brian investigates."
       },
       {
         flow: [["Brian", true], ["AK", false]],
         desc: "A fix requires changes to an API integration or n8n workflow. Brian loops in AK."
       },
       {
-        flow: [["Brian", true], ["Jessica", false]],
-        desc: "Fix is deployed. Brian updates Jessica so she can notify the client."
+        flow: [["Brian", true], ["Emilio", false]],
+        desc: "Fix is deployed. Brian updates Emilio so he can notify the client."
       }
     ]
   },
@@ -675,12 +635,12 @@ var DATA = {
       "n8n workflows requiring APIs or custom code",
       "Technical integrations across platforms",
       "Co-built Savvy Compliance automations for Savvy Link",
-      "Jessica's go-to for Savvy Link support"
+      "Go-to for Savvy Link support"
     ],
-    loopIn: ["Jessica", "Amina", "Brian", "Emilio"],
+    loopIn: ["Amina", "Brian", "Emilio"],
     examples: [
       {
-        flow: [["Jessica", false], ["AK", true]],
+        flow: [["Emilio", false], ["AK", true]],
         desc: "Savvy Link client needs support. AK co-built the Savvy Compliance automations and is the go-to for that entire account."
       },
       {
@@ -704,19 +664,19 @@ var DATA = {
       "GoHighLevel account setup & configuration",
       "GHL-familiar — Amina is the principal GHL specialist"
     ],
-    loopIn: ["Jessica", "Amina", "Emilio"],
+    loopIn: ["Amina", "Emilio"],
     examples: [
       {
-        flow: [["Jessica", false], ["Jude", true]],
-        desc: "New client needs A2P verification after onboarding. Jessica assigns it to Jude."
+        flow: [["Emilio", false], ["Jude", true]],
+        desc: "New client needs A2P verification after onboarding. Emilio assigns it to Jude."
       },
       {
         flow: [["Jude", true], ["Amina", false]],
         desc: "Client's GHL account needs automations or pipelines set up. Jude loops in Amina for the advanced GHL work."
       },
       {
-        flow: [["Jude", true], ["Jessica", false]],
-        desc: "A2P verification is complete. Jude updates Jessica so she can inform the client and move to next steps."
+        flow: [["Jude", true], ["Emilio", false]],
+        desc: "A2P verification is complete. Jude updates Emilio so he can inform the client and move to next steps."
       }
     ]
   }
