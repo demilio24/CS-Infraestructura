@@ -1,0 +1,1193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bath Time Without Tears — The Miss Kris Method™</title>
+  <meta name="description" content="The step-by-step method to help your child go from bath time fear to confidence — in just 7–14 days. Designed by a professional swim instructor." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #2a5a84;
+      --primary-dark: #1e4466;
+      --primary-light: #e9eff4;
+      --secondary: #8ec6d8;
+      --secondary-light: #c8e8f2;
+      --accent: #f4a93a;
+      --bg: #f6f5f1;
+      --white: #ffffff;
+      --text: #2a5a84;
+      --text-dark: #1a3a54;
+      --text-light: #5a7a94;
+      --gradient: linear-gradient(135deg, #2a5a84 0%, #8ec6d8 100%);
+      --radius: 20px;
+      --shadow: 0 8px 16px rgba(42,90,132,0.10), 0 16px 32px rgba(42,90,132,0.07);
+      --shadow-lg: 0 16px 40px rgba(42,90,132,0.16), 0 32px 64px rgba(42,90,132,0.10);
+      --maxw: 1180px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 14px 36px;
+      border-radius: 60px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.07);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      border: 1px solid rgba(255,255,255,0.85);
+      white-space: nowrap;
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-brand span { color: var(--secondary); }
+
+    .nav-cta {
+      background: var(--gradient);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(42,90,132,0.28);
+    }
+
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(42,90,132,0.35); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 130px 24px 80px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .hero-left { padding-top: 12px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary-light);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 30px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow svg { width: 14px; height: 14px; fill: var(--accent); flex-shrink: 0; }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 700;
+      line-height: 1.13;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--secondary);
+    }
+
+    .hero-method-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .hero-sub strong { color: var(--primary); }
+
+    .hero-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-bottom: 36px;
+    }
+
+    .hero-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .hero-bullets li .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .hero-bullets li .check svg { width: 12px; height: 12px; fill: #fff; }
+
+    .hero-credibility {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .hero-credibility .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--secondary); }
+
+    /* ── PRICING CARD ── */
+    .pricing-card {
+      position: sticky;
+      top: 100px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(142,198,216,0.25);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--gradient);
+      padding: 22px 28px 20px;
+    }
+
+    .card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+    }
+
+    .card-body { padding: 24px 28px 28px; }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .price-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .price-currency {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      align-self: flex-start;
+      padding-top: 8px;
+    }
+
+    .price-compare {
+      font-size: 16px;
+      color: var(--text-light);
+      text-decoration: line-through;
+    }
+
+    .price-save {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      background: #e05a2b;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .price-note {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .card-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--primary-light);
+    }
+
+    .card-pill {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .card-pill svg { width: 16px; height: 16px; fill: var(--secondary); flex-shrink: 0; }
+
+    .form-wrap {
+      min-height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .form-wrap iframe {
+      width: 100%;
+      min-height: 320px;
+      border: none;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .card-secure {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .card-secure svg { width: 13px; height: 13px; fill: var(--text-light); }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 80px 24px; }
+
+    .section-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--secondary);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--primary-dark);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 17px;
+      color: var(--text-light);
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 52px;
+      line-height: 1.7;
+    }
+
+    /* ── PAIN SECTION ── */
+    .pain-section { background: var(--white); }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .pain-card {
+      background: var(--primary-light);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      text-align: center;
+      border: 1px solid rgba(142,198,216,0.2);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .pain-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+
+    .pain-icon {
+      font-size: 36px;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .pain-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .pain-card p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    .reframe-box {
+      background: var(--gradient);
+      border-radius: var(--radius);
+      padding: 28px 36px;
+      text-align: center;
+    }
+
+    .reframe-box p {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    /* ── WHAT'S INSIDE ── */
+    .inside-section { background: var(--bg); }
+
+    .inside-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .inside-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 30px 28px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(142,198,216,0.15);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .inside-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .inside-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .inside-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .inside-card p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* ── STEPS ── */
+    .steps-section { background: var(--white); }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 48px;
+      bottom: -2px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--secondary), transparent);
+    }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(42,90,132,0.3);
+      z-index: 1;
+    }
+
+    .step-content {
+      background: var(--primary-light);
+      border-radius: 16px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      flex: 1;
+      border: 1px solid rgba(142,198,216,0.2);
+    }
+
+    .step-content h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 5px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section { background: var(--bg); }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .timeline-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--secondary);
+      transition: transform 0.25s;
+    }
+
+    .timeline-card:hover { transform: translateY(-6px); }
+
+    .timeline-card .day-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .timeline-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    .timeline-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timeline-card ul li {
+      font-size: 14px;
+      color: var(--text-light);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .timeline-card ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-size: 12px;
+    }
+
+    .tip-box {
+      background: #fff8ec;
+      border: 1px solid rgba(244,169,58,0.35);
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      padding: 22px 28px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .tip-icon { font-size: 24px; flex-shrink: 0; }
+
+    .tip-box p { font-size: 15px; color: var(--text-dark); line-height: 1.65; }
+    .tip-box strong { color: var(--primary); }
+
+    /* ── ABOUT ── */
+    .about-section { background: var(--primary-dark); }
+
+    .about-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(142,198,216,0.18);
+      border: 1px solid rgba(142,198,216,0.35);
+      color: var(--secondary-light);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+    }
+
+    .about-section .section-title { color: #fff; }
+    .about-section .section-sub { color: rgba(255,255,255,0.72); }
+
+    .about-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    /* ── FINAL CTA ── */
+    .cta-section { background: var(--bg); }
+
+    .cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(142,198,216,0.2);
+      overflow: hidden;
+    }
+
+    .cta-card-header {
+      background: var(--gradient);
+      padding: 28px 32px;
+    }
+
+    .cta-card-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .cta-card-header p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .cta-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .cta-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .cta-price-compare {
+      font-size: 18px;
+      color: rgba(255,255,255,0.55);
+      text-decoration: line-through;
+    }
+
+    .cta-save-pill {
+      background: #e05a2b;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .cta-form-wrap { padding: 28px 32px; }
+
+    .cta-form-wrap .form-wrap { margin-bottom: 14px; }
+
+    .cta-reassure {
+      font-size: 13px;
+      color: var(--text-light);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--primary-dark);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer p { font-size: 13px; color: rgba(255,255,255,0.5); }
+    .footer a { color: var(--secondary); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    .anim {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .anim.visible { opacity: 1; transform: translateY(0); }
+
+    .anim-delay-1 { transition-delay: 0.1s; }
+    .anim-delay-2 { transition-delay: 0.2s; }
+    .anim-delay-3 { transition-delay: 0.3s; }
+    .anim-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 110px;
+        gap: 40px;
+      }
+
+      .pricing-card { position: static; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .inside-grid { grid-template-columns: 1fr; }
+      .timeline-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .nav { padding: 12px 20px; gap: 16px; }
+      .nav-brand { font-size: 14px; }
+      .nav-cta { font-size: 12px; padding: 9px 16px; }
+
+      .hero { padding-top: 100px; }
+      .hero h1 { font-size: 34px; }
+      .hero-sub { font-size: 16px; }
+
+      .about-stats { gap: 28px; }
+
+      .cta-card-header h2 { font-size: 22px; }
+      .cta-price { font-size: 36px; }
+      .cta-form-wrap { padding: 20px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-brand">Miss Kris <span>Method™</span></a>
+  <a href="#get-guide" class="nav-cta">Get Instant Access — $9</a>
+</nav>
+
+<!-- HERO -->
+<div style="background: var(--bg);">
+  <div class="hero">
+
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="eyebrow anim">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Designed by a Professional Swim Instructor
+      </div>
+
+      <p class="hero-method-tag anim anim-delay-1">The Miss Kris Method™</p>
+
+      <h1 class="anim anim-delay-1">
+        Bath Time<br/><em>Without Tears</em>
+      </h1>
+
+      <p class="hero-sub anim anim-delay-2">
+        The step-by-step guide to help your child go from <strong>fear to confidence</strong> — in just 7–14 days. No drama. No battles. Just calm, consistent progress.
+      </p>
+
+      <ul class="hero-bullets">
+        <li class="anim anim-delay-2">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>
+          The exact 5-step pour sequence Miss Kris uses with every child
+        </li>
+        <li class="anim anim-delay-2">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>
+          Progression 3-5-7 Challenge — builds confidence in layers over 14 days
+        </li>
+        <li class="anim anim-delay-3">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>
+          Treasure Hunt Challenge — turns fear into fun at the pool
+        </li>
+        <li class="anim anim-delay-3">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>
+          Printable weekly bath-time tracker included
+        </li>
+        <li class="anim anim-delay-4">
+          <span class="check"><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span>
+          Reward ideas that actually motivate little ones to keep going
+        </li>
+      </ul>
+
+      <div class="hero-credibility anim anim-delay-4">
+        <span>@splashauburn</span>
+        <span class="dot"></span>
+        <span>splashauburn.com</span>
+        <span class="dot"></span>
+        <span>Auburn, AL</span>
+      </div>
+    </div>
+
+    <!-- Right — Pricing Card -->
+    <div class="pricing-card anim anim-delay-2">
+      <div class="card-header">
+        <div class="card-label">Digital Guide — Instant Download</div>
+        <div class="card-title">The Miss Kris Method™<br/>Bath Time Without Tears</div>
+      </div>
+      <div class="card-body">
+        <div class="price-row">
+          <span class="price-currency">$</span>
+          <span class="price-main">9</span>
+          <span class="price-compare">$27</span>
+          <span class="price-save">Save 67%</span>
+        </div>
+        <p class="price-note">One-time payment · No subscription · PDF delivered instantly</p>
+
+        <div class="card-pills">
+          <div class="card-pill">
+            <svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            Instant access to your PDF
+          </div>
+          <div class="card-pill">
+            <svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            Weekly tracker included
+          </div>
+          <div class="card-pill">
+            <svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            Proven by a certified swim pro
+          </div>
+        </div>
+
+        <div class="form-wrap">
+          <iframe
+            src="https://link.nilsdigital.com/widget/form/hxsH4eOYu1rlrM0dwgYR"
+            style="width:100%;height:100%;border:none;border-radius:8px"
+            id="inline-hxsH4eOYu1rlrM0dwgYR"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="Lead magnet product form"
+            data-height="undefined"
+            data-layout-iframe-id="inline-hxsH4eOYu1rlrM0dwgYR"
+            data-form-id="hxsH4eOYu1rlrM0dwgYR"
+            title="Lead magnet product form">
+          </iframe>
+          <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+        </div>
+
+        <div class="card-secure">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          Secure checkout · Instant access
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PAIN SECTION -->
+<section class="pain-section">
+  <div class="section-inner">
+    <p class="section-eyebrow anim">Understanding the Real Problem</p>
+    <h2 class="section-title anim">Why Bath Time Feels So Hard</h2>
+    <p class="section-sub anim">Your child isn't being difficult. They're doing exactly what their brain is wired to do when something feels unsafe.</p>
+
+    <div class="pain-grid">
+      <div class="pain-card anim anim-delay-1">
+        <span class="pain-icon">💧</span>
+        <h3>Water on the face feels sudden</h3>
+        <p>The sensation is unexpected and overwhelming — their brain reads it as a threat, not just a bath.</p>
+      </div>
+      <div class="pain-card anim anim-delay-2">
+        <span class="pain-icon">🌀</span>
+        <h3>They feel out of control</h3>
+        <p>Kids need to feel in control to feel safe. The moment they lose it, panic takes over — even over something small.</p>
+      </div>
+      <div class="pain-card anim anim-delay-3">
+        <span class="pain-icon">🧠</span>
+        <h3>Past experiences build fear</h3>
+        <p>One scary bath moment can wire the brain for resistance. That's not weakness — that's memory doing its job.</p>
+      </div>
+    </div>
+
+    <div class="reframe-box anim">
+      <p>"They're not being difficult — they're trying to feel safe.<br/>Your calm is the signal that tells them it's okay."</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="inside-section">
+  <div class="section-inner">
+    <p class="section-eyebrow anim">What You Get</p>
+    <h2 class="section-title anim">Everything You Need to Build<br/>Real Confidence</h2>
+    <p class="section-sub anim">This isn't a theory guide — it's a field-tested system used by a swim instructor who works with fearful kids every single week.</p>
+
+    <div class="inside-grid">
+      <div class="inside-card anim anim-delay-1">
+        <div class="inside-num">1</div>
+        <div>
+          <h3>The 5-Step Miss Kris Method</h3>
+          <p>The exact sequence for every bath — Prepare → Pour → No Towel → Praise → Repeat. Simple, consistent, and it works from day one.</p>
+        </div>
+      </div>
+      <div class="inside-card anim anim-delay-2">
+        <div class="inside-num">2</div>
+        <div>
+          <h3>Progression 3-5-7 Challenge</h3>
+          <p>A 14-day face submersion progression: 3 seconds, then 5, then 7. Builds confidence in layers so kids never feel overwhelmed.</p>
+        </div>
+      </div>
+      <div class="inside-card anim anim-delay-3">
+        <div class="inside-num">3</div>
+        <div>
+          <h3>Treasure Hunt Challenge</h3>
+          <p>Drop a coin in the tub and ask them to find it with their face in the water. This is where fear transforms into fun — and kids start to love water.</p>
+        </div>
+      </div>
+      <div class="inside-card anim anim-delay-4">
+        <div class="inside-num">4</div>
+        <div>
+          <h3>Printable Weekly Bath-Time Tracker</h3>
+          <p>A printable tracker to log each session, celebrate wins, and stay consistent. Consistency is where the magic happens.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE METHOD STEPS -->
+<section class="steps-section">
+  <div class="section-inner">
+    <p class="section-eyebrow anim">The Method</p>
+    <h2 class="section-title anim">The Miss Kris Method™<br/>— Step by Step</h2>
+    <p class="section-sub anim">Follow this sequence every bath, 3–5 pours per session. No skipping. No negotiating. Just calm, confident repetition.</p>
+
+    <div class="steps-list">
+      <div class="step-item anim anim-delay-1">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Prepare Them</h3>
+          <p>Say "Ready… set… go" before every pour. This gives them a moment to brace and builds trust — they know what's coming.</p>
+        </div>
+      </div>
+      <div class="step-item anim anim-delay-2">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Pour With Confidence</h3>
+          <p>Full pour over the face — no hesitation. If you hesitate, they sense uncertainty and the anxiety grows. Own the moment.</p>
+        </div>
+      </div>
+      <div class="step-item anim anim-delay-3">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>No Immediate Towel</h3>
+          <p>Let them blink, breathe, and regulate for a moment. The towel reflex teaches panic — this teaches them they're okay.</p>
+        </div>
+      </div>
+      <div class="step-item anim anim-delay-4">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Praise Immediately</h3>
+          <p>"YOU DID IT! That was amazing!" — enthusiastic, specific, immediate praise locks in the win. Their nervous system needs to hear it.</p>
+        </div>
+      </div>
+      <div class="step-item anim">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Stay Consistent</h3>
+          <p>Repeat 3–5 times every bath. The win isn't perfection — the win is finishing. That's how confidence is built, one pour at a time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="section-inner">
+    <p class="section-eyebrow anim">What to Expect</p>
+    <h2 class="section-title anim">Day by Day — So You Don't Panic</h2>
+    <p class="section-sub anim">Progress isn't always linear. Here's exactly what to expect so you can stay calm and consistent when it counts most.</p>
+
+    <div class="timeline-grid">
+      <div class="timeline-card anim anim-delay-1">
+        <div class="day-label">Days 1–2</div>
+        <h3>Tears Are Normal</h3>
+        <ul>
+          <li>Resistance is expected</li>
+          <li>Crying does not mean harm</li>
+          <li>Stay calm — you're planting seeds</li>
+        </ul>
+      </div>
+      <div class="timeline-card anim anim-delay-2" style="border-top-color: var(--primary);">
+        <div class="day-label" style="color: var(--primary);">Days 3–5</div>
+        <h3>Less Hesitation</h3>
+        <ul>
+          <li>Faster recovery after pours</li>
+          <li>More cooperation starting to show</li>
+          <li>They start to trust the routine</li>
+        </ul>
+      </div>
+      <div class="timeline-card anim anim-delay-3" style="border-top-color: var(--accent);">
+        <div class="day-label" style="color: var(--accent);">Days 6–7</div>
+        <h3>Confidence Showing</h3>
+        <ul>
+          <li>Less face wiping after pours</li>
+          <li>More independence</li>
+          <li>You'll see it in their eyes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box anim">
+      <span class="tip-icon">💡</span>
+      <p><strong>Consistency Tip:</strong> Set the expectation before bath time — "If you complete your 3–5 pours, you earn your reward." Stay calm. Follow through. No negotiating. <strong>This is where confidence is built.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT MISS KRIS -->
+<section class="about-section">
+  <div class="section-inner">
+    <div class="about-inner">
+      <div class="about-badge anim">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        Certified Swim Instructor · Auburn, AL
+      </div>
+      <h2 class="section-title anim">By Kristina Breland<br/><em style="font-style:italic; color: var(--secondary);">Miss Kris</em></h2>
+      <p class="section-sub anim">
+        Kristina is a professional swim instructor based in Auburn, AL, specializing in fearful and beginner swimmers. She created this method because she saw the same pattern over and over: kids who couldn't handle water on their face at home arrived at the pool already in fear — and parents had no roadmap to help them between lessons.
+      </p>
+      <p class="section-sub anim" style="margin-top: -30px; margin-bottom: 0;">
+        The Miss Kris Method™ is what she teaches parents to do before lessons ever begin. It works.
+      </p>
+
+      <div class="about-stats anim">
+        <div class="stat">
+          <div class="stat-num">7–14</div>
+          <div class="stat-label">Days to Confidence</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Steps Per Bath</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Parent-Led at Home</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-section" id="get-guide">
+  <div class="cta-inner">
+    <p class="section-eyebrow anim" style="margin-bottom: 18px;">Ready to Start?</p>
+
+    <div class="cta-card anim anim-delay-1">
+      <div class="cta-card-header">
+        <h2>Get Instant Access —<br/>The Miss Kris Method™</h2>
+        <p>Download the full guide today and start tonight's bath with a plan.</p>
+        <div class="cta-price-row">
+          <span class="cta-price">$9</span>
+          <span class="cta-price-compare">$27</span>
+          <span class="cta-save-pill">Save 67%</span>
+        </div>
+      </div>
+
+      <div class="cta-form-wrap">
+        <div class="form-wrap">
+          <iframe
+            src="https://link.nilsdigital.com/widget/form/hxsH4eOYu1rlrM0dwgYR"
+            style="width:100%;height:100%;border:none;border-radius:8px"
+            id="inline-hxsH4eOYu1rlrM0dwgYR-2"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="Lead magnet product form"
+            data-height="undefined"
+            data-layout-iframe-id="inline-hxsH4eOYu1rlrM0dwgYR-2"
+            data-form-id="hxsH4eOYu1rlrM0dwgYR"
+            title="Lead magnet product form">
+          </iframe>
+        </div>
+
+        <div class="cta-reassure">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="fill: var(--text-light);"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          Secure checkout · Instant PDF access · One-time payment
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    © 2025 Splash Auburn · <a href="https://www.splashauburn.com" target="_blank">splashauburn.com</a> · <a href="https://www.instagram.com/splashauburn" target="_blank">@splashauburn</a>
+  </p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('.nav').style.boxShadow = window.scrollY > 40
+      ? '0 8px 24px rgba(0,0,0,0.12), 0 16px 40px rgba(0,0,0,0.08)'
+      : '0 4px 6px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.07)';
+  }, { passive: true });
+</script>
+
+</body>
+</html>
