@@ -248,25 +248,24 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 /* Angular clipped background as pseudo, so dropdowns can escape the clip */
 .sf-nav::before {
   content: '';
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    linear-gradient(180deg, transparent calc(100% - 3px), var(--sf-blue-500) calc(100% - 3px), var(--sf-blue-700) 100%),
-    var(--sf-white);
+  position: absolute; inset: 0; z-index: -2;
+  background: linear-gradient(90deg, var(--sf-blue-700) 0%, var(--sf-blue-500) 50%, var(--sf-blue-700) 100%);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 120px) 100%, 120px calc(100% - 4px), 0 calc(100% - 20px));
-  box-shadow: 0 10px 30px -12px rgba(15,27,61,0.14);
-  transition: box-shadow 0.3s;
+  filter: drop-shadow(0 10px 30px rgba(15,27,61,0.14));
+  transition: filter 0.3s;
 }
 .sf-nav::after {
   content: '';
-  position: absolute; inset: 0; z-index: -2;
-  background: radial-gradient(ellipse 55% 36px at 50% 100%, rgba(47,130,196,0.35), transparent 70%);
+  position: absolute; inset: 0 0 3px 0; z-index: -1;
+  background: var(--sf-white);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 120px) 100%, 120px calc(100% - 4px), 0 calc(100% - 20px));
   pointer-events: none;
 }
 .sf-nav.scrolled {
   padding: 10px 32px 18px;
 }
 .sf-nav.scrolled::before {
-  box-shadow: 0 14px 40px -10px rgba(15,27,61,0.18);
+  filter: drop-shadow(0 14px 40px rgba(15,27,61,0.18));
 }
 /* Static blue gradient slash underneath (no animation) */
 .sf-nav-slash {
@@ -335,7 +334,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   background: linear-gradient(90deg, var(--sf-blue-500) 0%, var(--sf-blue-700) 100%);
   color: var(--sf-white) !important;
   padding: 12px 22px !important; font-weight: 700 !important;
-  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  border-radius: 8px;
   box-shadow: 0 8px 22px -6px rgba(47,130,196,0.55);
   transition: transform 0.2s, box-shadow 0.2s;
   letter-spacing: 0.08em !important;
@@ -480,7 +479,10 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 @media (max-width: 900px) {
   .sf-nav { padding: 10px 16px 18px; }
   .sf-nav::before {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 60px) 100%, 60px calc(100% - 2px), 0 calc(100% - 12px));
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 28px) 100%, 28px 100%, 0 calc(100% - 14px));
+  }
+  .sf-nav::after {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 28px) 100%, 28px 100%, 0 calc(100% - 14px));
   }
   .sf-nav.scrolled { padding: 8px 16px 16px; }
   .sf-nav-slash { clip-path: polygon(0 0, 100% 0, calc(100% - 60px) 80%, 60px 100%, 0 80%); height: 10px; }
@@ -498,9 +500,9 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
     height: 42px; min-height: 42px;
     font-size: 12px !important;
     letter-spacing: 0.05em !important;
-    border-radius: 4px;
+    border-radius: 8px;
   }
-  .sf-nav-toggle { display: flex; grid-column: 4; grid-row: 1; justify-self: end; }
+  .sf-nav-toggle { display: flex; grid-column: 4; grid-row: 1; justify-self: end; margin-left: 0; border-radius: 8px; clip-path: none; }
   .sf-nav-logo { grid-column: 1; grid-row: 1; justify-self: start; padding: 0 0 0 10px; }
   .sf-nav-logo img { height: 60px; }
   .sf-nav.scrolled .sf-nav-logo img { height: 52px; }
@@ -640,8 +642,8 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
    ========================================================= */
 .hero {
   position: relative;
-  min-height: 100vh;
-  padding: 140px 32px 80px;
+  min-height: auto;
+  padding: 230px 32px 110px;
   overflow: hidden;
   background: var(--sf-blue-900);
   isolation: isolate;
@@ -733,8 +735,8 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 
 /* 3-stat social proof (Google first, Partner Campuses, Programs & Services) */
 .hero-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-  max-width: 560px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  max-width: 760px;
 }
 .hero-stat { border-left: 2px solid var(--sf-blue-400); padding-left: 16px; }
 .hero-stat-num {
@@ -768,7 +770,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   color: var(--sf-ink);
   border: 1px solid var(--sf-border);
   border-radius: var(--radius-lg);
-  padding: 24px 22px 22px;
+  padding: 22px;
   max-width: 440px;
   margin-left: auto;
   box-shadow: var(--shadow-xl);
@@ -780,6 +782,13 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   height: 4px;
   background: var(--grad-blue);
   /* No border-radius needed, parent's overflow:hidden clips to the rounded shape */
+}
+.hero-form.flash { animation: heroFormFlash 0.9s var(--ease-out) 2; }
+@keyframes heroFormFlash {
+  0%   { transform: scale(1);     box-shadow: var(--shadow-xl), 0 0 0 0 rgba(47,130,196,0.6); }
+  25%  { transform: scale(1.025); box-shadow: var(--shadow-xl), 0 0 0 16px rgba(47,130,196,0.25); }
+  60%  { transform: scale(1.005); box-shadow: var(--shadow-xl), 0 0 0 26px rgba(47,130,196,0); }
+  100% { transform: scale(1);     box-shadow: var(--shadow-xl), 0 0 0 0 rgba(47,130,196,0); }
 }
 .hero-form-badge {
   display: inline-flex; align-items: center; gap: 8px;
@@ -1044,19 +1053,19 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
    ABOUT / WIIFM
    ========================================================= */
 .about {
-  padding: 120px 32px;
+  padding: 72px 32px;
   background: var(--sf-cream);
   position: relative; overflow: hidden;
 }
 .about-inner {
   max-width: 1280px; margin: 0 auto;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 80px; align-items: center;
+  gap: 56px; align-items: center;
 }
 .about-copy h2 {
-  font-size: clamp(32px, 4.5vw, 52px);
-  line-height: 1.02;
-  margin-bottom: 24px;
+  font-size: clamp(28px, 3.6vw, 42px);
+  line-height: 1.05;
+  margin-bottom: 16px;
 }
 .about-copy h2 .accent {
   background: var(--grad-blue);
@@ -1065,18 +1074,18 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   color: transparent;
 }
 .about-copy p {
-  font-size: 17px; line-height: 1.7;
+  font-size: 15.5px; line-height: 1.6;
   color: var(--sf-ink-60);
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .about-signals {
-  margin-top: 36px;
-  display: flex; flex-direction: column; gap: 18px;
+  margin-top: 22px;
+  display: flex; flex-direction: column; gap: 10px;
 }
 .about-signal {
-  display: flex; align-items: flex-start; gap: 16px;
-  padding: 20px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 14px;
   background: var(--sf-white);
   border: 1px solid var(--sf-border);
   border-radius: var(--radius-md);
@@ -1089,28 +1098,28 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 }
 .about-signal-icon {
   flex-shrink: 0;
-  width: 48px; height: 48px;
-  border-radius: var(--radius-md);
+  width: 38px; height: 38px;
+  border-radius: 10px;
   background: var(--grad-blue);
   display: grid; place-items: center;
   color: var(--sf-white);
-  box-shadow: 0 8px 20px -8px rgba(47,130,196,0.55);
+  box-shadow: 0 6px 16px -6px rgba(47,130,196,0.5);
 }
-.about-signal-icon svg { width: 24px; height: 24px; }
+.about-signal-icon svg { width: 20px; height: 20px; }
 .about-signal-text h4 {
   font-family: 'Oswald', sans-serif;
-  font-size: 17px; margin: 0 0 4px;
+  font-size: 15px; margin: 0 0 2px;
   color: var(--sf-ink);
 }
 .about-signal-text p {
-  margin: 0; font-size: 15px;
-  color: var(--sf-ink-60); line-height: 1.55;
+  margin: 0; font-size: 13.5px;
+  color: var(--sf-ink-60); line-height: 1.45;
 }
 
 .about-visual {
   position: relative;
   display: flex; align-items: center; justify-content: center;
-  min-height: 500px;
+  min-height: auto;
 }
 .about-hex {
   position: relative;
@@ -1153,14 +1162,121 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   z-index: -1;
 }
 
+/* ── Tinder-style swipe stack ── */
+.swipe-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  display: flex; flex-direction: column;
+  gap: 16px;
+}
+.swipe-stack {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  user-select: none; -webkit-user-select: none;
+  touch-action: pan-y;
+}
+.swipe-card {
+  position: absolute; inset: 0;
+  background: #0a1028;
+  border: 1px solid rgba(74,163,224,0.28);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px -16px rgba(27,47,110,0.45), 0 10px 24px -8px rgba(10,16,40,0.3);
+  cursor: grab;
+  transition: transform 0.4s cubic-bezier(.2,.9,.3,1.3), opacity 0.4s ease;
+  will-change: transform;
+}
+.swipe-card.dragging { cursor: grabbing; transition: none; }
+.swipe-card.leaving { transition: transform .18s cubic-bezier(.4,.0,.2,1), opacity .18s ease-out; opacity: 0; pointer-events: none; }
+.swipe-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.swipe-arrow {
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(47,130,196,0.35);
+  display: grid; place-items: center;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -8px rgba(27,47,110,0.35);
+  color: var(--sf-blue-700);
+  z-index: 50;
+  transition: transform .2s, background .2s, box-shadow .2s, color .2s;
+}
+.swipe-arrow:hover {
+  background: linear-gradient(135deg, var(--sf-blue-500), var(--sf-blue-700));
+  color: #fff;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 14px 30px -8px rgba(47,130,196,0.55);
+}
+.swipe-arrow:active { transform: translateY(-50%) scale(0.96); }
+.swipe-arrow svg { width: 18px; height: 18px; }
+.swipe-arrow-left { left: -16px; }
+.swipe-arrow-right { right: -16px; }
+.swipe-arrow-pulse {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--sf-blue-500);
+  animation: swipe-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes swipe-pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.swipe-instruction {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 11.5px; font-weight: 700;
+  color: var(--sf-ink-50);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+}
+.swipe-instruction .arrow-glyph {
+  color: var(--sf-blue-500);
+  font-size: 12px;
+  animation: bounce-x 1.4s ease-in-out infinite;
+  display: inline-flex;
+}
+.swipe-instruction .arrow-glyph.left { animation-direction: reverse; }
+@keyframes bounce-x {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.swipe-dots { display: flex; justify-content: center; gap: 6px; }
+.swipe-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(47,130,196,0.25);
+  transition: all .3s ease;
+}
+.swipe-dot.active {
+  width: 22px;
+  border-radius: 999px;
+  background: var(--sf-blue-500);
+}
+
 /* =========================================================
    PROGRAMS
    ========================================================= */
 .programs {
   padding: 120px 32px;
   background: var(--sf-white);
-  position: relative;
+  position: relative; overflow: hidden;
 }
+.programs::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 100% 0%, rgba(47,130,196,0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(74,163,224,0.08), transparent 60%);
+  pointer-events: none;
+}
+.programs > * { position: relative; z-index: 1; }
 .section-header {
   max-width: 720px; margin: 0 auto 64px;
   text-align: center;
@@ -1295,6 +1411,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   background: var(--sf-white);
   border: 1px solid var(--sf-border);
   border-radius: var(--radius-md);
+  text-decoration: none; color: inherit; cursor: pointer;
   transition: transform 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
 }
 .more-service:hover {
@@ -1417,7 +1534,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
    ========================================================= */
 .training-demo {
   padding: 120px 32px;
-  background: var(--sf-white);
+  background: var(--sf-cream);
   position: relative;
   overflow: hidden;
 }
@@ -1489,40 +1606,80 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
 }
 .why-card {
-  padding: 32px 28px;
+  display: flex; flex-direction: column;
   background: var(--sf-white);
   border: 1px solid var(--sf-border);
-  border-radius: var(--radius-lg);
+  border-bottom: 3px solid transparent;
+  border-radius: 14px;
+  overflow: hidden;
   transition: transform 0.4s var(--ease-out), border-color 0.4s, box-shadow 0.4s;
 }
 .why-card:hover {
   transform: translateY(-6px);
-  border-color: var(--sf-blue-500);
-  box-shadow: var(--shadow-md);
+  border-color: var(--sf-border-strong);
+  border-bottom-color: var(--sf-blue-500);
+  box-shadow: 0 24px 56px -22px rgba(27,47,110,0.28);
 }
-.why-icon {
-  width: 56px; height: 56px;
-  border-radius: var(--radius-md);
-  background: var(--grad-blue);
-  display: grid; place-items: center;
-  color: var(--sf-white);
-  margin-bottom: 20px;
-  box-shadow: 0 8px 20px -8px rgba(47,130,196,0.55);
-  transition: transform 0.3s var(--ease-out);
+.why-card-media {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #0a1028;
 }
-.why-card:hover .why-icon { transform: scale(1.06) rotate(-4deg); }
-.why-icon svg { width: 28px; height: 28px; stroke-width: 2.2; }
-.why-card h3 { font-size: 20px; margin: 0 0 10px; color: var(--sf-ink); }
-.why-card p { margin: 0; font-size: 15px; line-height: 1.6; color: var(--sf-ink-60); }
+.why-card-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease-out), filter 0.4s;
+  filter: brightness(1.02);
+}
+.why-card:hover .why-card-media img { transform: scale(1.06); filter: brightness(1.08); }
+.why-card-media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(10,16,40,0.35) 100%);
+  pointer-events: none;
+}
+.why-card-kicker {
+  position: absolute; top: 12px; left: 12px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.92);
+  color: var(--sf-blue-700);
+  font-family: 'Oswald', sans-serif;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+}
+.why-card-kicker svg { width: 12px; height: 12px; }
+.why-card-body { padding: 22px 24px 24px; }
+.why-card-body h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px; font-weight: 700;
+  margin: 0 0 8px; color: var(--sf-ink);
+  letter-spacing: 0.01em;
+}
+.why-card-body p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--sf-ink-60); }
 
 /* =========================================================
    CAMPUSES
    ========================================================= */
 .campuses {
   padding: 120px 32px;
-  background: var(--sf-white);
+  background: var(--sf-cream);
   position: relative; overflow: hidden;
 }
+.campuses::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(47,130,196,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,130,196,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  pointer-events: none;
+}
+.campuses > * { position: relative; z-index: 1; }
 .campuses::before {
   content: '';
   position: absolute; top: 0; left: 50%;
@@ -1627,14 +1784,64 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
    ========================================================= */
 .gallery {
   padding: 100px 0 120px;
-  background: var(--sf-cream);
+  background: var(--sf-white);
   overflow: hidden;
+  position: relative;
 }
+.gallery::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 45% 35% at 80% 20%, rgba(47,130,196,0.1), transparent 60%),
+    radial-gradient(ellipse 45% 35% at 20% 80%, rgba(74,163,224,0.08), transparent 60%);
+  pointer-events: none;
+}
+.gallery > * { position: relative; z-index: 1; }
 .gallery .section-header { padding: 0 32px; }
+.gallery-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 48px;
+  align-items: stretch;
+}
+.gallery-phone-side {
+  display: flex; align-items: center; justify-content: flex-start;
+  position: sticky; top: 100px; align-self: start;
+  margin-left: -40px;
+}
+.gallery-phone-side .training-demo-phone { max-width: 360px; width: 100%; }
+.gallery-content-side {
+  display: flex; flex-direction: column; gap: 20px;
+  min-width: 0;
+}
+.gallery-head { padding: 0 4px 12px; }
+.gallery-head .section-badge { margin-bottom: 14px; }
+.gallery-head .section-title { text-align: left; margin-bottom: 12px; font-size: clamp(28px, 3.6vw, 42px); }
+.gallery-head .section-sub { text-align: left; margin-left: 0; font-size: 16px; line-height: 1.6; }
+@media (max-width: 960px) {
+  .gallery-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 0 20px;
+  }
+  .gallery-phone-side {
+    position: static;
+    order: -1;
+  }
+  .gallery-phone-side .training-demo-phone { max-width: 230px; }
+  .gallery-head { text-align: center; }
+  .gallery-head .section-title,
+  .gallery-head .section-sub { text-align: center; margin-left: auto; margin-right: auto; }
+}
+
 .marquee-row {
   position: relative; overflow: hidden;
   padding: 14px 0;
-  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent 0%, black 3%, black 97%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 3%, black 97%, transparent 100%);
 }
 .marquee-track {
   display: flex; gap: 18px;
@@ -1645,6 +1852,101 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 .marquee-row:hover .marquee-track { animation-play-state: paused; }
 @keyframes marquee-left { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 @keyframes marquee-right { 0%{transform:translateX(-50%)} 100%{transform:translateX(0)} }
+/* Sponsors strip */
+.sponsors {
+  padding: 48px 32px;
+  background: var(--sf-white);
+  border-top: 1px solid var(--sf-border);
+  border-bottom: 1px solid var(--sf-border);
+}
+.sponsors-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 24px;
+}
+.sponsors-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sf-blue-700);
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.sponsors-label::before,
+.sponsors-label::after {
+  content: ""; width: 40px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sf-border-strong), transparent);
+}
+.sponsors-row {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 48px;
+}
+.sponsor-logo {
+  display: inline-flex; align-items: center; justify-content: center;
+  max-width: 220px; max-height: 90px;
+  filter: grayscale(1) opacity(0.7);
+  transition: filter 0.3s, transform 0.3s;
+}
+.sponsor-logo:hover { filter: grayscale(0) opacity(1); transform: translateY(-2px); }
+.sponsor-logo img { max-width: 100%; max-height: 90px; width: auto; height: auto; display: block; }
+@media (max-width: 600px) {
+  .sponsors { padding: 36px 20px; }
+  .sponsors-row { gap: 32px; }
+  .sponsor-logo { max-width: 170px; max-height: 70px; }
+}
+
+.section-cta {
+  display: flex; justify-content: center;
+  margin-top: 56px;
+  padding: 0 24px;
+}
+.section-cta .btn-lg {
+  padding: 16px 32px;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 10px;
+}
+@media (max-width: 720px) {
+  .section-cta { margin-top: 40px; }
+  .section-cta .btn-lg { width: 100%; max-width: 420px; padding: 15px 22px; font-size: 14px; }
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(10,16,40,0.94);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+  cursor: zoom-out;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.lightbox.open { display: flex; opacity: 1; }
+.lightbox img {
+  max-width: 92vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6);
+  animation: lb-pop 0.3s var(--ease-out);
+}
+@keyframes lb-pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+.lightbox-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff; cursor: pointer;
+  display: grid; place-items: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.22); transform: scale(1.06); }
+.lightbox-close svg { width: 20px; height: 20px; }
+
 .marquee-tile {
   flex-shrink: 0;
   width: 340px; aspect-ratio: 4/3;
@@ -1654,6 +1956,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   border: 1px solid var(--sf-border);
   position: relative;
   box-shadow: var(--shadow-sm);
+  cursor: zoom-in;
 }
 .marquee-tile img {
   width: 100%; height: 100%;
@@ -1677,8 +1980,21 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
    ========================================================= */
 .testimonials {
   padding: 120px 32px;
-  background: var(--sf-white);
+  background: var(--sf-cream);
+  position: relative; overflow: hidden;
 }
+.testimonials::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(47,130,196,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47,130,196,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 70%);
+          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 70%);
+  pointer-events: none;
+}
+.testimonials > * { position: relative; z-index: 1; }
 .testimonials-grid {
   max-width: 1280px; margin: 0 auto;
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
@@ -2010,83 +2326,193 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
    CTA BANNER
    ========================================================= */
 .cta-banner {
-  padding: 100px 32px;
-  background: var(--grad-blue-deep);
+  padding: 110px 32px;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(47,130,196,0.28), transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(74,163,224,0.22), transparent 55%),
+    linear-gradient(180deg, #0a1028 0%, #111a3d 60%, #0a1028 100%);
   position: relative; overflow: hidden;
   text-align: center;
   color: var(--sf-white);
 }
 .cta-banner::before {
   content: '';
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px; height: 800px;
-  background: radial-gradient(circle, rgba(47,130,196,0.35), transparent 60%);
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(74,163,224,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,163,224,0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 25%, transparent 75%);
   pointer-events: none;
-  animation: pulse-glow 6s ease-in-out infinite alternate;
+}
+.cta-banner::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--sf-blue-500) 25%, var(--sf-blue-400) 50%, var(--sf-blue-500) 75%, transparent 100%);
 }
 .cta-banner-inner {
-  position: relative; max-width: 820px; margin: 0 auto;
+  position: relative; z-index: 1;
+  max-width: 820px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
 }
+.cta-banner-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 18px;
+  margin-bottom: 24px;
+  background: rgba(47,130,196,0.16);
+  border: 1px solid rgba(74,163,224,0.35);
+  border-radius: 100px;
+  color: #7fc0ed;
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.cta-banner-kicker svg { width: 14px; height: 14px; }
 .cta-banner h2 {
-  font-size: clamp(32px, 5vw, 56px);
-  margin-bottom: 20px; line-height: 1;
+  font-size: clamp(34px, 5.2vw, 60px);
+  margin-bottom: 18px; line-height: 1;
   color: var(--sf-white);
+  letter-spacing: -0.01em;
 }
 .cta-banner h2 .accent {
-  background: linear-gradient(135deg, #ffffff 0%, #4aa3e0 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #7fc0ed 100%);
   -webkit-background-clip: text;
   background-clip: text; color: transparent;
 }
 .cta-banner p {
-  font-size: 18px; color: rgba(255,255,255,0.82);
-  margin-bottom: 32px;
+  font-size: 17px; color: rgba(255,255,255,0.78);
+  margin-bottom: 36px; max-width: 580px;
+  line-height: 1.55;
 }
 .cta-banner .btn-primary {
-  background: var(--sf-white);
-  color: var(--sf-blue-700);
+  background: #ffffff;
+  color: var(--sf-blue-900);
+  padding: 18px 32px;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px -12px rgba(255,255,255,0.3), 0 0 0 1px rgba(255,255,255,0.2);
 }
 .cta-banner .btn-primary:hover {
-  background: var(--sf-blue-50);
+  background: #ffffff;
   color: var(--sf-blue-900);
-  box-shadow: 0 18px 40px -12px rgba(255,255,255,0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 28px 60px -14px rgba(255,255,255,0.4), 0 0 0 1px rgba(255,255,255,0.35);
 }
+.cta-banner-trust {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 20px 28px;
+  margin-top: 28px;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+}
+.cta-banner-trust-item { display: inline-flex; align-items: center; gap: 8px; }
+.cta-banner-trust-item svg { width: 16px; height: 16px; color: #7fc0ed; }
 
 /* =========================================================
    FOOTER
    ========================================================= */
 .sf-footer {
-  padding: 80px 32px 32px;
-  background: var(--sf-cream);
-  border-top: 1px solid var(--sf-border);
+  position: relative;
+  padding: 80px 32px 28px;
+  background: linear-gradient(180deg, #0a1028 0%, #070c1f 100%);
+  color: rgba(255,255,255,0.7);
+  overflow: hidden;
 }
+.sf-footer::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(74,163,224,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,163,224,0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at top, #000 30%, transparent 80%);
+          mask-image: radial-gradient(ellipse at top, #000 30%, transparent 80%);
+  pointer-events: none;
+}
+.sf-footer > * { position: relative; z-index: 1; }
 .sf-footer-inner {
   max-width: 1280px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px; padding-bottom: 48px;
+  display: grid; grid-template-columns: 2fr 1fr 1.2fr 1fr;
+  gap: 48px; padding-bottom: 44px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.sf-footer-brand img { height: 72px; width: auto; margin-bottom: 16px; }
+.sf-footer-brand img { height: 80px; width: auto; margin-bottom: 18px; filter: brightness(1.05); }
 .sf-footer-brand p {
-  color: var(--sf-ink-60); font-size: 14px;
-  max-width: 320px; line-height: 1.65;
+  color: rgba(255,255,255,0.65); font-size: 14px;
+  max-width: 340px; line-height: 1.65;
 }
+.sf-footer-socials {
+  display: flex; gap: 10px; margin-top: 20px;
+}
+.sf-footer-col a.sf-footer-social,
+.sf-footer-social {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  transition: all 0.25s;
+}
+.sf-footer-col a.sf-footer-social:hover { padding-left: 0; }
+.sf-footer-social:hover {
+  background: var(--sf-blue-500);
+  border-color: var(--sf-blue-500);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.sf-footer-social svg { width: 18px; height: 18px; display: block; }
 .sf-footer-col h4 {
   font-family: 'Oswald', sans-serif;
-  font-size: 13px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--sf-blue-700);
-  margin: 0 0 16px;
+  font-size: 12px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #7fc0ed;
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--sf-blue-500);
+  display: inline-block;
 }
 .sf-footer-col ul { list-style: none; padding: 0; margin: 0; }
 .sf-footer-col li { margin-bottom: 10px; }
-.sf-footer-col a { color: var(--sf-ink-60); font-size: 14px; transition: color 0.2s; }
-.sf-footer-col a:hover { color: var(--sf-blue-500); }
+.sf-footer-col a, .sf-footer-col span {
+  color: rgba(255,255,255,0.7); font-size: 14px;
+  transition: color 0.2s, padding-left 0.2s;
+  display: inline-block;
+}
+.sf-footer-col a:hover { color: #7fc0ed; padding-left: 4px; }
+.sf-footer-contact-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-bottom: 12px;
+}
+.sf-footer-contact-item svg {
+  width: 16px; height: 16px;
+  color: var(--sf-blue-400); flex-shrink: 0;
+  margin-top: 2px;
+}
+.sf-footer-contact-item div { line-height: 1.5; }
+.sf-footer-contact-item a { padding: 0; }
 .sf-footer-bottom {
   max-width: 1280px; margin: 0 auto;
   padding-top: 24px;
-  border-top: 1px solid var(--sf-border);
   display: flex; justify-content: space-between; align-items: center;
-  color: var(--sf-ink-50); font-size: 13px;
+  flex-wrap: wrap; gap: 16px;
+  color: rgba(255,255,255,0.5); font-size: 13px;
 }
+.sf-footer-credit {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.5);
+  transition: color 0.2s;
+}
+.sf-footer-credit a {
+  color: #7fc0ed;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.sf-footer-credit a:hover { color: #fff; }
+.sf-footer-credit svg { width: 12px; height: 12px; opacity: 0.6; }
 
 /* =========================================================
    RESPONSIVE
@@ -2234,6 +2660,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
             </div>
           </div>
         </div>
+        <a class="sf-nav-link" href="#why">Why Us</a>
       </div>
 
       <a href="home.html" class="sf-nav-logo" aria-label="Systema Floyd home">
@@ -2241,26 +2668,36 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
       </a>
 
       <div class="sf-nav-side-right">
-        <a class="sf-nav-link" href="#campuses">Campuses</a>
+        <a class="sf-nav-link" href="#gallery">Gallery</a>
+        <a class="sf-nav-link" href="#reviews">Reviews</a>
         <a class="sf-nav-link" href="#team">Team</a>
-        <a class="sf-nav-link sf-nav-cta" href="#contact">Get Started</a>
+        <a class="sf-nav-link sf-nav-cta" href="#top">Get Started</a>
       </div>
       <button class="sf-nav-toggle" type="button" id="sfNavToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
   </nav>
 </div>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-hidden="true" aria-label="Image viewer">
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <img id="lightboxImg" alt="" />
+</div>
+
 <div class="sf-mobile-menu" id="sfMobileMenu" aria-hidden="true">
   <ul>
     <li><span class="sf-mobile-menu-label first">Menu</span></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#campuses">Campuses</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#team">Team</a></li>
     <li><span class="sf-mobile-menu-label">Programs</span></li>
     <li><a href="after-school.html">After School Systema</a></li>
     <li><a href="camps.html">Summer Camps</a></li>
     <li><a href="spirit-dance.html">Spirit Dance</a></li>
-    <li><a href="#contact" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
+    <li><a href="#top" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
   </ul>
 </div>
 
@@ -2268,7 +2705,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 <section class="hero" id="top">
   <video
     class="hero-video"
-    src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/68ef7f90-98cb-4ed7-975b-46c4f3c3292a.mp4"
+    src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/69e7a1b08381f926787a7929.mp4"
     autoplay muted loop playsinline preload="auto"
     aria-hidden="true"
   ></video>
@@ -2280,104 +2717,43 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <span class="hero-eyebrow-text fade-in" id="eyebrowText">For kids ready to build focus, balance, and real self-defense skills.</span>
       </div>
       <h1 class="hero-h1 anim d1">Combat Skill.<br/><span class="accent">Strong Body.</span><br/>Healthy Spirit.</h1>
-      <p class="hero-sub anim d2">Systema is a martial art built to develop physical and mental skills to defend yourself and others. For ages 2.5 through adults in West Palm Beach.</p>
+      <p class="hero-sub anim d2">Systema is a martial art built to develop physical and mental skills to defend yourself and others. For ages 2.5 through adults.</p>
       <div class="hero-stats anim d3">
-        <div class="hero-stat"><div class="hero-stat-num" data-count="5" data-suffix="★">0</div><div class="hero-stat-label">Google Reviewed<br/>Ages 2.5 &amp; Up</div></div>
+        <div class="hero-stat"><div class="hero-stat-num" data-count="5" data-suffix="★">0</div><div class="hero-stat-label">Google Reviewed</div></div>
         <div class="hero-stat"><div class="hero-stat-num" data-count="5">0</div><div class="hero-stat-label">Partner Campuses</div></div>
         <div class="hero-stat"><div class="hero-stat-num" data-count="7" data-suffix="+">0</div><div class="hero-stat-label">Programs &amp; Services</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">From</div><div class="hero-stat-label">2.5 years old<br/>To Adults</div></div>
       </div>
     </div>
 
     <div class="hero-form-wrap anim d2" id="contact">
       <img class="hero-form-ghost" src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="" aria-hidden="true" />
-      <form class="hero-form" id="heroForm" novalidate>
-        <span class="hero-form-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 14-7 4-7-4L5 3z"/></svg>
-          Reserve Your Child's Spot
-        </span>
+      <div class="hero-form">
         <h3 class="hero-form-title">Get Started · Your First Class is Free</h3>
-        <p class="hero-form-sub">Tell us a little about your child and we'll reach out within 24 hours.</p>
 
-        <div class="field">
-          <label for="pName">Parent's Name</label>
-          <input id="pName" name="name" type="text" placeholder="Jane Smith" required autocomplete="name" />
-          <div class="field-hint" aria-live="polite"></div>
-        </div>
+        <iframe
+          src="https://link.nilsdigital.com/widget/form/yP3OPoUimfOZgrXJo2mI"
+          style="width:100%;height:500px;border:none;border-radius:0;display:block;"
+          id="inline-yP3OPoUimfOZgrXJo2mI"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Lead Form"
+          data-height="463"
+          data-layout-iframe-id="inline-yP3OPoUimfOZgrXJo2mI"
+          data-form-id="yP3OPoUimfOZgrXJo2mI"
+          title="Lead Form"
+        ></iframe>
+        <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 
-        <div class="field">
-          <label for="pEmail">Email</label>
-          <input id="pEmail" name="email" type="email" placeholder="jane@email.com" required autocomplete="email" />
-          <div class="field-hint" aria-live="polite"></div>
-        </div>
-
-        <div class="field">
-          <label for="pPhone">Phone</label>
-          <input id="pPhone" name="phone" type="tel" placeholder="(555) 123-4567" required autocomplete="tel" />
-          <div class="field-hint" aria-live="polite"></div>
-        </div>
-
-        <div class="field">
-          <label>What are you interested in?</label>
-          <div class="pill-group" role="radiogroup" aria-label="Program of interest">
-            <input type="radio" id="pgm-after-school" name="program" value="after-school" />
-            <label class="pill" for="pgm-after-school">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z"/><path d="M9 22V12h6v10"/></svg>
-              After School
-            </label>
-            <input type="radio" id="pgm-camps" name="program" value="camps" />
-            <label class="pill" for="pgm-camps">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 20h20L12 2z"/><path d="M10 14h4"/></svg>
-              Camps
-            </label>
-            <input type="radio" id="pgm-spirit-dance" name="program" value="spirit-dance" />
-            <label class="pill" for="pgm-spirit-dance">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
-              Spirit Dance
-            </label>
-          </div>
-          <div class="field-hint" aria-live="polite"></div>
-        </div>
-
-        <div class="field">
-          <label for="pCampusSearch">Which Campus?</label>
-          <div class="combobox-wrap" id="campusCombo">
-            <svg class="combobox-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-            <input
-              class="combobox"
-              id="pCampusSearch"
-              type="text"
-              placeholder="Search or select your school…"
-              autocomplete="off"
-              role="combobox"
-              aria-expanded="false"
-              aria-controls="campusPanel"
-              aria-autocomplete="list"
-            />
-            <svg class="combobox-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-            <!-- Hidden native select for form submission / accessibility fallback -->
-            <input type="hidden" id="pCampus" name="campus" required />
-            <div class="combobox-panel" id="campusPanel" role="listbox">
-              <!-- populated by JS -->
-            </div>
-          </div>
-          <div class="field-hint" aria-live="polite"></div>
-        </div>
-
-        <button type="submit" class="hero-form-submit" id="heroSubmit">
-          Get Started
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </button>
-
-        <div class="hero-form-trust">
+        <div class="hero-form-trust" style="margin-top:12px;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
           Your info is safe. No spam, ever.
         </div>
-      </form>
-
-      <div class="hero-form-success" id="heroSuccess" role="status">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-        <h3>You're on the list!</h3>
-        <p>Redirecting you to your campus…</p>
       </div>
     </div>
   </div>
@@ -2389,25 +2765,25 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
     <div class="about-copy">
       <span class="section-badge anim">Why Systema Floyd</span>
       <h2 class="anim d1">More Than Martial Arts.<br/><span class="accent">Character Training for Life.</span></h2>
-      <p class="anim d2">Systema Floyd isn't about collecting trophies, it's about raising kids who stand taller, focus harder, and treat people with respect. Our programs weave real martial-arts fundamentals with the kind of character work you can't teach in a classroom.</p>
+      <p class="anim d2">Systema Floyd isn't about collecting trophies, it's about raising kids who stand taller, focus harder, and treat people with respect. <strong>Our programs weave real martial-arts fundamentals with the kind of character work you can't teach in a classroom.</strong></p>
       <p class="anim d3">Parents tell us they notice the change fast: better listening at home, sharper attention at school, and the quiet confidence that comes from knowing how to handle yourself. That's the Systema difference.</p>
       <div class="about-signals">
         <div class="about-signal anim d4">
-          <div class="about-signal-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
-          </div>
-          <div class="about-signal-text">
-            <h4>Battle-Tested Curriculum</h4>
-            <p>Authentic Systema principles adapted for kids, real skills, kid-safe delivery.</p>
-          </div>
-        </div>
-        <div class="about-signal anim d5">
           <div class="about-signal-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7l8-4z"/></svg>
           </div>
           <div class="about-signal-text">
             <h4>Safe, Structured Environment</h4>
             <p>Every class supervised. No contact sparring. Drills built for kids ages 5 and up.</p>
+          </div>
+        </div>
+        <div class="about-signal anim d5">
+          <div class="about-signal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
+          </div>
+          <div class="about-signal-text">
+            <h4>Battle-Tested Curriculum</h4>
+            <p>Authentic Systema principles adapted for kids, real skills, kid-safe delivery.</p>
           </div>
         </div>
         <div class="about-signal anim d6">
@@ -2422,9 +2798,22 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
       </div>
     </div>
     <div class="about-visual anim d2">
-      <div class="about-hex">
-        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/206e78be-a4ab-4bb1-9ccb-a8b7558adf43.jpg" alt="Coach Alex awarding a young student their first belt at Systema Floyd" />
-        <div class="about-hex-caption">Coach Alex · First Belt · Systema Floyd</div>
+      <div class="swipe-wrapper">
+        <div class="swipe-stack" id="swipeStack" aria-label="Swipe through Systema Floyd training moments">
+          <button class="swipe-arrow swipe-arrow-left" id="swipePrev" type="button" aria-label="Previous image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="swipe-arrow swipe-arrow-right" id="swipeNext" type="button" aria-label="Next image">
+            <span class="swipe-arrow-pulse" id="swipePulse"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="swipe-instruction">
+          <span class="arrow-glyph left">&#9664;</span>
+          Swipe or tap
+          <span class="arrow-glyph">&#9654;</span>
+        </div>
+        <div class="swipe-dots" id="swipeDots"></div>
       </div>
     </div>
   </div>
@@ -2448,7 +2837,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <p>Martial arts right at your child's campus. Pickup, class, character work, no extra driving for you.</p>
         <div class="program-meta"><span>Ages 5–14</span><span>Weekly</span><span>On-campus</span></div>
         <div class="program-card-ctas">
-          <a class="btn btn-secondary" href="after-school.html">Learn More →</a>
+          <a class="btn btn-primary program-cta" href="#top" data-interest="After School">Get Started · First Class Free</a>
         </div>
       </div>
     </article>
@@ -2463,7 +2852,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <p>Full-day camps over summer, school breaks, and no-school days. Martial arts plus outdoor play and character challenges.</p>
         <div class="program-meta"><span>Ages 5–14</span><span>Full-day</span><span>Summer + breaks</span></div>
         <div class="program-card-ctas">
-          <a class="btn btn-secondary" href="camps.html">Learn More →</a>
+          <a class="btn btn-primary program-cta" href="#top" data-interest="Camps">Get Started · First Class Free</a>
         </div>
       </div>
     </article>
@@ -2478,7 +2867,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <p>Strong bodies, strong voices. Pom, hip-hop, and team-spirit training for confident, expressive kids.</p>
         <div class="program-meta"><span>Ages 5–14</span><span>Weekly</span><span>All levels</span></div>
         <div class="program-card-ctas">
-          <a class="btn btn-secondary" href="spirit-dance.html">Learn More →</a>
+          <a class="btn btn-primary program-cta" href="#top" data-interest="Spirit Dance">Get Started · First Class Free</a>
         </div>
       </div>
     </article>
@@ -2490,7 +2879,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
       <div class="more-services-kicker">Plus, For Every Age &amp; Occasion</div>
     </div>
     <div class="more-services-grid">
-      <div class="more-service anim d1">
+      <a class="more-service program-cta anim d1" href="#top" data-interest="Private Lessons">
         <div class="more-service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
         </div>
@@ -2498,8 +2887,8 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
           <h4>Private Lessons</h4>
           <p>1-on-1 training, any age, any goal</p>
         </div>
-      </div>
-      <div class="more-service anim d2">
+      </a>
+      <a class="more-service program-cta anim d2" href="#top" data-interest="Birthday Parties">
         <div class="more-service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 11V8a2 2 0 00-2-2h-3.5L12 2 8.5 6H5a2 2 0 00-2 2v3"/><path d="M3 11v5a2 2 0 002 2h14a2 2 0 002-2v-5"/><path d="M12 18v4"/><path d="M8 22h8"/></svg>
         </div>
@@ -2507,8 +2896,8 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
           <h4>Birthday Parties</h4>
           <p>Themed martial arts party packages</p>
         </div>
-      </div>
-      <div class="more-service anim d3">
+      </a>
+      <a class="more-service program-cta anim d3" href="#top" data-interest="Adult & Teen Classes">
         <div class="more-service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 11l-3-3-3 3"/><path d="M19 8v8"/></svg>
         </div>
@@ -2516,8 +2905,8 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
           <h4>Adult &amp; Teen Classes</h4>
           <p>Evening training for grown-ups too</p>
         </div>
-      </div>
-      <div class="more-service anim d4">
+      </a>
+      <a class="more-service program-cta anim d4" href="#top" data-interest="Babysitting">
         <div class="more-service-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
         </div>
@@ -2525,133 +2914,114 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
           <h4>Babysitting</h4>
           <p>Safe, supervised, on-site care</p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- OUR STUDIO -->
-<section class="studio">
-  <div class="studio-inner">
-    <div class="studio-copy">
-      <span class="section-badge anim">Our Studio</span>
-      <h2 class="anim d1">A Gym Built to <span class="accent">Push &amp; Protect.</span></h2>
-      <p class="anim d2">Honeycomb-lit mats, padded walls, and zones designed for every age, from the tiniest gymnast's rainbow soft-play to the full combat mat where adults throw and fall safely. It's a serious training space that still feels like somewhere you'd want to bring your kid.</p>
-      <ul class="studio-features anim d3">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>Honeycomb LED ceiling</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>Padded walls + safety mats</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>Dedicated toddler zone</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>Combat-ready main floor</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>Parent viewing lounge</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>Strength + skill equipment</li>
-      </ul>
-    </div>
-    <div class="studio-media">
-      <div class="studio-media-tile anim d1">
-        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/069d41a6-6531-4973-b3c6-7cf05e8d2f4b.jpg" alt="Systema Floyd toddler gym, colorful soft-play setup under honeycomb ceiling lights" loading="lazy" decoding="async" />
-        <div class="studio-media-caption">Toddler Zone · Ages 2.5+</div>
-      </div>
-      <div class="studio-media-tile anim d2">
-        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/6494984c-165a-4e7f-ae3f-0dbca03e3205.jpg" alt="Takedown technique demo on the main Systema Floyd combat mat" loading="lazy" decoding="async" />
-        <div class="studio-media-caption">Main Floor · Combat Ready</div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- TRAINING IN ACTION -->
-<section class="training-demo">
-  <div class="training-demo-inner">
-    <div class="training-demo-copy">
-      <span class="section-badge anim">Training in Action</span>
-      <h2 class="anim d1">See What a <span class="accent">Class Looks Like.</span></h2>
-      <p class="anim d2">This is real footage from a session at the studio, no staged moves, no cheesy choreography. Authentic Systema technique, adapted so kids stay safe while learning the real thing.</p>
-      <p class="anim d3">Curious to see your child in this? Get started below, the first class is on us.</p>
-    </div>
-    <div class="training-demo-phone anim d2">
-      <video
-        src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2c8fdca9-2bca-464a-97e9-89ad096ba7f6.mp4"
-        autoplay muted loop playsinline preload="metadata"
-        aria-label="Short demo of a Systema Floyd training session"
-      ></video>
-    </div>
-  </div>
-</section>
-
 <!-- WHY -->
-<section class="why">
+<section class="why" id="why">
   <div class="section-header">
     <span class="section-badge anim">Why Choose Us</span>
     <h2 class="section-title anim d1">The <span class="accent">Systema Standard.</span></h2>
     <p class="section-sub anim d2">What makes us different from the strip-mall dojo down the road.</p>
   </div>
   <div class="why-grid">
-    <div class="why-card anim d1"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg></div><h3>Certified Instructors</h3><p>Years of ranked experience. Every instructor vetted, trained, and background-checked.</p></div>
-    <div class="why-card anim d2"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12l2-2 4 4 8-8 4 4"/><path d="M3 20h18"/></svg></div><h3>On-Campus Convenience</h3><p>Five partner schools. No extra driving, no after-school scramble, just pick-up done right.</p></div>
-    <div class="why-card anim d3"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 7L9 18l-5-5"/></svg></div><h3>Character-First Curriculum</h3><p>Respect, focus, discipline, taught first, drilled always. Kids leave better people.</p></div>
-    <div class="why-card anim d1"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7l8-4z"/></svg></div><h3>Safe & Structured</h3><p>No contact sparring. Strict supervision ratios. Every class planned, every kid seen.</p></div>
-    <div class="why-card anim d2"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Family Community</h3><p>Parent network, end-of-session events, and a gym culture that feels like family.</p></div>
-    <div class="why-card anim d3"><div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></div><h3>Clear Progress</h3><p>Belt-ranking system with quarterly testings. Every kid sees exactly how far they've come.</p></div>
+    <div class="why-card anim d1">
+      <div class="why-card-media">
+        <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/8068f482-cc80-4feb-ad74-b1cb693e2c6d.png" alt="Tom Floyd, founder of Systema Floyd" loading="lazy" decoding="async" />
+        <span class="why-card-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>Instructors</span>
+      </div>
+      <div class="why-card-body">
+        <h3>Certified Instructors</h3>
+        <p>Years of ranked experience. Every instructor vetted, trained, and background-checked.</p>
+      </div>
+    </div>
+
+    <div class="why-card anim d2">
+      <div class="why-card-media">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="Kids in after-school Systema class at a partner campus" loading="lazy" decoding="async" />
+        <span class="why-card-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12l2-2 4 4 8-8 4 4"/><path d="M3 20h18"/></svg>5 Campuses</span>
+      </div>
+      <div class="why-card-body">
+        <h3>On-Campus Convenience</h3>
+        <p>Five partner schools. No extra driving, no after-school scramble, just pick-up done right.</p>
+      </div>
+    </div>
+
+    <div class="why-card anim d3">
+      <div class="why-card-media">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/7661fd0c-f0b9-4e0e-afde-ae723acba4ed.jpg" alt="Students focused during Systema training" loading="lazy" decoding="async" />
+        <span class="why-card-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 7L9 18l-5-5"/></svg>Character</span>
+      </div>
+      <div class="why-card-body">
+        <h3>Character-First Curriculum</h3>
+        <p>Respect, focus, discipline, taught first, drilled always. Kids leave better people.</p>
+      </div>
+    </div>
+
+    <div class="why-card anim d1">
+      <div class="why-card-media">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/d8c47f56-07c4-42ca-a784-13537eceed96.jpg" alt="Supervised class environment at Systema Floyd" loading="lazy" decoding="async" />
+        <span class="why-card-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3l8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7l8-4z"/></svg>Safety</span>
+      </div>
+      <div class="why-card-body">
+        <h3>Safe &amp; Structured</h3>
+        <p>No contact sparring. Strict supervision ratios. Every class planned, every kid seen.</p>
+      </div>
+    </div>
+
+    <div class="why-card anim d2">
+      <div class="why-card-media">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/84298cba-915c-40ff-b37e-591b0c39c286.jpeg" alt="Systema Floyd family community" loading="lazy" decoding="async" />
+        <span class="why-card-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/></svg>Community</span>
+      </div>
+      <div class="why-card-body">
+        <h3>Family Community</h3>
+        <p>Parent network, end-of-session events, and a gym culture that feels like family.</p>
+      </div>
+    </div>
+
+    <div class="why-card anim d3">
+      <div class="why-card-media">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/206e78be-a4ab-4bb1-9ccb-a8b7558adf43.jpg" alt="Belt award at Systema Floyd" loading="lazy" decoding="async" />
+        <span class="why-card-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>Progress</span>
+      </div>
+      <div class="why-card-body">
+        <h3>Clear Progress</h3>
+        <p>Belt-ranking system with quarterly testings. Every kid sees exactly how far they've come.</p>
+      </div>
+    </div>
+  </div>
+  <div class="section-cta anim">
+    <a class="btn btn-primary btn-lg program-cta" href="#top">
+      Get Started · First Class Free
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:20px;height:20px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
 </section>
 
 <!-- CAMPUSES -->
-<section class="campuses" id="campuses">
-  <div class="section-header">
-    <span class="section-badge anim">Our Campuses</span>
-    <h2 class="section-title anim d1">Training Right at <span class="accent">Your Child's School.</span></h2>
-    <p class="section-sub anim d2">Search for your school or tap a logo, we'll pre-fill the form for you.</p>
-  </div>
-
-  <div class="campus-search-wrap anim">
-    <svg class="campus-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-    <input
-      type="text"
-      class="campus-search-input"
-      id="campusSearchInput"
-      placeholder="Search for your school…"
-      autocomplete="off"
-      aria-label="Search campuses"
-    />
-    <div class="campus-search-count" id="campusSearchCount" aria-live="polite"></div>
-  </div>
-
-  <div class="campuses-grid" id="campusesGrid">
-    <button class="campus-card anim d1" type="button" data-campus="seacrest">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/534712b6-9937-4f67-944e-4a3c4d347dd2.png" alt="Seacrest Presbyterian logo" />
-      <div class="campus-card-name">Seacrest<br/>Presbyterian</div>
-      <span class="campus-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
-    <button class="campus-card anim d2" type="button" data-campus="st-jude">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8b3e2704-8c10-429a-b423-71671d75ee91.png" alt="St. Jude Catholic logo" />
-      <div class="campus-card-name">St. Jude<br/>Catholic</div>
-      <span class="campus-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
-    <button class="campus-card anim d3" type="button" data-campus="st-ann">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/41db1364-3171-4e83-ae08-a993c1bb7cc7.png" alt="St. Ann Catholic logo" />
-      <div class="campus-card-name">St. Ann<br/>Catholic</div>
-      <span class="campus-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
-    <button class="campus-card anim d4" type="button" data-campus="discovery">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/179be408-7c83-4462-8226-63d420f73df1.png" alt="Discovery Dayschool logo" />
-      <div class="campus-card-name">Discovery<br/>Dayschool</div>
-      <span class="campus-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
-    <button class="campus-card anim d5" type="button" data-campus="holy-cross">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2b9b6a7c-2bf8-4c82-b428-89f56ae30c21.png" alt="Holy Cross logo" />
-      <div class="campus-card-name">Holy<br/>Cross</div>
-      <span class="campus-card-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </button>
-  </div>
-</section>
 
 <!-- GALLERY -->
-<section class="gallery">
-  <div class="section-header">
-    <span class="section-badge anim">In Action</span>
-    <h2 class="section-title anim d1">Real Kids. <span class="accent">Real Training.</span></h2>
-    <p class="section-sub anim d2">Scenes from our campuses, pause the row to take a closer look.</p>
-  </div>
+<section class="gallery" id="gallery">
+  <div class="gallery-layout">
+    <div class="gallery-phone-side anim">
+      <div class="training-demo-phone">
+        <video
+          src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2c8fdca9-2bca-464a-97e9-89ad096ba7f6.mp4"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="Short demo of a Systema Floyd training session"
+        ></video>
+      </div>
+    </div>
+    <div class="gallery-content-side">
+      <div class="gallery-head">
+        <span class="section-badge anim">Before You Sign Up</span>
+        <h2 class="section-title anim d1">Here's What Class <span class="accent">Actually Looks Like.</span></h2>
+        <p class="section-sub anim d2">Watch a real session. See how we keep it safe, disciplined, and fun, so you know exactly what your child is walking into.</p>
+      </div>
   <div class="marquee-row">
     <div class="marquee-track">
       <!-- Row 1: action + class shots -->
@@ -2690,10 +3060,12 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
       <div class="marquee-tile"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2ac8e931-d104-45f1-babe-2a7d085a9d21.png" alt="" loading="lazy" decoding="async" /></div>
     </div>
   </div>
+    </div>
+  </div>
 </section>
 
 <!-- TESTIMONIALS, real Google reviews -->
-<section class="testimonials">
+<section class="testimonials" id="reviews">
   <div class="section-header">
     <span class="section-badge anim">Parent &amp; Student Stories</span>
     <h2 class="section-title anim d1">Real Words. <span class="accent">Real Results.</span></h2>
@@ -2710,7 +3082,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
       </div>
-      <p class="testimonial-body">My 6-year-old son has been taking Systema Floyd Martial Arts this year after school and has LOVED it! He looks forward to it every week &amp; is eager to show me what he learned. He has been learning self-control, balance, &amp; flexibility. The coach is great with the kids, patient, encouraging, &amp; personable! Highly recommend!</p>
+      <p class="testimonial-body">My 6-year-old son has been taking Systema Floyd Martial Arts this year after school and has LOVED it! <strong>He looks forward to it every week &amp; is eager to show me what he learned. He has been learning self-control, balance, &amp; flexibility. The coach is great with the kids, patient, encouraging, &amp; personable! Highly recommend!</strong></p>
       <div class="testimonial-who">
         <div class="testimonial-avatar">KM</div>
         <div><div class="testimonial-name">Kayla Mays</div><div class="testimonial-meta">Parent · Google Review</div></div>
@@ -2725,7 +3097,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
       </div>
-      <p class="testimonial-body">A true gem. I've been coming here for four years now. I've had the good fortune of training at a number of Systema schools in the U.S. and Europe, including the Systema HQ in Toronto. Whenever I come home, I'm so happy to get to train with Tommy and Alex. The depth, skill, and care of the work here are second to none.</p>
+      <p class="testimonial-body">A true gem. I've been coming here for four years now. I've had the good fortune of training at a number of Systema schools in the U.S. and Europe, including the Systema HQ in Toronto. <strong>Whenever I come home, I'm so happy to get to train with Tommy and Alex. The depth, skill, and care of the work here are second to none.</strong></p>
       <div class="testimonial-who">
         <div class="testimonial-avatar">EB</div>
         <div><div class="testimonial-name">Eric Bear</div><div class="testimonial-meta">4-year student · Google Local Guide</div></div>
@@ -2740,7 +3112,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
       </div>
-      <p class="testimonial-body">Fantastic place that teaches discipline and skills! Tom and Alex are extremely knowledgeable and take pride in seeing the kids succeed.</p>
+      <p class="testimonial-body"><strong>Fantastic place that teaches discipline and skills!</strong> Tom and Alex are extremely knowledgeable and take pride in seeing the kids succeed.</p>
       <div class="testimonial-who">
         <div class="testimonial-avatar">JR</div>
         <div><div class="testimonial-name">JT Rello</div><div class="testimonial-meta">Parent · Google Local Guide</div></div>
@@ -2758,7 +3130,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
       </div>
-      <p class="testimonial-mini-body">"An amazing school for someone at any age."</p>
+      <p class="testimonial-mini-body">"An <strong>amazing school</strong> for someone at any age."</p>
       <div class="testimonial-mini-who">
         <div class="testimonial-mini-avatar">JA</div>
         <div><div class="testimonial-mini-name">James Alfe</div><div class="testimonial-mini-source">Google Local Guide</div></div>
@@ -2814,6 +3186,12 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   <div class="testimonials-source anim">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
     All reviews from Google · Systema Floyd Martial Arts, West Palm Beach
+  </div>
+  <div class="section-cta anim">
+    <a class="btn btn-primary btn-lg program-cta" href="#top">
+      Get Started · First Class Free
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:20px;height:20px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
   </div>
 </section>
 
@@ -2948,19 +3326,39 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 <!-- BIG CTA -->
 <section class="cta-banner">
   <div class="cta-banner-inner">
-    <h2 class="anim">Ready to raise a <span class="accent">warrior?</span></h2>
-    <p class="anim d1">The first class is on us. Fill out the form, and we'll take it from there.</p>
-    <a class="btn btn-primary btn-lg anim d2" href="#contact">
+    <span class="cta-banner-kicker anim">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 3l14 14-7 4-7-4L5 3z"/></svg>
+      Your child's first step
+    </span>
+    <h2 class="anim d1">Ready to Raise a <span class="accent">Warrior?</span></h2>
+    <p class="anim d2">The first class is on us. Fill out the form and a coach will reach out within 24 hours, no pressure, no commitment.</p>
+    <a class="btn btn-primary btn-lg program-cta anim d3" href="#top">
       Get Started · First Class Free
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:20px;height:20px"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
+    <div class="cta-banner-trust anim d4">
+      <span class="cta-banner-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>First class free</span>
+      <span class="cta-banner-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>Ages 2.5 to adult</span>
+      <span class="cta-banner-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg>5-star reviewed</span>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSORS -->
+<section class="sponsors" aria-label="Our sponsors">
+  <div class="sponsors-inner">
+    <span class="sponsors-label">Proudly Supported By</span>
+    <div class="sponsors-row">
+      <div class="sponsor-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/69e7c75c8381f9267884ba6c.png" alt="Building Together Related Ross Foundation" loading="lazy" decoding="async" /></div>
+      <div class="sponsor-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/69e7c7f7c02618972e4423f7.jpeg" alt="John C Cassidy Air Conditioning" loading="lazy" decoding="async" /></div>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <!-- Mobile sticky CTA (shows after user scrolls past hero, hidden near form + footer) -->
 <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-  <a href="#contact">
+  <a href="#top">
     Get Started · First Class Free
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
   </a>
@@ -2969,14 +3367,61 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 <footer class="sf-footer">
   <div class="sf-footer-inner">
     <div class="sf-footer-brand">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
+      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/69e7c8316fc69286f3aa82b5.webp" alt="Systema Floyd" />
       <p>Raising disciplined, confident kids through martial arts, camps, and Spirit Dance at five West Palm Beach campuses.</p>
     </div>
-    <div class="sf-footer-col"><h4>Programs</h4><ul><li><a href="after-school.html">After School</a></li><li><a href="camps.html">Summer Camps</a></li><li><a href="spirit-dance.html">Spirit Dance</a></li></ul></div>
-    <div class="sf-footer-col"><h4>Campuses</h4><ul><li><a href="#campuses">Seacrest</a></li><li><a href="#campuses">St. Jude</a></li><li><a href="#campuses">St. Ann</a></li><li><a href="#campuses">Discovery</a></li><li><a href="#campuses">Holy Cross</a></li></ul></div>
-    <div class="sf-footer-col"><h4>Contact</h4><ul><li><a href="tel:+15617858480">(561) 785-8480</a></li><li><a href="https://maps.google.com/?q=435+6th+St+West+Palm+Beach+FL+33401" target="_blank" rel="noopener">435 6th St<br/>West Palm Beach, FL 33401</a></li><li style="color:var(--sf-ink-50);font-size:13px">Afternoons &amp; evenings<br/><!-- TODO(tom): confirm exact hours -->Opens 4 PM daily</li><li><a href="#contact">Get Started · First Class Free</a></li></ul></div>
+    <div class="sf-footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="after-school.html">After School</a></li>
+        <li><a href="camps.html">Summer Camps</a></li>
+        <li><a href="spirit-dance.html">Spirit Dance</a></li>
+        <li><a href="#top" class="program-cta" data-interest="Private Lessons">Private Lessons</a></li>
+        <li><a href="#top" class="program-cta" data-interest="Adult & Teen Classes">Adult &amp; Teen Classes</a></li>
+      </ul>
+    </div>
+    <div class="sf-footer-col">
+      <h4>Contact</h4>
+      <div class="sf-footer-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.8a2 2 0 01-.45 2.11L8.09 9.9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.84.57 2.8.7a2 2 0 011.72 2.04z"/></svg>
+        <div><a href="tel:+15617858480">(561) 785-8480</a></div>
+      </div>
+      <div class="sf-footer-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><a href="https://maps.google.com/?q=435+6th+St+West+Palm+Beach+FL+33401" target="_blank" rel="noopener">435 6th St<br/>West Palm Beach, FL 33401</a></div>
+      </div>
+      <div class="sf-footer-contact-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div style="color: rgba(255,255,255,0.55);">Afternoons &amp; evenings<br/>Opens 4 PM daily</div>
+      </div>
+    </div>
+    <div class="sf-footer-col">
+      <h4>Follow</h4>
+      <p style="font-size:14px;color:rgba(255,255,255,0.65);line-height:1.55;margin:0 0 14px;">Class updates, event photos, and behind-the-scenes.</p>
+      <div class="sf-footer-socials">
+        <a class="sf-footer-social" href="https://www.instagram.com/systema_floyd/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a class="sf-footer-social" href="https://www.facebook.com/systemafloyd" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95 0-5.52-4.48-10-10-10z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="sf-footer-bottom"><div>© <span id="yr">2026</span> Systema Floyd Martial Arts.</div><div>Raise a warrior.</div></div>
+  <div class="sf-footer-bottom">
+    <div>© <span id="yr">2026</span> Systema Floyd Martial Arts. All rights reserved.</div>
+    <div class="sf-footer-credit">
+      Website &amp; marketing systems by
+      <a href="https://nilsdigital.com" target="_blank" rel="noopener">nilsdigital.com</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17l10-10M7 7h10v10"/></svg>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -3037,6 +3482,191 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
       }, 350);
     }
     setInterval(next, 4200);
+  })();
+
+  /* TINDER-STYLE SWIPE STACK (About visual) */
+  (function() {
+    const stack = document.getElementById('swipeStack');
+    const dotsContainer = document.getElementById('swipeDots');
+    const prevBtn = document.getElementById('swipePrev');
+    const nextBtn = document.getElementById('swipeNext');
+    const pulse = document.getElementById('swipePulse');
+    if (!stack || !dotsContainer) return;
+
+    const IMAGES = [
+      { src: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/d8c47f56-07c4-42ca-a784-13537eceed96.jpg', alt: 'Systema Floyd training moment' },
+      { src: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/84298cba-915c-40ff-b37e-591b0c39c286.jpeg', alt: 'Systema Floyd training moment' },
+      { src: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/d8ef7866-1409-4418-ba05-f4f12906a00a.png', alt: 'Systema Floyd training moment' },
+      { src: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/7661fd0c-f0b9-4e0e-afde-ae723acba4ed.jpg', alt: 'Systema Floyd training moment' },
+      { src: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/3805bd18-0cc5-42f4-88a8-1858ccccf63c.jpg', alt: 'Systema Floyd training moment' }
+    ];
+    const N = IMAGES.length;
+
+    IMAGES.forEach((img) => {
+      const card = document.createElement('div');
+      card.className = 'swipe-card';
+      card.innerHTML = `<img src="${img.src}" alt="${img.alt}" draggable="false">`;
+      stack.insertBefore(card, prevBtn);
+    });
+    IMAGES.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = 'swipe-dot' + (i === 0 ? ' active' : '');
+      dotsContainer.appendChild(dot);
+    });
+
+    const cards = Array.from(stack.querySelectorAll('.swipe-card'));
+    const dots = Array.from(dotsContainer.querySelectorAll('.swipe-dot'));
+    let activeIdx = 0;
+
+    function applyStack() {
+      cards.forEach((card, i) => {
+        const offset = (i - activeIdx + N) % N;
+        card.classList.remove('leaving', 'dragging');
+        if (offset === 0) {
+          card.style.transform = 'translate(0,0) rotate(-1deg)';
+          card.style.zIndex = N; card.style.opacity = '1'; card.style.pointerEvents = 'auto';
+        } else if (offset === 1) {
+          card.style.transform = 'translate(18px, 18px) scale(0.94) rotate(3deg)';
+          card.style.zIndex = N - 1; card.style.opacity = '0.95'; card.style.pointerEvents = 'none';
+        } else if (offset === 2) {
+          card.style.transform = 'translate(-18px, 30px) scale(0.9) rotate(-4deg)';
+          card.style.zIndex = N - 2; card.style.opacity = '0.85'; card.style.pointerEvents = 'none';
+        } else {
+          card.style.transform = 'translate(0, 40px) scale(0.86)';
+          card.style.zIndex = 0; card.style.opacity = '0'; card.style.pointerEvents = 'none';
+        }
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+    }
+    function advance() { activeIdx = (activeIdx + 1) % N; applyStack(); killPulse(); }
+    function retreat() { activeIdx = (activeIdx - 1 + N) % N; applyStack(); killPulse(); }
+    function killPulse() { if (pulse) pulse.remove(); }
+    applyStack();
+
+    let startX = 0, startY = 0, dx = 0, dy = 0, dragging = false, moved = false;
+    let topCard = null;
+    stack.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.swipe-arrow')) return;
+      topCard = cards[activeIdx];
+      if (!topCard) return;
+      dragging = true; moved = false;
+      startX = e.clientX; startY = e.clientY; dx = 0; dy = 0;
+      topCard.classList.add('dragging');
+      topCard.setPointerCapture?.(e.pointerId);
+    });
+    stack.addEventListener('pointermove', (e) => {
+      if (!dragging || !topCard) return;
+      dx = e.clientX - startX; dy = e.clientY - startY;
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) moved = true;
+      const rot = dx / 18;
+      topCard.style.transform = `translate(${dx}px, ${dy * 0.3}px) rotate(${rot}deg)`;
+    });
+    function release() {
+      if (!dragging || !topCard) return;
+      dragging = false;
+      topCard.classList.remove('dragging');
+      const threshold = Math.min(120, stack.offsetWidth * 0.3);
+      if (Math.abs(dx) > threshold) {
+        const dir = dx > 0 ? 1 : -1;
+        topCard.classList.add('leaving');
+        topCard.style.transform = `translate(${dir * 900}px, ${dy}px) rotate(${dir * 20}deg)`;
+        topCard.style.opacity = '0';
+        setTimeout(advance, 160);
+      } else {
+        applyStack();
+      }
+      topCard = null;
+    }
+    stack.addEventListener('pointerup', release);
+    stack.addEventListener('pointercancel', release);
+    stack.addEventListener('pointerleave', () => { if (dragging) release(); });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); retreat(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); advance(); });
+    stack.tabIndex = 0;
+    stack.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); advance(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); retreat(); }
+    });
+
+    // Auto-rotate every 4s; pause on hover/drag
+    let auto = setInterval(advance, 4000);
+    stack.addEventListener('pointerenter', () => clearInterval(auto));
+    stack.addEventListener('pointerleave', () => { auto = setInterval(advance, 4000); });
+  })();
+
+  /* PROGRAM CTA → pre-fill GHL "Interest" field via iframe query param */
+  (function() {
+    const iframe = document.getElementById('inline-yP3OPoUimfOZgrXJo2mI');
+    if (!iframe) return;
+    const baseSrc = 'https://link.nilsdigital.com/widget/form/yP3OPoUimfOZgrXJo2mI';
+    // Update this list if you rename options in GHL — fuzzy-matches the closest.
+    const OPTIONS = ['After School','Camps','Spirit Dance','Private Lessons','Birthday Parties','Adult & Teen Classes','Babysitting','Other'];
+    const match = (v) => {
+      const lc = (v || '').toLowerCase();
+      return OPTIONS.find(o => o.toLowerCase() === lc)
+          || OPTIONS.find(o => o.toLowerCase().includes(lc) || lc.includes(o.toLowerCase()))
+          || v;
+    };
+    const flashForm = () => {
+      const card = document.querySelector('.hero-form');
+      if (!card) return;
+      card.classList.remove('flash');
+      void card.offsetWidth; // restart animation
+      card.classList.add('flash');
+      setTimeout(() => card.classList.remove('flash'), 1900);
+    };
+    document.querySelectorAll('.program-cta, .sf-nav-cta, .sf-mobile-menu-cta').forEach((el) => {
+      el.addEventListener('click', (e) => {
+        const interest = match(el.getAttribute('data-interest'));
+        if (interest) {
+          const newSrc = baseSrc + '?interest=' + encodeURIComponent(interest);
+          if (iframe.getAttribute('src') !== newSrc) iframe.setAttribute('src', newSrc);
+        }
+        // On mobile, scroll the form into full view (offset for the fixed nav).
+        if (window.innerWidth <= 900) {
+          e.preventDefault();
+          const form = document.getElementById('contact');
+          if (!form) return;
+          const nav = document.querySelector('.sf-nav-wrap');
+          const navH = nav ? nav.offsetHeight : 72;
+          const top = form.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+        // Flash the form after the scroll settles
+        setTimeout(flashForm, window.innerWidth <= 900 ? 650 : 450);
+      });
+    });
+  })();
+
+  /* GALLERY LIGHTBOX */
+  (function() {
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbClose = document.getElementById('lightboxClose');
+    if (!lb || !lbImg) return;
+    const open = (src, alt) => {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    };
+    document.querySelectorAll('.marquee-tile img').forEach((img) => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        open(img.currentSrc || img.src, img.alt);
+      });
+    });
+    lb.addEventListener('click', close);
+    lbClose.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('open')) close(); });
   })();
 
   /* SCROLL REVEAL */
