@@ -34,13 +34,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 nav.top{position:fixed;top:0;width:100%;z-index:500;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 40px;height:80px;transition:background .4s ease,border-color .4s ease}
 nav.top.solid{background:#F6F3EF;border-bottom:1px solid rgba(26,26,26,.08)}
 nav.top.dark{background:linear-gradient(180deg,rgba(20,14,10,.42) 0%,transparent 100%)}
-.nav-logo{display:flex;align-items:center;justify-content:center;position:relative;height:28px}
-.nav-logo img{height:22px;width:auto;position:absolute;transition:opacity .4s ease}
+.nav-logo{display:grid;place-items:center;height:48px}
+.nav-logo img{grid-area:1/1;height:42px;width:auto;transition:opacity .4s ease}
 .nav-logo-dark{opacity:1}
 .nav-logo-light{opacity:0}
 nav.top.dark .nav-logo-dark{opacity:0}
 nav.top.dark .nav-logo-light{opacity:1}
-@media(max-width:768px){.nav-logo img{height:16px}.nav-logo{height:22px}}
+@media(max-width:768px){.nav-logo img{height:26px}.nav-logo{height:32px}}
 .nav-trigger{justify-self:end;font-size:26px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
 nav.top.dark .nav-trigger{color:#F3EBDD}
 .nav-trigger.open{transform:rotate(45deg)}
@@ -76,7 +76,7 @@ nav.top.dark .nav-trigger{color:#F3EBDD}
 hr.rule{border:0;height:1px;background:rgba(26,26,26,.13);width:100%;margin:0}
 
 /* SECTION RHYTHM */
-section{padding:80px 0}
+section{padding:88px 0}
 .block{margin-bottom:32px}
 h1,h2,h3,p{margin:0}
 
@@ -307,9 +307,9 @@ body.locked{overflow:hidden}
   <section class="statement">
     <h1 class="fu">VeLUS Interiors</h1>
     <div class="body">
-      <p class="fu d1">We are drawn to spaces that feel quiet, luminous, and deeply considered — where beauty is not stated, but felt in atmosphere.</p>
+      <p class="fu d1">We are drawn to spaces that feel quiet, luminous, and deeply considered, where beauty is not stated, but felt in atmosphere.</p>
       <p class="fu d2">At VeLUS Interiors, we move between architecture and interior form, shaping environments through light, material, and proportion, always in response to how a space wants to live.</p>
-      <p class="fu d3">We believe interiors are not objects to be designed, but worlds gently revealed — layer by layer, through presence, restraint, and care.</p>
+      <p class="fu d3">We believe interiors are not objects to be designed, but worlds gently revealed, layer by layer, through presence, restraint, and care.</p>
       <p class="fu d4">What we create is not simply space, but a feeling of ease, clarity, and quiet luxury.</p>
     </div>
     <div class="cta-wrap fu d4"><a href="#collections" class="cta" data-nav>Discover</a></div>
@@ -318,9 +318,12 @@ body.locked{overflow:hidden}
   <section class="work-section">
     <div class="section-head">
       <hr class="rule fu"/>
-      <div class="fu d1" style="margin-top:28px"><span class="eyebrow">Selected — 2023 / 2026</span></div>
+      <div class="fu d1" style="margin-top:28px"><span class="eyebrow">Selected 2023 / 2026</span></div>
       <h2 class="fu d2">Our Work</h2>
-      <p class="lede fu d3">Our work begins with listening — to the structure of a space, its light, its rhythm, and what it quietly asks for. We shape interiors through thoughtful composition, allowing materials, form, and texture to settle into balance.</p>
+      <p class="lede fu d3">Our work begins with listening, to the structure of a space, its light, its rhythm, and what it quietly asks for.</p>
+      <p class="lede fu d3" style="margin-top:20px">We shape interiors through thoughtful composition, allowing materials, form, and texture to settle into balance rather than competition.</p>
+      <p class="lede fu d3" style="margin-top:20px">Each project is approached with care and intention, where decisions are refined until only what feels essential remains.</p>
+      <p class="lede fu d3" style="margin-top:20px">We design spaces that feel lived in from the first moment, soft in atmosphere, precise in detail, and calm in presence.</p>
     </div>
     <div class="work-stack">
       <div class="work-img fu" data-project="0">
@@ -353,15 +356,15 @@ body.locked{overflow:hidden}
     <div class="testimonies">
       <div class="t fu">
         <blockquote>"Her eye for everything from fixtures, to flooring, to small timeless touches is impeccable. She is great at understanding your style comfort zone while also making suggestions that elevate your space."</blockquote>
-        <cite>— Zakiya B.</cite>
+        <cite>Zakiya B.</cite>
       </div>
       <div class="t fu">
         <blockquote>"Mandy transformed my homes in New York and Chicago into spaces that truly reflect my style."</blockquote>
-        <cite>— Shaandj F. · New York &amp; Chicago</cite>
+        <cite>Shaandj F. · New York &amp; Chicago</cite>
       </div>
       <div class="t fu">
         <blockquote>"They understood our style perfectly and created a beautiful, functional space."</blockquote>
-        <cite>— Troy V. · Maryland</cite>
+        <cite>Troy V. · Maryland</cite>
       </div>
     </div>
   </section>
@@ -389,15 +392,15 @@ body.locked{overflow:hidden}
   </div>
   <div class="about-identity">
     <h1 class="fu">Mandy Velus</h1>
-    <div class="role fu d1">Founder, VeLUS INTERIORS</div>
+    <div class="role fu d1">Founder &amp; Principal Designer</div>
   </div>
   <div class="about-bio">
-    <p class="fu">Mandy Velus is the founder of VeLUS INTERIORS, a Chicago-based studio working across residential interiors defined by clarity, restraint, and spatial precision.</p>
-    <p class="fu">Her approach to design is shaped by a sensitivity to how spaces are experienced — not only in their construction, but in their atmosphere, rhythm, and quiet shifts over time.</p>
-    <p class="fu">There is a tendency to observe before defining. Each project begins with understanding how a space holds light, how it responds to movement, and how it supports the way it is lived in.</p>
-    <p class="fu">The work moves between intuition and structure — between what is sensed and what is built.</p>
-    <p class="fu">With a background in interior design and project management, she maintains continuity between vision and execution, ensuring that intention is carried through every stage of the process.</p>
-    <p class="fu">VeLUS INTERIORS continues to shape interiors that feel composed and grounded — where clarity is not imposed but gradually revealed.</p>
+    <p class="fu">Mandy Velus is the founder and principal designer of VELUS INTERIORS, a luxury residential studio founded in 2018.</p>
+    <p class="fu">Raised in Guyana, a country of extraordinary natural richness, Mandy grew up watching her father, a professional photographer, find the essence of things through a lens. It was there she learned that design begins not with ideas, but with attention.</p>
+    <p class="fu">Her work is defined by a disciplined approach to composition, where space is understood through material, proportion, and light rather than style or reference. Each project is developed as a study in how environments are experienced over time. Not just how they appear in a photograph.</p>
+    <p class="fu">She does not design through repetition or aesthetic formula. Each interior is approached as its own inquiry, shaped through observation, dialogue, and restraint, resulting in work that feels composed, personal, and enduring.</p>
+    <p class="fu">With a foundation in both design and project management, she leads every project from concept through completion with exacting precision, ensuring continuity between intent, execution, and lived experience. As a designer and a mother, she understands that a home is more than what it looks like. It is how it feels to live inside it every day, a structure for daily rhythm, shaped as much by function as by feeling.</p>
+    <p class="fu">Through VELUS INTERIORS, she continues to shape residential interiors across Chicago and beyond, defined by clarity, restraint, and a quiet sense of permanence.</p>
   </div>
   <div class="about-transition fu">Each project is shaped through a quiet alignment of space, material, and lived experience.</div>
   <div class="about-anchor">
@@ -419,7 +422,7 @@ body.locked{overflow:hidden}
     <p class="fu">VeLUS INTERIORS approaches space as more than composition or form.</p>
     <p class="fu">Each interior becomes a study in presence, shaped by what is chosen, what is removed, and what is allowed to remain.</p>
     <p class="fu">There is a quiet belief underlying the work: that interiors are lived environments, and what we surround ourselves with defines how we understand space, memory, and self.</p>
-    <p class="fu">Every project is guided by restraint, clarity, and intention — where nothing is excessive, and nothing is without purpose.</p>
+    <p class="fu">Every project is guided by restraint, clarity, and intention, where nothing is excessive, and nothing is without purpose.</p>
   </div>
   <div class="svc-list fu">
     <div class="svc-item">
@@ -455,6 +458,15 @@ body.locked{overflow:hidden}
     <p class="lede fu d1">Share your world with us. We look forward to what you are creating.</p>
   </div>
   <p class="c-intro fu">We welcome inquiries across residential and select commercial projects.</p>
+  <div class="c-info fu" style="max-width:720px;margin:72px auto 0;padding:0 40px;text-align:center">
+    <div style="font-family:var(--serif);font-weight:400;font-size:14px;letter-spacing:.36em;text-transform:uppercase;margin-bottom:8px">VeLUS INTERIORS</div>
+    <div style="font-family:var(--ui);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.55;margin-bottom:32px">Chicago, Illinois</div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:15px;font-weight:300;line-height:1.85">
+      <a href="mailto:mandy@velusinteriors.com" style="opacity:.78">mandy@velusinteriors.com</a>
+      <a href="tel:+19545409039" style="opacity:.78">+1 (954) 540-9039</a>
+      <a href="https://instagram.com/velusinteriors" target="_blank" rel="noopener" style="opacity:.78">@velusinteriors</a>
+    </div>
+  </div>
   <form class="inquiry" id="inquiryForm" onsubmit="event.preventDefault();submitInquiry()">
     <div class="inq-field fu">
       <label class="inq-label">What is your name?</label>
@@ -513,7 +525,9 @@ body.locked{overflow:hidden}
 <!-- FOOTER -->
 <footer id="site-footer">
   <div class="wrap">
-    <div class="wm">VeLUS INTERIORS</div>
+    <div style="display:flex;justify-content:center;margin-bottom:20px">
+      <img src="Logo/SVG.svg" alt="VeLUS INTERIORS" style="height:34px;width:auto;display:block" />
+    </div>
     <div class="city">Chicago, Illinois</div>
     <div class="links">
       <a href="mailto:mandy@velusinteriors.com">mandy@velusinteriors.com</a>
