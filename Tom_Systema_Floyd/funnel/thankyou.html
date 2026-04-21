@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#ffffff" />
-<title>You're In — Next Step | Systema Floyd Martial Arts</title>
+<title>You're In, Next Step | Systema Floyd Martial Arts</title>
 <meta name="description" content="Your spot is reserved. One more quick step to complete your campus registration." />
 <meta name="robots" content="noindex" />
 
@@ -127,7 +127,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <ol>
           <li>Fill out the full campus registration form below</li>
           <li>We'll review your info and confirm your trial class time within 24 hours</li>
-          <li>Your child shows up ready to train — we handle the rest</li>
+          <li>Your child shows up ready to train, we handle the rest</li>
         </ol>
       </div>
     </div>
@@ -140,7 +140,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       <div id="ghlFormSlot">
         <div class="ghl-placeholder">
           <b>Campus form will appear here</b>
-          Tom — paste your 5 GHL form IDs into the <code>CAMPUS_FORMS</code> object in this page's <code>&lt;script&gt;</code> block and this placeholder swaps out automatically.
+          Tom, paste your 5 GHL form IDs into the <code>CAMPUS_FORMS</code> object in this page's <code>&lt;script&gt;</code> block and this placeholder swaps out automatically.
         </div>
       </div>
     </div>
@@ -175,11 +175,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   };
 
   const CAMPUSES = {
-    'seacrest':   { name:'Seacrest Presbyterian', logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/534712b6-9937-4f67-944e-4a3c4d347dd2.png', meta:'After-school program meets Mon / Wed / Fri — 3:00–4:30 PM.' },
-    'st-jude':    { name:'St. Jude Catholic',     logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8b3e2704-8c10-429a-b423-71671d75ee91.png', meta:'After-school program meets Tue / Thu — 3:15–4:45 PM.' },
-    'st-ann':     { name:'St. Ann Catholic',      logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/41db1364-3171-4e83-ae08-a993c1bb7cc7.png', meta:'After-school program meets Mon / Wed — 3:00–4:30 PM.' },
-    'discovery':  { name:'Discovery Dayschool',   logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/179be408-7c83-4462-8226-63d420f73df1.png', meta:'After-school program meets Tue / Thu — 2:45–4:15 PM.' },
-    'holy-cross': { name:'Holy Cross',             logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2b9b6a7c-2bf8-4c82-b428-89f56ae30c21.png', meta:'After-school program meets Mon / Fri — 3:00–4:30 PM.' },
+    'seacrest':   { name:'Seacrest Presbyterian', logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/534712b6-9937-4f67-944e-4a3c4d347dd2.png', meta:'After-school program meets Mon / Wed / Fri, 3:00–4:30 PM.' },
+    'st-jude':    { name:'St. Jude Catholic',     logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8b3e2704-8c10-429a-b423-71671d75ee91.png', meta:'After-school program meets Tue / Thu, 3:15–4:45 PM.' },
+    'st-ann':     { name:'St. Ann Catholic',      logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/41db1364-3171-4e83-ae08-a993c1bb7cc7.png', meta:'After-school program meets Mon / Wed, 3:00–4:30 PM.' },
+    'discovery':  { name:'Discovery Dayschool',   logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/179be408-7c83-4462-8226-63d420f73df1.png', meta:'After-school program meets Tue / Thu, 2:45–4:15 PM.' },
+    'holy-cross': { name:'Holy Cross',             logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2b9b6a7c-2bf8-4c82-b428-89f56ae30c21.png', meta:'After-school program meets Mon / Fri, 3:00–4:30 PM.' },
     'unsure':     { name:"We'll help you pick",    logo:'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png', meta:'A coordinator will match you to the best campus for your family.' },
   };
 
@@ -201,11 +201,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   // Tailor copy by program
   if (programKey === 'camps') {
-    document.getElementById('campusMeta').textContent = `Your Summer Camps inquiry — we'll email session options, pricing, and next steps within 24 hours.`;
+    document.getElementById('campusMeta').textContent = `Your Summer Camps inquiry, we'll email session options, pricing, and next steps within 24 hours.`;
     document.getElementById('welcomeMsg').innerHTML = `Your <b style="color:var(--sf-blue-700)">Summer Camps</b> spot is being saved. One more quick form and we'll confirm.`;
     document.getElementById('formTitle').textContent = `Complete Your Camps Registration`;
   } else if (programKey === 'spirit-dance') {
-    document.getElementById('campusMeta').textContent = `Your Spirit Dance inquiry — we'll email schedule, pricing, and your trial class within 24 hours.`;
+    document.getElementById('campusMeta').textContent = `Your Spirit Dance inquiry, we'll email schedule, pricing, and your trial class within 24 hours.`;
     document.getElementById('welcomeMsg').innerHTML = `Your <b style="color:var(--sf-blue-700)">Spirit Dance</b> trial is being saved. One more quick form and we'll confirm.`;
     document.getElementById('formTitle').textContent = `Complete Your Spirit Dance Registration`;
   } else if (campusKey !== 'unsure') {
