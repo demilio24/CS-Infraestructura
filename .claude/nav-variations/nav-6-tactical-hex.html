@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nav Variation 6 — Tactical Honeycomb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--navy-900:#0a1028;--navy-800:#111a3d;--blue-700:#1b2f6e;--blue-500:#2f82c4;--blue-400:#4aa3e0;--cyan:#67e8f9;--gold-light:#f1d068;--white:#fff}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--white);color:#0d1534}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.01em;margin:0}
+
+/* ======= TACTICAL HONEYCOMB ======= */
+.nav-6{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:linear-gradient(180deg,#0a1028 0%,#111a3d 100%);
+  padding:14px 32px;
+  box-shadow:0 2px 24px rgba(0,0,0,.28);
+  border-bottom:1px solid rgba(74,163,224,.25);
+  position:relative;overflow:hidden;
+}
+/* Honeycomb SVG pattern at low opacity */
+.nav-6::before{
+  content:'';position:absolute;inset:0;opacity:.14;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M30 0 L60 15 L60 37 L30 52 L0 37 L0 15 Z M30 4 L4 16 L4 36 L30 48 L56 36 L56 16 Z' fill='none' stroke='%234aa3e0' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:60px 52px;
+  mask-image:linear-gradient(180deg,black,transparent);
+  -webkit-mask-image:linear-gradient(180deg,black,transparent);
+}
+/* Cyan bottom glow line */
+.nav-6::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue-400) 20%,var(--cyan) 50%,var(--blue-400) 80%,transparent);
+  box-shadow:0 0 12px rgba(103,232,249,.6);
+}
+.nav-6-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;position:relative}
+.nav-6-left,.nav-6-right{display:flex;align-items:center;gap:4px}
+.nav-6-right{justify-content:flex-end}
+.nav-6-link{
+  color:rgba(255,255,255,.85);
+  font-family:'Oswald',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 18px;
+  position:relative;
+  transition:color .2s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+/* Hex on hover — clip-path */
+.nav-6-link::before{
+  content:'';position:absolute;inset:6px 8px;
+  background:rgba(74,163,224,.15);
+  clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);
+  opacity:0;transition:opacity .25s;
+  z-index:-1;
+}
+.nav-6-link:hover{color:var(--cyan)}
+.nav-6-link:hover::before{opacity:1}
+
+/* Centered logo with cyan glow */
+.nav-6-logo{
+  display:flex;align-items:center;gap:12px;padding:4px 20px;position:relative;
+}
+/* Hex frame around logo */
+.nav-6-logo::before{
+  content:'';position:absolute;inset:-2px -8px;
+  border:1px solid rgba(103,232,249,.35);
+  clip-path:polygon(15px 0,calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,15px 100%,0 50%);
+}
+.nav-6-logo img{
+  height:64px;width:auto;
+  filter:drop-shadow(0 0 12px rgba(103,232,249,.5)) drop-shadow(0 2px 10px rgba(74,163,224,.6));
+  animation:logo-pulse-6 4s ease-in-out infinite;
+}
+@keyframes logo-pulse-6{
+  0%,100%{filter:drop-shadow(0 0 12px rgba(103,232,249,.5)) drop-shadow(0 2px 10px rgba(74,163,224,.6))}
+  50%{filter:drop-shadow(0 0 20px rgba(103,232,249,.75)) drop-shadow(0 2px 14px rgba(74,163,224,.85))}
+}
+
+/* Cyan-trim CTA */
+.nav-6-cta{
+  background:linear-gradient(135deg,var(--blue-500),var(--blue-700));
+  color:var(--white) !important;
+  padding:12px 22px !important;font-weight:700 !important;
+  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 50%,100% 100%,10px 100%,0 50%);
+  box-shadow:0 0 0 1px rgba(103,232,249,.4),0 8px 22px -6px rgba(47,130,196,.55);
+  transition:all .2s;
+  letter-spacing:.08em !important;
+}
+.nav-6-cta::before{display:none !important}
+.nav-6-cta:hover{transform:translateY(-2px);box-shadow:0 0 0 1px var(--cyan),0 14px 36px -8px rgba(103,232,249,.6)}
+
+/* Dropdown */
+.nav-6-dropdown{position:relative}
+.nav-6-dropdown-menu{
+  position:absolute;top:calc(100% + 8px);left:50%;transform:translate(-50%,-8px);
+  background:var(--navy-800);border:1px solid rgba(103,232,249,.3);
+  padding:10px;min-width:620px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  opacity:0;visibility:hidden;transition:all .25s;
+}
+.nav-6-dropdown-menu::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue-400),var(--cyan))}
+.nav-6-dropdown:hover .nav-6-dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.nav-6-dropdown-item{display:flex;flex-direction:column;gap:6px;padding:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:all .2s}
+.nav-6-dropdown-item:hover{background:rgba(103,232,249,.08);border-color:var(--cyan)}
+.nav-6-dropdown-thumb{aspect-ratio:4/3;overflow:hidden;background:#000}
+.nav-6-dropdown-thumb img{width:100%;height:100%;object-fit:cover}
+.nav-6-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;color:var(--white);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.nav-6-dropdown-sub{font-size:11px;color:rgba(255,255,255,.6)}
+
+/* Mobile */
+.nav-6-toggle{display:none;width:44px;height:44px;background:rgba(103,232,249,.12);border:1px solid rgba(103,232,249,.4);
+  clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);align-items:center;justify-content:center}
+.nav-6-toggle span,.nav-6-toggle span::before,.nav-6-toggle span::after{
+  display:block;width:16px;height:2px;background:var(--cyan);position:relative;
+}
+.nav-6-toggle span::before,.nav-6-toggle span::after{content:'';position:absolute;left:0;right:0}
+.nav-6-toggle span::before{top:-5px}
+.nav-6-toggle span::after{top:5px}
+
+@media (max-width:900px){
+  .nav-6{padding:10px 16px}
+  .nav-6-inner{grid-template-columns:44px 1fr 44px;gap:0}
+  .nav-6-left,.nav-6-right{display:none !important}
+  .nav-6-toggle{display:flex;grid-column:3}
+  .nav-6-inner::before{content:'';grid-column:1;width:44px}
+  .nav-6-logo{grid-column:2;justify-self:center}
+  .nav-6-logo img{height:48px}
+  .nav-6-logo::before{display:none}
+}
+
+/* Demo hero */
+.demo-hero{padding:130px 32px 80px;text-align:center;
+  background:linear-gradient(135deg,#1b2f6e,#0a1028);color:var(--white);
+  min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+.demo-hero::before{content:'';position:absolute;inset:0;opacity:.12;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'%3E%3Cpath d='M30 0 L60 15 L60 37 L30 52 L0 37 L0 15 Z M30 4 L4 16 L4 36 L30 48 L56 36 L56 16 Z' fill='none' stroke='%2367e8f9' stroke-width='1'/%3E%3C/svg%3E");
+  background-size:60px 52px;}
+.demo-hero h1{position:relative;font-size:clamp(36px,6vw,64px);line-height:.95;margin-bottom:16px}
+.demo-hero h1 .accent{color:var(--cyan)}
+.demo-hero p{position:relative;font-size:17px;color:rgba(255,255,255,.78);max-width:620px;margin:0 auto}
+</style></head>
+<body>
+
+<nav class="nav-6">
+  <div class="nav-6-inner">
+    <div class="nav-6-left">
+      <div class="nav-6-dropdown">
+        <button class="nav-6-link" type="button">Programs</button>
+        <div class="nav-6-dropdown-menu">
+          <a class="nav-6-dropdown-item" href="#">
+            <div class="nav-6-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" /></div>
+            <div class="nav-6-dropdown-title">After School</div><div class="nav-6-dropdown-sub">On-campus, 5 locations</div>
+          </a>
+          <a class="nav-6-dropdown-item" href="#">
+            <div class="nav-6-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/9f6e9e68-bfe3-4c06-9e0d-6cb868640361.png" alt="" /></div>
+            <div class="nav-6-dropdown-title">Camps</div><div class="nav-6-dropdown-sub">Full-day</div>
+          </a>
+          <a class="nav-6-dropdown-item" href="#">
+            <div class="nav-6-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg" alt="" /></div>
+            <div class="nav-6-dropdown-title">Spirit Dance</div><div class="nav-6-dropdown-sub">Pom, hip-hop</div>
+          </a>
+        </div>
+      </div>
+      <a class="nav-6-link" href="#">Campuses</a>
+    </div>
+
+    <a class="nav-6-logo" href="#" aria-label="Systema Floyd home">
+      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/a901fa29-7a82-44e2-af3c-4774fa9db5f5.png" alt="Systema Floyd" />
+    </a>
+
+    <div class="nav-6-right">
+      <a class="nav-6-link" href="#">About</a>
+      <a class="nav-6-link" href="#">Contact</a>
+      <a class="nav-6-link nav-6-cta" href="#">Get Started</a>
+    </div>
+    <button class="nav-6-toggle" aria-label="Menu"><span></span></button>
+  </div>
+</nav>
+
+<section class="demo-hero">
+  <h1>Raise a <span class="accent">Warrior.</span></h1>
+  <p>Variation 6 — Tactical Honeycomb. Hex pattern echoing the studio's honeycomb ceiling lights, cyan glow accents, pulsing logo, hex-shaped CTA cuts. Nods to the gym's signature ceiling.</p>
+</section>
+</body></html>

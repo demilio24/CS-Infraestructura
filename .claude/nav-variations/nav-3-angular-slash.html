@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nav Variation 3 — Angular Slash Cut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{--navy-900:#0a1028;--navy-800:#111a3d;--blue-700:#1b2f6e;--blue-500:#2f82c4;--blue-400:#4aa3e0;--red-600:#b91c1c;--red-500:#dc2626;--gold:#d4af37;--gold-light:#f1d068;--white:#fff;--ink:#0d1534;--cream:#f7f9fc;--border:#e2e8f2}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--white);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+h1,h2,h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.01em;margin:0}
+
+/* ======= ANGULAR SLASH CUT NAV ======= */
+.nav-3-wrap{position:fixed;top:0;left:0;right:0;z-index:100}
+.nav-3{
+  background:var(--white);
+  padding:12px 32px 20px;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 14px),calc(100% - 120px) 100%,120px calc(100% - 4px),0 calc(100% - 18px));
+  box-shadow:0 10px 30px -10px rgba(15,27,61,.14);
+  position:relative;
+}
+/* Red + gold slash under the cut */
+.nav-3-slash{
+  position:absolute;left:0;right:0;top:100%;height:14px;
+  pointer-events:none;
+  clip-path:polygon(0 0,100% 0,calc(100% - 120px) 80%,120px 100%,0 80%);
+  background:linear-gradient(90deg,var(--navy-900) 0%,var(--blue-700) 30%,var(--red-600) 60%,var(--gold) 100%);
+}
+.nav-3-slash::after{
+  content:'';position:absolute;left:0;right:0;top:0;bottom:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3) 40%,rgba(255,255,255,.3) 60%,transparent);
+  animation:shimmer 6s linear infinite;
+}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+.nav-3-inner{
+  max-width:1280px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:24px;
+}
+.nav-3-left,.nav-3-right{display:flex;align-items:center;gap:2px}
+.nav-3-right{justify-content:flex-end}
+.nav-3-link{
+  color:var(--ink);
+  font-family:'Oswald',sans-serif;font-weight:600;
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  padding:10px 16px;
+  position:relative;
+  transition:color .2s;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.nav-3-link::after{
+  content:'';position:absolute;
+  left:16px;right:16px;bottom:4px;
+  height:2px;background:var(--red-500);
+  transform:scaleX(0) skewX(-20deg);transform-origin:left center;
+  transition:transform .25s cubic-bezier(0.16,1,0.3,1);
+}
+.nav-3-link:hover{color:var(--blue-700)}
+.nav-3-link:hover::after{transform:scaleX(1) skewX(-20deg)}
+
+/* Centered logo with angular frame */
+.nav-3-logo{
+  position:relative;
+  display:flex;align-items:center;gap:10px;
+  padding:6px 24px;
+  background:linear-gradient(135deg,var(--navy-900),var(--blue-700));
+  clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);
+  box-shadow:0 8px 20px -6px rgba(27,47,110,.4);
+}
+.nav-3-logo img{height:60px;width:auto;filter:drop-shadow(0 2px 8px rgba(74,163,224,.5))}
+
+/* CTA */
+.nav-3-cta{
+  background:linear-gradient(135deg,var(--red-500),var(--red-600));
+  color:var(--white) !important;
+  padding:12px 22px !important;font-weight:700 !important;
+  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  box-shadow:0 8px 22px -6px rgba(185,28,28,.5);
+  transition:transform .2s,box-shadow .2s;
+  letter-spacing:.08em !important;
+}
+.nav-3-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(185,28,28,.7)}
+.nav-3-cta::after{display:none !important}
+
+/* Dropdown with pictures */
+.nav-3-dropdown{position:relative}
+.nav-3-dropdown-menu{
+  position:absolute;top:calc(100% + 18px);left:50%;transform:translate(-50%,-8px);
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:4px;padding:12px;
+  min-width:620px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  box-shadow:0 24px 60px -20px rgba(27,47,110,.3);
+  opacity:0;visibility:hidden;transition:all .25s;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 40px) 100%,40px calc(100% - 2px),0 calc(100% - 10px));
+  padding-bottom:22px;
+}
+.nav-3-dropdown-menu::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--red-500),var(--gold));
+}
+.nav-3-dropdown:hover .nav-3-dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.nav-3-dropdown-item{
+  display:flex;flex-direction:column;gap:6px;
+  padding:10px;border-radius:2px;
+  transition:all .2s;
+}
+.nav-3-dropdown-item:hover{background:var(--cream)}
+.nav-3-dropdown-thumb{aspect-ratio:4/3;overflow:hidden;background:var(--navy-800);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 20px) 100%,0 100%);
+}
+.nav-3-dropdown-thumb img{width:100%;height:100%;object-fit:cover}
+.nav-3-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;color:var(--navy-900);text-transform:uppercase;letter-spacing:.05em;margin-top:4px}
+.nav-3-dropdown-sub{font-size:11px;color:#5a6585;line-height:1.4}
+
+/* Mobile toggle */
+.nav-3-toggle{display:none;width:44px;height:44px;
+  background:linear-gradient(135deg,var(--red-500),var(--red-600));
+  clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);
+  align-items:center;justify-content:center}
+.nav-3-toggle span,.nav-3-toggle span::before,.nav-3-toggle span::after{
+  display:block;width:18px;height:2px;background:var(--white);position:relative;
+}
+.nav-3-toggle span::before,.nav-3-toggle span::after{content:'';position:absolute;left:0;right:0}
+.nav-3-toggle span::before{top:-6px}
+.nav-3-toggle span::after{top:6px}
+
+@media (max-width:900px){
+  .nav-3{padding:10px 16px 18px;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 60px) 100%,60px calc(100% - 2px),0 calc(100% - 12px))}
+  .nav-3-slash{clip-path:polygon(0 0,100% 0,calc(100% - 60px) 80%,60px 100%,0 80%);height:10px}
+  .nav-3-inner{grid-template-columns:44px 1fr auto;gap:16px}
+  .nav-3-left{display:none}
+  .nav-3-right .nav-3-link{display:none}
+  .nav-3-right{justify-content:flex-end}
+  .nav-3-toggle{display:flex}
+  .nav-3-inner::before{content:'';grid-column:1;width:44px}
+  .nav-3-logo{grid-column:2;justify-self:center;padding:4px 18px}
+  .nav-3-logo img{height:44px}
+}
+
+/* Demo hero under nav */
+.demo-hero{
+  padding:150px 32px 80px;text-align:center;
+  background:linear-gradient(180deg,var(--cream) 0%,var(--white) 70%);
+  color:var(--ink);
+  min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  position:relative;
+}
+.demo-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:60px;
+  background:linear-gradient(180deg,rgba(15,27,61,.05),transparent);pointer-events:none;
+}
+.demo-hero h1{font-size:clamp(36px,6vw,64px);line-height:.95;margin-bottom:16px}
+.demo-hero h1 .accent{color:var(--red-600)}
+.demo-hero p{font-size:17px;color:#475067;max-width:620px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div class="nav-3-wrap">
+  <nav class="nav-3">
+    <div class="nav-3-inner">
+      <div class="nav-3-left">
+        <div class="nav-3-dropdown">
+          <button class="nav-3-link" type="button">▸ Programs</button>
+          <div class="nav-3-dropdown-menu">
+            <a class="nav-3-dropdown-item" href="#">
+              <div class="nav-3-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" /></div>
+              <div class="nav-3-dropdown-title">After School</div>
+              <div class="nav-3-dropdown-sub">On-campus martial arts, 5 locations</div>
+            </a>
+            <a class="nav-3-dropdown-item" href="#">
+              <div class="nav-3-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/9f6e9e68-bfe3-4c06-9e0d-6cb868640361.png" alt="" /></div>
+              <div class="nav-3-dropdown-title">Camps</div>
+              <div class="nav-3-dropdown-sub">Full-day, summer + breaks</div>
+            </a>
+            <a class="nav-3-dropdown-item" href="#">
+              <div class="nav-3-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg" alt="" /></div>
+              <div class="nav-3-dropdown-title">Spirit Dance</div>
+              <div class="nav-3-dropdown-sub">Pom, hip-hop, team spirit</div>
+            </a>
+          </div>
+        </div>
+        <a class="nav-3-link" href="#">Campuses</a>
+      </div>
+
+      <a class="nav-3-logo" href="#" aria-label="Systema Floyd home">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/a901fa29-7a82-44e2-af3c-4774fa9db5f5.png" alt="Systema Floyd" />
+      </a>
+
+      <div class="nav-3-right">
+        <a class="nav-3-link" href="#">About</a>
+        <a class="nav-3-link" href="#">Contact</a>
+        <a class="nav-3-link nav-3-cta" href="#">Get Started</a>
+        <button class="nav-3-toggle" aria-label="Menu"><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-3-slash"></div>
+</div>
+
+<section class="demo-hero">
+  <h1>Raise a <span class="accent">Warrior.</span></h1>
+  <p>Variation 3 — Angular Slash Cut. White nav with a diagonal clip-path cut, animated gold-red slash underneath, and angled CTA.</p>
+</section>
+</body></html>

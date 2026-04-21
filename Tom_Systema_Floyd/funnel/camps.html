@@ -41,21 +41,42 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .btn-secondary:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-500)}
 .btn-lg{padding:18px 36px;font-size:17px;min-height:56px}
 
-/* NAV (shared) */
-.sf-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;background:rgba(255,255,255,.82);backdrop-filter:blur(18px);border-bottom:1px solid transparent;transition:all .3s}
-.sf-nav.scrolled{background:rgba(255,255,255,.96);border-bottom-color:var(--sf-border);box-shadow:0 8px 30px -16px rgba(15,27,61,.12);padding:10px 32px}
-.sf-nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.sf-nav-logo{height:48px}.sf-nav.scrolled .sf-nav-logo{height:40px}
-.sf-nav-logo img{height:100%}
-.sf-nav-links{display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:0}
-.sf-nav-links a{color:var(--sf-ink);font-size:14px;font-weight:600;padding:10px 14px;border-radius:var(--radius-sm);transition:all .2s}
-.sf-nav-links a:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
-.sf-nav-cta{background:var(--grad-blue);color:#fff !important;padding:12px 24px !important;font-weight:700;box-shadow:0 8px 22px -8px rgba(47,130,196,.5)}
-.sf-nav-cta:hover{background:var(--sf-blue-900) !important}
-.sf-nav-toggle{display:none;width:44px;height:44px;border-radius:var(--radius-sm);background:var(--sf-blue-50);align-items:center;justify-content:center}
-.sf-nav-toggle span{display:block;width:22px;height:2px;background:var(--sf-ink);position:relative}
-.sf-nav-toggle span::before,.sf-nav-toggle span::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--sf-ink)}
-.sf-nav-toggle span::before{top:-7px}.sf-nav-toggle span::after{top:7px}
+/* NAV (shared) — white + blue angular slash (nav-4) */
+.sf-nav-wrap{position:fixed;top:0;left:0;right:0;z-index:100}
+.sf-nav{background:var(--sf-white);padding:14px 32px 22px;clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 120px) 100%,120px calc(100% - 4px),0 calc(100% - 20px));box-shadow:0 10px 30px -12px rgba(15,27,61,.14);position:relative;transition:padding .3s,box-shadow .3s}
+.sf-nav.scrolled{padding:10px 32px 18px;box-shadow:0 14px 40px -10px rgba(15,27,61,.18)}
+.sf-nav-slash{position:absolute;left:0;right:0;top:100%;height:14px;pointer-events:none;clip-path:polygon(0 0,100% 0,calc(100% - 120px) 80%,120px 100%,0 80%);background:linear-gradient(90deg,var(--sf-blue-700) 0%,var(--sf-blue-500) 50%,var(--sf-blue-400) 100%)}
+.sf-nav-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.sf-nav-side-left,.sf-nav-side-right{display:flex;align-items:center;gap:4px}
+.sf-nav-side-right{justify-content:flex-end}
+.sf-nav-link{color:var(--sf-ink);font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:10px 16px;border-radius:4px;transition:color .2s,background .2s;display:inline-flex;align-items:center;gap:6px;cursor:pointer;background:none;border:0;text-decoration:none}
+.sf-nav-link::before{content:'';display:inline-block;width:0;height:0;border:5px solid transparent;border-left-color:var(--sf-blue-500);margin-right:4px;opacity:.6;transition:opacity .2s,transform .2s}
+.sf-nav-link:hover{color:var(--sf-blue-700);background:var(--sf-blue-50)}
+.sf-nav-link:hover::before{opacity:1;transform:translateX(2px)}
+.sf-nav-logo{display:flex;align-items:center;gap:14px;padding:4px 20px;position:relative;text-decoration:none}
+.sf-nav-logo::before,.sf-nav-logo::after{content:'';display:block;width:0;height:0;border:6px solid transparent}
+.sf-nav-logo::before{border-right-color:var(--sf-blue-500)}
+.sf-nav-logo::after{border-left-color:var(--sf-blue-500)}
+.sf-nav-logo img{height:64px;width:auto;filter:drop-shadow(0 2px 12px rgba(47,130,196,.35)) drop-shadow(0 1px 4px rgba(27,47,110,.2));transition:height .3s}
+.sf-nav.scrolled .sf-nav-logo img{height:54px}
+.sf-nav-cta{background:linear-gradient(135deg,var(--sf-blue-500),var(--sf-blue-700));color:#fff !important;padding:12px 22px !important;font-weight:700 !important;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);box-shadow:0 8px 22px -6px rgba(47,130,196,.55);transition:transform .2s,box-shadow .2s;letter-spacing:.08em !important}
+.sf-nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(47,130,196,.75)}
+.sf-nav-cta::before{display:none !important}
+.sf-nav-dropdown{position:relative}
+.sf-nav-dropdown-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translate(-50%,-8px);background:var(--sf-white);border:1px solid var(--sf-border);border-radius:8px;padding:10px;min-width:620px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;box-shadow:0 24px 60px -20px rgba(27,47,110,.3);opacity:0;visibility:hidden;transition:all .25s}
+.sf-nav-dropdown-menu::before{content:'';position:absolute;top:-3px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sf-blue-500),var(--sf-blue-700))}
+.sf-nav-dropdown:hover .sf-nav-dropdown-menu,.sf-nav-dropdown:focus-within .sf-nav-dropdown-menu{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.sf-nav-dropdown-item{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:6px;background:var(--sf-blue-50);border:1px solid var(--sf-border);transition:all .2s;text-decoration:none}
+.sf-nav-dropdown-item:hover{background:var(--sf-blue-100);border-color:var(--sf-blue-500)}
+.sf-nav-dropdown-thumb{aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:#000}
+.sf-nav-dropdown-thumb img{width:100%;height:100%;object-fit:cover}
+.sf-nav-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;color:var(--sf-ink);text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+.sf-nav-dropdown-sub{font-size:11px;color:var(--sf-ink-50);line-height:1.3}
+.sf-nav-toggle{display:none;width:44px;height:44px;background:linear-gradient(135deg,var(--sf-blue-500),var(--sf-blue-700));clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);align-items:center;justify-content:center;cursor:pointer;border:0}
+.sf-nav-toggle span{display:block;width:18px;height:2px;background:#fff;position:relative}
+.sf-nav-toggle span::before,.sf-nav-toggle span::after{content:'';position:absolute;left:0;right:0;height:2px;background:#fff}
+.sf-nav-toggle span::before{top:-6px}
+.sf-nav-toggle span::after{top:6px}
 .sf-mobile-menu{position:fixed;inset:0;z-index:99;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);opacity:0;visibility:hidden;transition:all .4s;padding:90px 32px 32px;overflow-y:auto}
 .sf-mobile-menu.open{opacity:1;visibility:visible}
 .sf-mobile-menu ul{list-style:none;padding:0;margin:0}
@@ -137,26 +158,54 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .sf-footer-bottom{max-width:1280px;margin:0 auto;padding-top:24px;border-top:1px solid var(--sf-border);display:flex;justify-content:space-between;color:var(--sf-ink-50);font-size:13px}
 
 @media (max-width:1100px){.page-hero-inner{grid-template-columns:1fr;gap:48px;text-align:center}.page-hero-copy{order:1}.page-hero-visual{order:2;min-height:360px}.page-hero-sub{margin-left:auto;margin-right:auto}.page-hero-ctas{justify-content:center}.sessions-grid{grid-template-columns:repeat(2,1fr)}.sf-footer-inner{grid-template-columns:1fr 1fr}}
-@media (max-width:720px){.sf-nav,.sf-nav.scrolled{padding:12px 20px}.sf-nav-links,.sf-nav-cta{display:none}.sf-nav-toggle{display:flex}.page-hero{padding:120px 20px 70px;min-height:auto}.sec{padding:70px 20px}.sessions-grid{grid-template-columns:1fr}.sec-title,.cta-banner h2{font-size:clamp(28px,8vw,40px)}.sf-footer{padding:60px 20px 24px}.sf-footer-inner{grid-template-columns:1fr;gap:32px;padding-bottom:32px}.sf-footer-bottom{flex-direction:column;gap:12px;text-align:center}.cta-banner{padding:70px 20px}}
+@media (max-width:900px){.sf-nav{padding:10px 16px 18px;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 60px) 100%,60px calc(100% - 2px),0 calc(100% - 12px))}.sf-nav.scrolled{padding:8px 16px 16px}.sf-nav-slash{clip-path:polygon(0 0,100% 0,calc(100% - 60px) 80%,60px 100%,0 80%);height:10px}.sf-nav-inner{grid-template-columns:44px 1fr 44px;gap:0}.sf-nav-side-left,.sf-nav-side-right{display:none !important}.sf-nav-toggle{display:flex;grid-column:3}.sf-nav-inner::before{content:'';grid-column:1;width:44px}.sf-nav-logo{grid-column:2;justify-self:center;padding:0}.sf-nav-logo img{height:48px}.sf-nav.scrolled .sf-nav-logo img{height:42px}.sf-nav-logo::before,.sf-nav-logo::after{display:none}}
+@media (max-width:720px){.page-hero{padding:120px 20px 70px;min-height:auto}.sec{padding:70px 20px}.sessions-grid{grid-template-columns:1fr}.sec-title,.cta-banner h2{font-size:clamp(28px,8vw,40px)}.sf-footer{padding:60px 20px 24px}.sf-footer-inner{grid-template-columns:1fr;gap:32px;padding-bottom:32px}.sf-footer-bottom{flex-direction:column;gap:12px;text-align:center}.cta-banner{padding:70px 20px}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}.page-hero-slash,.page-hero-visual img{animation:none !important}}
 </style>
 </head>
 <body>
 
-<nav class="sf-nav" id="sfNav">
-  <div class="sf-nav-inner">
-    <a href="home.html" class="sf-nav-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" /></a>
-    <ul class="sf-nav-links">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="after-school.html">After School</a></li>
-      <li><a href="camps.html" style="color:var(--sf-blue-500)">Camps</a></li>
-      <li><a href="spirit-dance.html">Spirit Dance</a></li>
-      <li><a href="home.html#campuses">Campuses</a></li>
-      <li><a class="sf-nav-cta" href="home.html#contact">Get Started — First Class Free</a></li>
-    </ul>
-    <button class="sf-nav-toggle" id="sfNavToggle" aria-label="Open menu"><span></span></button>
-  </div>
-</nav>
+<div class="sf-nav-wrap">
+  <nav class="sf-nav" id="sfNav" aria-label="Primary">
+    <div class="sf-nav-inner">
+      <div class="sf-nav-side-left">
+        <div class="sf-nav-dropdown">
+          <button class="sf-nav-link" type="button" aria-haspopup="true">Programs</button>
+          <div class="sf-nav-dropdown-menu" role="menu">
+            <a class="sf-nav-dropdown-item" href="after-school.html" role="menuitem">
+              <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" /></div>
+              <div class="sf-nav-dropdown-title">After School</div>
+              <div class="sf-nav-dropdown-sub">On-campus, 5 locations</div>
+            </a>
+            <a class="sf-nav-dropdown-item" href="camps.html" role="menuitem">
+              <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/9f6e9e68-bfe3-4c06-9e0d-6cb868640361.png" alt="" /></div>
+              <div class="sf-nav-dropdown-title">Camps</div>
+              <div class="sf-nav-dropdown-sub">Full-day, summer + breaks</div>
+            </a>
+            <a class="sf-nav-dropdown-item" href="spirit-dance.html" role="menuitem">
+              <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg" alt="" /></div>
+              <div class="sf-nav-dropdown-title">Spirit Dance</div>
+              <div class="sf-nav-dropdown-sub">Pom, hip-hop, team spirit</div>
+            </a>
+          </div>
+        </div>
+        <a class="sf-nav-link" href="home.html#campuses">Campuses</a>
+      </div>
+
+      <a href="home.html" class="sf-nav-logo" aria-label="Systema Floyd home">
+        <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd Martial Arts" />
+      </a>
+
+      <div class="sf-nav-side-right">
+        <a class="sf-nav-link" href="home.html#about">About</a>
+        <a class="sf-nav-link" href="home.html#contact">Contact</a>
+        <a class="sf-nav-link sf-nav-cta" href="home.html#contact">Get Started</a>
+      </div>
+      <button class="sf-nav-toggle" type="button" id="sfNavToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    </div>
+  </nav>
+  <div class="sf-nav-slash"></div>
+</div>
 <div class="sf-mobile-menu" id="sfMobileMenu">
   <ul><li><a href="home.html">Home</a></li><li><a href="home.html#contact">Get Started — First Class Free</a></li><li><a href="after-school.html">After School</a></li><li><a href="camps.html">Summer Camps</a></li><li><a href="spirit-dance.html">Spirit Dance</a></li><li><a href="home.html#campuses">Campuses</a></li></ul>
 </div>
