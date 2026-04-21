@@ -249,10 +249,18 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 .sf-nav::before {
   content: '';
   position: absolute; inset: 0; z-index: -1;
-  background: var(--sf-white);
+  background:
+    linear-gradient(180deg, transparent calc(100% - 3px), var(--sf-blue-500) calc(100% - 3px), var(--sf-blue-700) 100%),
+    var(--sf-white);
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 120px) 100%, 120px calc(100% - 4px), 0 calc(100% - 20px));
   box-shadow: 0 10px 30px -12px rgba(15,27,61,0.14);
   transition: box-shadow 0.3s;
+}
+.sf-nav::after {
+  content: '';
+  position: absolute; inset: 0; z-index: -2;
+  background: radial-gradient(ellipse 55% 36px at 50% 100%, rgba(47,130,196,0.35), transparent 70%);
+  pointer-events: none;
 }
 .sf-nav.scrolled {
   padding: 10px 32px 18px;
@@ -262,10 +270,18 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 }
 /* Static blue gradient slash underneath (no animation) */
 .sf-nav-slash {
-  position: absolute; left: 0; right: 0; top: 100%; height: 14px;
+  position: absolute; left: 0; right: 0; top: 100%; height: 10px;
   pointer-events: none;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 120px) 80%, 120px 100%, 0 80%);
-  background: linear-gradient(90deg, var(--sf-blue-700) 0%, var(--sf-blue-500) 50%, var(--sf-blue-400) 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 140px) 100%, 140px 100%, 0 0);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 45%),
+    linear-gradient(90deg, #0a1028 0%, #1b2f6e 22%, #2f82c4 50%, #1b2f6e 78%, #0a1028 100%);
+  filter: drop-shadow(0 6px 14px rgba(27,47,110,0.35));
+}
+.sf-nav-slash::after {
+  content: '';
+  position: absolute; left: 140px; right: 140px; bottom: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(74,163,224,0.9) 50%, transparent 100%);
 }
 .sf-nav-inner {
   max-width: 1280px; margin: 0 auto;
@@ -316,7 +332,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 
 /* Angled blue CTA */
 .sf-nav-cta {
-  background: linear-gradient(135deg, var(--sf-blue-500), var(--sf-blue-700));
+  background: linear-gradient(90deg, var(--sf-blue-500) 0%, var(--sf-blue-700) 100%);
   color: var(--sf-white) !important;
   padding: 12px 22px !important; font-weight: 700 !important;
   clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
@@ -327,60 +343,132 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 .sf-nav-cta:hover {
   transform: translateY(-2px);
   box-shadow: 0 14px 32px -8px rgba(47,130,196,0.75);
-  background: linear-gradient(135deg, var(--sf-blue-500), var(--sf-blue-700)) !important;
+  background: linear-gradient(90deg, var(--sf-blue-500) 0%, var(--sf-blue-700) 100%) !important;
 }
 .sf-nav-cta::before { display: none !important; }
 
-/* Dropdown with pictures, centered under the nav */
-.sf-nav-dropdown { position: static; }        /* menu positions against .sf-nav-inner */
+/* Dropdown with pictures, anchored to the Programs link */
+.sf-nav-dropdown { position: relative; }
 .sf-nav-dropdown-menu {
   position: absolute;
-  top: 100%;                    /* flush with the bottom of nav-inner, no hover gap */
-  left: 50%; transform: translate(-50%, -8px);
-  background: var(--sf-white); border: 1px solid var(--sf-border);
-  border-radius: 12px;
-  padding: 16px; min-width: 680px;
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
-  box-shadow: 0 24px 60px -20px rgba(27,47,110,0.3);
+  top: 100%;
+  left: -16px; transform: translateY(-8px);
+  margin-top: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8fd 100%);
+  border: 1px solid var(--sf-border);
+  border-left: 3px solid var(--sf-blue-500);
+  border-radius: 4px;
+  padding: 18px 18px 14px;
+  width: 720px;
+  box-shadow: 0 30px 80px -24px rgba(10,16,40,0.45), 0 12px 32px -16px rgba(27,47,110,0.25);
   opacity: 0; visibility: hidden;
-  transition: all 0.25s var(--ease-out);
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0.25s;
   z-index: 10;
+  display: block;
 }
 .sf-nav-dropdown-menu::before {
-  content: ''; position: absolute; top: -3px; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--sf-blue-500), var(--sf-blue-700));
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--sf-blue-500) 0%, var(--sf-blue-700) 60%, var(--sf-blue-800) 100%);
+}
+.sf-nav-dropdown-menu::after {
+  content: ''; position: absolute;
+  top: -28px; left: 0; right: 0; height: 28px;
+  background: transparent;
 }
 .sf-nav-dropdown:hover .sf-nav-dropdown-menu,
 .sf-nav-dropdown:focus-within .sf-nav-dropdown-menu {
-  opacity: 1; visibility: visible; transform: translate(-50%, 0);
+  opacity: 1; visibility: visible; transform: translateY(0);
 }
+
+.sf-nav-dropdown-eyebrow {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2px 4px 12px;
+  border-bottom: 1px solid var(--sf-border);
+  margin-bottom: 14px;
+}
+.sf-nav-dropdown-eyebrow-label {
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sf-blue-700);
+}
+.sf-nav-dropdown-eyebrow-sub {
+  font-size: 11.5px; color: var(--sf-ink-50);
+  letter-spacing: 0.02em;
+}
+
+.sf-nav-dropdown-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+
 .sf-nav-dropdown-item {
-  display: flex; flex-direction: column; gap: 6px;
-  padding: 10px; border-radius: 6px;
-  background: var(--sf-blue-50); border: 1px solid var(--sf-border);
-  transition: all 0.2s; text-decoration: none;
+  position: relative;
+  display: flex; flex-direction: column;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--sf-white);
+  border: 1px solid var(--sf-border);
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  transition: transform 0.35s var(--ease-out), border-color 0.35s, box-shadow 0.35s;
 }
-.sf-nav-dropdown-item:hover { background: var(--sf-blue-100); border-color: var(--sf-blue-500); }
+.sf-nav-dropdown-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--sf-border-strong);
+  border-bottom-color: var(--sf-blue-500);
+  box-shadow: 0 18px 40px -18px rgba(47,130,196,0.45);
+}
 .sf-nav-dropdown-thumb {
-  aspect-ratio: 4/3; border-radius: 4px; overflow: hidden; background: #000;
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: 0;
+  background: #0a1028;
+  overflow: hidden;
 }
-.sf-nav-dropdown-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.sf-nav-dropdown-thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease-out), filter 0.35s;
+  filter: brightness(1.1) saturate(1.05);
+}
+.sf-nav-dropdown-item:hover .sf-nav-dropdown-thumb img { transform: scale(1.06); filter: brightness(1.2) saturate(1.15); }
+.sf-nav-dropdown-body {
+  padding: 10px 14px;
+  background: var(--sf-white);
+  border-top: 2px solid var(--sf-blue-500);
+}
 .sf-nav-dropdown-title {
-  font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 14px;
-  color: var(--sf-ink); text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px;
+  font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 18px;
+  color: var(--sf-ink); text-transform: uppercase; letter-spacing: 0.06em;
+  margin: 0 0 4px;
+  line-height: 1.1;
 }
-.sf-nav-dropdown-sub { font-size: 11px; color: var(--sf-ink-50); line-height: 1.3; }
+.sf-nav-dropdown-sub {
+  font-size: 12.5px; color: var(--sf-ink-60); line-height: 1.4;
+  margin: 0;
+}
+.sf-nav-dropdown-arrow {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 8px;
+  font-size: 11px; font-weight: 700;
+  color: var(--sf-blue-700); letter-spacing: 0.14em; text-transform: uppercase;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.sf-nav-dropdown-arrow svg { width: 14px; height: 14px; }
+.sf-nav-dropdown-item:hover .sf-nav-dropdown-arrow { opacity: 1; transform: translateY(0); }
 
 /* Mobile toggle, angled blue button */
 .sf-nav-toggle {
-  display: none; width: 44px; height: 44px;
-  background: linear-gradient(135deg, var(--sf-blue-500), var(--sf-blue-700));
+  display: none; width: 44px; height: 42px;
+  background: linear-gradient(90deg, var(--sf-blue-700) 0%, var(--sf-blue-800) 100%);
+  border-radius: 4px;
   clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
   align-items: center; justify-content: center; cursor: pointer; border: 0;
+  margin-left: -10px;
 }
 .sf-nav-toggle span {
-  display: block; width: 18px; height: 2px;
+  display: block; width: 20px; height: 2px;
   background: var(--sf-white); position: relative;
+  transform: skewX(-20deg);
 }
 .sf-nav-toggle span::before, .sf-nav-toggle span::after {
   content: ''; position: absolute; left: 0; right: 0; height: 2px; background: var(--sf-white);
@@ -396,58 +484,156 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   }
   .sf-nav.scrolled { padding: 8px 16px 16px; }
   .sf-nav-slash { clip-path: polygon(0 0, 100% 0, calc(100% - 60px) 80%, 60px 100%, 0 80%); height: 10px; }
-  /* Mobile layout: [hamburger] [logo centered] [Get Started CTA] */
-  .sf-nav-inner { grid-template-columns: 44px 1fr auto; gap: 10px; }
+  /* Mobile layout: [logo left] [ Get Started + hamburger grouped right ] */
+  .sf-nav-inner { grid-template-columns: auto 1fr auto auto; gap: 8px; }
   .sf-nav-side-left { display: none !important; }
   .sf-nav-side-right {
-    display: flex !important; align-items: center; gap: 0;
-    grid-column: 3;
+    display: flex !important; align-items: center; justify-content: flex-end; gap: 0;
+    grid-column: 3; grid-row: 1;
   }
   /* Hide About/Contact links on mobile, keep only the CTA */
   .sf-nav-side-right > .sf-nav-link:not(.sf-nav-cta) { display: none; }
   .sf-nav-cta {
-    padding: 10px 14px !important;
+    padding: 0 16px !important;
+    height: 42px; min-height: 42px;
     font-size: 12px !important;
     letter-spacing: 0.05em !important;
+    border-radius: 4px;
   }
-  .sf-nav-toggle { display: flex; grid-column: 1; }
-  .sf-nav-logo { grid-column: 2; justify-self: center; padding: 0; }
-  .sf-nav-logo img { height: 48px; }
-  .sf-nav.scrolled .sf-nav-logo img { height: 42px; }
+  .sf-nav-toggle { display: flex; grid-column: 4; grid-row: 1; justify-self: end; }
+  .sf-nav-logo { grid-column: 1; grid-row: 1; justify-self: start; padding: 0 0 0 10px; }
+  .sf-nav-logo img { height: 60px; }
+  .sf-nav.scrolled .sf-nav-logo img { height: 52px; }
   .sf-nav-logo::before, .sf-nav-logo::after { display: none; }
   .sf-nav-dropdown-menu { min-width: 0; width: calc(100vw - 32px); }
 }
 
 .sf-mobile-menu {
   position: fixed; inset: 0; z-index: 99;
-  background: rgba(255,255,255,0.98);
-  backdrop-filter: blur(20px);
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(47,130,196,0.22), transparent 55%),
+    radial-gradient(ellipse at 85% 85%, rgba(74,163,224,0.16), transparent 55%),
+    linear-gradient(180deg, #0a1028 0%, #111a3d 100%);
   opacity: 0; visibility: hidden;
   transition: opacity 0.4s, visibility 0.4s;
-  padding: 90px 32px 32px; overflow-y: auto;
+  padding: 92px 20px 40px; overflow-y: auto;
+  color: #fff;
+}
+.sf-mobile-menu::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(74,163,224,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,163,224,0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+          mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  pointer-events: none;
 }
 .sf-mobile-menu.open { opacity: 1; visibility: visible; }
-.sf-mobile-menu ul { list-style: none; padding: 0; margin: 0; }
+.sf-mobile-menu ul { list-style: none; padding: 0; margin: 0; position: relative; }
 .sf-mobile-menu li {
-  border-bottom: 1px solid var(--sf-border);
   opacity: 0; transform: translateY(12px);
   transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
 }
 .sf-mobile-menu.open li { opacity: 1; transform: translateY(0); }
-.sf-mobile-menu.open li:nth-child(1) { transition-delay: 0.08s; }
-.sf-mobile-menu.open li:nth-child(2) { transition-delay: 0.14s; }
-.sf-mobile-menu.open li:nth-child(3) { transition-delay: 0.2s; }
-.sf-mobile-menu.open li:nth-child(4) { transition-delay: 0.26s; }
-.sf-mobile-menu.open li:nth-child(5) { transition-delay: 0.32s; }
-.sf-mobile-menu.open li:nth-child(6) { transition-delay: 0.38s; }
-.sf-mobile-menu.open li:nth-child(7) { transition-delay: 0.44s; }
-.sf-mobile-menu a {
-  display: block; padding: 22px 0;
+.sf-mobile-menu.open li:nth-child(1) { transition-delay: 0.04s; }
+.sf-mobile-menu.open li:nth-child(2) { transition-delay: 0.08s; }
+.sf-mobile-menu.open li:nth-child(3) { transition-delay: 0.12s; }
+.sf-mobile-menu.open li:nth-child(4) { transition-delay: 0.16s; }
+.sf-mobile-menu.open li:nth-child(5) { transition-delay: 0.20s; }
+.sf-mobile-menu.open li:nth-child(6) { transition-delay: 0.24s; }
+.sf-mobile-menu.open li:nth-child(7) { transition-delay: 0.28s; }
+.sf-mobile-menu.open li:nth-child(8) { transition-delay: 0.32s; }
+.sf-mobile-menu.open li:nth-child(9) { transition-delay: 0.36s; }
+
+.sf-mobile-menu-label {
+  display: flex; align-items: center; gap: 10px;
   font-family: 'Oswald', sans-serif;
-  font-size: 24px; font-weight: 600; letter-spacing: 0.05em;
-  text-transform: uppercase; color: var(--sf-ink);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #7fc0ed;
+  padding: 6px 0 12px;
+  margin-top: 22px;
 }
-.sf-mobile-menu a:hover { color: var(--sf-blue-500); }
+.sf-mobile-menu-label.first { margin-top: 0; }
+.sf-mobile-menu-label::before {
+  content: ''; display: block;
+  width: 24px; height: 2px;
+  background: var(--sf-blue-500);
+}
+.sf-mobile-menu-label::after {
+  content: ''; flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(74,163,224,0.35), transparent);
+}
+
+.sf-mobile-menu a {
+  position: relative;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 2px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transition: color 0.2s, padding-left 0.25s var(--ease-out);
+}
+.sf-mobile-menu a::after {
+  content: '';
+  width: 9px; height: 9px;
+  border-right: 2px solid rgba(127,192,237,0.6);
+  border-top: 2px solid rgba(127,192,237,0.6);
+  transform: rotate(45deg);
+  transition: transform 0.25s, border-color 0.25s;
+}
+.sf-mobile-menu a:hover,
+.sf-mobile-menu a:active {
+  color: #7fc0ed;
+  padding-left: 10px;
+}
+.sf-mobile-menu a:hover::after { border-color: #fff; transform: rotate(45deg) translate(2px, -2px); }
+
+.sf-mobile-menu-cta {
+  position: relative;
+  display: flex !important; align-items: center; justify-content: center;
+  margin: 32px 0 8px !important;
+  padding: 20px 24px !important;
+  background: #ffffff !important;
+  color: var(--sf-blue-900) !important;
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  border: 0 !important; border-left: 0 !important; border-bottom: 0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 20px 44px -12px rgba(255,255,255,0.22), 0 0 0 1px rgba(255,255,255,0.25);
+  gap: 12px;
+  text-align: center;
+  overflow: hidden;
+}
+.sf-mobile-menu-cta::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--sf-blue-500) 0%, var(--sf-blue-700) 100%);
+}
+.sf-mobile-menu-cta::after {
+  width: 10px; height: 10px;
+  border-right: 2.5px solid var(--sf-blue-700) !important;
+  border-top: 2.5px solid var(--sf-blue-700) !important;
+  opacity: 1 !important;
+  transform: rotate(45deg);
+}
+.sf-mobile-menu-cta:hover,
+.sf-mobile-menu-cta:active {
+  transform: translateY(-2px) !important;
+  padding-left: 24px !important;
+  background: #ffffff !important;
+  color: var(--sf-blue-900) !important;
+  box-shadow: 0 26px 56px -14px rgba(255,255,255,0.3), 0 0 0 1px rgba(255,255,255,0.35);
+}
+.sf-mobile-menu-cta:hover::after { border-color: var(--sf-blue-500) !important; transform: rotate(45deg) translate(2px, -2px); }
+
+.sf-mobile-menu.open .sf-nav-toggle span { background: #fff; }
 
 /* =========================================================
    HERO, video background with dark overlay, white text
@@ -1588,6 +1774,239 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 }
 
 /* =========================================================
+   TEAM
+   ========================================================= */
+.team {
+  position: relative;
+  padding: 120px 32px;
+  background: linear-gradient(180deg, #0a1028 0%, #111a3d 60%, #0a1028 100%);
+  color: #fff;
+  overflow: hidden;
+}
+.team::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 20%, rgba(47,130,196,0.18), transparent 55%),
+    radial-gradient(ellipse at 85% 80%, rgba(74,163,224,0.14), transparent 55%);
+  pointer-events: none;
+}
+.team::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(74,163,224,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74,163,224,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+          mask-image: radial-gradient(ellipse at center, #000 40%, transparent 80%);
+  pointer-events: none;
+}
+.team .section-header { position: relative; z-index: 1; }
+.team .section-badge {
+  background: rgba(47,130,196,0.15);
+  border-color: rgba(74,163,224,0.4);
+  color: #7fc0ed;
+}
+.team .section-title { color: #fff; }
+.team .section-title .accent {
+  background: linear-gradient(135deg, #4aa3e0 0%, #7fc0ed 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.team .section-sub { color: rgba(255,255,255,0.72); }
+
+.team-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; }
+
+.founder-spotlight {
+  position: relative;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 40px;
+  margin-bottom: 72px;
+  background: linear-gradient(180deg, rgba(17,26,61,0.85) 0%, rgba(10,16,40,0.85) 100%);
+  border: 1px solid rgba(74,163,224,0.25);
+  border-left: 3px solid var(--sf-blue-500);
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,0.6);
+}
+.founder-spotlight::before {
+  content: "";
+  position: absolute; top: 0; right: 0;
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, transparent 50%, var(--sf-blue-500) 50%);
+  opacity: 0.55;
+}
+.founder-photo {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border: 1px solid rgba(74,163,224,0.3);
+  background: #0a1028;
+}
+.founder-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.founder-photo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10,16,40,0.85) 100%);
+}
+.founder-photo-caption {
+  position: absolute; left: 16px; right: 16px; bottom: 14px;
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; z-index: 1;
+}
+.founder-copy h3 {
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: clamp(26px, 3vw, 34px);
+  color: #fff; margin: 0 0 4px; line-height: 1.1;
+}
+.founder-title {
+  color: #7fc0ed; font-weight: 600; font-size: 13px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.founder-copy p {
+  color: rgba(255,255,255,0.82);
+  font-size: 15.5px; line-height: 1.7;
+  margin-bottom: 14px;
+}
+.founder-creds {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 22px;
+}
+.founder-cred {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  background: rgba(74,163,224,0.1);
+  border: 1px solid rgba(74,163,224,0.3);
+  border-left: 2px solid var(--sf-blue-500);
+  color: #7fc0ed; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.founder-cred svg { width: 12px; height: 12px; }
+
+.instructors-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.instructors-header h3 {
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: clamp(24px, 3vw, 32px);
+  color: #fff; margin: 0 0 10px;
+}
+.instructors-header p {
+  color: rgba(255,255,255,0.65);
+  max-width: 560px; margin: 0 auto;
+}
+.instructors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.instructor-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(17,26,61,0.6) 0%, rgba(10,16,40,0.6) 100%);
+  border: 1px solid rgba(74,163,224,0.18);
+  border-bottom: 2px solid var(--sf-blue-500);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-out), border-color 0.4s, box-shadow 0.4s;
+}
+.instructor-card::before {
+  content: "";
+  position: absolute; top: 0; right: 0;
+  width: 24px; height: 24px;
+  background: linear-gradient(135deg, transparent 50%, rgba(74,163,224,0.6) 50%);
+  z-index: 2;
+  transition: background 0.3s;
+}
+.instructor-card:hover::before {
+  background: linear-gradient(135deg, transparent 50%, var(--sf-blue-400) 50%);
+}
+.instructor-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(74,163,224,0.5);
+  box-shadow: 0 24px 60px -24px rgba(47,130,196,0.45);
+}
+.instructor-photo {
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: #0a1028;
+  position: relative;
+}
+.instructor-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  display: block;
+  transition: transform 0.6s var(--ease-out);
+}
+.instructor-card:hover .instructor-photo img { transform: scale(1.05); }
+.instructor-photo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(10,16,40,0.7) 100%);
+  pointer-events: none;
+}
+.instructor-body { padding: 18px 20px 22px; }
+.instructor-body h4 {
+  font-family: 'Oswald', sans-serif; font-weight: 700;
+  font-size: 18px; color: #fff;
+  margin: 0 0 4px; line-height: 1.2;
+}
+.instructor-role {
+  font-size: 11.5px; font-weight: 600;
+  color: #7fc0ed;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.instructor-bio {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.72);
+}
+
+@media (max-width: 960px) {
+  .team { padding: 80px 20px; }
+  .team .section-header { margin-bottom: 48px; }
+  .founder-spotlight {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+    margin-bottom: 56px;
+  }
+  .founder-spotlight::before { width: 36px; height: 36px; }
+  .founder-photo { max-width: 260px; margin: 0 auto; }
+  .founder-copy { text-align: center; }
+  .founder-creds { justify-content: center; }
+  .instructors-header { margin-bottom: 32px; }
+  .instructors-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+}
+@media (max-width: 520px) {
+  .team { padding: 56px 14px; }
+  .team .section-header { margin-bottom: 36px; padding: 0 4px; }
+  .founder-spotlight {
+    padding: 20px 16px 24px;
+    margin-bottom: 40px;
+    gap: 18px;
+  }
+  .founder-spotlight::before { width: 28px; height: 28px; }
+  .founder-photo { max-width: 200px; }
+  .founder-copy h3 { font-size: 24px; }
+  .founder-title { font-size: 11px; margin-bottom: 14px; }
+  .founder-copy p { font-size: 14.5px; line-height: 1.65; }
+  .founder-cred { padding: 5px 10px; font-size: 10.5px; letter-spacing: 0.06em; }
+  .instructors-header h3 { font-size: 22px; }
+  .instructors-header p { font-size: 14px; padding: 0 8px; }
+  .instructors-grid { gap: 12px; }
+  .instructor-card::before { width: 18px; height: 18px; }
+  .instructor-body { padding: 12px 12px 16px; }
+  .instructor-body h4 { font-size: 15px; }
+  .instructor-role { font-size: 10.5px; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .instructor-bio { font-size: 12.5px; line-height: 1.5; }
+}
+
+/* =========================================================
    CTA BANNER
    ========================================================= */
 .cta-banner {
@@ -1790,21 +2209,29 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         <div class="sf-nav-dropdown">
           <button class="sf-nav-link" type="button" aria-haspopup="true">Programs</button>
           <div class="sf-nav-dropdown-menu" role="menu">
-            <a class="sf-nav-dropdown-item" href="after-school.html" role="menuitem">
-              <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" /></div>
-              <div class="sf-nav-dropdown-title">After School</div>
-              <div class="sf-nav-dropdown-sub">On-campus, 5 locations</div>
-            </a>
-            <a class="sf-nav-dropdown-item" href="camps.html" role="menuitem">
-              <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/9f6e9e68-bfe3-4c06-9e0d-6cb868640361.png" alt="" /></div>
-              <div class="sf-nav-dropdown-title">Camps</div>
-              <div class="sf-nav-dropdown-sub">Full-day, summer + breaks</div>
-            </a>
-            <a class="sf-nav-dropdown-item" href="spirit-dance.html" role="menuitem">
-              <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg" alt="" /></div>
-              <div class="sf-nav-dropdown-title">Spirit Dance</div>
-              <div class="sf-nav-dropdown-sub">Pom, hip-hop, team spirit</div>
-            </a>
+            <div class="sf-nav-dropdown-grid">
+              <a class="sf-nav-dropdown-item" href="after-school.html" role="menuitem">
+                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" style="object-position: left center;" /></div>
+<div class="sf-nav-dropdown-body">
+                  <div class="sf-nav-dropdown-title">After School</div>
+                  <p class="sf-nav-dropdown-sub">On-campus, 5 partner schools</p>
+</div>
+              </a>
+              <a class="sf-nav-dropdown-item" href="camps.html" role="menuitem">
+                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/9f6e9e68-bfe3-4c06-9e0d-6cb868640361.png" alt="" /></div>
+<div class="sf-nav-dropdown-body">
+                  <div class="sf-nav-dropdown-title">Camps</div>
+                  <p class="sf-nav-dropdown-sub">Full-day · summer + school breaks</p>
+</div>
+              </a>
+              <a class="sf-nav-dropdown-item" href="spirit-dance.html" role="menuitem">
+                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg" alt="" /></div>
+<div class="sf-nav-dropdown-body">
+                  <div class="sf-nav-dropdown-title">Spirit Dance</div>
+                  <p class="sf-nav-dropdown-sub">Pom · hip-hop · team spirit</p>
+</div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1815,24 +2242,25 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 
       <div class="sf-nav-side-right">
         <a class="sf-nav-link" href="#campuses">Campuses</a>
-        <a class="sf-nav-link" href="#contact">Contact</a>
+        <a class="sf-nav-link" href="#team">Team</a>
         <a class="sf-nav-link sf-nav-cta" href="#contact">Get Started</a>
       </div>
       <button class="sf-nav-toggle" type="button" id="sfNavToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
   </nav>
-  <div class="sf-nav-slash"></div>
 </div>
 
 <div class="sf-mobile-menu" id="sfMobileMenu" aria-hidden="true">
   <ul>
+    <li><span class="sf-mobile-menu-label first">Menu</span></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#campuses">Campuses</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><span class="sf-mobile-menu-label">Programs</span></li>
     <li><a href="after-school.html">After School Systema</a></li>
     <li><a href="camps.html">Summer Camps</a></li>
     <li><a href="spirit-dance.html">Spirit Dance</a></li>
-    <li><a href="#campuses">Campuses</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#contact">Get Started · First Class Free</a></li>
+    <li><a href="#contact" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
   </ul>
 </div>
 
@@ -2386,6 +2814,134 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   <div class="testimonials-source anim">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
     All reviews from Google · Systema Floyd Martial Arts, West Palm Beach
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="section-header">
+    <span class="section-badge anim">Meet The Team</span>
+    <h2 class="section-title anim d1">The Instructors Behind <span class="accent">Every Belt.</span></h2>
+    <p class="section-sub anim d2">A handpicked team of certified Systema and Karate instructors, led by founder Tom Floyd. Every coach trains directly under Tom and lives the Systema standard.</p>
+  </div>
+
+  <div class="team-inner">
+    <!-- Founder spotlight -->
+    <div class="founder-spotlight anim">
+      <div class="founder-photo">
+        <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/8068f482-cc80-4feb-ad74-b1cb693e2c6d.png" alt="Tom Floyd, founder of Systema Floyd Martial Arts" loading="lazy" decoding="async" />
+        <div class="founder-photo-caption">Tom Floyd · Founder</div>
+      </div>
+      <div class="founder-copy">
+        <h3>Tom Floyd</h3>
+        <div class="founder-title">Founder · Certified Systema Instructor</div>
+        <p>Tom is a lifelong martial artist who specializes in working with children and adults to build confidence, physical ability, and overall well-being. His sincerity and talent for teaching complex, instinct-based self-defense to students from all walks of life set him apart.</p>
+        <p>He began training at age five, and holds a third-degree black belt in Ryukyu Kempo, a second-degree black belt in Shorin-Ryu, and an honorary first-degree in Goju Ryu. After discovering Systema under Dave Merrill, the first certified Systema instructor in the U.S., Tom earned his certification under Vladimir Vasiliev in Toronto, and has had the privilege of training with Mikhail Ryabko, founder of Ryabko Systema.</p>
+        <p>Nearly three decades later, his approach has gained national recognition. Instructors from around the world study Tom's model for teaching children in schools and camps. His Active School Shooter: Teacher and Student Safety program has received extensive local news coverage, and he is a featured instructor at Systema seminars across North America and Mexico.</p>
+        <div class="founder-creds">
+          <span class="founder-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>3rd Dan Ryukyu Kempo</span>
+          <span class="founder-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>2nd Dan Shorin-Ryu</span>
+          <span class="founder-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l8 4v5c0 5-4 8-8 9-4-1-8-4-8-9V7l8-4z"/></svg>Certified Systema Instructor</span>
+          <span class="founder-cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="6"/><path d="M9 13l-2 9 5-3 5 3-2-9"/></svg>25+ Partner Schools</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instructors -->
+    <div class="instructors-header anim">
+      <h3>The Systema Floyd Coaches</h3>
+      <p>Every instructor on this team has trained directly under Tom. Same standard, same principles, same care for every student.</p>
+    </div>
+
+    <div class="instructors-grid">
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/0385a166-fc48-4994-91c2-8e78fb8852ef.png" alt="Andrew Henry, Systema instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Andrew Henry</h4>
+          <div class="instructor-role">Systema Instructor</div>
+          <p class="instructor-bio">Started martial arts at age 6 and holds a black belt in Ryukyu Kempo. Began teaching at 14. Certified Systema Instructor in Training, known at local schools as the fun Sensei.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/3171fffd-0ac5-4d60-a420-bca21838cb97.jpg" alt="Thomas, Systema instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Thomas</h4>
+          <div class="instructor-role">Systema Instructor</div>
+          <p class="instructor-bio">Trained by Tom Floyd for 4 years. Uses Systema in every part of life, staying calm in tense moments. Loves watching kids grow through the art.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/411c159b-d77b-4638-b324-88e7006f203e.png" alt="Alex Henry, Systema instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Alex Henry</h4>
+          <div class="instructor-role">Systema Instructor</div>
+          <p class="instructor-bio">A decade of martial arts experience starting at age 10 and 10+ years of hands-on teaching. Certified Systema instructor who specializes in working with children with special needs.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/cac519a8-a2a6-405f-8e36-763a4840cc2f.png" alt="Sean Nasiff, Systema instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Sean Nasiff</h4>
+          <div class="instructor-role">Lead Instructor · Georgia</div>
+          <p class="instructor-bio">Lead Instructor for Systema Floyd Georgia. Studying under Tom Floyd since 2008, teaching since 2009. Former MMA competitor with 7+ years in the mental health field.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/bc33a4bc-5b76-4d16-93bf-b94c1f73787f.png" alt="Rachael Meynarez, assistant Systema instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Rachael Meynarez</h4>
+          <div class="instructor-role">Assistant Systema Instructor</div>
+          <p class="instructor-bio">Began Systema with Tom Floyd at age 5. After years of teacher training, now a lead teacher at the summer camps and afternoon classes.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/270d8479-fef6-4315-a51b-efdb2e5dc50b.png" alt="James Alfe, Systema instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>James Alfe</h4>
+          <div class="instructor-role">Systema Instructor</div>
+          <p class="instructor-bio">Trained in Kempo Karate, Jujitsu, and now Systema. Four years under Sensei Cindy Graham, then one-on-one with Tom Floyd. Attention to detail paired with a friendly demeanor.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/b353efcf-1d9f-4e4b-879c-bb939223f703.jpeg" alt="Rick Dermo, Karate instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Rick Dermo</h4>
+          <div class="instructor-role">Karate Instructor</div>
+          <p class="instructor-bio">45 years in martial arts. Honorary 5th-degree black belt in Shorin-Ryu, plus Kendo, Kobudo, Jeet Kune Do, and Kali. Teaches by dojo kun: character, sincerity, effort, etiquette, self-control.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo">
+          <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/5361873c-9805-40d1-9466-eabf60abd017.jpg" alt="Evan Beery, Karate instructor at Systema Floyd" loading="lazy" decoding="async" />
+        </div>
+        <div class="instructor-body">
+          <h4>Evan Beery</h4>
+          <div class="instructor-role">Karate Instructor</div>
+          <p class="instructor-bio">30+ years of traditional Okinawan karate, 20+ under Sensei Rick Dermo. Second-degree black belt in Shorin-Ryu, former U.S. Marine Corps martial arts instructor.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
