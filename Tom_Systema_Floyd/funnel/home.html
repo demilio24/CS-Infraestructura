@@ -308,11 +308,11 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 .sf-nav-logo::before { border-right-color: var(--sf-blue-500); }
 .sf-nav-logo::after { border-left-color: var(--sf-blue-500); }
 .sf-nav-logo img {
-  height: 64px; width: auto;
-  filter: drop-shadow(0 2px 12px rgba(47,130,196,0.35)) drop-shadow(0 1px 4px rgba(27,47,110,0.2));
+  height: 88px; width: auto;
+  filter: drop-shadow(0 2px 14px rgba(47,130,196,0.4)) drop-shadow(0 1px 4px rgba(27,47,110,0.22));
   transition: height 0.3s;
 }
-.sf-nav.scrolled .sf-nav-logo img { height: 54px; }
+.sf-nav.scrolled .sf-nav-logo img { height: 72px; }
 
 /* Angled blue CTA */
 .sf-nav-cta {
@@ -396,14 +396,26 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   }
   .sf-nav.scrolled { padding: 8px 16px 16px; }
   .sf-nav-slash { clip-path: polygon(0 0, 100% 0, calc(100% - 60px) 80%, 60px 100%, 0 80%); height: 10px; }
-  .sf-nav-inner { grid-template-columns: 44px 1fr 44px; gap: 0; }
-  .sf-nav-side-left, .sf-nav-side-right { display: none !important; }
-  .sf-nav-toggle { display: flex; grid-column: 3; }
+  /* Mobile layout: [hamburger] [logo centered] [Get Started CTA] */
+  .sf-nav-inner { grid-template-columns: 44px 1fr auto; gap: 10px; }
+  .sf-nav-side-left { display: none !important; }
+  .sf-nav-side-right {
+    display: flex !important; align-items: center; gap: 0;
+    grid-column: 3;
+  }
+  /* Hide About/Contact links on mobile, keep only the CTA */
+  .sf-nav-side-right > .sf-nav-link:not(.sf-nav-cta) { display: none; }
+  .sf-nav-cta {
+    padding: 10px 14px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.05em !important;
+  }
+  .sf-nav-toggle { display: flex; grid-column: 1; }
   .sf-nav-logo { grid-column: 2; justify-self: center; padding: 0; }
   .sf-nav-logo img { height: 48px; }
   .sf-nav.scrolled .sf-nav-logo img { height: 42px; }
   .sf-nav-logo::before, .sf-nav-logo::after { display: none; }
-  .sf-nav-dropdown-menu { min-width: 0; width: calc(100vw - 32px); }  /* fit mobile viewport */
+  .sf-nav-dropdown-menu { min-width: 0; width: calc(100vw - 32px); }
 }
 
 .sf-mobile-menu {
@@ -1667,10 +1679,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 }
 
 @media (max-width: 720px) {
-  .sf-nav, .sf-nav.scrolled { padding: 12px 20px; }
-  .sf-nav-links { display: none; }
-  .sf-nav-toggle { display: flex; }
-  .sf-nav-cta { display: none; }
+  /* nav mobile rules live in the 900px breakpoint above */
   .hero { padding: 100px 20px 60px; min-height: auto; }
   .hero-h1 { font-size: clamp(32px, 10vw, 48px); }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
