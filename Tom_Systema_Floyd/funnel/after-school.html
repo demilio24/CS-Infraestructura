@@ -67,19 +67,24 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .sf-nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(47,130,196,.75);background:linear-gradient(90deg,var(--sf-blue-500) 0%,var(--sf-blue-700) 100%) !important}
 .sf-nav-cta::before{display:none !important}
 .sf-nav-dropdown{position:relative}
-.sf-nav-dropdown-menu{position:absolute;top:100%;left:-16px;transform:translateY(-8px);margin-top:22px;background:linear-gradient(180deg,#fff 0%,#f4f8fd 100%);border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:4px;padding:18px 18px 14px;width:720px;box-shadow:0 30px 80px -24px rgba(10,16,40,.45),0 12px 32px -16px rgba(27,47,110,.25);opacity:0;visibility:hidden;transition:opacity .25s var(--ease-out),transform .25s var(--ease-out),visibility .25s;z-index:10}
+.sf-nav-dropdown-menu{position:absolute;top:100%;left:-16px;transform:translateY(-8px);margin-top:22px;background:linear-gradient(180deg,#fff 0%,#f4f8fd 100%);border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:4px;padding:22px 22px 18px;width:760px;box-shadow:0 30px 80px -24px rgba(10,16,40,.45),0 12px 32px -16px rgba(27,47,110,.25);opacity:0;visibility:hidden;transition:opacity .25s var(--ease-out),transform .25s var(--ease-out),visibility .25s;z-index:10}
 .sf-nav-dropdown-menu::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sf-blue-500) 0%,var(--sf-blue-700) 60%,var(--sf-blue-800) 100%)}
 .sf-nav-dropdown-menu::after{content:'';position:absolute;top:-28px;left:0;right:0;height:28px;background:transparent}
 .sf-nav-dropdown:hover .sf-nav-dropdown-menu,.sf-nav-dropdown:focus-within .sf-nav-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.sf-nav-dropdown-thumb-split{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;height:100%;background:#0a1028;position:relative}
+.sf-nav-dropdown-thumb-split img{width:100%;height:100%;object-fit:cover;display:block}
+.sf-nav-dropdown-thumb-split .tag{position:absolute;top:8px;padding:3px 8px;background:rgba(255,255,255,.92);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:3px;backdrop-filter:blur(6px);z-index:2}
+.sf-nav-dropdown-thumb-split .tag.left{left:8px}
+.sf-nav-dropdown-thumb-split .tag.right{right:8px}
 .sf-nav-dropdown-item{position:relative;display:flex;flex-direction:column;border-radius:4px;overflow:hidden;background:var(--sf-white);border:1px solid var(--sf-border);border-bottom:2px solid transparent;text-decoration:none;transition:transform .35s var(--ease-out),border-color .35s,box-shadow .35s}
 .sf-nav-dropdown-item:hover{transform:translateY(-3px);border-color:var(--sf-border-strong);border-bottom-color:var(--sf-blue-500);box-shadow:0 18px 40px -18px rgba(47,130,196,.45)}
 .sf-nav-dropdown-thumb{position:relative;aspect-ratio:4/3;border-radius:0;background:#0a1028;overflow:hidden}
 .sf-nav-dropdown-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out),filter .35s;filter:brightness(1.1) saturate(1.05)}
 .sf-nav-dropdown-item:hover .sf-nav-dropdown-thumb img{transform:scale(1.06);filter:brightness(1.2) saturate(1.15)}
 .sf-nav-dropdown-body{padding:10px 14px;background:var(--sf-white);border-top:2px solid var(--sf-blue-500)}
-.sf-nav-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;color:var(--sf-ink);text-transform:uppercase;letter-spacing:.06em;margin:0 0 4px;line-height:1.1}
-.sf-nav-dropdown-sub{font-size:12.5px;color:var(--sf-ink-60);line-height:1.4;margin:0}
+.sf-nav-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--sf-ink);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px;line-height:1.1}
+.sf-nav-dropdown-sub{font-size:15px;color:var(--sf-ink-60);line-height:1.45;margin:0}
 .sf-nav-toggle{display:none;width:44px;height:42px;background:linear-gradient(90deg,var(--sf-blue-700) 0%,var(--sf-blue-800) 100%);border-radius:4px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);align-items:center;justify-content:center;cursor:pointer;border:0;margin-left:-10px}
 .sf-nav-toggle span{display:block;width:20px;height:2px;background:var(--sf-white);position:relative;transform:skewX(-20deg)}
 .sf-nav-toggle span::before,.sf-nav-toggle span::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--sf-white);transition:transform .3s}
@@ -228,15 +233,29 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .school-search{width:100%;padding:16px 20px 16px 52px;background:#fff;border:1px solid var(--sf-border);border-radius:10px;color:var(--sf-ink);font-size:15px;font-family:'Inter',sans-serif;outline:none;box-shadow:0 8px 24px -16px rgba(27,47,110,.25);transition:border-color .2s,box-shadow .2s}
 .school-search::placeholder{color:var(--sf-ink-40)}
 .school-search:focus{border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.15),0 8px 24px -16px rgba(27,47,110,.3)}
-.school-search-icon{position:absolute;left:18px;top:22px;width:20px;height:20px;color:var(--sf-blue-500);pointer-events:none}
+.school-search-wrap{position:relative}
+.school-search-icon{position:absolute;left:18px;top:26px;transform:translateY(-50%);width:20px;height:20px;color:var(--sf-blue-500);pointer-events:none}
 .school-filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
 .school-filter{padding:6px 14px;background:#fff;border:1px solid var(--sf-border);border-radius:100px;color:var(--sf-ink-60);font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .2s}
 .school-filter:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-500);color:var(--sf-blue-700)}
 .school-filter.active{background:var(--sf-blue-500);border-color:var(--sf-blue-500);color:#fff;box-shadow:0 6px 16px -6px rgba(47,130,196,.5)}
 .school-count{margin-top:10px;font-size:12px;color:var(--sf-ink-50);text-align:center;letter-spacing:.05em}
 .school-directory{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:820px;width:100%}
-.school-card{display:flex;flex-direction:column;gap:10px;padding:16px;background:#fff;border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:6px;transition:transform .25s var(--ease-out,ease),box-shadow .25s,border-color .25s;box-shadow:0 6px 20px -14px rgba(27,47,110,.2)}
+.school-card{display:flex;flex-direction:column;gap:10px;padding:16px;background:#fff;border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:6px;cursor:pointer;transition:transform .25s var(--ease-out,ease),box-shadow .25s,border-color .25s;box-shadow:0 6px 20px -14px rgba(27,47,110,.2)}
 .school-card:hover{transform:translateY(-3px);border-color:var(--sf-blue-500);box-shadow:0 18px 40px -18px rgba(47,130,196,.4)}
+.school-card:focus-visible{outline:none;border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.25),0 18px 40px -18px rgba(47,130,196,.4)}
+.school-card:active{transform:translateY(-1px)}
+.school-card-cta{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto;padding-top:10px;border-top:1px solid var(--sf-border);font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-blue-700);opacity:.85;transition:opacity .2s,color .2s}
+.school-card-cta svg{width:14px;height:14px;transition:transform .25s}
+.school-card:hover .school-card-cta{opacity:1;color:var(--sf-blue-500)}
+.school-card:hover .school-card-cta svg{transform:translateX(3px)}
+.page-hero-form.flash{animation:heroFormFlash 0.9s var(--ease-out,ease) 2}
+@keyframes heroFormFlash{
+  0%{transform:scale(1);box-shadow:0 30px 80px -24px rgba(0,0,0,.35),0 0 0 0 rgba(47,130,196,.6)}
+  25%{transform:scale(1.02);box-shadow:0 30px 80px -24px rgba(0,0,0,.35),0 0 0 14px rgba(47,130,196,.25)}
+  60%{transform:scale(1.005);box-shadow:0 30px 80px -24px rgba(0,0,0,.35),0 0 0 22px rgba(47,130,196,0)}
+  100%{transform:scale(1);box-shadow:0 30px 80px -24px rgba(0,0,0,.35),0 0 0 0 rgba(47,130,196,0)}
+}
 .school-card-head{display:flex;align-items:center;gap:12px}
 .school-card-logo{flex-shrink:0;width:52px;height:52px;border-radius:8px;background:var(--sf-blue-50);display:grid;place-items:center;overflow:hidden;padding:4px;border:1px solid var(--sf-border)}
 .school-card-logo img{max-width:100%;max-height:100%;object-fit:contain}
@@ -256,7 +275,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .page-hero-form-head .kicker::before{content:'';width:18px;height:2px;background:var(--sf-blue-500)}
 .page-hero-form-head h2{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--sf-ink);margin:0;line-height:1.15;letter-spacing:.01em;text-transform:none}
 .page-hero-form iframe{width:100%;border:none;border-radius:3px;display:block}
-@media (max-width:960px){.page-hero{padding:110px 20px 60px}.page-hero h1{font-size:clamp(30px,6vw,42px)}.page-hero-quick{grid-template-columns:repeat(3,1fr);gap:10px}.page-hero-quick-item{padding:10px 12px}.page-hero-info{padding:18px}.page-hero-info .school-row{flex-direction:column;gap:4px}.page-hero-info .school-times{text-align:left}}
+@media (max-width:960px){.page-hero{padding:110px 20px 60px}.page-hero h1{font-size:clamp(36px,9vw,54px);line-height:1}.page-hero-quick{grid-template-columns:repeat(3,1fr);gap:10px}.page-hero-quick-item{padding:10px 12px}.page-hero-info{padding:18px}.page-hero-info .school-row{flex-direction:column;gap:4px}.page-hero-info .school-times{text-align:left}}
 
 /* sections */
 .sec{padding:100px 32px;background:var(--sf-white)}
@@ -358,7 +377,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <div class="sf-nav-dropdown-menu" role="menu">
             <div class="sf-nav-dropdown-grid">
               <a class="sf-nav-dropdown-item" href="after-school.html" role="menuitem">
-                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" style="object-position: left center;" /></div>
+                <div class="sf-nav-dropdown-thumb">
+                  <div class="sf-nav-dropdown-thumb-split">
+                    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="After-school Martial Arts" style="object-position: left center;" />
+                    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/94da7fa3-a8ff-4183-a2fa-5599edd69172.jpg" alt="After-school Spirit Dance" />
+                    <span class="tag left">Martial Arts</span>
+                    <span class="tag right">Spirit Dance</span>
+                  </div>
+                </div>
                 <div class="sf-nav-dropdown-body">
                   <div class="sf-nav-dropdown-title">After School</div>
                   <p class="sf-nav-dropdown-sub">Martial Arts + Spirit Dance · on-campus</p>
@@ -514,7 +540,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 (function(){
   const CARDS = [
     { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/7661fd0c-f0b9-4e0e-afde-ae723acba4ed.jpg', alt: 'Focused students training', kicker: 'Martial Arts', title: 'Real Skill. Real Discipline.', body: 'Authentic Systema technique, adapted for kids. Weekly on-campus classes, ranked by age and skill.' },
-    { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg', alt: 'Spirit Dance class', kicker: 'Spirit Dance', title: 'Big Voices. Big Energy.', body: 'Pom, hip-hop, and team-spirit training that turns shy kids into the loudest cheer on the floor.' },
+    { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/94da7fa3-a8ff-4183-a2fa-5599edd69172.jpg', alt: 'Spirit Dance class', kicker: 'Spirit Dance', title: 'Big Voices. Big Energy.', body: 'Pom, hip-hop, and team-spirit training that turns shy kids into the loudest cheer on the floor.' },
     { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/206e78be-a4ab-4bb1-9ccb-a8b7558adf43.jpg', alt: 'Student earning a belt', kicker: 'Character', title: 'Every Belt Earned.', body: 'Quarterly testings. Clear milestones. Kids come home standing a little taller every session.' }
   ];
   const stack = document.getElementById('heroSwipeStack');
@@ -591,6 +617,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     { name: 'South Olive', programs: ['martial-arts'], day: 'friday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/4526f731-9469-46d2-a48b-e3b255e79824.png', times: [{label:'K–5th', time:'2:15–3:00 PM'}] }
   ];
   const DAY_LABELS = {monday:'Mon', tuesday:'Tue', wednesday:'Wed', thursday:'Thu', friday:'Fri'};
+  // Map our display names → exact GHL Select Class option names (where they differ)
+  const GHL_NAME_MAP = {
+    'Seacrest': 'Seacrest Christian School',
+    'St. Ann Catholic': 'St. Ann Catholic School',
+    'St. Vincent': 'St. Vincent Ferrer',
+    'South Olive': 'South Olive Elementary'
+  };
   function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
   function render(list) {
     const dir = document.getElementById('schoolDirectory');
@@ -598,7 +631,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     dir.innerHTML = list.map(s => {
       const tags = s.programs.map(p => { const cls = p==='spirit-dance'?'tag spirit':'tag'; const label = p==='spirit-dance'?'Spirit Dance':'Martial Arts'; return `<span class="${cls}">${label}</span>`; }).join('');
       const times = s.times.map(t => `<div class="row">${t.label ? `<em>${esc(t.label)}</em>` : '<span></span>'}<span>${esc(t.time)}</span></div>`).join('');
-      return `<div class="school-card"><div class="school-card-head"><div class="school-card-logo"><img src="${s.logo}" alt="${esc(s.name)}" loading="lazy" decoding="async"/></div><div class="school-card-title"><h4>${esc(s.name)}</h4><div class="meta">${DAY_LABELS[s.day]}</div></div></div><div class="school-card-tags">${tags}</div><div class="school-card-times">${times}</div></div>`;
+      const ghlName = GHL_NAME_MAP[s.name] || s.name;
+      const program = s.programs[0] === 'spirit-dance' ? 'Spirit Dance' : 'Martial Arts';
+      const optionValue = `${ghlName}: ${program}`;
+      return `<div class="school-card" role="button" tabindex="0" data-class="${esc(optionValue)}"><div class="school-card-head"><div class="school-card-logo"><img src="${s.logo}" alt="${esc(s.name)}" loading="lazy" decoding="async"/></div><div class="school-card-title"><h4>${esc(s.name)}</h4><div class="meta">${DAY_LABELS[s.day]}</div></div></div><div class="school-card-tags">${tags}</div><div class="school-card-times">${times}</div><div class="school-card-cta">Select this class <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>`;
     }).join('');
   }
   function apply() {
@@ -616,6 +652,47 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   document.getElementById('schoolSearch')?.addEventListener('input', apply);
   document.querySelectorAll('.school-filter').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.school-filter').forEach(b => b.classList.remove('active')); btn.classList.add('active'); apply(); }); });
   apply();
+
+  /* SCHOOL CARD → pre-fill GHL Select Class via iframe query param */
+  const FORM_BASE = 'https://link.nilsdigital.com/widget/form/TkioOL4IoByeHU3K2gTs';
+  const FIELD_KEY = 'select_class';
+  const iframe = document.getElementById('inline-TkioOL4IoByeHU3K2gTs');
+  function flashForm() {
+    const card = document.querySelector('.page-hero-form');
+    if (!card) return;
+    card.classList.remove('flash');
+    void card.offsetWidth;
+    card.classList.add('flash');
+    setTimeout(() => card.classList.remove('flash'), 1900);
+  }
+  function pickClass(el) {
+    const val = el.dataset.class || '';
+    if (!val || !iframe) return;
+    const newSrc = `${FORM_BASE}?${FIELD_KEY}=${encodeURIComponent(val)}`;
+    if (iframe.getAttribute('src') !== newSrc) iframe.setAttribute('src', newSrc);
+    // Scroll to form on mobile, to top on desktop
+    if (window.innerWidth <= 960) {
+      const f = document.getElementById('register');
+      if (f) {
+        const nav = document.querySelector('.sf-nav-wrap');
+        const navH = nav ? nav.offsetHeight : 72;
+        const top = f.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setTimeout(flashForm, window.innerWidth <= 960 ? 650 : 450);
+  }
+  document.getElementById('schoolDirectory').addEventListener('click', (e) => {
+    const card = e.target.closest('.school-card');
+    if (card) pickClass(card);
+  });
+  document.getElementById('schoolDirectory').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.school-card');
+    if (card) { e.preventDefault(); pickClass(card); }
+  });
 })();
 </script>
 

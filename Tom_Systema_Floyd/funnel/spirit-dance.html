@@ -67,19 +67,24 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .sf-nav-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px -8px rgba(47,130,196,.75);background:linear-gradient(90deg,var(--sf-blue-500) 0%,var(--sf-blue-700) 100%) !important}
 .sf-nav-cta::before{display:none !important}
 .sf-nav-dropdown{position:relative}
-.sf-nav-dropdown-menu{position:absolute;top:100%;left:-16px;transform:translateY(-8px);margin-top:22px;background:linear-gradient(180deg,#fff 0%,#f4f8fd 100%);border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:4px;padding:18px 18px 14px;width:720px;box-shadow:0 30px 80px -24px rgba(10,16,40,.45),0 12px 32px -16px rgba(27,47,110,.25);opacity:0;visibility:hidden;transition:opacity .25s var(--ease-out),transform .25s var(--ease-out),visibility .25s;z-index:10}
+.sf-nav-dropdown-menu{position:absolute;top:100%;left:-16px;transform:translateY(-8px);margin-top:22px;background:linear-gradient(180deg,#fff 0%,#f4f8fd 100%);border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:4px;padding:22px 22px 18px;width:760px;box-shadow:0 30px 80px -24px rgba(10,16,40,.45),0 12px 32px -16px rgba(27,47,110,.25);opacity:0;visibility:hidden;transition:opacity .25s var(--ease-out),transform .25s var(--ease-out),visibility .25s;z-index:10}
 .sf-nav-dropdown-menu::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sf-blue-500) 0%,var(--sf-blue-700) 60%,var(--sf-blue-800) 100%)}
 .sf-nav-dropdown-menu::after{content:'';position:absolute;top:-28px;left:0;right:0;height:28px;background:transparent}
 .sf-nav-dropdown:hover .sf-nav-dropdown-menu,.sf-nav-dropdown:focus-within .sf-nav-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.sf-nav-dropdown-thumb-split{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;height:100%;background:#0a1028;position:relative}
+.sf-nav-dropdown-thumb-split img{width:100%;height:100%;object-fit:cover;display:block}
+.sf-nav-dropdown-thumb-split .tag{position:absolute;top:8px;padding:3px 8px;background:rgba(255,255,255,.92);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:3px;backdrop-filter:blur(6px);z-index:2}
+.sf-nav-dropdown-thumb-split .tag.left{left:8px}
+.sf-nav-dropdown-thumb-split .tag.right{right:8px}
 .sf-nav-dropdown-item{position:relative;display:flex;flex-direction:column;border-radius:4px;overflow:hidden;background:var(--sf-white);border:1px solid var(--sf-border);border-bottom:2px solid transparent;text-decoration:none;transition:transform .35s var(--ease-out),border-color .35s,box-shadow .35s}
 .sf-nav-dropdown-item:hover{transform:translateY(-3px);border-color:var(--sf-border-strong);border-bottom-color:var(--sf-blue-500);box-shadow:0 18px 40px -18px rgba(47,130,196,.45)}
 .sf-nav-dropdown-thumb{position:relative;aspect-ratio:4/3;border-radius:0;background:#0a1028;overflow:hidden}
 .sf-nav-dropdown-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out),filter .35s;filter:brightness(1.1) saturate(1.05)}
 .sf-nav-dropdown-item:hover .sf-nav-dropdown-thumb img{transform:scale(1.06);filter:brightness(1.2) saturate(1.15)}
 .sf-nav-dropdown-body{padding:10px 14px;background:var(--sf-white);border-top:2px solid var(--sf-blue-500)}
-.sf-nav-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;color:var(--sf-ink);text-transform:uppercase;letter-spacing:.06em;margin:0 0 4px;line-height:1.1}
-.sf-nav-dropdown-sub{font-size:12.5px;color:var(--sf-ink-60);line-height:1.4;margin:0}
+.sf-nav-dropdown-title{font-family:'Oswald',sans-serif;font-weight:700;font-size:22px;color:var(--sf-ink);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px;line-height:1.1}
+.sf-nav-dropdown-sub{font-size:15px;color:var(--sf-ink-60);line-height:1.45;margin:0}
 .sf-nav-toggle{display:none;width:44px;height:42px;background:linear-gradient(90deg,var(--sf-blue-700) 0%,var(--sf-blue-800) 100%);border-radius:4px;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);align-items:center;justify-content:center;cursor:pointer;border:0;margin-left:-10px}
 .sf-nav-toggle span{display:block;width:20px;height:2px;background:var(--sf-white);position:relative;transform:skewX(-20deg)}
 .sf-nav-toggle span::before,.sf-nav-toggle span::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--sf-white);transition:transform .3s}
@@ -241,7 +246,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <div class="sf-nav-dropdown-menu" role="menu">
             <div class="sf-nav-dropdown-grid">
               <a class="sf-nav-dropdown-item" href="after-school.html" role="menuitem">
-                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="" style="object-position: left center;" /></div>
+                <div class="sf-nav-dropdown-thumb">
+                  <div class="sf-nav-dropdown-thumb-split">
+                    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/dead9e1c-b720-4d7b-9795-6c1eca9652eb.jpg" alt="After-school Martial Arts" style="object-position: left center;" />
+                    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/94da7fa3-a8ff-4183-a2fa-5599edd69172.jpg" alt="After-school Spirit Dance" />
+                    <span class="tag left">Martial Arts</span>
+                    <span class="tag right">Spirit Dance</span>
+                  </div>
+                </div>
                 <div class="sf-nav-dropdown-body">
                   <div class="sf-nav-dropdown-title">After School</div>
                   <p class="sf-nav-dropdown-sub">Martial Arts + Spirit Dance · on-campus</p>
