@@ -134,20 +134,129 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .lightbox-close svg{width:20px;height:20px}
 
 /* HERO */
-.page-hero{position:relative;min-height:72vh;padding:160px 32px 80px;background:linear-gradient(180deg,var(--sf-blue-50) 0%,var(--sf-white) 60%,var(--sf-white) 100%);overflow:hidden;isolation:isolate}
-.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 20% 10%,rgba(47,130,196,.14),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(27,47,110,.08),transparent 60%)}
-.page-hero::after{content:'';position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(27,47,110,.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);opacity:.5}
-.page-hero-slashes{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
-.page-hero-slash{position:absolute;height:2px;width:140vw;left:-20vw;background:linear-gradient(90deg,transparent,rgba(47,130,196,.45),transparent);transform:rotate(-28deg);animation:slash-sweep 14s linear infinite}
-.page-hero-slash:nth-child(1){top:30%}
-.page-hero-slash:nth-child(2){top:70%;animation-delay:7s;background:linear-gradient(90deg,transparent,rgba(27,47,110,.4),transparent)}
-@keyframes slash-sweep{0%{opacity:0;transform:rotate(-28deg) translateX(-30vw)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:rotate(-28deg) translateX(30vw)}}
-.page-hero-inner{position:relative;z-index:10;max-width:1100px;margin:0 auto;text-align:center}
-.page-hero-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:100px;background:var(--sf-blue-100);border:1px solid var(--sf-blue-500);color:var(--sf-blue-700);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
-.page-hero h1{font-size:clamp(40px,7vw,76px);line-height:.95;margin-bottom:24px}
+/* HERO — white with blue accents, form on right */
+.page-hero{position:relative;padding:200px 32px 110px;background:linear-gradient(135deg,#ffffff 0%,#eaf2fb 55%,#d6e6f7 100%);color:var(--sf-ink);overflow:hidden;isolation:isolate}
+.page-hero::before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(47,130,196,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(47,130,196,.08) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 90%);mask-image:radial-gradient(ellipse at center,#000 45%,transparent 90%);pointer-events:none}
+.page-hero::after{content:"";position:absolute;top:-120px;right:-120px;width:520px;height:520px;z-index:0;background:radial-gradient(circle,rgba(47,130,196,.22),transparent 65%);pointer-events:none}
+.page-hero-deco{position:absolute;inset:0;z-index:0;pointer-events:none}
+.page-hero-deco::before{content:"";position:absolute;top:52%;left:-6%;width:60%;height:2px;background:linear-gradient(90deg,transparent,rgba(47,130,196,.35),transparent);transform:rotate(-10deg)}
+.page-hero-deco::after{content:"";position:absolute;bottom:8%;left:40%;width:240px;height:240px;background:radial-gradient(circle,rgba(127,192,237,.35),transparent 70%);border-radius:50%;filter:blur(6px)}
+.page-hero-blob{position:absolute;border-radius:50%;pointer-events:none}
+.page-hero-blob.b1{top:55%;left:-6%;width:360px;height:360px;background:radial-gradient(circle,rgba(47,130,196,.28),transparent 65%)}
+.page-hero-blob.b2{top:10%;left:30%;width:260px;height:260px;background:radial-gradient(circle,rgba(74,163,224,.2),transparent 70%)}
+.page-hero-blob.b3{bottom:-10%;right:22%;width:300px;height:300px;background:radial-gradient(circle,rgba(127,192,237,.3),transparent 65%)}
+.page-hero-blob.b4{top:40%;right:-8%;width:280px;height:280px;background:radial-gradient(circle,rgba(27,47,110,.14),transparent 70%)}
+.page-hero-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--sf-blue-500)}
+.page-hero-dot.d1{top:18%;left:42%;opacity:.55}
+.page-hero-dot.d2{top:72%;right:30%;opacity:.55}
+.page-hero-dot.d3{top:32%;right:6%;width:10px;height:10px;background:var(--sf-blue-700)}
+.page-hero-line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(27,47,110,.35),transparent)}
+.page-hero-line.l1{top:22%;right:-5%;width:40%;transform:rotate(-8deg)}
+.page-hero-line.l2{bottom:18%;left:-5%;width:36%;transform:rotate(-6deg)}
+/* Photo collage on the right side of the hero */
+/* Tinder-style swipe stack (hero) */
+.hero-swipe{position:relative;width:100%;max-width:560px;margin:0;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.hero-swipe-stack{position:relative;width:100%;aspect-ratio:16/10;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.hero-swipe-card{position:absolute;inset:0;background:#0a1028;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(27,47,110,.5),0 10px 30px -14px rgba(10,16,40,.3);border:1px solid rgba(47,130,196,.2);cursor:grab;transition:transform .4s cubic-bezier(.2,.9,.3,1.3),opacity .4s ease;will-change:transform}
+.hero-swipe-card.dragging{cursor:grabbing;transition:none}
+.hero-swipe-card.leaving{transition:transform .25s cubic-bezier(.4,.0,.2,1),opacity .25s ease-out;opacity:0;pointer-events:none}
+.hero-swipe-card img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-swipe-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,16,40,.85) 100%);pointer-events:none}
+.hero-swipe-body{position:absolute;left:22px;right:22px;bottom:22px;z-index:2;color:#fff}
+.hero-swipe-kicker{display:inline-block;padding:5px 11px;background:var(--sf-blue-500);color:#fff;font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border-radius:4px;margin-bottom:12px}
+.hero-swipe-body h3{font-family:'Oswald',sans-serif;font-size:clamp(22px,2.2vw,28px);font-weight:700;margin:0 0 6px;line-height:1.05;letter-spacing:.01em;text-transform:uppercase;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.hero-swipe-body p{margin:0;font-size:14.5px;line-height:1.45;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.hero-swipe-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--sf-border);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 24px -8px rgba(27,47,110,.3);color:var(--sf-blue-700);z-index:50;transition:transform .2s,background .2s,color .2s}
+.hero-swipe-arrow:hover{background:var(--sf-blue-500);color:#fff;transform:translateY(-50%) scale(1.08)}
+.hero-swipe-arrow svg{width:18px;height:18px}
+.hero-swipe-arrow-left{left:-14px}
+.hero-swipe-arrow-right{right:-14px}
+.hero-swipe-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;justify-content:center;gap:6px;z-index:6;pointer-events:none}
+.hero-swipe-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .3s ease}
+.hero-swipe-dot.active{width:22px;border-radius:999px;background:#fff}
+.hero-swipe-badge{display:inline-flex;align-self:center;align-items:center;gap:8px;margin-top:12px;padding:8px 14px;background:#fff;color:var(--sf-blue-900);border-radius:100px;font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;box-shadow:0 10px 24px -10px rgba(27,47,110,.3);border:1px solid var(--sf-border)}
+.hero-swipe-badge svg{width:14px;height:14px;color:var(--sf-blue-500)}
+/* Energy strip — 3 photo tiles between hero + directory */
+.energy-strip{background:#fff;padding:72px 32px}
+.energy-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.energy-card{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;border:1px solid var(--sf-border);box-shadow:0 18px 40px -22px rgba(27,47,110,.3);cursor:pointer;transition:transform .35s var(--ease-out),box-shadow .35s}
+.energy-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -22px rgba(27,47,110,.45)}
+.energy-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out);filter:saturate(1.05)}
+.energy-card:hover img{transform:scale(1.06)}
+.energy-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,16,40,.85) 100%)}
+.energy-card-body{position:absolute;left:22px;right:22px;bottom:22px;z-index:2;color:#fff}
+.energy-card-body h3{font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;margin:0 0 6px;letter-spacing:.01em;text-transform:uppercase}
+.energy-card-body p{margin:0;font-size:14.5px;line-height:1.4;color:rgba(255,255,255,.82)}
+.energy-card-kicker{display:inline-block;padding:4px 10px;background:var(--sf-blue-500);color:#fff;font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border-radius:4px;margin-bottom:10px}
+@media (max-width:760px){.energy-inner{grid-template-columns:1fr}.energy-card{aspect-ratio:16/11}}
+/* Directory section banner */
+.directory-section{padding:64px 32px 96px;background:linear-gradient(180deg,#f7fafe 0%,#fff 100%);position:relative}
+.directory-section-head{max-width:820px;margin:0 auto 24px;text-align:center}
+.directory-section-head .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;background:var(--sf-blue-100);border:1px solid rgba(47,130,196,.3);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.directory-section-head h2{font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(28px,3.8vw,42px);color:var(--sf-ink);margin:0 0 10px;line-height:1.05}
+.directory-section-head p{color:var(--sf-ink-60);font-size:16px;max-width:640px;margin:0 auto}
+.page-hero-inner{position:relative;z-index:10;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:56px;align-items:start}
+.page-hero-main{display:flex;flex-direction:column;gap:40px;min-width:0}
+.page-hero-copy{padding-top:12px;text-align:left}
+.page-hero-extras{display:flex;flex-direction:column;gap:32px}
+@media (max-width:960px){
+  .page-hero-inner{display:flex;flex-direction:column;gap:32px;align-items:stretch}
+  .page-hero-main{display:contents}
+  .page-hero-copy{text-align:center;order:1;width:100%}
+  .page-hero-form{order:2;width:100%;align-self:stretch}
+  .page-hero-extras{order:3;align-items:center;width:100%;align-self:stretch}
+  .hero-swipe{margin:0 auto !important;width:100%}
+}
+.page-hero-copy .badge,.page-hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:100px;background:var(--sf-blue-100);border:1px solid rgba(47,130,196,.35);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+.page-hero-copy .badge svg{width:14px;height:14px}
+.page-hero h1{font-size:clamp(38px,5.4vw,68px);line-height:.98;margin-bottom:20px;color:var(--sf-ink);letter-spacing:-0.02em}
 .page-hero h1 .accent{background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;color:transparent}
-.page-hero-sub{font-size:clamp(17px,1.6vw,21px);line-height:1.6;color:var(--sf-ink-60);max-width:720px;margin:0 auto 36px}
-.page-hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.page-hero-sub{font-size:clamp(16px,1.25vw,19px);line-height:1.55;color:var(--sf-ink-60);margin-bottom:26px;max-width:580px}
+.page-hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:8px}
+.page-hero-quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:820px;width:100%}
+.page-hero-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:540px}
+.page-hero-quick-item{padding:12px 14px;background:#ffffff;border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:6px;box-shadow:0 8px 20px -14px rgba(27,47,110,.2)}
+.page-hero-quick-item .label{display:block;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--sf-blue-700);margin-bottom:3px}
+.page-hero-quick-item .value{display:block;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;color:var(--sf-ink);line-height:1.1}
+.page-hero-info{padding:22px 24px;background:rgba(17,26,61,.55);border:1px solid rgba(74,163,224,.22);border-left:3px solid var(--sf-blue-500);border-radius:6px;backdrop-filter:blur(6px);max-width:820px;width:100%}
+.page-hero-info h3{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fc0ed;margin:0 0 12px}
+.page-hero-info ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.page-hero-info li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.85)}
+.page-hero-info li svg{width:16px;height:16px;color:#7fc0ed;flex-shrink:0;margin-top:3px}
+/* School directory */
+.school-search-wrap{position:relative;max-width:820px;width:100%;margin:0 auto}
+.school-search{width:100%;padding:16px 20px 16px 52px;background:#fff;border:1px solid var(--sf-border);border-radius:10px;color:var(--sf-ink);font-size:15px;font-family:'Inter',sans-serif;outline:none;box-shadow:0 8px 24px -16px rgba(27,47,110,.25);transition:border-color .2s,box-shadow .2s}
+.school-search::placeholder{color:var(--sf-ink-40)}
+.school-search:focus{border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.15),0 8px 24px -16px rgba(27,47,110,.3)}
+.school-search-icon{position:absolute;left:18px;top:22px;width:20px;height:20px;color:var(--sf-blue-500);pointer-events:none}
+.school-filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;justify-content:center}
+.school-filter{padding:6px 14px;background:#fff;border:1px solid var(--sf-border);border-radius:100px;color:var(--sf-ink-60);font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.school-filter:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-500);color:var(--sf-blue-700)}
+.school-filter.active{background:var(--sf-blue-500);border-color:var(--sf-blue-500);color:#fff;box-shadow:0 6px 16px -6px rgba(47,130,196,.5)}
+.school-count{margin-top:10px;font-size:12px;color:var(--sf-ink-50);text-align:center;letter-spacing:.05em}
+.school-directory{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;max-width:820px;width:100%}
+.school-card{display:flex;flex-direction:column;gap:10px;padding:16px;background:#fff;border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:6px;transition:transform .25s var(--ease-out,ease),box-shadow .25s,border-color .25s;box-shadow:0 6px 20px -14px rgba(27,47,110,.2)}
+.school-card:hover{transform:translateY(-3px);border-color:var(--sf-blue-500);box-shadow:0 18px 40px -18px rgba(47,130,196,.4)}
+.school-card-head{display:flex;align-items:center;gap:12px}
+.school-card-logo{flex-shrink:0;width:52px;height:52px;border-radius:8px;background:var(--sf-blue-50);display:grid;place-items:center;overflow:hidden;padding:4px;border:1px solid var(--sf-border)}
+.school-card-logo img{max-width:100%;max-height:100%;object-fit:contain}
+.school-card-title{flex:1;min-width:0}
+.school-card-title h4{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;color:var(--sf-ink);margin:0;line-height:1.15;letter-spacing:.01em}
+.school-card-title .meta{font-size:11px;color:var(--sf-blue-700);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-top:3px;font-family:'Oswald',sans-serif}
+.school-card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:-2px}
+.school-card-tags .tag{display:inline-block;padding:2px 8px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;background:var(--sf-blue-100);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-weight:700}
+.school-card-tags .tag.spirit{background:#f3e8ff;color:#7c3aed}
+.school-card-times{display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid var(--sf-border)}
+.school-card-times .row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--sf-ink-60);line-height:1.4}
+.school-card-times .row em{font-style:normal;color:var(--sf-blue-700);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'Oswald',sans-serif;font-weight:700}
+.school-empty{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--sf-ink-50);font-size:14px;background:#fff;border:1px dashed var(--sf-border);border-radius:8px}
+.page-hero-form{position:relative;background:#fff;color:var(--sf-ink);border-radius:10px;padding:18px;box-shadow:0 30px 80px -24px rgba(0,0,0,.55),0 10px 24px -12px rgba(10,16,40,.4);border:1px solid rgba(74,163,224,.25);border-top:3px solid var(--sf-blue-500)}
+.page-hero-form-head{padding:4px 4px 14px;border-bottom:1px solid var(--sf-border);margin-bottom:14px}
+.page-hero-form-head .kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sf-blue-700);margin-bottom:8px}
+.page-hero-form-head .kicker::before{content:'';width:18px;height:2px;background:var(--sf-blue-500)}
+.page-hero-form-head h2{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--sf-ink);margin:0;line-height:1.15;letter-spacing:.01em;text-transform:none}
+.page-hero-form iframe{width:100%;border:none;border-radius:3px;display:block}
+@media (max-width:960px){.page-hero{padding:110px 20px 60px}.page-hero h1{font-size:clamp(30px,6vw,42px)}.page-hero-quick{grid-template-columns:repeat(3,1fr);gap:10px}.page-hero-quick-item{padding:10px 12px}.page-hero-info{padding:18px}.page-hero-info .school-row{flex-direction:column;gap:4px}.page-hero-info .school-times{text-align:left}}
 
 /* sections */
 .sec{padding:100px 32px;background:var(--sf-white)}
@@ -276,7 +385,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <a class="sf-nav-link" href="home.html#gallery">Gallery</a>
         <a class="sf-nav-link" href="home.html#reviews">Reviews</a>
         <a class="sf-nav-link" href="home.html#team">Team</a>
-        <a class="sf-nav-link sf-nav-cta" href="#register">Get Started</a>
+        <a class="sf-nav-link sf-nav-cta" href="#top">Get Started</a>
       </div>
       <button class="sf-nav-toggle" type="button" id="sfNavToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
@@ -301,109 +410,60 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <li><span class="sf-mobile-menu-label">Programs</span></li>
     <li><a href="after-school.html">After School Systema</a></li>
     <li><a href="camps.html">Summer Camps</a></li>
-    <li><a href="#register" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
+    <li><a href="#top" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
   </ul>
 </div>
 
 <!-- HERO -->
-<section class="page-hero">
-  <div class="page-hero-slashes"><div class="page-hero-slash"></div><div class="page-hero-slash"></div></div>
+<section class="page-hero" id="top">
+  <div class="page-hero-deco" aria-hidden="true">
+    <span class="page-hero-blob b1"></span>
+    <span class="page-hero-blob b2"></span>
+    <span class="page-hero-blob b3"></span>
+    <span class="page-hero-blob b4"></span>
+    <span class="page-hero-line l1"></span>
+    <span class="page-hero-line l2"></span>
+  </div>
   <div class="page-hero-inner">
-    <span class="page-hero-badge anim">⚔ After School Program</span>
-    <h1 class="anim d1">Martial Arts Right at <span class="accent">Your Child's School.</span></h1>
-    <p class="page-hero-sub anim d2">Pickup, class, and character-building, done before you even finish the work commute. Three days a week at five West Palm Beach campuses.</p>
-    <div class="page-hero-ctas anim d3">
-      <a class="btn btn-primary btn-lg" href="#register">Get Started · First Class Free</a>
-      <a class="btn btn-secondary btn-lg" href="#schedule">See Campus Schedules</a>
+    <div class="page-hero-main">
+    <div class="page-hero-copy">
+      <span class="badge anim">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7-6.5-4-6.5 4 2-7L2 9h7z"/></svg>
+        20+ Partner Schools · Ages Pre-K to 8th
+      </span>
+      <h1 class="anim d1">Your Child's School <span class="accent">Just Got a Dojo.</span></h1>
+      <p class="page-hero-sub anim d2">No more after-school scramble. We bring Martial Arts and Spirit Dance straight to your kid's campus, so they walk out sharper, stronger, and ten times more confident than they walked in.</p>
     </div>
-  </div>
-</section>
 
-<!-- WHAT TO EXPECT -->
-<section class="sec sec-alt">
-  <div class="sec-inner">
-    <div class="sec-header">
-      <span class="sec-badge anim">What to Expect</span>
-      <h2 class="sec-title anim d1">Your Child's <span class="accent">Week, Mapped.</span></h2>
-      <p class="sec-sub anim d2">Structured sessions that build skills, discipline, and real confidence, week after week.</p>
-    </div>
-    <div class="expect-grid">
-      <div class="expect-card anim d1"><div class="expect-num">01</div><h3>Campus Pickup</h3><p>Our instructors pick up your child directly from class. No extra driving, no scramble.</p></div>
-      <div class="expect-card anim d2"><div class="expect-num">02</div><h3>Warm-Up &amp; Drills</h3><p>Structured movement, bodyweight conditioning, and martial fundamentals, age-appropriate.</p></div>
-      <div class="expect-card anim d3"><div class="expect-num">03</div><h3>Character Lesson</h3><p>Every class anchors a core value: respect, focus, effort, discipline, courage.</p></div>
-      <div class="expect-card anim d4"><div class="expect-num">04</div><h3>Skill Practice</h3><p>Technique work with a clear progression. Every kid sees how far they've come at belt tests.</p></div>
-    </div>
-  </div>
-</section>
+    <div class="page-hero-extras">
+      <div class="page-hero-quick anim d3">
+        <div class="page-hero-quick-item"><span class="label">Ages</span><span class="value">Pre-K – 8th</span></div>
+        <div class="page-hero-quick-item"><span class="label">Format</span><span class="value">On-Campus</span></div>
+        <div class="page-hero-quick-item"><span class="label">Days</span><span class="value">Mon – Fri</span></div>
+      </div>
 
-<!-- SCHEDULE -->
-<section class="sec" id="schedule">
-  <div class="sec-inner">
-    <div class="sec-header">
-      <span class="sec-badge anim">Campus Schedules</span>
-      <h2 class="sec-title anim d1">Find <span class="accent">Your School.</span></h2>
-      <p class="sec-sub anim d2">Typical days and times shown below, exact schedule for the current session is confirmed when you sign up. Click any card to reserve a trial at that location.</p>
-    </div>
-    <div class="schedule-grid">
-      <!-- TODO(tom): confirm exact days + times per campus -->
-      <div class="schedule-card anim d1">
-        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/534712b6-9937-4f67-944e-4a3c4d347dd2.png" alt="Seacrest Presbyterian" /></div>
-        <h3>Seacrest Presbyterian</h3>
-        <div class="schedule-card-meta"><b>Mon / Wed / Fri</b>3:00 – 4:30 PM</div>
-        <a class="btn btn-primary" href="home.html?campus=seacrest#contact">Start Here →</a>
-      </div>
-      <div class="schedule-card anim d2">
-        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8b3e2704-8c10-429a-b423-71671d75ee91.png" alt="St. Jude Catholic" /></div>
-        <h3>St. Jude Catholic</h3>
-        <div class="schedule-card-meta"><b>Tue / Thu</b>3:15 – 4:45 PM</div>
-        <a class="btn btn-primary" href="home.html?campus=st-jude#contact">Start Here →</a>
-      </div>
-      <div class="schedule-card anim d3">
-        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/41db1364-3171-4e83-ae08-a993c1bb7cc7.png" alt="St. Ann Catholic" /></div>
-        <h3>St. Ann Catholic</h3>
-        <div class="schedule-card-meta"><b>Mon / Wed</b>3:00 – 4:30 PM</div>
-        <a class="btn btn-primary" href="home.html?campus=st-ann#contact">Start Here →</a>
-      </div>
-      <div class="schedule-card anim d4">
-        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/179be408-7c83-4462-8226-63d420f73df1.png" alt="Discovery Dayschool" /></div>
-        <h3>Discovery Dayschool</h3>
-        <div class="schedule-card-meta"><b>Tue / Thu</b>2:45 – 4:15 PM</div>
-        <a class="btn btn-primary" href="home.html?campus=discovery#contact">Start Here →</a>
-      </div>
-      <div class="schedule-card anim d5">
-        <div class="schedule-card-logo"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2b9b6a7c-2bf8-4c82-b428-89f56ae30c21.png" alt="Holy Cross" /></div>
-        <h3>Holy Cross</h3>
-        <div class="schedule-card-meta"><b>Mon / Fri</b>3:00 – 4:30 PM</div>
-        <a class="btn btn-primary" href="home.html?campus=holy-cross#contact">Start Here →</a>
+      <div class="hero-swipe anim d4">
+        <div class="hero-swipe-stack" id="heroSwipeStack" aria-label="Swipe through Systema Floyd programs">
+          <button class="hero-swipe-arrow hero-swipe-arrow-left" type="button" id="heroSwipePrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="hero-swipe-arrow hero-swipe-arrow-right" type="button" id="heroSwipeNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          <div class="hero-swipe-dots" id="heroSwipeDots"></div>
+        </div>
+        <span class="hero-swipe-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          First class is free
+        </span>
       </div>
     </div>
-  </div>
-</section>
+    </div>
 
-<!-- FAQ -->
-<section class="sec sec-alt">
-  <div class="sec-inner-narrow">
-    <div class="sec-header"><span class="sec-badge anim">FAQ</span><h2 class="sec-title anim d1">Parent <span class="accent">Questions.</span></h2></div>
-    <div class="faq">
-      <details class="anim d1"><summary>What ages do you accept?</summary><div class="faq-body"><p>Systema Floyd welcomes students from age 2.5 through adults. Our after-school program at partner campuses focuses on kids roughly ages 5–14, with age-appropriate groupings. For toddler classes (ages 2.5–5) and teen/adult classes, we run sessions at our West Palm Beach studio, just ask on the form.</p></div></details>
-      <details class="anim d1"><summary>Do you pick up from the classroom?</summary><div class="faq-body"><p>Yes, our instructors coordinate directly with campus staff. Your child is escorted from their classroom or the designated pickup area to our class space.</p></div></details>
-      <details class="anim d1"><summary>How much does it cost?</summary><div class="faq-body"><p>Pricing varies slightly by campus and session length. The easiest way to get exact numbers is to request a trial, we'll send pricing for your specific campus along with the trial confirmation.</p></div></details>
-      <details class="anim d1"><summary>What does my child need to bring?</summary><div class="faq-body"><p>For the first class, just comfortable athletic clothes and a water bottle. Once enrolled, you'll receive a uniform (gi) and a belt. We provide everything else.</p></div></details>
-      <details class="anim d1"><summary>Can my child try a class first?</summary><div class="faq-body"><p>Absolutely. The first class is always free, no pressure, no commitment. <a href="#register" style="color:var(--sf-blue-500);font-weight:600">Book a trial here.</a></p></div></details>
-      <details class="anim d1"><summary>Do you run during summer and school breaks?</summary><div class="faq-body"><p>Our After School program runs with the academic calendar. During summer and extended breaks, we offer our <a href="camps.html" style="color:var(--sf-blue-500);font-weight:600">full-day camps</a>.</p></div></details>
-    </div>
-  </div>
-</section>
-
-<!-- REGISTRATION FORM -->
-<section class="cta-banner" id="register">
-  <div class="cta-banner-inner" style="max-width: 720px;">
-    <h2 class="anim">Register Your Child <span class="accent">Today.</span></h2>
-    <p class="anim d1" style="margin-bottom: 28px;">Martial Arts + Spirit Dance, on-campus at your child's school. Fill out the form and we'll reach out within 24 hours.</p>
-    <div class="anim d2" style="background:#fff; border-radius:12px; padding:20px; box-shadow:0 24px 60px -20px rgba(0,0,0,0.35); overflow:hidden;">
+    <div class="page-hero-form anim d3" id="register">
+      <div class="page-hero-form-head">
+        <span class="kicker">Register Today</span>
+        <h2>Reserve Your Child's Spot</h2>
+      </div>
       <iframe
         src="https://link.nilsdigital.com/widget/form/TkioOL4IoByeHU3K2gTs"
-        style="width:100%;min-height:640px;border:none;border-radius:3px;display:block;"
+        style="min-height:640px;"
         id="inline-TkioOL4IoByeHU3K2gTs"
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"
@@ -422,6 +482,143 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
   </div>
 </section>
+
+
+<!-- DIRECTORY -->
+<section class="directory-section">
+  <div class="directory-section-head anim">
+    <span class="badge">Find Your Campus</span>
+    <h2>Your School. Your Day. Your Time.</h2>
+    <p>Search the directory to see exactly when your child's campus runs. We're on 20+ campuses five days a week.</p>
+  </div>
+  <div class="school-search-wrap anim">
+    <svg class="school-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input type="text" class="school-search" id="schoolSearch" placeholder="Search your school…" autocomplete="off" aria-label="Search schools" />
+    <div class="school-filters" id="schoolFilters">
+      <button class="school-filter active" data-filter="all" type="button">All</button>
+      <button class="school-filter" data-filter="martial-arts" type="button">Martial Arts</button>
+      <button class="school-filter" data-filter="spirit-dance" type="button">Spirit Dance</button>
+      <button class="school-filter" data-filter="monday" type="button">Mon</button>
+      <button class="school-filter" data-filter="tuesday" type="button">Tue</button>
+      <button class="school-filter" data-filter="wednesday" type="button">Wed</button>
+      <button class="school-filter" data-filter="thursday" type="button">Thu</button>
+      <button class="school-filter" data-filter="friday" type="button">Fri</button>
+    </div>
+    <div class="school-count" id="schoolCount"></div>
+  </div>
+  <div class="school-directory anim" id="schoolDirectory" style="max-width:1180px;margin:32px auto 0"></div>
+</section>
+
+<script>
+/* HERO TINDER SWIPE STACK */
+(function(){
+  const CARDS = [
+    { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/7661fd0c-f0b9-4e0e-afde-ae723acba4ed.jpg', alt: 'Focused students training', kicker: 'Martial Arts', title: 'Real Skill. Real Discipline.', body: 'Authentic Systema technique, adapted for kids. Weekly on-campus classes, ranked by age and skill.' },
+    { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/ad436bea-070b-42f7-a748-97719ac56033.jpg', alt: 'Spirit Dance class', kicker: 'Spirit Dance', title: 'Big Voices. Big Energy.', body: 'Pom, hip-hop, and team-spirit training that turns shy kids into the loudest cheer on the floor.' },
+    { img: 'https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/206e78be-a4ab-4bb1-9ccb-a8b7558adf43.jpg', alt: 'Student earning a belt', kicker: 'Character', title: 'Every Belt Earned.', body: 'Quarterly testings. Clear milestones. Kids come home standing a little taller every session.' }
+  ];
+  const stack = document.getElementById('heroSwipeStack');
+  const dots = document.getElementById('heroSwipeDots');
+  const prev = document.getElementById('heroSwipePrev');
+  const next = document.getElementById('heroSwipeNext');
+  if (!stack || !dots) return;
+  const N = CARDS.length;
+  CARDS.forEach((c) => {
+    const el = document.createElement('div');
+    el.className = 'hero-swipe-card';
+    el.innerHTML = `<img src="${c.img}" alt="${c.alt}" draggable="false"><div class="hero-swipe-body"><span class="hero-swipe-kicker">${c.kicker}</span><h3>${c.title}</h3><p>${c.body}</p></div>`;
+    stack.insertBefore(el, prev);
+  });
+  CARDS.forEach((_, i) => { const d = document.createElement('div'); d.className = 'hero-swipe-dot' + (i===0?' active':''); dots.appendChild(d); });
+  const cards = Array.from(stack.querySelectorAll('.hero-swipe-card'));
+  const dotsArr = Array.from(dots.querySelectorAll('.hero-swipe-dot'));
+  let idx = 0;
+  function layout() {
+    cards.forEach((c, i) => {
+      const o = (i - idx + N) % N;
+      c.classList.remove('leaving','dragging');
+      if (o === 0) { c.style.transform = 'translate(0,0) rotate(-1deg)'; c.style.zIndex = N; c.style.opacity = '1'; c.style.pointerEvents = 'auto'; }
+      else if (o === 1) { c.style.transform = 'translate(16px,16px) scale(.95) rotate(3deg)'; c.style.zIndex = N-1; c.style.opacity = '.95'; c.style.pointerEvents = 'none'; }
+      else if (o === 2) { c.style.transform = 'translate(-16px,28px) scale(.9) rotate(-4deg)'; c.style.zIndex = N-2; c.style.opacity = '.85'; c.style.pointerEvents = 'none'; }
+      else { c.style.transform = 'translate(0,40px) scale(.86)'; c.style.zIndex = 0; c.style.opacity = '0'; c.style.pointerEvents = 'none'; }
+    });
+    dotsArr.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+  function advance(){ idx = (idx+1) % N; layout(); }
+  function retreat(){ idx = (idx-1+N) % N; layout(); }
+  layout();
+  let sx=0, sy=0, dx=0, dy=0, drag=false, moved=false, top=null;
+  stack.addEventListener('pointerdown', (e) => { if (e.target.closest('.hero-swipe-arrow')) return; top = cards[idx]; if (!top) return; drag=true; moved=false; sx=e.clientX; sy=e.clientY; dx=0; dy=0; top.classList.add('dragging'); top.setPointerCapture?.(e.pointerId); });
+  stack.addEventListener('pointermove', (e) => { if(!drag||!top) return; dx=e.clientX-sx; dy=e.clientY-sy; if(Math.abs(dx)>5||Math.abs(dy)>5) moved=true; top.style.transform=`translate(${dx}px,${dy*0.3}px) rotate(${dx/18}deg)`; });
+  function release(){ if(!drag||!top) return; drag=false; top.classList.remove('dragging'); const t=Math.min(120, stack.offsetWidth*0.3); if (Math.abs(dx)>t){ const dir=dx>0?1:-1; top.classList.add('leaving'); top.style.transform=`translate(${dir*900}px,${dy}px) rotate(${dir*20}deg)`; top.style.opacity='0'; setTimeout(advance, 180); } else { layout(); } top=null; }
+  stack.addEventListener('pointerup', release);
+  stack.addEventListener('pointercancel', release);
+  stack.addEventListener('pointerleave', () => { if(drag) release(); });
+  prev.addEventListener('click', (e) => { e.stopPropagation(); retreat(); });
+  next.addEventListener('click', (e) => { e.stopPropagation(); advance(); });
+  let auto = setInterval(advance, 4500);
+  stack.addEventListener('pointerenter', () => clearInterval(auto));
+  stack.addEventListener('pointerleave', () => { auto = setInterval(advance, 4500); });
+})();
+
+(function(){
+  const SCHOOLS = [
+    { name: 'Discovery Dayschool', programs: ['martial-arts'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/d7ba2cbc-2a8c-4419-9099-9e8e55622bde.png', times: [{label:'Session 1', time:'2:10–2:40 PM'},{label:'Session 2', time:'2:45–3:15 PM'}] },
+    { name: 'Holy Cross', programs: ['spirit-dance'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/7b747974-0156-4eec-a1ad-1fdfbae65227.png', times: [{time:'2:20–2:50 PM'}] },
+    { name: 'Seacrest', programs: ['martial-arts'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/afd12d3c-6a5b-45b8-9496-9720867d8560.png', times: [{time:'11:00–11:30 AM'}] },
+    { name: 'St. Ann Catholic', programs: ['martial-arts'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/b5ed4a89-404f-4c80-94bf-49dd9a88322f.png', times: [{label:'PreK–K', time:'3:00–3:30 PM'},{label:'1st–5th', time:'3:30–4:15 PM'}] },
+    { name: 'St. Jude', programs: ['spirit-dance'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/711556ed-d567-440f-8c34-2025cbf9763b.png', times: [{label:'PreK–K', time:'2:25–2:55 PM'},{label:'1st–6th', time:'3:05–3:50 PM'}] },
+    { name: 'St. Vincent', programs: ['martial-arts'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/409aafbc-68f1-42e4-9347-ea46acd4f9a4.png', times: [{label:'PreK–K', time:'2:45–3:15 PM'},{label:'1st–8th', time:'3:15–4:00 PM (quarterly)'}] },
+    { name: 'Unity School', programs: ['martial-arts'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/f29e5af3-9deb-48b6-8fd8-d4b86013172a.png', times: [{time:'3:30–4:00 PM'}] },
+    { name: 'Wellington Elementary', programs: ['martial-arts'], day: 'monday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/dba1f565-8f6b-4593-8c5d-bf1b355080b4.jpeg', times: [{label:'K–5th', time:'2:10–3:10 PM'}] },
+    { name: 'Flagler Montessori', programs: ['martial-arts'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/b5749529-9a2a-46ae-96c5-baf6d71b8f33.png', times: [{label:'Ages 2–3', time:'11:00–11:30 AM'},{label:'Ages 4–5', time:'12:00–12:30 PM'}] },
+    { name: "The King's Academy", programs: ['martial-arts'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/84875968-b333-4d60-ad0f-30263d693905.png', times: [{label:'3rd–5th', time:'3:00–4:00 PM'}] },
+    { name: 'South Olive', programs: ['martial-arts'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/4526f731-9469-46d2-a48b-e3b255e79824.png', times: [{label:'K–5th', time:'2:15–3:00 PM'}] },
+    { name: "St. Andrew's School", programs: ['martial-arts'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/31af05bd-cc27-45a7-b1fa-a0e986c08a40.png', times: [{time:'3:15–4:15 PM'}] },
+    { name: 'St. Joan of Arc', programs: ['martial-arts'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/a8cf1a3f-4763-4e90-950e-7554ea8a6e21.png', times: [{label:'PreK', time:'1:55–2:25 PM'},{label:'K–2nd', time:'3:00–3:30 PM'},{label:'3rd–8th', time:'3:30–4:15 PM (quarterly)'}] },
+    { name: 'St. Joan of Arc', programs: ['spirit-dance'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/a8cf1a3f-4763-4e90-950e-7554ea8a6e21.png', times: [{label:'K–1st', time:'2:55–3:25 PM'},{label:'2nd–5th', time:'3:25–4:10 PM (quarterly)'}] },
+    { name: 'St. Jude', programs: ['martial-arts'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/4823c55f-011c-40ee-81d5-fac02be2314e.png', times: [{label:'PreK–K', time:'2:25–2:55 PM'},{label:'1st–5th', time:'3:05–3:50 PM'}] },
+    { name: 'St. Juliana', programs: ['spirit-dance'], day: 'tuesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/b10a5acd-4e86-45d5-a64f-10e14af9c7ed.png', times: [{label:'PreK–K', time:'2:45–3:15 PM'},{label:'1st–5th', time:'3:15–4:00 PM'}] },
+    { name: 'Palm Beach Public', programs: ['martial-arts'], day: 'wednesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/a2d2d50b-17c0-44cf-8f37-fd064b71e1b4.png', times: [{label:'K–5th', time:'2:00–2:55 PM'}] },
+    { name: 'Play Pals', programs: ['martial-arts'], day: 'wednesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/3d5acabb-b3ba-4458-be19-6072a554f7b7.png', times: [{time:'9:00–9:30 AM'}] },
+    { name: 'South Olive', programs: ['spirit-dance'], day: 'wednesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/4526f731-9469-46d2-a48b-e3b255e79824.png', times: [{label:'K–5th', time:'2:15–3:15 PM'}] },
+    { name: 'St. Clare', programs: ['martial-arts'], day: 'wednesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/a08ce8bc-ae61-420e-9334-cf7411a9361d.png', times: [{label:'PreK–K', time:'2:30–3:00 PM'},{label:'1st–5th', time:'3:15–4:00 PM (quarterly)'}] },
+    { name: 'St. Juliana', programs: ['martial-arts'], day: 'wednesday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/e98c00a3-c12d-4d36-9cc5-2f56e0ad3d61.png', times: [{label:'PreK–K', time:'2:45–3:15 PM'},{label:'1st–5th', time:'3:15–4:00 PM'}] },
+    { name: 'Holy Cross', programs: ['martial-arts'], day: 'thursday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/7b747974-0156-4eec-a1ad-1fdfbae65227.png', times: [{label:'PK3–K', time:'2:25–2:55 PM'}] },
+    { name: 'St. Clare', programs: ['spirit-dance'], day: 'thursday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/a08ce8bc-ae61-420e-9334-cf7411a9361d.png', times: [{label:'PreK–K', time:'2:45–3:15 PM'},{label:'1st–5th', time:'3:30–4:15 PM (quarterly)'}] },
+    { name: 'Guidepost Montessori', programs: ['martial-arts'], day: 'friday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/d1463663-ccd7-4982-9cf4-aaabca219383.png', times: [{label:'Lower', time:'3:00–3:30 PM'},{label:'Riverside', time:'3:50–4:20 PM'}] },
+    { name: 'Palm Beach Public', programs: ['spirit-dance'], day: 'friday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/1aaa3025-8612-45cb-b8c3-88bec3291e27.png', times: [{label:'K–5th', time:'2:00–2:55 PM'}] },
+    { name: 'South Olive', programs: ['martial-arts'], day: 'friday', logo: 'https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/4526f731-9469-46d2-a48b-e3b255e79824.png', times: [{label:'K–5th', time:'2:15–3:00 PM'}] }
+  ];
+  const DAY_LABELS = {monday:'Mon', tuesday:'Tue', wednesday:'Wed', thursday:'Thu', friday:'Fri'};
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function render(list) {
+    const dir = document.getElementById('schoolDirectory');
+    if (!list.length) { dir.innerHTML = '<div class="school-empty">No schools match your search. <a href="#top" style="color:#7fc0ed;">Contact us</a> about adding yours.</div>'; return; }
+    dir.innerHTML = list.map(s => {
+      const tags = s.programs.map(p => { const cls = p==='spirit-dance'?'tag spirit':'tag'; const label = p==='spirit-dance'?'Spirit Dance':'Martial Arts'; return `<span class="${cls}">${label}</span>`; }).join('');
+      const times = s.times.map(t => `<div class="row">${t.label ? `<em>${esc(t.label)}</em>` : '<span></span>'}<span>${esc(t.time)}</span></div>`).join('');
+      return `<div class="school-card"><div class="school-card-head"><div class="school-card-logo"><img src="${s.logo}" alt="${esc(s.name)}" loading="lazy" decoding="async"/></div><div class="school-card-title"><h4>${esc(s.name)}</h4><div class="meta">${DAY_LABELS[s.day]}</div></div></div><div class="school-card-tags">${tags}</div><div class="school-card-times">${times}</div></div>`;
+    }).join('');
+  }
+  function apply() {
+    const q = (document.getElementById('schoolSearch').value || '').toLowerCase().trim();
+    const activeFilter = document.querySelector('.school-filter.active')?.dataset.filter || 'all';
+    const filtered = SCHOOLS.filter(s => {
+      if (q && !s.name.toLowerCase().includes(q)) return false;
+      if (activeFilter === 'all') return true;
+      if (['monday','tuesday','wednesday','thursday','friday'].includes(activeFilter)) return s.day === activeFilter;
+      return s.programs.includes(activeFilter);
+    });
+    document.getElementById('schoolCount').textContent = `${filtered.length} of ${SCHOOLS.length} schools`;
+    render(filtered);
+  }
+  document.getElementById('schoolSearch')?.addEventListener('input', apply);
+  document.querySelectorAll('.school-filter').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.school-filter').forEach(b => b.classList.remove('active')); btn.classList.add('active'); apply(); }); });
+  apply();
+})();
+</script>
+
 
 <!-- SPONSORS -->
 <section class="sponsors" aria-label="Our sponsors">
@@ -446,8 +643,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       <ul>
         <li><a href="after-school.html">After School</a></li>
         <li><a href="camps.html">Summer Camps</a></li>
-            <li><a href="#register">Private Lessons</a></li>
-        <li><a href="#register">Adult &amp; Teen Classes</a></li>
+            <li><a href="#top">Private Lessons</a></li>
+        <li><a href="#top">Adult &amp; Teen Classes</a></li>
       </ul>
     </div>
     <div class="sf-footer-col">

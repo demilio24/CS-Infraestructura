@@ -134,22 +134,31 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .lightbox-close svg{width:20px;height:20px}
 
 /* HERO (split with image) */
-.page-hero{position:relative;min-height:80vh;padding:160px 32px 100px;background:linear-gradient(180deg,var(--sf-blue-50) 0%,var(--sf-white) 60%,var(--sf-white) 100%);overflow:hidden;isolation:isolate}
-.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 80% 20%,rgba(47,130,196,.18),transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(27,47,110,.1),transparent 60%)}
-.page-hero::after{content:'';position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(27,47,110,.1) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at center,black 40%,transparent 75%);opacity:.5}
-.page-hero-slashes{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
-.page-hero-slash{position:absolute;height:2px;width:140vw;left:-20vw;background:linear-gradient(90deg,transparent,rgba(47,130,196,.45),transparent);transform:rotate(-28deg);animation:slash-sweep 14s linear infinite}
-.page-hero-slash:nth-child(1){top:25%}
-.page-hero-slash:nth-child(2){top:65%;animation-delay:7s;background:linear-gradient(90deg,transparent,rgba(27,47,110,.4),transparent)}
-@keyframes slash-sweep{0%{opacity:0;transform:rotate(-28deg) translateX(-30vw)}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:rotate(-28deg) translateX(30vw)}}
-.page-hero-inner{position:relative;z-index:10;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:64px;align-items:center}
-.page-hero-copy .badge{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:100px;background:var(--sf-blue-100);border:1px solid var(--sf-blue-500);color:var(--sf-blue-700);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
-.page-hero h1{font-size:clamp(40px,6vw,70px);line-height:.95;margin-bottom:24px}
-.page-hero h1 .accent{background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;color:transparent}
-.page-hero-sub{font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--sf-ink-60);margin-bottom:36px;max-width:560px}
-.page-hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
-.page-hero-visual{position:relative;display:flex;align-items:center;justify-content:center;min-height:500px}
-.page-hero-visual img{width:100%;max-width:540px;filter:drop-shadow(0 20px 60px rgba(47,130,196,.35));animation:hex-float 8s ease-in-out infinite}
+.page-hero{position:relative;padding:140px 32px 80px;background:radial-gradient(ellipse at 15% 10%,rgba(74,163,224,.25),transparent 55%),radial-gradient(ellipse at 90% 90%,rgba(127,192,237,.3),transparent 55%),linear-gradient(180deg,#0a1028 0%,#1b2f6e 45%,#2f82c4 100%);color:#fff;overflow:hidden;isolation:isolate}
+.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(180,220,255,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(180,220,255,.13) 1px,transparent 1px);background-size:52px 52px;-webkit-mask-image:radial-gradient(ellipse at center,#000 55%,transparent 95%);mask-image:radial-gradient(ellipse at center,#000 55%,transparent 95%);pointer-events:none}
+.page-hero-inner{position:relative;z-index:10;max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:32px}
+.page-hero-copy{padding-top:12px;text-align:center}
+.page-hero-copy .badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:100px;background:rgba(47,130,196,.18);border:1px solid rgba(74,163,224,.4);color:#7fc0ed;font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+.page-hero h1{font-size:clamp(34px,4.6vw,56px);line-height:1;margin-bottom:20px;color:#fff;letter-spacing:-0.01em}
+.page-hero h1 .accent{background:linear-gradient(135deg,#fff 0%,#7fc0ed 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.page-hero-sub{font-size:clamp(15px,1.2vw,17px);line-height:1.6;color:rgba(255,255,255,.78);margin:0 auto 8px;max-width:620px}
+.page-hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.page-hero-quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:820px;width:100%}
+.page-hero-quick-item{padding:14px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(74,163,224,.22);border-left:3px solid var(--sf-blue-500);border-radius:4px}
+.page-hero-quick-item .label{display:block;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7fc0ed;margin-bottom:4px}
+.page-hero-quick-item .value{display:block;font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:#fff;line-height:1.1}
+.page-hero-info{padding:22px 24px;background:rgba(17,26,61,.55);border:1px solid rgba(74,163,224,.22);border-left:3px solid var(--sf-blue-500);border-radius:6px;backdrop-filter:blur(6px);max-width:820px;width:100%}
+.page-hero-info h3{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#7fc0ed;margin:0 0 12px}
+.page-hero-info ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.page-hero-info li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.82)}
+.page-hero-info li svg{width:16px;height:16px;color:#7fc0ed;flex-shrink:0;margin-top:3px}
+.page-hero-form{position:relative;background:#fff;color:var(--sf-ink);border-radius:10px;padding:18px;box-shadow:0 30px 80px -24px rgba(0,0,0,.55),0 10px 24px -12px rgba(10,16,40,.4);border:1px solid rgba(74,163,224,.25);border-top:3px solid var(--sf-blue-500)}
+.page-hero-form-head{padding:4px 4px 14px;border-bottom:1px solid var(--sf-border);margin-bottom:14px}
+.page-hero-form-head .kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sf-blue-700);margin-bottom:8px}
+.page-hero-form-head .kicker::before{content:'';width:18px;height:2px;background:var(--sf-blue-500)}
+.page-hero-form-head h2{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--sf-ink);margin:0;line-height:1.15;letter-spacing:.01em;text-transform:none}
+.page-hero-form iframe{width:100%;border:none;border-radius:3px;display:block}
+@media (max-width:960px){.page-hero{padding:110px 20px 60px}.page-hero-inner{grid-template-columns:1fr;gap:32px}.page-hero-copy{padding-top:0}.page-hero h1{font-size:clamp(30px,6vw,42px)}.page-hero-quick{grid-template-columns:repeat(3,1fr);gap:10px}.page-hero-quick-item{padding:10px 12px}.page-hero-info{padding:18px}}
 @keyframes hex-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(2deg)}}
 
 .sec{padding:100px 32px;background:var(--sf-white)}
@@ -268,7 +277,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <a class="sf-nav-link" href="home.html#gallery">Gallery</a>
         <a class="sf-nav-link" href="home.html#reviews">Reviews</a>
         <a class="sf-nav-link" href="home.html#team">Team</a>
-        <a class="sf-nav-link sf-nav-cta" href="#register">Get Started</a>
+        <a class="sf-nav-link sf-nav-cta" href="#top">Get Started</a>
       </div>
       <button class="sf-nav-toggle" type="button" id="sfNavToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
     </div>
@@ -293,77 +302,27 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <li><span class="sf-mobile-menu-label">Programs</span></li>
     <li><a href="after-school.html">After School Systema</a></li>
     <li><a href="camps.html">Summer Camps</a></li>
-    <li><a href="#register" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
+    <li><a href="#top" class="sf-mobile-menu-cta">Get Started · First Class Free</a></li>
   </ul>
 </div>
 
 <!-- HERO -->
-<section class="page-hero">
-  <div class="page-hero-slashes"><div class="page-hero-slash"></div><div class="page-hero-slash"></div></div>
+<section class="page-hero" id="top">
   <div class="page-hero-inner">
     <div class="page-hero-copy">
-      <span class="badge anim">⚔ Summer Camps</span>
-      <h1 class="anim d1">Full-Day Camps Built for <span class="accent">Warriors in Training.</span></h1>
-      <p class="page-hero-sub anim d2">Week-long intensives combining martial arts, outdoor play, and real character challenges. Where kids come back sharper, stronger, and more confident than when they arrived.</p>
-      <div class="page-hero-ctas anim d3">
-        <a class="btn btn-primary btn-lg" href="#register">Get Started · First Class Free</a>
-        <a class="btn btn-secondary btn-lg" href="#sessions">See Sessions</a>
+      <span class="badge anim">2026 Summer Camp · Registration Open</span>
+      <h1 class="anim d1">12 Weeks of <span class="accent">Action-Packed Summer Fun.</span></h1>
+      <p class="page-hero-sub anim d2">Join Systema Floyd for another unforgettable summer packed with martial arts, games, fitness, and high-energy activities every single day.</p>
+    </div>
+
+    <div class="page-hero-form anim d3" id="register">
+      <div class="page-hero-form-head">
+        <span class="kicker">Reserve a Spot</span>
+        <h2>Register for Camp</h2>
       </div>
-    </div>
-    <div class="page-hero-visual anim d2">
-      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/9f6e9e68-bfe3-4c06-9e0d-6cb868640361.png" alt="Systema Floyd summer camp, martial arts, outdoor play, water activities" />
-    </div>
-  </div>
-</section>
-
-<!-- DAY -->
-<section class="sec sec-alt">
-  <div class="sec-inner">
-    <div class="sec-header">
-      <span class="sec-badge anim">A Day at Camp</span>
-      <h2 class="sec-title anim d1">Packed. <span class="accent">Purposeful. Fun.</span></h2>
-      <p class="sec-sub anim d2">Every hour earns its keep. No screens, no filler, no bored kids.</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-card anim d1"><div class="timeline-time">8:00 – 9:00 AM</div><h3>Arrival &amp; Warm-Up</h3><p>Drop-off, group stretch, and a morning character huddle to set the day's focus.</p></div>
-      <div class="timeline-card anim d2"><div class="timeline-time">9:00 – 10:30 AM</div><h3>Martial Arts Block</h3><p>Drills, technique, partner work. Ranked by age + skill group.</p></div>
-      <div class="timeline-card anim d3"><div class="timeline-time">10:30 AM – 12:00 PM</div><h3>Outdoor Challenge</h3><p>Obstacle courses, team games, and movement play outside.</p></div>
-      <div class="timeline-card anim d4"><div class="timeline-time">12:00 – 1:00 PM</div><h3>Lunch &amp; Reset</h3><p>Bring-your-own lunch, quiet table time, and a guided cool-down.</p></div>
-      <div class="timeline-card anim d1"><div class="timeline-time">1:00 – 2:30 PM</div><h3>Skill Workshop</h3><p>Rotating workshops: weapon work (age-safe), grappling basics, mental focus drills.</p></div>
-      <div class="timeline-card anim d2"><div class="timeline-time">2:30 – 4:00 PM</div><h3>Water / Field Play</h3><p>Splash games, capture-the-flag, or group challenges, weather dependent.</p></div>
-      <div class="timeline-card anim d3"><div class="timeline-time">4:00 – 5:00 PM</div><h3>Belt Recap &amp; Pickup</h3><p>Reflection, a belt-recap demo, and parent pickup with that day's highlights.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SESSIONS -->
-<section class="sec" id="sessions">
-  <div class="sec-inner">
-    <div class="sec-header">
-      <span class="sec-badge anim">Camp Sessions</span>
-      <h2 class="sec-title anim d1">Pick <span class="accent">Your Week.</span></h2>
-      <p class="sec-sub anim d2">Summer sessions run weekly, mix &amp; match across the whole break. Weekly themes are set each season; the list below shows example weeks from a recent summer.</p>
-    </div>
-    <div class="sessions-grid">
-      <article class="session-card anim d1"><div class="session-card-head"><div class="session-card-kicker">Week 1</div><h3>Warrior Basics</h3></div><div class="session-card-body"><p>Intro week, great for first-timers. Foundations, teamwork, and confidence-building drills.</p><div class="session-meta"><span>Ages 5–10</span><span>Full-Day</span><span>Beginner OK</span></div></div></article>
-      <article class="session-card anim d2"><div class="session-card-head"><div class="session-card-kicker">Week 2</div><h3>Discipline &amp; Drills</h3></div><div class="session-card-body"><p>Deeper technique work, structured routines, and the first camp belt-test challenge.</p><div class="session-meta"><span>Ages 7–14</span><span>Full-Day</span><span>All Levels</span></div></div></article>
-      <article class="session-card anim d3"><div class="session-card-head"><div class="session-card-kicker">Week 3</div><h3>Movement &amp; Meditation</h3></div><div class="session-card-body"><p>Combines martial arts with mindfulness, focus training, breathing work, and recovery drills.</p><div class="session-meta"><span>Ages 8–14</span><span>Full-Day</span><span>Intermediate</span></div></div></article>
-      <article class="session-card anim d1"><div class="session-card-head"><div class="session-card-kicker">Week 4</div><h3>Outdoor Warriors</h3></div><div class="session-card-body"><p>Heavy on outdoor challenges, team competitions, obstacle-course racing, and grit-building.</p><div class="session-meta"><span>Ages 5–14</span><span>Full-Day</span><span>All Levels</span></div></div></article>
-      <article class="session-card anim d2"><div class="session-card-head"><div class="session-card-kicker">Week 5</div><h3>Belt Bootcamp</h3></div><div class="session-card-body"><p>Earn your next belt in one week. Intensive technique, testing, and graduation ceremony.</p><div class="session-meta"><span>Ages 7–14</span><span>Full-Day</span><span>Current Students</span></div></div></article>
-      <article class="session-card anim d3"><div class="session-card-head"><div class="session-card-kicker">Week 6</div><h3>Champion's Finale</h3></div><div class="session-card-body"><p>Final summer week, friendly mini-tournament, family demo day, and end-of-summer awards.</p><div class="session-meta"><span>Ages 5–14</span><span>Full-Day</span><span>All Welcome</span></div></div></article>
-    </div>
-  </div>
-</section>
-
-<!-- REGISTRATION FORM -->
-<section class="cta-banner" id="register">
-  <div class="cta-banner-inner" style="max-width: 780px;">
-    <h2 class="anim">Give your child a <span class="accent">summer that matters.</span></h2>
-    <p class="anim d1" style="margin-bottom: 28px;">Reserve a camp spot. Fill out the form and we'll send pricing, session options, and next steps within 24 hours.</p>
-    <div class="anim d2" style="width:100%; background:#fff; border-radius:12px; padding:20px; box-shadow:0 24px 60px -20px rgba(0,0,0,0.35); overflow:hidden;">
       <iframe
         src="https://link.nilsdigital.com/widget/form/oEDRZoVTuCWHt5cnMLpH"
-        style="width:100%;min-height:720px;border:none;border-radius:3px;display:block;"
+        style="min-height:640px;"
         id="inline-oEDRZoVTuCWHt5cnMLpH"
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"
@@ -380,8 +339,38 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       ></iframe>
       <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
     </div>
+
+    <div class="page-hero-quick anim d4">
+      <div class="page-hero-quick-item"><span class="label">Dates</span><span class="value">Jun 1 – Aug 21</span></div>
+      <div class="page-hero-quick-item"><span class="label">Hours</span><span class="value">9 AM – 3 PM</span></div>
+      <div class="page-hero-quick-item"><span class="label">Ages</span><span class="value">3 – 12</span></div>
+    </div>
+
+    <div class="page-hero-info anim d5">
+      <h3>Camp Groups</h3>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Lower Campus</strong> · Ages 3–6</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Upper Campus</strong> · Ages 7–12</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>Before Care</strong> (optional) · 8:30 – 9:00 AM</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg><span><strong>After Care</strong> (optional) · 3:00 – 4:00 PM</span></li>
+      </ul>
+    </div>
+
+    <div class="page-hero-info anim d5">
+      <h3>Summer Camp Activities</h3>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Martial arts training</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Fitness and movement challenges</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Laser tag + Nerf wars</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Slip &amp; slide and water-balloon fights</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Board breaking</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Shaving cream battles</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>Prizes and camp games</li>
+      </ul>
+    </div>
   </div>
 </section>
+
 
 <!-- SPONSORS -->
 <section class="sponsors" aria-label="Our sponsors">
@@ -406,8 +395,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       <ul>
         <li><a href="after-school.html">After School</a></li>
         <li><a href="camps.html">Summer Camps</a></li>
-            <li><a href="#register">Private Lessons</a></li>
-        <li><a href="#register">Adult &amp; Teen Classes</a></li>
+            <li><a href="#top">Private Lessons</a></li>
+        <li><a href="#top">Adult &amp; Teen Classes</a></li>
       </ul>
     </div>
     <div class="sf-footer-col">
