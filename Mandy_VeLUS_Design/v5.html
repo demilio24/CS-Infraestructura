@@ -3,19 +3,61 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>VeLUS Interiors</title>
+<title>VELUS Interiors</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
+@font-face {
+  font-family: 'Canela';
+  src: url('Fonts/Canela Family/Canela-Regular-Trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Canela';
+  src: url('Fonts/Canela Family/Canela-Light-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src: url('Fonts/neuehaasgrotdisp-45light-trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src: url('Fonts/neuehaasgrottext-55roman-trial.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src: url('Fonts/neuehaasgrottext-65medium-trial.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Neue Haas Grotesk';
+  src: url('Fonts/neuehaasgrottext-75bold-trial.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   --bg: #F6F3EF;
   --ink: #1A1A1A;
   --choc: #4a2f24;
   --editorial: #D1B8A5;
-  --serif: 'Playfair Display', Georgia, serif;
+  --serif: 'Canela', 'Playfair Display', Georgia, serif;
   --ui: 'Inter', system-ui, sans-serif;
-  --body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --body: 'Neue Haas Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#F6F3EF;color:var(--ink);-webkit-font-smoothing:antialiased}
@@ -34,15 +76,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 nav.top{position:fixed;top:0;width:100%;z-index:500;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 40px;height:80px;transition:background .4s ease,border-color .4s ease}
 nav.top.solid{background:#F6F3EF;border-bottom:1px solid rgba(26,26,26,.08)}
 nav.top.dark{background:linear-gradient(180deg,rgba(20,14,10,.42) 0%,transparent 100%)}
-.nav-logo{display:grid;place-items:center;height:48px}
-.nav-logo img{grid-area:1/1;height:42px;width:auto;transition:opacity .4s ease}
+nav.top.inverted{background:#1A1A1A;border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{display:grid;place-items:center;height:53px}
+.nav-logo img{grid-area:1/1;height:47px;width:auto;transition:opacity .4s ease}
 .nav-logo-dark{opacity:1}
 .nav-logo-light{opacity:0}
 nav.top.dark .nav-logo-dark{opacity:0}
 nav.top.dark .nav-logo-light{opacity:1}
-@media(max-width:768px){.nav-logo img{height:26px}.nav-logo{height:32px}}
-.nav-trigger{justify-self:end;font-size:26px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
+nav.top.inverted .nav-logo-dark{opacity:0}
+nav.top.inverted .nav-logo-light{opacity:1}
+@media(max-width:768px){.nav-logo img{height:31px}.nav-logo{height:37px}}
+.nav-trigger{justify-self:end;margin-right:30px;font-size:39px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
 nav.top.dark .nav-trigger{color:#F3EBDD}
+nav.top.inverted .nav-trigger{color:#F3EBDD}
 .nav-trigger.open{transform:rotate(45deg)}
 @media(max-width:768px){nav.top{padding:0 24px;height:64px}.nav-logo{font-size:11px;letter-spacing:.28em}}
 
@@ -51,7 +97,7 @@ nav.top.dark .nav-trigger{color:#F3EBDD}
 .menu-overlay.open{opacity:1;pointer-events:all}
 .menu-close{position:absolute;top:28px;right:40px;font-size:26px;font-weight:300;transform:rotate(45deg);padding:6px}
 .menu-nav{display:flex;flex-direction:column;align-items:center;gap:32px}
-.menu-nav a{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,44px);letter-spacing:.06em;opacity:0;transform:translateY(18px);transition:opacity .75s ease,transform .75s ease}
+.menu-nav a{font-family:var(--body);font-weight:400;font-size:clamp(23.8px,2.89vw,37.4px);letter-spacing:.06em;opacity:0;transform:translateY(18px);transition:opacity .75s ease,transform .75s ease}
 .menu-overlay.open .menu-nav a{opacity:1;transform:translateY(0)}
 .menu-overlay.open .menu-nav a:nth-child(1){transition-delay:.06s}
 .menu-overlay.open .menu-nav a:nth-child(2){transition-delay:.12s}
@@ -74,6 +120,7 @@ nav.top.dark .nav-trigger{color:#F3EBDD}
 .cta{font-family:var(--ui);text-transform:uppercase;font-size:12px;letter-spacing:.42em;font-weight:400;color:var(--choc);display:inline-block;padding-bottom:5px;border-bottom:1px solid var(--choc);transition:opacity .4s ease}
 .cta:hover{opacity:.55}
 hr.rule{border:0;height:1px;background:rgba(26,26,26,.13);width:100%;margin:0}
+.mbr{display:none}
 
 /* SECTION RHYTHM */
 section{padding:88px 0}
@@ -88,26 +135,31 @@ section.hero{position:relative;height:100vh;min-height:680px;width:100%;overflow
 .hero-scroll::after{content:"";display:block;width:1px;height:34px;background:#F3EBDD;margin:10px auto 0;opacity:.5}
 
 /* V MONOGRAM SVG */
-section.monogram{padding:72px 24px 0;text-align:center;background:#F6F3EF}
-.monogram-svg{display:inline-block;width:110px;height:110px}
-.velus-v{opacity:0;transform:translateY(22px);transition:opacity 1.4s ease,transform 1.4s ease;will-change:opacity,transform}
-.velus-v.visible{opacity:.9;transform:translateY(0)}
+section.monogram{padding:72px 24px 72px;text-align:center;background:#F6F3EF}
+.monogram-svg{display:inline-block;width:55px;height:55px}
+.velus-v{opacity:0;transform:translateY(22px);will-change:opacity,transform}
 
 /* STATEMENT */
-section.statement{padding:72px 24px 120px;text-align:center;background:#F6F3EF}
-section.statement h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,68px);letter-spacing:.22em;text-transform:uppercase;line-height:1.1}
-section.statement .body{max-width:720px;margin:60px auto 0;font-size:clamp(16px,1.35vw,18px);line-height:1.85;font-weight:300}
-section.statement .body p+p{margin-top:28px}
+section.statement{padding:60px 24px 60px;text-align:center;background:#F6F3EF}
+section.monogram + section.statement{padding-top:0}
+section.statement + section.work-section{padding-top:60px}
+section.statement h1{font-family:'Canela',var(--serif);font-weight:400;font-size:clamp(26px,3.5vw,38px);letter-spacing:.22em;text-transform:uppercase;line-height:1.1}
+section.statement .body{max-width:none;width:100vw;margin:60px calc(50% - 50vw) 0;text-align:center;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.85;font-weight:300;overflow:hidden}
+section.statement .body p{white-space:nowrap;padding:0 12px}
+section.statement .body p+p{margin-top:0}
 section.statement .cta-wrap{margin-top:72px}
-@media(max-width:820px){section.statement h1{font-size:clamp(26px,6vw,40px);letter-spacing:.18em}}
+@media(max-width:820px){section.statement h1{letter-spacing:.18em}}
 
 /* SECTION SCAFFOLD */
-section.work-section{padding:80px 0 120px;background:#F6F3EF}
+section.work-section{padding:60px 0 60px;background:#F6F3EF}
 .section-head{max-width:1280px;margin:0 auto 72px;padding:0 40px}
 .section-head hr.rule{margin-bottom:28px}
 .section-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,38px);letter-spacing:.12em;text-transform:uppercase;line-height:1.15;margin-top:16px}
-.lede{max-width:640px;margin-top:28px;font-size:17px;line-height:1.8;font-weight:300}
+.lede{max-width:640px;margin-top:28px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.8;font-weight:300}
 .section-foot{max-width:1280px;margin:80px auto 0;padding:0 40px}
+.work-section .section-head{max-width:none;width:100vw;margin:0 calc(50% - 50vw) 72px;padding:0;text-align:center;overflow:hidden}
+.work-section .section-head .lede{max-width:none;width:100%;white-space:nowrap;font-size:clamp(8.4px,1.32vw,20.4px);padding:0 12px}
+.work-section .section-head .lede + .lede{margin-top:0}
 
 /* OUR WORK — exactly 2 full-width images */
 .work-stack{display:flex;flex-direction:column;gap:120px}
@@ -120,38 +172,43 @@ section.editorial{background:var(--editorial)!important;padding:120px 40px}
 section.editorial .wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
 section.editorial .eyebrow{color:#2A1E1A;opacity:.75}
 section.editorial h3{font-family:var(--serif);font-size:clamp(24px,2.4vw,36px);font-weight:400;margin-top:22px;color:#2A1E1A;line-height:1.3}
-section.editorial p{margin-top:24px;font-size:16px;line-height:1.85;color:#2A1E1A;opacity:.9;font-weight:300}
-section.editorial .img{aspect-ratio:4/5;width:100%;background-size:cover;background-position:center}
-@media(max-width:860px){section.editorial .wrap{grid-template-columns:1fr;gap:50px}}
+section.editorial p{margin-top:24px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.85;color:#2A1E1A;opacity:.9;font-weight:300}
+section.editorial .img{align-self:stretch;width:100%;height:auto;margin:-120px 0;background-size:cover;background-position:center}
+@media(max-width:860px){section.editorial{padding:60px 40px}section.editorial .wrap{grid-template-columns:1fr;gap:50px}section.editorial h3{margin-top:0}section.editorial .img{aspect-ratio:4/5;align-self:auto;height:auto;margin:0 -30px;width:calc(100% + 60px)}}
 
 /* TESTIMONIES */
 section.testimonies-section{padding:88px 0;background:#F6F3EF}
 .testimonies{max-width:720px;margin:0 auto;padding:0 40px;text-align:center}
-.testimonies blockquote{font-family:var(--serif);font-weight:400;font-size:clamp(19px,1.7vw,27px);line-height:1.6}
+.testimonies blockquote{font-family:var(--serif);font-weight:400;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.6}
+.testimonies .t-full{display:none}
+.testimonies .t.open .t-short{display:none}
+.testimonies .t.open .t-full{display:inline}
+.t-toggle{display:inline-block;margin-top:22px;font-family:var(--ui);font-size:10px;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--choc);opacity:.72;padding:0 0 3px;border:0;border-bottom:1px solid rgba(74,47,36,.4);cursor:pointer;transition:opacity .3s ease}
+.t-toggle:hover{opacity:1}
 .testimonies cite{display:block;margin-top:28px;font-family:var(--ui);font-style:normal;font-size:11px;letter-spacing:.34em;text-transform:uppercase;opacity:.6}
-.testimonies .t+.t{margin-top:80px;padding-top:80px;border-top:1px solid rgba(26,26,26,.1)}
+.testimonies .t+.t{margin-top:60px;padding-top:60px;border-top:1px solid rgba(26,26,26,.1)}
 
 /* FINAL CTA */
-section.finalcta{padding:120px 24px;text-align:center;background:#F6F3EF}
-section.finalcta h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,4.5vw,62px);letter-spacing:.08em;text-transform:uppercase;line-height:1.1}
-section.finalcta p{max-width:520px;margin:36px auto 0;font-size:17px;line-height:1.75;font-weight:300;opacity:.82}
+section.finalcta{padding:60px 24px 60px;text-align:center;background:#F6F3EF}
+section.finalcta h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3.5vw,38px);letter-spacing:.22em;text-transform:uppercase;line-height:1.1}
+section.finalcta p{max-width:none;width:100vw;margin:36px calc(50% - 50vw) 0;padding:0 12px;text-align:center;white-space:nowrap;overflow:hidden;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.75;font-weight:300;opacity:.82}
 section.finalcta .cta-wrap{margin-top:60px}
 
 /* FOOTER — centered, identical across all pages */
-footer{padding:100px 40px 80px;border-top:1px solid rgba(26,26,26,.1);background:#F6F3EF}
+footer{padding:80px 40px 80px;border-top:1px solid rgba(26,26,26,.1);background:#F6F3EF}
 footer .wrap{max-width:720px;margin:0 auto;text-align:center}
 footer .wm{font-family:var(--serif);font-size:14px;font-weight:400;letter-spacing:.36em;text-transform:uppercase;margin-bottom:8px}
-footer .city{font-family:var(--ui);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.55;margin-bottom:36px}
+footer .city{font-family:var(--body);font-size:clamp(7.5px,1.15vw,17.5px);line-height:1.85;opacity:.78;margin-bottom:18px}
 footer .links{display:flex;flex-direction:column;gap:10px}
-footer .links a{font-size:14px;line-height:1.85;opacity:.78}
+footer .links a{font-size:clamp(7.5px,1.15vw,17.5px);line-height:1.85;opacity:.78}
 footer .links a:hover{opacity:1}
-@media(max-width:768px){footer{padding:80px 24px 60px}}
+@media(max-width:768px){footer{padding:80px 24px 60px}.footer-logo{height:31px!important}}
 
 /* COLLECTIONS */
 #page-collections{padding-top:80px;background:#F6F3EF}
-.coll-head{text-align:center;padding:80px 24px 100px}
+.coll-head{text-align:center;padding:80px 24px 80px}
 .coll-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(16px,1.8vw,24px);letter-spacing:.44em;text-transform:uppercase}
-.coll-feed{display:flex;flex-direction:column;gap:120px;padding:40px 0 180px}
+.coll-feed{display:flex;flex-direction:column;gap:120px;padding:0 0 80px}
 .coll-item{position:relative;width:100%;height:100vh;min-height:640px;overflow:hidden;cursor:pointer;background:#1e1612}
 .coll-item .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 2s cubic-bezier(.2,.7,.25,1)}
 .coll-item:hover .img{transform:scale(1.015)}
@@ -162,7 +219,7 @@ footer .links a:hover{opacity:1}
 @media(max-width:700px){.coll-item{height:76vh}.coll-item .ttl{left:24px;bottom:28px}}
 
 /* VIEWER */
-#viewer{position:fixed;inset:0;background:#1e1612;z-index:600;display:none;opacity:0;transition:opacity .5s ease}
+#viewer{position:fixed;inset:0;background:#2a1f1b;z-index:600;display:none;opacity:0;transition:opacity .5s ease}
 #viewer.on{display:block;opacity:1}
 #viewer .track{display:flex;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.7,.25,1)}
 #viewer .slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center;padding:70px}
@@ -173,67 +230,76 @@ footer .links a:hover{opacity:1}
 #viewer .meta .n{font-family:var(--serif);font-size:16px;letter-spacing:.28em;text-transform:uppercase;font-weight:300}
 #viewer .meta .l{font-family:var(--ui);font-size:10px;letter-spacing:.34em;text-transform:uppercase;margin-top:4px;opacity:.8}
 #viewer .counter{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);color:#F3EBDD;font-family:var(--ui);font-size:11px;letter-spacing:.3em;z-index:3;opacity:.8}
-#viewer .arrow{position:absolute;top:50%;transform:translateY(-50%);color:#F3EBDD;z-index:3;padding:18px;font-family:var(--ui);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.65;transition:opacity .3s ease}
+#viewer .arrow{position:absolute;top:50%;transform:translateY(-50%);color:#F3EBDD;z-index:3;padding:12px;font-family:var(--serif);font-size:22px;font-weight:300;line-height:1;letter-spacing:0;text-transform:none;opacity:.5;transition:opacity .3s ease}
 #viewer .arrow:hover{opacity:1}
-#viewer .prev{left:20px}
-#viewer .next{right:20px}
+#viewer .prev{left:28px}
+#viewer .next{right:28px}
 
 /* ABOUT */
-#page-about{padding-top:80px;background:#F6F3EF}
+#page-about{padding-top:80px;padding-bottom:80px;background:#F6F3EF}
 .about-hero{width:100%;height:92vh;min-height:640px;position:relative;overflow:hidden;background:#1e1612}
 .about-hero .img{position:absolute;inset:0;background-size:cover;background-position:center 28%}
-.about-identity{padding:120px 40px 0;max-width:720px;margin:0 auto}
+.about-identity{padding:80px 40px 0;max-width:720px;margin:0 auto}
 .about-identity h1{font-family:var(--serif);font-size:clamp(30px,3.2vw,50px);font-weight:400;margin-top:12px;line-height:1.1}
 .about-identity .role{margin-top:14px;font-family:var(--ui);font-size:11px;letter-spacing:.4em;text-transform:uppercase;opacity:.65}
-.about-bio{max-width:720px;margin:0 auto;padding:72px 40px 120px}
-.about-bio p{font-size:clamp(16px,1.3vw,18px);line-height:1.88;margin-top:32px;font-weight:300}
+.about-bio{max-width:720px;margin:0 auto;padding:80px 40px 80px}
+.about-bio p{font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.88;margin-top:32px;font-weight:300}
 .about-bio p:first-child{margin-top:0}
-.about-transition{max-width:720px;margin:0 auto 80px;padding:0 40px;font-family:var(--serif);font-size:clamp(17px,1.5vw,22px);line-height:1.65;opacity:.68;text-align:center}
+.about-transition{max-width:720px;margin:0 auto 80px;padding:0 40px;font-family:var(--serif);font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.65;opacity:.68;text-align:center}
 .about-anchor{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;background:#1e1612}
 .about-anchor .img{position:absolute;inset:0;background-size:cover;background-position:center}
 .about-exit{padding:100px 24px;text-align:center;background:#F6F3EF}
 .about-exit .h{font-family:var(--serif);font-size:clamp(26px,3vw,48px);font-weight:400;letter-spacing:.12em;text-transform:uppercase}
-.about-exit .s{margin:28px auto 0;max-width:440px;font-size:15px;opacity:.68;line-height:1.75;font-weight:300}
+.about-exit .s{max-width:none;width:100vw;margin:28px calc(50% - 50vw) 0;padding:0 12px;text-align:center;white-space:nowrap;overflow:hidden;font-size:clamp(8.4px,1.32vw,20.4px);opacity:.68;line-height:1.75;font-weight:300}
 .about-exit .cta-wrap{margin-top:52px}
 
 /* CONTACT — editorial v9 */
-#page-contact{padding-top:80px;background:#F6F3EF}
-.c-open{padding:140px 40px 0;max-width:720px;margin:0 auto}
-.c-open h1{font-family:var(--serif);font-size:clamp(32px,4.2vw,60px);font-weight:400;letter-spacing:.06em;text-transform:uppercase;line-height:1.05}
-.c-open .lede{margin-top:36px;font-size:clamp(16px,1.3vw,18px);line-height:1.82;font-weight:300;opacity:.82}
-.c-intro{max-width:720px;margin:80px auto 0;padding:0 40px;font-size:17px;line-height:1.8;opacity:.7;font-weight:300}
+#page-contact{padding-top:80px;padding-bottom:140px;background:#F6F3EF}
+.c-open{padding:140px 40px 0;max-width:720px;margin:0 auto;text-align:center}
+.c-open h1{font-family:var(--serif);font-size:clamp(23.4px,3.15vw,34.2px);font-weight:400;letter-spacing:.06em;text-transform:uppercase;line-height:1.05}
+.c-open .lede{margin-top:36px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.82;font-weight:300;opacity:.82}
+.c-intro{max-width:720px;margin:18px auto 0;padding:0 40px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.8;opacity:.7;font-weight:300;text-align:center}
 .inquiry{max-width:720px;margin:80px auto 0;padding:0 40px;display:flex;flex-direction:column}
 .inq-field{padding-top:48px}
 .inq-field:first-child{padding-top:0}
-.inq-label{font-family:var(--ui);font-size:11px;letter-spacing:.44em;text-transform:uppercase;opacity:.5;margin-bottom:16px;display:block}
-.inq-sublabel{font-size:14px;line-height:1.65;opacity:.55;font-weight:300;margin-bottom:14px;margin-top:-6px}
+.inq-label{font-family:var(--ui);font-size:13px;letter-spacing:.38em;text-transform:uppercase;color:var(--ink);opacity:.85;font-weight:500;margin-bottom:16px;display:block}
+.inq-sublabel{font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.65;color:var(--ink);opacity:.78;font-weight:300;margin-bottom:14px;margin-top:-6px}
 .inq-field input[type=text],
 .inq-field input[type=email],
 .inq-field input[type=tel],
-.inq-field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(26,26,26,.18);padding:14px 0;font-size:17px;font-weight:300;color:var(--ink);outline:none;font-family:var(--body);transition:border-color .4s ease}
+.inq-field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(26,26,26,.28);padding:14px 0;font-size:18px;font-weight:400;color:var(--ink);outline:none;font-family:var(--body);transition:border-color .4s ease}
 .inq-field input:focus,.inq-field textarea:focus{border-bottom-color:var(--ink)}
 .inq-field textarea{resize:vertical;min-height:140px;line-height:1.72}
-.inq-field input::placeholder,.inq-field textarea::placeholder{color:var(--ink);opacity:.28}
-.c-close{max-width:720px;margin:100px auto 0;padding:0 40px;font-size:17px;line-height:1.75;opacity:.72;font-weight:300}
-.c-submit{max-width:720px;margin:56px auto 160px;padding:0 40px}
-.submit-btn{color:var(--choc);background:none;border:none;border-bottom:1px solid var(--choc);font-family:var(--ui);font-size:12px;letter-spacing:.44em;text-transform:uppercase;cursor:pointer;padding-bottom:4px;transition:opacity .3s ease}
+.inq-field input::placeholder,.inq-field textarea::placeholder{color:var(--ink);opacity:.52;font-weight:300;font-style:italic}
+.c-close{max-width:720px;margin:100px auto 0;padding:0 40px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.75;opacity:.88;font-weight:300}
+.slide-progress{max-width:720px;margin:56px auto 0;padding:0 40px;font-family:var(--ui);font-size:11px;letter-spacing:.42em;text-transform:uppercase;opacity:.5;text-align:center}
+.slide-progress .sep{margin:0 6px;opacity:.6}
+.slide{display:none}
+.slide.active{display:block;animation:slideFade .6s ease both}
+@keyframes slideFade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.slide-actions{margin-top:56px}
+.c-submit{max-width:720px;margin:0 auto;padding:0 40px}
+.sent-note:empty{margin-top:0}
+.submit-btn{color:var(--choc);background:none;border:none;border-bottom:1.5px solid var(--choc);font-family:var(--ui);font-size:15px;letter-spacing:.4em;font-weight:500;text-transform:uppercase;cursor:pointer;padding:6px 0 8px;transition:opacity .3s ease}
 .submit-btn:hover{opacity:.55}
-.sent-note{margin-top:28px;font-size:16px;line-height:1.65;opacity:0;transition:opacity .6s ease;font-weight:300}
+.sent-note{margin-top:28px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.65;opacity:0;transition:opacity .6s ease;font-weight:300}
 .sent-note.show{opacity:.82}
 
 /* SERVICES */
 #page-services{padding-top:80px;background:#F6F3EF}
-.svc-head{padding:120px 40px 0;max-width:720px;margin:0 auto}
-.svc-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(22px,2.2vw,30px);letter-spacing:.36em;text-transform:uppercase}
-.svc-statement{max-width:720px;margin:80px auto 0;padding:0 40px}
-.svc-statement p{font-size:clamp(16px,1.3vw,18px);line-height:1.88;font-weight:300;margin-top:28px}
+.svc-head{padding:80px 0 0;max-width:none;width:100vw;margin:0;text-align:center;overflow:hidden}
+.svc-head h1{font-family:var(--serif);font-weight:400;font-size:clamp(23.4px,3.15vw,34.2px);letter-spacing:.22em;text-transform:uppercase;line-height:1.1;white-space:nowrap;padding:0 12px}
+.svc-statement{max-width:none;width:100vw;margin:50px 0 0;padding:0;text-align:center;overflow:hidden}
+.svc-statement p{white-space:nowrap;padding:0 12px;font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.88;font-weight:300;margin-top:0}
 .svc-statement p:first-child{margin-top:0}
-.svc-list{max-width:720px;margin:100px auto 0;padding:0 40px}
+.svc-list{max-width:720px;margin:80px auto 0;padding:0 40px}
+#page-services section.monogram{padding:50px 24px 50px}
+section.monogram + .svc-list{margin-top:0}
 .svc-item{border-top:1px solid rgba(26,26,26,.12)}
 .svc-item:last-child{border-bottom:1px solid rgba(26,26,26,.12)}
 .svc-trigger{width:100%;text-align:left;padding:34px 0;font-family:var(--serif);font-size:clamp(18px,1.7vw,24px);font-weight:400;letter-spacing:.04em;color:var(--ink);cursor:pointer;display:flex;align-items:baseline;gap:20px}
 .svc-num{font-family:var(--ui);font-size:11px;letter-spacing:.32em;opacity:.4;font-weight:400;flex-shrink:0}
-.svc-body{font-size:16px;line-height:1.88;font-weight:300;opacity:0;max-height:0;overflow:hidden;padding-bottom:0;transition:max-height .5s ease,opacity .4s ease,padding-bottom .4s ease}
+.svc-body{font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.88;font-weight:300;opacity:0;max-height:0;overflow:hidden;padding-bottom:0;transition:max-height .5s ease,opacity .4s ease,padding-bottom .4s ease}
 .svc-item.open .svc-body{opacity:1;max-height:400px;padding-bottom:36px}
 section.visual-break{padding:0;overflow:hidden}
 section.visual-break img{width:100%;display:block;object-fit:cover}
@@ -242,13 +308,72 @@ section.visual-break img{width:100%;display:block;object-fit:cover}
 .process-step{padding:36px 0;border-top:1px solid rgba(26,26,26,.1)}
 .process-step:last-child{border-bottom:1px solid rgba(26,26,26,.1)}
 .p-num{font-family:var(--ui);font-size:11px;letter-spacing:.32em;opacity:.38;margin-bottom:10px}
-.p-title{font-family:var(--serif);font-size:clamp(17px,1.5vw,21px);font-weight:400;margin-bottom:12px}
-.p-desc{font-size:15px;line-height:1.82;font-weight:300;opacity:.78}
+.p-title{font-family:var(--serif);font-size:clamp(18px,1.7vw,24px);font-weight:400;letter-spacing:.04em;margin-bottom:12px}
+.p-desc{font-size:clamp(8.4px,1.32vw,20.4px);line-height:1.88;font-weight:300;opacity:.78}
 
 /* PAGE ROUTING */
 .page{display:none}
 .page.active{display:block}
 body.locked{overflow:hidden}
+
+/* MOBILE READABILITY — allow paragraphs to wrap, raise type to readable floor */
+@media(max-width:768px){
+  section.statement .body p,
+  section.finalcta p,
+  .svc-statement p,
+  .svc-head h1,
+  .work-section .section-head .lede{white-space:normal}
+  section.statement .body p+p{margin-top:18px}
+  .work-section .section-head .lede + .lede{margin-top:18px}
+  .mbr{display:initial}
+  .svc-statement p{margin-top:14px}
+  .svc-statement p:first-child{margin-top:0}
+  section.statement .body,
+  section.finalcta p,
+  .svc-statement p,
+  .svc-body,
+  .about-bio p,
+  .about-exit .s,
+  .c-intro,
+  .c-close,
+  .c-open .lede,
+  .lede,
+  .work-section .section-head .lede,
+  section.editorial p,
+  .testimonies blockquote,
+  .p-desc,
+  .inq-sublabel,
+  .sent-note{font-size:14px}
+  footer .city,
+  footer .links a{font-size:13px}
+  .svc-head h1{padding:0 16px}
+
+  /* SYMMETRIC SECTION PADDING ON MOBILE */
+  section.monogram{padding:40px 24px 40px}
+  section.statement{padding:40px 24px 40px}
+  section.statement + section.work-section{padding-top:40px}
+  section.work-section{padding:40px 0 40px}
+  section.editorial{padding:40px 40px 40px}
+  section.testimonies-section{padding:40px 0 40px}
+  section.finalcta{padding:40px 24px 40px}
+  footer{padding:40px 24px 40px}
+  .coll-head{padding:40px 24px 40px}
+  .coll-feed{padding:0 0 40px;gap:60px}
+  .about-identity{padding:40px 24px 0}
+  .about-bio{padding:40px 24px 40px}
+  .about-exit{padding:40px 24px 40px}
+  .svc-head{padding:40px 0 0}
+  .svc-list{margin:40px auto 0}
+  .process-wrap{padding:40px 24px 40px}
+  .testimonies .t+.t{margin-top:40px;padding-top:40px}
+  #page-about{padding-top:64px;padding-bottom:40px}
+  #page-services{padding-top:64px}
+  #page-collections{padding-top:64px}
+  #page-contact{padding-top:64px;padding-bottom:80px}
+  .c-open{padding:80px 24px 0}
+  .inquiry{margin-top:40px;padding:0 24px}
+  .slide-progress{margin-top:40px;padding:0 24px}
+}
 </style>
 </head>
 <body>
@@ -263,9 +388,9 @@ body.locked{overflow:hidden}
 <!-- NAV -->
 <nav class="top solid" id="nav">
   <div></div>
-  <a class="nav-logo" href="#home" data-nav aria-label="VeLUS INTERIORS">
-    <img src="Logo/SVG.svg" alt="VeLUS INTERIORS" class="nav-logo-dark" />
-    <img src="Logo/white version.png" alt="VeLUS INTERIORS" class="nav-logo-light" />
+  <a class="nav-logo" href="#home" data-nav aria-label="VELUS Interiors">
+    <img src="Logo/SVG.svg" alt="VELUS Interiors" class="nav-logo-dark" />
+    <img src="Logo/white version.png" alt="VELUS Interiors" class="nav-logo-light" />
   </a>
   <button class="nav-trigger" id="menuTrigger" aria-label="Menu">+</button>
 </nav>
@@ -305,12 +430,12 @@ body.locked{overflow:hidden}
   </section>
 
   <section class="statement">
-    <h1 class="fu">VeLUS Interiors</h1>
+    <h1 class="fu">VELUS Interiors</h1>
     <div class="body">
       <p class="fu d1">We are drawn to spaces that feel quiet, luminous, and deeply considered, where beauty is not stated, but felt in atmosphere.</p>
-      <p class="fu d2">At VeLUS Interiors, we move between architecture and interior form, shaping environments through light, material, and proportion, always in response to how a space wants to live.</p>
+      <p class="fu d2">At VELUS Interiors, we move between architecture and interior form, shaping environments through light, material, and proportion, always in response to how a space wants to live.</p>
       <p class="fu d3">We believe interiors are not objects to be designed, but worlds gently revealed, layer by layer, through presence, restraint, and care.</p>
-      <p class="fu d4">What we create is not simply space, but a feeling of ease, clarity, and quiet luxury.</p>
+      <p class="fu d4">What we create is not simply space, but a feeling of ease, clarity,<br class="mbr"> and quiet luxury.</p>
     </div>
     <div class="cta-wrap fu d4"><a href="#collections" class="cta" data-nav>Discover</a></div>
   </section>
@@ -318,18 +443,17 @@ body.locked{overflow:hidden}
   <section class="work-section">
     <div class="section-head">
       <hr class="rule fu"/>
-      <div class="fu d1" style="margin-top:28px"><span class="eyebrow">Selected 2023 / 2026</span></div>
-      <h2 class="fu d2">Our Work</h2>
+      <h2 class="fu d2" style="margin-top:28px">Our Work</h2>
       <p class="lede fu d3">Our work begins with listening, to the structure of a space, its light, its rhythm, and what it quietly asks for.</p>
-      <p class="lede fu d3" style="margin-top:20px">We shape interiors through thoughtful composition, allowing materials, form, and texture to settle into balance rather than competition.</p>
-      <p class="lede fu d3" style="margin-top:20px">Each project is approached with care and intention, where decisions are refined until only what feels essential remains.</p>
-      <p class="lede fu d3" style="margin-top:20px">We design spaces that feel lived in from the first moment, soft in atmosphere, precise in detail, and calm in presence.</p>
+      <p class="lede fu d3">We shape interiors through thoughtful composition, allowing materials, form, and texture to settle into balance rather than competition.</p>
+      <p class="lede fu d3">Each project is approached with care and intention, where decisions are refined until only what feels essential remains.</p>
+      <p class="lede fu d3">We design spaces that feel lived in from the first moment, soft in atmosphere, precise in detail, and calm in presence.</p>
     </div>
     <div class="work-stack">
-      <div class="work-img fu" data-project="0">
+      <div class="work-img fu" data-project="1">
         <div class="inner" style="background-image:url('collectionsphotos/IMG_3699.jpeg')"></div>
       </div>
-      <div class="work-img fu d1" data-project="4">
+      <div class="work-img fu d1" data-project="5">
         <div class="inner" style="background-image:url('collectionsphotos/IMG_6758.jpeg')"></div>
       </div>
     </div>
@@ -339,9 +463,8 @@ body.locked{overflow:hidden}
   <section class="editorial">
     <div class="wrap">
       <div>
-        <div class="eyebrow fu">Featured Editorial · Spring 2026</div>
         <h3 class="fu d1">A study in restraint, proportion, and architectural clarity.</h3>
-        <p class="fu d2">VeLUS Interiors is committed to a disciplined approach to design, where intention guides every decision and excess is consistently removed in pursuit of clarity.</p>
+        <p class="fu d2">VELUS Interiors is committed to a disciplined approach to design, where intention guides every decision and excess is consistently removed in pursuit of clarity.</p>
         <p class="fu d2">The studio's work is grounded in three principles: spatial integrity, material precision, and considered restraint. This is not decoration. It is composition.</p>
       </div>
       <div class="img fu d2" style="background-image:url('collectionsphotos/IMG_3703.jpeg')"></div>
@@ -351,20 +474,31 @@ body.locked{overflow:hidden}
   <section class="testimonies-section">
     <div style="max-width:720px;margin:0 auto;padding:0 40px;margin-bottom:48px;text-align:center">
       <hr class="rule fu"/>
-      <div class="fu d1" style="margin-top:28px"><span class="eyebrow">Client Reflections</span></div>
     </div>
     <div class="testimonies">
       <div class="t fu">
-        <blockquote>"Her eye for everything from fixtures, to flooring, to small timeless touches is impeccable. She is great at understanding your style comfort zone while also making suggestions that elevate your space."</blockquote>
-        <cite>Zakiya B.</cite>
+        <blockquote>
+          <span class="t-short">"From the start, we trusted Mandy to bring our vision to life, and we couldn't be happier with the results."</span>
+          <span class="t-full">"We recently moved into a beautiful home in Lincoln Park and hired VELUS Interiors to help renovate multiple spaces, including all the bathrooms, our master bedroom, dining room, and living room. From the start, we trusted Mandy to bring our vision to life, and we couldn't be happier with the results. The designs are not only kid-friendly, but they also strike the perfect balance of fun, edgy, and sophisticated elements. We truly appreciate Mandy's careful selection of materials, colors, and furnishings that fit our family's needs while also elevating the style of our home. Highly recommend VELUS Interiors for anyone looking for a thoughtful and beautiful transformation!"</span>
+        </blockquote>
+        <button type="button" class="t-toggle" aria-expanded="false">Read full review</button>
+        <cite>Nicole Karkalis &middot; Lincoln Park</cite>
       </div>
       <div class="t fu">
-        <blockquote>"Mandy transformed my homes in New York and Chicago into spaces that truly reflect my style."</blockquote>
-        <cite>Shaandj F. · New York &amp; Chicago</cite>
+        <blockquote>
+          <span class="t-short">"The process was seamless. Highly recommend her for custom kitchen remodels and home renovations in Chicago."</span>
+          <span class="t-full">"We worked with Mandy Velus for a condo renovation in Lakeview, Chicago. She redesigned our kitchen with custom cabinetry and premium finishes, created a stunning fireplace, and updated our flooring with sleek hardwood. The process was seamless. Highly recommend her for custom kitchen remodels and home renovations in Chicago."</span>
+        </blockquote>
+        <button type="button" class="t-toggle" aria-expanded="false">Read full review</button>
+        <cite>Helen &amp; Terry &middot; Lakeview, Chicago</cite>
       </div>
       <div class="t fu">
-        <blockquote>"They understood our style perfectly and created a beautiful, functional space."</blockquote>
-        <cite>Troy V. · Maryland</cite>
+        <blockquote>
+          <span class="t-short">"The personalized service and attention to detail were exceptional. For custom bedroom design and full interior design services in Atlanta and Chicago, I highly recommend VELUS Interiors."</span>
+          <span class="t-full">"Mandy at VELUS Interiors transformed my bedroom in Atlanta with moody tones and artistic elements that reflect my adventurous style. The personalized service and attention to detail were exceptional. For custom bedroom design and full interior design services in Atlanta and Chicago, I highly recommend VELUS Interiors."</span>
+        </blockquote>
+        <button type="button" class="t-toggle" aria-expanded="false">Read full review</button>
+        <cite>Roni &middot; Atlanta</cite>
       </div>
     </div>
   </section>
@@ -380,7 +514,7 @@ body.locked{overflow:hidden}
 <!-- COLLECTIONS -->
 <section class="page" id="page-collections" data-page="collections">
   <div class="coll-head">
-    <h1 class="fu">VeLUS Interiors Collections</h1>
+    <h1 class="fu">VELUS Interiors Collections</h1>
   </div>
   <div class="coll-feed" id="collFeed"></div>
 </section>
@@ -395,35 +529,38 @@ body.locked{overflow:hidden}
     <div class="role fu d1">Founder &amp; Principal Designer</div>
   </div>
   <div class="about-bio">
-    <p class="fu">Mandy Velus is the founder and principal designer of VELUS INTERIORS, a luxury residential studio founded in 2018.</p>
+    <p class="fu">Mandy Velus is the founder and principal designer of VELUS Interiors, a luxury residential studio founded in 2018.</p>
     <p class="fu">Raised in Guyana, a country of extraordinary natural richness, Mandy grew up watching her father, a professional photographer, find the essence of things through a lens. It was there she learned that design begins not with ideas, but with attention.</p>
     <p class="fu">Her work is defined by a disciplined approach to composition, where space is understood through material, proportion, and light rather than style or reference. Each project is developed as a study in how environments are experienced over time. Not just how they appear in a photograph.</p>
     <p class="fu">She does not design through repetition or aesthetic formula. Each interior is approached as its own inquiry, shaped through observation, dialogue, and restraint, resulting in work that feels composed, personal, and enduring.</p>
     <p class="fu">With a foundation in both design and project management, she leads every project from concept through completion with exacting precision, ensuring continuity between intent, execution, and lived experience. As a designer and a mother, she understands that a home is more than what it looks like. It is how it feels to live inside it every day, a structure for daily rhythm, shaped as much by function as by feeling.</p>
-    <p class="fu">Through VELUS INTERIORS, she continues to shape residential interiors across Chicago and beyond, defined by clarity, restraint, and a quiet sense of permanence.</p>
+    <p class="fu">Through VELUS Interiors, she continues to shape residential interiors across Chicago and beyond, defined by clarity, restraint, and a quiet sense of permanence.</p>
   </div>
-  <div class="about-transition fu">Each project is shaped through a quiet alignment of space, material, and lived experience.</div>
   <div class="about-anchor">
     <div class="img fu" style="background-image:url('collectionsphotos/IMG_6682.jpeg')"></div>
-  </div>
-  <div class="about-exit">
-    <div class="h fu">Discover Collections</div>
-    <div class="s fu d1">Selected works shaped through clarity, restraint, and material focus.</div>
-    <div class="cta-wrap fu d2"><a href="#collections" class="cta" data-nav>View Collections</a></div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section class="page" id="page-services" data-page="services">
   <div class="svc-head">
-    <h1 class="fu">VeLUS Interiors Services</h1>
+    <h1 class="fu">VELUS Interiors Services</h1>
   </div>
   <div class="svc-statement">
-    <p class="fu">VeLUS INTERIORS approaches space as more than composition or form.</p>
+    <p class="fu">VELUS Interiors approaches space as more than composition or form.</p>
     <p class="fu">Each interior becomes a study in presence, shaped by what is chosen, what is removed, and what is allowed to remain.</p>
     <p class="fu">There is a quiet belief underlying the work: that interiors are lived environments, and what we surround ourselves with defines how we understand space, memory, and self.</p>
     <p class="fu">Every project is guided by restraint, clarity, and intention, where nothing is excessive, and nothing is without purpose.</p>
   </div>
+  <section class="monogram">
+    <div class="monogram-svg" style="width:30px;height:30px">
+      <svg width="100%" viewBox="0 0 396.79 433.06" xmlns="http://www.w3.org/2000/svg">
+        <g class="velus-v">
+          <path d="M197.78,433.06L43.6,51.02C33.49,25.92,18.96,12.96,0,12.15V0c16.84,1.21,29.87,1.82,58.1,1.82,36.22,0,63.19-.61,80.88-1.82v12.15c-16.01.82-27.49,2.73-34.44,5.77-6.95,3.04-10.43,8.61-10.43,16.7,0,6.89,2.53,16.4,7.58,28.55l114.37,292.15,103-256.92c8.42-21.87,12.64-38.46,12.64-49.8,0-12.55-4.53-21.66-13.58-27.33-9.07-5.67-22.86-8.7-41.39-9.11V0c24.01,1.21,48.23,1.82,72.67,1.82,18.95,0,34.75-.61,47.39-1.82v12.15c-21.07,4.86-37.71,22.47-49.92,52.84l-148.49,368.07" fill="#1A1A1A"/>
+        </g>
+      </svg>
+    </div>
+  </section>
   <div class="svc-list fu">
     <div class="svc-item">
       <button class="svc-trigger"><span class="svc-num">01</span> New Construction</button>
@@ -449,6 +586,11 @@ body.locked{overflow:hidden}
     <div class="process-step fu"><div class="p-num">04</div><div class="p-title">Procurement and Coordination</div><div class="p-desc">Furnishings and materials are sourced, ordered, and coordinated with precision.</div></div>
     <div class="process-step fu"><div class="p-num">05</div><div class="p-title">Execution and Installation</div><div class="p-desc">The project is realized through construction, furnishing, and final composition.</div></div>
   </div>
+  <div class="about-exit">
+    <div class="h fu">A Considered Beginning</div>
+    <div class="s fu d1">Tell us about your space. We will respond with clarity and intention.</div>
+    <div class="cta-wrap fu d2"><a href="#contact" class="cta" data-nav>Inquiry</a></div>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -457,76 +599,76 @@ body.locked{overflow:hidden}
     <h1 class="fu">A Considered Beginning</h1>
     <p class="lede fu d1">Share your world with us. We look forward to what you are creating.</p>
   </div>
-  <p class="c-intro fu">We welcome inquiries across residential and select commercial projects.</p>
-  <div class="c-info fu" style="max-width:720px;margin:72px auto 0;padding:0 40px;text-align:center">
-    <div style="font-family:var(--serif);font-weight:400;font-size:14px;letter-spacing:.36em;text-transform:uppercase;margin-bottom:8px">VeLUS INTERIORS</div>
-    <div style="font-family:var(--ui);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.55;margin-bottom:32px">Chicago, Illinois</div>
-    <div style="display:flex;flex-direction:column;gap:10px;font-size:15px;font-weight:300;line-height:1.85">
-      <a href="mailto:mandy@velusinteriors.com" style="opacity:.78">mandy@velusinteriors.com</a>
-      <a href="tel:+19545409039" style="opacity:.78">+1 (954) 540-9039</a>
-      <a href="https://instagram.com/velusinteriors" target="_blank" rel="noopener" style="opacity:.78">@velusinteriors</a>
+  <div class="slide-progress fu"><span id="slideCurrent">01</span><span class="sep">/</span><span>03</span></div>
+  <form class="inquiry" id="inquiryForm" onsubmit="event.preventDefault();submitSlide()">
+    <div class="slide active" data-slide="0">
+      <div class="inq-field">
+        <label class="inq-label">What is your name?</label>
+        <input type="text" name="firstName" placeholder="Your full name" required />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">What is your email address?</label>
+        <input type="email" name="email" placeholder="you@domain.com" required />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">What is your phone number?</label>
+        <input type="tel" name="phone" placeholder="Optional" />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">Where is your project located?</label>
+        <input type="text" name="location" placeholder="City, State" />
+      </div>
+      <div class="slide-actions">
+        <button class="submit-btn" type="button" onclick="submitSlide()">Submit</button>
+      </div>
     </div>
-  </div>
-  <form class="inquiry" id="inquiryForm" onsubmit="event.preventDefault();submitInquiry()">
-    <div class="inq-field fu">
-      <label class="inq-label">What is your name?</label>
-      <input type="text" name="firstName" placeholder="Your full name" required />
+    <div class="slide" data-slide="1">
+      <div class="inq-field">
+        <label class="inq-label">What kind of project are you beginning?</label>
+        <input type="text" name="project_type" placeholder="Residential new build, renovation, or furnishing" />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">How developed is your project currently?</label>
+        <input type="text" name="project_stage" placeholder="Early concept / In progress / Ready to begin" />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">How do you imagine your space feeling?</label>
+        <textarea name="design_intent" placeholder="Describe the atmosphere you are hoping to create…"></textarea>
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">What direction are you naturally drawn to?</label>
+        <input type="text" name="design_direction" placeholder="Modern / Contemporary / Minimal / Classic / Eclectic" />
+      </div>
+      <div class="slide-actions">
+        <button class="submit-btn" type="button" onclick="submitSlide()">Submit</button>
+      </div>
     </div>
-    <div class="inq-field fu">
-      <label class="inq-label">What is your email address?</label>
-      <input type="email" name="email" placeholder="you@domain.com" required />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">What is your phone number?</label>
-      <input type="tel" name="phone" placeholder="Optional" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">Where is your project located?</label>
-      <input type="text" name="location" placeholder="City, State" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">What are you beginning?</label>
-      <p class="inq-sublabel">We would like to understand the nature of your project.</p>
-      <input type="text" name="project_type" placeholder="Residential new build, renovation, or furnishing" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">Where are you in the process?</label>
-      <p class="inq-sublabel">Tell us how developed your project currently is.</p>
-      <input type="text" name="project_stage" placeholder="Early concept / In progress / Ready to begin" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">How do you imagine your space feeling?</label>
-      <textarea name="design_intent" placeholder="Describe the atmosphere you are hoping to create…"></textarea>
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">What direction are you naturally drawn to?</label>
-      <input type="text" name="design_direction" placeholder="Modern / Contemporary / Minimal / Classic / Eclectic" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">How is the space intended to be lived in?</label>
-      <input type="text" name="lifestyle" placeholder="Family life / Entertaining / Primary / Secondary residence" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">Have you worked with a designer before?</label>
-      <input type="text" name="prior_designer" placeholder="Yes / No / First collaboration" />
-    </div>
-    <div class="inq-field fu">
-      <label class="inq-label">What is your estimated budget range?</label>
-      <input type="text" name="estimated_budget" placeholder="Please share your budget range" required />
+    <div class="slide" data-slide="2">
+      <div class="inq-field">
+        <label class="inq-label">How is the space intended to be lived in?</label>
+        <input type="text" name="lifestyle" placeholder="Family life / Entertaining / Primary / Secondary residence" />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">Have you worked with a designer before?</label>
+        <input type="text" name="prior_designer" placeholder="Yes / No / First collaboration" />
+      </div>
+      <div class="inq-field">
+        <label class="inq-label">What is your estimated budget range?</label>
+        <input type="text" name="estimated_budget" placeholder="Please share your budget range" required />
+      </div>
+      <div class="slide-actions">
+        <button class="submit-btn" type="button" onclick="submitSlide()">Submit</button>
+      </div>
     </div>
   </form>
-  <p class="c-close fu">We receive each inquiry with care and intention. You will hear from us shortly.</p>
-  <div class="c-submit fu">
-    <button class="submit-btn" type="button" onclick="submitInquiry()">Send Inquiry</button>
-    <div class="sent-note" id="sentNote"></div>
-  </div>
+  <div class="c-submit fu"><div class="sent-note" id="sentNote"></div></div>
 </section>
 
 <!-- FOOTER -->
 <footer id="site-footer">
   <div class="wrap">
     <div style="display:flex;justify-content:center;margin-bottom:20px">
-      <img src="Logo/SVG.svg" alt="VeLUS INTERIORS" style="height:34px;width:auto;display:block" />
+      <img src="Logo/SVG.svg" alt="VELUS Interiors" class="footer-logo" style="height:47px;width:auto;display:block" />
     </div>
     <div class="city">Chicago, Illinois</div>
     <div class="links">
@@ -543,8 +685,8 @@ body.locked{overflow:hidden}
 <div id="viewer" role="dialog" aria-modal="true">
   <div class="meta"><div class="n" id="vName">—</div><div class="l" id="vLoc">—</div></div>
   <button class="close" onclick="closeViewer()">Close ×</button>
-  <button class="arrow prev" onclick="viewerStep(-1)">← Prev</button>
-  <button class="arrow next" onclick="viewerStep(1)">Next →</button>
+  <button class="arrow prev" onclick="viewerStep(-1)" aria-label="Previous">&#8592;</button>
+  <button class="arrow next" onclick="viewerStep(1)" aria-label="Next">&#8594;</button>
   <div class="track" id="vTrack"></div>
   <div class="counter" id="vCount">1 / 1</div>
 </div>
@@ -552,11 +694,17 @@ body.locked{overflow:hidden}
 <script>
 /* DATA */
 const PROJECTS = [
-  { name:"Alder Residence",   loc:"Bucktown, Chicago",     hero:'collectionsphotos/IMG_3699.jpeg', gallery:['collectionsphotos/IMG_3699.jpeg','collectionsphotos/IMG_3702.jpeg','collectionsphotos/IMG_3703.jpeg'] },
-  { name:"Monroe Residence",  loc:"River North, Chicago",  hero:'collectionsphotos/IMG_3720.jpeg', gallery:['collectionsphotos/IMG_3720.jpeg','collectionsphotos/IMG_3719.jpeg'] },
-  { name:"Carter Residence",  loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_3842.jpeg', gallery:['collectionsphotos/IMG_3842.jpeg'] },
-  { name:"Sterling Residence",loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_6682.jpeg', gallery:['collectionsphotos/IMG_6682.jpeg','collectionsphotos/IMG_6667.jpeg'] },
-  { name:"Vance Residence",   loc:"Gold Coast, Chicago",   hero:'collectionsphotos/IMG_6758.jpeg', gallery:['collectionsphotos/IMG_6758.jpeg','collectionsphotos/IMG_6757.jpeg','collectionsphotos/IMG_6775.jpeg'] },
+  { name:"Karkalis Residence",loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_6757.jpeg', gallery:['collectionsphotos/IMG_6757.jpeg','collectionsphotos/IMG_6775.jpeg'] },
+  { name:"Vance Residence",   loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_3699.jpeg', gallery:['collectionsphotos/IMG_3699.jpeg','collectionsphotos/IMG_3702.jpeg','collectionsphotos/IMG_3703.jpeg'] },
+  { name:"Havel Residence",   loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_3719.jpeg', gallery:['collectionsphotos/IMG_3719.jpeg','collectionsphotos/IMG_3720.jpeg'] },
+  { name:"Stojka",            loc:"Lincoln Park, Chicago", hero:'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f5daa1636a6c653617c6.png', gallery:['https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f5daa1636a6c653617c6.png','collectionsphotos/IMG_3842.jpeg'] },
+  { name:"O'Neill Residence", loc:"River North, Chicago",  hero:'collectionsphotos/IMG_6682.jpeg', gallery:['collectionsphotos/IMG_6682.jpeg','collectionsphotos/IMG_6667.jpeg'] },
+  { name:"Karkalis Residence",loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_6758.jpeg', gallery:['collectionsphotos/IMG_6758.jpeg'] },
+  { name:"Badger Residence",  loc:"Lake View, Chicago",    hero:'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f78b5df4011c24e9c9af.jpg', gallery:[
+    'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f78b5df4011c24e9c9af.jpg',
+    'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f78fa48992f689a27ead.jpg',
+    'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f793f3c67cd015342c91.jpg'
+  ] },
 ];
 
 /* ENTRY */
@@ -572,9 +720,11 @@ const PROJECTS = [
 const nav = document.getElementById('nav');
 function updateNav(){
   const page = currentPage();
-  const dark = (page==='home'||page==='about') && window.scrollY < 60;
+  const inverted = page==='services';
+  const dark = !inverted && (page==='home'||page==='about') && window.scrollY < 60;
+  nav.classList.toggle('inverted', inverted);
   nav.classList.toggle('dark', dark);
-  nav.classList.toggle('solid', !dark);
+  nav.classList.toggle('solid', !dark && !inverted);
 }
 window.addEventListener('scroll', updateNav, {passive:true});
 
@@ -606,13 +756,26 @@ document.querySelectorAll('[data-menu]').forEach(a=>a.addEventListener('click', 
 function openMenu(){ overlay.classList.add('open'); trigger.classList.add('open'); document.body.classList.add('locked'); }
 function closeMenu(){ overlay.classList.remove('open'); trigger.classList.remove('open'); document.body.classList.remove('locked'); }
 
-/* V MONOGRAM REVEAL */
+/* V MONOGRAM REVEAL — scroll-tied fade in on enter, fade out on exit */
+let vTick = false;
 function revealV(){
-  document.querySelectorAll('.velus-v').forEach(g=>{
-    if(g.getBoundingClientRect().top < window.innerHeight*.9) g.classList.add('visible');
+  if (vTick) return;
+  vTick = true;
+  requestAnimationFrame(() => {
+    vTick = false;
+    const vh = window.innerHeight;
+    document.querySelectorAll('.velus-v').forEach(g => {
+      const rect = g.getBoundingClientRect();
+      const center = rect.top + rect.height/2;
+      // t = 1 when centered in viewport, 0 when ±40% vh away or further
+      const t = Math.max(0, Math.min(1, 1 - Math.abs(center - vh/2) / (vh * 0.4)));
+      g.style.opacity = (t * 0.9).toFixed(3);
+      g.style.transform = `translateY(${((1 - t) * 22).toFixed(1)}px)`;
+    });
   });
 }
 window.addEventListener('scroll', revealV, {passive:true});
+window.addEventListener('resize', revealV, {passive:true});
 revealV();
 
 /* FADE-UP OBSERVER */
@@ -683,6 +846,16 @@ document.addEventListener('keydown',e=>{
   });
 })();
 
+/* TESTIMONIAL TOGGLE */
+document.querySelectorAll('.t-toggle').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const t=btn.closest('.t');
+    const open=t.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.textContent=open?'Show less':'Read full review';
+  });
+});
+
 /* SERVICES ACCORDION */
 document.querySelectorAll('.svc-trigger').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -698,33 +871,96 @@ const GHL_TOKEN='pit-8475770f-cb72-4ef7-960e-4a5d6968c566';
 const GHL_LOCATION_ID='dYpRMKt41LMBrYEUoeLG';
 const GHL_VERSION='2021-07-28';
 
-async function submitInquiry(){
-  const form=document.getElementById('inquiryForm');
-  const btn=document.querySelector('.submit-btn');
-  const note=document.getElementById('sentNote');
-  const fd=new FormData(form);
+const SLIDE_KEYS=[
+  [],
+  ['project_type','project_stage','design_intent','design_direction'],
+  ['lifestyle','prior_designer','estimated_budget']
+];
+let slideIdx=0;
+let leadIdPromise=null;
+
+function showSlide(i){
+  document.querySelectorAll('#inquiryForm .slide').forEach(s=>s.classList.remove('active'));
+  const s=document.querySelector(`#inquiryForm .slide[data-slide="${i}"]`);
+  if(s) s.classList.add('active');
+  const label=document.getElementById('slideCurrent');
+  if(label) label.textContent=String(i+1).padStart(2,'0');
+  const prog=document.querySelector('.slide-progress');
+  if(prog) prog.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+async function createContactGHL(fd){
   const name=(fd.get('firstName')||'').trim();
   const email=(fd.get('email')||'').trim();
-  const budget=(fd.get('estimated_budget')||'').trim();
-  if(!name||!email||!budget){ note.textContent='Please complete your name, email, and budget range.'; note.classList.add('show'); return; }
+  const phone=(fd.get('phone')||'').trim();
+  const location=(fd.get('location')||'').trim();
   const parts=name.split(' ');
   const firstName=parts[0], lastName=parts.slice(1).join(' ')||'';
-  const phone=(fd.get('phone')||'').trim();
   const customFields=[];
-  ['location','project_type','project_stage','design_intent','design_direction','lifestyle','prior_designer','estimated_budget'].forEach(k=>{
-    const v=(fd.get(k)||'').trim(); if(v) customFields.push({key:k,field_value:v});
-  });
+  if(location) customFields.push({key:'location',field_value:location});
   const payload={locationId:GHL_LOCATION_ID,firstName,lastName,email,...(phone?{phone}:{}),customFields};
+  const res=await fetch('https://services.leadconnectorhq.com/contacts/',{method:'POST',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+  if(!res.ok) throw new Error('GHL create '+res.status);
+  const data=await res.json();
+  return (data&&data.contact&&data.contact.id)||null;
+}
+
+async function updateContactGHL(fd,keys){
+  const leadId=await leadIdPromise;
+  if(!leadId) throw new Error('No lead ID');
+  const customFields=[];
+  keys.forEach(k=>{ const v=(fd.get(k)||'').trim(); if(v) customFields.push({key:k,field_value:v}); });
+  if(!customFields.length) return;
+  const res=await fetch('https://services.leadconnectorhq.com/contacts/'+leadId,{method:'PUT',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({customFields})});
+  if(!res.ok) throw new Error('GHL update '+res.status);
+}
+
+async function submitSlide(){
+  const form=document.getElementById('inquiryForm');
+  const activeSlide=document.querySelector('#inquiryForm .slide.active');
+  const note=document.getElementById('sentNote');
+  const btn=activeSlide.querySelector('.submit-btn');
+  const fd=new FormData(form);
+
+  const required=activeSlide.querySelectorAll('[required]');
+  for(const f of required){
+    if(!(f.value||'').trim()){
+      note.textContent='Please complete the highlighted field.';
+      note.classList.add('show');
+      f.focus();
+      return;
+    }
+  }
+  note.classList.remove('show');
+
+  if(slideIdx===0){
+    leadIdPromise=createContactGHL(fd);
+    leadIdPromise.catch(err=>console.error('Lead save failed:',err));
+    slideIdx++;
+    showSlide(slideIdx);
+    return;
+  }
+  if(slideIdx===1){
+    updateContactGHL(fd,SLIDE_KEYS[1]).catch(err=>console.error('Update failed:',err));
+    slideIdx++;
+    showSlide(slideIdx);
+    return;
+  }
+  // Final slide — wait, then confirm.
+  const originalLabel=btn.textContent;
   btn.disabled=true; btn.textContent='Sending…';
   try{
-    const res=await fetch('https://services.leadconnectorhq.com/contacts/',{method:'POST',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
-    if(!res.ok) throw new Error('GHL '+res.status);
-    note.textContent='Your inquiry has been received. Mandy will respond personally within two business days.';
-    note.classList.add('show'); form.reset(); btn.textContent='Sent';
+    await updateContactGHL(fd,SLIDE_KEYS[2]);
+    note.textContent='Thank you for sharing your project with us. Your inquiry has been received. We will review and respond with clarity and direction.';
+    note.classList.add('show');
+    activeSlide.style.display='none';
+    document.querySelector('.slide-progress').style.display='none';
+    btn.textContent='Sent';
   }catch(err){
     console.error(err);
     note.textContent='Something went wrong. Please email mandy@velusinteriors.com directly.';
-    note.classList.add('show'); btn.disabled=false; btn.textContent='Send Inquiry';
+    note.classList.add('show');
+    btn.disabled=false; btn.textContent=originalLabel;
   }
 }
 
