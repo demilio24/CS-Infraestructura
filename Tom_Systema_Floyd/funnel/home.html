@@ -2734,7 +2734,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   <video
     class="hero-video"
     src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/69e7a1b08381f926787a7929.mp4"
-    autoplay muted loop playsinline preload="auto"
+    autoplay muted loop playsinline webkit-playsinline="true" disablepictureinpicture preload="auto"
     aria-hidden="true"
   ></video>
 
@@ -3443,6 +3443,14 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
 
   // Enable scroll-reveal hiding only when JS runs (prevents hidden-content if JS fails)
   document.body.classList.add('js-ready');
+
+  // Force-kick mobile video autoplay (iOS/Safari sometimes blocks first paint)
+  document.querySelectorAll('video[autoplay]').forEach((v) => {
+    v.muted = true; v.playsInline = true;
+    const tryPlay = () => { const p = v.play(); if (p && p.catch) p.catch(()=>{}); };
+    tryPlay();
+    document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
+  });
 
   const HERO_FORM_ID = 'REPLACE_WITH_GHL_FORM_ID';
 
