@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
   <title>Center Lane Swim School | Swim Lessons for Kids | Edgewater, Calvert, St. Mary's &amp; Severna Park, MD</title>
   <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes (max 3:1), swim currents, and Red Cross certified instructors across Edgewater, Calvert, St. Mary's and Severna Park, MD." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1446,12 +1446,13 @@ body.lightbox-open { overflow: hidden; }
   /* Hero */
   .hero { padding: 80px 0 0; }
   .hero-grid { gap: 24px; }
-  .hero h1 { font-size: 1.6rem; }
+  .hero h1 { font-size: 1.85rem; line-height: 1.15; }
   .hero-sub { font-size: 0.95rem; margin-bottom: 20px; line-height: 1.6; }
   .hero-eyebrow { font-size: 0.78rem; padding: 6px 14px; margin-bottom: 12px; }
-  .hsp-stat { padding: 10px 14px; min-width: 80px; border-radius: 10px; }
-  .hsp-num { font-size: 1.3rem; }
-  .hsp-label { font-size: 0.68rem; }
+  .hero-social-proof { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .hsp-stat { padding: 10px 14px; min-width: 0; width: 100%; border-radius: 10px; }
+  .hsp-num { font-size: 1.4rem; }
+  .hsp-label { font-size: 0.72rem; }
   .hero-form-card { padding: 24px 16px 20px; border-radius: 20px 20px 0 0; margin: 0 -14px; }
   .hero-form-card h3 { font-size: 1.15rem; }
   .hero-form-card .form-sub { font-size: 0.85rem; }
@@ -1498,10 +1499,10 @@ body.lightbox-open { overflow: hidden; }
 
   /* Final CTA */
   .final-cta { padding: 50px 0 40px; }
-  .cta-stats { gap: 12px; }
-  .cta-stat { padding: 12px 16px; border-radius: 12px; }
-  .cta-stat .num { font-size: 1.8rem; }
-  .cta-stat .label { font-size: 0.78rem; }
+  .cta-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 360px; margin-left: auto; margin-right: auto; }
+  .cta-stat { padding: 12px 10px; border-radius: 12px; min-width: 0; width: 100%; }
+  .cta-stat .num { font-size: 1.7rem; }
+  .cta-stat .label { font-size: 0.75rem; }
   .final-cta p { font-size: 1rem; }
   .final-cta .btns { gap: 10px; }
   .final-cta .btns .btn { width: 100%; justify-content: center; }
@@ -1516,11 +1517,11 @@ body.lightbox-open { overflow: hidden; }
 
 /* ── Extra small (max 360px) ── */
 @media (max-width: 360px) {
-  .hero h1 { font-size: 1.35rem; }
+  .hero h1 { font-size: 1.55rem; line-height: 1.15; }
   .hero-sub { font-size: 0.85rem; }
   .hero-eyebrow { font-size: 0.72rem; padding: 5px 12px; }
-  .hsp-stat { min-width: auto; padding: 8px 10px; }
-  .hsp-num { font-size: 1.1rem; }
+  .hsp-stat { padding: 9px 10px; }
+  .hsp-num { font-size: 1.2rem; }
   .btn { padding: 10px 18px; font-size: 0.85rem; }
   .section-title { font-size: 1.4rem; }
   .hero-form-card iframe { height: 600px; }
@@ -1661,7 +1662,7 @@ body.lightbox-open { overflow: hidden; }
           <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.5-12.5h4m14 0h4m-3.5-7-2.8 2.8M6.3 17.7l-2.8 2.8m14.2 0-2.8-2.8M6.3 6.3 3.5 3.5"/></svg>
           Edgewater &middot; Calvert &middot; St. Mary's &middot; Severna Park
         </div>
-        <h1>Swimming Lessons Kids <span style="color:var(--coral)">Love</span> &amp; Parents Trust</h1>
+        <h1>Swimming Lessons Kids <span style="color:var(--coral)">Love</span><br>&amp; Parents Trust</h1>
         <p class="hero-sub">Safe, fun, and nurturing swim lessons for ages 3 months and up. Small groups. Big confidence. Red Cross certified instructors.</p>
         <div class="hero-social-proof">
           <div class="hsp-stat"><span class="hsp-num">18+</span><span class="hsp-label">Years Experience</span></div>
@@ -2238,7 +2239,6 @@ body.lightbox-open { overflow: hidden; }
 
 <!-- Wave divider: Gallery → Team -->
 <div class="wave-divider" style="background:#e8f4fd;border-top:2px solid #fff;">
-  <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/26d30c8e-b715-4a23-8c2c-c64adf2478cd.png" alt="" class="wave-otter" aria-hidden="true" loading="lazy" decoding="async">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" style="display:block">
     <path d="M0,0 L0,40 C240,10 480,55 720,20 C960,-5 1200,50 1440,25 L1440,0Z" fill="#fff"/>
   </svg>
@@ -2620,7 +2620,6 @@ body.lightbox-open { overflow: hidden; }
 
 <!-- Wave divider: FAQ → Final CTA -->
 <div class="wave-divider" style="background:#1a5c5a;border-top:none;">
-  <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/26d30c8e-b715-4a23-8c2c-c64adf2478cd.png" alt="" class="wave-otter" aria-hidden="true" loading="lazy" decoding="async">
   <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="display:block">
     <path d="M0,0 L0,50 C240,95 480,20 720,60 C960,95 1200,30 1440,65 L1440,0Z" fill="#fff"/>
   </svg>
@@ -2664,7 +2663,6 @@ body.lightbox-open { overflow: hidden; }
 ═══════════════════════════════════════════════════════ -->
 <!-- Wave divider: Final CTA → Footer -->
 <div class="wave-divider" style="background:#0f3634;border-top:none;">
-  <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/26d30c8e-b715-4a23-8c2c-c64adf2478cd.png" alt="" class="wave-otter" aria-hidden="true" loading="lazy" decoding="async">
   <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="display:block">
     <path d="M0,0 L0,30 C360,70 720,10 1080,50 C1260,65 1380,25 1440,40 L1440,0Z" fill="#1a5c5a"/>
   </svg>
