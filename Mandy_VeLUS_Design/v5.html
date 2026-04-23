@@ -213,7 +213,7 @@ footer .links a:hover{opacity:1}
 .coll-item{position:relative;width:100%;height:100vh;min-height:640px;overflow:hidden;cursor:pointer;background:#1e1612}
 .coll-item .img{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 2s cubic-bezier(.2,.7,.25,1)}
 .coll-item:hover .img{transform:scale(1.015)}
-.coll-item .ttl{position:absolute;left:56px;bottom:48px;color:#F3EBDD;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease;max-width:70%;z-index:2}
+.coll-item .ttl{position:absolute;left:56px;bottom:48px;color:#F3EBDD;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .4s ease;max-width:70%;z-index:2;text-shadow:0 2px 24px rgba(0,0,0,.75),0 0 6px rgba(0,0,0,.5),0 0 2px rgba(0,0,0,.6)}
 .coll-item:hover .ttl,.coll-item.tap .ttl{opacity:1;transform:translateY(0)}
 .coll-item .ttl .name{font-family:var(--serif);font-weight:300;font-size:clamp(18px,1.9vw,26px);letter-spacing:.28em;text-transform:uppercase}
 .coll-item .ttl .loc{font-family:var(--ui);font-size:11px;letter-spacing:.36em;text-transform:uppercase;margin-top:8px;opacity:.85;font-weight:300}
@@ -453,7 +453,7 @@ body.locked{overflow:hidden}
     </div>
     <div class="work-stack">
       <div class="work-img fu" data-project="1">
-        <div class="inner" style="background-image:url('collectionsphotos/IMG_3699.jpeg')"></div>
+        <div class="inner" style="background-image:url('https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ef8fa439-e21b-488d-b53e-1edfe2146148.jpeg')"></div>
       </div>
       <div class="work-img fu d1" data-project="5">
         <div class="inner" style="background-image:url('collectionsphotos/IMG_6758.jpeg')"></div>
@@ -469,7 +469,7 @@ body.locked{overflow:hidden}
         <p class="fu d2">VELUS Interiors is committed to a disciplined approach to design, where intention guides every decision and excess is consistently removed in pursuit of clarity.</p>
         <p class="fu d2">The studio's work is grounded in three principles: spatial integrity, material precision, and considered restraint. This is not decoration. It is composition.</p>
       </div>
-      <div class="img fu d2" style="background-image:url('collectionsphotos/IMG_3703.jpeg')"></div>
+      <div class="img fu d2" style="background-image:url('https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e95a9993-a280-4bb8-8854-d1bd111cc91b.jpeg')"></div>
     </div>
   </section>
 
@@ -697,8 +697,8 @@ body.locked{overflow:hidden}
 /* DATA */
 const PROJECTS = [
   { name:"Karkalis Residence",loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_6757.jpeg', gallery:['collectionsphotos/IMG_6757.jpeg','collectionsphotos/IMG_6775.jpeg'] },
-  { name:"Vance Residence",   loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_3699.jpeg', gallery:['collectionsphotos/IMG_3699.jpeg','collectionsphotos/IMG_3702.jpeg','collectionsphotos/IMG_3703.jpeg'] },
-  { name:"Havel Residence",   loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_3719.jpeg', gallery:['collectionsphotos/IMG_3719.jpeg','collectionsphotos/IMG_3720.jpeg'] },
+  { name:"Vance Residence",   loc:"West Loop, Chicago",    hero:'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ef8fa439-e21b-488d-b53e-1edfe2146148.jpeg', gallery:['https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/ef8fa439-e21b-488d-b53e-1edfe2146148.jpeg','https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/c08e48b9-fc78-48b4-94d7-8af3b49e5d8f.jpeg','https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/e95a9993-a280-4bb8-8854-d1bd111cc91b.jpeg'] },
+  { name:"Havel Residence",   loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_3719.jpeg', gallery:['collectionsphotos/IMG_3719.jpeg','https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/485b090c-1e74-4c68-86b9-a90144a5dd9d.jpeg'] },
   { name:"Stojka",            loc:"Lincoln Park, Chicago", hero:'https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f5daa1636a6c653617c6.png', gallery:['https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f5daa1636a6c653617c6.png','collectionsphotos/IMG_3842.jpeg'] },
   { name:"O'Neill Residence", loc:"River North, Chicago",  hero:'collectionsphotos/IMG_6682.jpeg', gallery:['collectionsphotos/IMG_6682.jpeg','collectionsphotos/IMG_6667.jpeg'] },
   { name:"Karkalis Residence",loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_6758.jpeg', gallery:['collectionsphotos/IMG_6758.jpeg'] },
@@ -837,6 +837,11 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft') viewerStep(-1);
   if(e.key==='ArrowRight') viewerStep(1);
 });
+/* Click on overlay (not on controls) closes viewer */
+document.getElementById('viewer').addEventListener('click',e=>{
+  if(e.target.closest('.arrow, .close, .meta, .counter')) return;
+  closeViewer();
+});
 (function(){
   let sx=0,sy=0;
   const v=document.getElementById('viewer');
@@ -869,9 +874,21 @@ document.querySelectorAll('.svc-trigger').forEach(btn=>{
 });
 
 /* GHL SUBMISSION */
-const GHL_TOKEN='pit-8475770f-cb72-4ef7-960e-4a5d6968c566';
+const GHL_TOKEN='pit-359b3244-3d2e-4661-af15-8a59bcbdc09f';
 const GHL_LOCATION_ID='dYpRMKt41LMBrYEUoeLG';
 const GHL_VERSION='2021-07-28';
+
+/* Form input name -> GHL custom field key */
+const GHL_FIELD_MAP={
+  location:'where_is_your_project_located',
+  project_type:'what_kind_of_project_are_you_beginning',
+  project_stage:'how_developed_is_your_project_currently',
+  design_intent:'how_do_you_imagine_your_space_feeling',
+  design_direction:'what_direction_are_you_naturally_drawn_to',
+  lifestyle:'how_is_the_space_intended_to_be_lived_in',
+  prior_designer:'have_you_worked_with_a_designer_before',
+  estimated_budget:'what_is_your_estimated_budget_range'
+};
 
 const SLIDE_KEYS=[
   [],
@@ -899,7 +916,7 @@ async function createContactGHL(fd){
   const parts=name.split(' ');
   const firstName=parts[0], lastName=parts.slice(1).join(' ')||'';
   const customFields=[];
-  if(location) customFields.push({key:'location',field_value:location});
+  if(location) customFields.push({key:GHL_FIELD_MAP.location,field_value:location});
   const payload={locationId:GHL_LOCATION_ID,firstName,lastName,email,...(phone?{phone}:{}),customFields};
   const res=await fetch('https://services.leadconnectorhq.com/contacts/',{method:'POST',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
   if(!res.ok) throw new Error('GHL create '+res.status);
@@ -911,7 +928,7 @@ async function updateContactGHL(fd,keys){
   const leadId=await leadIdPromise;
   if(!leadId) throw new Error('No lead ID');
   const customFields=[];
-  keys.forEach(k=>{ const v=(fd.get(k)||'').trim(); if(v) customFields.push({key:k,field_value:v}); });
+  keys.forEach(k=>{ const v=(fd.get(k)||'').trim(); if(v) customFields.push({key:GHL_FIELD_MAP[k]||k,field_value:v}); });
   if(!customFields.length) return;
   const res=await fetch('https://services.leadconnectorhq.com/contacts/'+leadId,{method:'PUT',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({customFields})});
   if(!res.ok) throw new Error('GHL update '+res.status);
