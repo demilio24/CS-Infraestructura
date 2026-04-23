@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Center Lane Swim School | Swim Lessons for Kids | Edgewater & Calvert, MD</title>
-  <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes, swim currents, and certified instructors in Edgewater, Calvert, and St. Mary's MD." />
+  <title>Center Lane Swim School | Swim Lessons for Kids | Edgewater, Calvert, St. Mary's &amp; Severna Park, MD</title>
+  <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes (max 3:1), swim currents, and Red Cross certified instructors across Edgewater, Calvert, St. Mary's and Severna Park, MD." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -760,39 +760,162 @@ p { margin: 0 0 1em; }
    GALLERY
 ═══════════════════════════════════════════════════════ */
 .gallery {
-  padding: 80px 0; background: #fff; position: relative;
+  padding: 80px 0; background: #fff; position: relative; overflow: hidden;
 }
-.gallery-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto auto; gap: 16px;
+.gallery-marquee {
+  position: relative; margin-top: 32px;
+  content-visibility: auto;
+  contain-intrinsic-size: 480px;
 }
-.gallery-item {
-  position: relative; border-radius: 16px;
-  overflow: hidden; aspect-ratio: 1;
+.gallery-row {
+  display: flex; overflow: hidden; margin-bottom: 14px; width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+}
+.gallery-row:last-child { margin-bottom: 0; }
+.gallery-track {
+  display: flex; gap: 14px;
+  flex-shrink: 0;
+  animation: gallery-scroll-left 110s linear infinite;
+  will-change: transform;
+}
+.gallery-row.reverse .gallery-track { animation: gallery-scroll-right 110s linear infinite; }
+.gallery-row:hover .gallery-track { animation-play-state: paused; }
+
+@keyframes gallery-scroll-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes gallery-scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.gallery-slide {
+  flex: 0 0 auto;
+  width: 280px; height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(15,54,53,0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  background: #e8f4fd;
 }
-.gallery-item:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 28px rgba(58,216,212,0.2);
+.gallery-slide:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(58,216,212,0.28);
 }
-.gallery-item img {
+.gallery-slide img {
   width: 100%; height: 100%; object-fit: cover;
-  border-radius: 16px;
   transition: transform 0.4s ease;
+  display: block;
+  pointer-events: none;
 }
-.gallery-item:hover img { transform: scale(1.05); }
-.gallery-overlay {
-  display: none;
+.gallery-slide:hover img { transform: scale(1.05); }
+.gallery-slide::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(15,54,53,0.22));
+  opacity: 0; transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.gallery-slide:hover::after { opacity: 1; }
+.gallery-slide .zoom-hint {
+  position: absolute; top: 10px; right: 10px;
+  background: rgba(255,255,255,0.92);
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.85);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.gallery-slide:hover .zoom-hint { opacity: 1; transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track { animation: none; }
+  .gallery-row { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
 }
 
 @media (max-width: 768px) {
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .gallery-slide { width: 220px; height: 160px; }
+  .gallery-track { gap: 10px; animation-duration: 80s; }
+  .gallery-row { margin-bottom: 10px; }
 }
 @media (max-width: 400px) {
-  .gallery-grid { gap: 8px; }
-  .gallery-item { border-radius: 12px; }
-  .gallery-item img { border-radius: 12px; }
+  .gallery-slide { width: 180px; height: 130px; border-radius: 12px; }
+  .gallery-track { gap: 8px; animation-duration: 65s; }
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(10, 40, 40, 0.94);
+  display: none; align-items: center; justify-content: center;
+  z-index: 9999;
+  padding: 40px 20px;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+}
+.lightbox.open {
+  display: flex;
+  animation: lightbox-fade 0.25s ease;
+}
+@keyframes lightbox-fade { from { opacity: 0; } to { opacity: 1; } }
+.lightbox-img {
+  max-width: min(1100px, 92vw);
+  max-height: 85vh;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  object-fit: contain;
+  animation: lightbox-zoom 0.3s ease;
+}
+@keyframes lightbox-zoom { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.lightbox-close:hover { background: rgba(255,255,255,0.25); transform: scale(1.08); }
+.lightbox-prev:hover,
+.lightbox-next:hover { background: rgba(255,255,255,0.25); }
+.lightbox-close { top: 24px; right: 24px; }
+.lightbox-prev  { left: 24px; top: 50%; transform: translateY(-50%); }
+.lightbox-next  { right: 24px; top: 50%; transform: translateY(-50%); }
+.lightbox-prev:hover  { transform: translateY(-50%) scale(1.08); }
+.lightbox-next:hover  { transform: translateY(-50%) scale(1.08); }
+.lightbox-caption {
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  color: #fff; font-size: 0.88rem; max-width: 80%;
+  text-align: center; opacity: 0.85;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+.lightbox-counter {
+  position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
+  color: #fff; font-size: 0.8rem; opacity: 0.7;
+  letter-spacing: 0.1em; font-weight: 600;
+}
+body.lightbox-open { overflow: hidden; }
+
+@media (max-width: 600px) {
+  .lightbox { padding: 20px 12px; }
+  .lightbox-close { top: 16px; right: 16px; width: 40px; height: 40px; }
+  .lightbox-prev  { left: 10px; width: 40px; height: 40px; }
+  .lightbox-next  { right: 10px; width: 40px; height: 40px; }
+  .lightbox-caption { font-size: 0.78rem; bottom: 14px; }
+  .lightbox-counter { top: 20px; font-size: 0.72rem; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -920,7 +1043,7 @@ p { margin: 0 0 1em; }
 ═══════════════════════════════════════════════════════ */
 .events { padding: 80px 0; background: #fff; scroll-margin-top: 70px; }
 .events-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;
 }
 .event-card {
   background: #f0faf9; border-radius: 20px; padding: 36px 28px; text-align: center;
@@ -1526,8 +1649,8 @@ p { margin: 0 0 1em; }
 ═══════════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
   <div class="hero-video-bg">
-    <video autoplay muted loop playsinline>
-      <source src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/69d56b78f5ebf27de323de33.mp4" type="video/mp4">
+    <video id="heroVideo" autoplay muted loop playsinline preload="none" poster="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg">
+      <source data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/69d56b78f5ebf27de323de33.mp4" type="video/mp4">
     </video>
   </div>
   <div class="container">
@@ -1536,14 +1659,15 @@ p { margin: 0 0 1em; }
       <div class="anim">
         <div class="hero-eyebrow">
           <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.5-12.5h4m14 0h4m-3.5-7-2.8 2.8M6.3 17.7l-2.8 2.8m14.2 0-2.8-2.8M6.3 6.3 3.5 3.5"/></svg>
-          Edgewater &amp; Calvert, MD
+          Edgewater &middot; Calvert &middot; St. Mary's &middot; Severna Park
         </div>
         <h1>Swimming Lessons Kids <span style="color:var(--coral)">Love</span> &amp; Parents Trust</h1>
         <p class="hero-sub">Safe, fun, and nurturing swim lessons for ages 3 months and up. Small groups. Big confidence. Red Cross certified instructors.</p>
         <div class="hero-social-proof">
           <div class="hsp-stat"><span class="hsp-num">18+</span><span class="hsp-label">Years Experience</span></div>
+          <div class="hsp-stat"><span class="hsp-num">7,000+</span><span class="hsp-label">Students Taught</span></div>
           <div class="hsp-stat"><span class="hsp-num">4</span><span class="hsp-label">Locations</span></div>
-          <div class="hsp-stat"><span class="hsp-num">5&#9733;</span><span class="hsp-label">Google Rating</span></div>
+          <div class="hsp-stat"><span class="hsp-num">5&#9733;</span><span class="hsp-label">Reviews</span></div>
         </div>
       </div>
       <!-- Right: form -->
@@ -1582,6 +1706,31 @@ p { margin: 0 0 1em; }
   </svg>
 </div>
 
+<!-- Trust strip: Awards + Partners -->
+<div style="background:#f0faf9;padding:28px 0;border-top:1px solid rgba(58,216,212,0.18);border-bottom:1px solid rgba(58,216,212,0.18);">
+  <div class="container" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:20px 48px;">
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px 12px;">
+      <span style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.1em;">Awarded</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#0f3634;padding:7px 14px;border-radius:999px;font-size:0.85rem;font-weight:700;box-shadow:0 2px 10px rgba(15,54,53,0.08);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#faa56b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        Best of Annapolis 2025
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#0f3634;padding:7px 14px;border-radius:999px;font-size:0.85rem;font-weight:700;box-shadow:0 2px 10px rgba(15,54,53,0.08);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#faa56b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        Best of Annapolis 2026
+      </span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 14px;">
+      <span style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.1em;">Proud Member</span>
+      <span style="color:#0f3634;font-weight:700;font-size:0.95rem;">USSSA</span>
+      <span style="color:#3ad8d4;">&bull;</span>
+      <span style="color:#0f3634;font-weight:700;font-size:0.95rem;">ISSSA</span>
+      <span style="color:#3ad8d4;">&bull;</span>
+      <span style="color:#0f3634;font-weight:700;font-size:0.95rem;">Live Water Foundation</span>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════
      WHY CENTER LANE
 ═══════════════════════════════════════════════════════ -->
@@ -1589,14 +1738,14 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="about-grid">
       <div class="about-img-wrap anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" alt="Center Lane coach laughing with a toddler during a lesson" loading="lazy" decoding="async">
+        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" alt="Center Lane coach laughing with a toddler during a lesson" loading="lazy" decoding="async" fetchpriority="low">
         <div class="otter-float">
           <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/26d30c8e-b715-4a23-8c2c-c64adf2478cd.png" alt="Center Lane otter mascot" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="anim">
         <h2 class="section-title">Why Center Lane Swim School?<svg width="16" height="20" viewBox="0 0 16 20" fill="none" style="vertical-align:middle;margin-left:6px;opacity:0.6;" aria-hidden="true"><path d="M8 0C8 0 0 9 0 13a8 8 0 0 0 16 0C16 9 8 0 8 0z" fill="#3ad8d4" opacity="0.3"/><path d="M8 2C8 2 2 9.5 2 13a6 6 0 0 0 12 0C14 9.5 8 2 8 2z" fill="#3ad8d4" opacity="0.2"/></svg></h2>
-        <p class="section-sub">We believe every child deserves to feel safe and confident in the water. Our curriculum is designed to meet swimmers where they are, from first-time babies to advanced competitive swimmers.</p>
+        <p class="section-sub">We believe every child deserves to feel safe and confident in the water. Our curriculum is designed to meet swimmers where they are, from first-time babies to stroke-development swimmers ready to graduate to a swim team.</p>
         <ul class="about-list">
           <li>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
@@ -1609,6 +1758,18 @@ p { margin: 0 0 1em; }
           <li>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
             Proprietary curriculum from infant to advanced
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Unassisted swimming: no floaties or flippers as crutches
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            The Hump Guarantee: free extra lessons if your swimmer is still nervous after 4&ndash;5 sessions
+          </li>
+          <li>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            Adaptive lessons for swimmers with special needs (state grant funds accepted)
           </li>
           <li>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
@@ -1642,25 +1803,44 @@ p { margin: 0 0 1em; }
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">From first splash to confident strokes, we have a class for your child.</p>
     </div>
 
+    <!-- Pricing band -->
+    <div class="anim" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:12px;margin:24px auto 40px;max-width:760px;">
+      <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
+        <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Group</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$39<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
+        <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">Max 3 students</div>
+      </div>
+      <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
+        <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Semi-Private</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$57<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
+        <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">2 students</div>
+      </div>
+      <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
+        <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Private</div>
+        <div style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$87<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
+        <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">1-on-1</div>
+      </div>
+    </div>
+
     <div class="programs-grid anim">
 
       <!-- Card 1: Infant Acclimation -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b9d3cea2-4d8d-4786-a34c-5d10796321d9.jpg" alt="Instructor gently cradling an infant in the warm teaching pool" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b9d3cea2-4d8d-4786-a34c-5d10796321d9.jpg" alt="Instructor gently cradling an infant in the warm teaching pool" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"><span class="prog-free-badge">FREE Program</span></div>
           <div class="program-card-meta">3 – 6 Months</div>
           <h3>Infant Acclimation</h3>
-          <p>Gentle water introduction for infants 3–6 months. Builds early water comfort in a warm, nurturing environment.</p>
+          <p>Gentle water introduction for infants 3&ndash;6 months, with a parent in the water. Builds early water comfort in a warm, nurturing environment.</p>
         </div>
       </div>
 
       <!-- Card 2: Parent Teacher Class -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/67ba4801-0724-434f-b9da-adaf146933e6.jpg" alt="Parent in the water with baby and older siblings during class" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/67ba4801-0724-434f-b9da-adaf146933e6.jpg" alt="Parent in the water with baby and older siblings during class" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1673,7 +1853,7 @@ p { margin: 0 0 1em; }
       <!-- Card 3: Beginner -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e19137e8-70a1-447a-960d-580167e2ab8d.jpg" alt="Coach laughing with a beaming beginner swimmer in a mermaid rash guard" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e19137e8-70a1-447a-960d-580167e2ab8d.jpg" alt="Coach laughing with a beaming beginner swimmer in a mermaid rash guard" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1686,7 +1866,7 @@ p { margin: 0 0 1em; }
       <!-- Card 4: Intermediate -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/69b4f4c7-829b-46f9-b2b9-e6805a5d47a5.jpg" alt="Young swimmer practicing a front-float with goggles and a kickboard" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/69b4f4c7-829b-46f9-b2b9-e6805a5d47a5.jpg" alt="Young swimmer practicing a front-float with goggles and a kickboard" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1699,7 +1879,7 @@ p { margin: 0 0 1em; }
       <!-- Card 5: Advanced -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/767571c2-7112-441a-810b-cad630e2ae07.jpg" alt="Advanced student practicing backstroke with coach supervision" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/767571c2-7112-441a-810b-cad630e2ae07.jpg" alt="Advanced student practicing backstroke with coach supervision" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1755,7 +1935,8 @@ p { margin: 0 0 1em; }
         <div class="loc-card-body">
           <h3>Edgewater</h3>
           <p>175 Mitchells Chance Rd<br>Edgewater, MD 21037</p>
-          <p><strong>Email:</strong> ew@centerlaneswim.com</p>
+          <p><strong>Phone:</strong> <a href="tel:4108887946" style="color:inherit;">410-888-7946</a></p>
+          <p><strong>Email:</strong> <a href="mailto:ew@centerlaneswim.com" style="color:inherit;">ew@centerlaneswim.com</a></p>
           <a href="#hero-form" class="btn btn-lime">Register Here</a>
         </div>
         <div class="loc-card-map">
@@ -1770,7 +1951,8 @@ p { margin: 0 0 1em; }
         <div class="loc-card-body">
           <h3>Calvert</h3>
           <p>4145 Hunting Creek Rd<br>Huntingtown, MD 20639</p>
-          <p><strong>Email:</strong> calvert@centerlaneswim.com</p>
+          <p><strong>Phone:</strong> <a href="tel:4108817946" style="color:inherit;">410-881-7946</a></p>
+          <p><strong>Email:</strong> <a href="mailto:calvert@centerlaneswim.com" style="color:inherit;">calvert@centerlaneswim.com</a></p>
           <a href="#hero-form" class="btn btn-lime">Register Here</a>
         </div>
         <div class="loc-card-map">
@@ -1785,23 +1967,51 @@ p { margin: 0 0 1em; }
         <div class="loc-card-body">
           <h3>St. Mary's</h3>
           <p>45820 Highway to Heaven Ln<br>Great Mills, MD 20634</p>
-          <p><strong>Email:</strong> flatiron@centerlaneswim.com</p>
+          <p><strong>Phone:</strong> <a href="tel:4109217946" style="color:inherit;">410-921-7946</a></p>
+          <p><strong>Email:</strong> <a href="mailto:flatiron@centerlaneswim.com" style="color:inherit;">flatiron@centerlaneswim.com</a></p>
           <a href="#hero-form" class="btn btn-lime">Register Here</a>
         </div>
         <div class="loc-card-map">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.651223561706!2d-76.49299242409562!3d38.217993371877036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7606f67b045a7%3A0x6b5a298c6d0c509e!2s45820%20Hwy%20to%20Heaven%20Ln%2C%20Great%20Mills%2C%20MD%2020634!5e0!3m2!1sen!2sus!4v1775926458239!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
-      <!-- Sabrina Park -->
+      <!-- Severna Park -->
       <div class="loc-card coming-soon anim" style="animation-delay:0.3s">
         <div class="loc-card-img">
-          <img src="" alt="Sabrina Park, coming soon">
+          <img src="" alt="Severna Park, coming soon">
         </div>
         <div class="loc-card-body">
-          <h3>Sabrina Park</h3>
-          <p>Location details coming soon</p>
-          <p><strong>Under Construction</strong></p>
+          <h3>Severna Park</h3>
+          <p>8370 Jumpers Hole Rd, Suite 3<br>Millersville, MD 21108</p>
+          <p><strong>Email:</strong> <a href="mailto:sp@centerlaneswim.com" style="color:inherit;">sp@centerlaneswim.com</a></p>
+          <p><strong>Opening Soon</strong></p>
           <span class="btn btn-lime" style="opacity:0.5;pointer-events:none;">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Communities we serve -->
+    <div class="anim" style="margin-top:56px;padding:32px 24px;background:#f0faf9;border-radius:20px;border:1px solid rgba(58,216,212,0.18);">
+      <div style="text-align:center;margin-bottom:20px;">
+        <span style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.1em;">Communities We Serve</span>
+        <h3 style="font-size:1.25rem;color:#0f3634;margin-top:8px;">Proudly Teaching Across Southern &amp; Central Maryland</h3>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto;">
+        <div style="text-align:center;">
+          <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">South Anne Arundel</div>
+          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Annapolis &middot; Edgewater &middot; Davidsonville &middot; Deale &middot; Tracys Landing &middot; Shady Side &middot; Harwood &middot; Lothian</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Calvert County</div>
+          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Dunkirk &middot; Owings &middot; Sunderland &middot; North Beach &middot; Chesapeake Beach &middot; Huntingtown &middot; Prince Frederick &middot; St. Leonard &middot; Solomons</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">St. Mary's County</div>
+          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Lexington Park &middot; California &middot; Leonardtown</p>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:0.78rem;font-weight:700;color:#faa56b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">North Anne Arundel (Coming Soon)</div>
+          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Severna Park &middot; Arnold &middot; Millersville &middot; Crownsville &middot; Pasadena &middot; Glen Burnie &middot; Gambrills &middot; Severn &middot; Crofton</p>
         </div>
       </div>
     </div>
@@ -1913,8 +2123,7 @@ p { margin: 0 0 1em; }
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">See what parents are saying about Center Lane Swim School.</p>
     </div>
     <div class="anim">
-      <script type='text/javascript' src='https://reputationhub.site/reputation/assets/review-widget.js'></script>
-      <iframe class='lc_reviews_widget' src='https://reputationhub.site/reputation/widgets/review_widget/JL5Xsreqcpi8naffNZWe' frameborder='0' scrolling='no' style='min-width:100%;width:100%;border:none;border-radius:16px;'></iframe>
+      <iframe class='lc_reviews_widget' data-src='https://reputationhub.site/reputation/widgets/review_widget/JL5Xsreqcpi8naffNZWe' src='about:blank' frameborder='0' scrolling='no' loading='lazy' style='min-width:100%;width:100%;border:none;border-radius:16px;min-height:400px;'></iframe>
     </div>
   </div>
 </section>
@@ -1947,38 +2156,81 @@ p { margin: 0 0 1em; }
       <span class="badge">GALLERY</span>
       <h2 class="section-title">Inside Our Swimming Lessons</h2>
     </div>
-    <div class="gallery-grid">
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5e81a018-1d72-4b08-aad2-4a2557f3c79a.jpg" alt="Center Lane Swim School storefront exterior" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
+    <p class="section-sub anim" style="text-align:center;margin-top:8px;">Hover to pause. Click any photo to enlarge.</p>
+    <div class="gallery-marquee anim" id="galleryMarquee">
+      <!-- Row 1 — scrolls left -->
+      <div class="gallery-row">
+        <div class="gallery-track" data-row="1">
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5e81a018-1d72-4b08-aad2-4a2557f3c79a.jpg" data-caption="Center Lane Swim School storefront exterior"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5e81a018-1d72-4b08-aad2-4a2557f3c79a.jpg" alt="Center Lane Swim School storefront exterior" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d7ea3e0c-572d-4093-8e48-0038ffa41f92.jpg" data-caption="Student leaping confidently off the pool edge"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d7ea3e0c-572d-4093-8e48-0038ffa41f92.jpg" alt="Student leaping confidently off the pool edge" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a02a3221-e882-40d3-bc6f-1842433f92fe.jpg" data-caption="Girl leaping off a foam slide into the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a02a3221-e882-40d3-bc6f-1842433f92fe.jpg" alt="Girl leaping off a foam slide into the pool" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/10eb4245-2127-4b3c-9a58-e434c2db9676.jpg" data-caption="Instructor watching proudly as a toddler reaches for the pool wall"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/10eb4245-2127-4b3c-9a58-e434c2db9676.jpg" alt="Instructor watching proudly as a toddler reaches for the pool wall" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c5058fea-4875-420b-a9a3-f39ae0e59571.jpg" data-caption="Instructor laughing as she reaches toward a toddler in the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c5058fea-4875-420b-a9a3-f39ae0e59571.jpg" alt="Instructor laughing as she reaches toward a toddler in the pool" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/144ceba4-8bef-41b7-a595-8cbecab70ab1.jpg" data-caption="Instructor hoisting a baby in a floral swim onesie high above the water"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/144ceba4-8bef-41b7-a595-8cbecab70ab1.jpg" alt="Instructor hoisting a baby in a floral swim onesie high above the water" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7b3ce8fb-e5c1-412f-8dfe-aacc42f131de.jpg" data-caption="Coach lifts a baby overhead in the pool, beaming up at the child"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7b3ce8fb-e5c1-412f-8dfe-aacc42f131de.jpg" alt="Coach lifts a baby overhead in the pool, beaming up at the child" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2c7f0b30-0aa8-4c32-bec7-f360c0397c9a.jpg" data-caption="Coach celebrating a triple high-five with her students"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2c7f0b30-0aa8-4c32-bec7-f360c0397c9a.jpg" alt="Coach celebrating a triple high-five with her students" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c6e6c2a7-7077-46aa-bba7-01f155512793.jpg" data-caption="Coach grinning at a baby during their first-time-in-the-water lesson"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c6e6c2a7-7077-46aa-bba7-01f155512793.jpg" alt="Coach grinning at a baby during their first-time-in-the-water lesson" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/428449af-ea05-42a3-b91a-fc31b4004739.jpg" data-caption="Coach joyfully lifts a toddler out of the water with splashes flying"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/428449af-ea05-42a3-b91a-fc31b4004739.jpg" alt="Coach joyfully lifts a toddler out of the water with splashes flying" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/86f4b95d-e7a7-42d6-8dd5-79966c8766fc.jpg" data-caption="Instructor raising a smiling toddler above the water"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/86f4b95d-e7a7-42d6-8dd5-79966c8766fc.jpg" alt="Instructor raising a smiling toddler above the water" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d2aca991-ab76-4386-9882-d81ec575c3d6.jpg" data-caption="Laugh-out-loud handoff between two instructors as a baby is passed between them"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d2aca991-ab76-4386-9882-d81ec575c3d6.jpg" alt="Laugh-out-loud handoff between two instructors as a baby is passed between them" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2690d6bd-5e5d-4858-85d2-e33f377d5db1.jpg" data-caption="Blonde instructor laughing as a colleague hands her a baby in the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2690d6bd-5e5d-4858-85d2-e33f377d5db1.jpg" alt="Blonde instructor laughing as a colleague hands her a baby in the pool" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e7621a47-1cad-490a-91a8-3cbe51c2a4f3.jpg" data-caption="Teen instructor sharing a laughing, face-to-face moment with a toddler boy"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e7621a47-1cad-490a-91a8-3cbe51c2a4f3.jpg" alt="Teen instructor sharing a laughing, face-to-face moment with a toddler boy" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3b87cf67-7783-4231-9c71-3547ddd9cfc7.jpg" data-caption="Two coaches working as a team with a baby in a floral swimsuit"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3b87cf67-7783-4231-9c71-3547ddd9cfc7.jpg" alt="Two coaches working as a team with a baby in a floral swimsuit" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/4e175ca9-9b2d-4d80-87c9-a08eaf026447.jpg" data-caption="Toddler's arms held up in a high-five victory pose at the pool ladder"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/4e175ca9-9b2d-4d80-87c9-a08eaf026447.jpg" alt="Toddler's arms held up in a high-five victory pose at the pool ladder" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5e81a018-1d72-4b08-aad2-4a2557f3c79a.jpg" data-caption="Center Lane Swim School storefront exterior"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5e81a018-1d72-4b08-aad2-4a2557f3c79a.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d7ea3e0c-572d-4093-8e48-0038ffa41f92.jpg" data-caption="Student leaping confidently off the pool edge"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d7ea3e0c-572d-4093-8e48-0038ffa41f92.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a02a3221-e882-40d3-bc6f-1842433f92fe.jpg" data-caption="Girl leaping off a foam slide into the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a02a3221-e882-40d3-bc6f-1842433f92fe.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/10eb4245-2127-4b3c-9a58-e434c2db9676.jpg" data-caption="Instructor watching proudly as a toddler reaches for the pool wall"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/10eb4245-2127-4b3c-9a58-e434c2db9676.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c5058fea-4875-420b-a9a3-f39ae0e59571.jpg" data-caption="Instructor laughing as she reaches toward a toddler in the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c5058fea-4875-420b-a9a3-f39ae0e59571.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/144ceba4-8bef-41b7-a595-8cbecab70ab1.jpg" data-caption="Instructor hoisting a baby in a floral swim onesie high above the water"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/144ceba4-8bef-41b7-a595-8cbecab70ab1.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7b3ce8fb-e5c1-412f-8dfe-aacc42f131de.jpg" data-caption="Coach lifts a baby overhead in the pool, beaming up at the child"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7b3ce8fb-e5c1-412f-8dfe-aacc42f131de.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2c7f0b30-0aa8-4c32-bec7-f360c0397c9a.jpg" data-caption="Coach celebrating a triple high-five with her students"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2c7f0b30-0aa8-4c32-bec7-f360c0397c9a.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c6e6c2a7-7077-46aa-bba7-01f155512793.jpg" data-caption="Coach grinning at a baby during their first-time-in-the-water lesson"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c6e6c2a7-7077-46aa-bba7-01f155512793.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/428449af-ea05-42a3-b91a-fc31b4004739.jpg" data-caption="Coach joyfully lifts a toddler out of the water with splashes flying"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/428449af-ea05-42a3-b91a-fc31b4004739.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/86f4b95d-e7a7-42d6-8dd5-79966c8766fc.jpg" data-caption="Instructor raising a smiling toddler above the water"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/86f4b95d-e7a7-42d6-8dd5-79966c8766fc.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d2aca991-ab76-4386-9882-d81ec575c3d6.jpg" data-caption="Laugh-out-loud handoff between two instructors as a baby is passed between them"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d2aca991-ab76-4386-9882-d81ec575c3d6.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2690d6bd-5e5d-4858-85d2-e33f377d5db1.jpg" data-caption="Blonde instructor laughing as a colleague hands her a baby in the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2690d6bd-5e5d-4858-85d2-e33f377d5db1.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e7621a47-1cad-490a-91a8-3cbe51c2a4f3.jpg" data-caption="Teen instructor sharing a laughing, face-to-face moment with a toddler boy"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e7621a47-1cad-490a-91a8-3cbe51c2a4f3.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3b87cf67-7783-4231-9c71-3547ddd9cfc7.jpg" data-caption="Two coaches working as a team with a baby in a floral swimsuit"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3b87cf67-7783-4231-9c71-3547ddd9cfc7.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/4e175ca9-9b2d-4d80-87c9-a08eaf026447.jpg" data-caption="Toddler's arms held up in a high-five victory pose at the pool ladder"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/4e175ca9-9b2d-4d80-87c9-a08eaf026447.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        </div>
       </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d7ea3e0c-572d-4093-8e48-0038ffa41f92.jpg" alt="Student leaping confidently off the pool edge" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
-      </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7e5b01ce-6025-4642-858e-ff4593958123.jpg" alt="Dad playing peekaboo with his baby in the family changing area mirror" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
-      </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a02a3221-e882-40d3-bc6f-1842433f92fe.jpg" alt="Girl leaping off a foam slide into the pool" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
-      </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/bc52a211-ca6d-4ec1-97f8-a2eb4677f854.jpg" alt="Staff member laughing with a toddler in the lobby retail area" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
-      </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c5058fea-4875-420b-a9a3-f39ae0e59571.jpg" alt="Instructor laughing as she reaches toward a toddler in the pool" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
-      </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2c7f0b30-0aa8-4c32-bec7-f360c0397c9a.jpg" alt="Coach celebrating a triple high-five with her students" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
-      </div>
-      <div class="gallery-item anim">
-        <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d91b6c1a-76db-4a57-8a1c-71fdfce00ee3.jpg" alt="Group portrait of coach with three young swimmers" loading="lazy" decoding="async">
-        <div class="gallery-overlay"></div>
+      <!-- Row 2 — scrolls right -->
+      <div class="gallery-row reverse">
+        <div class="gallery-track" data-row="2">
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c327a40b-75c3-4a12-b06e-bd8276f99fb8.jpg" data-caption="Coach playing with two toddlers while a sibling looks on through pink goggles"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c327a40b-75c3-4a12-b06e-bd8276f99fb8.jpg" alt="Coach playing with two toddlers while a sibling looks on through pink goggles" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b726112b-3cba-49e4-be59-c643c2c5a330.jpg" data-caption="Teen coach hoists a toddler high above the pool as splashes erupt"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b726112b-3cba-49e4-be59-c643c2c5a330.jpg" alt="Teen coach hoists a toddler high above the pool as splashes erupt" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/bc52a211-ca6d-4ec1-97f8-a2eb4677f854.jpg" data-caption="Staff member laughing with a toddler in the lobby retail area"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/bc52a211-ca6d-4ec1-97f8-a2eb4677f854.jpg" alt="Staff member laughing with a toddler in the lobby retail area" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5eedf8ad-9805-46f6-912f-2a787df017c0.jpg" data-caption="Staff cradling a smiling toddler in the retail corner"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5eedf8ad-9805-46f6-912f-2a787df017c0.jpg" alt="Staff cradling a smiling toddler in the retail corner" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ded237f5-f5f8-4cc3-9232-920ccc4570fc.jpg" data-caption="Instructor holds a baby chest-to-chest as they watch a dive ring float by"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ded237f5-f5f8-4cc3-9232-920ccc4570fc.jpg" alt="Instructor holds a baby chest-to-chest as they watch a dive ring float by" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3f012ad6-174a-42c3-b08a-be30cdc5f214.jpg" data-caption="Instructor supports a toddler practicing supported floating"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3f012ad6-174a-42c3-b08a-be30cdc5f214.jpg" alt="Instructor supports a toddler practicing supported floating" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" data-caption="Bearded instructor grins as he holds a small boy during a lesson"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" alt="Bearded instructor grins as he holds a small boy during a lesson" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3ed81b10-b70e-4236-b195-8ff70318239a.jpg" data-caption="Two instructors work together: one holds a baby in a float position while the other extends a hand"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3ed81b10-b70e-4236-b195-8ff70318239a.jpg" alt="Two instructors work together: one holds a baby in a float position while the other extends a hand" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2e3aed80-4065-4bdd-affa-5aea9d4b83d0.jpg" data-caption="Instructor reaches out with open hands as a colleague floats a baby gently by"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2e3aed80-4065-4bdd-affa-5aea9d4b83d0.jpg" alt="Instructor reaches out with open hands as a colleague floats a baby gently by" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/cfdf0ee0-a81f-4413-9e05-cf3afb20341b.jpg" data-caption="Instructor touches fingers with a toddler girl in an eye-to-eye connection moment"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/cfdf0ee0-a81f-4413-9e05-cf3afb20341b.jpg" alt="Instructor touches fingers with a toddler girl in an eye-to-eye connection moment" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ee25f20e-4608-47df-a98b-e53131362df8.jpg" data-caption="Instructor kisses the top of a baby's head while a parent films in the background"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ee25f20e-4608-47df-a98b-e53131362df8.jpg" alt="Instructor kisses the top of a baby's head while a parent films in the background" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c9510ae6-addf-474c-8e5f-925766a53257.jpg" data-caption="Instructor gently floats a baby on her back in the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c9510ae6-addf-474c-8e5f-925766a53257.jpg" alt="Instructor gently floats a baby on her back in the pool" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d9a5f7a3-d4c9-407a-8277-f63cc6066085.jpg" data-caption="Orange-shirted instructor shares a caring 'you've got this' moment with a toddler"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d9a5f7a3-d4c9-407a-8277-f63cc6066085.jpg" alt="Orange-shirted instructor shares a caring 'you've got this' moment with a toddler" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7fd7d5b0-da64-487a-9e89-29d519a87caf.jpg" data-caption="Two instructors laughing together as they support a dark-haired swimmer"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7fd7d5b0-da64-487a-9e89-29d519a87caf.jpg" alt="Two instructors laughing together as they support a dark-haired swimmer" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7e5b01ce-6025-4642-858e-ff4593958123.jpg" data-caption="Dad playing peekaboo with his baby in the family changing area mirror"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7e5b01ce-6025-4642-858e-ff4593958123.jpg" alt="Dad playing peekaboo with his baby in the family changing area mirror" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d91b6c1a-76db-4a57-8a1c-71fdfce00ee3.jpg" data-caption="Group portrait of coach with three young swimmers"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d91b6c1a-76db-4a57-8a1c-71fdfce00ee3.jpg" alt="Group portrait of coach with three young swimmers" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c327a40b-75c3-4a12-b06e-bd8276f99fb8.jpg" data-caption="Coach playing with two toddlers while a sibling looks on through pink goggles"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c327a40b-75c3-4a12-b06e-bd8276f99fb8.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b726112b-3cba-49e4-be59-c643c2c5a330.jpg" data-caption="Teen coach hoists a toddler high above the pool as splashes erupt"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/b726112b-3cba-49e4-be59-c643c2c5a330.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/bc52a211-ca6d-4ec1-97f8-a2eb4677f854.jpg" data-caption="Staff member laughing with a toddler in the lobby retail area"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/bc52a211-ca6d-4ec1-97f8-a2eb4677f854.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5eedf8ad-9805-46f6-912f-2a787df017c0.jpg" data-caption="Staff cradling a smiling toddler in the retail corner"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/5eedf8ad-9805-46f6-912f-2a787df017c0.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ded237f5-f5f8-4cc3-9232-920ccc4570fc.jpg" data-caption="Instructor holds a baby chest-to-chest as they watch a dive ring float by"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ded237f5-f5f8-4cc3-9232-920ccc4570fc.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3f012ad6-174a-42c3-b08a-be30cdc5f214.jpg" data-caption="Instructor supports a toddler practicing supported floating"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3f012ad6-174a-42c3-b08a-be30cdc5f214.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" data-caption="Bearded instructor grins as he holds a small boy during a lesson"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3ed81b10-b70e-4236-b195-8ff70318239a.jpg" data-caption="Two instructors work together: one holds a baby in a float position while the other extends a hand"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/3ed81b10-b70e-4236-b195-8ff70318239a.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2e3aed80-4065-4bdd-affa-5aea9d4b83d0.jpg" data-caption="Instructor reaches out with open hands as a colleague floats a baby gently by"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2e3aed80-4065-4bdd-affa-5aea9d4b83d0.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/cfdf0ee0-a81f-4413-9e05-cf3afb20341b.jpg" data-caption="Instructor touches fingers with a toddler girl in an eye-to-eye connection moment"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/cfdf0ee0-a81f-4413-9e05-cf3afb20341b.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ee25f20e-4608-47df-a98b-e53131362df8.jpg" data-caption="Instructor kisses the top of a baby's head while a parent films in the background"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ee25f20e-4608-47df-a98b-e53131362df8.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c9510ae6-addf-474c-8e5f-925766a53257.jpg" data-caption="Instructor gently floats a baby on her back in the pool"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c9510ae6-addf-474c-8e5f-925766a53257.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d9a5f7a3-d4c9-407a-8277-f63cc6066085.jpg" data-caption="Orange-shirted instructor shares a caring 'you've got this' moment with a toddler"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d9a5f7a3-d4c9-407a-8277-f63cc6066085.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7fd7d5b0-da64-487a-9e89-29d519a87caf.jpg" data-caption="Two instructors laughing together as they support a dark-haired swimmer"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7fd7d5b0-da64-487a-9e89-29d519a87caf.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7e5b01ce-6025-4642-858e-ff4593958123.jpg" data-caption="Dad playing peekaboo with his baby in the family changing area mirror"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/7e5b01ce-6025-4642-858e-ff4593958123.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        <div class="gallery-slide" aria-hidden="true" tabindex="-1" data-full="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d91b6c1a-76db-4a57-8a1c-71fdfce00ee3.jpg" data-caption="Group portrait of coach with three young swimmers"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/d91b6c1a-76db-4a57-8a1c-71fdfce00ee3.jpg" alt="" width="280" height="200" loading="lazy" decoding="async" fetchpriority="low"><span class="zoom-hint" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -2012,7 +2264,7 @@ p { margin: 0 0 1em; }
           </div>
         </div>
         <div class="why-img-collage anim">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/23fb9989-aa0f-4bc7-aa4e-9f864eff09bd.jpg" alt="Josie, David and the Center Lane team" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/23fb9989-aa0f-4bc7-aa4e-9f864eff09bd.jpg" alt="Josie, David and the Center Lane team" loading="lazy" decoding="async" fetchpriority="low">
           <span class="why-img-caption">Josie, David & the Center Lane team</span>
         </div>
       </div>
@@ -2021,51 +2273,10 @@ p { margin: 0 0 1em; }
 
   <div class="team-cards-zone">
     <div class="container">
-      <div style="text-align:center;margin-bottom:32px" class="anim">
-        <h3 style="font-size:1.6rem;color:#0f3634;">The Center Lane Family</h3>
-        <p class="section-sub" style="margin-left:auto;margin-right:auto;">Passionate instructors and staff dedicated to your child's success.</p>
-      </div>
-      <div class="team-grid">
-      <div class="team-card anim">
-        <div class="team-card-avatar">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/c1f3b4bb-69fa-4430-98df-999a51f32bc3.jpg" alt="Hannah" loading="lazy" decoding="async">
-        </div>
-        <h4>Hannah</h4>
-        <span class="team-role-badge">&#x1F3CA; Aquatics Manager</span>
-      </div>
-      <div class="team-card anim">
-        <div class="team-card-avatar">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2ec2b229-d782-46f7-a9af-b53c5ec7ba68.jpeg" alt="Heather" loading="lazy" decoding="async">
-        </div>
-        <h4>Heather</h4>
-        <span class="team-role-badge">&#x2B50; Calvert GM</span>
-      </div>
-      <div class="team-card anim">
-        <div class="team-card-avatar">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/6b1059b5-69a5-46e0-9e37-21a2644b36b2.jpeg" alt="Brittany" loading="lazy" decoding="async">
-        </div>
-        <h4>Brittany</h4>
-        <span class="team-role-badge">&#x1F4AA; Lead Instructor</span>
-      </div>
-      <div class="team-card anim">
-        <div class="team-card-avatar">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/a123ec6c-fac4-4ecb-8326-23c469a110b7.jpeg" alt="Kristin" style="object-position: 60% top;" loading="lazy" decoding="async">
-        </div>
-        <h4>Kristin</h4>
-        <span class="team-role-badge">&#x1F4CB; Admin</span>
-      </div>
-      <div class="team-card anim">
-        <div class="team-card-avatar">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/ee0cfc48-a297-4893-bad2-963ffd1f25d1.jpeg" alt="Venus" loading="lazy" decoding="async">
-        </div>
-        <h4>Venus</h4>
-        <span class="team-role-badge">&#x1F4CB; Admin</span>
-      </div>
-    </div>
       <div class="team-hire anim">
         <h3>Want To Join Our Team?</h3>
         <p style="margin-bottom:20px;">We're always looking for passionate people who love working with kids.</p>
-        <a href="#hero-form" class="btn btn-nav-cta" style="animation:none;">Get In Touch</a>
+        <a href="mailto:ew@centerlaneswim.com?subject=Joining%20the%20Center%20Lane%20Team&amp;body=Hi%20Center%20Lane%2C%0A%0AI%27m%20interested%20in%20joining%20your%20team.%20Here%27s%20a%20little%20about%20me%3A%0A%0A" class="btn btn-nav-cta" style="animation:none;">Get In Touch</a>
       </div>
     </div>
   </div>
@@ -2185,7 +2396,8 @@ p { margin: 0 0 1em; }
         </div>
         <h3>Birthday Parties</h3>
         <p>Make a splash on their special day! Private pool parties with everything you need for an unforgettable celebration.</p>
-        <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank" class="btn btn-lime">Book a Party →</a>
+        <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;margin-bottom:16px;letter-spacing:0.04em;">Starting at $575</div>
+        <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank" class="btn btn-lime">Book a Party &rarr;</a>
       </div>
       <!-- Parents Night Out -->
       <div class="event-card anim" style="animation-delay:0.1s">
@@ -2194,7 +2406,8 @@ p { margin: 0 0 1em; }
         </div>
         <h3>Parents Night Out</h3>
         <p>Drop the kids off for a fun evening of swimming, games, and activities while you enjoy a well-deserved night out.</p>
-        <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank" class="btn btn-lime">View Dates →</a>
+        <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;margin-bottom:16px;letter-spacing:0.04em;">$40 per child &middot; 3 hours</div>
+        <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank" class="btn btn-lime">View Dates &rarr;</a>
       </div>
       <!-- Drop Off Camp -->
       <div class="event-card anim" style="animation-delay:0.2s">
@@ -2203,7 +2416,18 @@ p { margin: 0 0 1em; }
         </div>
         <h3>Drop Off Camp</h3>
         <p>Full-day swim camp for kids. Structured lessons, free swim, and water-based activities to build skills and confidence.</p>
-        <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank" class="btn btn-lime">View Sessions →</a>
+        <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;margin-bottom:16px;letter-spacing:0.04em;">$50 per day</div>
+        <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank" class="btn btn-lime">View Sessions &rarr;</a>
+      </div>
+      <!-- In-Home Mobile Lessons -->
+      <div class="event-card anim" style="animation-delay:0.3s">
+        <div class="event-card-icon" style="background:#faa56b;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>In-Home Mobile Lessons</h3>
+        <p>We come to your pool. Private lessons in the comfort of your own backyard, perfect for families with a home pool.</p>
+        <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;margin-bottom:16px;letter-spacing:0.04em;">$44 per student / week</div>
+        <a href="#hero-form" class="btn btn-lime">Inquire &rarr;</a>
       </div>
     </div>
   </div>
@@ -2241,7 +2465,7 @@ p { margin: 0 0 1em; }
           Do I need to stay for my child's lesson?
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Parents are encouraged to stay and watch but it's not required, except for Parent-Tot Combo classes where a parent is in the water. We have viewing areas at all locations.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Parents are encouraged to stay and watch but it's not required, except for Infant Acclimation and Parent Teacher Class (PTC) where a parent is in the water with children under 2. We have viewing areas at all locations.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
@@ -2262,14 +2486,14 @@ p { margin: 0 0 1em; }
           Which level should I sign up for?
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><strong>Parent-Tot Combo (PTC):</strong> Ages 6-24 months<br><strong>Beginner:</strong> Ages 2+ with no swimming experience<br><strong>Intermediate:</strong> Can swim 15 feet unassisted<br><strong>Advanced:</strong> Can swim 30+ feet with proper technique<br><br>Not sure? Contact us and we'll help you find the right fit.</div></div>
+        <div class="faq-a"><div class="faq-a-inner"><strong>Infant Acclimation:</strong> 3&ndash;6 months (FREE, parent in water)<br><strong>Parent Teacher Class (PTC):</strong> 6&ndash;24 months (parent in water)<br><strong>Beginner:</strong> Ages 2+ with no swimming experience<br><strong>Intermediate:</strong> Can swim 15 feet unassisted<br><strong>Advanced:</strong> Can swim 30+ feet with proper technique<br><br>Not sure? Contact us and we'll help you find the right fit.</div></div>
       </div>
       <div class="faq-item anim" data-category="lessons">
         <button class="faq-q">
           My child is 3+, can I do parent-taught?
           <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Parent-Tot Combo classes are designed for ages 6-24 months. Children age 2 and older move into our Beginner level with our instructors. This transition helps children learn independence in the water.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Parent Teacher Class (PTC) is designed for ages 6&ndash;24 months. Children age 2 and older move into our Beginner level with our instructors. This transition helps children learn independence in the water.</div></div>
       </div>
 
       <!-- ── REGISTRATION ── -->
@@ -2383,6 +2607,13 @@ p { margin: 0 0 1em; }
         </button>
         <div class="faq-a"><div class="faq-a-inner">The best way to reach us is by email: <a href="mailto:ew@centerlaneswim.com" style="color:#3ad8d4;">ew@centerlaneswim.com</a> for Edgewater, or <a href="mailto:calvert@centerlaneswim.com" style="color:#3ad8d4;">calvert@centerlaneswim.com</a> for Calvert. Our phone lines are not continuously staffed, so email is the most reliable way to get a timely response.</div></div>
       </div>
+      <div class="faq-item anim faq-hidden" data-category="other">
+        <button class="faq-q">
+          <span>Who is Center Lane <em>not</em> a good fit for?</span>
+          <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="#0f3634" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">We are not a competitive swim school. If your child is preparing for competition, a swim club or team is a better fit. We're also not set up for lap-swim fitness, as our pools are kept warm to accommodate young children who aren't exercising as rigorously. Our focus is water safety, confidence, and stroke development for kids up through graduating to a swim team.</div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -2418,8 +2649,9 @@ p { margin: 0 0 1em; }
     </div>
     <div class="cta-stats anim">
       <div class="cta-stat"><span class="num">18+</span><span class="label">Years Experience</span></div>
+      <div class="cta-stat"><span class="num">7,000+</span><span class="label">Students Taught</span></div>
       <div class="cta-stat"><span class="num">4</span><span class="label">Locations</span></div>
-      <div class="cta-stat"><span class="num">5&#9733;</span><span class="label">Google Rating</span></div>
+      <div class="cta-stat"><span class="num">5&#9733;</span><span class="label">Reviews</span></div>
     </div>
     <div class="btns anim">
       <a href="#hero-form" class="btn btn-lime">Register Now</a>
@@ -2450,6 +2682,12 @@ p { margin: 0 0 1em; }
       </a>
       <a href="https://facebook.com/clsscalvert" target="_blank" aria-label="Facebook Calvert">
         <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://instagram.com/centerlaneswim" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="currentColor"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </a>
+      <a href="https://tiktok.com/@centerlaneswim" target="_blank" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.09z"/></svg>
       </a>
     </div>
   </div>
@@ -2500,19 +2738,19 @@ p { margin: 0 0 1em; }
         <h4>Locations</h4>
         <div class="footer-location">
           <strong>Edgewater</strong>
-          <p>175 Mitchells Chance Rd<br>Edgewater, MD 21037<br><a href="mailto:ew@centerlaneswim.com">ew@centerlaneswim.com</a></p>
+          <p>175 Mitchells Chance Rd<br>Edgewater, MD 21037<br><a href="tel:4108887946">410-888-7946</a><br><a href="mailto:ew@centerlaneswim.com">ew@centerlaneswim.com</a></p>
         </div>
         <div class="footer-location">
           <strong>Calvert</strong>
-          <p>4145 Hunting Creek Rd<br>Huntingtown, MD 20639<br><a href="mailto:calvert@centerlaneswim.com">calvert@centerlaneswim.com</a></p>
+          <p>4145 Hunting Creek Rd<br>Huntingtown, MD 20639<br><a href="tel:4108817946">410-881-7946</a><br><a href="mailto:calvert@centerlaneswim.com">calvert@centerlaneswim.com</a></p>
         </div>
         <div class="footer-location">
           <strong>St. Mary's</strong>
-          <p>45820 Highway to Heaven Ln<br>Great Mills, MD 20634<br><a href="mailto:flatiron@centerlaneswim.com">flatiron@centerlaneswim.com</a></p>
+          <p>45820 Highway to Heaven Ln<br>Great Mills, MD 20634<br><a href="tel:4109217946">410-921-7946</a><br><a href="mailto:flatiron@centerlaneswim.com">flatiron@centerlaneswim.com</a></p>
         </div>
         <div class="footer-location" style="opacity:0.6;">
-          <strong>Sabrina Park</strong>
-          <p>Coming Soon</p>
+          <strong>Severna Park</strong>
+          <p>8370 Jumpers Hole Rd, Suite 3<br>Millersville, MD 21108<br><a href="mailto:sp@centerlaneswim.com">sp@centerlaneswim.com</a><br>Coming Soon</p>
         </div>
       </div>
 
@@ -2713,6 +2951,154 @@ document.querySelectorAll('a[href="#hero-form"]').forEach(function(link){
         window.scrollTo({ top: top, behavior: 'smooth' });
       }
     });
+  });
+})();
+</script>
+
+<!-- Gallery lightbox -->
+<div class="lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Gallery image viewer">
+  <div class="lightbox-counter" id="lightboxCounter">1 / 32</div>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next image">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<script>
+// Defer heavy third-party and background media until after first paint / near viewport
+(function(){
+  function lazyFrameObserver(el, onEnter) {
+    if (!('IntersectionObserver' in window)) { onEnter(); return; }
+    var io = new IntersectionObserver(function(entries){
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) { onEnter(); io.disconnect(); return; }
+      }
+    }, { rootMargin: '400px 0px' });
+    io.observe(el);
+  }
+
+  // Hero video — load after window load (non-blocking)
+  function hydrateHeroVideo(){
+    var v = document.getElementById('heroVideo');
+    if (!v) return;
+    var src = v.querySelector('source[data-src]');
+    if (!src) return;
+    src.src = src.getAttribute('data-src');
+    src.removeAttribute('data-src');
+    v.load();
+    var p = v.play();
+    if (p && typeof p.catch === 'function') p.catch(function(){});
+  }
+  if (document.readyState === 'complete') {
+    setTimeout(hydrateHeroVideo, 300);
+  } else {
+    window.addEventListener('load', function(){ setTimeout(hydrateHeroVideo, 300); });
+  }
+
+  // Review widget iframe — load when near viewport, then inject widget script
+  var reviewFrame = document.querySelector('iframe.lc_reviews_widget[data-src]');
+  if (reviewFrame) {
+    lazyFrameObserver(reviewFrame, function(){
+      var real = reviewFrame.getAttribute('data-src');
+      if (real) {
+        reviewFrame.src = real;
+        reviewFrame.removeAttribute('data-src');
+      }
+      if (!document.querySelector('script[data-review-widget]')) {
+        var s = document.createElement('script');
+        s.src = 'https://reputationhub.site/reputation/assets/review-widget.js';
+        s.async = true;
+        s.setAttribute('data-review-widget', '1');
+        document.body.appendChild(s);
+      }
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var marquee = document.getElementById('galleryMarquee');
+  if (!marquee) return;
+
+  // Build unique slide list (by data-full URL) for lightbox navigation
+  var allSlides = Array.prototype.slice.call(marquee.querySelectorAll('.gallery-slide'));
+  var seen = Object.create(null);
+  var unique = [];
+  allSlides.forEach(function(s){
+    var url = s.getAttribute('data-full');
+    if (url && !seen[url]) { seen[url] = unique.length; unique.push(s); }
+  });
+
+  // True-lazy: only request real image URLs when gallery is close to viewport
+  var lazyImgs = marquee.querySelectorAll('img[data-src]');
+  function loadAll(){
+    lazyImgs.forEach(function(img){
+      var src = img.getAttribute('data-src');
+      if (src) {
+        img.src = src;
+        img.removeAttribute('data-src');
+      }
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) { loadAll(); io.disconnect(); return; }
+      }
+    }, { rootMargin: '600px 0px' });
+    io.observe(marquee);
+  } else {
+    loadAll();
+  }
+
+  // Lightbox
+  var lb      = document.getElementById('galleryLightbox');
+  var lbImg   = document.getElementById('lightboxImg');
+  var lbCap   = document.getElementById('lightboxCaption');
+  var countEl = document.getElementById('lightboxCounter');
+  var lbPrev  = document.getElementById('lightboxPrev');
+  var lbNext  = document.getElementById('lightboxNext');
+  var lbClose = document.getElementById('lightboxClose');
+  var total   = unique.length;
+  var current = 0;
+  if (countEl) countEl.textContent = '1 / ' + total;
+
+  function show(i){
+    current = ((i % total) + total) % total;
+    var slide = unique[current];
+    lbImg.src = slide.getAttribute('data-full');
+    lbImg.alt = slide.getAttribute('data-caption') || '';
+    lbCap.textContent = slide.getAttribute('data-caption') || '';
+    if (countEl) countEl.textContent = (current + 1) + ' / ' + total;
+  }
+  function open(i){ show(i); lb.classList.add('open'); document.body.classList.add('lightbox-open'); }
+  function close(){ lb.classList.remove('open'); document.body.classList.remove('lightbox-open'); }
+
+  marquee.addEventListener('click', function(e){
+    var slide = e.target.closest('.gallery-slide');
+    if (!slide) return;
+    var url = slide.getAttribute('data-full');
+    var idx = (url in seen) ? seen[url] : 0;
+    open(idx);
+  });
+
+  lbPrev.addEventListener('click', function(){ show(current - 1); });
+  lbNext.addEventListener('click', function(){ show(current + 1); });
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft')  show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
   });
 })();
 </script>
