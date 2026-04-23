@@ -110,8 +110,8 @@ body.locked nav.top .nav-logo-light{opacity:0!important}
 .menu-nav a:hover{opacity:.55!important}
 
 /* FADE-UP */
-.fu{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s ease}
-.fu.in{opacity:1;transform:translateY(0)}
+.fu{opacity:1;transform:none;transition:opacity .9s ease,transform .9s ease}
+.fu.in{opacity:1;transform:none}
 .fu.d1{transition-delay:.12s}
 .fu.d2{transition-delay:.24s}
 .fu.d3{transition-delay:.36s}
@@ -924,8 +924,6 @@ function showSlide(i){
   if(s) s.classList.add('active');
   const label=document.getElementById('slideCurrent');
   if(label) label.textContent=String(i+1).padStart(2,'0');
-  const prog=document.querySelector('.slide-progress');
-  if(prog) prog.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 async function createContactGHL(fd){
