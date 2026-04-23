@@ -936,8 +936,8 @@ async function createContactGHL(fd){
   const customFields=[];
   if(location) customFields.push({key:GHL_FIELD_MAP.location,field_value:location});
   const payload={locationId:GHL_LOCATION_ID,firstName,lastName,email,...(phone?{phone}:{}),customFields};
-  const res=await fetch('https://services.leadconnectorhq.com/contacts/',{method:'POST',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
-  if(!res.ok) throw new Error('GHL create '+res.status);
+  const res=await fetch('https://services.leadconnectorhq.com/contacts/upsert',{method:'POST',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
+  if(!res.ok) throw new Error('GHL upsert '+res.status);
   const data=await res.json();
   return (data&&data.contact&&data.contact.id)||null;
 }
