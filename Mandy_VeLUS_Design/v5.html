@@ -97,6 +97,8 @@ nav.top.inverted .nav-trigger{color:#F3EBDD}
 .menu-overlay.open{opacity:1;pointer-events:all}
 body.locked nav.top{background:transparent!important;border-bottom:none!important}
 body.locked .nav-trigger{color:var(--ink)!important}
+body.locked nav.top .nav-logo-dark{opacity:1!important;filter:none!important}
+body.locked nav.top .nav-logo-light{opacity:0!important}
 .menu-nav{display:flex;flex-direction:column;align-items:center;gap:32px}
 .menu-nav a{font-family:var(--body);font-weight:400;font-size:clamp(23.8px,2.89vw,37.4px);letter-spacing:.06em;opacity:0;transform:translateY(18px);transition:opacity .75s ease,transform .75s ease}
 .menu-overlay.open .menu-nav a{opacity:1;transform:translateY(0)}
@@ -470,10 +472,16 @@ body.locked{overflow:hidden}
     </div>
     <div class="work-stack">
       <div class="work-img fu" data-project="1">
-        <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1c7256df-d77f-4db9-b571-2df8f0dca30b.jpeg" alt="Featured project" loading="lazy" />
+        <picture>
+          <source media="(min-width:769px)" srcset="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/28bdc2e5-4df8-47f3-ba5a-4829ce549671.png" />
+          <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1c7256df-d77f-4db9-b571-2df8f0dca30b.jpeg" alt="Featured project" loading="lazy" />
+        </picture>
       </div>
       <div class="work-img fu d1" data-project="5">
-        <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/caa7beca-5db1-4872-98fc-ceaa6ffd41c1.jpeg" alt="Featured project" loading="lazy" />
+        <picture>
+          <source media="(min-width:769px)" srcset="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d5c52e21-dbcf-4288-8b8a-59bfd103a314.png" />
+          <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/caa7beca-5db1-4872-98fc-ceaa6ffd41c1.jpeg" alt="Featured project" loading="lazy" />
+        </picture>
       </div>
     </div>
     <div class="section-foot fu d2"><a href="#collections" class="cta" data-nav>View Collections</a></div>
@@ -695,7 +703,7 @@ body.locked{overflow:hidden}
       <a href="tel:+19545409039">+1 (954) 540-9039</a>
       <a href="https://instagram.com/velusinteriors" target="_blank" rel="noopener">@velusinteriors</a>
     </div>
-    <div class="copyright">&copy; 2025 Velus Interiors. All rights reserved.</div>
+    <div class="copyright">&copy; 2026 Velus Interiors. All rights reserved.</div>
   </div>
 </footer>
 
