@@ -167,8 +167,14 @@ p{margin:0;color:var(--sf-ink-60)}
 }
 .waiver-back:hover{background:var(--sf-ink);color:#fff}
 .waiver-back svg{width:12px;height:12px}
-.waiver-body{background:var(--sf-white)}
-.waiver-body iframe{width:100%;border:0;display:block;border-radius:0}
+.waiver-body{background:var(--sf-white);position:relative;contain:layout style}
+.waiver-body iframe{width:100%;border:0;display:block;border-radius:0;opacity:0;transition:opacity .35s var(--ease-out)}
+.waiver-body.ready iframe{opacity:1}
+.waiver-loader{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:60px 20px;background:var(--sf-white);pointer-events:none;transition:opacity .35s var(--ease-out);min-height:480px}
+.waiver-body.ready .waiver-loader{opacity:0}
+.waiver-spinner{width:38px;height:38px;border-radius:50%;border:3px solid var(--sf-blue-50);border-top-color:var(--sf-yellow);animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.waiver-loader-label{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--sf-ink-40)}
 .page-hidden{display:none!important}
 
 @media(max-width:640px){
@@ -254,20 +260,38 @@ p{margin:0;color:var(--sf-ink-60)}
 (function(){
   'use strict';
 
+  // Preload GHL embed script immediately so it's ready before any state click.
+  (function preloadGhlScript(){
+    const s = document.createElement('script');
+    s.src = 'https://link.nilsdigital.com/js/form_embed.js';
+    s.async = true;
+    document.head.appendChild(s);
+  })();
+
   const WAIVER_EMBEDS = {
-    florida: {
-      abbr:'FL', name:'Florida', height:3480, formId:'2vMqRPJVSiNx9qowOcpD',
-      html: '<iframe src="https://link.nilsdigital.com/widget/form/2vMqRPJVSiNx9qowOcpD" style="width:100%;border:none;display:block" id="inline-2vMqRPJVSiNx9qowOcpD" data-layout="{\'id\':\'INLINE\'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Liability Waiver" data-height="3480" data-layout-iframe-id="inline-2vMqRPJVSiNx9qowOcpD" data-form-id="2vMqRPJVSiNx9qowOcpD" title="Liability Waiver" scrolling="no"></iframe>'
-    },
-    georgia: {
-      abbr:'GA', name:'Georgia', height:3623, formId:'hmfJb7enRvrwaie60odr',
-      html: '<iframe src="https://link.nilsdigital.com/widget/form/hmfJb7enRvrwaie60odr" style="width:100%;border:none;display:block" id="inline-hmfJb7enRvrwaie60odr" data-layout="{\'id\':\'INLINE\'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Liability Waiver" data-height="3623" data-layout-iframe-id="inline-hmfJb7enRvrwaie60odr" data-form-id="hmfJb7enRvrwaie60odr" title="Liability Waiver" scrolling="no"></iframe>'
-    },
-    virginia: {
-      abbr:'VA', name:'Virginia', height:3623, formId:'0epR9H8Y0LYNqZfsJ4zL',
-      html: '<iframe src="https://link.nilsdigital.com/widget/form/0epR9H8Y0LYNqZfsJ4zL" style="width:100%;border:none;display:block" id="inline-0epR9H8Y0LYNqZfsJ4zL" data-layout="{\'id\':\'INLINE\'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Liability Waiver" data-height="3623" data-layout-iframe-id="inline-0epR9H8Y0LYNqZfsJ4zL" data-form-id="0epR9H8Y0LYNqZfsJ4zL" title="Liability Waiver" scrolling="no"></iframe>'
-    },
+    florida:  { abbr:'FL', name:'Florida',  height:3480, formId:'2vMqRPJVSiNx9qowOcpD' },
+    georgia:  { abbr:'GA', name:'Georgia',  height:3623, formId:'hmfJb7enRvrwaie60odr' },
+    virginia: { abbr:'VA', name:'Virginia', height:3623, formId:'0epR9H8Y0LYNqZfsJ4zL' },
   };
+
+  function buildIframeHtml(cfg){
+    // Bake height into the inline style so there's no post-insert reflow
+    return '<iframe'
+      + ' src="https://link.nilsdigital.com/widget/form/' + cfg.formId + '"'
+      + ' style="width:100%;height:' + cfg.height + 'px;border:none;display:block"'
+      + ' id="inline-' + cfg.formId + '"'
+      + ' data-layout="{\'id\':\'INLINE\'}"'
+      + ' data-trigger-type="alwaysShow"'
+      + ' data-activation-type="alwaysActivated"'
+      + ' data-deactivation-type="neverDeactivate"'
+      + ' data-form-name="Liability Waiver"'
+      + ' data-height="' + cfg.height + '"'
+      + ' data-layout-iframe-id="inline-' + cfg.formId + '"'
+      + ' data-form-id="' + cfg.formId + '"'
+      + ' title="' + cfg.name + ' Liability Waiver"'
+      + ' scrolling="no"'
+      + '></iframe>';
+  }
 
   const card       = document.querySelector('.card');
   const banner     = document.querySelector('.banner');
@@ -276,7 +300,8 @@ p{margin:0;color:var(--sf-ink-60)}
   const panelAbbr  = document.getElementById('waiverAbbr');
   const panelTitle = document.getElementById('waiverTitle');
   const panelBody  = document.getElementById('waiverBody');
-  let scriptInjected = false;
+
+  const LOADER_HTML = '<div class="waiver-loader"><div class="waiver-spinner" aria-hidden="true"></div><div class="waiver-loader-label">Loading waiver&hellip;</div></div>';
 
   function showWaiver(state){
     const cfg = WAIVER_EMBEDS[state];
@@ -284,35 +309,57 @@ p{margin:0;color:var(--sf-ink-60)}
 
     panelAbbr.textContent  = cfg.abbr;
     panelTitle.textContent = cfg.name;
-    panelBody.innerHTML    = cfg.html;
 
-    // Give the iframe a tall height directly so the whole form shows
-    const frame = panelBody.querySelector('iframe');
-    if (frame) frame.style.height = cfg.height + 'px';
+    // Render loader first (instantly visible), then iframe behind it
+    panelBody.classList.remove('ready');
+    panelBody.innerHTML = LOADER_HTML + buildIframeHtml(cfg);
 
-    // Hide the state selector card + banner + help
+    // Hide selector content
     card.classList.add('page-hidden');
     banner.classList.add('page-hidden');
     if (helpLine) helpLine.classList.add('page-hidden');
 
-    // Show the waiver panel
+    // Reveal panel
     panel.classList.add('open');
 
-    // Inject GHL embed script once (auto-resizes iframe based on form height)
-    if (!scriptInjected) {
-      const s = document.createElement('script');
-      s.src = 'https://link.nilsdigital.com/js/form_embed.js';
-      s.async = true;
-      document.body.appendChild(s);
-      scriptInjected = true;
-    }
+    const frame = panelBody.querySelector('iframe');
+    if (!frame) return;
 
-    // Scroll to top of panel
-    panel.scrollIntoView({ behavior:'smooth', block:'start' });
+    // Kill GHL scrolling="yes" attribute the moment the embed script tries to add it
+    // (known fix from our notes; prevents the jitter on load)
+    const mo = new MutationObserver(muts => {
+      muts.forEach(m => {
+        if (m.attributeName === 'scrolling' && frame.getAttribute('scrolling') !== 'no') {
+          frame.setAttribute('scrolling','no');
+        }
+      });
+    });
+    mo.observe(frame, { attributes:true, attributeFilter:['scrolling'] });
+
+    // Fade the loader out as soon as iframe reports loaded
+    let revealed = false;
+    function reveal(){
+      if (revealed) return;
+      revealed = true;
+      panelBody.classList.add('ready');
+      setTimeout(() => {
+        const loader = panelBody.querySelector('.waiver-loader');
+        if (loader) loader.remove();
+      }, 420);
+    }
+    frame.addEventListener('load', reveal, { once:true });
+    // Hard fallback, in case the iframe load event never fires
+    setTimeout(reveal, 2500);
+
+    // Smooth-scroll to the panel after a frame so layout is committed
+    requestAnimationFrame(() => {
+      panel.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
   }
 
   function backToStates(){
     panel.classList.remove('open');
+    panelBody.classList.remove('ready');
     panelBody.innerHTML = '';
     card.classList.remove('page-hidden');
     banner.classList.remove('page-hidden');
