@@ -468,6 +468,98 @@
         margin-top: 12px;
       }
 
+      /* ===== HERO INQUIRY FORM (3-slide) ===== */
+      .hero-form-card {
+        background: rgba(20, 14, 10, 0.55);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(243, 235, 221, 0.1);
+        border-radius: 16px;
+        padding: 32px 28px 28px;
+        margin-bottom: 0;
+      }
+      .v1-inq-title {
+        font-family: var(--heading);
+        font-size: 24px;
+        font-weight: 500;
+        color: #fff;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+      }
+      .v1-inq-lede {
+        font-size: 13px;
+        color: rgba(243, 235, 221, 0.7);
+        line-height: 1.55;
+        margin-bottom: 14px;
+      }
+      .v1-inq-progress {
+        font-family: var(--body);
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        color: var(--gold-light);
+        text-transform: uppercase;
+        margin-bottom: 22px;
+      }
+      .v1-inq-progress .sep {
+        margin: 0 6px;
+        opacity: 0.5;
+      }
+      .v1-inq-slide {
+        display: none;
+      }
+      .v1-inq-slide.active {
+        display: block;
+        animation: v1InqFade 0.5s ease both;
+      }
+      @keyframes v1InqFade {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .v1-inq-field {
+        margin-bottom: 14px;
+      }
+      .v1-inq-label {
+        display: block;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(243, 235, 221, 0.75);
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .v1-inq-field input,
+      .v1-inq-field textarea {
+        margin-bottom: 0;
+      }
+      .v1-inq-actions {
+        margin-top: 18px;
+      }
+      .v1-inq-note {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--gold-light);
+        text-align: center;
+        line-height: 1.55;
+        min-height: 1em;
+      }
+      .v1-inq-note.error {
+        color: #e8a9a9;
+      }
+      @media (max-width: 768px) {
+        .hero-form-card {
+          padding: 24px 20px 22px;
+        }
+        .v1-inq-title {
+          font-size: 22px;
+        }
+      }
+
       /* ===== ABOUT ===== */
       .about {
         padding: 80px 24px;
@@ -1410,8 +1502,8 @@
           font-size: 11px;
         }
         .hero-form-card {
-          padding: 0;
-          margin: 0 -8px;
+          padding: 24px 20px 22px;
+          margin: 0;
         }
         .about {
           padding: 48px 16px;
@@ -1537,19 +1629,71 @@
           </div>
         </div>
         <div class="hero-form-card">
-          <iframe
-            src="https://link.nilsdigital.com/widget/survey/b1hs6JDC3YZx5XUqa2oJ"
-            style="
-              border: none;
-              width: 100%;
-              height: 0;
-              display: block;
-            "
-            scrolling="no"
-            id="b1hs6JDC3YZx5XUqa2oJ_1750049400000"
-            title="VELUS Inquiry Survey"
-          ></iframe>
-          <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+          <div class="v1-inq-title">A Considered Beginning</div>
+          <p class="v1-inq-lede">Share your world with us. We will respond with clarity and direction.</p>
+          <div class="v1-inq-progress"><span id="v1SlideCurrent">01</span><span class="sep">/</span><span>03</span></div>
+          <form class="v1-inq-form" id="v1InquiryForm" onsubmit="event.preventDefault();v1SubmitSlide()">
+            <div class="v1-inq-slide active" data-slide="0">
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">What is your name?</label>
+                <input type="text" name="firstName" placeholder="Full name" required />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">What is your email address?</label>
+                <input type="email" name="email" placeholder="Email address" required />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">What is your phone number?</label>
+                <input type="tel" name="phone" placeholder="Phone number (optional)" />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">Where is your project located?</label>
+                <input type="text" name="location" placeholder="City, State" />
+              </div>
+              <div class="v1-inq-actions">
+                <button class="hero-form-btn" type="button" onclick="v1SubmitSlide()">Continue</button>
+              </div>
+            </div>
+            <div class="v1-inq-slide" data-slide="1">
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">What kind of project are you beginning?</label>
+                <input type="text" name="project_type" placeholder="Residential new build, renovation, or furnishing" />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">How developed is your project currently?</label>
+                <input type="text" name="project_stage" placeholder="Early concept / In progress / Ready to begin" />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">How do you imagine your space feeling?</label>
+                <textarea name="design_intent" placeholder="Describe the atmosphere you are hoping to create..."></textarea>
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">What direction are you naturally drawn to?</label>
+                <input type="text" name="design_direction" placeholder="Modern / Contemporary / Minimal / Classic / Eclectic" />
+              </div>
+              <div class="v1-inq-actions">
+                <button class="hero-form-btn" type="button" onclick="v1SubmitSlide()">Continue</button>
+              </div>
+            </div>
+            <div class="v1-inq-slide" data-slide="2">
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">How is the space intended to be lived in?</label>
+                <input type="text" name="lifestyle" placeholder="Family life / Entertaining / Primary / Secondary residence" />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">Have you worked with a designer before?</label>
+                <input type="text" name="prior_designer" placeholder="Yes / No / First collaboration" />
+              </div>
+              <div class="v1-inq-field">
+                <label class="v1-inq-label">What is your estimated budget range?</label>
+                <input type="text" name="estimated_budget" placeholder="Please share your budget range" required />
+              </div>
+              <div class="v1-inq-actions">
+                <button class="hero-form-btn" type="button" onclick="v1SubmitSlide()">Submit Inquiry</button>
+              </div>
+            </div>
+          </form>
+          <div class="v1-inq-note" id="v1SentNote"></div>
         </div>
       </div>
     </section>
@@ -2466,7 +2610,7 @@
         if (e.key === "ArrowRight") lbNavigate(1);
       });
 
-      /* ===== FORM MODAL ===== */
+      /* ===== FORM SCROLL ===== */
       function openForm() {
         if (window.innerWidth <= 768) {
           document.querySelector('.hero-form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -2474,10 +2618,123 @@
           document.getElementById('hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
-      function handleHeroForm(e) {
-        e.preventDefault();
-        alert("Thank you! We will be in touch within 24 hours.");
-        e.target.reset();
+
+      /* ===== GHL INQUIRY FORM (3 slides, upsert) ===== */
+      const V1_GHL_TOKEN = 'pit-def64e41-d4d8-4838-b956-c7fd30031cd2';
+      const V1_GHL_LOCATION_ID = 'dYpRMKt41LMBrYEUoeLG';
+      const V1_GHL_VERSION = '2021-07-28';
+
+      const V1_GHL_FIELD_MAP = {
+        location: 'where_is_your_project_located',
+        project_type: 'what_kind_of_project_are_you_beginning',
+        project_stage: 'how_developed_is_your_project_currently',
+        design_intent: 'how_do_you_imagine_your_space_feeling',
+        design_direction: 'what_direction_are_you_naturally_drawn_to',
+        lifestyle: 'how_is_the_space_intended_to_be_lived_in',
+        prior_designer: 'have_you_worked_with_a_designer_before',
+        estimated_budget: 'what_is_your_estimated_budget_range'
+      };
+
+      const V1_SLIDE_KEYS = [
+        [],
+        ['project_type', 'project_stage', 'design_intent', 'design_direction'],
+        ['lifestyle', 'prior_designer', 'estimated_budget']
+      ];
+      let v1SlideIdx = 0;
+      let v1LeadIdPromise = null;
+
+      function v1ShowSlide(i) {
+        document.querySelectorAll('#v1InquiryForm .v1-inq-slide').forEach(s => s.classList.remove('active'));
+        const s = document.querySelector(`#v1InquiryForm .v1-inq-slide[data-slide="${i}"]`);
+        if (s) s.classList.add('active');
+        const label = document.getElementById('v1SlideCurrent');
+        if (label) label.textContent = String(i + 1).padStart(2, '0');
+      }
+
+      async function v1UpsertContact(fd) {
+        const name = (fd.get('firstName') || '').trim();
+        const email = (fd.get('email') || '').trim();
+        const phone = (fd.get('phone') || '').trim();
+        const location = (fd.get('location') || '').trim();
+        const parts = name.split(' ');
+        const firstName = parts[0], lastName = parts.slice(1).join(' ') || '';
+        const customFields = [];
+        if (location) customFields.push({ key: V1_GHL_FIELD_MAP.location, field_value: location });
+        const payload = { locationId: V1_GHL_LOCATION_ID, firstName, lastName, email, ...(phone ? { phone } : {}), customFields };
+        const res = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + V1_GHL_TOKEN, 'Version': V1_GHL_VERSION, 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('GHL upsert ' + res.status);
+        const data = await res.json();
+        return (data && data.contact && data.contact.id) || null;
+      }
+
+      async function v1UpdateContact(fd, keys) {
+        const leadId = await v1LeadIdPromise;
+        if (!leadId) throw new Error('No lead ID');
+        const customFields = [];
+        keys.forEach(k => {
+          const v = (fd.get(k) || '').trim();
+          if (v) customFields.push({ key: V1_GHL_FIELD_MAP[k] || k, field_value: v });
+        });
+        if (!customFields.length) return;
+        const res = await fetch('https://services.leadconnectorhq.com/contacts/' + leadId, {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + V1_GHL_TOKEN, 'Version': V1_GHL_VERSION, 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ customFields })
+        });
+        if (!res.ok) throw new Error('GHL update ' + res.status);
+      }
+
+      async function v1SubmitSlide() {
+        const form = document.getElementById('v1InquiryForm');
+        const activeSlide = document.querySelector('#v1InquiryForm .v1-inq-slide.active');
+        const note = document.getElementById('v1SentNote');
+        const btn = activeSlide.querySelector('.hero-form-btn');
+        const fd = new FormData(form);
+
+        const required = activeSlide.querySelectorAll('[required]');
+        for (const f of required) {
+          if (!(f.value || '').trim()) {
+            note.textContent = 'Please complete the highlighted field.';
+            note.classList.add('error');
+            f.focus();
+            return;
+          }
+        }
+        note.textContent = '';
+        note.classList.remove('error');
+
+        if (v1SlideIdx === 0) {
+          v1LeadIdPromise = v1UpsertContact(fd);
+          v1LeadIdPromise.catch(err => console.error('Lead save failed:', err));
+          v1SlideIdx++;
+          v1ShowSlide(v1SlideIdx);
+          return;
+        }
+        if (v1SlideIdx === 1) {
+          v1UpdateContact(fd, V1_SLIDE_KEYS[1]).catch(err => console.error('Update failed:', err));
+          v1SlideIdx++;
+          v1ShowSlide(v1SlideIdx);
+          return;
+        }
+        const originalLabel = btn.textContent;
+        btn.disabled = true; btn.textContent = 'Sending…';
+        try {
+          await v1UpdateContact(fd, V1_SLIDE_KEYS[2]);
+          note.textContent = 'Thank you for sharing your project with us. Your inquiry has been received. We will review and respond with clarity and direction.';
+          note.classList.remove('error');
+          activeSlide.style.display = 'none';
+          document.querySelector('.v1-inq-progress').style.display = 'none';
+          btn.textContent = 'Sent';
+        } catch (err) {
+          console.error(err);
+          note.textContent = 'Something went wrong. Please email mandy@velusinteriors.com directly.';
+          note.classList.add('error');
+          btn.disabled = false; btn.textContent = originalLabel;
+        }
       }
     </script>
   </body>
