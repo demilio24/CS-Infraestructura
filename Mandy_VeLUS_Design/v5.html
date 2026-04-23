@@ -75,7 +75,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* NAV — DIOR */
 nav.top{position:fixed;top:0;width:100%;z-index:500;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 40px;height:88px;transition:background .4s ease,border-color .4s ease}
 nav.top.solid{background:#F6F3EF;border-bottom:1px solid rgba(26,26,26,.08)}
-nav.top.dark{background:linear-gradient(180deg,rgba(20,14,10,.42) 0%,transparent 100%)}
+nav.top.dark{background:linear-gradient(180deg,rgba(20,14,10,.82) 0%,rgba(20,14,10,.4) 55%,rgba(20,14,10,.12) 85%,transparent 100%)}
 nav.top.inverted{background:#1A1A1A;border-bottom:1px solid rgba(255,255,255,.06)}
 .nav-logo{display:grid;place-items:center;height:60px}
 .nav-logo img{grid-area:1/1;height:60px;width:auto;transition:opacity .4s ease}
@@ -86,7 +86,7 @@ nav.top.dark .nav-logo-light{opacity:1}
 nav.top.inverted .nav-logo-dark{opacity:0}
 nav.top.inverted .nav-logo-light{opacity:1}
 @media(max-width:768px){.nav-logo img{height:32px}.nav-logo{height:40px}}
-.nav-trigger{justify-self:end;margin-right:24px;font-size:35px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
+.nav-trigger{justify-self:end;margin-right:40px;font-size:35px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
 nav.top.dark .nav-trigger{color:#F3EBDD}
 nav.top.inverted .nav-trigger{color:#F3EBDD}
 .nav-trigger.open{transform:rotate(45deg)}
