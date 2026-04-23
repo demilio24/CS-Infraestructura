@@ -78,7 +78,7 @@ nav.top.solid{background:#F6F3EF;border-bottom:1px solid rgba(26,26,26,.08)}
 nav.top.dark{background:linear-gradient(180deg,rgba(20,14,10,.42) 0%,transparent 100%)}
 nav.top.inverted{background:#1A1A1A;border-bottom:1px solid rgba(255,255,255,.06)}
 .nav-logo{display:grid;place-items:center;height:46px}
-.nav-logo img{grid-area:1/1;height:40px;width:auto;transition:opacity .4s ease}
+.nav-logo img{grid-area:1/1;height:60px;width:auto;transition:opacity .4s ease}
 .nav-logo-dark{opacity:1}
 .nav-logo-light{opacity:0}
 nav.top.dark .nav-logo-dark{opacity:0}
@@ -86,7 +86,7 @@ nav.top.dark .nav-logo-light{opacity:1}
 nav.top.inverted .nav-logo-dark{opacity:0}
 nav.top.inverted .nav-logo-light{opacity:1}
 @media(max-width:768px){.nav-logo img{height:27px}.nav-logo{height:33px}}
-.nav-trigger{justify-self:end;margin-right:40px;font-size:35px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
+.nav-trigger{justify-self:end;margin-right:24px;font-size:35px;font-weight:300;line-height:1;padding:6px;transition:color .4s ease,transform .45s ease}
 nav.top.dark .nav-trigger{color:#F3EBDD}
 nav.top.inverted .nav-trigger{color:#F3EBDD}
 .nav-trigger.open{transform:rotate(45deg)}
@@ -144,8 +144,8 @@ section.statement{padding:40px 24px 60px;text-align:center;background:#F6F3EF}
 section.monogram + section.statement{padding-top:0}
 section.statement + section.work-section{padding-top:0}
 section.testimonies-section + section.finalcta{padding-top:0}
-section.statement h1{font-family:'Canela',var(--serif);font-weight:400;font-size:clamp(26px,3.5vw,38px);letter-spacing:.22em;text-transform:uppercase;line-height:1.1}
-section.statement .body{max-width:640px;margin:52px auto 0;padding:0 24px;text-align:center;font-size:clamp(14px,1.1vw,17px);line-height:1.7;font-weight:300;text-wrap:balance}
+section.statement h1{font-family:'Canela',var(--serif);font-weight:400;font-size:30px;letter-spacing:.22em;text-transform:uppercase;line-height:1.1}
+section.statement .body{max-width:640px;margin:52px auto 0;padding:0 24px;text-align:center;font-size:16px;line-height:1.7;font-weight:300;text-wrap:balance}
 section.statement .body p{padding:0}
 section.statement .body p+p{margin-top:22px}
 section.statement .cta-wrap{margin-top:60px}
@@ -157,16 +157,16 @@ section.work-section{padding:60px 0 60px;background:#F6F3EF}
 .section-head hr.rule{margin-bottom:28px}
 .section-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,2.6vw,38px);letter-spacing:.08em;text-transform:uppercase;line-height:1.15;margin-top:16px}
 .lede{max-width:600px;margin-top:36px;font-size:clamp(14px,1.1vw,17px);line-height:1.65;font-weight:300;text-wrap:balance}
-.section-foot{max-width:1280px;margin:60px auto 0;padding:0 40px}
+.section-foot{max-width:1280px;margin:20px auto 0;padding:0 40px}
+.section-foot .cta{letter-spacing:.18em;font-size:14px}
 .work-section .section-head{max-width:760px;margin:0 auto 84px;padding:0 40px;text-align:center}
 .work-section .section-head .lede{max-width:600px;margin-left:auto;margin-right:auto;margin-top:28px;font-size:clamp(14px,1.1vw,17px);line-height:1.7;font-weight:300;text-wrap:balance}
 .work-section .section-head .lede + .lede{margin-top:14px}
 
 /* OUR WORK — exactly 2 full-width images */
-.work-stack{display:flex;flex-direction:column;gap:60px}
-.work-img{width:100%;aspect-ratio:16/9;overflow:hidden;position:relative}
-.work-img .inner{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1.8s cubic-bezier(.2,.7,.25,1)}
-.work-img:hover .inner{transform:scale(1.02)}
+.work-stack{display:flex;flex-direction:column;gap:24px}
+.work-img{width:100%;position:relative;margin:12px 0}
+.work-img img{width:100%;height:auto;object-fit:contain;display:block}
 
 /* EDITORIAL BAND */
 section.editorial{background:var(--editorial)!important;padding:120px 40px}
@@ -455,10 +455,10 @@ body.locked{overflow:hidden}
     </div>
     <div class="work-stack">
       <div class="work-img fu" data-project="1">
-        <div class="inner" style="background-image:url('https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1c7256df-d77f-4db9-b571-2df8f0dca30b.jpeg')"></div>
+        <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/1c7256df-d77f-4db9-b571-2df8f0dca30b.jpeg" alt="Featured project" loading="lazy" />
       </div>
       <div class="work-img fu d1" data-project="5">
-        <div class="inner" style="background-image:url('https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/caa7beca-5db1-4872-98fc-ceaa6ffd41c1.jpeg')"></div>
+        <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/caa7beca-5db1-4872-98fc-ceaa6ffd41c1.jpeg" alt="Featured project" loading="lazy" />
       </div>
     </div>
     <div class="section-foot fu d2"><a href="#collections" class="cta" data-nav>View Collections</a></div>
