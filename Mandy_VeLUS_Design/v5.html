@@ -194,9 +194,12 @@ section.testimonies-section{padding:60px 0;background:#F6F3EF}
 .testimonies .t-full{grid-template-rows:0fr;opacity:0}
 .testimonies .t.open .t-short{grid-template-rows:0fr;opacity:0}
 .testimonies .t.open .t-full{grid-template-rows:1fr;opacity:1;transition:grid-template-rows .65s cubic-bezier(0.22,1,0.36,1),opacity .45s ease .12s}
-.t-toggle{display:inline-block;margin-top:18px;font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--choc);opacity:.72;padding:0 0 4px;border:0;border-bottom:1px solid rgba(74,47,36,.4);cursor:pointer;transition:opacity .3s ease}
+.t-toggle{display:inline-block;margin-top:32px;font-family:var(--body);font-size:15px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#1A1A1A;opacity:.85;padding:0 16px 6px;border:0;border-bottom:1px solid rgba(26,26,26,.45);cursor:pointer;transition:opacity .3s ease;min-width:160px}
 .t-toggle:hover{opacity:1}
-.testimonies cite{display:block;margin-top:28px;font-family:var(--body);font-weight:500;font-style:normal;font-size:15px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.t-toggle-icon{display:inline-block;margin-right:4px}
+.testimonies cite{display:block;margin-top:32px;font-family:var(--body);font-weight:500;font-style:normal;font-size:15px;letter-spacing:.22em;text-transform:uppercase;color:#1A1A1A;opacity:.7}
+.testimonies cite .t-name,.testimonies cite .t-loc{display:block}
+.testimonies cite .t-loc{margin-top:10px}
 .testimonies .t+.t{margin-top:80px;padding-top:80px;border-top:1px solid #D0D0D0}
 
 /* FINAL CTA */
@@ -500,33 +503,17 @@ body.locked{overflow:hidden}
 
   <section class="testimonies-section">
     <div class="testimonies-head">
-      <h2 class="fu">Reflections</h2>
-      <hr class="rule fu"/>
+      <h2>Reflection</h2>
+      <hr class="rule"/>
     </div>
     <div class="testimonies">
-      <div class="t fu">
+      <div class="t">
         <blockquote>
-          <span class="t-short"><span class="t-inner">"From the start, we trusted Mandy to bring our vision to life, and we couldn't be happier with the results."</span></span>
-          <span class="t-full"><span class="t-inner">"We recently moved into a beautiful home in Lincoln Park and hired VELUS Interiors to help renovate multiple spaces, including all the bathrooms, our master bedroom, dining room, and living room. From the start, we trusted Mandy to bring our vision to life, and we couldn't be happier with the results. The designs are not only kid-friendly, but they also strike the perfect balance of fun, edgy, and sophisticated elements. We truly appreciate Mandy's careful selection of materials, colors, and furnishings that fit our family's needs while also elevating the style of our home. Highly recommend VELUS Interiors for anyone looking for a thoughtful and beautiful transformation!"</span></span>
+          <span class="t-short"><span class="t-inner">&ldquo;From the start, we trusted Mandy to bring our vision to life, and we couldn&rsquo;t be happier with the result.&rdquo;</span></span>
+          <span class="t-full"><span class="t-inner">&ldquo;We recently moved into a beautiful home in Lincoln Park and hired VELUS Interiors to help renovate multiple spaces, including all the bathrooms, our master bedroom, dining room, and living room. From the start, we trusted Mandy to bring our vision to life, and we couldn&rsquo;t be happier with the result. The designs are not only kid-friendly, but they also strike the perfect balance of fun, edgy, and sophisticated elements. We truly appreciate Mandy&rsquo;s careful selection of materials, colors, and furnishings that fit our family&rsquo;s needs while also elevating the style of our home. Highly recommend VELUS Interiors for anyone looking for a thoughtful and beautiful transformation!&rdquo;</span></span>
         </blockquote>
-        <button type="button" class="t-toggle" aria-expanded="false">Read full review</button>
-        <cite>Nicole Karkalis &middot; Lincoln Park</cite>
-      </div>
-      <div class="t fu">
-        <blockquote>
-          <span class="t-short"><span class="t-inner">"The process was seamless. Highly recommend her for custom kitchen remodels and home renovations in Chicago."</span></span>
-          <span class="t-full"><span class="t-inner">"We worked with Mandy Velus for a condo renovation in Lakeview, Chicago. She redesigned our kitchen with custom cabinetry and premium finishes, created a stunning fireplace, and updated our flooring with sleek hardwood. The process was seamless. Highly recommend her for custom kitchen remodels and home renovations in Chicago."</span></span>
-        </blockquote>
-        <button type="button" class="t-toggle" aria-expanded="false">Read full review</button>
-        <cite>Helen &amp; Terry &middot; Lakeview, Chicago</cite>
-      </div>
-      <div class="t fu">
-        <blockquote>
-          <span class="t-short"><span class="t-inner">"The personalized service and attention to detail were exceptional. For custom bedroom design and full interior design services in Atlanta and Chicago, I highly recommend VELUS Interiors."</span></span>
-          <span class="t-full"><span class="t-inner">"Mandy at VELUS Interiors transformed my bedroom in Atlanta with moody tones and artistic elements that reflect my adventurous style. The personalized service and attention to detail were exceptional. For custom bedroom design and full interior design services in Atlanta and Chicago, I highly recommend VELUS Interiors."</span></span>
-        </blockquote>
-        <button type="button" class="t-toggle" aria-expanded="false">Read full review</button>
-        <cite>Roni &middot; Atlanta</cite>
+        <cite><span class="t-name">Nicole Karkalis</span><span class="t-loc">Lincoln Park</span></cite>
+        <button type="button" class="t-toggle" aria-expanded="false"><span class="t-toggle-icon">+</span>&nbsp;<span class="t-toggle-label">Read More</span></button>
       </div>
     </div>
   </section>
@@ -879,7 +866,10 @@ document.querySelectorAll('.t-toggle').forEach(btn=>{
     const t=btn.closest('.t');
     const open=t.classList.toggle('open');
     btn.setAttribute('aria-expanded',open?'true':'false');
-    btn.textContent=open?'Show less':'Read full review';
+    const icon=btn.querySelector('.t-toggle-icon');
+    const label=btn.querySelector('.t-toggle-label');
+    if(icon) icon.textContent = open ? '–' : '+';
+    if(label) label.textContent = open ? 'Read Less' : 'Read More';
   });
 });
 
