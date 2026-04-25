@@ -188,28 +188,30 @@ section, .section,
       .hero {
         position: relative;
         background:
-        /* Bottom fade — blue holds strong, then blends into #eef5ff */
+        /* Bottom fade into next section's light bg */
           linear-gradient(
             180deg,
-            transparent 55%,
-            rgba(238, 245, 255, 0.25) 80%,
-            rgba(238, 245, 255, 0.65) 92%,
+            transparent 78%,
+            rgba(238, 245, 255, 0.18) 92%,
             #eef5ff 100%
           ),
-          /* Bright blue corner glows */
+          /* V2 glow stack: blue top-center, purple bottom-left, cyan bottom-right */
           radial-gradient(
-              ellipse 70% 85% at 0% 0%,
-              rgba(30, 140, 255, 0.95) 0%,
-              rgba(4, 107, 210, 0.55) 45%,
-              transparent 65%
-            ),
-          radial-gradient(
-            ellipse 70% 85% at 100% 0%,
-            rgba(30, 140, 255, 0.95) 0%,
-            rgba(4, 107, 210, 0.55) 45%,
-            transparent 65%
+            ellipse 80% 60% at 50% 0%,
+            rgba(0, 102, 255, 0.35) 0%,
+            transparent 60%
           ),
-          /* Base: real blue, not near-black */ #0447a8;
+          radial-gradient(
+            ellipse 80% 60% at 0% 100%,
+            rgba(120, 60, 255, 0.22) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 80% 60% at 100% 100%,
+            rgba(0, 200, 255, 0.18) 0%,
+            transparent 60%
+          ),
+          /* Base: deep navy */ #06080f;
         padding: 56px 24px 80px;
         text-align: center;
         overflow: hidden;
@@ -268,17 +270,29 @@ section, .section,
       }
 
       .hero-eyebrow {
-        display: inline-block;
-        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
         font-weight: 700;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.88);
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: rgba(120, 200, 255, 0.95);
+        background: rgba(0, 120, 255, 0.08);
+        border: 1px solid rgba(120, 200, 255, 0.22);
         border-radius: 100px;
-        padding: 7px 22px;
-        margin-bottom: 22px;
+        padding: 8px 18px;
+        margin-bottom: 26px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .hero-eyebrow::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #34d399;
+        box-shadow: 0 0 10px #34d399;
       }
       .hero-h1 {
         font-size: clamp(28px, 3.8vw, 52px);
@@ -292,15 +306,21 @@ section, .section,
       .h1-line {
         display: block;
       }
-      /* Final line of the H1 — same bold weight + color, slightly smaller for hierarchy */
+      /* Final line of the H1 — equal weight + size as the lead, "website funnel + Google Ads" gets a blue gradient highlight */
       .hero-h1-tail {
         display: block;
-        margin-top: 10px;
-        font-size: 0.78em;
+        margin-top: 14px;
+        font-size: 1em;
         font-weight: 700;
         color: #fff;
-        letter-spacing: -0.015em;
-        line-height: 1.25;
+        letter-spacing: -0.035em;
+        line-height: 1.08;
+      }
+      .hero-h1-tail .accent {
+        background: linear-gradient(180deg, #aedcff 0%, #6bb6ff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
       .hero-sub {
         font-size: 16px;
@@ -338,27 +358,40 @@ section, .section,
         flex-shrink: 0;
       }
 
-      /* Fire badge, "4x more clients" white pill */
-      /* ── 4x badge ────────────────────────────────── */
+      /* "4X more clients" badge — glassmorphic frosted card on dark hero */
       .fire-badge {
         display: inline-flex;
         align-items: center;
         gap: 3px;
-        background: #fff;
-        color: var(--blue);
-        font-weight: 700;
-        padding: 5px 14px;
-        border-radius: 9px;
+        color: #fff;
+        font-weight: 800;
+        padding: 4px 18px;
+        border-radius: 12px;
         position: relative;
         cursor: default;
         white-space: nowrap;
         font-size: inherit;
         line-height: 1.1;
+        border: 1px solid rgba(120, 200, 255, 0.4);
+        background-image: linear-gradient(180deg, rgba(120, 200, 255, 0.18), rgba(0, 100, 255, 0.08));
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          0 0 32px rgba(0, 120, 255, 0.45);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .fire-badge .badge-num {
+        background: linear-gradient(180deg, #fff 0%, #aedcff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
       .fire-badge sup {
         font-size: 0.55em;
         opacity: 0.7;
         vertical-align: super;
+        background: none;
+        -webkit-text-fill-color: #aedcff;
       }
 
       /* Global tooltip, injected into body by JS */
@@ -913,7 +946,7 @@ section, .section,
       }
       .hero-disclaimer {
         font-size: 12px;
-        color: rgba(10, 10, 10, 0.5);
+        color: rgba(255, 255, 255, 0.6);
         margin-top: 12px;
         font-weight: 500;
       }
@@ -4198,8 +4231,13 @@ section, .section,
           padding: 6px 16px;
         }
         .hero-h1 {
-          font-size: clamp(22px, 5.8vw, 34px);
+          font-size: clamp(22px, 6.6vw, 34px);
         }
+        .fire-badge {
+          padding: 2px 12px;
+          border-radius: 9px;
+        }
+        .hero-h1-tail { margin-top: 12px; }
         .section-h,
         .section-h-white,
         .diff-closing-h,
@@ -4376,11 +4414,10 @@ section, .section,
           <span
             class="fire-badge"
             data-tip="Our clients on average see four times a higher conversion rate than their previous website."
-            >4X more clients<sup>*</sup></span
+            ><span class="badge-num">4X more clients</span><sup>*</sup></span
           >
-          guaranteed
           <span class="hero-h1-tail"
-            >with a simple website funnel + Google Ads system</span
+            >with a simple <span class="accent">website funnel + Google Ads</span> system</span
           >
         </h1>
 
