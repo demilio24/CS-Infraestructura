@@ -188,7 +188,14 @@ section, .section,
       .hero {
         position: relative;
         background:
-        /* Bottom fade — blue holds strong, then blends into #eef5ff */
+        /* Top darken — boosts white-text contrast over the eyebrow + headline */
+          linear-gradient(
+            180deg,
+            rgba(0, 12, 40, 0.32) 0%,
+            rgba(0, 12, 40, 0.14) 22%,
+            transparent 42%
+          ),
+          /* Bottom fade — blue holds strong, then blends into #eef5ff */
           linear-gradient(
             180deg,
             transparent 55%,
