@@ -1,0 +1,46 @@
+Subject: COLLECTIONS/
+From: mandy@velusinteriors.com
+Date: 2026-04-24
+============================================================
+
+Job Title: bleeds into the photo
+
+  *   Add a subtle dark gradient overlay at the bottom of the image
+  *   Gradient should be transparent at top and darker at bottom
+  *   Keep it soft, not heavy
+  *   Move title up slightly from the browser bar
+  *   Make title color pure white: #FFFFFF
+  *   Add very subtle text shadow for readability
+  *   Keep title and location left aligned
+
+CSS direction:
+
+.project-image::after {
+
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0));
+}
+
+.project-title,
+.project-location {
+  color: #FFFFFF;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.35);
+  position: relative;
+  z-index: 2;
+}
+
+
+
+Mandy VeLUS
+Principal Designer & Founder
+
+[signatureImage]
+Chicago, Illinois 60607
+Phone: +1 (954) 540-9039
+Website: www.velusinteriors.com
+Instagram: www.instagram.com/velusinteriors
