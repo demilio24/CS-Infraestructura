@@ -287,9 +287,20 @@ section, .section,
         line-height: 1.15;
         margin-bottom: 16px;
         letter-spacing: -0.02em;
+        text-wrap: balance;
       }
       .h1-line {
         display: block;
+      }
+      /* Smaller qualifier line at the end of the H1 — keeps the bold lead tight */
+      .hero-h1-tail {
+        display: block;
+        margin-top: 10px;
+        font-size: 0.6em;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.82);
+        letter-spacing: -0.01em;
+        line-height: 1.35;
       }
       .hero-sub {
         font-size: 16px;
@@ -4187,7 +4198,7 @@ section, .section,
           padding: 6px 16px;
         }
         .hero-h1 {
-          font-size: clamp(24px, 6.5vw, 36px);
+          font-size: clamp(22px, 5.8vw, 34px);
         }
         .section-h,
         .section-h-white,
@@ -4361,14 +4372,15 @@ section, .section,
         </div>
 
         <h1 class="hero-h1 anim d1">
-          <span class="h1-line">Find out if a website funnel + Google Ads</span>
-          <span class="h1-line"
-            >could guarantee you
-            <span
-              class="fire-badge"
-              data-tip="Our clients on average see four times a higher conversion rate than their previous website."
-              >4x more clients<sup>*</sup></span
-            ></span
+          Find out if you could be getting
+          <span
+            class="fire-badge"
+            data-tip="Our clients on average see four times a higher conversion rate than their previous website."
+            >4X more clients<sup>*</sup></span
+          >
+          guaranteed
+          <span class="hero-h1-tail"
+            >with a simple website funnel + Google Ads system</span
           >
         </h1>
 
