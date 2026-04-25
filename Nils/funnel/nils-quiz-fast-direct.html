@@ -188,30 +188,28 @@ section, .section,
       .hero {
         position: relative;
         background:
-        /* Bottom fade into next section's light bg */
+        /* Bottom fade — blue holds strong, then blends into #eef5ff */
           linear-gradient(
             180deg,
-            transparent 78%,
-            rgba(238, 245, 255, 0.18) 92%,
+            transparent 55%,
+            rgba(238, 245, 255, 0.25) 80%,
+            rgba(238, 245, 255, 0.65) 92%,
             #eef5ff 100%
           ),
-          /* V2 glow stack: blue top-center, purple bottom-left, cyan bottom-right */
+          /* Bright blue corner glows */
           radial-gradient(
-            ellipse 80% 60% at 50% 0%,
-            rgba(0, 102, 255, 0.35) 0%,
-            transparent 60%
-          ),
+              ellipse 70% 85% at 0% 0%,
+              rgba(30, 140, 255, 0.95) 0%,
+              rgba(4, 107, 210, 0.55) 45%,
+              transparent 65%
+            ),
           radial-gradient(
-            ellipse 80% 60% at 0% 100%,
-            rgba(120, 60, 255, 0.22) 0%,
-            transparent 60%
+            ellipse 70% 85% at 100% 0%,
+            rgba(30, 140, 255, 0.95) 0%,
+            rgba(4, 107, 210, 0.55) 45%,
+            transparent 65%
           ),
-          radial-gradient(
-            ellipse 80% 60% at 100% 100%,
-            rgba(0, 200, 255, 0.18) 0%,
-            transparent 60%
-          ),
-          /* Base: deep navy */ #06080f;
+          /* Base: real blue, not near-black */ #0447a8;
         padding: 56px 24px 80px;
         text-align: center;
         overflow: hidden;
@@ -946,7 +944,7 @@ section, .section,
       }
       .hero-disclaimer {
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(10, 10, 10, 0.5);
         margin-top: 12px;
         font-weight: 500;
       }
