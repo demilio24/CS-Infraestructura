@@ -4302,6 +4302,54 @@ section, .section,
           text-align: left;
         }
       }
+
+      /* ── Mobile calendar stage ─────────────────────────
+         Lives OUTSIDE #ghl-breakout so the GHL booking iframe gets a single,
+         clean scroll context on iOS. Three-deep nested scroll containers
+         (breakout → quiz card → scalendar) made the widget hard to scroll. */
+      #mobile-cal-stage {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: #fff;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        font-family: var(--font-main);
+      }
+      #mobile-cal-stage.open { display: block; }
+      #mobile-cal-stage .m-cal-header {
+        padding: 22px 18px 6px;
+        background: #fff;
+      }
+      #mobile-cal-stage .m-cal-eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #046bd2;
+        margin: 0 0 6px;
+      }
+      #mobile-cal-stage .m-cal-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #111;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        margin: 0 0 6px;
+      }
+      #mobile-cal-stage .m-cal-sub {
+        font-size: 13px;
+        color: #555;
+        line-height: 1.55;
+        margin: 0 0 8px;
+      }
+      #mobile-cal-stage iframe {
+        display: block;
+        width: 100%;
+        border: 0;
+        min-height: 1100px;
+      }
     </style>
 
 <div id="ghl-breakout">
@@ -6837,6 +6885,25 @@ section, .section,
       }
 
       function showCalendar() {
+        // Mobile: render the calendar in a separate top-level container outside
+        // #ghl-breakout so it gets a single, clean scroll context on iOS.
+        const isMobile = window.matchMedia("(max-width: 640px)").matches;
+        if (isMobile) {
+          const mIframe = document.getElementById("mobile-cal-iframe");
+          if (mIframe && mIframe.src.indexOf("widget/booking") === -1) {
+            mIframe.src = QUIZ_CAL_URL;
+          }
+          const stage = document.getElementById("mobile-cal-stage");
+          if (stage) {
+            stage.classList.add("open");
+            stage.setAttribute("aria-hidden", "false");
+          }
+          // Stop the page underneath from being a competing scroll context
+          const breakout = document.getElementById("ghl-breakout");
+          if (breakout) breakout.style.setProperty("overflow", "hidden", "important");
+          return;
+        }
+
         const iframe = document.getElementById("quiz-cal-iframe");
         if (iframe && iframe.src.indexOf("widget/booking") === -1) {
           iframe.src = QUIZ_CAL_URL;
@@ -7408,3 +7475,18 @@ section, .section,
       });
     </script>
 </div><!-- /ghl-breakout -->
+
+<!-- Mobile calendar stage — outside #ghl-breakout so the GHL booking widget has its own scroll context on iOS -->
+<div id="mobile-cal-stage" aria-hidden="true">
+  <div class="m-cal-header">
+    <p class="m-cal-eyebrow">You qualify 🎉</p>
+    <p class="m-cal-title">You're a fit. Grab a time below.</p>
+    <p class="m-cal-sub">Free strategy call. We'll show you what a campaign would look like for your business, what results to expect, and what it costs.</p>
+  </div>
+  <iframe
+    id="mobile-cal-iframe"
+    src="about:blank"
+    scrolling="yes"
+    title="Schedule your strategy call"
+  ></iframe>
+</div>
