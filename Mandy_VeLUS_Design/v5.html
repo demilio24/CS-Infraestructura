@@ -63,14 +63,14 @@
   /* H1 and H2 share the Our Work mobile spec: 30px Canela uppercase, .04em */
   --fs-h1: 30px;
   --fs-h2: 30px;
-  --fs-p: 17px;
+  --fs-p: 18px;
   --fs-cta: 13px;
 }
 @media(min-width:769px){
   :root{
     --fs-h1: 34px;
     --fs-h2: 34px;
-    --fs-p: 17px;
+    --fs-p: 18px;
     --fs-cta: 13px;
   }
 }
@@ -82,10 +82,12 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* TYPOGRAPHY BASE — every section inherits these */
-h1,.h1{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);line-height:1.15;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-h2,.h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);line-height:1.15;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
-h3,.h3{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);line-height:1.2;letter-spacing:.01em;color:var(--ink)}
-p,.p{font-family:var(--body);font-weight:400;font-size:var(--fs-p);line-height:1.55;letter-spacing:.01em;color:#2B2B2B}
+/* text-wrap: balance distributes title text evenly across lines.
+   text-wrap: pretty prevents single-word widows at the end of paragraphs. */
+h1,.h1{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);line-height:1.15;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-wrap:balance}
+h2,.h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);line-height:1.15;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);text-wrap:balance}
+h3,.h3{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);line-height:1.2;letter-spacing:.01em;color:var(--ink);text-wrap:balance}
+p,.p{font-family:var(--body);font-weight:400;font-size:var(--fs-p);line-height:1.55;letter-spacing:.01em;color:#2B2B2B;text-wrap:pretty}
 .cta,.eyebrow,.label{font-family:var(--body);font-weight:400;font-size:var(--fs-cta);line-height:1;letter-spacing:.22em;text-transform:uppercase;color:var(--ink)}
 
 /* ENTRY */
@@ -108,11 +110,12 @@ nav.top.dark .nav-logo-light{opacity:1;filter:drop-shadow(0 2px 10px rgba(0,0,0,
 nav.top.inverted .nav-logo-dark{opacity:0}
 nav.top.inverted .nav-logo-light{opacity:1}
 @media(max-width:768px){.nav-logo img{height:33px}.nav-logo{height:42px}}
-.nav-trigger{justify-self:end;margin-right:40px;font-size:35px;font-weight:300;line-height:1;padding:6px;display:flex;align-items:center;justify-content:center;height:42px;width:42px;transition:color .4s ease,transform .45s ease}
+.nav-trigger{justify-self:end;margin-right:40px;font-size:32px;font-weight:300;line-height:1;padding:6px;display:flex;align-items:center;justify-content:center;height:42px;width:42px;transform:translateY(-7px);transition:color .4s ease,transform .45s ease}
 nav.top.dark .nav-trigger{color:#F3EBDD}
 nav.top.inverted .nav-trigger{color:#F3EBDD}
-.nav-trigger.open{transform:rotate(45deg)}
-@media(max-width:768px){nav.top{padding:0 24px;height:68px}.nav-logo{font-size:11px;letter-spacing:.28em}.nav-trigger{margin-right:8px}}
+.nav-trigger.open{transform:translateY(-4px) rotate(45deg)}
+@media(max-width:768px){.nav-trigger.open{transform:translate(4px,-8px) rotate(45deg)}}
+@media(max-width:768px){nav.top{padding:0 24px;height:68px}.nav-logo{font-size:11px;letter-spacing:.28em}.nav-trigger{margin-right:0;font-size:32px;transform:translate(4px,-8px)}}
 
 /* MENU OVERLAY */
 .menu-overlay{position:fixed;inset:0;background:#F6F3EF;z-index:400;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .65s ease}
@@ -156,8 +159,8 @@ h1,h2,h3,p{margin:0}
 section.hero{position:relative;height:100vh;min-height:680px;width:100%;overflow:hidden;background:#1e1612;padding:0}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,10,.05) 0%,rgba(20,14,10,.06) 55%,rgba(20,14,10,.08) 100%);z-index:1}
-.hero-scroll{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:3;font-family:var(--ui);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#F3EBDD;opacity:.95}
-.hero-scroll::after{content:"";display:block;width:.5px;height:24px;background:#F3EBDD;margin:10px auto 0;opacity:.85}
+.hero-scroll{position:absolute;left:50%;bottom:4px;transform:translateX(-50%);z-index:3;font-family:var(--serif);font-size:var(--fs-cta);letter-spacing:.22em;text-transform:uppercase;color:#FFFFFF;opacity:.95;text-shadow:0 1px 8px rgba(0,0,0,.35)}
+.hero-scroll::after{content:"";display:block;width:.5px;height:24px;background:#FFFFFF;margin:10px auto 0;opacity:.85;box-shadow:0 1px 8px rgba(0,0,0,.35)}
 
 /* V MONOGRAM SVG */
 section.monogram{padding:40px 24px 40px;text-align:center;background:#F6F3EF}
@@ -201,7 +204,7 @@ section.editorial .eyebrow{color:#2A1E1A;opacity:.75}
 section.editorial h3{font-family:var(--serif);font-size:var(--fs-h2);font-weight:400;margin-top:22px;color:#2A1E1A;line-height:1.2;letter-spacing:.01em;text-transform:none}
 section.editorial p{margin-top:24px;font-size:var(--fs-p);line-height:1.55;color:#2A1E1A;opacity:.9;font-weight:400;letter-spacing:.01em}
 section.editorial .img{align-self:stretch;width:100%;height:auto;margin:-120px 0;background-size:cover;background-position:center}
-@media(max-width:860px){section.editorial{padding:60px 52px}section.editorial .wrap{grid-template-columns:1fr;gap:50px}section.editorial h3{margin-top:0}section.editorial .img{aspect-ratio:4/5;align-self:auto;height:auto;margin:0 -52px;width:calc(100% + 104px)}}
+@media(max-width:860px){section.editorial{padding:60px 52px}section.editorial .wrap{grid-template-columns:1fr;gap:50px}section.editorial h3{margin-top:0}section.editorial .img{aspect-ratio:4/5;align-self:auto;height:auto;margin:0;width:100%}}
 
 /* TESTIMONIES */
 section.testimonies-section{padding:60px 0;background:#F6F3EF}
@@ -223,6 +226,10 @@ section.testimonies-section{padding:60px 0;background:#F6F3EF}
 .testimonies cite .t-name,.testimonies cite .t-loc{display:block}
 .testimonies cite .t-loc{margin-top:10px}
 .testimonies .t+.t{margin-top:80px;padding-top:80px;border-top:1px solid #D0D0D0}
+.testimonies .t-extras{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .65s cubic-bezier(0.22,1,0.36,1),opacity .45s ease}
+.testimonies .t-extras>.t-extras-inner{overflow:hidden;min-height:0}
+.testimonies.expanded .t-extras{grid-template-rows:1fr;opacity:1;transition:grid-template-rows .65s cubic-bezier(0.22,1,0.36,1),opacity .45s ease .12s}
+.testimonies .t-extras-inner>.t-extra:first-child{margin-top:80px;padding-top:80px;border-top:1px solid #D0D0D0}
 
 /* FINAL CTA */
 section.finalcta{padding:100px 24px 100px;text-align:center;background:#F6F3EF;border-top:1px solid #D0D0D0}
@@ -234,17 +241,16 @@ section.finalcta .cta-wrap{margin-top:50px}
 section.finalcta .cta{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.22em;font-weight:400}
 
 /* FOOTER — centered, identical across all pages */
-footer{padding:80px 40px 40px;border-top:1px solid #D0D0D0;background:#F6F3EF}
-footer .wrap{max-width:720px;margin:0 auto;text-align:center}
-footer .footer-brand{font-family:var(--serif);font-size:var(--fs-h2);font-weight:400;letter-spacing:.04em;text-transform:uppercase;color:#1A1A1A;margin-bottom:28px;line-height:1.15}
-footer .footer-info{display:flex;flex-direction:column;align-items:center;gap:18px}
-footer .footer-info .line{font-family:var(--body);font-size:var(--fs-p);line-height:1.55;color:#2B2B2B;opacity:.88}
+footer{padding:36px 0 18px;border-top:1px solid #D0D0D0;background:#F6F3EF;text-align:center}
+footer .wrap{max-width:560px;margin:0 auto;padding:0 24px;text-align:center}
+footer .footer-brand{margin-bottom:14px;display:flex;justify-content:center}
+footer .footer-logo{height:60px;width:auto;display:block}
+footer .footer-info{display:flex;flex-direction:column;align-items:center;gap:6px}
+footer .footer-info .line{font-family:var(--body);font-size:var(--fs-cta);line-height:1.45;color:#2B2B2B;opacity:.72;letter-spacing:.02em;font-weight:400;text-transform:none}
 footer .footer-info a.line:hover{opacity:1}
-footer .footer-ig{margin-top:30px}
-footer .footer-ig a{font-family:var(--body);font-size:var(--fs-p);line-height:1.55;color:#1A1A1A;font-weight:500;letter-spacing:.01em;opacity:.95}
-footer .footer-ig a:hover{opacity:1}
-footer .copyright{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.04em;color:#2B2B2B;opacity:.55;margin-top:42px;padding-top:24px;border-top:1px solid #D0D0D0;text-transform:none}
-@media(max-width:768px){footer{padding:60px 24px 40px}}
+footer .footer-divider{width:100%;height:1px;background:rgba(208,208,208,.6);border:0;margin:16px 0 12px;display:block}
+footer .copyright{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.04em;color:#2B2B2B;opacity:.45;text-transform:none}
+@media(max-width:768px){footer{padding:30px 0 18px}footer .footer-logo{height:33px}}
 
 /* COLLECTIONS */
 #page-collections{padding:88px 0 0;background:#F6F3EF}
@@ -348,18 +354,18 @@ section.monogram + .svc-list{margin-top:0}
 .svc-trigger::after{content:"+";margin-left:auto;font-family:var(--body);font-size:18px;font-weight:300;opacity:.55;line-height:1;transition:transform .4s ease,opacity .3s ease,content 0s}
 .svc-trigger:hover::after{opacity:.9}
 .svc-item.open .svc-trigger::after{content:"\2212";opacity:.9}
-.svc-body{font-size:var(--fs-p);line-height:1.55;font-weight:400;opacity:0;max-height:0;overflow:hidden;padding-bottom:0;max-width:640px;transition:max-height .5s ease,opacity .4s ease,padding-bottom .4s ease;text-wrap:balance}
+.svc-body{font-size:var(--fs-p);line-height:1.55;font-weight:400;opacity:0;max-height:0;overflow:hidden;padding-bottom:0;max-width:640px;transition:max-height .5s ease,opacity .4s ease,padding-bottom .4s ease;text-align:justify;text-wrap:auto;hyphens:auto}
 .svc-item.open .svc-body{opacity:1;max-height:400px;padding-bottom:36px}
 section.visual-break{padding:0;overflow:hidden}
 section.visual-break img{width:100%;display:block;object-fit:cover}
-.process-wrap{max-width:720px;margin:0 auto;padding:60px 40px 40px}
+.process-wrap{max-width:720px;margin:0 auto;padding:60px 40px 0}
 .process-wrap h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);letter-spacing:.04em;text-transform:uppercase;margin-bottom:34px;line-height:1.15}
 .process-step{padding:28px 0;border-top:0;position:relative}
 .process-step::before{content:"";position:absolute;top:0;left:17.5%;right:17.5%;height:1px;background:#D0D0D0}
 .process-step:last-child::after{content:"";position:absolute;bottom:0;left:17.5%;right:17.5%;height:1px;background:#D0D0D0}
 .p-num{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.04em;opacity:.45;margin-bottom:14px;font-weight:400}
 .p-title{font-family:var(--serif);font-size:var(--fs-h2);font-weight:400;letter-spacing:.01em;margin-bottom:8px;line-height:1.2;text-transform:none}
-.p-desc{font-size:var(--fs-p);line-height:1.55;font-weight:400;opacity:.78;max-width:640px;text-wrap:balance;letter-spacing:.01em}
+.p-desc{font-size:var(--fs-p);line-height:1.55;font-weight:400;opacity:.78;max-width:640px;text-align:justify;text-wrap:auto;hyphens:auto;letter-spacing:.01em}
 
 /* PAGE ROUTING */
 .page{display:none}
@@ -406,11 +412,12 @@ body.locked{overflow:hidden}
   .coll-feed{padding:0;gap:40px}
   .about-identity{padding:40px 24px 0}
   .about-bio{padding:40px 24px 40px}
-  .about-exit{padding:40px 24px 40px}
+  .about-exit{padding:0 24px 40px}
   .svc-head{padding:40px 0 0}
   .svc-list{margin:40px auto 0}
-  .process-wrap{padding:40px 24px 40px}
+  .process-wrap{padding:40px 24px 0}
   .testimonies .t+.t{margin-top:40px;padding-top:40px}
+  .testimonies .t-extras-inner>.t-extra:first-child{margin-top:40px;padding-top:40px}
   #page-about{padding-top:68px;padding-bottom:0}
   #page-services{padding-top:68px}
   #page-collections{padding-top:68px}
@@ -500,10 +507,10 @@ body.locked{overflow:hidden}
           <img src="collectionsphotos/valmont-1.jpeg" alt="Valmont Residence, Palm Beach, Florida" loading="lazy" />
         </picture>
       </div>
-      <div class="work-img fu d1" data-project="5">
+      <div class="work-img fu d1" data-project="8">
         <picture>
-          <source media="(min-width:769px)" srcset="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/d5c52e21-dbcf-4288-8b8a-59bfd103a314.png" />
-          <img src="https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/caa7beca-5db1-4872-98fc-ceaa6ffd41c1.jpeg" alt="Featured project" loading="lazy" />
+          <source media="(min-width:769px)" srcset="collectionsphotos/cooper-1.jpeg" />
+          <img src="collectionsphotos/cooper-1.jpeg" alt="Cooper Residence, Wilmette, Illinois" loading="lazy" />
         </picture>
       </div>
     </div>
@@ -517,7 +524,7 @@ body.locked{overflow:hidden}
         <p class="fu d2">VELUS Interiors is committed to a disciplined approach to design, where intention guides every decision and excess is consistently removed in pursuit of clarity.</p>
         <p class="fu d2">The studio's work is grounded in three principles: spatial integrity, material precision, and considered restraint. This is not decoration. It is composition.</p>
       </div>
-      <div class="img fu d2" style="background-image:url('collectionsphotos/IMG_4286_cropped.jpeg')"></div>
+      <div class="img fu d2" style="background-image:url('https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/2e8700a6-2bba-4e34-8328-b594ddd6a0fb.jpeg')"></div>
     </div>
   </section>
 
@@ -533,8 +540,20 @@ body.locked{overflow:hidden}
           <span class="t-full"><span class="t-inner">&ldquo;We recently moved into a beautiful home in Lincoln Park and hired VELUS Interiors to help renovate multiple spaces, including all the bathrooms, our master bedroom, dining room, and living room. From the start, we trusted Mandy to bring our vision to life, and we couldn&rsquo;t be happier with the result. The designs are not only kid-friendly, but they also strike the perfect balance of fun, edgy, and sophisticated elements. We truly appreciate Mandy&rsquo;s careful selection of materials, colors, and furnishings that fit our family&rsquo;s needs while also elevating the style of our home. Highly recommend VELUS Interiors for anyone looking for a thoughtful and beautiful transformation!&rdquo;</span></span>
         </blockquote>
         <cite><span class="t-name">Nicole Karkalis</span><span class="t-loc">Lincoln Park</span></cite>
-        <button type="button" class="t-toggle" aria-expanded="false"><span class="t-toggle-icon">+</span>&nbsp;<span class="t-toggle-label">Read More</span></button>
       </div>
+      <div class="t-extras" aria-hidden="true">
+        <div class="t-extras-inner">
+          <div class="t t-extra">
+            <blockquote>&ldquo;We worked with Mandy Velus for a condo renovation in Lakeview, Chicago. She redesigned our kitchen with custom cabinetry and premium finishes, created a stunning fireplace, and updated our flooring with sleek hardwood. The process was seamless. Highly recommend her for custom kitchen remodels and home renovations in Chicago.&rdquo;</blockquote>
+            <cite><span class="t-name">Helen &amp; Terry</span><span class="t-loc">Lakeview, Chicago</span></cite>
+          </div>
+          <div class="t t-extra">
+            <blockquote>&ldquo;Mandy at VELUS Interiors transformed my bedroom in Atlanta with moody tones and artistic elements that reflect my adventurous style. The personalized service and attention to detail were exceptional. For custom bedroom design and full interior design services in Atlanta and Chicago, I highly recommend VELUS Interiors.&rdquo;</blockquote>
+            <cite><span class="t-name">Roni</span><span class="t-loc">Atlanta</span></cite>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="t-toggle" aria-expanded="false"><span class="t-toggle-icon">+</span>&nbsp;<span class="t-toggle-label">Read More</span></button>
     </div>
   </section>
 
@@ -701,17 +720,18 @@ body.locked{overflow:hidden}
 <!-- FOOTER -->
 <footer id="site-footer">
   <div class="wrap">
-    <div class="footer-brand">VELUS INTERIORS</div>
+    <div class="footer-brand">
+      <img src="Logo/SVG.svg" alt="VELUS Interiors" class="footer-logo" />
+    </div>
     <div class="footer-info">
       <div class="line">Chicago, Illinois</div>
       <a class="line" href="mailto:mandy@velusinteriors.com">mandy@velusinteriors.com</a>
       <a class="line" href="tel:+19545409039">+1 (954) 540-9039</a>
+      <a class="line" href="https://instagram.com/velusinteriors" target="_blank" rel="noopener">@velusinteriors</a>
     </div>
-    <div class="footer-ig">
-      <a href="https://instagram.com/velusinteriors" target="_blank" rel="noopener">@velusinteriors</a>
-    </div>
-    <div class="copyright">&copy; 2026 Velus Interiors. All rights reserved.</div>
   </div>
+  <hr class="footer-divider"/>
+  <div class="copyright">&copy; 2026 Velus Interiors. All rights reserved.</div>
 </footer>
 
 </main>
@@ -734,7 +754,7 @@ const PROJECTS = [
   { name:"Havel Residence",   loc:"West Loop, Chicago",    hero:'collectionsphotos/IMG_3719.jpeg', gallery:['collectionsphotos/IMG_3719.jpeg','https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/485b090c-1e74-4c68-86b9-a90144a5dd9d.jpeg'] },
   { name:"Stojka",            loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_3842.jpeg', gallery:['collectionsphotos/IMG_3842.jpeg','https://assets.cdn.filesafe.space/dYpRMKt41LMBrYEUoeLG/media/69e8f5daa1636a6c653617c6.png'] },
   { name:"O'Neill Residence", loc:"River North, Chicago",  hero:'collectionsphotos/IMG_6682.jpeg', gallery:['collectionsphotos/IMG_6682.jpeg','collectionsphotos/IMG_6667.jpeg'] },
-  { name:"Karkalis Residence",loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_6758.jpeg', gallery:['collectionsphotos/IMG_6758.jpeg'] },
+  { name:"Karkalis Residence",loc:"Lincoln Park, Chicago", hero:'collectionsphotos/IMG_6758.jpeg', gallery:['collectionsphotos/IMG_6758.jpeg','collectionsphotos/IMG_6773.jpeg'] },
   { name:"Badger Residence",  loc:"Lakeview, Illinois",    hero:'collectionsphotos/badger-2B3D.jpeg', gallery:[
     'collectionsphotos/badger-2B3D.jpeg',
     'collectionsphotos/badger-57E0.jpeg',
@@ -901,8 +921,13 @@ document.getElementById('viewer').addEventListener('click',e=>{
 /* TESTIMONIAL TOGGLE */
 document.querySelectorAll('.t-toggle').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    const t=btn.closest('.t');
+    const wrap=btn.closest('.testimonies');
+    if(!wrap) return;
+    const t=wrap.querySelector('.t:not(.t-extra)');
     const open=t.classList.toggle('open');
+    wrap.classList.toggle('expanded',open);
+    const extras=wrap.querySelector('.t-extras');
+    if(extras) extras.setAttribute('aria-hidden',open?'false':'true');
     btn.setAttribute('aria-expanded',open?'true':'false');
     const icon=btn.querySelector('.t-toggle-icon');
     const label=btn.querySelector('.t-toggle-label');
