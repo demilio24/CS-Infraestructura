@@ -18,7 +18,8 @@ if (!SELECTOR || !OUT_PATH) {
 (async () => {
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
-  await page.setViewport({ width: 390, height: 1400, deviceScaleFactor: 2 });
+  const VW = parseInt(process.env.VW || '430', 10);
+  await page.setViewport({ width: VW, height: 1400, deviceScaleFactor: 2 });
   await page.goto(URL, { waitUntil: 'networkidle0' });
   await new Promise(r => setTimeout(r, 700));
 
@@ -69,13 +70,13 @@ if (!SELECTOR || !OUT_PATH) {
     .extract({
       left: 0,
       top: Math.round(rect.top * 2),
-      width: 390 * 2,
+      width: VW * 2,
       height: Math.ceil(rect.height * 2)
     })
-    .resize({ width: 390 })
+    .resize({ width: VW })
     .toFile(OUT_PATH);
   fs.unlinkSync(fullPath);
 
-  console.log(`saved ${path.basename(OUT_PATH)} (390 x ${Math.ceil(rect.height)})`);
+  console.log(`saved ${path.basename(OUT_PATH)} (${VW} x ${Math.ceil(rect.height)})`);
   await browser.close();
 })();

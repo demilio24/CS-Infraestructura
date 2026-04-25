@@ -10,7 +10,8 @@ const TILE_INDEX = parseInt(process.argv[3] || '0', 10);
 (async () => {
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
-  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 });
+  const VW = parseInt(process.env.VW || '430', 10);
+  await page.setViewport({ width: VW, height: 844, deviceScaleFactor: 2 });
   await page.goto(URL, { waitUntil: 'networkidle0' });
   await new Promise(r => setTimeout(r, 700));
 
