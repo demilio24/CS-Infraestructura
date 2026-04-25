@@ -292,10 +292,15 @@ section, .section,
       .h1-line {
         display: block;
       }
-      /* Final line of the H1 — same bold lead treatment as the rest, just on its own line */
+      /* Final line of the H1 — same bold weight + color, slightly smaller for hierarchy */
       .hero-h1-tail {
         display: block;
-        margin-top: 8px;
+        margin-top: 10px;
+        font-size: 0.78em;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.015em;
+        line-height: 1.25;
       }
       .hero-sub {
         font-size: 16px;
