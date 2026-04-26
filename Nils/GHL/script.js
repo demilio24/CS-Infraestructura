@@ -246,6 +246,7 @@
 
   function hideSupportUI() {
     var supportSelectors = [
+      // HL native help drawer + trigger
       '#help-drawer',
       '[id*="help-drawer"]',
       '[id*="help-button"]',
@@ -260,12 +261,31 @@
       '[aria-label="Help"]',
       '[aria-label="Support"]',
       '[aria-label="Help & Support"]',
-      // Common third-party launchers HL has used
+      // The green vertical "Support" tab GHL embeds (and similar)
+      '[id*="support"]',
+      '[class*="support-tab"]',
+      '[class*="SupportTab"]',
+      '[class*="support-button"]',
+      '[class*="supportButton"]',
+      '[class*="support-widget"]',
+      '[class*="SupportWidget"]',
+      // Common third-party chat/support launchers
       '#launcher',
-      'iframe[name*="intercom-launcher"]',
+      '#crisp-chatbox',
+      '.crisp-client',
+      '#beacon-container',
+      '.BeaconContainer',
+      '#chat-widget-container',
+      '#drift-frame-controller',
+      'iframe[id*="intercom"]',
+      'iframe[name*="intercom"]',
       '[class*="intercom-launcher"]',
+      'iframe[id*="drift"]',
+      'iframe[id*="livechat"]',
+      'iframe[id*="front-chat"]',
       'iframe[title="Help"]',
       'iframe[title="Support"]',
+      'iframe[title*="chat" i]',
     ];
 
     function sweep() {
