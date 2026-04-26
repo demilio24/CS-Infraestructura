@@ -813,8 +813,8 @@ const PROJECTS = [
 const nav = document.getElementById('nav');
 function updateNav(){
   const page = currentPage();
-  const inverted = page==='services' || page==='about';
-  const dark = !inverted && page==='home' && window.scrollY < 60;
+  const inverted = page==='services';
+  const dark = !inverted && (page==='home' || page==='about') && window.scrollY < 60;
   nav.classList.toggle('inverted', inverted);
   nav.classList.toggle('dark', dark);
   nav.classList.toggle('solid', !dark && !inverted);
@@ -861,7 +861,7 @@ function revealV(){
       const center = rect.top + rect.height/2;
       // t = 1 when centered in viewport, 0 when ±40% vh away or further
       const t = Math.max(0, Math.min(1, 1 - Math.abs(center - vh/2) / (vh * 0.4)));
-      g.style.opacity = (t * 0.9).toFixed(3);
+      g.style.opacity = t.toFixed(3);
       g.style.transform = `translateY(${((1 - t) * 22).toFixed(1)}px)`;
     });
   });
