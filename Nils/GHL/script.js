@@ -273,6 +273,7 @@
   function hideSupportUI() {
     var supportSelectors = [
       // HL native help drawer + trigger
+      '#hl_header--help-icon',
       '#help-drawer',
       '[id*="help-drawer"]',
       '[id*="help-button"]',
