@@ -4,13 +4,19 @@
   //  CONFIG SOURCE
   //  Edit config.json and push — no need to touch this script.
   //
-  //  supportAccessList — clients who have been given agency admin
-  //  solely to access HL's Help & Support widget. They get
-  //  redirected to their sub-account and cannot see the agency
-  //  dashboard. The support button stays visible for them.
+  //  supportAccessList — clients given agency admin solely to
+  //  access HL's Help & Support widget. Redirected to their
+  //  sub-account, cannot see the agency dashboard. Support
+  //  button stays visible for them.
   //
-  //  Everyone NOT on this list with agency access sees the full
-  //  agency dashboard as normal (your team, super admins, etc.)
+  //  aiAccessList — agency users given agency admin solely to
+  //  access the Ask AI feature. Same lockdown as supportAccessList
+  //  (no agency dashboard, redirected to sub-account) AND the
+  //  Help & Support widget is hidden entirely.
+  //
+  //  If a user appears on both lists, aiAccessList wins (more
+  //  restrictive). Everyone NOT on either list with agency
+  //  access sees the full agency dashboard as normal.
   // ============================================================
   var CONFIG_URL = 'https://cdn.jsdelivr.net/gh/demilio24/Websites@main/Nils/GHL/config.json';
 
@@ -233,13 +239,57 @@
     observer.observe(document.body, { childList: true, subtree: true });
   }
 
+  // ---- Hide HL Help & Support widget entirely ----
+  // Used for aiAccessList users who shouldn't see the support
+  // button at all. Targets the drawer, the question-mark trigger,
+  // and any chat/launcher widgets HL may swap in.
+
+  function hideSupportUI() {
+    var supportSelectors = [
+      '#help-drawer',
+      '[id*="help-drawer"]',
+      '[id*="help-button"]',
+      '[id*="help-trigger"]',
+      '[class*="help-trigger"]',
+      '[class*="HelpTrigger"]',
+      '[class*="HelpButton"]',
+      '[class*="help-button"]',
+      '[data-testid*="help-button"]',
+      '[data-testid*="help-trigger"]',
+      '[data-testid*="support-button"]',
+      '[aria-label="Help"]',
+      '[aria-label="Support"]',
+      '[aria-label="Help & Support"]',
+      // Common third-party launchers HL has used
+      '#launcher',
+      'iframe[name*="intercom-launcher"]',
+      '[class*="intercom-launcher"]',
+      'iframe[title="Help"]',
+      'iframe[title="Support"]',
+    ];
+
+    function sweep() {
+      supportSelectors.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          el.style.display = 'none';
+          el.style.pointerEvents = 'none';
+          el.setAttribute('aria-hidden', 'true');
+        });
+      });
+    }
+
+    sweep();
+    var observer = new MutationObserver(sweep);
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
   // ---- Lockdown activation ----
 
-  function activateLockdown(locationId) {
+  function activateLockdown(locationId, hideSupport, safePath) {
     var locId = getLocationId(locationId);
-    _safeUrl = '/location/' + locId + '/dashboard';
+    _safeUrl = safePath || ('/location/' + locId + '/dashboard');
     _lockdownActive = true;
-    log('Lockdown active — safe URL:', _safeUrl);
+    log('Lockdown active — safe URL:', _safeUrl, '— hideSupport:', !!hideSupport);
 
     // Redirect immediately if already on an agency path
     if (isAgencyPath(window.location.pathname)) {
@@ -249,28 +299,42 @@
     }
 
     lockdownAgencyUI();
+    if (hideSupport) hideSupportUI();
     startPolling();
   }
 
   // ---- Main ----
 
-  function applyLockdown(config, user) {
-    var supportAccessList = config.supportAccessList || [];
-    var entry = null;
-    for (var i = 0; i < supportAccessList.length; i++) {
-      if (supportAccessList[i].email.toLowerCase() === user.toLowerCase()) {
-        entry = supportAccessList[i];
-        break;
+  function findEntry(list, user) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].email && list[i].email.toLowerCase() === user.toLowerCase()) {
+        return list[i];
       }
     }
+    return null;
+  }
 
-    if (entry) {
-      log('Client on supportAccessList — activating lockdown, locationId:', entry.locationId);
-      activateLockdown(entry.locationId);
+  function applyLockdown(config, user) {
+    var aiAccessList = config.aiAccessList || [];
+    var supportAccessList = config.supportAccessList || [];
+
+    // aiAccessList takes precedence — more restrictive (hides support too)
+    var aiEntry = findEntry(aiAccessList, user);
+    if (aiEntry) {
+      var aiPath = '/v2/location/' + aiEntry.locationId + '/ask-ai';
+      log('User on aiAccessList — activating lockdown + hiding support, redirect to:', aiPath);
+      activateLockdown(aiEntry.locationId, true, aiPath);
       return;
     }
 
-    log('User not on supportAccessList — full agency access:', user);
+    var supportEntry = findEntry(supportAccessList, user);
+    if (supportEntry) {
+      log('Client on supportAccessList — activating lockdown, locationId:', supportEntry.locationId);
+      activateLockdown(supportEntry.locationId, false);
+      return;
+    }
+
+    log('User not on any access list — full agency access:', user);
   }
 
   function init() {
