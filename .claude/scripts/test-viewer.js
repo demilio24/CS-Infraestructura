@@ -59,9 +59,15 @@ async function rect(page, sel) {
   const dCounterCenterDelta = Math.abs(dCounter.cx - dViewer.width/2);
   check('Desktop counter horizontally centered', dCounterCenterDelta < 2, `cx=${dCounter.cx.toFixed(1)} viewport center=${(dViewer.width/2).toFixed(1)} delta=${dCounterCenterDelta.toFixed(1)}`);
 
-  // 2. Close button top-aligned with headline (.meta .n)
-  const dCloseAlignDelta = Math.abs(dClose.top - dMeta.top);
-  check('Desktop × top-aligned with headline', dCloseAlignDelta < 2, `× top=${dClose.top} headline top=${dMeta.top} delta=${dCloseAlignDelta}`);
+  // 2. Close button vertically centered on headline text middle (line-box center)
+  const dMetaCY = dMeta.top + dMeta.height / 2;
+  const dCloseCenterDelta = Math.abs(dClose.cy - dMetaCY);
+  check('Desktop × center-aligned with headline middle', dCloseCenterDelta < 4, `× cy=${dClose.cy.toFixed(1)} headline cy=${dMetaCY.toFixed(1)} delta=${dCloseCenterDelta.toFixed(1)}`);
+
+  // Verify counter is at H2 font size (≈31px desktop)
+  const dCounterFont = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector('#viewer .counter')).fontSize));
+  const dH2Font = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fs-h2')));
+  check('Desktop counter uses --fs-h2 size', Math.abs(dCounterFont - dH2Font) < 1, `counter=${dCounterFont}px h2=${dH2Font}px`);
 
   // 3. Counter is BELOW the image area (bottom region)
   check('Desktop counter is in bottom region (below image)', dCounter.top > dViewer.height * 0.85, `counter top=${dCounter.top.toFixed(1)} viewport=${dViewer.height}`);
@@ -109,9 +115,10 @@ async function rect(page, sel) {
   const mCenterDelta = Math.abs(mCounter.cx - mViewer.width/2);
   check('Mobile counter horizontally centered between arrows', mCenterDelta < 2, `delta=${mCenterDelta.toFixed(1)}`);
 
-  // 3. × top-aligned with headline
-  const mCloseAlignDelta = Math.abs(mClose.top - mMeta.top);
-  check('Mobile × top-aligned with headline', mCloseAlignDelta < 2, `× top=${mClose.top} headline top=${mMeta.top}`);
+  // 3. × center-aligned with headline middle
+  const mMetaCY = mMeta.top + mMeta.height / 2;
+  const mCloseCenterDelta = Math.abs(mClose.cy - mMetaCY);
+  check('Mobile × center-aligned with headline middle', mCloseCenterDelta < 4, `× cy=${mClose.cy.toFixed(1)} headline cy=${mMetaCY.toFixed(1)} delta=${mCloseCenterDelta.toFixed(1)}`);
 
   // 4. Touch swipe advances next image
   const mBefore = await page.evaluate(() => document.getElementById('vCount').textContent);
