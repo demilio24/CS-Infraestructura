@@ -283,6 +283,8 @@
     var supportSelectors = [
       // HL native help drawer + trigger
       '#hl_header--help-icon',
+      '#hl_header--copilot-icon svg',
+      '#canny_logs-toggle',
       '#help-drawer',
       '[id*="help-drawer"]',
       '[id*="help-button"]',
