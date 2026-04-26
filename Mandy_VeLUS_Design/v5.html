@@ -62,8 +62,8 @@
   /* TYPOGRAPHY TOKENS, change these and the whole site scales */
   /* H1 and H2 share the Our Work mobile spec: 30px Canela uppercase, .04em */
   --fs-h1: 30px;
-  --fs-h2: 30px;
-  --fs-p: 18px;
+  --fs-h2: 27px;
+  --fs-p: 16px;
   --fs-cta: 13px;
 
   /* SPACING TOKENS — mobile values; desktop overrides below.
@@ -80,8 +80,8 @@
 @media(min-width:769px){
   :root{
     --fs-h1: 34px;
-    --fs-h2: 34px;
-    --fs-p: 18px;
+    --fs-h2: 31px;
+    --fs-p: 16px;
     --fs-cta: 13px;
 
     --sp-sm: 28px;
@@ -197,7 +197,7 @@ section.statement .cta-wrap{margin-top:var(--sp-md)}
 section.work-section{padding:var(--sp-md) 0;background:#F6F3EF}
 .section-head{max-width:1280px;margin:0 auto var(--sp-md);padding:0 40px}
 .section-head hr.rule{margin-bottom:var(--sp-sm)}
-.section-head h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);letter-spacing:.04em;text-transform:uppercase;line-height:1.15;margin-top:0}
+.section-head h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);letter-spacing:.04em;text-transform:uppercase;line-height:1.15;margin-top:0}
 /* TEXT BLOCK SYSTEM — three styles for body copy across the site:
    1. Editorial breakout — centered, one sentence per line on desktop, wraps on mobile (used by Statement body, Our Work lede)
    2. Read-left — max-width 720px, text-align:left (used by About bio, About identity, Services intro)
@@ -231,7 +231,7 @@ section.editorial .img{align-self:stretch;width:100%;height:calc(100% + (var(--s
 /* TESTIMONIES */
 section.testimonies-section{padding:var(--sp-md) 0;background:#F6F3EF}
 .testimonies-head{max-width:720px;margin:0 auto var(--sp-sm);padding:0 40px;text-align:center}
-.testimonies-head h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);letter-spacing:.04em;text-transform:uppercase;color:#1A1A1A;margin:0 0 var(--sp-sm);line-height:1.15}
+.testimonies-head h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);letter-spacing:.04em;text-transform:uppercase;color:#1A1A1A;margin:0 0 var(--sp-sm);line-height:1.15}
 .testimonies-head .rule{margin:0 auto;width:48px;height:1px;background:#D0D0D0;border:0}
 .testimonies{max-width:640px;margin:0 auto;padding:0 40px;text-align:center}
 .testimonies blockquote{font-family:var(--serif);font-weight:400;font-size:var(--fs-p);line-height:1.55;color:#1A1A1A}
@@ -295,17 +295,27 @@ footer .copyright{font-family:var(--body);font-size:var(--fs-cta);letter-spacing
 #viewer .track{display:flex;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.7,.25,1)}
 #viewer .slide{flex:0 0 100%;display:flex;align-items:center;justify-content:center;padding:160px 56px 100px}
 #viewer .slide .img{width:100%;height:100%;max-height:100%;background-size:contain;background-repeat:no-repeat;background-position:center}
-#viewer .close{position:absolute;top:60px;right:56px;font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.22em;text-transform:uppercase;color:#EDE8E3;opacity:.7;z-index:3;transition:opacity .3s ease;font-weight:400}
+#viewer .close{position:absolute;top:40px;right:40px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:32px;line-height:1;font-weight:300;color:#EDE8E3;opacity:.7;z-index:3;transition:opacity .3s ease;background:none;border:0;cursor:pointer;padding:0}
 #viewer .close:hover{opacity:1}
 #viewer .meta{position:absolute;top:60px;left:56px;color:#EDE8E3;z-index:3;opacity:1}
 #viewer .meta .n{font-family:var(--serif);font-size:var(--fs-h2);letter-spacing:.04em;text-transform:uppercase;font-weight:400;color:#EDE8E3}
 #viewer .meta .l{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.22em;text-transform:uppercase;margin-top:8px;opacity:.7;font-weight:400;color:#EDE8E3}
 #viewer .counter{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:#EDE8E3;font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.22em;z-index:3;opacity:.85;font-weight:400}
-#viewer .arrow{display:none}
+#viewer .arrow{position:absolute;top:50%;transform:translateY(-50%);width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-family:var(--body);font-size:32px;line-height:1;font-weight:300;color:#EDE8E3;opacity:.7;z-index:3;transition:opacity .3s ease,transform .3s ease;background:none;border:0;cursor:pointer;padding:0}
+#viewer .arrow:hover{opacity:1}
+#viewer .arrow.prev{left:40px}
+#viewer .arrow.next{right:40px}
+#viewer .arrow.prev:hover{transform:translate(-4px, -50%)}
+#viewer .arrow.next:hover{transform:translate(4px, -50%)}
 @media(max-width:700px){
   #viewer .slide{padding:140px 20px 88px}
-  #viewer .meta{top:44px;left:20px}
-  #viewer .close{top:44px;right:20px}
+  #viewer .meta{top:44px;left:20px;max-width:calc(100% - 88px)}
+  #viewer .close{top:32px;right:16px;width:44px;height:44px;font-size:28px}
+  #viewer .arrow{width:44px;height:44px;font-size:24px;top:auto;bottom:24px;transform:none}
+  #viewer .arrow.prev{left:16px}
+  #viewer .arrow.next{right:16px}
+  #viewer .arrow.prev:hover,#viewer .arrow.next:hover{transform:none}
+  #viewer .counter{bottom:38px}
 }
 
 /* ABOUT */
@@ -382,7 +392,7 @@ section.monogram + .svc-list{margin-top:0}
 section.visual-break{padding:0;overflow:hidden}
 section.visual-break img{width:100%;display:block;object-fit:cover}
 .process-wrap{max-width:720px;margin:0 auto;padding:var(--sp-md) 40px 0}
-.process-wrap h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--sp-sm);line-height:1.15;text-align:center}
+.process-wrap h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--sp-sm);line-height:1.15;text-align:center}
 .process-step{padding:var(--sp-sm) 0;border-top:0;position:relative}
 .process-step::before{content:"";position:absolute;top:0;left:17.5%;right:17.5%;height:1px;background:#D0D0D0}
 .process-step:last-child::after{content:"";position:absolute;bottom:0;left:17.5%;right:17.5%;height:1px;background:#D0D0D0}
@@ -750,7 +760,7 @@ body.locked{overflow:hidden}
 <!-- VIEWER -->
 <div id="viewer" role="dialog" aria-modal="true">
   <div class="meta"><div class="n" id="vName">—</div><div class="l" id="vLoc">—</div></div>
-  <button class="close" onclick="closeViewer()">Close ×</button>
+  <button class="close" onclick="closeViewer()" aria-label="Close">&times;</button>
   <button class="arrow prev" onclick="viewerStep(-1)" aria-label="Previous">&#8592;</button>
   <button class="arrow next" onclick="viewerStep(1)" aria-label="Next">&#8594;</button>
   <div class="track" id="vTrack"></div>
