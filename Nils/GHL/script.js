@@ -17,6 +17,19 @@
   //  If a user appears on both lists, aiAccessList wins (more
   //  restrictive). Everyone NOT on either list with agency
   //  access sees the full agency dashboard as normal.
+  //
+  //  Schema: each entry is { email, locationId } or
+  //  { email, locationIds: [...] }. To grant a user access to
+  //  multiple sub-accounts, use locationIds OR add multiple
+  //  entries with the same email — both are unioned. The first
+  //  ID is used as the redirect target when they hit a blocked
+  //  path.
+  //
+  //  Lockdown logic: PRIMARY check is a whitelist — the URL
+  //  must be inside one of the user's allowed locations
+  //  (/v2/location/{id}/...). Anything else is blocked.
+  //  AGENCY_PATHS is kept as a SECONDARY explicit blacklist
+  //  for documentation of known agency routes.
   // ============================================================
   var CONFIG_URL = 'https://cdn.jsdelivr.net/gh/demilio24/Websites@main/Nils/GHL/config.json';
 
@@ -38,6 +51,7 @@
   var _debug = false;
   var _lockdownActive = false;
   var _safeUrl = '';
+  var _allowedIds = [];
 
   console.log('[GHL-GUARD] script loaded');
 
@@ -45,7 +59,15 @@
     if (_debug) console.log('[GHL-GUARD]', ...arguments);
   }
 
-  // ---- Agency path detection ----
+  // ---- Path-block detection ----
+  //
+  // PRIMARY: whitelist by location ID. The user is only allowed
+  // inside /v2/location/{id}/... where id is one of their allowed
+  // locations. Everything else gets bounced to _safeUrl.
+  //
+  // SECONDARY: AGENCY_PATHS — explicit list of known agency-only
+  // routes. Kept as documentation of the routes we care about
+  // even though the primary whitelist already covers them.
 
   var AGENCY_PATHS = [
     '/agency_dashboard',
@@ -64,15 +86,19 @@
     '/offers',
   ];
 
-  function isAgencyPath(path) {
-    // Normalize — strip leading /v2 so both GHL domains match the same list
+  function isInAllowedLocation(path) {
+    // Normalize — strip leading /v2 so both GHL domains match
     var p = path.replace(/^\/v2/, '') || '/';
-    for (var i = 0; i < AGENCY_PATHS.length; i++) {
-      if (p === AGENCY_PATHS[i] || p.indexOf(AGENCY_PATHS[i] + '/') === 0) {
-        return true;
-      }
+    for (var i = 0; i < _allowedIds.length; i++) {
+      var prefix = '/location/' + _allowedIds[i];
+      if (p === prefix || p.indexOf(prefix + '/') === 0) return true;
     }
     return false;
+  }
+
+  function isBlocked(path) {
+    if (_allowedIds.length === 0) return false; // safety: no IDs means no lockdown
+    return !isInAllowedLocation(path);
   }
 
   // ---- Override pushState/replaceState IMMEDIATELY ----
@@ -84,7 +110,7 @@
   var _origReplace = history.replaceState.bind(history);
 
   history.pushState = function (state, title, url) {
-    if (_lockdownActive && url && isAgencyPath(String(url))) {
+    if (_lockdownActive && url && isBlocked(String(url))) {
       log('Blocked pushState to:', url, '→', _safeUrl);
       return _origPush(state, title, _safeUrl);
     }
@@ -92,7 +118,7 @@
   };
 
   history.replaceState = function (state, title, url) {
-    if (_lockdownActive && url && isAgencyPath(String(url))) {
+    if (_lockdownActive && url && isBlocked(String(url))) {
       log('Blocked replaceState to:', url, '→', _safeUrl);
       return _origReplace(state, title, _safeUrl);
     }
@@ -100,8 +126,8 @@
   };
 
   window.addEventListener('popstate', function () {
-    if (_lockdownActive && isAgencyPath(window.location.pathname)) {
-      log('popstate agency path — redirecting');
+    if (_lockdownActive && isBlocked(window.location.pathname)) {
+      log('popstate blocked path — redirecting');
       window.location.replace(_safeUrl);
     }
   });
@@ -114,16 +140,16 @@
 
   function startPolling() {
     var fast = setInterval(function () {
-      if (_lockdownActive && isAgencyPath(window.location.pathname)) {
-        log('Poll caught agency path — redirecting');
+      if (_lockdownActive && isBlocked(window.location.pathname)) {
+        log('Poll caught blocked path — redirecting');
         window.location.replace(_safeUrl);
       }
       _pollCount++;
       if (_pollCount >= 100) { // 10 seconds of fast polling
         clearInterval(fast);
         setInterval(function () {
-          if (_lockdownActive && isAgencyPath(window.location.pathname)) {
-            log('Slow-poll caught agency path — redirecting');
+          if (_lockdownActive && isBlocked(window.location.pathname)) {
+            log('Slow-poll caught blocked path — redirecting');
             window.location.replace(_safeUrl);
           }
         }, 500);
@@ -305,15 +331,32 @@
 
   // ---- Lockdown activation ----
 
-  function activateLockdown(locationId, hideSupport, safePath) {
-    var locId = getLocationId(locationId);
-    _safeUrl = safePath || ('/location/' + locId + '/dashboard');
-    _lockdownActive = true;
-    log('Lockdown active — safe URL:', _safeUrl, '— hideSupport:', !!hideSupport);
+  function activateLockdown(allowedIds, hideSupport, safePath) {
+    // Filter empty/falsy and de-dupe
+    var ids = [];
+    (allowedIds || []).forEach(function (id) {
+      if (id && ids.indexOf(id) === -1) ids.push(id);
+    });
 
-    // Redirect immediately if already on an agency path
-    if (isAgencyPath(window.location.pathname)) {
-      log('Currently on agency path — hard redirecting');
+    // Fallback to localStorage if config didn't provide any
+    if (ids.length === 0) {
+      var fallback = getLocationId('');
+      if (fallback) ids.push(fallback);
+    }
+
+    if (ids.length === 0) {
+      log('No location IDs available — cannot activate lockdown');
+      return;
+    }
+
+    _allowedIds = ids;
+    _safeUrl = safePath || ('/location/' + ids[0] + '/dashboard');
+    _lockdownActive = true;
+    log('Lockdown active — allowed IDs:', ids, '— safe URL:', _safeUrl, '— hideSupport:', !!hideSupport);
+
+    // Redirect immediately if currently on a blocked path
+    if (isBlocked(window.location.pathname)) {
+      log('Currently on blocked path — hard redirecting');
       window.location.replace(_safeUrl);
       return;
     }
@@ -325,13 +368,23 @@
 
   // ---- Main ----
 
-  function findEntry(list, user) {
+  // Collect all IDs across every entry on `list` matching `user`.
+  // Supports both schema variants:
+  //   { email, locationId: "x" }
+  //   { email, locationIds: ["x", "y"] }
+  // Multiple entries with the same email are unioned together.
+  function collectIdsForUser(list, user) {
+    var ids = [];
     for (var i = 0; i < list.length; i++) {
-      if (list[i].email && list[i].email.toLowerCase() === user.toLowerCase()) {
-        return list[i];
+      var e = list[i];
+      if (!e.email || e.email.toLowerCase() !== user.toLowerCase()) continue;
+      if (Array.isArray(e.locationIds)) {
+        e.locationIds.forEach(function (id) { if (id && ids.indexOf(id) === -1) ids.push(id); });
+      } else if (e.locationId && ids.indexOf(e.locationId) === -1) {
+        ids.push(e.locationId);
       }
     }
-    return null;
+    return ids;
   }
 
   function applyLockdown(config, user) {
@@ -339,18 +392,18 @@
     var supportAccessList = config.supportAccessList || [];
 
     // aiAccessList takes precedence — more restrictive (hides support too)
-    var aiEntry = findEntry(aiAccessList, user);
-    if (aiEntry) {
-      var aiPath = '/v2/location/' + aiEntry.locationId + '/ask-ai';
-      log('User on aiAccessList — activating lockdown + hiding support, redirect to:', aiPath);
-      activateLockdown(aiEntry.locationId, true, aiPath);
+    var aiIds = collectIdsForUser(aiAccessList, user);
+    if (aiIds.length > 0) {
+      var aiPath = '/v2/location/' + aiIds[0] + '/ask-ai';
+      log('User on aiAccessList — activating lockdown + hiding support, IDs:', aiIds, 'redirect to:', aiPath);
+      activateLockdown(aiIds, true, aiPath);
       return;
     }
 
-    var supportEntry = findEntry(supportAccessList, user);
-    if (supportEntry) {
-      log('Client on supportAccessList — activating lockdown, locationId:', supportEntry.locationId);
-      activateLockdown(supportEntry.locationId, false);
+    var supportIds = collectIdsForUser(supportAccessList, user);
+    if (supportIds.length > 0) {
+      log('Client on supportAccessList — activating lockdown, IDs:', supportIds);
+      activateLockdown(supportIds, false);
       return;
     }
 
