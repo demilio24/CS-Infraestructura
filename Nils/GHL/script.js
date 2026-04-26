@@ -245,16 +245,12 @@
 
     function sweep() {
       selectors.forEach(function (sel) {
-        document.querySelectorAll(sel).forEach(function (el) {
-          el.style.display = 'none';
-          el.style.pointerEvents = 'none';
-          el.setAttribute('aria-hidden', 'true');
-        });
+        document.querySelectorAll(sel).forEach(hideEl);
       });
       document.querySelectorAll('a').forEach(function (el) {
         var href = el.getAttribute('href') || '';
         if (href.indexOf('/agency') !== -1) {
-          el.style.display = 'none';
+          hideEl(el);
           el.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); }, true);
         }
       });
@@ -263,6 +259,19 @@
     sweep();
     var observer = new MutationObserver(sweep);
     observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  // ---- Hard-hide helper ----
+  // Inline styles lose to GHL's !important rules unless we use
+  // !important ourselves. setProperty(..., 'important') is the
+  // only reliable way to set !important from JS.
+
+  function hideEl(el) {
+    el.style.setProperty('display', 'none', 'important');
+    el.style.setProperty('visibility', 'hidden', 'important');
+    el.style.setProperty('pointer-events', 'none', 'important');
+    el.style.setProperty('opacity', '0', 'important');
+    el.setAttribute('aria-hidden', 'true');
   }
 
   // ---- Hide HL Help & Support widget entirely ----
@@ -317,11 +326,7 @@
 
     function sweep() {
       supportSelectors.forEach(function (sel) {
-        document.querySelectorAll(sel).forEach(function (el) {
-          el.style.display = 'none';
-          el.style.pointerEvents = 'none';
-          el.setAttribute('aria-hidden', 'true');
-        });
+        document.querySelectorAll(sel).forEach(hideEl);
       });
     }
 
