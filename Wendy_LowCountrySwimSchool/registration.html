@@ -624,6 +624,8 @@
       .skill-pills { gap: 6px; }
       .skill-pill { font-size: 12.5px; padding: 6px 11px; }
     }
+    /* iOS Safari: prevent auto-zoom on form-field focus (font-size must be >= 16px) */
+    @media (max-width: 768px) { input:not([type="hidden"]), select, textarea { font-size: 16px !important; } }
   </style>
 </head>
 <body>

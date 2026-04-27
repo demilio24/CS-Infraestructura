@@ -671,6 +671,8 @@
         border-color: #94a3b8;
       }
       .howto-callout.other-how .how-title { color: #475569; }
+      /* iOS Safari: prevent auto-zoom on form-field focus (font-size must be >= 16px) */
+      @media (max-width: 768px) { input:not([type="hidden"]), select, textarea { font-size: 16px !important; } }
     </style>
   </head>
   <body>

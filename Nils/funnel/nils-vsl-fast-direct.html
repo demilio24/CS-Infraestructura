@@ -3731,6 +3731,8 @@ section, .section,
       .i-arrow-sm { width: 15px; height: 15px; }
       .i-check { width: 22px; height: 22px; }
       .i-plus { width: 18px; height: 18px; }
+      /* iOS Safari: prevent auto-zoom on form-field focus (font-size must be >= 16px) */
+      @media (max-width: 768px) { input:not([type="hidden"]), select, textarea { font-size: 16px !important; } }
     </style>
 
 <div id="ghl-breakout">

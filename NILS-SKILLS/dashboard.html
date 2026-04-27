@@ -67,6 +67,8 @@ a:hover{text-decoration:underline}
 .perf-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
 .perf-dot.high{background:var(--green)}.perf-dot.mid{background:var(--yellow)}.perf-dot.low{background:var(--red)}
 @media(max-width:640px){body{padding:12px}.kpis{grid-template-columns:repeat(2,1fr)}.kpi{padding:10px 12px}.kpi-val{font-size:18px}.hdr{flex-direction:column;gap:8px}.hdr h1{font-size:18px}.filters{width:100%}.activity-grid{max-height:30px}.tbl-wrap{font-size:11px}th,td{padding:5px 8px}.hook-td{max-width:140px}}
+/* iOS Safari: prevent auto-zoom on form-field focus (font-size must be >= 16px) */
+@media (max-width:768px){input:not([type="hidden"]),select,textarea{font-size:16px !important}}
 </style>
 </head>
 <body>
