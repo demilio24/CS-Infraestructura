@@ -7,7 +7,12 @@
   <meta name="description" content="Center Lane Swim School provides safe, supportive swim lessons for children ages 3 months and up. Small group classes (max 3:1), swim currents, and Red Cross certified instructors across Edgewater, Calvert, St. Mary's and Severna Park, MD." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://assets.cdn.filesafe.space" crossorigin>
+  <link rel="preload" as="image" href="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/af2ebf06-25d3-4cc1-98a1-55d0df3d6e9d.jpg" fetchpriority="high">
+  <link rel="preload" href="fonts/hwt-artz.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"></noscript>
 
   <!-- ══════════════════════════════════════════════════════════
        PREMIUM FONTS — Choose ONE loading method below:
@@ -78,7 +83,7 @@ p { margin: 0 0 1em; }
    UTILITY
 ═══════════════════════════════════════════════════════ */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.badge { display: inline-block; font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: #3ad8d4; color: #fff; margin-bottom: 12px; }
+.badge { display: inline-block; font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500; font-size: 0.75rem; letter-spacing: 2px; text-indent: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 50px; background: #3ad8d4; color: #fff; margin-bottom: 12px; }
 .section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #0f3634; margin-bottom: 16px; }
 .section-sub { font-size: 1.1rem; color: #3a6665; max-width: 600px; margin-bottom: 32px; }
 .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 8px; padding: 14px 32px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
@@ -142,7 +147,7 @@ p { margin: 0 0 1em; }
 }
 .nav-logo img { height: 48px; }
 .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
-.nav-links a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; color: #0f3634; transition: background 0.25s ease, box-shadow 0.25s ease; padding: 6px 14px; border-radius: 8px; }
+.nav-links a { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.9rem; color: #0f3634; transition: background 0.25s ease, box-shadow 0.25s ease; padding: 6px 14px; border-radius: 8px; }
 .nav-links a:hover { background: rgba(58,216,212,0.12); box-shadow: 0 2px 8px rgba(58,216,212,0.15); }
 .nav-right { display: flex; align-items: center; gap: 12px; }
 
@@ -150,13 +155,13 @@ p { margin: 0 0 1em; }
 .nav-events-dropdown { position: relative; }
 .nav-events-trigger { cursor: pointer; }
 .nav-events-menu {
-  position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(-8px);
+  position: absolute; top: calc(100% + 10px); right: 0; left: auto; transform: translateY(-8px);
   min-width: 280px; background: #fff; border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.14); padding: 12px;
   opacity: 0; visibility: hidden; transition: all 0.25s ease; z-index: 100;
 }
 .nav-events-dropdown:hover .nav-events-menu {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  opacity: 1; visibility: visible; transform: translateY(0);
 }
 .nav-events-menu a {
   display: block; padding: 12px 16px; border-radius: 10px; transition: background 0.2s;
@@ -175,7 +180,7 @@ p { margin: 0 0 1em; }
   font-family: 'Montserrat', sans-serif; cursor: pointer; transition: all 0.2s;
   display: flex; flex-direction: column; align-items: center;
   padding: 8px 18px; border-radius: 8px; border: none;
-  background: #fea46c; color: #fff; line-height: 1.2;
+  background: #fea46c; color: #000; line-height: 1.2;
   box-shadow: 0 3px 12px rgba(254,164,108,0.4);
 }
 .portal-dropdown-btn:hover { background: #e8924e; box-shadow: 0 4px 18px rgba(254,164,108,0.55); transform: translateY(-1px); }
@@ -197,7 +202,7 @@ p { margin: 0 0 1em; }
 }
 .portal-dropdown-menu a {
   display: block; padding: 10px 16px; border-radius: 10px;
-  font-family: 'Arboria', 'Montserrat', sans-serif; font-weight: 500;
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
   font-size: 0.9rem; color: #0f3634; transition: background 0.2s;
 }
 .portal-dropdown-menu a:hover { background: #f0faf9; color: #1a8f8a; }
@@ -311,6 +316,7 @@ p { margin: 0 0 1em; }
 @media (max-width: 900px) {
   .nav-links, .nav-right { display: none; }
   .hamburger { display: flex; }
+  .mobile-login { display: block; margin-left: auto; margin-right: 8px; }
   .nav-logo img { height: 36px; }
 }
 
@@ -453,6 +459,7 @@ p { margin: 0 0 1em; }
 .about-img-wrap .otter-float img { border-radius: 0; box-shadow: none; }
 .about-list {
   list-style: none; padding: 0; margin: 0; display: grid; gap: 10px;
+  grid-template-columns: 1fr 1fr;
 }
 .about-list li {
   display: flex; align-items: center; gap: 12px;
@@ -461,10 +468,12 @@ p { margin: 0 0 1em; }
   border-radius: 10px; padding: 12px 16px;
 }
 .about-list li svg { flex-shrink: 0; }
+.about-list .about-list-feature { grid-column: 1 / -1; background: #e8faf8; border-color: #9adbd5; }
 
 @media (max-width: 768px) {
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .about-img-wrap { max-width: 500px; margin: 0 auto; }
+  .about-list { grid-template-columns: 1fr; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -478,81 +487,74 @@ p { margin: 0 0 1em; }
 .programs .section-sub { color: #3a6665; }
 .programs-grid {
   display: grid; grid-template-columns: repeat(5, 1fr);
-  gap: 6px; border-radius: 16px; overflow: hidden; height: 540px;
+  gap: 16px;
+  align-items: stretch;
 }
 .program-card {
-  position: relative; overflow: hidden; cursor: pointer;
+  position: relative; overflow: hidden;
+  background: #fff;
+  border: 1.5px solid rgba(58,216,212,0.2);
+  border-radius: 16px;
+  display: flex; flex-direction: column;
+  box-shadow: 0 2px 12px rgba(15,54,53,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.program-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(15,54,53,0.14);
+  border-color: rgba(58,216,212,0.55);
 }
 .program-card-img {
-  position: absolute; inset: 0;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #e0f4f4;
 }
 .program-card-img img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: transform 0.5s ease, filter 0.5s ease;
-  filter: brightness(0.85);
+  width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; display: block;
+  transition: transform 0.5s ease;
 }
-.program-card:hover .program-card-img img { transform: scale(1.04); filter: brightness(1.05) saturate(1.2); }
-.program-card::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(10,28,28,0.85) 0%, rgba(10,28,28,0.2) 50%, transparent 100%);
-  transition: all 0.4s ease;
-}
-.program-card:hover::after {
-  background: linear-gradient(to top, rgba(15,54,52,0.8) 0%, rgba(58,216,212,0.08) 60%, transparent 100%);
-  box-shadow: inset 0 -4px 0 0 #3ad8d4;
-}
+.program-card:hover .program-card-img img { transform: scale(1.04); }
 .program-card-body {
-  position: absolute; left: 0; right: 0;
-  bottom: 0;
-  height: 220px;
-  padding: 16px 18px 18px;
-  z-index: 2;
+  padding: 16px 18px 20px;
+  flex: 1;
   display: flex; flex-direction: column;
 }
 .prog-badge-slot {
-  height: 22px; margin-bottom: 6px;
+  min-height: 22px; margin-bottom: 6px;
   display: flex; align-items: center;
-  flex-shrink: 0;
 }
 .prog-free-badge {
   display: inline-block; background: #c8f116; color: #0f3634;
   font-weight: 700; font-size: 0.68rem; padding: 3px 10px;
-  border-radius: 6px;
+  border-radius: 6px; letter-spacing: 0.04em;
 }
 .program-card-meta {
-  font-size: 0.68rem; font-weight: 700; color: #3ad8d4;
+  font-size: 0.68rem; font-weight: 700; color: #1a8f8a;
   text-transform: uppercase; letter-spacing: 0.1em;
-  height: 2em; margin-bottom: 4px;
-  display: flex; align-items: flex-end;
-  flex-shrink: 0;
+  margin-bottom: 6px;
 }
 .program-card-body h3 {
-  font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 0;
-  flex-shrink: 0;
+  font-size: 1.05rem; font-weight: 800; color: #0f3634;
+  line-height: 1.25; margin: 0 0 8px;
+  min-height: 2.5em;
+  display: flex; align-items: flex-start;
 }
 .program-card-body p {
-  font-size: 0.82rem; color: rgba(255,255,255,0.88); line-height: 1.55;
-  margin: 8px 0 0;
+  font-size: 0.85rem; color: #3a6665; line-height: 1.55;
+  margin: 0;
   flex: 1;
 }
-.program-card-footer { margin-top: 4px; }
-.program-card-footer .btn {
-  font-size: 0.78rem; padding: 8px 16px;
-  background: #3ad8d4; color: #0f3634;
-}
-.program-card-footer .btn:hover { background: #c8f116; }
 
-@media (max-width: 900px) {
-  .programs-grid { grid-template-columns: 1fr 1fr; height: auto; }
-  .program-card { height: 320px; }
-  .program-card-body p, .program-card-footer { opacity: 1; transform: none; }
+@media (max-width: 1099px) {
+  .programs-grid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 500px) {
+@media (max-width: 720px) {
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .program-card-body h3 { min-height: 0; }
+}
+@media (max-width: 480px) {
   .programs-grid { grid-template-columns: 1fr; }
-  .program-card { height: 240px; }
-  .program-card-body { height: auto; padding: 12px 16px 14px; }
-  .program-card-body h3 { font-size: 1.05rem; }
-  .program-card-body p { font-size: 0.82rem; margin-top: 4px; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -728,7 +730,7 @@ p { margin: 0 0 1em; }
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 14px; font-size: 1.8rem;
 }
-.value-card h4 { font-size: 1.05rem; margin-bottom: 6px; }
+.value-card h4 { font-size: 1.1rem; font-weight: 800; color: #0f3634; margin-bottom: 6px; }
 .value-card p { font-size: 0.88rem; color: #3a6665; margin: 0; }
 
 @media (max-width: 768px) {
@@ -926,20 +928,22 @@ body.lightbox-open { overflow: hidden; }
 }
 .locations-grid {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  align-items: stretch;
 }
 .loc-card {
   background: #f0faf9; border-radius: 24px;
   overflow: hidden; box-shadow: 0 4px 20px rgba(15,54,53,0.06);
   transition: all 0.35s ease;
+  display: flex; flex-direction: column;
 }
 .loc-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(15,54,53,0.12); }
-.loc-card-img { height: 200px; overflow: hidden; }
+.loc-card-img { height: 200px; overflow: hidden; flex-shrink: 0; }
 .loc-card-img img { width: 100%; height: 100%; object-fit: cover; }
-.loc-card-body { padding: 24px; }
+.loc-card-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
 .loc-card-body h3 { font-size: 1.25rem; margin-bottom: 8px; }
 .loc-card-body p { font-size: 0.9rem; color: #3a6665; margin-bottom: 4px; }
-.loc-card-body .btn { margin-top: 16px; font-size: 0.9rem; width: 100%; justify-content: center; }
-.loc-card-map { width: 100%; height: 200px; border-top: 1px solid rgba(15,54,53,0.08); }
+.loc-card-body .btn { margin-top: auto; padding-top: 14px; padding-bottom: 14px; font-size: 0.9rem; line-height: 1.5; width: 100%; justify-content: center; }
+.loc-card-map { width: 100%; height: 200px; border-top: 1px solid rgba(15,54,53,0.08); flex-shrink: 0; margin-top: auto; }
 .loc-card-map iframe { width: 100%; height: 100%; border: 0; display: block; }
 .loc-card.coming-soon { opacity: 0.7; }
 .loc-card.coming-soon .loc-card-img { position: relative; }
@@ -1530,6 +1534,181 @@ body.lightbox-open { overflow: hidden; }
   .step-icon-wrap svg { width: 28px; height: 28px; }
 }
 
+/* ═══════════════════════════════════════════════════════
+   COMMUNITIES WE SERVE
+═══════════════════════════════════════════════════════ */
+.communities-section {
+  margin-top: 56px;
+  padding: 36px 28px;
+  background: linear-gradient(180deg, #f0faf9 0%, #e8f6f5 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(58,216,212,0.18);
+  position: relative;
+}
+.communities-header { text-align: center; margin-bottom: 28px; }
+.communities-eyebrow {
+  font-size: 0.72rem; font-weight: 700; color: #3a6665;
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.communities-title {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  color: #0f3634;
+  margin: 8px 0 0;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.communities-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+  max-width: 1100px; margin: 0 auto;
+}
+.community-region {
+  position: relative;
+  background: #fff;
+  border: 1px solid rgba(58,216,212,0.22);
+  border-radius: 16px;
+  padding: 20px 22px 22px;
+  box-shadow: 0 2px 10px rgba(15,54,53,0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.community-region:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(15,54,53,0.10);
+  border-color: rgba(58,216,212,0.55);
+}
+.region-head {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 14px;
+}
+.region-pin {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(58,216,212,0.14);
+  color: #1a8f8a;
+  border-radius: 10px;
+}
+.region-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem; font-weight: 800; color: #0f3634;
+  line-height: 1.2;
+}
+.region-anchor {
+  font-size: 0.78rem; color: #3a6665; margin-top: 2px;
+}
+.region-anchor strong { color: #1a8f8a; font-weight: 700; }
+.city-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.city-pills span {
+  display: inline-block;
+  font-size: 0.78rem; font-weight: 600; color: #0f3634;
+  background: #f0faf9;
+  border: 1px solid #d0eeec;
+  padding: 5px 11px;
+  border-radius: 999px;
+  line-height: 1.4;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.city-pills span:hover {
+  background: #d8f3f0;
+  border-color: #3ad8d4;
+  color: #0f3634;
+}
+
+/* Coming Soon variant */
+.community-region.region-coming-soon {
+  border-color: rgba(250,165,107,0.45);
+  background: linear-gradient(180deg, #fff7f0 0%, #fff 65%);
+}
+.community-region.region-coming-soon .region-pin {
+  background: rgba(250,165,107,0.18);
+  color: #e8801f;
+}
+.community-region.region-coming-soon .region-anchor strong { color: #e8801f; }
+.region-flag {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: #faa56b; color: #fff;
+  padding: 4px 10px; border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(250,165,107,0.4);
+}
+
+@media (max-width: 720px) {
+  .communities-grid { grid-template-columns: 1fr; }
+  .communities-section { padding: 28px 18px; }
+  .region-flag { top: 10px; right: 10px; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE-ONLY CLIENT LOGIN (next to hamburger)
+═══════════════════════════════════════════════════════ */
+.mobile-login { position: relative; }
+@media (min-width: 769px) { .mobile-login { display: none; } }
+.mobile-login-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #faa56b; color: #0f3634;
+  font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.82rem;
+  border: none; border-radius: 8px;
+  padding: 9px 14px; cursor: pointer;
+  box-shadow: 0 3px 12px rgba(250,165,107,0.4);
+  transition: background 0.2s, transform 0.15s;
+}
+.mobile-login-btn:hover { background: #e8946a; }
+.mobile-login-btn:active { transform: translateY(1px); }
+.mobile-login-menu {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  min-width: 220px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(15,54,53,0.18);
+  padding: 8px 0;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 1002;
+}
+.mobile-login.open .mobile-login-menu {
+  opacity: 1; pointer-events: auto; transform: translateY(0);
+}
+.mobile-login-menu .mll-section {
+  font-size: 0.68rem; font-weight: 700; color: #3a6665;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 6px 16px 4px;
+}
+.mobile-login-menu a {
+  display: block; padding: 9px 16px;
+  color: #0f3634; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.mobile-login-menu a:hover, .mobile-login-menu a:active {
+  background: #f0faf9; color: #1a8f8a;
+}
+.mobile-login-menu hr { border: none; border-top: 1px solid #f0f0f0; margin: 6px 0; }
+
+/* ═══════════════════════════════════════════════════════
+   PRICING — per-location tabs
+═══════════════════════════════════════════════════════ */
+.pl-tab {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem; font-weight: 700;
+  color: #3a6665;
+  background: #fff;
+  border: 1px solid rgba(58,216,212,0.3);
+  border-radius: 999px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+}
+.pl-tab:hover { background: #f0faf9; color: #0f3634; border-color: #3ad8d4; }
+.pl-tab.active {
+  background: #3ad8d4; color: #0f3634;
+  border-color: #3ad8d4;
+  box-shadow: 0 2px 10px rgba(58,216,212,0.35);
+}
+.pl-price { transition: opacity 0.18s ease; }
+.pl-price.swap { opacity: 0; }
+
   </style>
 </head>
 <body>
@@ -1540,7 +1719,7 @@ body.lightbox-open { overflow: hidden; }
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/1ff76337-09af-4800-946f-a1cdbb377d5f.png" alt="Center Lane Swim School" loading="lazy" decoding="async">
+      <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/1ff76337-09af-4800-946f-a1cdbb377d5f.png" alt="Center Lane Swim School" decoding="async" fetchpriority="high">
     </a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
@@ -1563,6 +1742,10 @@ body.lightbox-open { overflow: hidden; }
             <strong>🏕️ Drop Off Camp</strong>
             <span>Full-day swim camp for kids</span>
           </a>
+          <a href="https://portal.iclasspro.com/clssedgewater/camps/3?sortBy=time" target="_blank">
+            <strong>🚀 Kick Start</strong>
+            <span>Two-week swim intensive for fast progress</span>
+          </a>
         </div>
       </li>
     </ul>
@@ -1574,15 +1757,33 @@ body.lightbox-open { overflow: hidden; }
         </button>
         <div class="portal-dropdown-menu">
           <div class="pdd-section">Client Portals</div>
-          <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal<span>Manage classes &amp; make-ups</span></a>
-          <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal<span>Manage classes &amp; make-ups</span></a>
+          <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">🌊 Edgewater Portal<span>Manage classes &amp; make-ups</span></a>
+          <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">🐬 Calvert Portal<span>Manage classes &amp; make-ups</span></a>
+          <a href="https://portal.iclasspro.com/clssflatiron" target="_blank">🐠 Flat Iron Portal<span>Manage classes &amp; make-ups</span></a>
           <hr class="pdd-divider">
           <div class="pdd-section">Download App</div>
-          <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">App Store<span>Download on iPhone</span></a>
-          <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">Google Play<span>Download on Android</span></a>
+          <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">🍎 App Store<span>Download on iPhone</span></a>
+          <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">🤖 Google Play<span>Download on Android</span></a>
         </div>
       </div>
       <a href="#hero-form" class="btn btn-nav-cta">🏊 Get Started</a>
+    </div>
+    <!-- Mobile-only Client Login dropdown (next to hamburger) -->
+    <div class="mobile-login" id="mobileLogin">
+      <button type="button" class="mobile-login-btn" id="mobileLoginBtn" aria-haspopup="true" aria-expanded="false" aria-label="Client Login">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Login
+      </button>
+      <div class="mobile-login-menu" id="mobileLoginMenu" role="menu" aria-hidden="true">
+        <div class="mll-section">Client Portals</div>
+        <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">🌊 Edgewater Portal</a>
+        <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">🐬 Calvert Portal</a>
+        <a href="https://portal.iclasspro.com/clssflatiron" target="_blank">🐠 Flat Iron Portal</a>
+        <hr>
+        <div class="mll-section">Download App</div>
+        <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">🍎 App Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">🤖 Google Play</a>
+      </div>
     </div>
     <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1611,6 +1812,7 @@ body.lightbox-open { overflow: hidden; }
     <a href="https://portal.iclasspro.com/clssedgewater/party-booking-01-date" target="_blank"><span class="me-icon">🎂</span> Birthday Parties</a>
     <a href="https://portal.iclasspro.com/clssedgewater/camps/2?sortBy=time" target="_blank"><span class="me-icon">🌙</span> Parents Night Out</a>
     <a href="https://portal.iclasspro.com/clssedgewater/camps/1?sortBy=time" target="_blank"><span class="me-icon">🏕️</span> Drop Off Camp</a>
+    <a href="https://portal.iclasspro.com/clssedgewater/camps/3?sortBy=time" target="_blank"><span class="me-icon">🚀</span> Kick Start</a>
   </div>
 
   <hr class="mobile-divider">
@@ -1623,8 +1825,9 @@ body.lightbox-open { overflow: hidden; }
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="mobile-accordion-body">
-        <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal <span class="ms-sub">Manage classes</span></a>
-        <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal <span class="ms-sub">Manage classes</span></a>
+        <a href="https://portal.iclasspro.com/clssedgewater" target="_blank">🌊 Edgewater Portal <span class="ms-sub">Manage classes</span></a>
+        <a href="https://portal.iclasspro.com/clsscalvert" target="_blank">🐬 Calvert Portal <span class="ms-sub">Manage classes</span></a>
+        <a href="https://portal.iclasspro.com/clssflatiron" target="_blank">🐠 Flat Iron Portal <span class="ms-sub">Manage classes</span></a>
       </div>
     </div>
     <div class="mobile-accordion-group">
@@ -1633,8 +1836,8 @@ body.lightbox-open { overflow: hidden; }
         <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="mobile-accordion-body">
-        <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">App Store <span class="ms-sub">iPhone</span></a>
-        <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">Google Play <span class="ms-sub">Android</span></a>
+        <a href="https://apps.apple.com/us/app/center-lane-swim-school/id6741926775" target="_blank">🍎 App Store <span class="ms-sub">iPhone</span></a>
+        <a href="https://play.google.com/store/apps/details?id=com.clssedgewater.icp" target="_blank">🤖 Google Play <span class="ms-sub">Android</span></a>
       </div>
     </div>
   </div>
@@ -1662,7 +1865,7 @@ body.lightbox-open { overflow: hidden; }
           <svg viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.5-12.5h4m14 0h4m-3.5-7-2.8 2.8M6.3 17.7l-2.8 2.8m14.2 0-2.8-2.8M6.3 6.3 3.5 3.5"/></svg>
           Edgewater &middot; Calvert &middot; St. Mary's &middot; Severna Park
         </div>
-        <h1>Swimming Lessons Kids <span style="color:var(--coral)">Love</span><br>&amp; Parents Trust</h1>
+        <h1>Swimming Lessons <span>Kids Love</span><br>&amp; <span>Parents Trust</span></h1>
         <p class="hero-sub">Safe, fun, and nurturing swim lessons for ages 3 months and up. Small groups. Big confidence. Red Cross certified instructors.</p>
         <div class="hero-social-proof">
           <div class="hsp-stat"><span class="hsp-num">18+</span><span class="hsp-label">Years Experience</span></div>
@@ -1678,8 +1881,8 @@ body.lightbox-open { overflow: hidden; }
         <div class="splash-ring"></div>
         <h3>Register Now</h3>
         <p class="form-sub">Fill out the form and we'll get you in the water!</p>
-        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:600px;border:none;border-radius:8px;overflow:hidden;" scrolling="no" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="600" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
-        <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
+        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" loading="lazy" style="width:100%;height:600px;border:none;border-radius:8px;overflow:hidden;" scrolling="no" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="600" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
+        <script src="https://link.nilsdigital.com/js/form_embed.js" defer></script>
         <script>
         (function(){
           var f = document.getElementById('inline-giAMs7ax6rJPENTGe40M');
@@ -1723,11 +1926,11 @@ body.lightbox-open { overflow: hidden; }
     </div>
     <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 14px;">
       <span style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.1em;">Proud Member</span>
-      <span style="color:#0f3634;font-weight:700;font-size:0.95rem;">USSSA</span>
+      <a href="https://usswimschools.org/" target="_blank" rel="noopener" style="color:#0f3634;font-weight:700;font-size:0.95rem;text-decoration:none;border-bottom:1px dotted rgba(15,54,53,0.3);transition:color 0.2s;" onmouseover="this.style.color='#3ad8d4'" onmouseout="this.style.color='#0f3634'">USSSA</a>
       <span style="color:#3ad8d4;">&bull;</span>
-      <span style="color:#0f3634;font-weight:700;font-size:0.95rem;">ISSSA</span>
+      <a href="https://internationalswimschoolsassociation.org/" target="_blank" rel="noopener" style="color:#0f3634;font-weight:700;font-size:0.95rem;text-decoration:none;border-bottom:1px dotted rgba(15,54,53,0.3);transition:color 0.2s;" onmouseover="this.style.color='#3ad8d4'" onmouseout="this.style.color='#0f3634'">ISSSA</a>
       <span style="color:#3ad8d4;">&bull;</span>
-      <span style="color:#0f3634;font-weight:700;font-size:0.95rem;">Live Water Foundation</span>
+      <a href="https://livewaterfoundation.org/" target="_blank" rel="noopener" style="color:#0f3634;font-weight:700;font-size:0.95rem;text-decoration:none;border-bottom:1px dotted rgba(15,54,53,0.3);transition:color 0.2s;" onmouseover="this.style.color='#3ad8d4'" onmouseout="this.style.color='#0f3634'">Live Water Foundation</a>
     </div>
   </div>
 </div>
@@ -1746,43 +1949,41 @@ body.lightbox-open { overflow: hidden; }
       </div>
       <div class="anim">
         <h2 class="section-title">Why Center Lane Swim School?<svg width="16" height="20" viewBox="0 0 16 20" fill="none" style="vertical-align:middle;margin-left:6px;opacity:0.6;" aria-hidden="true"><path d="M8 0C8 0 0 9 0 13a8 8 0 0 0 16 0C16 9 8 0 8 0z" fill="#3ad8d4" opacity="0.3"/><path d="M8 2C8 2 2 9.5 2 13a6 6 0 0 0 12 0C14 9.5 8 2 8 2z" fill="#3ad8d4" opacity="0.2"/></svg></h2>
-        <p class="section-sub">We believe every child deserves to feel safe and confident in the water. Our curriculum is designed to meet swimmers where they are, from first-time babies to stroke-development swimmers ready to graduate to a swim team.</p>
-        <ul class="about-list">
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            All instructors are Red Cross Certified
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            Small groups: max 3 students per instructor
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            Proprietary curriculum from infant to advanced
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            Unassisted swimming: no floaties or flippers as crutches
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            The Hump Guarantee: free extra lessons if your swimmer is still nervous after 4&ndash;5 sessions
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            Adaptive lessons for swimmers with special needs (state grant funds accepted)
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            4 Swim Currents for unique training environment
-          </li>
-          <li>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
-            Underwater mirrors for instructor feedback
-          </li>
-        </ul>
+        <p class="section-sub" style="margin-bottom:12px;">We believe every child deserves to feel safe and confident in the water, whether they're at a pool party, the beach, a water park, or even in their own backyard.</p>
+        <p class="section-sub" style="margin-bottom:12px;"><strong style="color:#0f3634;">Our goal is simple:</strong> help your child love the water while building real, life-saving skills.</p>
+        <p class="section-sub" style="margin-bottom:0;">From first-time babies to independent swimmers learning strokes, our curriculum meets swimmers where they are and takes them where they want to go. Whether your goal is to join a swim team or simply to share a lifetime of fun in the water, we'll get them there.</p>
       </div>
     </div>
+    <ul class="about-list anim" style="margin-top:48px;">
+      <li>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        All instructors are Red Cross Certified and lifeguard trained
+      </li>
+      <li>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Max 3 swimmers per instructor, no crowded classes, ever
+      </li>
+      <li>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        No floaties or flippers, your child learns true, independent swimming
+      </li>
+      <li>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Proven, safety-first curriculum with real results
+      </li>
+      <li>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Experienced with nervous, fearful, and first-time swimmers
+      </li>
+      <li>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        Adaptive lessons for swimmers with special needs (state grant funds accepted)
+      </li>
+      <li class="about-list-feature">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3ad8d4" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span><strong>Breakthrough Guarantee:</strong> if your swimmer needs extra support after 4&ndash;5 lessons, we'll provide additional lessons at no cost to keep them progressing</span>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -1804,23 +2005,32 @@ body.lightbox-open { overflow: hidden; }
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">From first splash to confident strokes, we have a class for your child.</p>
     </div>
 
-    <!-- Pricing band -->
-    <div class="anim" style="display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:12px;margin:24px auto 40px;max-width:760px;">
-      <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
-        <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Group</div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$39<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
-        <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">Max 3 students</div>
+    <!-- Pricing band with per-location selector -->
+    <div class="anim" style="max-width:760px;margin:24px auto 40px;">
+      <div class="pricing-loc-tabs" role="tablist" aria-label="Pricing by location" style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:14px;">
+        <button type="button" class="pl-tab active" data-loc="edgewater" aria-selected="true">Edgewater</button>
+        <button type="button" class="pl-tab" data-loc="calvert" aria-selected="false">Calvert</button>
+        <button type="button" class="pl-tab" data-loc="stmarys" aria-selected="false">St. Mary's</button>
+        <button type="button" class="pl-tab" data-loc="severna" aria-selected="false">Severna Park</button>
       </div>
-      <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
-        <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Semi-Private</div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$57<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
-        <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">2 students</div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:12px;">
+        <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
+          <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Group</div>
+          <div class="pl-price" data-key="group" style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$39<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
+          <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">Max 3 students</div>
+        </div>
+        <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
+          <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Semi-Private</div>
+          <div class="pl-price" data-key="semi" style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$57<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
+          <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">2 students</div>
+        </div>
+        <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
+          <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Private</div>
+          <div class="pl-price" data-key="priv" style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$87<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
+          <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">1-on-1</div>
+        </div>
       </div>
-      <div style="flex:1 1 180px;background:#f0faf9;border-radius:14px;padding:18px 16px;text-align:center;border:1px solid rgba(58,216,212,0.2);">
-        <div style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Private</div>
-        <div style="font-family:'Montserrat',sans-serif;font-size:1.5rem;font-weight:800;color:#0f3634;line-height:1;">$87<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span></div>
-        <div style="font-size:0.75rem;color:#3a6665;margin-top:4px;">1-on-1</div>
-      </div>
+      <div class="pl-note" style="text-align:center;font-size:0.78rem;color:#3a6665;margin-top:10px;min-height:1em;"></div>
     </div>
 
     <div class="programs-grid anim">
@@ -1841,7 +2051,7 @@ body.lightbox-open { overflow: hidden; }
       <!-- Card 2: Parent Teacher Class -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/67ba4801-0724-434f-b9da-adaf146933e6.jpg" alt="Parent in the water with baby and older siblings during class" loading="lazy" decoding="async" fetchpriority="low">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/619624fa-5fb8-4a96-a88b-4d329c8215e1.jpg" alt="Parent in the water with baby and older siblings during class" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1854,7 +2064,7 @@ body.lightbox-open { overflow: hidden; }
       <!-- Card 3: Beginner -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/e19137e8-70a1-447a-960d-580167e2ab8d.jpg" alt="Coach laughing with a beaming beginner swimmer in a mermaid rash guard" loading="lazy" decoding="async" fetchpriority="low">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2955aefa-9f43-40f3-bcb9-b6c4e24e31f1.jpg" alt="Beginner swimmer working with their instructor in the pool" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1867,7 +2077,7 @@ body.lightbox-open { overflow: hidden; }
       <!-- Card 4: Intermediate -->
       <div class="program-card">
         <div class="program-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/69b4f4c7-829b-46f9-b2b9-e6805a5d47a5.jpg" alt="Young swimmer practicing a front-float with goggles and a kickboard" loading="lazy" decoding="async" fetchpriority="low">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/aa6b9a84-8435-4b56-9d71-d42e61d41335.jpg" alt="Intermediate swimmer practicing strokes with a coach" loading="lazy" decoding="async" fetchpriority="low">
         </div>
         <div class="program-card-body">
           <div class="prog-badge-slot"></div>
@@ -1929,7 +2139,7 @@ body.lightbox-open { overflow: hidden; }
     </div>
     <div class="locations-grid">
       <!-- Edgewater -->
-      <div class="loc-card anim">
+      <div class="loc-card anim" data-location="Edgewater">
         <div class="loc-card-img">
           <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/2dac6ec9-19a3-4061-af66-5f97db4808a2.jpg" alt="Edgewater pool room" loading="lazy" decoding="async">
         </div>
@@ -1937,15 +2147,15 @@ body.lightbox-open { overflow: hidden; }
           <h3>Edgewater</h3>
           <p>175 Mitchells Chance Rd<br>Edgewater, MD 21037</p>
           <p><strong>Phone:</strong> <a href="tel:4108887946" style="color:inherit;">410-888-7946</a></p>
-          <p><strong>Email:</strong> <a href="mailto:ew@centerlaneswim.com" style="color:inherit;">ew@centerlaneswim.com</a></p>
-          <a href="#hero-form" class="btn btn-lime">Register Here</a>
+          <p><strong>Email:</strong><br><a href="mailto:ew@centerlaneswim.com" style="color:inherit;">ew@centerlaneswim.com</a></p>
+          <a href="https://portal.iclasspro.com/clssedgewater/classes?openings=1" target="_blank" class="btn btn-lime">Find a Class</a>
         </div>
         <div class="loc-card-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.8234802881375!2d-76.56652242349334!3d38.928011944896404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7f3ef058d26b7%3A0xcc62c2b2348082ee!2sCenter%20Lane%20Swim%20School!5e0!3m2!1sen!2sus!4v1775926202831!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="loc-map-iframe" src="about:blank" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3103.8234802881375!2d-76.56652242349334!3d38.928011944896404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7f3ef058d26b7%3A0xcc62c2b2348082ee!2sCenter%20Lane%20Swim%20School!5e0!3m2!1sen!2sus!4v1775926202831!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
       <!-- Calvert -->
-      <div class="loc-card anim" style="animation-delay:0.1s">
+      <div class="loc-card anim" style="animation-delay:0.1s" data-location="Calvert">
         <div class="loc-card-img">
           <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/f0da892c-7852-4f03-92f2-7b36599b8415.jpg" alt="Calvert pool room" loading="lazy" decoding="async">
         </div>
@@ -1953,15 +2163,15 @@ body.lightbox-open { overflow: hidden; }
           <h3>Calvert</h3>
           <p>4145 Hunting Creek Rd<br>Huntingtown, MD 20639</p>
           <p><strong>Phone:</strong> <a href="tel:4108817946" style="color:inherit;">410-881-7946</a></p>
-          <p><strong>Email:</strong> <a href="mailto:calvert@centerlaneswim.com" style="color:inherit;">calvert@centerlaneswim.com</a></p>
-          <a href="#hero-form" class="btn btn-lime">Register Here</a>
+          <p><strong>Email:</strong><br><a href="mailto:calvert@centerlaneswim.com" style="color:inherit;">calvert@centerlaneswim.com</a></p>
+          <a href="https://portal.iclasspro.com/clsscalvert/classes?openings=1" target="_blank" class="btn btn-lime">Find a Class</a>
         </div>
         <div class="loc-card-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3117.3504224973867!2d-76.623583723504!3d38.61781886315131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b785f2d5b07c07%3A0xdb1e76bc429ef48d!2sCenter%20Lane%20Swim%20School!5e0!3m2!1sen!2sus!4v1775926292550!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="loc-map-iframe" src="about:blank" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3117.3504224973867!2d-76.623583723504!3d38.61781886315131!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b785f2d5b07c07%3A0xdb1e76bc429ef48d!2sCenter%20Lane%20Swim%20School!5e0!3m2!1sen!2sus!4v1775926292550!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
-      <!-- St. Mary's -->
-      <div class="loc-card anim" style="animation-delay:0.2s">
+      <!-- St. Mary's (mapped to GHL "Flat Iron" option) -->
+      <div class="loc-card anim" style="animation-delay:0.2s" data-location="Flat Iron">
         <div class="loc-card-img">
           <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/602eab61-4bce-480b-8827-ed6cb28cd42a.png" alt="St. Mary's pool room" loading="lazy" decoding="async">
         </div>
@@ -1969,51 +2179,102 @@ body.lightbox-open { overflow: hidden; }
           <h3>St. Mary's</h3>
           <p>45820 Highway to Heaven Ln<br>Great Mills, MD 20634</p>
           <p><strong>Phone:</strong> <a href="tel:4109217946" style="color:inherit;">410-921-7946</a></p>
-          <p><strong>Email:</strong> <a href="mailto:flatiron@centerlaneswim.com" style="color:inherit;">flatiron@centerlaneswim.com</a></p>
-          <a href="#hero-form" class="btn btn-lime">Register Here</a>
+          <p><strong>Email:</strong><br><a href="mailto:flatiron@centerlaneswim.com" style="color:inherit;">flatiron@centerlaneswim.com</a></p>
+          <a href="https://portal.iclasspro.com/clssflatiron/classes?openings=1" target="_blank" class="btn btn-lime">Find a Class</a>
         </div>
         <div class="loc-card-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.651223561706!2d-76.49299242409562!3d38.217993371877036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7606f67b045a7%3A0x6b5a298c6d0c509e!2s45820%20Hwy%20to%20Heaven%20Ln%2C%20Great%20Mills%2C%20MD%2020634!5e0!3m2!1sen!2sus!4v1775926458239!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe class="loc-map-iframe" src="about:blank" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.651223561706!2d-76.49299242409562!3d38.217993371877036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7606f67b045a7%3A0x6b5a298c6d0c509e!2s45820%20Hwy%20to%20Heaven%20Ln%2C%20Great%20Mills%2C%20MD%2020634!5e0!3m2!1sen!2sus!4v1775926458239!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
       <!-- Severna Park -->
-      <div class="loc-card coming-soon anim" style="animation-delay:0.3s">
+      <div class="loc-card coming-soon anim" style="animation-delay:0.3s" data-location="Severna Park">
         <div class="loc-card-img">
-          <img src="" alt="Severna Park, coming soon">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/33b9238d-aa2a-4b08-8e97-ee7ad412a7ad.png" alt="Architectural rendering of the Severna Park Center Lane Swim School interior" loading="lazy" decoding="async">
         </div>
         <div class="loc-card-body">
           <h3>Severna Park</h3>
           <p>8370 Jumpers Hole Rd, Suite 3<br>Millersville, MD 21108</p>
-          <p><strong>Email:</strong> <a href="mailto:sp@centerlaneswim.com" style="color:inherit;">sp@centerlaneswim.com</a></p>
+          <p><strong>Phone:</strong> <a href="tel:4107937946" style="color:inherit;">410-793-7946</a></p>
+          <p><strong>Email:</strong><br><a href="mailto:sp@centerlaneswim.com" style="color:inherit;">sp@centerlaneswim.com</a></p>
           <p><strong>Opening Soon</strong></p>
-          <span class="btn btn-lime" style="opacity:0.5;pointer-events:none;">Coming Soon</span>
+          <button type="button" class="btn btn-lime" data-prefill-location="Severna Park">Join the Waitlist</button>
+        </div>
+        <div class="loc-card-map">
+          <iframe class="loc-map-iframe" src="about:blank" data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3881.905322123978!2d-76.58605709999999!3d39.1098892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7fb9ade9b1641%3A0x2f589262050d3207!2s8370%20Jumpers%20Hole%20Rd%20%233%2C%20Millersville%2C%20MD%2021108!5e1!3m2!1sen!2sus!4v1777391280503!5m2!1sen!2sus" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
     </div>
 
     <!-- Communities we serve -->
-    <div class="anim" style="margin-top:56px;padding:32px 24px;background:#f0faf9;border-radius:20px;border:1px solid rgba(58,216,212,0.18);">
-      <div style="text-align:center;margin-bottom:20px;">
-        <span style="font-size:0.72rem;font-weight:700;color:#3a6665;text-transform:uppercase;letter-spacing:0.1em;">Communities We Serve</span>
-        <h3 style="font-size:1.25rem;color:#0f3634;margin-top:8px;">Proudly Teaching Across Southern &amp; Central Maryland</h3>
+    <div class="anim communities-section">
+      <div class="communities-header">
+        <span class="communities-eyebrow">Communities We Serve</span>
+        <h3 class="communities-title">Proudly Teaching Across Southern &amp; Central Maryland</h3>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto;">
-        <div style="text-align:center;">
-          <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">South Anne Arundel</div>
-          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Annapolis &middot; Edgewater &middot; Davidsonville &middot; Deale &middot; Tracys Landing &middot; Shady Side &middot; Harwood &middot; Lothian</p>
+
+      <div class="communities-grid">
+
+        <div class="community-region">
+          <div class="region-head">
+            <span class="region-pin" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div class="region-meta">
+              <div class="region-name">South Anne Arundel</div>
+              <div class="region-anchor">Served from <strong>Edgewater</strong></div>
+            </div>
+          </div>
+          <div class="city-pills">
+            <span>Annapolis</span><span>Edgewater</span><span>Davidsonville</span><span>Deale</span><span>Tracys Landing</span><span>Shady Side</span><span>Harwood</span><span>Lothian</span>
+          </div>
         </div>
-        <div style="text-align:center;">
-          <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Calvert County</div>
-          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Dunkirk &middot; Owings &middot; Sunderland &middot; North Beach &middot; Chesapeake Beach &middot; Huntingtown &middot; Prince Frederick &middot; St. Leonard &middot; Solomons</p>
+
+        <div class="community-region">
+          <div class="region-head">
+            <span class="region-pin" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div class="region-meta">
+              <div class="region-name">Calvert County</div>
+              <div class="region-anchor">Served from <strong>Calvert</strong></div>
+            </div>
+          </div>
+          <div class="city-pills">
+            <span>Dunkirk</span><span>Owings</span><span>Sunderland</span><span>North Beach</span><span>Chesapeake Beach</span><span>Huntingtown</span><span>Prince Frederick</span><span>St. Leonard</span><span>Solomons</span>
+          </div>
         </div>
-        <div style="text-align:center;">
-          <div style="font-size:0.78rem;font-weight:700;color:#3ad8d4;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">St. Mary's County</div>
-          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Lexington Park &middot; California &middot; Leonardtown</p>
+
+        <div class="community-region">
+          <div class="region-head">
+            <span class="region-pin" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div class="region-meta">
+              <div class="region-name">St. Mary's County</div>
+              <div class="region-anchor">Served from <strong>Flat Iron</strong></div>
+            </div>
+          </div>
+          <div class="city-pills">
+            <span>Lexington Park</span><span>California</span><span>Leonardtown</span>
+          </div>
         </div>
-        <div style="text-align:center;">
-          <div style="font-size:0.78rem;font-weight:700;color:#faa56b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">North Anne Arundel (Coming Soon)</div>
-          <p style="font-size:0.88rem;color:#3a6665;line-height:1.6;margin:0;">Severna Park &middot; Arnold &middot; Millersville &middot; Crownsville &middot; Pasadena &middot; Glen Burnie &middot; Gambrills &middot; Severn &middot; Crofton</p>
+
+        <div class="community-region region-coming-soon">
+          <span class="region-flag">Coming Soon</span>
+          <div class="region-head">
+            <span class="region-pin" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div class="region-meta">
+              <div class="region-name">North Anne Arundel</div>
+              <div class="region-anchor">Opening at <strong>Severna Park</strong></div>
+            </div>
+          </div>
+          <div class="city-pills">
+            <span>Severna Park</span><span>Arnold</span><span>Millersville</span><span>Crownsville</span><span>Pasadena</span><span>Glen Burnie</span><span>Gambrills</span><span>Severn</span><span>Crofton</span>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -2297,7 +2558,7 @@ body.lightbox-open { overflow: hidden; }
   </div>
   <div class="container">
     <div style="text-align:center" class="anim">
-      <span class="badge">OUR VALUES<svg width="16" height="20" viewBox="0 0 16 20" fill="none" style="vertical-align:middle;margin-left:6px;opacity:0.6;" aria-hidden="true"><path d="M8 0C8 0 0 9 0 13a8 8 0 0 0 16 0C16 9 8 0 8 0z" fill="#3ad8d4" opacity="0.3"/><path d="M8 2C8 2 2 9.5 2 13a6 6 0 0 0 12 0C14 9.5 8 2 8 2z" fill="#3ad8d4" opacity="0.2"/></svg></span>
+      <span class="badge">OUR VALUES</span>
       <h2 class="section-title">What We Stand For</h2>
       <p class="section-sub" style="margin-left:auto;margin-right:auto;">The principles behind every lesson, every instructor, and every interaction.</p>
     </div>
@@ -2344,10 +2605,10 @@ body.lightbox-open { overflow: hidden; }
       </div>
       <div class="value-card anim">
         <div class="value-icon" style="background:rgba(79,195,247,0.12);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4fc3f7" stroke-width="2" stroke-linecap="round"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M2 19c6.667-6 13.333 0 20-6"/></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4fc3f7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.39 6.96H22l-6.18 4.49 2.39 7.07L12 16.27l-6.21 4.25 2.39-7.07L2 8.96h7.61z"/></svg>
         </div>
-        <h4>Swim Currents Tech</h4>
-        <p>4 adjustable swim currents create a unique training environment that builds endurance faster than traditional pools.</p>
+        <h4>Trusted Experience</h4>
+        <p>18+ years teaching 7,000+ swimmers across Maryland. A swim school families return to season after season.</p>
       </div>
       <div class="value-card anim">
         <div class="value-icon" style="background:rgba(58,216,212,0.1);">
@@ -2713,6 +2974,7 @@ body.lightbox-open { overflow: hidden; }
         <ul class="footer-links">
           <li><a href="https://portal.iclasspro.com/clssedgewater" target="_blank">Edgewater Portal</a></li>
           <li><a href="https://portal.iclasspro.com/clsscalvert" target="_blank">Calvert Portal</a></li>
+          <li><a href="https://portal.iclasspro.com/clssflatiron" target="_blank">Flat Iron Portal</a></li>
         </ul>
       </div>
 
@@ -2864,6 +3126,40 @@ document.querySelectorAll('a[href="#hero-form"]').forEach(function(link){
   });
 });
 
+/* ── Location cards → scroll to lead form + visual pulse ── */
+(function() {
+  function jumpToForm() {
+    var form = document.getElementById('hero-form');
+    if (!form) return;
+    var top = form.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+    setTimeout(function() {
+      form.classList.remove('form-highlight');
+      void form.offsetWidth;
+      form.classList.add('form-highlight');
+      setTimeout(function() { form.classList.remove('form-highlight'); }, 1900);
+    }, window.innerWidth <= 900 ? 650 : 450);
+  }
+
+  // Whole-card click → jump to form (skip clicks on inner links/buttons/maps)
+  document.querySelectorAll('.loc-card[data-location]').forEach(function(card) {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('a, button, iframe')) return;
+      jumpToForm();
+    });
+  });
+
+  // Explicit triggers (e.g. Severna Park "Join the Waitlist" button)
+  document.querySelectorAll('[data-prefill-location]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      jumpToForm();
+    });
+  });
+})();
+
 /* ── Steps connector line — draws after last bubble appears ── */
 (function(){
   var timeline = document.querySelector('.steps-timeline');
@@ -2951,6 +3247,78 @@ document.querySelectorAll('a[href="#hero-form"]').forEach(function(link){
     });
   });
 })();
+
+/* ── Mobile Client Login dropdown ── */
+(function(){
+  var wrap = document.getElementById('mobileLogin');
+  var btn  = document.getElementById('mobileLoginBtn');
+  var menu = document.getElementById('mobileLoginMenu');
+  if (!wrap || !btn || !menu) return;
+
+  function close(){
+    wrap.classList.remove('open');
+    btn.setAttribute('aria-expanded','false');
+    menu.setAttribute('aria-hidden','true');
+  }
+  function open(){
+    wrap.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+    menu.setAttribute('aria-hidden','false');
+  }
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (wrap.classList.contains('open')) { close(); } else { open(); }
+  });
+  menu.addEventListener('click', function(e){ e.stopPropagation(); });
+  document.addEventListener('click', function(){ if (wrap.classList.contains('open')) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+})();
+
+/* ── Pricing per-location tabs ── */
+(function(){
+  var PRICING = {
+    edgewater: { group: 39, semi: 57, priv: 87, note: '' },
+    calvert:   { group: 35, semi: 55, priv: 80, note: '' },
+    stmarys:   { group: 30, semi: 50, priv: 75, note: '' },
+    severna:   { group: null, semi: null, priv: null, note: 'Pricing announced soon. Severna Park is opening soon!' }
+  };
+  var tabs = document.querySelectorAll('.pl-tab');
+  var prices = document.querySelectorAll('.pl-price');
+  var note = document.querySelector('.pl-note');
+  if (!tabs.length || !prices.length) return;
+
+  function render(loc) {
+    var data = PRICING[loc];
+    if (!data) return;
+    prices.forEach(function(el){
+      el.classList.add('swap');
+      setTimeout(function(){
+        var key = el.dataset.key;
+        var v = data[key];
+        if (v == null) {
+          el.innerHTML = '&mdash;';
+        } else {
+          el.innerHTML = '$' + v + '<span style="font-size:0.9rem;font-weight:600;color:#3a6665;">/week</span>';
+        }
+        el.classList.remove('swap');
+      }, 180);
+    });
+    if (note) note.textContent = data.note || '';
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      render(tab.dataset.loc);
+    });
+  });
+})();
 </script>
 
 <!-- Gallery lightbox -->
@@ -3018,6 +3386,17 @@ document.querySelectorAll('a[href="#hero-form"]').forEach(function(link){
       }
     });
   }
+
+  // Google Maps iframes — defer until near viewport (each saves ~500KB-1MB of Maps JS on initial load)
+  Array.prototype.forEach.call(document.querySelectorAll('iframe.loc-map-iframe[data-src]'), function(frame){
+    lazyFrameObserver(frame, function(){
+      var real = frame.getAttribute('data-src');
+      if (real) {
+        frame.src = real;
+        frame.removeAttribute('data-src');
+      }
+    });
+  });
 })();
 </script>
 
