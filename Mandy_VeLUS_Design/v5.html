@@ -107,7 +107,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#F6F3EF;color:var(--ink);-webkit-font-smoothing:antialiased}
-body{overflow-x:hidden;font-family:var(--body);font-weight:400;line-height:1.55;font-size:var(--fs-p);color:#2B2B2B;letter-spacing:.01em;hyphens:none;-webkit-hyphens:none;-ms-hyphens:none}
+body{overflow-x:hidden;font-family:var(--body);font-weight:400;line-height:1.55;font-size:var(--fs-p);color:#2B2B2B;letter-spacing:.01em;hyphens:none;-webkit-hyphens:none;-ms-hyphens:none;text-wrap:pretty}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -408,13 +408,13 @@ section.monogram + .svc-list{margin-top:0}
 section.visual-break{padding:0;overflow:hidden}
 section.visual-break img{width:100%;display:block;object-fit:cover}
 .process-wrap{max-width:720px;margin:0 auto;padding:var(--sp-md) 40px 0}
-.process-wrap h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--sp-sm);line-height:1.15;text-align:center}
+.process-wrap h2{font-family:var(--serif);font-weight:400;font-size:var(--fs-h1);letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--sp-sm);line-height:1.15;text-align:left}
 .process-step{padding:var(--sp-sm) 0;border-top:0;position:relative}
-.process-step::before{content:"";position:absolute;top:0;left:17.5%;right:17.5%;height:1px;background:#D0D0D0}
-.process-step:last-child::after{content:"";position:absolute;bottom:0;left:17.5%;right:17.5%;height:1px;background:#D0D0D0}
+.process-step::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:#D0D0D0}
+.process-step:last-child::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:#D0D0D0}
 .p-num{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.04em;opacity:.45;margin-bottom:var(--sp-xs);font-weight:400}
 .p-title{font-family:var(--serif);font-size:var(--fs-h2);font-weight:400;letter-spacing:.01em;margin-bottom:8px;line-height:1.2;text-transform:none}
-.p-desc{font-size:var(--fs-p);line-height:1.55;font-weight:400;opacity:.78;max-width:640px;text-align:justify;text-wrap:auto;letter-spacing:.01em}
+.p-desc{font-size:var(--fs-p);line-height:1.55;font-weight:400;opacity:.78;max-width:640px;text-align:left;text-wrap:auto;letter-spacing:.01em}
 
 /* PAGE ROUTING */
 .page{display:none}
