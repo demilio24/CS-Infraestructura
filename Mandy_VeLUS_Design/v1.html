@@ -418,6 +418,8 @@
       .about, .services, .gallery, .process, .reviews, .cta-section {
         padding: var(--sp-lg) 40px;
       }
+      section.services { padding-bottom: 0; }
+      section.gallery { padding-top: var(--sp-md); }
       .section-cta {
         text-align: center;
         padding: var(--sp-md) 24px 0;
@@ -435,7 +437,7 @@
       .about-portrait-wrap { position: relative; }
       .about-portrait {
         width: 100%; border-radius: 0;
-        aspect-ratio: 3/4; object-fit: cover; object-position: center;
+        aspect-ratio: 3/4; object-fit: cover; object-position: left top;
       }
       .about-text { padding-top: 8px; max-width: 560px; }
       .about-label {
@@ -1267,7 +1269,6 @@
     <!-- ===== GALLERY ===== -->
     <section class="gallery" id="gallery">
       <div class="section-intro anim">
-        <p class="section-label">Selected Work</p>
         <h2 class="section-heading">Our Work</h2>
       </div>
       <div class="gallery-inner">
