@@ -412,7 +412,7 @@ p { margin: 0 0 1em; }
 }
 .hero-form-card h3 { font-size: 1.3rem; text-align: center; margin-bottom: 4px; color: #0f3634; }
 .hero-form-card .form-sub { text-align: center; font-size: 0.9rem; color: #5a8a89; margin-bottom: 16px; }
-.hero-form-card iframe { width: 100%; height: 600px; border: none; border-radius: 8px; overflow: hidden; scrollbar-width: none; -ms-overflow-style: none; }
+.hero-form-card iframe { width: 100%; border: none; border-radius: 8px; overflow: hidden; scrollbar-width: none; -ms-overflow-style: none; transition: height 0.2s ease; }
 .hero-form-card iframe::-webkit-scrollbar { display: none; }
 
 @media (max-width: 768px) {
@@ -1389,7 +1389,6 @@ body.lightbox-open { overflow: hidden; }
   .hsp-num { font-size: 1.3rem; }
   .hsp-label { font-size: 0.68rem; }
   .hero-form-card { padding: 20px 16px; }
-  .hero-form-card iframe { height: 620px; }
 
   /* About */
   .about { padding: 40px 0 48px; }
@@ -1460,7 +1459,6 @@ body.lightbox-open { overflow: hidden; }
   .hero-form-card { padding: 24px 16px 20px; border-radius: 20px 20px 0 0; margin: 0 -14px; }
   .hero-form-card h3 { font-size: 1.15rem; }
   .hero-form-card .form-sub { font-size: 0.85rem; }
-  .hero-form-card iframe { height: 620px; }
 
   /* About */
   .about { padding: 32px 0 40px; }
@@ -1528,7 +1526,6 @@ body.lightbox-open { overflow: hidden; }
   .hsp-num { font-size: 1.2rem; }
   .btn { padding: 10px 18px; font-size: 0.85rem; }
   .section-title { font-size: 1.4rem; }
-  .hero-form-card iframe { height: 600px; }
   .program-card { height: 240px; }
   .step-icon-wrap { width: 64px; height: 64px; }
   .step-icon-wrap svg { width: 28px; height: 28px; }
@@ -1709,6 +1706,173 @@ body.lightbox-open { overflow: hidden; }
 .pl-price { transition: opacity 0.18s ease; }
 .pl-price.swap { opacity: 0; }
 
+/* ═══════════════════════════════════════════════════════
+   LEVEL QUIZ — "What level is right for me?"
+═══════════════════════════════════════════════════════ */
+.level-quiz { max-width: 760px; margin: 0 auto 48px; }
+.lvq-card {
+  position: relative;
+  background: #fff;
+  border-radius: 24px;
+  padding: 38px 32px 32px;
+  box-shadow: 0 10px 40px rgba(15,54,53,0.08);
+  border: 1px solid rgba(58,216,212,0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.lvq-card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, #3ad8d4 0%, #fea46c 100%);
+}
+.lvq-card::after {
+  content: ""; position: absolute; bottom: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(58,216,212,0.12) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.lvq-stage { animation: lvq-fade 0.32s ease both; position: relative; z-index: 1; }
+.lvq-stage[hidden] { display: none; }
+@keyframes lvq-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.lvq-stage[data-stage="intro"] { text-align: center; }
+.lvq-stage[data-stage="intro"] h3 {
+  font-family: 'HWT Artz', 'Montserrat', sans-serif;
+  font-size: 1.85rem; color: #0f3634; margin: 0 0 22px;
+  line-height: 1.2;
+}
+.lvq-icon-row {
+  display: flex; justify-content: center; gap: 10px;
+  margin-bottom: 18px;
+}
+.lvq-icon-row span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #3ad8d4; opacity: 0.5;
+  animation: lvq-pulse 1.6s ease-in-out infinite;
+}
+.lvq-icon-row span:nth-child(2) { animation-delay: 0.2s; background: #fea46c; }
+.lvq-icon-row span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes lvq-pulse { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.4); opacity: 1; } }
+
+.lvq-step-label {
+  font-family: 'Arboria', 'Montserrat', sans-serif;
+  font-size: 0.72rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #5a8a89;
+  margin-bottom: 14px; text-align: center;
+}
+.lvq-step-num { color: #fea46c; font-weight: 700; }
+.lvq-progress {
+  display: flex; gap: 6px; justify-content: center;
+  margin-bottom: 18px;
+}
+.lvq-progress span {
+  width: 28px; height: 4px; border-radius: 4px;
+  background: #e0f4f4; transition: background 0.3s ease;
+}
+.lvq-progress span.done { background: #3ad8d4; }
+.lvq-progress span.current { background: #fea46c; }
+.lvq-question {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.35rem; font-weight: 700;
+  text-align: center; color: #0f3634;
+  margin: 0 auto 26px; max-width: 560px; line-height: 1.4;
+}
+.lvq-choices {
+  display: flex; gap: 14px; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 16px;
+}
+
+.lvq-btn {
+  font-family: 'Arboria', 'Montserrat', sans-serif;
+  font-weight: 700; font-size: 0.95rem;
+  letter-spacing: 0.4px;
+  padding: 14px 36px; border-radius: 50px;
+  border: none; cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  min-width: 150px;
+  display: inline-block; text-align: center; text-decoration: none;
+}
+.lvq-btn-primary { background: #fea46c; color: #fff; }
+.lvq-btn-primary:hover { background: #fd924f; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(254,164,108,0.45); }
+.lvq-btn-cta { background: #0f3634; color: #fff; }
+.lvq-btn-cta:hover { background: #1a4f4d; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,54,53,0.35); }
+.lvq-btn-yes { background: #3ad8d4; color: #fff; }
+.lvq-btn-yes:hover { background: #2bc4c0; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(58,216,212,0.4); }
+.lvq-btn-no {
+  background: #fff; color: #0f3634;
+  border: 2px solid #d6e8e7;
+  padding: 12px 34px;
+}
+.lvq-btn-no:hover { background: #f0faf9; border-color: #3ad8d4; transform: translateY(-2px); }
+.lvq-btn-ghost {
+  background: transparent; color: #3a6665;
+  border: 2px solid #d6e8e7;
+  padding: 12px 28px;
+}
+.lvq-btn-ghost:hover { background: #f0faf9; border-color: #3ad8d4; color: #0f3634; }
+
+.lvq-back {
+  background: none; border: none;
+  color: #5a8a89; font-size: 0.85rem;
+  font-family: inherit; cursor: pointer;
+  display: block; margin: 8px auto 0; padding: 6px 12px;
+}
+.lvq-back:hover { color: #0f3634; }
+
+.lvq-stage[data-stage="result"] { text-align: center; }
+.lvq-result-caption {
+  font-family: 'Arboria', 'Montserrat', sans-serif;
+  font-size: 0.95rem; color: #3a6665;
+  margin: 0 0 12px;
+}
+.lvq-result-caption[hidden] { display: none; }
+.lvq-result-title {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem; font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #fff; background: #fea46c;
+  padding: 14px 36px; border-radius: 50px;
+  margin: 0 0 24px;
+  box-shadow: 0 6px 20px rgba(254,164,108,0.35);
+}
+.lvq-result-title[hidden] { display: none; }
+.lvq-restart {
+  display: block;
+  margin: 16px auto 0;
+  background: none; border: none;
+  color: #5a8a89; font-size: 0.85rem;
+  font-family: 'Arboria', 'Montserrat', sans-serif;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+.lvq-restart:hover { color: #0f3634; }
+.lvq-result-message {
+  font-family: 'Montserrat', sans-serif;
+  color: #0f3634; font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.55;
+  margin: 0 auto 26px; max-width: 500px;
+}
+.lvq-result-message[hidden] { display: none; }
+.lvq-result-actions {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .lvq-card { padding: 30px 20px 24px; border-radius: 20px; }
+  .lvq-stage[data-stage="intro"] h3 { font-size: 1.5rem; }
+  .lvq-question { font-size: 1.15rem; margin-bottom: 22px; }
+  .lvq-result-title { font-size: 1.2rem; padding: 12px 28px; }
+  .lvq-result-message { font-size: 1.02rem; }
+  .lvq-btn { padding: 12px 26px; font-size: 0.9rem; min-width: 132px; }
+  .lvq-btn-no { padding: 10px 24px; }
+}
+
   </style>
 </head>
 <body>
@@ -1882,7 +2046,7 @@ body.lightbox-open { overflow: hidden; }
         <h3>Register Now</h3>
         <p class="form-sub">Fill out the form and we'll get you in the water!</p>
         <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
-        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:600px;min-height:600px;border:none;border-radius:8px;overflow:hidden;display:block;background:#fff;" scrolling="no" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="600" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
+        <iframe src="https://link.nilsdigital.com/widget/form/giAMs7ax6rJPENTGe40M" style="width:100%;height:600px;border:none;border-radius:8px;overflow:hidden;display:block;background:#fff;" scrolling="no" id="inline-giAMs7ax6rJPENTGe40M" data-layout="{'id':'INLINE'}" data-trigger-type="alwaysShow" data-trigger-value="" data-activation-type="alwaysActivated" data-activation-value="" data-deactivation-type="neverDeactivate" data-deactivation-value="" data-form-name="Form 0" data-height="600" data-layout-iframe-id="inline-giAMs7ax6rJPENTGe40M" data-form-id="giAMs7ax6rJPENTGe40M" title="Form 0"></iframe>
         <script>
         (function(){
           var f = document.getElementById('inline-giAMs7ax6rJPENTGe40M');
@@ -2033,6 +2197,41 @@ body.lightbox-open { overflow: hidden; }
       <div class="pl-note" style="text-align:center;font-size:0.78rem;color:#3a6665;margin-top:10px;min-height:1em;"></div>
     </div>
 
+    <!-- Level Quiz: "What level is right for me?" -->
+    <div class="anim level-quiz" id="level-quiz">
+      <div class="lvq-card">
+        <!-- Intro -->
+        <div class="lvq-stage" data-stage="intro">
+          <div class="lvq-icon-row" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>What level is right for me?</h3>
+          <button type="button" class="lvq-btn lvq-btn-primary" data-action="start">Take the Quiz →</button>
+        </div>
+        <!-- Question -->
+        <div class="lvq-stage" data-stage="question" hidden>
+          <div class="lvq-step-label">Question <span class="lvq-step-num">1</span></div>
+          <div class="lvq-progress" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <h3 class="lvq-question"></h3>
+          <div class="lvq-choices">
+            <button type="button" class="lvq-btn lvq-btn-yes" data-answer="yes">Yes</button>
+            <button type="button" class="lvq-btn lvq-btn-no" data-answer="no">No</button>
+          </div>
+          <button type="button" class="lvq-back" data-action="back">← Back</button>
+        </div>
+        <!-- Result -->
+        <div class="lvq-stage" data-stage="result" hidden>
+          <p class="lvq-result-caption" hidden>You're at the</p>
+          <h3 class="lvq-result-title" hidden></h3>
+          <p class="lvq-result-message" hidden></p>
+          <div class="lvq-result-actions">
+            <a class="lvq-btn lvq-btn-cta lvq-result-cta" href="#hero-form">Register Now →</a>
+          </div>
+          <button type="button" class="lvq-restart" data-action="reset">Restart quiz</button>
+        </div>
+      </div>
+    </div>
+
     <div class="programs-grid anim">
 
       <!-- Card 1: Infant Acclimation -->
@@ -2173,7 +2372,7 @@ body.lightbox-open { overflow: hidden; }
       <!-- St. Mary's (mapped to GHL "Flat Iron" option) -->
       <div class="loc-card anim" style="animation-delay:0.2s" data-location="Flat Iron">
         <div class="loc-card-img">
-          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/602eab61-4bce-480b-8827-ed6cb28cd42a.png" alt="St. Mary's pool room" loading="lazy" decoding="async">
+          <img src="https://assets.cdn.filesafe.space/JL5Xsreqcpi8naffNZWe/media/03d1d421-4745-4849-892e-f49c812dc005.jpg" alt="St. Mary's pool room" loading="lazy" decoding="async">
         </div>
         <div class="loc-card-body">
           <h3>St. Mary's</h3>
@@ -3476,6 +3675,146 @@ document.querySelectorAll('a[href="#hero-form"]').forEach(function(link){
     if (e.key === 'Escape') close();
     else if (e.key === 'ArrowLeft')  show(current - 1);
     else if (e.key === 'ArrowRight') show(current + 1);
+  });
+})();
+
+/* ── Level Quiz: "What level is right for me?" ── */
+(function(){
+  var quiz = document.getElementById('level-quiz');
+  if (!quiz) return;
+
+  var QUESTIONS = {
+    q1: { text: "Is your child over 24 months of age?", yes: 'q2', no: 'q3' },
+    q2: { text: "Can your child swim unassisted without flotation devices or aids on both their front and back?", yes: 'q4', no: { result: 'beginner' } },
+    q3: { text: "Is your child over 6 months of age?", yes: { result: 'ptc' }, no: 'q5' },
+    q4: { text: "Can your child swim unassisted 25 yards and proficient in backstroke and front crawl?", yes: 'q6', no: { result: 'intermediate' } },
+    q5: { text: "Is your child over 3 months of age?", yes: { result: 'infant' }, no: { result: 'newborn' } },
+    q6: { text: "Is your child proficient in front crawl, backstroke, butterfly stroke, and breast stroke and can swim or tread for extended periods?", yes: { result: 'swimteam' }, no: { result: 'advanced' } }
+  };
+
+  var RESULTS = {
+    newborn:      { message: "Congratulations on your newborn child, we can't wait to see you in a few months!" },
+    infant:       { title: "Infant" },
+    ptc:          { title: "PTC" },
+    beginner:     { title: "Beginner" },
+    intermediate: { title: "Intermediate" },
+    advanced:     { title: "Advanced" },
+    swimteam:     { message: "Congratulations on their amazing skills. Please consider joining a local swim team!" }
+  };
+
+  var stages = {
+    intro:    quiz.querySelector('[data-stage="intro"]'),
+    question: quiz.querySelector('[data-stage="question"]'),
+    result:   quiz.querySelector('[data-stage="result"]')
+  };
+  var qText  = quiz.querySelector('.lvq-question');
+  var qStep  = quiz.querySelector('.lvq-step-num');
+  var qBack  = quiz.querySelector('.lvq-back');
+  var qProg  = quiz.querySelectorAll('.lvq-progress span');
+  var resCaption = quiz.querySelector('.lvq-result-caption');
+  var resTitle   = quiz.querySelector('.lvq-result-title');
+  var resMessage = quiz.querySelector('.lvq-result-message');
+
+  var history = [];
+  var current = null;
+  var card = quiz.querySelector('.lvq-card');
+  var lockedH = 0;
+
+  function lockHeight(){
+    // Re-measure natural height (clear current lock so we can compare)
+    card.style.minHeight = '';
+    var natural = card.offsetHeight;
+    if (natural > lockedH) lockedH = natural;
+    if (lockedH) card.style.minHeight = lockedH + 'px';
+  }
+
+  function unlockHeight(){
+    lockedH = 0;
+    card.style.minHeight = '';
+  }
+
+  function show(stage){
+    Object.keys(stages).forEach(function(k){
+      if (k === stage) stages[k].removeAttribute('hidden');
+      else stages[k].setAttribute('hidden','');
+    });
+    var el = stages[stage];
+    if (el) { el.style.animation = 'none'; void el.offsetHeight; el.style.animation = ''; }
+    if (stage !== 'intro') lockHeight();
+  }
+
+  function paintProgress(){
+    var step = history.length;
+    Array.prototype.forEach.call(qProg, function(s, i){
+      s.classList.remove('done','current');
+      if (i < step) s.classList.add('done');
+      else if (i === step) s.classList.add('current');
+    });
+  }
+
+  function showQuestion(qid){
+    current = qid;
+    var q = QUESTIONS[qid];
+    qText.textContent = q.text;
+    qStep.textContent = history.length + 1;
+    qBack.hidden = history.length === 0;
+    paintProgress();
+    show('question');
+  }
+
+  function showResult(rid){
+    var r = RESULTS[rid];
+    if (r.title) {
+      resCaption.hidden = false;
+      resTitle.textContent = r.title + ' Level';
+      resTitle.hidden = false;
+    } else {
+      resCaption.hidden = true;
+      resTitle.hidden = true;
+    }
+    if (r.message) {
+      resMessage.textContent = r.message;
+      resMessage.hidden = false;
+    } else {
+      resMessage.hidden = true;
+    }
+    show('result');
+  }
+
+  function answer(val){
+    var q = QUESTIONS[current];
+    if (!q) return;
+    var next = q[val];
+    history.push(current);
+    if (typeof next === 'string') showQuestion(next);
+    else if (next && next.result) showResult(next.result);
+  }
+
+  function back(){
+    if (history.length === 0) { reset(); return; }
+    var prev = history.pop();
+    showQuestion(prev);
+  }
+
+  function reset(){
+    history = [];
+    current = null;
+    unlockHeight();
+    show('intro');
+  }
+
+  function start(){
+    history = [];
+    showQuestion('q1');
+  }
+
+  quiz.addEventListener('click', function(e){
+    var t = e.target;
+    if (!t || !t.matches) return;
+    if (t.matches('[data-action="start"]')) start();
+    else if (t.matches('[data-action="reset"]')) reset();
+    else if (t.matches('[data-action="back"]')) back();
+    else if (t.matches('[data-answer]')) answer(t.getAttribute('data-answer'));
   });
 })();
 </script>
