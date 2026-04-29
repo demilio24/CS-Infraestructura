@@ -2,9 +2,9 @@ name: Refresh Systema Floyd Dashboard Snapshot
 
 on:
   schedule:
-    # Every 10 minutes. GitHub may delay scheduled runs by a few minutes
-    # under load, so the effective freshness floor is ~5–15 min.
-    - cron: '*/10 * * * *'
+    # Every 5 minutes (GitHub Actions cron floor). Runs may be delayed by a
+    # few minutes under load, so effective freshness floor is ~5–10 min.
+    - cron: '*/5 * * * *'
   workflow_dispatch: # Manual trigger from GitHub UI
 
 # Prevent overlapping runs (a slow run gets cancelled when the next cron fires)
