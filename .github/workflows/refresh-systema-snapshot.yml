@@ -1,0 +1,45 @@
+name: Refresh Systema Floyd Dashboard Snapshot
+
+on:
+  schedule:
+    # Every 10 minutes. GitHub may delay scheduled runs by a few minutes
+    # under load, so the effective freshness floor is ~5–15 min.
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Manual trigger from GitHub UI
+
+# Prevent overlapping runs (a slow run gets cancelled when the next cron fires)
+concurrency:
+  group: systema-snapshot
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch snapshot from GHL
+        env:
+          GHL_PIT_SYSTEMA: ${{ secrets.GHL_PIT_SYSTEMA }}
+        run: python .claude/scripts/fetch-systema-snapshot.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Tom_Systema_Floyd/dashboard/snapshot.json
+          if git diff --cached --quiet; then
+            echo "No snapshot changes — skipping commit."
+            exit 0
+          fi
+          git commit -m "snapshot: refresh systema floyd dashboard [skip ci]"
+          # Pull-rebase to avoid push races with concurrent commits to main
+          git pull --rebase --autostash origin main || true
+          git push

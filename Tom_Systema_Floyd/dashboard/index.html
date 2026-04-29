@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Camp Registrations · Systema Floyd</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --sf-white:#fff; --sf-cream:#f7f9fc; --sf-cream-2:#eef2f8;
+  --sf-border:#e2e8f2; --sf-border-strong:#c6d1e4;
+  --sf-ink:#0d1534; --sf-ink-60:#475067; --sf-ink-50:#6b7490; --sf-ink-40:#8b95ad;
+  --sf-blue-900:#0a1028; --sf-blue-800:#111a3d; --sf-blue-700:#1b2f6e;
+  --sf-blue-600:#234091; --sf-blue-500:#2f82c4; --sf-blue-400:#4aa3e0;
+  --sf-blue-100:#e8f1fb; --sf-blue-50:#f4f8fd;
+  --sf-amber:#f3a847; --sf-amber-deep:#c97a16;
+  --sf-green:#2da375; --sf-red:#d8453d;
+  --radius-sm:8px; --radius-md:16px; --radius-lg:24px;
+  --grad-blue:linear-gradient(135deg,#2f82c4,#1b2f6e);
+  --grad-blue-deep:linear-gradient(135deg,#1b2f6e,#0a1028);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --shadow-sm:0 2px 8px rgba(15,27,61,.06),0 1px 3px rgba(15,27,61,.04);
+  --shadow-md:0 12px 32px -12px rgba(27,47,110,.18);
+  --shadow-lg:0 24px 60px -20px rgba(27,47,110,.24);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;color:var(--sf-ink);background:var(--sf-cream);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input{font-family:inherit;color:inherit}
+h1,h2,h3,h4{font-family:'Oswald','Inter',sans-serif;font-weight:700;line-height:1.05;margin:0 0 .4em;letter-spacing:.01em;color:var(--sf-ink);text-transform:uppercase}
+p{margin:0 0 1em;color:var(--sf-ink-60)}
+
+/* ====== Branded header strip (mirrors home.html nav polygon, simplified) ====== */
+.sf-strip{position:relative;padding:18px 32px 30px;isolation:isolate}
+.sf-strip::before{content:'';position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,var(--sf-blue-700) 0%,var(--sf-blue-500) 50%,var(--sf-blue-700) 100%);clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 120px) 100%,120px calc(100% - 4px),0 calc(100% - 20px));filter:drop-shadow(0 10px 30px rgba(15,27,61,.14))}
+.sf-strip::after{content:'';position:absolute;inset:0 0 3px 0;z-index:-1;background:var(--sf-white);clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 120px) 100%,120px calc(100% - 4px),0 calc(100% - 20px))}
+.sf-strip-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.sf-brand{display:flex;align-items:center;gap:14px;padding:4px 18px;position:relative;text-decoration:none}
+.sf-brand::before,.sf-brand::after{content:'';display:block;width:0;height:0;border:6px solid transparent}
+.sf-brand::before{border-right-color:var(--sf-blue-500)}
+.sf-brand::after{border-left-color:var(--sf-blue-500)}
+.sf-brand img{height:64px;width:auto;filter:drop-shadow(0 2px 14px rgba(47,130,196,.4)) drop-shadow(0 1px 4px rgba(27,47,110,.22))}
+.sf-strip-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--sf-ink-60);padding-left:14px;border-left:2px solid var(--sf-border-strong)}
+.sf-strip-meta{margin-left:auto;display:flex;align-items:center;gap:14px;font-family:'Space Grotesk','Inter',monospace;font-size:13px;color:var(--sf-ink-50);font-weight:500}
+.sf-strip-meta .dot{width:8px;height:8px;border-radius:50%;background:var(--sf-green);box-shadow:0 0 0 4px rgba(45,163,117,.18);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(45,163,117,.18)}50%{box-shadow:0 0 0 7px rgba(45,163,117,.05)}}
+.sf-strip-meta button{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);transition:background .2s,transform .2s}
+.sf-strip-meta button:hover{background:var(--sf-blue-100);transform:translateY(-1px)}
+
+/* ====== Page shell ====== */
+.dash{max-width:1280px;margin:0 auto;padding:8px 32px 80px}
+
+/* ====== Filter toggle ====== */
+.filter-row{display:flex;align-items:center;gap:14px;margin:6px 0 28px;flex-wrap:wrap}
+.filter-row .lbl{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--sf-ink-50);text-transform:uppercase}
+.filter{display:inline-flex;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-sm);padding:4px;box-shadow:var(--shadow-sm)}
+.filter button{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:9px 18px;border-radius:5px;color:var(--sf-ink-60);transition:color .25s,background .25s}
+.filter button:hover{color:var(--sf-blue-700)}
+.filter button.active{background:var(--grad-blue);color:#fff;box-shadow:0 6px 14px -6px rgba(47,130,196,.55)}
+
+/* ====== KPI strip ====== */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+.kpi{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:20px 22px 18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:transform .35s var(--ease-out),box-shadow .35s,border-color .35s}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-blue);opacity:.85}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--sf-border-strong)}
+.kpi h3{font-size:11px;letter-spacing:.18em;color:var(--sf-ink-50);margin-bottom:6px;font-weight:600}
+.kpi-num{font-family:'Oswald',sans-serif;font-size:48px;font-weight:700;line-height:1;color:var(--sf-blue-700);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:12px;color:var(--sf-ink-50);margin-bottom:10px;letter-spacing:.04em;min-height:16px}
+.kpi-sub strong{color:var(--sf-ink-60);font-weight:600}
+.kpi-goal{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--sf-ink-50);font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.kpi-goal label{display:inline-flex;align-items:center;gap:6px}
+.kpi-goal input{width:60px;padding:4px 6px;border:1px solid var(--sf-border);border-radius:4px;font-size:12px;text-align:right;background:var(--sf-cream);color:var(--sf-ink);transition:border-color .2s,background .2s;font-variant-numeric:tabular-nums}
+.kpi-goal input:focus{outline:0;border-color:var(--sf-blue-500);background:#fff;box-shadow:0 0 0 3px rgba(47,130,196,.15)}
+.kpi-bar{margin-top:10px;height:6px;background:var(--sf-cream-2);border-radius:3px;overflow:hidden;position:relative}
+.kpi-bar-fill{height:100%;background:var(--grad-blue);border-radius:3px;width:0%;transition:width .8s var(--ease-out),background .25s}
+.kpi-bar-fill.over{background:linear-gradient(135deg,var(--sf-green),#1f7c58)}
+.kpi-bar-fill.under{background:linear-gradient(135deg,var(--sf-amber),var(--sf-amber-deep))}
+.kpi-pct{font-size:11px;color:var(--sf-ink-50);margin-top:6px;font-family:'Space Grotesk',sans-serif;font-variant-numeric:tabular-nums}
+.kpi-pct strong{color:var(--sf-blue-700);font-weight:600}
+.kpi-pct.met strong{color:var(--sf-green)}
+.kpi-pct.behind strong{color:var(--sf-amber-deep)}
+
+/* ====== Chart row ====== */
+.chart-row{display:grid;grid-template-columns:380px 1fr;gap:18px}
+.card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-sm);transition:box-shadow .35s,border-color .35s}
+.card:hover{box-shadow:var(--shadow-md);border-color:var(--sf-border-strong)}
+.card h3{font-size:13px;letter-spacing:.16em;color:var(--sf-ink);margin-bottom:18px;font-weight:700}
+.card h3 .sub{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--sf-ink-50);text-transform:none;letter-spacing:.02em;margin-left:8px}
+
+/* Donut */
+.donut-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.donut{width:240px;height:240px;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:32;transition:stroke-dasharray .9s var(--ease-out)}
+.donut .track{stroke:var(--sf-cream-2)}
+.donut-center{position:absolute;text-align:center;font-family:'Oswald',sans-serif}
+.donut-center .num{font-size:42px;font-weight:700;color:var(--sf-blue-700);line-height:1;font-variant-numeric:tabular-nums}
+.donut-center .lbl{font-size:10px;letter-spacing:.18em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:4px}
+.legend{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.legend li{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sf-cream);border-radius:6px;font-size:13px;transition:background .2s}
+.legend li:hover{background:var(--sf-blue-50)}
+.legend .swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.legend .name{font-weight:600;color:var(--sf-ink)}
+.legend .v{margin-left:auto;font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--sf-ink-60);font-variant-numeric:tabular-nums}
+.legend .pct{font-size:11px;color:var(--sf-ink-50);margin-left:8px;font-variant-numeric:tabular-nums}
+
+/* Bars */
+.bars-wrap{position:relative}
+.bars-svg{width:100%;height:auto;display:block;font-family:'Inter',sans-serif}
+.bars-svg .grid{stroke:var(--sf-border);stroke-width:1;stroke-dasharray:2 4}
+.bars-svg .axis{stroke:var(--sf-border-strong);stroke-width:1.5}
+.bars-svg .ax-lbl{font-size:10px;fill:var(--sf-ink-50);font-family:'Space Grotesk','Inter',sans-serif;font-variant-numeric:tabular-nums}
+.bars-svg .x-lbl{font-size:10px;fill:var(--sf-ink-60);font-family:'Inter',sans-serif;font-weight:500}
+.bars-svg .bar{transition:opacity .2s}
+.bars-svg .bar-group:hover .bar{opacity:.85}
+.bars-svg .bar-val{font-size:10px;fill:var(--sf-blue-700);font-family:'Space Grotesk',sans-serif;font-weight:600;font-variant-numeric:tabular-nums}
+.bars-legend{display:flex;align-items:center;gap:18px;margin-top:14px;font-size:12px;color:var(--sf-ink-60)}
+.bars-legend span{display:inline-flex;align-items:center;gap:6px}
+.bars-legend .swatch{width:10px;height:10px;border-radius:2px}
+
+/* Empty state */
+.empty{padding:60px 20px;text-align:center;color:var(--sf-ink-50);font-size:14px}
+.empty strong{display:block;font-family:'Oswald',sans-serif;font-size:18px;color:var(--sf-ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+
+/* Animations */
+.anim{transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.js-ready .anim{opacity:0;transform:translateY(18px)}
+.js-ready .anim.in{opacity:1;transform:translateY(0)}
+.anim.d1{transition-delay:.06s}.anim.d2{transition-delay:.12s}.anim.d3{transition-delay:.18s}.anim.d4{transition-delay:.24s}.anim.d5{transition-delay:.3s}.anim.d6{transition-delay:.36s}
+
+/* ====== Mobile ====== */
+@media (max-width:980px){
+  .sf-strip{padding:14px 18px 26px}
+  .sf-strip-inner{gap:14px}
+  .sf-strip-meta{margin-left:0;width:100%;justify-content:flex-start}
+  .dash{padding:8px 18px 60px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .chart-row{grid-template-columns:1fr}
+  .card{padding:20px}
+  .donut{width:200px;height:200px}
+}
+@media (max-width:520px){
+  .kpi-row{grid-template-columns:1fr 1fr;gap:12px}
+  .kpi{padding:16px 16px 14px}
+  .kpi-num{font-size:38px}
+  .sf-brand img{height:48px}
+  .sf-strip-title{font-size:14px;letter-spacing:.12em}
+}
+</style>
+</head>
+<body class="js-ready">
+
+<div class="sf-strip">
+  <div class="sf-strip-inner">
+    <a class="sf-brand" href="../funnel/home.html">
+      <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
+    </a>
+    <span class="sf-strip-title">Camp Registrations</span>
+    <div class="sf-strip-meta">
+      <span class="dot" title="Live data via private integration"></span>
+      <span>Updated <span id="updated-at">—</span></span>
+      <button id="refresh-btn">Refresh</button>
+    </div>
+  </div>
+</div>
+
+<main class="dash">
+
+  <!-- Filter -->
+  <div class="filter-row anim d1">
+    <span class="lbl">Filter</span>
+    <div class="filter" role="tablist">
+      <button data-filter="combined" class="active" role="tab" aria-selected="true">All</button>
+      <button data-filter="summer" role="tab" aria-selected="false">Summer Camp</button>
+      <button data-filter="free" role="tab" aria-selected="false">Free Camp</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <section class="kpi-row">
+    <div class="kpi anim d2" data-kpi="total">
+      <h3>Registered Students</h3>
+      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-sub" data-sub></div>
+      <div class="kpi-goal"><label>Goal <input type="number" min="0" step="1" data-goal placeholder="—" /></label></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" data-fill></div></div>
+      <div class="kpi-pct" data-pct></div>
+    </div>
+    <div class="kpi anim d3" data-kpi="upper">
+      <h3>Upper Campus</h3>
+      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-sub" data-sub>Age 7+ on June 1</div>
+      <div class="kpi-goal"><label>Goal <input type="number" min="0" step="1" data-goal placeholder="—" /></label></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" data-fill></div></div>
+      <div class="kpi-pct" data-pct></div>
+    </div>
+    <div class="kpi anim d4" data-kpi="lower">
+      <h3>Lower Campus</h3>
+      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-sub" data-sub>Age 6 or younger on June 1</div>
+      <div class="kpi-goal"><label>Goal <input type="number" min="0" step="1" data-goal placeholder="—" /></label></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" data-fill></div></div>
+      <div class="kpi-pct" data-pct></div>
+    </div>
+    <div class="kpi anim d5" data-kpi="topweek">
+      <h3>Top Week</h3>
+      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-sub" data-sub>—</div>
+      <div class="kpi-goal"><label>Goal <input type="number" min="0" step="1" data-goal placeholder="—" /></label></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" data-fill></div></div>
+      <div class="kpi-pct" data-pct></div>
+    </div>
+  </section>
+
+  <!-- Charts -->
+  <section class="chart-row">
+    <div class="card anim d5">
+      <h3>Campus Split <span class="sub" id="campus-sub"></span></h3>
+      <div class="donut-wrap">
+        <svg class="donut" viewBox="0 0 240 240" id="donut">
+          <circle class="track" cx="120" cy="120" r="92"></circle>
+          <circle id="seg-upper" cx="120" cy="120" r="92" stroke="#1b2f6e" stroke-dasharray="0 999"></circle>
+          <circle id="seg-lower" cx="120" cy="120" r="92" stroke="#4aa3e0" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
+          <circle id="seg-unknown" cx="120" cy="120" r="92" stroke="#c6d1e4" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
+        </svg>
+        <div class="donut-center">
+          <div class="num" id="donut-total">—</div>
+          <div class="lbl">Students</div>
+        </div>
+      </div>
+      <ul class="legend" id="legend"></ul>
+    </div>
+
+    <div class="card anim d6">
+      <h3>Registrations by Week <span class="sub" id="weeks-sub"></span></h3>
+      <div class="bars-wrap">
+        <svg class="bars-svg" viewBox="0 0 800 320" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="bars-legend">
+        <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus</span>
+        <span><span class="swatch" style="background:#4aa3e0"></span> Lower Campus</span>
+        <span id="bars-unknown" style="display:none"><span class="swatch" style="background:#c6d1e4"></span> Unknown</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(() => {
+  const COLORS = {
+    upper:   '#1b2f6e',
+    lower:   '#4aa3e0',
+    unknown: '#c6d1e4'
+  };
+
+  const state = {
+    snapshot: null,
+    filter: 'combined',  // 'combined' | 'summer' | 'free'
+    goals: loadGoals()
+  };
+
+  function loadGoals() {
+    try { return JSON.parse(localStorage.getItem('sf-dash-goals') || '{}'); }
+    catch { return {}; }
+  }
+  function saveGoals() {
+    localStorage.setItem('sf-dash-goals', JSON.stringify(state.goals));
+  }
+  function goalKey(filter, kpi) { return `${filter}.${kpi}`; }
+
+  function fmtTime(iso) {
+    if (!iso) return '—';
+    try {
+      const d = new Date(iso);
+      return d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
+    } catch { return iso; }
+  }
+
+  // Pick the correct slice of the snapshot for the active filter.
+  function getView() {
+    const s = state.snapshot;
+    if (!s) return null;
+    const f = state.filter;
+    const slice = f === 'combined' ? s.combined : s[f];
+    const byWeek = f === 'combined' ? s.combined.byWeek : s[f].byWeek;
+    const weekCampus = f === 'combined'
+      ? combineWeekCampus(s.summer.byWeekCampus, s.free.byWeekCampus, s.weekOrder)
+      : s[f].byWeekCampus;
+    return {
+      total: slice.total ?? slice.byCampus
+        ? (slice.byCampus['Upper Campus'] + slice.byCampus['Lower Campus'] + slice.byCampus['Unknown'])
+        : 0,
+      byCampus: slice.byCampus,
+      byWeek,
+      weekCampus,
+      weekOrder: s.weekOrder
+    };
+  }
+  function combineWeekCampus(a, b, order) {
+    const out = {};
+    for (const w of order) {
+      out[w] = {
+        'Upper Campus': (a[w]?.['Upper Campus'] || 0) + (b[w]?.['Upper Campus'] || 0),
+        'Lower Campus': (a[w]?.['Lower Campus'] || 0) + (b[w]?.['Lower Campus'] || 0),
+        'Unknown':      (a[w]?.['Unknown']      || 0) + (b[w]?.['Unknown']      || 0),
+      };
+    }
+    return out;
+  }
+
+  function topWeek(byWeek) {
+    let best = null, n = -1;
+    for (const [w, v] of Object.entries(byWeek)) {
+      if (v > n) { n = v; best = w; }
+    }
+    return { week: best, n };
+  }
+
+  // ─── Counter animation ───────────────────────────────────────────────────
+  function animateNum(el, target) {
+    const start = parseInt(el.textContent.replace(/\D/g,''), 10) || 0;
+    const dur = 700;
+    const t0 = performance.now();
+    const step = (now) => {
+      const p = Math.min((now - t0) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(start + (target - start) * eased);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ─── KPI rendering ───────────────────────────────────────────────────────
+  function renderKpis(view) {
+    const items = [
+      { key: 'total', value: view.total, sub: pluralStudents(view.total) },
+      { key: 'upper', value: view.byCampus['Upper Campus'] || 0 },
+      { key: 'lower', value: view.byCampus['Lower Campus'] || 0 },
+      { key: 'topweek', custom: true }
+    ];
+
+    document.querySelectorAll('.kpi').forEach(card => {
+      const key = card.dataset.kpi;
+      const item = items.find(i => i.key === key);
+      const numEl = card.querySelector('[data-num]');
+      const subEl = card.querySelector('[data-sub]');
+      const goalEl = card.querySelector('[data-goal]');
+      const fillEl = card.querySelector('[data-fill]');
+      const pctEl = card.querySelector('[data-pct]');
+
+      let actual;
+      if (key === 'topweek') {
+        const t = topWeek(view.byWeek);
+        actual = t.n;
+        numEl.textContent = t.n;
+        subEl.innerHTML = t.week ? `<strong>${t.week}</strong>` : '—';
+      } else {
+        actual = item.value;
+        animateNum(numEl, actual);
+        if (item.sub) subEl.textContent = item.sub;
+      }
+
+      // Goal (per filter+kpi so each toggle has its own targets)
+      const gk = goalKey(state.filter, key);
+      const savedGoal = state.goals[gk];
+      goalEl.value = savedGoal != null ? savedGoal : '';
+      const goal = parseInt(savedGoal, 10);
+      if (!isNaN(goal) && goal > 0) {
+        const pct = Math.min((actual / goal) * 100, 200);
+        fillEl.style.width = Math.min(pct, 100) + '%';
+        fillEl.classList.toggle('over', pct >= 100);
+        fillEl.classList.toggle('under', pct < 75 && pct > 0);
+        const reached = Math.round((actual/goal) * 100);
+        pctEl.innerHTML = `<strong>${reached}%</strong> of goal`;
+        pctEl.classList.toggle('met', pct >= 100);
+        pctEl.classList.toggle('behind', pct < 75);
+      } else {
+        fillEl.style.width = '0%';
+        fillEl.classList.remove('over','under');
+        pctEl.textContent = '';
+        pctEl.classList.remove('met','behind');
+      }
+    });
+  }
+
+  function pluralStudents(n) {
+    return n === 1 ? '1 student' : `${n} students`;
+  }
+
+  // ─── Donut chart ─────────────────────────────────────────────────────────
+  function renderDonut(view) {
+    const upper = view.byCampus['Upper Campus'] || 0;
+    const lower = view.byCampus['Lower Campus'] || 0;
+    const unk   = view.byCampus['Unknown']      || 0;
+    const total = upper + lower + unk;
+    const r = 92;
+    const C = 2 * Math.PI * r;
+
+    const segUpper = document.getElementById('seg-upper');
+    const segLower = document.getElementById('seg-lower');
+    const segUnk   = document.getElementById('seg-unknown');
+    const totalEl  = document.getElementById('donut-total');
+    totalEl.textContent = total;
+
+    if (total === 0) {
+      [segUpper, segLower, segUnk].forEach(s => s.setAttribute('stroke-dasharray', `0 ${C}`));
+      document.getElementById('legend').innerHTML = '<li style="justify-content:center;color:var(--sf-ink-50)">No data for this filter</li>';
+      return;
+    }
+
+    const lenUpper = (upper / total) * C;
+    const lenLower = (lower / total) * C;
+    const lenUnk   = (unk   / total) * C;
+
+    segUpper.setAttribute('stroke-dasharray', `${lenUpper} ${C - lenUpper}`);
+    segUpper.setAttribute('stroke-dashoffset', '0');
+
+    segLower.setAttribute('stroke-dasharray', `${lenLower} ${C - lenLower}`);
+    segLower.setAttribute('stroke-dashoffset', `${-lenUpper}`);
+
+    segUnk.setAttribute('stroke-dasharray', `${lenUnk} ${C - lenUnk}`);
+    segUnk.setAttribute('stroke-dashoffset', `${-(lenUpper + lenLower)}`);
+
+    // Legend
+    const items = [
+      { name: 'Upper Campus', v: upper, color: COLORS.upper },
+      { name: 'Lower Campus', v: lower, color: COLORS.lower }
+    ];
+    if (unk > 0) items.push({ name: 'Unknown DOB', v: unk, color: COLORS.unknown });
+
+    const legend = document.getElementById('legend');
+    legend.innerHTML = items.map(i => {
+      const pct = total ? Math.round((i.v / total) * 100) : 0;
+      return `<li>
+        <span class="swatch" style="background:${i.color}"></span>
+        <span class="name">${i.name}</span>
+        <span class="v">${i.v}</span>
+        <span class="pct">${pct}%</span>
+      </li>`;
+    }).join('');
+  }
+
+  // ─── Bars chart ──────────────────────────────────────────────────────────
+  function renderBars(view) {
+    const W = 800, H = 320;
+    const padL = 36, padR = 14, padT = 18, padB = 64;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+    const weeks = view.weekOrder;
+    const byWC = view.weekCampus;
+
+    const max = Math.max(1, ...weeks.map(w => {
+      const c = byWC[w] || {};
+      return (c['Upper Campus']||0) + (c['Lower Campus']||0) + (c['Unknown']||0);
+    }));
+    const niceMax = Math.ceil(max / 5) * 5 || 5;
+
+    const bw = innerW / weeks.length;
+    const barW = Math.min(36, bw * .62);
+    const showUnk = weeks.some(w => (byWC[w]?.['Unknown']||0) > 0);
+    document.getElementById('bars-unknown').style.display = showUnk ? '' : 'none';
+
+    let svg = '';
+
+    // Y grid + labels
+    const ticks = 4;
+    for (let i = 0; i <= ticks; i++) {
+      const y = padT + innerH - (i / ticks) * innerH;
+      const v = Math.round((i / ticks) * niceMax);
+      svg += `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"/>`;
+      svg += `<text class="ax-lbl" x="${padL - 6}" y="${y + 3}" text-anchor="end">${v}</text>`;
+    }
+    svg += `<line class="axis" x1="${padL}" y1="${padT + innerH}" x2="${W - padR}" y2="${padT + innerH}"/>`;
+
+    // Bars
+    weeks.forEach((w, idx) => {
+      const c = byWC[w] || {};
+      const upper = c['Upper Campus'] || 0;
+      const lower = c['Lower Campus'] || 0;
+      const unk   = c['Unknown']      || 0;
+      const total = upper + lower + unk;
+
+      const cx = padL + idx * bw + bw / 2;
+      const x = cx - barW / 2;
+      const yBase = padT + innerH;
+
+      const hUpper = (upper / niceMax) * innerH;
+      const hLower = (lower / niceMax) * innerH;
+      const hUnk   = (unk   / niceMax) * innerH;
+
+      let yCursor = yBase;
+
+      svg += `<g class="bar-group">`;
+
+      if (lower > 0) {
+        yCursor -= hLower;
+        svg += `<rect class="bar" x="${x}" y="${yCursor}" width="${barW}" height="${hLower}" fill="${COLORS.lower}" rx="2"></rect>`;
+      }
+      if (upper > 0) {
+        yCursor -= hUpper;
+        svg += `<rect class="bar" x="${x}" y="${yCursor}" width="${barW}" height="${hUpper}" fill="${COLORS.upper}" rx="2"></rect>`;
+      }
+      if (unk > 0) {
+        yCursor -= hUnk;
+        svg += `<rect class="bar" x="${x}" y="${yCursor}" width="${barW}" height="${hUnk}" fill="${COLORS.unknown}" rx="2"></rect>`;
+      }
+
+      // Total label above bar
+      if (total > 0) {
+        svg += `<text class="bar-val" x="${cx}" y="${yCursor - 6}" text-anchor="middle">${total}</text>`;
+      }
+
+      // Tooltip via <title>
+      svg += `<title>${w}\nUpper: ${upper}\nLower: ${lower}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}</title>`;
+
+      svg += `</g>`;
+
+      // X label (rotated)
+      const short = shortenWeek(w);
+      svg += `<text class="x-lbl" x="${cx}" y="${yBase + 16}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 16})">${short}</text>`;
+    });
+
+    document.getElementById('bars').innerHTML = svg;
+  }
+
+  function shortenWeek(w) {
+    // "June 1st-5th" → "Jun 1–5"
+    return w
+      .replace(/(\w{3})\w*\s+(\d+)\w{2}-(?:\w{3,}\s+)?(\d+)\w{2}/, (_, m, a, b) => `${m} ${a}–${b}`)
+      .replace(/(\w{3})\w*\s+(\d+)\w{2}\s*-\s*(\w{3})\w*\s+(\d+)\w{2}/, (_, m1, a, m2, b) => `${m1} ${a}–${m2} ${b}`);
+  }
+
+  // ─── Render all ──────────────────────────────────────────────────────────
+  function render() {
+    const view = getView();
+    if (!view) return;
+    renderKpis(view);
+    renderDonut(view);
+    renderBars(view);
+
+    // Sub-headlines
+    const labels = { combined: 'across both camps', summer: 'Summer Camp only', free: 'Free Camp only' };
+    document.getElementById('campus-sub').textContent = labels[state.filter];
+    document.getElementById('weeks-sub').textContent  = labels[state.filter];
+  }
+
+  // ─── Filter wiring ───────────────────────────────────────────────────────
+  document.querySelectorAll('.filter button').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.filter button').forEach(x => {
+        x.classList.remove('active');
+        x.setAttribute('aria-selected', 'false');
+      });
+      b.classList.add('active');
+      b.setAttribute('aria-selected', 'true');
+      state.filter = b.dataset.filter;
+      render();
+    });
+  });
+
+  // ─── Goal inputs ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.kpi [data-goal]').forEach(input => {
+    input.addEventListener('change', () => {
+      const card = input.closest('.kpi');
+      const kpi = card.dataset.kpi;
+      const k = goalKey(state.filter, kpi);
+      const v = input.value.trim();
+      if (v === '') delete state.goals[k];
+      else state.goals[k] = parseInt(v, 10);
+      saveGoals();
+      render();
+    });
+  });
+
+  // ─── Refresh button: immediate re-fetch ──────────────────────────────────
+  document.getElementById('refresh-btn').addEventListener('click', () => {
+    pollSnapshot(true);
+  });
+
+  // ─── Scroll-in animations (generous rootMargin so off-viewport cards still
+  //      reveal when the page is short enough to not need scrolling) ─────────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0, rootMargin: '0px 0px 600px 0px' });
+  document.querySelectorAll('.anim').forEach(el => io.observe(el));
+  // Failsafe: ensure every anim reveals after first paint, even if IO never fires
+  requestAnimationFrame(() => {
+    setTimeout(() => document.querySelectorAll('.anim:not(.in)').forEach(el => el.classList.add('in')), 800);
+  });
+
+  // ─── Live snapshot polling ───────────────────────────────────────────────
+  // GitHub Actions rewrites snapshot.json every ~10 min. We poll every 60s
+  // and re-render only when generatedAt changes, so the page stays fresh
+  // without a reload.
+  const POLL_MS = 60_000;
+  const dot = document.querySelector('.sf-strip-meta .dot');
+  const refreshBtn = document.getElementById('refresh-btn');
+
+  async function pollSnapshot(manual = false) {
+    if (manual) {
+      refreshBtn.disabled = true;
+      refreshBtn.textContent = 'Refreshing…';
+    }
+    try {
+      const r = await fetch('./snapshot.json?_=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) throw new Error('snapshot.json not found (' + r.status + ')');
+      const data = await r.json();
+      const changed = !state.snapshot || data.generatedAt !== state.snapshot.generatedAt;
+      state.snapshot = data;
+      document.getElementById('updated-at').textContent = fmtTime(data.generatedAt);
+      if (changed) {
+        render();
+        flashLive();
+      }
+    } catch (err) {
+      if (!state.snapshot) {
+        document.querySelector('main.dash').innerHTML = `
+          <div class="empty">
+            <strong>No snapshot loaded</strong>
+            The auto-refresh workflow hasn't published a snapshot yet.
+            <div style="margin-top:14px;font-size:12px;color:var(--sf-ink-40)">${err.message}</div>
+          </div>`;
+      }
+      // If we already have a snapshot, silently keep showing it.
+    } finally {
+      if (manual) {
+        refreshBtn.disabled = false;
+        refreshBtn.textContent = 'Refresh';
+      }
+    }
+  }
+
+  function flashLive() {
+    if (!dot) return;
+    dot.style.transition = 'box-shadow .3s';
+    dot.style.boxShadow = '0 0 0 10px rgba(45,163,117,.35)';
+    setTimeout(() => { dot.style.boxShadow = ''; dot.style.transition = ''; }, 350);
+  }
+
+  // Pause polling when the tab is hidden, resume when visible.
+  let pollTimer = null;
+  function startPolling() {
+    stopPolling();
+    pollTimer = setInterval(pollSnapshot, POLL_MS);
+  }
+  function stopPolling() {
+    if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopPolling();
+    else { pollSnapshot(); startPolling(); }
+  });
+
+  pollSnapshot();
+  startPolling();
+})();
+</script>
+
+</body>
+</html>
