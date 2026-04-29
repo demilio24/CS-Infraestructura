@@ -1055,7 +1055,7 @@ async function createContactGHL(fd){
   const firstName=parts[0], lastName=parts.slice(1).join(' ')||'';
   const customFields=[];
   if(location) customFields.push({key:GHL_FIELD_MAP.location,field_value:location});
-  const payload={locationId:GHL_LOCATION_ID,firstName,lastName,email,...(phone?{phone}:{}),customFields};
+  const payload={locationId:GHL_LOCATION_ID,firstName,lastName,email,...(phone?{phone}:{}),customFields,tags:['site-v5']};
   const res=await fetch('https://services.leadconnectorhq.com/contacts/upsert',{method:'POST',headers:{'Authorization':'Bearer '+GHL_TOKEN,'Version':GHL_VERSION,'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)});
   if(!res.ok) throw new Error('GHL upsert '+res.status);
   const data=await res.json();

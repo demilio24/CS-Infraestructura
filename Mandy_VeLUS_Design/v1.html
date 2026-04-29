@@ -1856,7 +1856,7 @@
         const firstName = parts[0], lastName = parts.slice(1).join(' ') || '';
         const customFields = [];
         if (location) customFields.push({ key: V1_GHL_FIELD_MAP.location, field_value: location });
-        const payload = { locationId: V1_GHL_LOCATION_ID, firstName, lastName, email, ...(phone ? { phone } : {}), customFields };
+        const payload = { locationId: V1_GHL_LOCATION_ID, firstName, lastName, email, ...(phone ? { phone } : {}), customFields, tags: ['site-v1'] };
         const res = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
           method: 'POST',
           headers: { 'Authorization': 'Bearer ' + V1_GHL_TOKEN, 'Version': V1_GHL_VERSION, 'Content-Type': 'application/json', 'Accept': 'application/json' },
