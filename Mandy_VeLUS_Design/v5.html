@@ -303,9 +303,7 @@ footer .copyright{font-family:var(--body);font-size:var(--fs-cta);letter-spacing
 .coll-item:hover .ttl,.coll-item.tap .ttl{opacity:1;transform:translateY(0)}
 .coll-item .ttl .name{font-family:var(--serif);font-weight:400;font-size:var(--fs-h2);letter-spacing:.04em;text-transform:uppercase;color:#FFFFFF}
 .coll-item .ttl .loc{font-family:var(--body);font-size:var(--fs-cta);letter-spacing:.22em;text-transform:uppercase;margin-top:7px;opacity:.85;font-weight:400;color:#FFFFFF}
-.coll-item .coll-num{position:absolute;right:40px;bottom:88px;font-family:var(--serif);font-size:56px;font-weight:700;color:rgba(255,255,255,0.45);text-shadow:0 2px 8px rgba(0,0,0,0.35);line-height:1;letter-spacing:.04em;z-index:2;pointer-events:none}
-.coll-item .ttl .coll-count{margin-top:10px;font-family:var(--body);font-size:var(--fs-cta);font-weight:300;letter-spacing:.04em;text-transform:none;color:rgba(255,255,255,0.62);text-shadow:0 1px 6px rgba(0,0,0,0.4)}
-@media(max-width:700px){.coll-item{height:76vh}.coll-item .ttl{left:28px;bottom:80px;opacity:1;transform:translateY(0)}.coll-item .coll-num{right:28px;bottom:80px;font-size:40px}}
+@media(max-width:700px){.coll-item{height:76vh}.coll-item .ttl{left:28px;bottom:80px;opacity:1;transform:translateY(0)}}
 
 /* VIEWER */
 #viewer{position:fixed;inset:0;background:#2A1E1A;z-index:600;display:none;opacity:0;transition:opacity .5s ease}
@@ -908,10 +906,7 @@ function buildColl(){
   PROJECTS.forEach((p,i)=>{
     const el=document.createElement('div');
     el.className='coll-item fu';
-    const num=String(i+1).padStart(2,'0');
-    const total=Math.min(p.gallery.length,3);
-    const countHtml = total>1 ? `<div class="coll-count">Image 1 out of ${total}</div>` : '';
-    el.innerHTML=`<div class="img" style="background-image:url('${p.hero}')"></div><div class="coll-num">${num}</div><div class="ttl"><div class="name">${p.name}</div><div class="loc">${p.loc}</div>${countHtml}</div>`;
+    el.innerHTML=`<div class="img" style="background-image:url('${p.hero}')"></div><div class="ttl"><div class="name">${p.name}</div><div class="loc">${p.loc}</div></div>`;
     el.addEventListener('click',()=>openViewer(i));
     el.addEventListener('touchstart',()=>{ el.classList.add('tap'); setTimeout(()=>el.classList.remove('tap'),1800); },{passive:true});
     feed.appendChild(el);
