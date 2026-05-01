@@ -54,19 +54,12 @@ FREE_FALLBACK   = {"dob": "cuEVHLcCCk8c7zaMRQOj", "name": "rwAlfmxIbkk5k7nmgahu"
 F_SUMMER_LUNCH = "MgE6T5xKZl2SZWGnPktO"  # Select lunch option (Summer Camp) — SINGLE_OPTIONS
 F_FREE_LUNCH   = "iBrxWLqsNDpMjZFRsUwQ"  # Free Lunch (Free Camp) — RADIO yes/no
 
-# Filter internal test contacts via the `internal-test` tag in GHL.
-# Test contacts are tagged once via .claude/edit-test-contacts.py; this lets
-# the filter be self-maintaining — if a new tester needs to be excluded, just
-# add the tag in GHL, no code change needed.
-BLOCKED_TAG = "internal-test"
-
-
 def is_blocked_contact(c):
-    """True if the contact carries the BLOCKED_TAG. Skipping a contact removes
-    it from both totals and rosters. Tag matching is case-insensitive.
+    """No-op blocklist — kept as a hook in case we need to filter again.
+    Test contacts are now filtered organically: the cleared camp-registration
+    fields mean they don't satisfy is_summer / is_free / is_as conditions.
     """
-    tags = c.get("tags") or []
-    return any((t or "").strip().lower() == BLOCKED_TAG for t in tags)
+    return False
 
 WEEK_ORDER = [
     "June 1st-5th",
