@@ -39,18 +39,20 @@ F_FREE_SCHOOL    = "mtDthaZW5nm0SWGlp7XU"  # Select School (Free Camp)
 F_AS_CLASS       = "UluqGJoN855415yTyiXd"  # Select Class (After School)
 F_INTEREST       = "BzxbIyGULm8LDXFJ90Dc"  # Interest
 
-# DOB fields (in priority order — primary first)
-DOB_FIELDS = [
-    "vlRjxxuVjFo6KIbtQcqU",  # Student 1 - Date of Birth
-    "PFHDpoRt6KwWeSuvNOEH",  # Student 2 - Date of Birth
-    "Rls0IbGaK7ZNxQ3OM2gU",  # Student 3 - Date of Birth
-    "rA7S8h1JJeQUb9q11Z9W",  # Student 4 - Date of Birth
+# Per-student slots (DOB + name + allergy) — index-aligned
+STUDENT_SLOTS = [
+    {"dob": "vlRjxxuVjFo6KIbtQcqU", "name": "NzRxGhIZJ0RZclSGprrF", "allergy": "3YDN5W3iu2mm1NQxIfom"},
+    {"dob": "PFHDpoRt6KwWeSuvNOEH", "name": "yKxmNI57yrPozW0Zd3cA", "allergy": "RRHJKTXMR9jp8VKY4xFv"},
+    {"dob": "Rls0IbGaK7ZNxQ3OM2gU", "name": "eyNFkL0qAZug3mMnQBvk", "allergy": "aAsxM6rzujxMCv4eUFdi"},
+    {"dob": "rA7S8h1JJeQUb9q11Z9W", "name": "nPhA81OMvPttlnwQtujH", "allergy": "T4wW4QeRWpOd2vOgF765"},
 ]
-# Single-student fallback DOBs (only counted if Student 1-4 are all empty)
-DOB_FALLBACKS = [
-    "oHlCv49wt2OTGuwUoNsn",  # Student Birthday (Summer Camp)
-    "cuEVHLcCCk8c7zaMRQOj",  # Student's birthday (Free Camp)
-]
+# Single-student fallback (legacy — DOB + name pair per camp type)
+SUMMER_FALLBACK = {"dob": "oHlCv49wt2OTGuwUoNsn", "name": "WitmrGYAPRw66ONJuRjQ"}
+FREE_FALLBACK   = {"dob": "cuEVHLcCCk8c7zaMRQOj", "name": "rwAlfmxIbkk5k7nmgahu"}
+
+# Lunch / breakfast (contact-level, not per-student — limitation of GHL schema)
+F_SUMMER_LUNCH = "MgE6T5xKZl2SZWGnPktO"  # Select lunch option (Summer Camp) — SINGLE_OPTIONS
+F_FREE_LUNCH   = "iBrxWLqsNDpMjZFRsUwQ"  # Free Lunch (Free Camp) — RADIO yes/no
 
 WEEK_ORDER = [
     "June 1st-5th",
@@ -156,17 +158,62 @@ def campus_for(dob):
 def students_on_contact(c):
     """Return list of campus labels (one per student with a DOB), in priority order."""
     students = []
-    for fid in DOB_FIELDS:
-        dob = parse_dob(cf_value(c, fid))
+    for slot in STUDENT_SLOTS:
+        dob = parse_dob(cf_value(c, slot["dob"]))
         if dob:
             students.append(campus_for(dob))
     if not students:
-        for fid in DOB_FALLBACKS:
-            dob = parse_dob(cf_value(c, fid))
+        for slot in (SUMMER_FALLBACK, FREE_FALLBACK):
+            dob = parse_dob(cf_value(c, slot["dob"]))
             if dob:
                 students.append(campus_for(dob))
                 break
     return students
+
+
+def student_records(c, fallback_slot):
+    """Return list of {name, campus, allergy, incomplete} for each student on contact.
+
+    Pairs DOB with name and allergy by slot index. Missing name -> '(name missing)';
+    missing DOB but registered for a camp -> still listed with campus=None.
+    """
+    out = []
+    for slot in STUDENT_SLOTS:
+        dob_raw = cf_value(c, slot["dob"])
+        name    = (cf_value(c, slot["name"]) or "").strip()
+        allergy = (cf_value(c, slot["allergy"]) or "").strip()
+        if not dob_raw and not name:
+            continue
+        dob = parse_dob(dob_raw)
+        out.append({
+            "name": name or "(name missing)",
+            "campus": campus_for(dob) if dob else None,
+            "allergy": allergy or None,
+            "incomplete": (not name) or (not dob),
+        })
+    if out:
+        return out
+    # Fallback to legacy single-student fields
+    dob_raw = cf_value(c, fallback_slot["dob"])
+    name = (cf_value(c, fallback_slot["name"]) or "").strip()
+    if not dob_raw and not name:
+        return []
+    dob = parse_dob(dob_raw)
+    return [{
+        "name": name or "(name missing)",
+        "campus": campus_for(dob) if dob else None,
+        "allergy": None,
+        "incomplete": (not name) or (not dob),
+    }]
+
+
+def lunch_flags(c):
+    """Return (summer_lunch_bool, free_lunch_bool) for this contact."""
+    sl = cf_value(c, F_SUMMER_LUNCH)
+    fl = cf_value(c, F_FREE_LUNCH)
+    summer_lunch = bool(sl and str(sl).strip() and str(sl).strip().lower() not in ("none", "no lunch", "n/a"))
+    free_lunch   = bool(fl and str(fl).strip().lower() in ("yes", "true", "y", "1"))
+    return summer_lunch, free_lunch
 
 
 def main():
@@ -189,6 +236,10 @@ def main():
     # Stacked-bar input: per week, [upper, lower, unknown] for each camp type
     summer_week_campus = {w: {"Upper Campus": 0, "Lower Campus": 0, "Unknown": 0} for w in WEEK_ORDER}
     free_week_campus   = {w: {"Upper Campus": 0, "Lower Campus": 0, "Unknown": 0} for w in WEEK_ORDER}
+
+    # Roster: per week, three buckets — upper / lower / free — each a list of students
+    # (free bucket is ANY scholarship signup regardless of campus, per Tom's 35-cap rule)
+    roster = {w: {"upper": [], "lower": [], "free": []} for w in WEEK_ORDER}
 
     free_by_school = {}
     interest_counts = {}
@@ -230,8 +281,13 @@ def main():
         if (is_summer or is_free) and not students:
             students = [None]
 
+        summer_lunch, free_lunch = lunch_flags(c)
+
         # Tally Summer Camp
         if is_summer:
+            recs = student_records(c, SUMMER_FALLBACK)
+            if not recs:
+                recs = [{"name": "(name missing)", "campus": None, "allergy": None, "incomplete": True}]
             for s in students:
                 key = s or "Unknown"
                 summer_by_campus[key] += 1
@@ -241,6 +297,24 @@ def main():
                     if cw in WEEK_ORDER:
                         summer_by_week[cw] += 1
                         summer_week_campus[cw][key] += 1
+            # Roster: one entry per student per week they're registered
+            for rec in recs:
+                bucket = "upper" if rec["campus"] == "Upper Campus" else ("lower" if rec["campus"] == "Lower Campus" else None)
+                entry = {
+                    "name": rec["name"],
+                    "campus": rec["campus"] or "Unknown",
+                    "lunch": summer_lunch,
+                    "allergy": rec["allergy"],
+                    "incomplete": rec["incomplete"],
+                    "type": "summer",
+                }
+                for w in summer_dates:
+                    cw = canon_week(w)
+                    if cw in WEEK_ORDER and bucket:
+                        roster[cw][bucket].append(entry)
+                    elif cw in WEEK_ORDER:
+                        # Unknown campus — drop into lower as a fallback so the row appears
+                        roster[cw]["lower"].append({**entry, "incomplete": True})
 
         # Tally Free Camp (combine free_dates + free_reg week values, dedupe)
         if is_free:
@@ -260,6 +334,22 @@ def main():
                     free_week_campus[w][key] += 1
             if free_school:
                 free_by_school[free_school] = free_by_school.get(free_school, 0) + 1
+            # Roster: free-camp students always go in the "free" bucket per Tom's 35-cap
+            recs = student_records(c, FREE_FALLBACK)
+            if not recs:
+                recs = [{"name": "(name missing)", "campus": None, "allergy": None, "incomplete": True}]
+            for rec in recs:
+                entry = {
+                    "name": rec["name"],
+                    "campus": rec["campus"] or "Unknown",
+                    "lunch": free_lunch,
+                    "allergy": rec["allergy"],
+                    "incomplete": rec["incomplete"],
+                    "type": "free",
+                    "school": free_school or None,
+                }
+                for w in free_weeks:
+                    roster[w]["free"].append(entry)
 
         if is_as:
             after_school_total += 1
@@ -308,6 +398,17 @@ def main():
         },
         "interest": dict(sorted(interest_counts.items(), key=lambda x: -x[1])),
         "sources": dict(sorted(sources.items(), key=lambda x: -x[1])[:30]),
+        # Per-week roster split into upper / lower / free buckets.
+        # The three buckets correspond to the three weekly capacity caps
+        # (Upper 13, Lower 13, Free 35 = 60 total per week, per Tom 2026-05-01).
+        "roster": {
+            w: {
+                "upper": sorted(roster[w]["upper"], key=lambda r: r["name"].lower()),
+                "lower": sorted(roster[w]["lower"], key=lambda r: r["name"].lower()),
+                "free":  sorted(roster[w]["free"],  key=lambda r: r["name"].lower()),
+            }
+            for w in WEEK_ORDER
+        },
     }
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
