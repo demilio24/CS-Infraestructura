@@ -8,3 +8,6 @@
 # Uploaded images (transient)
 uploads/*
 !uploads/.gitkeep
+
+# QA test harnesses (local-only)
+.claude/qa-systema-*.js
