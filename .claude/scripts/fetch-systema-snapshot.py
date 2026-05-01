@@ -54,6 +54,43 @@ FREE_FALLBACK   = {"dob": "cuEVHLcCCk8c7zaMRQOj", "name": "rwAlfmxIbkk5k7nmgahu"
 F_SUMMER_LUNCH = "MgE6T5xKZl2SZWGnPktO"  # Select lunch option (Summer Camp) — SINGLE_OPTIONS
 F_FREE_LUNCH   = "iBrxWLqsNDpMjZFRsUwQ"  # Free Lunch (Free Camp) — RADIO yes/no
 
+# Internal test entries to exclude from all dashboard counts and rosters.
+# These were created during dashboard development and are not real registrations.
+# Names are normalized (lowercased, single-spaced) for matching.
+BLOCKED_NAMES = {
+    "emilio arias",
+    "tom floyd",
+    "juliana lima",
+    "sean nasiff",
+}
+
+
+def _norm_name(s):
+    if not s:
+        return ""
+    return " ".join(str(s).strip().lower().split())
+
+
+def is_blocked_contact(c):
+    """True if this contact OR any of its student-name fields matches the
+    BLOCKED_NAMES list. Skipping a contact removes it from totals AND rosters.
+    """
+    full = _norm_name(f"{c.get('firstName') or ''} {c.get('lastName') or ''}")
+    if full in BLOCKED_NAMES:
+        return True
+    # Also check the contact's `name` field (in case firstName/lastName missing)
+    if _norm_name(c.get("name")) in BLOCKED_NAMES:
+        return True
+    # Per-student name fields — covers the case where a tester registered
+    # under someone else's contact but used their own name as the student
+    for slot in STUDENT_SLOTS:
+        if _norm_name(cf_value(c, slot["name"])) in BLOCKED_NAMES:
+            return True
+    for fb in (SUMMER_FALLBACK, FREE_FALLBACK):
+        if _norm_name(cf_value(c, fb["name"])) in BLOCKED_NAMES:
+            return True
+    return False
+
 WEEK_ORDER = [
     "June 1st-5th",
     "June 8th-12th",
@@ -247,8 +284,14 @@ def main():
     new_30d = 0
     new_7d  = 0
     now_t = time.time()
+    blocked_count = 0
 
     for c in contacts:
+        # Skip internal test entries entirely — no count, no roster
+        if is_blocked_contact(c):
+            blocked_count += 1
+            continue
+
         da = c.get("dateAdded")
         if da:
             try:
@@ -414,11 +457,14 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(snapshot, indent=2))
     print(f"\nWrote {OUT}", file=sys.stderr)
+    if blocked_count:
+        print(f"Blocked {blocked_count} test contact(s) from snapshot", file=sys.stderr)
     summary = {
         "totals": snapshot["totals"],
         "summer.byCampus": summer_by_campus,
         "free.byCampus": free_by_campus,
         "combined.byCampus": combined_by_campus,
+        "blocked": blocked_count,
     }
     print(json.dumps(summary, indent=2))
 
