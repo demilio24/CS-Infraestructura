@@ -239,8 +239,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <div class="filter-row anim d1">
     <span class="lbl">Filter</span>
     <div class="filter" role="tablist">
-      <button data-filter="combined" class="active" role="tab" aria-selected="true">All</button>
-      <button data-filter="summer" role="tab" aria-selected="false">Summer Camp</button>
+      <button data-filter="summer" class="active" role="tab" aria-selected="true">Summer Camp</button>
       <button data-filter="free" role="tab" aria-selected="false">Free Camp</button>
     </div>
   </div>
@@ -363,7 +362,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   const state = {
     snapshot: null,
-    filter: 'combined',  // 'combined' | 'summer' | 'free'
+    filter: 'summer',  // 'summer' | 'free' — default Summer per Tom
     goals: loadGoalsFromCache(),
     // Set of input element identifiers currently being edited — never overwrite
     // the .value of these in re-renders.
@@ -429,32 +428,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function getView() {
     const s = state.snapshot;
     if (!s) return null;
-    const f = state.filter;
-    const slice = f === 'combined' ? s.combined : s[f];
-    const byWeek = f === 'combined' ? s.combined.byWeek : s[f].byWeek;
-    const weekCampus = f === 'combined'
-      ? combineWeekCampus(s.summer.byWeekCampus, s.free.byWeekCampus, s.weekOrder)
-      : s[f].byWeekCampus;
+    // Filter is always 'summer' or 'free' — combined view was dropped per Tom.
+    const f = (state.filter === 'summer' || state.filter === 'free') ? state.filter : 'summer';
+    const slice = s[f];
     return {
-      total: slice.total ?? slice.byCampus
-        ? (slice.byCampus['Upper Campus'] + slice.byCampus['Lower Campus'] + slice.byCampus['Unknown'])
-        : 0,
+      total: slice.total,
       byCampus: slice.byCampus,
-      byWeek,
-      weekCampus,
+      byWeek: slice.byWeek,
+      weekCampus: slice.byWeekCampus,
       weekOrder: s.weekOrder
     };
-  }
-  function combineWeekCampus(a, b, order) {
-    const out = {};
-    for (const w of order) {
-      out[w] = {
-        'Upper Campus': (a[w]?.['Upper Campus'] || 0) + (b[w]?.['Upper Campus'] || 0),
-        'Lower Campus': (a[w]?.['Lower Campus'] || 0) + (b[w]?.['Lower Campus'] || 0),
-        'Unknown':      (a[w]?.['Unknown']      || 0) + (b[w]?.['Unknown']      || 0),
-      };
-    }
-    return out;
   }
 
   function topWeek(byWeek) {
@@ -775,9 +758,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const roster = state.snapshot.roster || {};
     const filter = state.filter;
     const include = (entry) => {
-      if (filter === 'combined') return true;
-      if (filter === 'summer')   return entry.type === 'summer';
-      if (filter === 'free')     return entry.type === 'free';
+      if (filter === 'summer') return entry.type === 'summer';
+      if (filter === 'free')   return entry.type === 'free';
       return true;
     };
 
@@ -866,7 +848,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     renderCapControls();
     renderRosterPanel();
 
-    const labels = { combined: 'across both camps', summer: 'Summer Camp only', free: 'Free Camp only' };
+    const labels = { summer: 'Summer Camp only', free: 'Free Camp only' };
     document.getElementById('campus-sub').textContent = labels[state.filter];
     document.getElementById('weeks-sub').textContent  = labels[state.filter];
   }
