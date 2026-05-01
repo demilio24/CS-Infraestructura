@@ -314,13 +314,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <div class="card anim d6">
       <h3>Registrations by Week <span class="sub" id="weeks-sub"></span></h3>
       <div class="bars-wrap">
-        <svg class="bars-svg" viewBox="0 0 800 360" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg class="bars-svg" viewBox="0 0 800 340" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="bars-legend">
         <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus</span>
         <span><span class="swatch" style="background:#4aa3e0"></span> Lower Campus</span>
         <span id="bars-unknown" style="display:none"><span class="swatch" style="background:#c6d1e4"></span> Unknown</span>
         <span><span class="swatch" style="background:transparent;border:1px dashed var(--sf-amber-deep)"></span> Per-campus weekly cap</span>
+        <span style="color:var(--sf-ink-50);font-style:italic">↓ <em>italic number = spots left under each bar</em></span>
       </div>
 
       <!-- Inline cap controls — apply across all weeks for the active filter -->
@@ -641,8 +642,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   //   - Δ vs prior camp week above each bar count (e.g. "▲1")
   //   - "X left" / "FULL" / "+N OVER" below each bar (no math required)
   function renderBars(view) {
-    const W = 800, H = 360;
-    const padL = 36, padR = 14, padT = 22, padB = 88;
+    const W = 800, H = 340;
+    const padL = 36, padR = 14, padT = 22, padB = 68;
     const innerW = W - padL - padR;
     const innerH = H - padT - padB;
     const weeks = view.weekOrder;
@@ -759,9 +760,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         return { txt: `−${-d}`, cls: 'down' };
       };
 
-      // Helper to draw one campus bar — count + Δ above, no spots below.
-      // Spots-left is rendered separately as a stacked pair below the slot
-      // (so Upper/Lower never collide horizontally).
+      // Helper to draw one campus bar — count + Δ above, spots-left below.
+      // The spots-left text sits directly under each bar, centered on its own
+      // column. To avoid Upper/Lower collisions in the narrow gap, use a
+      // shorter format: just the number (italic) for partial, "FULL" at cap,
+      // "+N" if over.
       const drawBar = (count, cap, x, color, delta) => {
         const h = (count / niceMax) * innerH;
         const y = yBase - h;
@@ -771,36 +774,47 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         const cxBar = x + barW / 2;
         const countY = (h > 14 ? y - 5 : yBase - 5);
 
+        // Δ above the count
         const d = deltaText(delta);
         if (d.txt) {
-          // Softer greens/reds + lighter weight so deltas read as supporting
-          // info, not as alarm bells. Same family as the bar value text.
           const dColor = d.cls === 'up' ? '#3fa580' : '#cf6960';
           svg += `<text x="${cxBar}" y="${countY - 10}" text-anchor="middle" style="fill:${dColor};font-size:8px;font-weight:500;letter-spacing:.02em">${d.txt}</text>`;
         }
 
+        // Bar count (campus color, primary)
         svg += `<text class="bar-val" x="${cxBar}" y="${countY}" text-anchor="middle" style="fill:${color}">${count}</text>`;
+
+        // Spots-left UNDER each bar — compact format so Upper and Lower don't collide
+        const s = spotsText(count, cap);
+        if (s.txt) {
+          let txt, sColor, fontWeight, fontStyle = 'normal';
+          if (s.cls === 'full') {
+            txt = 'FULL';
+            sColor = '#2da375';
+            fontWeight = '700';
+          } else if (s.cls === 'over') {
+            // s.txt is "+N over" — use just "+N" so it fits the bar width
+            const m = s.txt.match(/^\+(\d+)/);
+            txt = `+${m ? m[1] : ''}`;
+            sColor = '#d8453d';
+            fontWeight = '700';
+          } else {
+            // s.txt is "N left" — show just the number, italic to imply "remaining"
+            const m = s.txt.match(/^(\d+)/);
+            txt = m ? m[1] : s.txt;
+            sColor = '#6b7490';
+            fontWeight = '600';
+            fontStyle = 'italic';
+          }
+          svg += `<text x="${cxBar}" y="${yBase + 12}" text-anchor="middle" style="fill:${sColor};font-size:9px;font-weight:${fontWeight};font-style:${fontStyle}">${txt}</text>`;
+        }
       };
 
       drawBar(upper, capUpper, xUpper, CAMPUS_COLOR.upper, dUpper);
       drawBar(lower, capLower, xLower, CAMPUS_COLOR.lower, dLower);
 
-      // Stacked spots-left under the slot — Upper line first (navy), Lower
-      // line below (blue). Each line spans the full slot width with no
-      // collision. Centered at slot midpoint.
-      const renderSpots = (s, color, y) => {
-        if (!s.txt) return;
-        const sColor = s.cls === 'full' ? '#2da375'
-                     : s.cls === 'over' ? '#d8453d'
-                     : color;
-        const fontWeight = (s.cls === 'full' || s.cls === 'over') ? '700' : '600';
-        svg += `<text x="${cx}" y="${y}" text-anchor="middle" style="fill:${sColor};font-size:9px;font-weight:${fontWeight}">${s.txt}</text>`;
-      };
-      renderSpots(spotsText(upper, capUpper), CAMPUS_COLOR.upper, yBase + 12);
-      renderSpots(spotsText(lower, capLower), CAMPUS_COLOR.lower, yBase + 24);
-
       if (unk > 0) {
-        svg += `<text class="bar-val" x="${cx}" y="${yBase + 76}" text-anchor="middle" style="fill:#8b95ad;font-size:9px">+${unk} unk</text>`;
+        svg += `<text class="bar-val" x="${cx}" y="${yBase + 56}" text-anchor="middle" style="fill:#8b95ad;font-size:9px">+${unk} unk</text>`;
       }
 
       const total = upper + lower + unk;
@@ -809,10 +823,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       svg += `<title>${w}\nUpper: ${upper}/${capUpper}${upperLeft != null ? ` (${upperLeft >= 0 ? upperLeft + ' left' : -upperLeft + ' over'})` : ''}\nLower: ${lower}/${capLower}${lowerLeft != null ? ` (${lowerLeft >= 0 ? lowerLeft + ' left' : -lowerLeft + ' over'})` : ''}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}${dUpper!=null?`\nΔ Upper: ${dUpper>=0?'+':''}${dUpper}, Δ Lower: ${dLower>=0?'+':''}${dLower}`:''}</title>`;
       svg += `</g>`;
 
-      // X-axis label (week, rotated) — yBase+12 = upper spots, yBase+24 = lower spots,
-      // yBase+40 = week label (rotated)
+      // X-axis label (week, rotated) — yBase+12 = spots-left row, yBase+28 = week label
       const short = shortenWeek(w);
-      svg += `<text class="x-lbl" x="${cx}" y="${yBase + 40}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 40})">${short}</text>`;
+      svg += `<text class="x-lbl" x="${cx}" y="${yBase + 28}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 28})">${short}</text>`;
     });
 
     document.getElementById('bars').innerHTML = svg;
