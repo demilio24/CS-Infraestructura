@@ -748,32 +748,35 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   // ─── Roster panel (single inline collapsible, all weeks at once) ────────
+  // The roster bucket entries each carry `type: 'summer'|'free'`. We filter
+  // by the CURRENT state.filter at render time — never via a captured closure
+  // — so switching tabs while the panel is open updates the list immediately
+  // and reopening the panel always shows the right tab's students.
+  function rosterIncludes(entry) {
+    if (state.filter === 'summer') return entry.type === 'summer';
+    if (state.filter === 'free')   return entry.type === 'free';
+    return true;
+  }
+
   function renderRosterPanel() {
     const toggle = document.getElementById('roster-toggle');
     const body   = document.getElementById('roster-body');
     const cnt    = document.getElementById('roster-count');
     if (!toggle || !body || !state.snapshot) return;
 
-    // Compute total students for the active filter
     const roster = state.snapshot.roster || {};
-    const filter = state.filter;
-    const include = (entry) => {
-      if (filter === 'summer') return entry.type === 'summer';
-      if (filter === 'free')   return entry.type === 'free';
-      return true;
-    };
 
     let total = 0;
     state.snapshot.weekOrder.forEach(w => {
       const wk = roster[w] || {};
       ['upper','lower','free'].forEach(b => {
-        (wk[b] || []).forEach(e => { if (include(e)) total++; });
+        (wk[b] || []).forEach(e => { if (rosterIncludes(e)) total++; });
       });
     });
     cnt.textContent = `${total} ${total === 1 ? 'enrollment' : 'enrollments'}`;
 
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-    if (isOpen) renderRosterBody(body, roster, include);
+    if (isOpen) renderRosterBody(body, roster);
 
     if (toggle.dataset.wired !== '1') {
       toggle.dataset.wired = '1';
@@ -783,12 +786,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         toggle.setAttribute('aria-expanded', next ? 'true' : 'false');
         body.setAttribute('aria-hidden', next ? 'false' : 'true');
         body.classList.toggle('open', next);
-        if (next) renderRosterBody(body, state.snapshot.roster || {}, include);
+        // Always read the current filter at click time — no stale closure
+        if (next) renderRosterBody(body, state.snapshot.roster || {});
       });
     }
   }
 
-  function renderRosterBody(body, roster, include) {
+  function renderRosterBody(body, roster) {
     const weeks = state.snapshot.weekOrder;
     const html = weeks.map(w => {
       const wk = roster[w] || {};
@@ -796,7 +800,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         ...(wk.upper || []),
         ...(wk.lower || []),
         ...(wk.free  || []),
-      ].filter(include).sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+      ].filter(rosterIncludes).sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
       const items = all.length === 0
         ? `<div class="ros-empty">No students yet</div>`

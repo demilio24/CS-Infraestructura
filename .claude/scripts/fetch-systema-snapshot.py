@@ -54,42 +54,19 @@ FREE_FALLBACK   = {"dob": "cuEVHLcCCk8c7zaMRQOj", "name": "rwAlfmxIbkk5k7nmgahu"
 F_SUMMER_LUNCH = "MgE6T5xKZl2SZWGnPktO"  # Select lunch option (Summer Camp) — SINGLE_OPTIONS
 F_FREE_LUNCH   = "iBrxWLqsNDpMjZFRsUwQ"  # Free Lunch (Free Camp) — RADIO yes/no
 
-# Internal test entries to exclude from all dashboard counts and rosters.
-# These were created during dashboard development and are not real registrations.
-# Names are normalized (lowercased, single-spaced) for matching.
-BLOCKED_NAMES = {
-    "emilio arias",
-    "tom floyd",
-    "juliana lima",
-    "sean nasiff",
-}
-
-
-def _norm_name(s):
-    if not s:
-        return ""
-    return " ".join(str(s).strip().lower().split())
+# Filter internal test contacts via the `internal-test` tag in GHL.
+# Test contacts are tagged once via .claude/edit-test-contacts.py; this lets
+# the filter be self-maintaining — if a new tester needs to be excluded, just
+# add the tag in GHL, no code change needed.
+BLOCKED_TAG = "internal-test"
 
 
 def is_blocked_contact(c):
-    """True if this contact OR any of its student-name fields matches the
-    BLOCKED_NAMES list. Skipping a contact removes it from totals AND rosters.
+    """True if the contact carries the BLOCKED_TAG. Skipping a contact removes
+    it from both totals and rosters. Tag matching is case-insensitive.
     """
-    full = _norm_name(f"{c.get('firstName') or ''} {c.get('lastName') or ''}")
-    if full in BLOCKED_NAMES:
-        return True
-    # Also check the contact's `name` field (in case firstName/lastName missing)
-    if _norm_name(c.get("name")) in BLOCKED_NAMES:
-        return True
-    # Per-student name fields — covers the case where a tester registered
-    # under someone else's contact but used their own name as the student
-    for slot in STUDENT_SLOTS:
-        if _norm_name(cf_value(c, slot["name"])) in BLOCKED_NAMES:
-            return True
-    for fb in (SUMMER_FALLBACK, FREE_FALLBACK):
-        if _norm_name(cf_value(c, fb["name"])) in BLOCKED_NAMES:
-            return True
-    return False
+    tags = c.get("tags") or []
+    return any((t or "").strip().lower() == BLOCKED_TAG for t in tags)
 
 WEEK_ORDER = [
     "June 1st-5th",
