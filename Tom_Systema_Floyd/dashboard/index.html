@@ -56,7 +56,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .sf-strip-meta button:hover{background:var(--sf-blue-100);transform:translateY(-1px)}
 
 /* ====== Page shell ====== */
-.dash{max-width:1280px;margin:0 auto;padding:8px 32px 80px}
+.dash{max-width:1280px;margin:0 auto;padding:8px 32px 32px}
 
 /* ====== Filter toggle ====== */
 .filter-row{display:flex;align-items:center;gap:14px;margin:6px 0 28px;flex-wrap:wrap}
@@ -122,67 +122,50 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .bars-legend .swatch{width:10px;height:10px;border-radius:2px}
 .bars-legend .swatch.goal{background:var(--sf-cream-2);border:1px dashed var(--sf-ink-40)}
 
-/* ====== Weekly Capacity grid (replaces old per-week-goals strip) ====== */
-.caps-section{margin-top:24px}
-.caps-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:14px}
-.caps-head h2{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sf-ink);margin:0}
-.caps-head .caps-meta{font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;color:var(--sf-ink-50);letter-spacing:.04em}
-.caps-head .caps-meta strong{color:var(--sf-ink-60);font-weight:600}
-.caps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.cap{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:16px 16px 12px;box-shadow:var(--shadow-sm);transition:box-shadow .35s,border-color .35s,transform .35s var(--ease-out)}
-.cap:hover{box-shadow:var(--shadow-md);border-color:var(--sf-border-strong);transform:translateY(-1px)}
-.cap.full{border-color:rgba(45,163,117,.55);background:linear-gradient(180deg,rgba(45,163,117,.04),#fff 70%)}
-.cap-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
-.cap-w{font-family:'Oswald',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sf-ink)}
-.cap-tot{font-family:'Space Grotesk','Inter',sans-serif;font-size:13px;color:var(--sf-ink-60);font-variant-numeric:tabular-nums;font-weight:600}
-.cap-tot .pct{color:var(--sf-blue-700);margin-left:4px}
-.cap-tot.met .pct{color:var(--sf-green)}
-.cap-rows{display:flex;flex-direction:column;gap:8px}
-.cap-row{display:grid;grid-template-columns:62px 1fr 96px;align-items:center;gap:10px}
-.cap-row .lbl{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-ink-60)}
-.cap-row.upper .lbl{color:#1b2f6e}
-.cap-row.lower .lbl{color:#2f82c4}
-.cap-row.free  .lbl{color:var(--sf-amber-deep)}
-.cap-bar{position:relative;height:8px;background:var(--sf-cream-2);border-radius:4px;overflow:hidden}
-.cap-bar-fill{position:absolute;inset:0 auto 0 0;height:100%;width:0%;border-radius:4px;transition:width .8s var(--ease-out),background .25s}
-.cap-row.upper .cap-bar-fill{background:linear-gradient(135deg,#1b2f6e,#234091)}
-.cap-row.lower .cap-bar-fill{background:linear-gradient(135deg,#4aa3e0,#2f82c4)}
-.cap-row.free  .cap-bar-fill{background:linear-gradient(135deg,#f3a847,#c97a16)}
-.cap-bar-fill.full{background:linear-gradient(135deg,var(--sf-green),#1f7c58) !important}
-.cap-cnt{display:flex;align-items:center;justify-content:flex-end;gap:4px;font-family:'Space Grotesk','Inter',sans-serif;font-variant-numeric:tabular-nums;font-size:13px;color:var(--sf-ink-60)}
-.cap-cnt .actual{font-weight:600;color:var(--sf-ink);font-size:14px;min-width:22px;text-align:right}
-.cap-cnt .slash{color:var(--sf-ink-40)}
-.cap-cnt input{width:42px;padding:3px 4px;border:1px solid var(--sf-border);border-radius:4px;font-size:12px;text-align:center;background:#fff;color:var(--sf-ink);font-family:'Space Grotesk','Inter',sans-serif;font-variant-numeric:tabular-nums;font-weight:600;transition:border-color .2s,box-shadow .2s}
-.cap-cnt input:focus{outline:0;border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.18)}
-.cap-cnt input.editing{background:#fff8e6;border-color:var(--sf-amber)}
-.cap-row.full .cap-cnt .actual{color:var(--sf-green)}
+/* ====== Bar chart additions (grouped Upper/Lower bars, per-campus cap line) ====== */
+.bars-svg .cap-line{stroke:var(--sf-amber-deep);stroke-width:1.6;stroke-dasharray:3 3;opacity:.9}
+.bars-svg .cap-tick{fill:var(--sf-amber-deep);font-size:9px;font-weight:600;font-family:'Space Grotesk',sans-serif}
+.bars-svg .bar-grp-bg{fill:rgba(15,27,61,.025)}
 
-/* Roster dropdown */
-.cap-roster-toggle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding:8px 10px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:8px;font-family:'Space Grotesk','Inter',sans-serif;font-size:11.5px;color:var(--sf-ink-60);font-weight:500;letter-spacing:.04em;cursor:pointer;transition:background .2s,border-color .2s;width:100%;text-align:left}
-.cap-roster-toggle:hover{background:var(--sf-blue-50);border-color:var(--sf-border-strong)}
-.cap-roster-toggle .chev{display:inline-block;transition:transform .25s var(--ease-out);font-size:10px;color:var(--sf-ink-40)}
-.cap-roster-toggle[aria-expanded="true"] .chev{transform:rotate(90deg)}
-.cap-roster-toggle .count{font-family:'Oswald',sans-serif;font-weight:600;color:var(--sf-blue-700);letter-spacing:.06em}
-.cap-roster{margin-top:8px;display:none;border-top:1px dashed var(--sf-border);padding-top:10px}
-.cap-roster.open{display:block;animation:slideDown .35s var(--ease-out)}
+/* ====== Compact cap controls + small roster panel ====== */
+.cap-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:10px}
+.cap-controls .ctl-lbl{font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.16em;color:var(--sf-ink-50);text-transform:uppercase}
+.cap-controls .ctl{display:inline-flex;align-items:center;gap:6px;font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;color:var(--sf-ink-60);font-variant-numeric:tabular-nums}
+.cap-controls .ctl .swatch{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.cap-controls .ctl .swatch.upper{background:#1b2f6e}
+.cap-controls .ctl .swatch.lower{background:#4aa3e0}
+.cap-controls .ctl input{width:48px;padding:4px 6px;border:1px solid var(--sf-border);border-radius:5px;font-size:13px;font-weight:700;text-align:center;background:#fff;color:var(--sf-ink);font-family:'Space Grotesk','Inter',sans-serif;font-variant-numeric:tabular-nums;transition:border-color .2s,box-shadow .2s}
+.cap-controls .ctl input:focus{outline:0;border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.18)}
+.cap-controls .ctl input.editing{background:#fff8e6;border-color:var(--sf-amber)}
+.cap-controls .ctl-suffix{color:var(--sf-ink-40);font-size:11px}
+.cap-controls .reset-btn{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;border-radius:5px;background:transparent;color:var(--sf-ink-50);border:1px solid var(--sf-border);transition:background .2s,color .2s}
+.cap-controls .reset-btn:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);border-color:var(--sf-border-strong)}
+
+/* Roster panel — single inline section, default collapsed */
+.roster-panel{margin-top:12px}
+.roster-toggle{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:10px 14px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:10px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sf-ink-60);text-transform:uppercase;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.roster-toggle:hover{background:var(--sf-blue-50);border-color:var(--sf-border-strong);color:var(--sf-blue-700)}
+.roster-toggle .chev{display:inline-block;transition:transform .25s var(--ease-out);font-size:11px}
+.roster-toggle[aria-expanded="true"] .chev{transform:rotate(90deg)}
+.roster-toggle .count{font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;letter-spacing:.04em;color:var(--sf-blue-700);text-transform:none;font-size:13px}
+.roster-body{display:none;margin-top:10px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-sm)}
+.roster-body.open{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;animation:slideDown .35s var(--ease-out)}
 @keyframes slideDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.cap-roster .ros-bucket{margin-bottom:10px}
-.cap-roster .ros-bucket:last-child{margin-bottom:0}
-.cap-roster .ros-bucket-h{display:flex;align-items:center;gap:6px;font-family:'Oswald',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-ink-50);margin:0 0 6px;padding-bottom:4px;border-bottom:1px solid var(--sf-cream-2)}
-.cap-roster .ros-bucket-h .swatch{width:8px;height:8px;border-radius:2px}
-.cap-roster .ros-bucket.upper .swatch{background:#1b2f6e}
-.cap-roster .ros-bucket.lower .swatch{background:#2f82c4}
-.cap-roster .ros-bucket.free  .swatch{background:#f3a847}
-.cap-roster ul{list-style:none;padding:0;margin:0}
-.cap-roster li{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;font-size:12px;color:var(--sf-ink);font-family:'Inter',sans-serif;transition:background .15s}
-.cap-roster li:hover{background:var(--sf-cream)}
-.cap-roster li .nm{flex:1;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cap-roster li .nm.incomplete{color:var(--sf-ink-50);font-style:italic}
-.cap-roster li .badge{font-size:11px;line-height:1;padding:2px 5px;border-radius:3px;font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;letter-spacing:.04em;flex-shrink:0}
-.cap-roster li .badge.lunch{background:rgba(45,163,117,.12);color:var(--sf-green)}
-.cap-roster li .badge.allergy{background:rgba(216,69,61,.12);color:var(--sf-red);cursor:help}
-.cap-roster li .badge.warn{background:rgba(243,168,71,.18);color:var(--sf-amber-deep);cursor:help}
-.cap-roster .ros-empty{font-size:11.5px;color:var(--sf-ink-40);font-style:italic;padding:4px 6px}
+.ros-week{display:flex;flex-direction:column;gap:6px;padding:10px;background:var(--sf-cream);border-radius:8px}
+.ros-week-h{display:flex;align-items:baseline;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-ink);padding-bottom:4px;border-bottom:1px solid var(--sf-border)}
+.ros-week-h .ros-count{font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;color:var(--sf-blue-700);font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.04em}
+.ros-week ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
+.ros-week li{display:flex;align-items:center;gap:5px;padding:3px 5px;border-radius:4px;font-size:11.5px;color:var(--sf-ink);font-family:'Inter',sans-serif;line-height:1.3}
+.ros-week li .campus-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ros-week li.upper .campus-dot{background:#1b2f6e}
+.ros-week li.lower .campus-dot{background:#4aa3e0}
+.ros-week li.unknown .campus-dot{background:var(--sf-ink-40)}
+.ros-week li .nm{flex:1;font-weight:500;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ros-week li .nm.incomplete{color:var(--sf-ink-50);font-style:italic}
+.ros-week li .badge{font-size:10px;line-height:1;padding:1px 4px;border-radius:3px;font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;flex-shrink:0}
+.ros-week li .badge.lunch{background:rgba(45,163,117,.12);color:var(--sf-green)}
+.ros-week li .badge.allergy{background:rgba(216,69,61,.14);color:var(--sf-red);cursor:help}
+.ros-week .ros-empty{font-size:11px;color:var(--sf-ink-40);font-style:italic;padding:4px}
 
 /* Empty state */
 .empty{padding:60px 20px;text-align:center;color:var(--sf-ink-50);font-size:14px}
@@ -199,17 +182,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 @media (min-width:1600px){
   .dash{max-width:1600px}
   .kpi-num{font-size:56px}
-  .caps-grid{grid-template-columns:repeat(4,1fr);gap:18px}
-  .cap{padding:18px 18px 14px}
-  .cap-w{font-size:15px}
-  .cap-tot{font-size:14px}
-  .cap-row .lbl{font-size:12px}
-  .cap-cnt .actual{font-size:15px}
-  .caps-head h2{font-size:20px}
+  .cap-controls .ctl input{font-size:14px;width:54px}
+  .cap-controls .ctl{font-size:13px}
+  .ros-week{padding:12px}
+  .ros-week li{font-size:13px}
 }
 
 @media (max-width:1280px){
-  .caps-grid{grid-template-columns:repeat(3,1fr)}
+  .roster-body.open{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:980px){
   .sf-strip{padding:14px 18px 26px}
@@ -220,7 +200,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .chart-row{grid-template-columns:1fr}
   .card{padding:20px}
   .donut{width:200px;height:200px}
-  .caps-grid{grid-template-columns:repeat(2,1fr)}
+  .roster-body.open{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:520px){
   .kpi-row{grid-template-columns:1fr 1fr;gap:12px}
@@ -228,8 +208,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .kpi-num{font-size:38px}
   .sf-brand img{height:48px}
   .sf-strip-title{font-size:14px;letter-spacing:.12em}
-  .caps-grid{grid-template-columns:1fr}
-  .cap-row{grid-template-columns:48px 1fr 86px}
+  .roster-body.open{grid-template-columns:1fr}
+  .cap-controls{gap:8px;padding:10px}
 }
 </style>
 </head>
@@ -314,21 +294,34 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus</span>
         <span><span class="swatch" style="background:#4aa3e0"></span> Lower Campus</span>
         <span id="bars-unknown" style="display:none"><span class="swatch" style="background:#c6d1e4"></span> Unknown</span>
-        <span><span class="swatch goal"></span> Weekly cap (total)</span>
+        <span><span class="swatch" style="background:transparent;border:1px dashed var(--sf-amber-deep)"></span> Per-campus weekly cap</span>
       </div>
-    </div>
-  </section>
 
-  <!-- Weekly capacity grid -->
-  <section class="caps-section anim d6">
-    <div class="caps-head">
-      <h2>Weekly Capacity</h2>
-      <div class="caps-meta">
-        <span><strong>Upper</strong> · <strong>Lower</strong> · <strong>Free</strong> per week ·
-        <span id="caps-default-meta">defaults 13 / 13 / 35 = 60 total</span></span>
+      <!-- Inline cap controls — apply across all weeks for the active filter -->
+      <div class="cap-controls" id="cap-controls">
+        <span class="ctl-lbl">Weekly cap</span>
+        <span class="ctl">
+          <span class="swatch upper"></span>
+          <label>Upper <input type="number" min="0" max="999" step="1" data-cap="upper" value="13" /></label>
+          <span class="ctl-suffix">/wk</span>
+        </span>
+        <span class="ctl">
+          <span class="swatch lower"></span>
+          <label>Lower <input type="number" min="0" max="999" step="1" data-cap="lower" value="13" /></label>
+          <span class="ctl-suffix">/wk</span>
+        </span>
+        <button class="reset-btn" id="cap-reset">Reset to defaults</button>
+      </div>
+
+      <!-- Inline roster panel — single toggle, shows all weeks at once when open -->
+      <div class="roster-panel">
+        <button class="roster-toggle" id="roster-toggle" aria-expanded="false">
+          <span><span class="chev">▸</span> Student Rosters</span>
+          <span class="count" id="roster-count">—</span>
+        </button>
+        <div class="roster-body" id="roster-body" aria-hidden="true"></div>
       </div>
     </div>
-    <div class="caps-grid" id="caps-grid"></div>
   </section>
 
 </main>
@@ -341,10 +334,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     unknown: '#c6d1e4'
   };
 
-  // Default per-week capacity caps (Tom 2026-05-01).
-  const CAP_DEFAULTS = { upper: 13, lower: 13, free: 35 };
-  const CAP_TYPES = ['upper','lower','free'];
-  const CAP_LABELS = { upper: 'Upper', lower: 'Lower', free: 'Free' };
+  // Per-week per-campus capacity. Same value applies to every week — the
+  // physical campus capacity doesn't change week-to-week. One pair of caps
+  // per filter (combined / summer / free) so each tab can have its own.
+  const CAP_DEFAULTS = { upper: 13, lower: 13 };
+  const CAMPUSES = ['upper','lower'];
+  const CAMPUS_LABELS = { upper: 'Upper Campus', lower: 'Lower Campus' };
+  const CAMPUS_KEY = { upper: 'Upper Campus', lower: 'Lower Campus' };
+  const CAMPUS_COLOR = { upper: '#1b2f6e', lower: '#4aa3e0' };
 
   // ─── Goals storage ───────────────────────────────────────────────────────
   // Default: localStorage (per-device). When PANTRY_ID is filled in, goals
@@ -376,11 +373,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function cacheGoalsLocal() {
     try { localStorage.setItem(GOALS_CACHE_KEY, JSON.stringify(state.goals)); } catch {}
   }
-  // New cap key scheme: cap.<type>.<week> where type ∈ upper|lower|free
-  function capKey(type, week) { return `cap.${type}.${week}`; }
-  function getCap(type, week) {
-    const v = state.goals[capKey(type, week)];
-    return (typeof v === 'number' && v > 0) ? v : CAP_DEFAULTS[type];
+  // Cap key: cap.<filter>.<campus>. Single cap per filter+campus, applied to
+  // every week (campus physical capacity doesn't change week-to-week).
+  function capKey(filter, campus) { return `cap.${filter}.${campus}`; }
+  function getCap(filter, campus) {
+    const v = state.goals[capKey(filter, campus)];
+    return (typeof v === 'number' && v > 0) ? v : CAP_DEFAULTS[campus];
   }
 
   async function fetchGoalsRemote() {
@@ -559,29 +557,34 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   // ─── Bars chart ──────────────────────────────────────────────────────────
+  // Grouped Upper/Lower bars per week, with a per-campus cap line at the
+  // top of each bar slot. Easy at-a-glance read: each week shows two bars
+  // side-by-side, both with the same 13-student ceiling.
   function renderBars(view) {
     const W = 800, H = 320;
-    const padL = 36, padR = 14, padT = 18, padB = 64;
+    const padL = 36, padR = 14, padT = 22, padB = 64;
     const innerW = W - padL - padR;
     const innerH = H - padT - padB;
     const weeks = view.weekOrder;
     const byWC = view.weekCampus;
 
-    // Per-week goal in the bars chart = sum of the three caps for that week.
-    // Filter doesn't change the cap (it's a real-world capacity, not a sales goal).
-    const goalFor = w => getCap('upper', w) + getCap('lower', w) + getCap('free', w);
+    // Per-campus cap (same for every week — physical campus capacity)
+    const capUpper = getCap(state.filter, 'upper');
+    const capLower = getCap(state.filter, 'lower');
 
-    const totals = weeks.map(w => {
+    // Y axis max — bigger of the largest actual or the cap, plus a little
+    // headroom so the cap line and labels don't crowd the top.
+    const peakActual = weeks.reduce((m, w) => {
       const c = byWC[w] || {};
-      return (c['Upper Campus']||0) + (c['Lower Campus']||0) + (c['Unknown']||0);
-    });
-    // niceMax considers both actuals and goals so goal bars never clip
-    const goals = weeks.map(goalFor).filter(Boolean);
-    const max = Math.max(1, ...totals, ...goals);
-    const niceMax = Math.ceil(max / 5) * 5 || 5;
+      return Math.max(m, c['Upper Campus']||0, c['Lower Campus']||0, c['Unknown']||0);
+    }, 0);
+    const max = Math.max(peakActual, capUpper, capLower, 1);
+    const niceMax = Math.ceil((max + 1) / 5) * 5 || 5;
 
-    const bw = innerW / weeks.length;
-    const barW = Math.min(34, bw * .58);
+    const slotW = innerW / weeks.length;       // total width per week
+    const groupGap = 6;                         // gap between Upper and Lower
+    const barW = Math.max(8, Math.min(20, (slotW - groupGap - 8) / 2));
+
     const showUnk = weeks.some(w => (byWC[w]?.['Unknown']||0) > 0);
     document.getElementById('bars-unknown').style.display = showUnk ? '' : 'none';
 
@@ -597,248 +600,137 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     }
     svg += `<line class="axis" x1="${padL}" y1="${padT + innerH}" x2="${W - padR}" y2="${padT + innerH}"/>`;
 
-    // Bars
+    const yBase = padT + innerH;
+
+    // Per-campus cap lines: spans the chart width, dashed
+    const capLineY = (cap) => yBase - (cap / niceMax) * innerH;
+    if (capUpper > 0) {
+      const y = capLineY(capUpper);
+      svg += `<line class="cap-line" x1="${padL + 2}" x2="${W - padR - 2}" y1="${y}" y2="${y}" style="stroke:${CAMPUS_COLOR.upper};stroke-dasharray:5 4;opacity:.55"/>`;
+      svg += `<text class="cap-tick" x="${W - padR - 2}" y="${y - 3}" text-anchor="end" style="fill:${CAMPUS_COLOR.upper};opacity:.85">Upper cap ${capUpper}</text>`;
+    }
+    if (capLower > 0) {
+      const y = capLineY(capLower);
+      // If the two caps share a line, nudge the lower label down so they don't overlap
+      const sameAsUpper = (capUpper === capLower);
+      svg += `<line class="cap-line" x1="${padL + 2}" x2="${W - padR - 2}" y1="${y}" y2="${y}" style="stroke:${CAMPUS_COLOR.lower};stroke-dasharray:5 4;opacity:.55"/>`;
+      svg += `<text class="cap-tick" x="${padL + 4}" y="${y + (sameAsUpper ? 11 : -3)}" text-anchor="start" style="fill:${CAMPUS_COLOR.lower};opacity:.95">Lower cap ${capLower}</text>`;
+    }
+
+    // Grouped bars per week
     weeks.forEach((w, idx) => {
       const c = byWC[w] || {};
       const upper = c['Upper Campus'] || 0;
       const lower = c['Lower Campus'] || 0;
       const unk   = c['Unknown']      || 0;
-      const total = upper + lower + unk;
-      const goal  = goalFor(w);
 
-      const cx = padL + idx * bw + bw / 2;
-      const x = cx - barW / 2;
-      const yBase = padT + innerH;
+      const cx = padL + idx * slotW + slotW / 2;
+      // Upper bar to the left of center, Lower to the right
+      const xUpper = cx - groupGap / 2 - barW;
+      const xLower = cx + groupGap / 2;
 
       svg += `<g class="bar-group">`;
 
-      // Goal "ghost" bar — full width of the slot, behind the actual bar
-      if (goal) {
-        const goalH = (goal / niceMax) * innerH;
-        const goalY = yBase - goalH;
-        const ghostW = barW + 14;
-        const ghostX = cx - ghostW / 2;
-        svg += `<rect class="goal-bar" x="${ghostX}" y="${goalY}" width="${ghostW}" height="${goalH}" rx="3"></rect>`;
-        // dashed cap at the goal line
-        svg += `<line class="goal-cap" x1="${ghostX}" x2="${ghostX + ghostW}" y1="${goalY}" y2="${goalY}"/>`;
+      // Faint slot bg for visual rhythm on alternating weeks
+      if (idx % 2 === 0) {
+        svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
       }
 
-      const hUpper = (upper / niceMax) * innerH;
-      const hLower = (lower / niceMax) * innerH;
-      const hUnk   = (unk   / niceMax) * innerH;
-
-      let yCursor = yBase;
-
-      if (lower > 0) {
-        yCursor -= hLower;
-        svg += `<rect class="bar" x="${x}" y="${yCursor}" width="${barW}" height="${hLower}" fill="${COLORS.lower}" rx="2"></rect>`;
-      }
-      if (upper > 0) {
-        yCursor -= hUpper;
-        svg += `<rect class="bar" x="${x}" y="${yCursor}" width="${barW}" height="${hUpper}" fill="${COLORS.upper}" rx="2"></rect>`;
-      }
-      if (unk > 0) {
-        yCursor -= hUnk;
-        svg += `<rect class="bar" x="${x}" y="${yCursor}" width="${barW}" height="${hUnk}" fill="${COLORS.unknown}" rx="2"></rect>`;
-      }
-
-      // Label above the bar — % of goal if a goal is set, else raw total
-      if (total > 0 || goal) {
-        const labelY = yCursor - 6;
-        if (goal) {
-          const pct = Math.round((total / goal) * 100);
-          const cls = pct >= 100 ? 'over' : (pct < 75 ? 'under' : '');
-          svg += `<text class="bar-val ${cls}" x="${cx}" y="${labelY}" text-anchor="middle">${total} <tspan class="bar-pct">· ${pct}%</tspan></text>`;
-        } else if (total > 0) {
-          svg += `<text class="bar-val" x="${cx}" y="${labelY}" text-anchor="middle">${total}</text>`;
+      // Helper to draw one campus bar
+      const drawBar = (count, cap, x, color) => {
+        const h = (count / niceMax) * innerH;
+        const y = yBase - h;
+        if (h > 0) {
+          const full = cap > 0 && count >= cap;
+          const fill = full ? 'url(#full-grad)' : color;
+          svg += `<rect class="bar" x="${x}" y="${y}" width="${barW}" height="${h}" fill="${fill}" rx="2"></rect>`;
         }
+        // Number label above the bar (always show, even if 0, so layout reads at a glance)
+        const labelY = (h > 14 ? y - 5 : yBase - 5);
+        const overCap = cap > 0 && count > cap;
+        const cls = overCap ? 'over' : (count >= cap && cap > 0 ? 'over' : '');
+        svg += `<text class="bar-val ${cls}" x="${x + barW/2}" y="${labelY}" text-anchor="middle" style="fill:${overCap ? '#d8453d' : (count >= cap && cap > 0 ? 'var(--sf-green)' : color)}">${count}</text>`;
+      };
+
+      drawBar(upper, capUpper, xUpper, CAMPUS_COLOR.upper);
+      drawBar(lower, capLower, xLower, CAMPUS_COLOR.lower);
+
+      // Unknown-campus indicator: thin grey tick under the label area, only if present
+      if (unk > 0) {
+        svg += `<text class="bar-val" x="${cx}" y="${yBase + 30}" text-anchor="middle" style="fill:#8b95ad;font-size:9px">+${unk} unk</text>`;
       }
 
-      svg += `<title>${w}\nUpper: ${upper}\nLower: ${lower}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}${goal?`\nGoal: ${goal} (${Math.round((total/goal)*100)}%)`:''}</title>`;
-
+      const total = upper + lower + unk;
+      svg += `<title>${w}\nUpper: ${upper}/${capUpper}\nLower: ${lower}/${capLower}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}</title>`;
       svg += `</g>`;
 
-      // X label (rotated)
+      // X-axis label (week, rotated)
       const short = shortenWeek(w);
       svg += `<text class="x-lbl" x="${cx}" y="${yBase + 16}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 16})">${short}</text>`;
     });
 
-    document.getElementById('bars').innerHTML = svg;
+    // SVG defs — green gradient for "full" bars
+    const defs = `<defs><linearGradient id="full-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2da375"/><stop offset="100%" stop-color="#1f7c58"/>
+    </linearGradient></defs>`;
+
+    document.getElementById('bars').innerHTML = defs + svg;
   }
 
-  // ─── Weekly Capacity grid ────────────────────────────────────────────────
-  // Renders 12 week cards. Each card has 3 cap rows (Upper / Lower / Free) with
-  // editable cap inputs, plus an expandable roster.
-  //
-  // The bug fix: cap inputs are *uncontrolled* once first-painted. We never
-  // overwrite their .value in subsequent re-renders. Polling is also paused
-  // while any cap input has focus.
-  function renderCaps() {
-    const wrap = document.getElementById('caps-grid');
-    if (!wrap || !state.snapshot) return;
-    const s = state.snapshot;
-    const weeks = s.weekOrder;
-    const roster = s.roster || {};
-    const wkc = {
-      summer: s.summer.byWeekCampus,
-      free:   s.free.byWeekCampus,
-    };
-
-    // Per-week per-bucket actuals.
-    // upper / lower buckets = SUMMER ONLY (per Tom's split — free camp has its own 35-cap)
-    // free bucket = ALL Free Camp registrations regardless of campus
-    const actualFor = (week, type) => {
-      if (type === 'upper') return (wkc.summer[week]?.['Upper Campus'] || 0);
-      if (type === 'lower') return (wkc.summer[week]?.['Lower Campus'] || 0);
-      if (type === 'free')  return (s.free.byWeek[week] || 0);
-      return 0;
-    };
-
-    // Build (or rebuild) the grid. We do a full innerHTML pass on first paint
-    // and on snapshot changes. For partial updates we use updateCapsLive().
-    const html = weeks.map(w => {
-      const caps = { upper: getCap('upper', w), lower: getCap('lower', w), free: getCap('free', w) };
-      const actual = { upper: actualFor(w, 'upper'), lower: actualFor(w, 'lower'), free: actualFor(w, 'free') };
-      const total = actual.upper + actual.lower + actual.free;
-      const totalCap = caps.upper + caps.lower + caps.free;
-      const totalPct = totalCap ? Math.round((total / totalCap) * 100) : 0;
-      const totalFull = totalCap > 0 && total >= totalCap;
-      const expanded = state.openRosters.has(w);
-      const rosterTotal =
-        (roster[w]?.upper?.length || 0) +
-        (roster[w]?.lower?.length || 0) +
-        (roster[w]?.free?.length  || 0);
-
-      const rows = CAP_TYPES.map(t => {
-        const a = actual[t];
-        const c = caps[t];
-        const pct = c ? Math.min((a / c) * 100, 100) : 0;
-        const full = c > 0 && a >= c;
-        return `
-          <div class="cap-row ${t} ${full ? 'full' : ''}">
-            <div class="lbl">${CAP_LABELS[t]}</div>
-            <div class="cap-bar"><div class="cap-bar-fill ${full ? 'full' : ''}" style="width:${pct}%"></div></div>
-            <div class="cap-cnt">
-              <span class="actual">${a}</span>
-              <span class="slash">/</span>
-              <input type="number" min="0" max="999" step="1"
-                     data-cap-type="${t}" data-cap-week="${w}"
-                     value="${c}" aria-label="${CAP_LABELS[t]} cap for ${w}" />
-            </div>
-          </div>`;
-      }).join('');
-
-      return `
-        <div class="cap ${totalFull ? 'full' : ''}" data-week="${w}">
-          <div class="cap-head">
-            <div class="cap-w">${shortenWeek(w)}</div>
-            <div class="cap-tot ${totalFull ? 'met' : ''}">${total}/${totalCap} <span class="pct">${totalPct}%</span></div>
-          </div>
-          <div class="cap-rows">${rows}</div>
-          <button class="cap-roster-toggle" data-roster-week="${w}" aria-expanded="${expanded}">
-            <span><span class="chev">▸</span> Students</span>
-            <span class="count">${rosterTotal}</span>
-          </button>
-          <div class="cap-roster ${expanded ? 'open' : ''}" data-roster-body="${w}">
-            ${expanded ? renderRosterBody(w, roster[w]) : ''}
-          </div>
-        </div>`;
-    }).join('');
-
-    wrap.innerHTML = html;
-    wireCapsHandlers(wrap);
-  }
-
-  function renderRosterBody(week, bucket) {
-    if (!bucket) return '<div class="ros-empty">No students registered for this week.</div>';
-    const totalCount = (bucket.upper?.length || 0) + (bucket.lower?.length || 0) + (bucket.free?.length || 0);
-    if (totalCount === 0) return '<div class="ros-empty">No students registered for this week.</div>';
-
-    const sectionFor = (type, list) => {
-      if (!list || !list.length) return '';
-      const items = list.map(r => {
-        const incomplete = r.incomplete || r.name === '(name missing)' || r.campus === 'Unknown';
-        const badges = [];
-        if (r.lunch) badges.push('<span class="badge lunch" title="Lunch opt-in">🥪</span>');
-        if (r.allergy) {
-          const safe = String(r.allergy).replace(/"/g,'&quot;').replace(/</g,'&lt;');
-          badges.push(`<span class="badge allergy" title="${safe}">⚠ allergy</span>`);
-        }
-        if (incomplete) badges.push('<span class="badge warn" title="Some fields are missing on this registration">incomplete</span>');
-        const safeName = String(r.name).replace(/</g,'&lt;');
-        return `<li>
-          <span class="nm ${incomplete ? 'incomplete' : ''}">${safeName}</span>
-          ${badges.join('')}
-        </li>`;
-      }).join('');
-      return `
-        <div class="ros-bucket ${type}">
-          <div class="ros-bucket-h"><span class="swatch"></span> ${CAP_LABELS[type]} <span style="margin-left:auto;color:var(--sf-ink-40);font-weight:500">${list.length}</span></div>
-          <ul>${items}</ul>
-        </div>`;
-    };
-
-    return [
-      sectionFor('upper', bucket.upper),
-      sectionFor('lower', bucket.lower),
-      sectionFor('free',  bucket.free),
-    ].filter(Boolean).join('');
-  }
-
-  function wireCapsHandlers(wrap) {
-    // Roster toggles
-    wrap.querySelectorAll('[data-roster-week]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const w = btn.dataset.rosterWeek;
-        const bodyEl = wrap.querySelector(`[data-roster-body="${CSS.escape(w)}"]`);
-        const isOpen = state.openRosters.has(w);
-        if (isOpen) {
-          state.openRosters.delete(w);
-          btn.setAttribute('aria-expanded', 'false');
-          bodyEl.classList.remove('open');
-          bodyEl.innerHTML = '';
-        } else {
-          state.openRosters.add(w);
-          btn.setAttribute('aria-expanded', 'true');
-          bodyEl.innerHTML = renderRosterBody(w, state.snapshot.roster?.[w]);
-          bodyEl.classList.add('open');
-        }
-      });
+  // ─── Cap controls (compact, two inputs above the chart) ────────────────
+  // Single Upper / Lower cap pair per filter. Inputs are uncontrolled once
+  // first-painted: we never overwrite .value on subsequent renders. Polling
+  // is paused while any input has focus (state.editingKeys).
+  function renderCapControls() {
+    const wrap = document.getElementById('cap-controls');
+    if (!wrap) return;
+    CAMPUSES.forEach(campus => {
+      const inp = wrap.querySelector(`input[data-cap="${campus}"]`);
+      if (!inp) return;
+      // Only set value if the input is NOT currently being edited
+      const k = capKey(state.filter, campus);
+      if (!state.editingKeys.has(k) && document.activeElement !== inp) {
+        inp.value = getCap(state.filter, campus);
+      }
     });
+  }
 
-    // Cap inputs — UNCONTROLLED once first-rendered.
-    // Track focus so polling/refresh leaves the input alone while editing.
-    wrap.querySelectorAll('input[data-cap-type]').forEach(inp => {
-      const t = inp.dataset.capType;
-      const w = inp.dataset.capWeek;
-      const k = capKey(t, w);
+  function wireCapControls() {
+    const wrap = document.getElementById('cap-controls');
+    if (!wrap || wrap.dataset.wired === '1') return;
+    wrap.dataset.wired = '1';
+
+    wrap.querySelectorAll('input[data-cap]').forEach(inp => {
+      const campus = inp.dataset.cap;
+
+      const currentKey = () => capKey(state.filter, campus);
 
       inp.addEventListener('focus', () => {
-        state.editingKeys.add(k);
+        state.editingKeys.add(currentKey());
         inp.classList.add('editing');
         inp.select();
       });
 
       const commit = () => {
+        const k = currentKey();
         const raw = inp.value.trim();
         const val = parseInt(raw, 10);
         if (raw === '' || isNaN(val) || val < 0) {
-          // Reset to the saved or default value
           delete state.goals[k];
-          inp.value = CAP_DEFAULTS[t];
+          inp.value = CAP_DEFAULTS[campus];
         } else {
           state.goals[k] = val;
           inp.value = val;
         }
         cacheGoalsLocal();
         scheduleGoalsWrite();
-        // Update only the visual bits for this card, no full re-render —
-        // re-rendering would lose focus and re-run the input bug entirely.
-        updateCapCardLive(w);
+        // Re-render the bars chart only (KPIs and donut don't depend on caps)
+        const view = getView();
+        if (view) renderBars(view);
       };
 
       inp.addEventListener('blur', () => {
-        state.editingKeys.delete(k);
+        state.editingKeys.delete(currentKey());
         inp.classList.remove('editing');
         commit();
       });
@@ -846,71 +738,108 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       inp.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') { e.preventDefault(); inp.blur(); }
         else if (e.key === 'Escape') {
-          // Revert to last saved value without committing
-          const saved = state.goals[k];
-          inp.value = (typeof saved === 'number' && saved > 0) ? saved : CAP_DEFAULTS[t];
+          const saved = state.goals[currentKey()];
+          inp.value = (typeof saved === 'number' && saved > 0) ? saved : CAP_DEFAULTS[campus];
           inp.blur();
         }
       });
     });
-  }
 
-  // Update bars + counts of one card without re-rendering its inputs.
-  // Called after a cap edit OR after a snapshot poll (for all cards).
-  function updateCapCardLive(week) {
-    const card = document.querySelector(`.cap[data-week="${CSS.escape(week)}"]`);
-    if (!card || !state.snapshot) return;
-    const s = state.snapshot;
-    const wkc = { summer: s.summer.byWeekCampus, free: s.free.byWeekCampus };
-    const actualFor = (t) => {
-      if (t === 'upper') return (wkc.summer[week]?.['Upper Campus'] || 0);
-      if (t === 'lower') return (wkc.summer[week]?.['Lower Campus'] || 0);
-      return (s.free.byWeek[week] || 0);
-    };
-
-    let total = 0, totalCap = 0;
-    CAP_TYPES.forEach(t => {
-      const a = actualFor(t);
-      const c = getCap(t, week);
-      total += a; totalCap += c;
-      const row = card.querySelector(`.cap-row.${t}`);
-      if (!row) return;
-      row.querySelector('.actual').textContent = a;
-      const fill = row.querySelector('.cap-bar-fill');
-      const pct = c ? Math.min((a / c) * 100, 100) : 0;
-      fill.style.width = pct + '%';
-      const full = c > 0 && a >= c;
-      row.classList.toggle('full', full);
-      fill.classList.toggle('full', full);
-    });
-
-    const totalFull = totalCap > 0 && total >= totalCap;
-    card.classList.toggle('full', totalFull);
-    const totEl = card.querySelector('.cap-tot');
-    const pct = totalCap ? Math.round((total / totalCap) * 100) : 0;
-    totEl.innerHTML = `${total}/${totalCap} <span class="pct">${pct}%</span>`;
-    totEl.classList.toggle('met', totalFull);
-
-    // Update student count chip
-    const roster = s.roster?.[week];
-    if (roster) {
-      const c = (roster.upper?.length || 0) + (roster.lower?.length || 0) + (roster.free?.length || 0);
-      const cntEl = card.querySelector('.cap-roster-toggle .count');
-      if (cntEl) cntEl.textContent = c;
+    // Reset button → clear all caps for current filter, fall back to defaults
+    const resetBtn = document.getElementById('cap-reset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        CAMPUSES.forEach(c => { delete state.goals[capKey(state.filter, c)]; });
+        cacheGoalsLocal();
+        scheduleGoalsWrite();
+        renderCapControls();
+        const view = getView();
+        if (view) renderBars(view);
+      });
     }
   }
 
-  // Live update for every card after a snapshot poll (preserves focused inputs)
-  function updateAllCapsLive() {
-    if (!state.snapshot) return;
-    state.snapshot.weekOrder.forEach(updateCapCardLive);
+  // ─── Roster panel (single inline collapsible, all weeks at once) ────────
+  function renderRosterPanel() {
+    const toggle = document.getElementById('roster-toggle');
+    const body   = document.getElementById('roster-body');
+    const cnt    = document.getElementById('roster-count');
+    if (!toggle || !body || !state.snapshot) return;
 
-    // If a roster is open, refresh its body in case data changed
-    state.openRosters.forEach(w => {
-      const body = document.querySelector(`[data-roster-body="${CSS.escape(w)}"]`);
-      if (body) body.innerHTML = renderRosterBody(w, state.snapshot.roster?.[w]);
+    // Compute total students for the active filter
+    const roster = state.snapshot.roster || {};
+    const filter = state.filter;
+    const include = (entry) => {
+      if (filter === 'combined') return true;
+      if (filter === 'summer')   return entry.type === 'summer';
+      if (filter === 'free')     return entry.type === 'free';
+      return true;
+    };
+
+    let total = 0;
+    state.snapshot.weekOrder.forEach(w => {
+      const wk = roster[w] || {};
+      ['upper','lower','free'].forEach(b => {
+        (wk[b] || []).forEach(e => { if (include(e)) total++; });
+      });
     });
+    cnt.textContent = `${total} ${total === 1 ? 'student' : 'students'}`;
+
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    if (isOpen) renderRosterBody(body, roster, include);
+
+    if (toggle.dataset.wired !== '1') {
+      toggle.dataset.wired = '1';
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        const next = !open;
+        toggle.setAttribute('aria-expanded', next ? 'true' : 'false');
+        body.setAttribute('aria-hidden', next ? 'false' : 'true');
+        body.classList.toggle('open', next);
+        if (next) renderRosterBody(body, state.snapshot.roster || {}, include);
+      });
+    }
   }
+
+  function renderRosterBody(body, roster, include) {
+    const weeks = state.snapshot.weekOrder;
+    const html = weeks.map(w => {
+      const wk = roster[w] || {};
+      const all = [
+        ...(wk.upper || []),
+        ...(wk.lower || []),
+        ...(wk.free  || []),
+      ].filter(include).sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+
+      const items = all.length === 0
+        ? `<div class="ros-empty">No students yet</div>`
+        : `<ul>${all.map(r => {
+            const campusCls = r.campus === 'Upper Campus' ? 'upper'
+                            : r.campus === 'Lower Campus' ? 'lower'
+                            : 'unknown';
+            const incomplete = r.incomplete || r.name === '(name missing)' || r.campus === 'Unknown';
+            const safeName = String(r.name).replace(/</g,'&lt;');
+            const badges = [];
+            if (r.lunch) badges.push('<span class="badge lunch" title="Lunch opt-in">🥪</span>');
+            if (r.allergy) {
+              const safe = String(r.allergy).replace(/"/g,'&quot;').replace(/</g,'&lt;');
+              badges.push(`<span class="badge allergy" title="${safe}">⚠</span>`);
+            }
+            return `<li class="${campusCls}">
+              <span class="campus-dot" title="${r.campus || 'Unknown'}"></span>
+              <span class="nm ${incomplete ? 'incomplete' : ''}">${safeName}</span>
+              ${badges.join('')}
+            </li>`;
+          }).join('')}</ul>`;
+
+      return `<div class="ros-week">
+        <div class="ros-week-h">${shortenWeek(w)}<span class="ros-count">${all.length}</span></div>
+        ${items}
+      </div>`;
+    }).join('');
+    body.innerHTML = html;
+  }
+
 
   function shortenWeek(w) {
     // "June 1st-5th" → "Jun 1–5"
@@ -929,30 +858,30 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     renderKpis(view);
     renderDonut(view);
     renderBars(view);
-    renderCaps();
+    renderCapControls();
+    renderRosterPanel();
 
-    // Sub-headlines
     const labels = { combined: 'across both camps', summer: 'Summer Camp only', free: 'Free Camp only' };
     document.getElementById('campus-sub').textContent = labels[state.filter];
     document.getElementById('weeks-sub').textContent  = labels[state.filter];
   }
 
-  // After a poll, only refresh visual numbers — keep cap inputs as-is so the
-  // user can keep typing.
+  // After a poll: refresh chart numbers but never overwrite focused inputs.
   function liveUpdate() {
     const view = getView();
     if (!view) return;
     renderKpis(view);
     renderDonut(view);
     renderBars(view);
-    updateAllCapsLive();
+    renderCapControls();
+    renderRosterPanel();
   }
 
   // ─── Filter wiring ───────────────────────────────────────────────────────
-  // Filter affects KPIs / donut / bars only — caps are filter-independent
-  // (real-world weekly capacity, not a sales goal). So we don't rebuild the
-  // caps grid here, which means cap input focus is preserved across filter
-  // switches and there's no flicker.
+  // Each filter (All / Summer / Free) has its own pair of caps and roster.
+  // Tab switch re-renders everything so caps and roster reflect the active
+  // tab. Cap inputs aren't focused during a click, so this never clobbers
+  // an in-progress edit.
   document.querySelectorAll('.filter button').forEach(b => {
     b.addEventListener('click', () => {
       document.querySelectorAll('.filter button').forEach(x => {
@@ -962,16 +891,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       b.classList.add('active');
       b.setAttribute('aria-selected', 'true');
       state.filter = b.dataset.filter;
-      const view = getView();
-      if (!view) return;
-      renderKpis(view);
-      renderDonut(view);
-      renderBars(view);
-      const labels = { combined: 'across both camps', summer: 'Summer Camp only', free: 'Free Camp only' };
-      document.getElementById('campus-sub').textContent = labels[state.filter];
-      document.getElementById('weeks-sub').textContent  = labels[state.filter];
+      render();
     });
   });
+
+  // Wire cap controls once at startup (the inputs themselves persist across
+  // re-renders; only their .value gets updated, not the listeners)
+  wireCapControls();
 
   // ─── Refresh button: immediate re-fetch ──────────────────────────────────
   document.getElementById('refresh-btn').addEventListener('click', () => {
