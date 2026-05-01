@@ -645,11 +645,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         return { txt: `+${-left} over`, cls: 'over' };
       };
 
-      // Format Δ vs prior week: "▲N", "▼N", omit when 0 or no prior
+      // Format Δ vs prior week: "+N" / "−N" (no arrow). Skip when 0 or no prior.
+      // Using a real minus sign (U+2212) — wider than a hyphen, balances with "+".
       const deltaText = (d) => {
         if (d == null || d === 0) return { txt: '', cls: '' };
-        if (d > 0) return { txt: `▲${d}`, cls: 'up' };
-        return { txt: `▼${-d}`, cls: 'down' };
+        if (d > 0) return { txt: `+${d}`, cls: 'up' };
+        return { txt: `−${-d}`, cls: 'down' };
       };
 
       // Helper to draw one campus bar — count + Δ above, no spots below.
@@ -666,8 +667,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
         const d = deltaText(delta);
         if (d.txt) {
-          const dColor = d.cls === 'up' ? '#2da375' : '#d8453d';
-          svg += `<text x="${cxBar}" y="${countY - 11}" text-anchor="middle" style="fill:${dColor};font-size:9px;font-weight:700">${d.txt}</text>`;
+          // Softer greens/reds + lighter weight so deltas read as supporting
+          // info, not as alarm bells. Same family as the bar value text.
+          const dColor = d.cls === 'up' ? '#3fa580' : '#cf6960';
+          svg += `<text x="${cxBar}" y="${countY - 10}" text-anchor="middle" style="fill:${dColor};font-size:8px;font-weight:500;letter-spacing:.02em">${d.txt}</text>`;
         }
 
         svg += `<text class="bar-val" x="${cxBar}" y="${countY}" text-anchor="middle" style="fill:${color}">${count}</text>`;
