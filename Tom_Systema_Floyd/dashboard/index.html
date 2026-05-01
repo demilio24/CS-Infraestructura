@@ -89,8 +89,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .donut circle{fill:none;stroke-width:32;transition:stroke-dasharray .9s var(--ease-out)}
 .donut .track{stroke:var(--sf-cream-2)}
 .donut-center{position:absolute;text-align:center;font-family:'Oswald',sans-serif}
-.donut-center .num{font-size:42px;font-weight:700;color:var(--sf-blue-700);line-height:1;font-variant-numeric:tabular-nums}
-.donut-center .lbl{font-size:10px;letter-spacing:.18em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:4px}
+.donut-center .num{font-size:34px;font-weight:700;color:var(--sf-blue-700);line-height:1;font-variant-numeric:tabular-nums}
+.donut-center .lbl{font-size:9px;letter-spacing:.16em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:3px}
+.donut-center .donut-divider{height:1px;width:46px;background:var(--sf-border);margin:7px auto}
+.donut-center .num-sm{font-size:22px;font-weight:700;color:var(--sf-ink);line-height:1;font-variant-numeric:tabular-nums}
+.donut-center .lbl-sm{font-size:8.5px;letter-spacing:.16em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:2px}
 .legend{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
 .legend li{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sf-cream);border-radius:6px;font-size:13px;transition:background .2s}
 .legend li:hover{background:var(--sf-blue-50)}
@@ -245,9 +248,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <!-- KPIs -->
   <section class="kpi-row">
     <div class="kpi anim d2" data-kpi="total">
-      <h3>Registered Students</h3>
+      <h3>Unique Students</h3>
       <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub></div>
+      <div class="kpi-sub" data-sub><strong data-enroll>—</strong> enrollments in total</div>
     </div>
     <div class="kpi anim d3" data-kpi="upper">
       <h3>Upper Campus</h3>
@@ -279,7 +282,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         </svg>
         <div class="donut-center">
           <div class="num" id="donut-total">—</div>
-          <div class="lbl">Students</div>
+          <div class="lbl">Unique Students</div>
+          <div class="donut-divider"></div>
+          <div class="num-sm" id="donut-enrollments">—</div>
+          <div class="lbl-sm">Enrollments</div>
         </div>
       </div>
       <ul class="legend" id="legend"></ul>
@@ -475,8 +481,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   // ─── KPI rendering (read-only summary tiles) ────────────────────────────
   function renderKpis(view) {
+    const enrollments = Object.values(view.byWeek || {}).reduce((a,b) => a+b, 0);
     const items = [
-      { key: 'total', value: view.total, sub: pluralStudents(view.total) },
+      { key: 'total', value: view.total },
       { key: 'upper', value: view.byCampus['Upper Campus'] || 0 },
       { key: 'lower', value: view.byCampus['Lower Campus'] || 0 },
       { key: 'topweek', custom: true }
@@ -492,9 +499,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         const t = topWeek(view.byWeek);
         numEl.textContent = t.n;
         subEl.innerHTML = t.week ? `<strong>${t.week}</strong>` : '—';
+      } else if (key === 'total') {
+        animateNum(numEl, item.value);
+        const enrollEl = card.querySelector('[data-enroll]');
+        if (enrollEl) enrollEl.textContent = enrollments;
       } else {
         animateNum(numEl, item.value);
-        if (item.sub) subEl.textContent = item.sub;
       }
     });
   }
@@ -508,15 +518,18 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const upper = view.byCampus['Upper Campus'] || 0;
     const lower = view.byCampus['Lower Campus'] || 0;
     const unk   = view.byCampus['Unknown']      || 0;
-    const total = upper + lower + unk;
+    const unique = upper + lower + unk;       // each student counted once per DOB
+    // Enrollments = student × weeks they're signed up for. Sum of byWeek.
+    const enrollments = Object.values(view.byWeek || {}).reduce((a,b) => a+b, 0);
     const r = 92;
     const C = 2 * Math.PI * r;
 
     const segUpper = document.getElementById('seg-upper');
     const segLower = document.getElementById('seg-lower');
     const segUnk   = document.getElementById('seg-unknown');
-    const totalEl  = document.getElementById('donut-total');
-    totalEl.textContent = total;
+    document.getElementById('donut-total').textContent       = unique;
+    document.getElementById('donut-enrollments').textContent = enrollments;
+    const total = unique;  // for the proportional ring math below
 
     if (total === 0) {
       [segUpper, segLower, segUnk].forEach(s => s.setAttribute('stroke-dasharray', `0 ${C}`));
@@ -537,10 +550,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     segUnk.setAttribute('stroke-dasharray', `${lenUnk} ${C - lenUnk}`);
     segUnk.setAttribute('stroke-dashoffset', `${-(lenUpper + lenLower)}`);
 
-    // Legend
+    // Legend — Lower on top per Tom's preference
     const items = [
-      { name: 'Upper Campus', v: upper, color: COLORS.upper },
-      { name: 'Lower Campus', v: lower, color: COLORS.lower }
+      { name: 'Lower Campus', v: lower, color: COLORS.lower },
+      { name: 'Upper Campus', v: upper, color: COLORS.upper }
     ];
     if (unk > 0) items.push({ name: 'Unknown DOB', v: unk, color: COLORS.unknown });
 
@@ -636,20 +649,17 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
       }
 
-      // Helper to draw one campus bar
+      // Helper to draw one campus bar — bars always keep their campus color
+      // (no green-when-full or red-when-over). Cap line above the chart
+      // already communicates the limit visually.
       const drawBar = (count, cap, x, color) => {
         const h = (count / niceMax) * innerH;
         const y = yBase - h;
         if (h > 0) {
-          const full = cap > 0 && count >= cap;
-          const fill = full ? 'url(#full-grad)' : color;
-          svg += `<rect class="bar" x="${x}" y="${y}" width="${barW}" height="${h}" fill="${fill}" rx="2"></rect>`;
+          svg += `<rect class="bar" x="${x}" y="${y}" width="${barW}" height="${h}" fill="${color}" rx="2"></rect>`;
         }
-        // Number label above the bar (always show, even if 0, so layout reads at a glance)
         const labelY = (h > 14 ? y - 5 : yBase - 5);
-        const overCap = cap > 0 && count > cap;
-        const cls = overCap ? 'over' : (count >= cap && cap > 0 ? 'over' : '');
-        svg += `<text class="bar-val ${cls}" x="${x + barW/2}" y="${labelY}" text-anchor="middle" style="fill:${overCap ? '#d8453d' : (count >= cap && cap > 0 ? 'var(--sf-green)' : color)}">${count}</text>`;
+        svg += `<text class="bar-val" x="${x + barW/2}" y="${labelY}" text-anchor="middle" style="fill:${color}">${count}</text>`;
       };
 
       drawBar(upper, capUpper, xUpper, CAMPUS_COLOR.upper);
@@ -669,12 +679,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       svg += `<text class="x-lbl" x="${cx}" y="${yBase + 16}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 16})">${short}</text>`;
     });
 
-    // SVG defs — green gradient for "full" bars
-    const defs = `<defs><linearGradient id="full-grad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2da375"/><stop offset="100%" stop-color="#1f7c58"/>
-    </linearGradient></defs>`;
-
-    document.getElementById('bars').innerHTML = defs + svg;
+    document.getElementById('bars').innerHTML = svg;
   }
 
   // ─── Cap controls (compact, two inputs above the chart) ────────────────
@@ -783,7 +788,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         (wk[b] || []).forEach(e => { if (include(e)) total++; });
       });
     });
-    cnt.textContent = `${total} ${total === 1 ? 'student' : 'students'}`;
+    cnt.textContent = `${total} ${total === 1 ? 'enrollment' : 'enrollments'}`;
 
     const isOpen = toggle.getAttribute('aria-expanded') === 'true';
     if (isOpen) renderRosterBody(body, roster, include);
