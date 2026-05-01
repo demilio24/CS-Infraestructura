@@ -254,12 +254,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <div class="kpi anim d3" data-kpi="upper">
       <h3>Upper Campus</h3>
       <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub>Age 7+ on June 1</div>
+      <div class="kpi-sub" data-sub>Age 6+ on June 1</div>
     </div>
     <div class="kpi anim d4" data-kpi="lower">
       <h3>Lower Campus</h3>
       <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub>Age 6 or younger on June 1</div>
+      <div class="kpi-sub" data-sub>Age 5 or younger on June 1</div>
     </div>
     <div class="kpi anim d5" data-kpi="topweek">
       <h3>Top Week</h3>
@@ -293,7 +293,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <div class="card anim d6">
       <h3>Registrations by Week <span class="sub" id="weeks-sub"></span></h3>
       <div class="bars-wrap">
-        <svg class="bars-svg" viewBox="0 0 800 320" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg class="bars-svg" viewBox="0 0 800 360" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="bars-legend">
         <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus</span>
@@ -553,12 +553,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   // ─── Bars chart ──────────────────────────────────────────────────────────
-  // Grouped Upper/Lower bars per week, with a per-campus cap line at the
-  // top of each bar slot. Easy at-a-glance read: each week shows two bars
-  // side-by-side, both with the same 13-student ceiling.
+  // Grouped Upper/Lower bars per week, per-campus cap line, plus:
+  //   - Δ vs prior camp week above each bar count (e.g. "▲1")
+  //   - "X left" / "FULL" / "+N OVER" below each bar (no math required)
   function renderBars(view) {
-    const W = 800, H = 320;
-    const padL = 36, padR = 14, padT = 22, padB = 64;
+    const W = 800, H = 360;
+    const padL = 36, padR = 14, padT = 22, padB = 88;
     const innerW = W - padL - padR;
     const innerH = H - padT - padB;
     const weeks = view.weekOrder;
@@ -620,46 +620,90 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const lower = c['Lower Campus'] || 0;
       const unk   = c['Unknown']      || 0;
 
+      // Week-over-week deltas: this week's count minus prior camp week's count, per campus
+      const prevW = idx > 0 ? weeks[idx - 1] : null;
+      const prevC = prevW ? (byWC[prevW] || {}) : {};
+      const dUpper = prevW ? upper - (prevC['Upper Campus'] || 0) : null;
+      const dLower = prevW ? lower - (prevC['Lower Campus'] || 0) : null;
+
       const cx = padL + idx * slotW + slotW / 2;
-      // Upper bar to the left of center, Lower to the right
       const xUpper = cx - groupGap / 2 - barW;
       const xLower = cx + groupGap / 2;
 
       svg += `<g class="bar-group">`;
 
-      // Faint slot bg for visual rhythm on alternating weeks
       if (idx % 2 === 0) {
         svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
       }
 
-      // Helper to draw one campus bar — bars always keep their campus color
-      // (no green-when-full or red-when-over). Cap line above the chart
-      // already communicates the limit visually.
-      const drawBar = (count, cap, x, color) => {
+      // Format spots-left text: "X left", "FULL", "+N OVER"
+      const spotsText = (count, cap) => {
+        if (cap <= 0) return { txt: '', cls: '' };
+        const left = cap - count;
+        if (left > 0)  return { txt: `${left} left`, cls: 'left' };
+        if (left === 0) return { txt: 'FULL',         cls: 'full' };
+        return { txt: `+${-left} over`, cls: 'over' };
+      };
+
+      // Format Δ vs prior week: "▲N", "▼N", omit when 0 or no prior
+      const deltaText = (d) => {
+        if (d == null || d === 0) return { txt: '', cls: '' };
+        if (d > 0) return { txt: `▲${d}`, cls: 'up' };
+        return { txt: `▼${-d}`, cls: 'down' };
+      };
+
+      // Helper to draw one campus bar — count + Δ above, no spots below.
+      // Spots-left is rendered separately as a stacked pair below the slot
+      // (so Upper/Lower never collide horizontally).
+      const drawBar = (count, cap, x, color, delta) => {
         const h = (count / niceMax) * innerH;
         const y = yBase - h;
         if (h > 0) {
           svg += `<rect class="bar" x="${x}" y="${y}" width="${barW}" height="${h}" fill="${color}" rx="2"></rect>`;
         }
-        const labelY = (h > 14 ? y - 5 : yBase - 5);
-        svg += `<text class="bar-val" x="${x + barW/2}" y="${labelY}" text-anchor="middle" style="fill:${color}">${count}</text>`;
+        const cxBar = x + barW / 2;
+        const countY = (h > 14 ? y - 5 : yBase - 5);
+
+        const d = deltaText(delta);
+        if (d.txt) {
+          const dColor = d.cls === 'up' ? '#2da375' : '#d8453d';
+          svg += `<text x="${cxBar}" y="${countY - 11}" text-anchor="middle" style="fill:${dColor};font-size:9px;font-weight:700">${d.txt}</text>`;
+        }
+
+        svg += `<text class="bar-val" x="${cxBar}" y="${countY}" text-anchor="middle" style="fill:${color}">${count}</text>`;
       };
 
-      drawBar(upper, capUpper, xUpper, CAMPUS_COLOR.upper);
-      drawBar(lower, capLower, xLower, CAMPUS_COLOR.lower);
+      drawBar(upper, capUpper, xUpper, CAMPUS_COLOR.upper, dUpper);
+      drawBar(lower, capLower, xLower, CAMPUS_COLOR.lower, dLower);
 
-      // Unknown-campus indicator: thin grey tick under the label area, only if present
+      // Stacked spots-left under the slot — Upper line first (navy), Lower
+      // line below (blue). Each line spans the full slot width with no
+      // collision. Centered at slot midpoint.
+      const renderSpots = (s, color, y) => {
+        if (!s.txt) return;
+        const sColor = s.cls === 'full' ? '#2da375'
+                     : s.cls === 'over' ? '#d8453d'
+                     : color;
+        const fontWeight = (s.cls === 'full' || s.cls === 'over') ? '700' : '600';
+        svg += `<text x="${cx}" y="${y}" text-anchor="middle" style="fill:${sColor};font-size:9px;font-weight:${fontWeight}">${s.txt}</text>`;
+      };
+      renderSpots(spotsText(upper, capUpper), CAMPUS_COLOR.upper, yBase + 12);
+      renderSpots(spotsText(lower, capLower), CAMPUS_COLOR.lower, yBase + 24);
+
       if (unk > 0) {
-        svg += `<text class="bar-val" x="${cx}" y="${yBase + 30}" text-anchor="middle" style="fill:#8b95ad;font-size:9px">+${unk} unk</text>`;
+        svg += `<text class="bar-val" x="${cx}" y="${yBase + 76}" text-anchor="middle" style="fill:#8b95ad;font-size:9px">+${unk} unk</text>`;
       }
 
       const total = upper + lower + unk;
-      svg += `<title>${w}\nUpper: ${upper}/${capUpper}\nLower: ${lower}/${capLower}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}</title>`;
+      const upperLeft = capUpper > 0 ? capUpper - upper : null;
+      const lowerLeft = capLower > 0 ? capLower - lower : null;
+      svg += `<title>${w}\nUpper: ${upper}/${capUpper}${upperLeft != null ? ` (${upperLeft >= 0 ? upperLeft + ' left' : -upperLeft + ' over'})` : ''}\nLower: ${lower}/${capLower}${lowerLeft != null ? ` (${lowerLeft >= 0 ? lowerLeft + ' left' : -lowerLeft + ' over'})` : ''}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}${dUpper!=null?`\nΔ Upper: ${dUpper>=0?'+':''}${dUpper}, Δ Lower: ${dLower>=0?'+':''}${dLower}`:''}</title>`;
       svg += `</g>`;
 
-      // X-axis label (week, rotated)
+      // X-axis label (week, rotated) — yBase+12 = upper spots, yBase+24 = lower spots,
+      // yBase+40 = week label (rotated)
       const short = shortenWeek(w);
-      svg += `<text class="x-lbl" x="${cx}" y="${yBase + 16}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 16})">${short}</text>`;
+      svg += `<text class="x-lbl" x="${cx}" y="${yBase + 40}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 40})">${short}</text>`;
     });
 
     document.getElementById('bars').innerHTML = svg;

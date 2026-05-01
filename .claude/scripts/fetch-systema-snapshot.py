@@ -3,11 +3,11 @@
 Fetch all Systema Floyd contacts from GHL and build a dashboard snapshot
 derived purely from form-populated fields (NOT the legacy Registration field).
 
-Campus rule (per Tom, 2026-04-29):
+Campus rule (per Tom, updated 2026-05-01):
   - Cutoff: June 1, 2026.
-  - Student is "Lower Campus" if they are 6 or younger on June 1, 2026
-    (i.e. their 7th birthday falls AFTER June 1, 2026).
-  - Otherwise "Upper Campus".
+  - Student is "Lower Campus" if they are 5 or younger on June 1, 2026
+    (i.e. their 6th birthday falls AFTER June 1, 2026).
+  - Otherwise "Upper Campus" (age 6+ on June 1, 2026).
 
 A "registration" is counted per student, not per contact. A contact may have
 1-4 students (Student 1-4 DOB fields) plus the legacy single-student DOB field
@@ -151,15 +151,17 @@ def parse_dob(v):
 
 
 def campus_for(dob):
-    """Return 'Upper Campus' if 7th bday <= cutoff else 'Lower Campus'."""
+    """Return 'Upper Campus' if 6th bday <= cutoff else 'Lower Campus'.
+    Upper = age 6+ on June 1, 2026. Lower = age 5 or younger.
+    """
     if not dob:
         return None
     try:
-        seventh = date(dob.year + 7, dob.month, dob.day)
+        sixth = date(dob.year + 6, dob.month, dob.day)
     except ValueError:
-        # Feb 29 birthday → use Feb 28 of +7 year
-        seventh = date(dob.year + 7, dob.month, 28)
-    return "Upper Campus" if seventh <= CUTOFF else "Lower Campus"
+        # Feb 29 birthday → use Feb 28 of +6 year
+        sixth = date(dob.year + 6, dob.month, 28)
+    return "Upper Campus" if sixth <= CUTOFF else "Lower Campus"
 
 
 def students_on_contact(c):
