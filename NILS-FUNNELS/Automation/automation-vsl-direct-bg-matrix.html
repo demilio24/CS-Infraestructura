@@ -214,6 +214,22 @@
     position: relative;
     background: #020806;
   }
+  /* CRT scanlines — applied to the wrapper so they flow uninterrupted across
+         the hero → cost-section boundary (no abrupt termination at the seam) */
+  .rain-stack::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      rgba(0, 255, 100, 0.045) 0px,
+      rgba(0, 255, 100, 0.045) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
   /* Single canvas covering the full stack — chars change color (green→red)
          based on Y position, creating one continuous cascade across the seam */
   .matrix-canvas {
@@ -300,21 +316,7 @@
     pointer-events: none;
     z-index: 1;
   }
-  /* CRT scanlines — subtle horizontal lines for terminal vibe */
-  .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      180deg,
-      rgba(0, 255, 100, 0.045) 0px,
-      rgba(0, 255, 100, 0.045) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    pointer-events: none;
-    z-index: 1;
-  }
+  /* (CRT scanlines moved to .rain-stack::after so they span both sections) */
   /* Lift content above bg + vignette */
   .hero-inner {
     z-index: 2 !important;
@@ -2255,14 +2257,10 @@
 
   /* ── COST OF WAITING ────────────────────────── */
   .cost-section {
-    /* Transparent base — the rain-stack provides the bg, the rain canvas
-           shows through, this section adds only its decorative red tint */
-    background: radial-gradient(
-        circle,
-        rgba(220, 38, 38, 0.05) 1.5px,
-        transparent 1.5px
-      )
-      0 0 / 28px 28px;
+    /* Fully transparent — rain-stack provides the dark base + matrix + scanlines.
+           Red identity comes from the side glows in ::before and the text colors,
+           not from a dot pattern that would create a visible seam at the top. */
+    background: transparent;
     padding: 88px 24px 96px;
     position: relative;
     z-index: 2;
