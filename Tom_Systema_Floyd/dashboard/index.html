@@ -65,6 +65,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .filter button{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:9px 18px;border-radius:5px;color:var(--sf-ink-60);transition:color .25s,background .25s}
 .filter button:hover{color:var(--sf-blue-700)}
 .filter button.active{background:var(--grad-blue);color:#fff;box-shadow:0 6px 14px -6px rgba(47,130,196,.55)}
+.compare-date{font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;padding:7px 10px;border:1px solid var(--sf-border);border-radius:6px;background:#fff;color:var(--sf-ink);font-variant-numeric:tabular-nums;box-shadow:var(--shadow-sm)}
+.compare-date:focus{outline:0;border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.15)}
+.compare-status{font-family:'Space Grotesk','Inter',sans-serif;font-size:11.5px;color:var(--sf-ink-50);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.compare-status.error{color:var(--sf-red)}
+.compare-status strong{color:var(--sf-ink-60);font-weight:600}
 
 /* ====== KPI strip ====== */
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
@@ -75,6 +80,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .kpi-num{font-family:'Oswald',sans-serif;font-size:48px;font-weight:700;line-height:1;color:var(--sf-blue-700);margin-bottom:8px;font-variant-numeric:tabular-nums}
 .kpi-sub{font-size:12px;color:var(--sf-ink-50);letter-spacing:.04em;min-height:16px}
 .kpi-sub strong{color:var(--sf-ink-60);font-weight:600}
+.kpi-cmp{margin-top:6px;font-size:11px;font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:.04em;font-variant-numeric:tabular-nums;min-height:14px}
+.kpi-cmp .up{color:#3fa580;font-weight:700}
+.kpi-cmp .down{color:#cf6960;font-weight:700}
+.kpi-cmp .flat{color:var(--sf-ink-40);font-weight:600}
+.kpi-cmp .vs{color:var(--sf-ink-40);font-weight:500;margin-left:2px}
 
 /* ====== Chart row ====== */
 .chart-row{display:grid;grid-template-columns:380px 1fr;gap:18px}
@@ -235,13 +245,24 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
 <main class="dash">
 
-  <!-- Filter -->
+  <!-- Filter + Compare-to -->
   <div class="filter-row anim d1">
     <span class="lbl">Filter</span>
     <div class="filter" role="tablist">
       <button data-filter="summer" class="active" role="tab" aria-selected="true">Summer Camp</button>
       <button data-filter="free" role="tab" aria-selected="false">Free Camp</button>
     </div>
+
+    <span class="lbl" style="margin-left:18px">Compare to</span>
+    <div class="filter compare-pick" role="tablist">
+      <button data-compare="off" class="active" role="tab" aria-selected="true">Off</button>
+      <button data-compare="-1" role="tab" aria-selected="false">Yesterday</button>
+      <button data-compare="-7" role="tab" aria-selected="false">7d ago</button>
+      <button data-compare="-30" role="tab" aria-selected="false">30d ago</button>
+      <button data-compare="custom" role="tab" aria-selected="false">Custom…</button>
+    </div>
+    <input type="date" id="compare-custom" class="compare-date" hidden />
+    <span id="compare-status" class="compare-status"></span>
   </div>
 
   <!-- KPIs -->
@@ -364,11 +385,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     snapshot: null,
     filter: 'summer',  // 'summer' | 'free' — default Summer per Tom
     goals: loadGoalsFromCache(),
-    // Set of input element identifiers currently being edited — never overwrite
-    // the .value of these in re-renders.
     editingKeys: new Set(),
-    // Open roster dropdowns (by week label) — preserved across re-renders.
     openRosters: new Set(),
+    // Date-compare: when set, overlay/delta vs a historical snapshot.
+    // compareDate: 'YYYY-MM-DD' or null. compareSnapshot: parsed JSON or null.
+    compareDate: null,
+    compareSnapshot: null,
+    historyDates: [],          // available historical dates (from index.json)
   };
 
   function loadGoalsFromCache() {
@@ -440,6 +463,23 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     };
   }
 
+  // Comparison view derived from state.compareSnapshot, same shape as getView()
+  // but slice the historical snapshot by current filter. Returns null if
+  // no comparison is active.
+  function getCompareView() {
+    const s = state.compareSnapshot;
+    if (!s) return null;
+    const f = (state.filter === 'summer' || state.filter === 'free') ? state.filter : 'summer';
+    const slice = s[f];
+    if (!slice) return null;
+    return {
+      total: slice.total || 0,
+      byCampus: slice.byCampus || {},
+      byWeek: slice.byWeek || {},
+      weekCampus: slice.byWeekCampus || {},
+    };
+  }
+
   function topWeek(byWeek) {
     let best = null, n = -1;
     for (const [w, v] of Object.entries(byWeek)) {
@@ -463,14 +503,34 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   // ─── KPI rendering (read-only summary tiles) ────────────────────────────
+  function fmtDelta(d) {
+    if (d == null || d === 0) return '';
+    return d > 0 ? `+${d}` : `−${-d}`;
+  }
+  function deltaClass(d) {
+    if (d == null || d === 0) return '';
+    return d > 0 ? 'up' : 'down';
+  }
+
   function renderKpis(view) {
     const enrollments = Object.values(view.byWeek || {}).reduce((a,b) => a+b, 0);
+    const cmp = getCompareView();
+    const cmpEnrollments = cmp ? Object.values(cmp.byWeek || {}).reduce((a,b) => a+b, 0) : null;
+
     const items = [
       { key: 'total', value: view.total },
       { key: 'upper', value: view.byCampus['Upper Campus'] || 0 },
       { key: 'lower', value: view.byCampus['Lower Campus'] || 0 },
       { key: 'topweek', custom: true }
     ];
+
+    // Per-card delta vs comparison snapshot
+    const deltas = cmp ? {
+      total: view.total - (cmp.total || 0),
+      upper: (view.byCampus['Upper Campus'] || 0) - (cmp.byCampus['Upper Campus'] || 0),
+      lower: (view.byCampus['Lower Campus'] || 0) - (cmp.byCampus['Lower Campus'] || 0),
+      enroll: enrollments - (cmpEnrollments || 0),
+    } : null;
 
     document.querySelectorAll('.kpi').forEach(card => {
       const key = card.dataset.kpi;
@@ -488,6 +548,30 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         if (enrollEl) enrollEl.textContent = enrollments;
       } else {
         animateNum(numEl, item.value);
+      }
+
+      // Date-compare delta — added as a small extra line below the existing sub
+      let deltaEl = card.querySelector('[data-cmp-delta]');
+      if (!deltaEl) {
+        deltaEl = document.createElement('div');
+        deltaEl.dataset.cmpDelta = '1';
+        deltaEl.className = 'kpi-cmp';
+        card.appendChild(deltaEl);
+      }
+      if (!deltas || key === 'topweek') {
+        deltaEl.textContent = '';
+        deltaEl.className = 'kpi-cmp';
+      } else {
+        const d = deltas[key === 'total' ? 'total' : key];
+        const txt = fmtDelta(d);
+        if (txt) {
+          const cls = deltaClass(d);
+          deltaEl.innerHTML = `<span class="${cls}">${txt}</span> <span class="vs">vs ${state.compareDate}</span>`;
+          deltaEl.className = `kpi-cmp ${cls}`;
+        } else {
+          deltaEl.innerHTML = `<span class="flat">no change</span> <span class="vs">vs ${state.compareDate}</span>`;
+          deltaEl.className = 'kpi-cmp flat';
+        }
       }
     });
   }
@@ -568,11 +652,18 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const capUpper = getCap(state.filter, 'upper');
     const capLower = getCap(state.filter, 'lower');
 
-    // Y axis max — bigger of the largest actual or the cap, plus a little
-    // headroom so the cap line and labels don't crowd the top.
+    // Comparison snapshot view (date-compare). Computed once per render.
+    const cmpView = getCompareView();
+
+    // Y axis max — bigger of the largest actual, the cap, OR any comparison
+    // count (so ghost bars don't clip), plus a little headroom for labels.
     const peakActual = weeks.reduce((m, w) => {
       const c = byWC[w] || {};
-      return Math.max(m, c['Upper Campus']||0, c['Lower Campus']||0, c['Unknown']||0);
+      const cc = cmpView ? (cmpView.weekCampus[w] || {}) : {};
+      return Math.max(m,
+        c['Upper Campus']||0, c['Lower Campus']||0, c['Unknown']||0,
+        cc['Upper Campus']||0, cc['Lower Campus']||0
+      );
     }, 0);
     const max = Math.max(peakActual, capUpper, capLower, 1);
     const niceMax = Math.ceil((max + 1) / 5) * 5 || 5;
@@ -630,11 +721,26 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const xUpper = cx - groupGap / 2 - barW;
       const xLower = cx + groupGap / 2;
 
+      // Comparison snapshot: ghost bars showing prior counts behind current
+      const cmpC = cmpView ? (cmpView.weekCampus[w] || {}) : null;
+      const cmpUpper = cmpC ? (cmpC['Upper Campus'] || 0) : null;
+      const cmpLower = cmpC ? (cmpC['Lower Campus'] || 0) : null;
+
       svg += `<g class="bar-group">`;
 
       if (idx % 2 === 0) {
         svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
       }
+
+      // Ghost bars (comparison) — drawn behind current bars, hollow outline.
+      const drawGhost = (count, x) => {
+        if (count == null || count <= 0) return;
+        const h = (count / niceMax) * innerH;
+        const y = yBase - h;
+        svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="none" stroke="#8b95ad" stroke-width="1" stroke-dasharray="2 2" rx="2"></rect>`;
+      };
+      drawGhost(cmpUpper, xUpper);
+      drawGhost(cmpLower, xLower);
 
       // Format spots-left text: "X left", "FULL", "+N OVER"
       const spotsText = (count, cap) => {
@@ -936,6 +1042,90 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // Wire cap controls once at startup (the inputs themselves persist across
   // re-renders; only their .value gets updated, not the listeners)
   wireCapControls();
+
+  // ─── Date-compare wiring ────────────────────────────────────────────────
+  const compareCustomInput = document.getElementById('compare-custom');
+  const compareStatus      = document.getElementById('compare-status');
+
+  function setActiveCompareChip(chip) {
+    document.querySelectorAll('.compare-pick button').forEach(b => {
+      b.classList.toggle('active', b === chip);
+      b.setAttribute('aria-selected', b === chip ? 'true' : 'false');
+    });
+  }
+
+  function setCompareStatus(text, isError = false) {
+    compareStatus.textContent = text || '';
+    compareStatus.classList.toggle('error', isError);
+  }
+
+  function shiftDate(daysBack) {
+    const d = new Date();
+    d.setUTCDate(d.getUTCDate() - daysBack);
+    return d.toISOString().slice(0, 10);
+  }
+
+  async function loadCompare(dateStr) {
+    if (!dateStr) {
+      state.compareDate = null;
+      state.compareSnapshot = null;
+      setCompareStatus('');
+      render();
+      return;
+    }
+    setCompareStatus(`Loading ${dateStr}…`);
+    try {
+      const r = await fetch(`./history/${dateStr}.json?_=${Date.now()}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error(r.status === 404 ? 'no snapshot for that date' : `HTTP ${r.status}`);
+      const data = await r.json();
+      state.compareDate = dateStr;
+      state.compareSnapshot = data;
+      setCompareStatus(`vs ${dateStr}`);
+      render();
+    } catch (err) {
+      state.compareDate = null;
+      state.compareSnapshot = null;
+      setCompareStatus(`No data for ${dateStr}`, true);
+      render();
+    }
+  }
+
+  // Quick-chip buttons
+  document.querySelectorAll('.compare-pick button').forEach(b => {
+    b.addEventListener('click', () => {
+      const v = b.dataset.compare;
+      setActiveCompareChip(b);
+      if (v === 'off') {
+        compareCustomInput.hidden = true;
+        loadCompare(null);
+      } else if (v === 'custom') {
+        compareCustomInput.hidden = false;
+        compareCustomInput.focus();
+      } else {
+        compareCustomInput.hidden = true;
+        const days = parseInt(v, 10);
+        loadCompare(shiftDate(-days));   // -1 means yesterday → days back = 1
+      }
+    });
+  });
+
+  compareCustomInput.addEventListener('change', () => {
+    if (compareCustomInput.value) loadCompare(compareCustomInput.value);
+  });
+
+  // Pre-populate the custom-date max so users can't pick today/future
+  // (today's data == current snapshot, no comparison value).
+  compareCustomInput.max = shiftDate(0);
+  // Also set the min to whatever the earliest history date is — populated
+  // after we fetch history/index.json
+  fetch('./history/index.json?_=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(idx => {
+      if (!idx || !idx.dates) return;
+      state.historyDates = idx.dates;
+      if (idx.dates.length) compareCustomInput.min = idx.dates[0];
+    })
+    .catch(() => {});
 
   // ─── Refresh button: immediate re-fetch ──────────────────────────────────
   document.getElementById('refresh-btn').addEventListener('click', () => {

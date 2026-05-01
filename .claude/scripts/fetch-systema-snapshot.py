@@ -429,6 +429,21 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(snapshot, indent=2))
     print(f"\nWrote {OUT}", file=sys.stderr)
+
+    # Also write a daily history file so the dashboard's date-compare feature
+    # can pull historical state. Each refresh during a given day overwrites
+    # the same date file; once the date rolls over, the previous day's file
+    # is frozen in place. Plus an index.json listing available dates.
+    HISTORY_DIR = OUT.parent / "history"
+    HISTORY_DIR.mkdir(exist_ok=True)
+    today_str = time.strftime("%Y-%m-%d", time.gmtime())
+    (HISTORY_DIR / f"{today_str}.json").write_text(json.dumps(snapshot, indent=2))
+    available = sorted(p.stem for p in HISTORY_DIR.glob("????-??-??.json"))
+    (HISTORY_DIR / "index.json").write_text(json.dumps({
+        "dates": available,
+        "latest": available[-1] if available else None,
+    }, indent=2))
+    print(f"History dates available: {len(available)}", file=sys.stderr)
     if blocked_count:
         print(f"Blocked {blocked_count} test contact(s) from snapshot", file=sys.stderr)
     summary = {
