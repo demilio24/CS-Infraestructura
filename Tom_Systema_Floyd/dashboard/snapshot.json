@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-05-01T18:13:07Z",
+  "generatedAt": "2026-05-01T18:16:45Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "totals": {
     "contacts": 2800,
-    "summer": 68,
-    "free": 1,
-    "afterSchool": 1,
-    "leadOnly": 2738,
+    "summer": 67,
+    "free": 0,
+    "afterSchool": 0,
+    "leadOnly": 2740,
     "newLast7Days": 2749,
     "newLast30Days": 2800
   },
@@ -26,15 +26,15 @@
     "August 17th-21st"
   ],
   "summer": {
-    "total": 68,
+    "total": 67,
     "byCampus": {
       "Upper Campus": 15,
-      "Lower Campus": 53,
+      "Lower Campus": 52,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 11,
-      "June 8th-12th": 15,
+      "June 1st-5th": 10,
+      "June 8th-12th": 14,
       "June 15th-19th": 17,
       "June 22nd-26th": 8,
       "June 29th-July 3rd": 10,
@@ -49,12 +49,12 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 3,
-        "Lower Campus": 8,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 4,
-        "Lower Campus": 11,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -110,9 +110,9 @@
     }
   },
   "free": {
-    "total": 1,
+    "total": 0,
     "byCampus": {
-      "Upper Campus": 1,
+      "Upper Campus": 0,
       "Lower Campus": 0,
       "Unknown": 0
     },
@@ -120,13 +120,13 @@
       "June 1st-5th": 0,
       "June 8th-12th": 0,
       "June 15th-19th": 0,
-      "June 22nd-26th": 1,
+      "June 22nd-26th": 0,
       "June 29th-July 3rd": 0,
       "July 6th-10th": 0,
-      "July 13th-17th": 1,
+      "July 13th-17th": 0,
       "July 20th-24th": 0,
       "July 27th-31st": 0,
-      "August 3rd-7th": 1,
+      "August 3rd-7th": 0,
       "August 10th-14th": 0,
       "August 17th-21st": 0
     },
@@ -147,7 +147,7 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 1,
+        "Upper Campus": 0,
         "Lower Campus": 0,
         "Unknown": 0
       },
@@ -162,7 +162,7 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 1,
+        "Upper Campus": 0,
         "Lower Campus": 0,
         "Unknown": 0
       },
@@ -177,7 +177,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 1,
+        "Upper Campus": 0,
         "Lower Campus": 0,
         "Unknown": 0
       },
@@ -192,28 +192,26 @@
         "Unknown": 0
       }
     },
-    "bySchool": {
-      "Roosevelt Elementary School": 1
-    }
+    "bySchool": {}
   },
   "combined": {
-    "total": 69,
+    "total": 67,
     "byCampus": {
-      "Upper Campus": 16,
-      "Lower Campus": 53,
+      "Upper Campus": 15,
+      "Lower Campus": 52,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 11,
-      "June 8th-12th": 15,
+      "June 1st-5th": 10,
+      "June 8th-12th": 14,
       "June 15th-19th": 17,
-      "June 22nd-26th": 9,
+      "June 22nd-26th": 8,
       "June 29th-July 3rd": 10,
       "July 6th-10th": 16,
-      "July 13th-17th": 14,
+      "July 13th-17th": 13,
       "July 20th-24th": 14,
       "July 27th-31st": 12,
-      "August 3rd-7th": 14,
+      "August 3rd-7th": 13,
       "August 10th-14th": 7,
       "August 17th-21st": 9
     }
@@ -294,14 +292,6 @@
           "name": "Jacob Perna",
           "campus": "Lower Campus",
           "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Juliana Lima",
-          "campus": "Lower Campus",
-          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -413,14 +403,6 @@
           "name": "Iyar Topor",
           "campus": "Lower Campus",
           "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Juliana Lima",
-          "campus": "Lower Campus",
-          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -664,17 +646,7 @@
           "type": "summer"
         }
       ],
-      "free": [
-        {
-          "name": "Aston Floyd",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        }
-      ]
+      "free": []
     },
     "June 29th-July 3rd": {
       "upper": [
@@ -1007,17 +979,7 @@
           "type": "summer"
         }
       ],
-      "free": [
-        {
-          "name": "Aston Floyd",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        }
-      ]
+      "free": []
     },
     "July 20th-24th": {
       "upper": [
@@ -1350,17 +1312,7 @@
           "type": "summer"
         }
       ],
-      "free": [
-        {
-          "name": "Aston Floyd",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        }
-      ]
+      "free": []
     },
     "August 10th-14th": {
       "upper": [
