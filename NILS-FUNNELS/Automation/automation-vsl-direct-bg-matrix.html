@@ -1,13 +1,61 @@
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wkemyhll14");
-</script>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+  <title>AI &amp; Automation Audits for Service Businesses | Nils Digital | Chicago, IL</title>
+  <meta name="description" content="Find exactly where AI and automation will pay for themselves in your business. 200+ businesses served. 5 stars on Trustpilot. Founder-led, Chicago-based." />
+  <meta name="theme-color" content="#03110a" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://demilio24.github.io/Websites/NILS-FUNNELS/Automation/automation-vsl-direct-bg-matrix.html" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="AI &amp; Automation Audits for Service Businesses | Nils Digital" />
+  <meta property="og:description" content="Find exactly where AI and automation will pay for themselves in your business. 200+ businesses served. 5 stars on Trustpilot." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI &amp; Automation Audits | Nils Digital" />
+  <meta name="twitter:description" content="Find exactly where AI and automation will pay for themselves." />
+
+  <!-- Microsoft Clarity (self-async) -->
+  <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wkemyhll14");
+  </script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Nils Digital",
+    "description": "AI and automation audits for service businesses. We find where AI will pay for itself in your operation, then build the plan.",
+    "url": "https://www.nilsdigital.com",
+    "image": "https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Chicago",
+      "addressRegion": "IL",
+      "addressCountry": "US"
+    },
+    "areaServed": "United States",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "200",
+      "bestRating": "5"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://demilio24.github.io" crossorigin />
 <link rel="preconnect" href="https://assets.cdn.filesafe.space" crossorigin />
@@ -3059,7 +3107,8 @@
     color: var(--blue-dark);
     border: 1px solid rgba(15, 191, 122, 0.28);
     border-radius: 100px;
-    padding: 8px 16px 8px 14px;
+    padding: 12px 16px 12px 14px;
+    min-height: 44px;
     font-family: var(--font-emphasis);
     font-size: 13px;
     font-weight: 700;
@@ -5187,8 +5236,83 @@
       transparent 1px
     ) !important;
   }
+
+  /* ── QA-MASTER FIXES ────────────────────────── */
+  /* Mobile tap targets: every interactive control >= 44x44 (WCAG AA) */
+  @media (max-width: 768px) {
+    .vp-btn,
+    .hvp-btn {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 10px;
+    }
+    .hvp-speed-btn,
+    .vp-speed-btn {
+      min-width: 56px;
+      min-height: 44px;
+      padding: 10px 12px;
+    }
+    .diff-closing-watch {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      min-height: 44px;
+    }
+    .modal-close,
+    .modal-close-standalone {
+      width: 44px;
+      height: 44px;
+    }
+    /* Audit chips bumped to 13px to clear the "too small" floor */
+    .audit-chip {
+      font-size: 13px;
+    }
+  }
+
+  /* Tablet 768px overflow fix: audit-card chips push past viewport.
+     Stack the row at <=820px (was only stacking at 480px). */
+  @media (max-width: 820px) {
+    .audit-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding: 14px;
+    }
+    .audit-row-name {
+      margin-bottom: 2px;
+    }
+    .audit-chip {
+      justify-self: start;
+    }
+  }
+
+  /* Reduced-motion: kill matrix canvas + decorative animations */
+  @media (prefers-reduced-motion: reduce) {
+    .matrix-canvas {
+      display: none;
+    }
+    .hero::before,
+    .matrix-bg-rain {
+      animation: none !important;
+    }
+    .hero-eyebrow::before,
+    .hvp-unmute-icon,
+    .matrix-pill-red {
+      animation: none !important;
+    }
+    .anim {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Belt-and-braces: kill any horizontal overflow at small screens */
+  @media (max-width: 768px) {
+    html, body { max-width: 100vw; overflow-x: hidden; }
+  }
 </style>
 
+</head>
+<body>
 <div id="ghl-breakout">
   <!-- Shared SVG icon defs (used throughout the page via <use href="#id">) -->
   <svg
@@ -5259,8 +5383,7 @@
     <section class="hero" id="hero">
       <div class="hero-inner">
         <div class="hero-eyebrow anim">
-          For business owners who know they need AI &amp; automation
-          <span class="hero-eyebrow-sep">—</span>
+          For business owners who know they need AI &amp; automation,
           <span class="hero-eyebrow-accent">but don't know where to start</span>
         </div>
 
@@ -5830,7 +5953,7 @@
           <!-- Video with native controls, seeks to 2:06 on load -->
           <div class="case-study-video-col">
             <div class="vp" id="cs-vp">
-              <video playsinline preload="metadata" data-start="127">
+              <video playsinline preload="none" data-start="127">
                 <source
                   src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4#t=0.001"
                   type="video/mp4"
@@ -6300,6 +6423,7 @@
         <div class="diff-photos">
           <div class="diff-hero">
             <img
+              loading="lazy"
               src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/8b833c90-43f4-4f0e-ba28-1b6b3b441f3e.png"
               alt="Nils presenting to a group on stage"
             />
@@ -6307,18 +6431,21 @@
           <div class="diff-trio">
             <div class="diff-thumb diff-thumb-1">
               <img
+                loading="lazy"
                 src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/c8afbdec-92cf-4acd-9e7a-4cd6c40bf04a.png"
                 alt="Nils in Times Square"
               />
             </div>
             <div class="diff-thumb diff-thumb-2">
               <img
+                loading="lazy"
                 src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
                 alt="Nils Digital GoHighLevel 200 clients award"
               />
             </div>
             <div class="diff-thumb diff-thumb-3">
               <img
+                loading="lazy"
                 src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/c1040480-3157-4272-a912-4d210054ccf0.png"
                 alt="Nils Digital award plaque"
               />
@@ -6411,6 +6538,7 @@
       <div class="featured-review anim">
         <div class="featured-review-shot">
           <img
+            loading="lazy"
             src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png"
             alt="Keila Mulero verified review screenshot, May 2025"
           />
@@ -6434,53 +6562,63 @@
       </div>
 
       <div class="proof-reviews-grid anim d2">
-        <!-- 1. Verified customer — AI ("Emilio rocks AI & Sales") -->
+        <!-- 1. Verified customer (AI sales) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c4c956b851de2642b59.png"
-          alt="5-star review — AI &amp; sales"
+          alt="5-star review on AI and sales automation"
         />
-        <!-- 2. Jacob Siegel — automations and back-end -->
+        <!-- 2. Jacob Siegel (automations and back-end) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c055a423066f369ef9f.png"
-          alt="5-star review — automations &amp; back-end"
+          alt="5-star review on automations and back-end work"
         />
-        <!-- 3. Joe Padilla — automated review and filtering system -->
+        <!-- 3. Joe Padilla (automated review and filtering system) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85be27fda7a410926b4d3.png"
-          alt="5-star review — automated system"
+          alt="5-star review on an automated review system"
         />
-        <!-- 4. luis Silva — automated sales process & lead filtering -->
+        <!-- 4. luis Silva (automated sales process and lead filtering) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d5760439b6be373540aef.jpg"
-          alt="5-star review — sales process automation"
+          alt="5-star review on sales process automation"
         />
-        <!-- 5. Sharne — admin headache solved -->
+        <!-- 5. Sharne (admin headache solved) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c0630eb845b14a16b21.png"
-          alt="5-star review — admin made easy"
+          alt="5-star review: admin work made easy"
         />
-        <!-- 6. Roko Serdar — saved time via platform -->
+        <!-- 6. Roko Serdar (saved time via platform) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6945d3e58cae8f8306fd5fc6.png"
-          alt="5-star review — saved time"
+          alt="5-star review: saved time via the platform"
         />
-        <!-- 7. Jill Stokes — platform support & customization -->
+        <!-- 7. Jill Stokes (platform support and customization) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c59956b856761642c56.png"
-          alt="5-star review — platform support"
+          alt="5-star review on platform support"
         />
-        <!-- 8. Leisha Bishop — loving it / general -->
+        <!-- 8. Leisha Bishop (general positive feedback) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/691a17a6fd6d7301db3b9fb0.png"
           alt="5-star review"
         />
-        <!-- 9. Tami Nixon — platform does so many things (moved into Reed Heller's slot) -->
+        <!-- 9. Tami Nixon (platform breadth) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c087fda7a317126b76a.png"
-          alt="5-star review — platform breadth"
+          alt="5-star review on platform breadth"
         />
-        <!-- 10. Juan Medina — amazing experience / general -->
+        <!-- 10. Juan Medina (general positive feedback) -->
         <img
+          loading="lazy"
           src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6949ab8a671d50761fd7259d.png"
           alt="5-star review"
         />
@@ -6845,7 +6983,7 @@
         <video
           id="vp-modal-video"
           playsinline
-          preload="metadata"
+          preload="none"
           data-start="25"
           data-speed="1.15"
         >
@@ -7933,3 +8071,5 @@
   </script>
 </div>
 <!-- /ghl-breakout -->
+</body>
+</html>
