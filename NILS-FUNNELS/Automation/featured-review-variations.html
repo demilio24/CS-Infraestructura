@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Featured Review — Variations</title>
+<style>
+  :root {
+    --green-dark: #0f5c3e;
+    --green-mid: #10b981;
+    --green-light: #34d399;
+    --green-mint-bg: rgba(16, 185, 129, 0.06);
+    --green-mint-border: rgba(16, 185, 129, 0.2);
+    --bg-cream: #fafdfb;
+    --bg-card: #ffffff;
+    --text: #0a221a;
+    --text-soft: rgba(10,34,26,0.78);
+    --text-muted: rgba(10,34,26,0.55);
+    --shadow-card: 0 18px 48px rgba(10,34,26,0.10);
+    --shadow-soft: 0 8px 22px rgba(10,34,26,0.08);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .var-label {
+    text-align: center;
+    padding: 60px 24px 12px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--green-dark);
+    font-size: 13px;
+  }
+  .var-title {
+    text-align: center;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 22px;
+    color: var(--text);
+    margin: 0 0 36px;
+    padding: 0 24px;
+  }
+  .section-divider {
+    border: none;
+    border-top: 1px dashed rgba(10,34,26,0.15);
+    margin: 60px 8% 0;
+  }
+
+  /* Shared review-card primitives — same DNA across all 4 variations */
+  .rc-eyebrow {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--green-mid);
+    margin-bottom: 22px;
+  }
+  .rc-quote {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0 0 22px;
+  }
+  .rc-quote .accent { color: var(--green-mid); }
+  .rc-body {
+    font-size: 16px; line-height: 1.7;
+    color: var(--text-soft);
+    margin: 0 0 28px;
+    max-width: 520px;
+  }
+  .rc-attrib {
+    display: block;
+    padding-top: 22px;
+    border-top: 1px solid rgba(10,34,26,0.10);
+  }
+  .rc-attrib .name {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 700; font-size: 15px;
+    color: var(--text);
+    letter-spacing: -0.005em;
+  }
+  .rc-attrib .date {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     V1 — REFINED POLAROID (subtle tilt, soft shadow, no chrome)
+     A whisper of warmth from a 1° tilt. No tape, no stamp.
+     The screenshot stays the proof; the quote stays the polish.
+     ═══════════════════════════════════════════════════════ */
+  .v1 {
+    padding: 96px 24px;
+  }
+  .v1-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.95fr 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .v1-shot {
+    transform: rotate(-1deg);
+    transition: transform 0.5s ease;
+    background: var(--bg-card);
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow:
+      0 24px 48px rgba(10,34,26,0.12),
+      0 4px 12px rgba(10,34,26,0.06);
+    border: 1px solid rgba(10,34,26,0.04);
+  }
+  .v1-shot:hover { transform: rotate(0deg); }
+  .v1-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    background: #f4f7f5;
+  }
+  @media (max-width: 900px) {
+    .v1-inner { grid-template-columns: 1fr; gap: 44px; }
+    .v1-shot { max-width: 460px; margin: 0 auto; }
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     V2 — CLEAN FLAT CARD (no tilt, corporate restraint)
+     The most professional treatment. Square white card,
+     thin border, generous whitespace. Lets the quote breathe.
+     ═══════════════════════════════════════════════════════ */
+  .v2 {
+    padding: 96px 24px;
+    background: linear-gradient(180deg, var(--bg-cream) 0%, #f4faf7 100%);
+  }
+  .v2-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .v2-shot {
+    background: var(--bg-card);
+    padding: 14px;
+    border: 1px solid rgba(10,34,26,0.08);
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+  }
+  .v2-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    background: #f4f7f5;
+  }
+  @media (max-width: 900px) {
+    .v2-inner { grid-template-columns: 1fr; gap: 44px; }
+    .v2-shot { max-width: 480px; margin: 0 auto; }
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     V3 — MIRROR EDITORIAL (quote left with accent rule, shot right)
+     Editorial flip. Thin green vertical rule anchors the quote
+     like a magazine pull-out. Screenshot sits on the right with
+     a quiet caption underneath.
+     ═══════════════════════════════════════════════════════ */
+  .v3 {
+    padding: 96px 24px;
+  }
+  .v3-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.95fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .v3-content {
+    border-left: 2px solid var(--green-mid);
+    padding-left: 28px;
+  }
+  .v3-shot-wrap {
+    display: flex; flex-direction: column;
+    gap: 12px;
+  }
+  .v3-shot {
+    background: var(--bg-card);
+    padding: 12px;
+    border: 1px solid rgba(10,34,26,0.06);
+    border-radius: 10px;
+    box-shadow: var(--shadow-soft);
+  }
+  .v3-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    background: #f4f7f5;
+  }
+  .v3-caption {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+  @media (max-width: 900px) {
+    .v3-inner { grid-template-columns: 1fr; gap: 44px; }
+    .v3-content { border-left: none; border-top: 2px solid var(--green-mid); padding-left: 0; padding-top: 22px; }
+    .v3-shot-wrap { max-width: 480px; margin: 0 auto; width: 100%; }
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     V4 — ASYMMETRIC MAGAZINE (top-aligned, narrow shot, wide quote)
+     Both columns top-aligned like an editorial spread. Screenshot
+     is intentionally narrower and tighter so the quote and copy
+     dominate the reading flow.
+     ═══════════════════════════════════════════════════════ */
+  .v4 {
+    padding: 96px 24px;
+    background: var(--bg-cream);
+  }
+  .v4-inner {
+    max-width: 1140px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .v4-shot {
+    background: var(--bg-card);
+    padding: 10px;
+    border: 1px solid rgba(10,34,26,0.06);
+    border-radius: 10px;
+    box-shadow: var(--shadow-card);
+    position: sticky;
+    top: 24px;
+  }
+  .v4-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    background: #f4f7f5;
+  }
+  .v4-content .rc-quote {
+    font-size: clamp(28px, 3vw, 38px);
+  }
+  @media (max-width: 900px) {
+    .v4-inner { grid-template-columns: 1fr; gap: 44px; }
+    .v4-shot { max-width: 360px; margin: 0 auto; position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div class="var-label">Variation 1</div>
+<h2 class="var-title">Refined polaroid · subtle 1° tilt, no chrome</h2>
+<section class="v1">
+  <div class="v1-inner">
+    <div class="v1-shot">
+      <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png" alt="Keila Mulero verified review screenshot"/>
+    </div>
+    <div class="v1-content">
+      <div class="rc-eyebrow">Featured Review</div>
+      <h3 class="rc-quote">"Processes that once took days are now complete in <span class="accent">a matter of minutes.</span>"</h3>
+      <p class="rc-body">Higher productivity, larger volume, same team. The accuracy of our data substantially improved, errors from human intervention practically eliminated.</p>
+      <div class="rc-attrib">
+        <div class="name">Keila Mulero</div>
+        <div class="date">May 23, 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<div class="var-label">Variation 2</div>
+<h2 class="var-title">Clean flat card · most corporate, no tilt</h2>
+<section class="v2">
+  <div class="v2-inner">
+    <div class="v2-shot">
+      <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png" alt="Keila Mulero verified review screenshot"/>
+    </div>
+    <div class="v2-content">
+      <div class="rc-eyebrow">Featured Review</div>
+      <h3 class="rc-quote">"Processes that once took days are now complete in <span class="accent">a matter of minutes.</span>"</h3>
+      <p class="rc-body">Higher productivity, larger volume, same team. The accuracy of our data substantially improved, errors from human intervention practically eliminated.</p>
+      <div class="rc-attrib">
+        <div class="name">Keila Mulero</div>
+        <div class="date">May 23, 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<div class="var-label">Variation 3</div>
+<h2 class="var-title">Mirror editorial · quote left with accent rule, shot right</h2>
+<section class="v3">
+  <div class="v3-inner">
+    <div class="v3-content">
+      <div class="rc-eyebrow">Featured Review</div>
+      <h3 class="rc-quote">"Processes that once took days are now complete in <span class="accent">a matter of minutes.</span>"</h3>
+      <p class="rc-body">Higher productivity, larger volume, same team. The accuracy of our data substantially improved, errors from human intervention practically eliminated.</p>
+      <div class="rc-attrib">
+        <div class="name">Keila Mulero</div>
+        <div class="date">May 23, 2025</div>
+      </div>
+    </div>
+    <div class="v3-shot-wrap">
+      <div class="v3-shot">
+        <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png" alt="Keila Mulero verified review screenshot"/>
+      </div>
+      <div class="v3-caption">Original review, May 2025.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider"/>
+
+<div class="var-label">Variation 4</div>
+<h2 class="var-title">Asymmetric magazine · narrow shot, wide quote, top-aligned</h2>
+<section class="v4">
+  <div class="v4-inner">
+    <div class="v4-shot">
+      <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/68d85c587fda7a32a826bd14.png" alt="Keila Mulero verified review screenshot"/>
+    </div>
+    <div class="v4-content">
+      <div class="rc-eyebrow">Featured Review</div>
+      <h3 class="rc-quote">"Processes that once took days are now complete in <span class="accent">a matter of minutes.</span>"</h3>
+      <p class="rc-body">Higher productivity, larger volume, same team. The accuracy of our data substantially improved, errors from human intervention practically eliminated.</p>
+      <div class="rc-attrib">
+        <div class="name">Keila Mulero</div>
+        <div class="date">May 23, 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

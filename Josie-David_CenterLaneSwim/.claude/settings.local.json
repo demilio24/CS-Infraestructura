@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//f/GitHub/.claude/**)",
+      "Read(//f/GitHub/Websites/.claude/scripts/**)",
+      "Bash(mkdir -p \"F:/GitHub/Websites/Josie-David_CenterLaneSwim/Photos/descriptions\")",
+      "Bash(mkdir -p \"F:/GitHub/Websites/.claude/tmp_imgs/clss26\")",
+      "Bash(git pull *)",
+      "Bash(node \"F:/GitHub/Websites/.claude/scripts/build-catalog.js\" \"F:/GitHub/Websites/Josie-David_CenterLaneSwim/Photos/upload-results.jsonl\" \"F:/GitHub/Websites/Josie-David_CenterLaneSwim/Photos/descriptions\" \"F:/GitHub/Websites/Josie-David_CenterLaneSwim/Photos\")",
+      "Bash(node -e ' *)"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+Center Lane Swim School: apply onboarding revisions, 2-row gallery, major perf fixes
+
+Content (from client onboarding form):
+- Fix Sabrina Park typo to Severna Park (address, email, map card, footer)
+- Reword 'advanced competitive swimmers' to align with non-competitive positioning
+- Add 7,000+ students stat, Best of Annapolis 2025/2026, USSSA/ISSSA/Live Water partners
+- Add phone numbers to all 3 open locations and sp@centerlaneswim.com for Severna Park
+- Add In-Home Mobile Lessons service card ($44 per student per week)
+- Add Hump Guarantee, unassisted swimming, and adaptive lessons bullets to Why Us
+- Add starting-at pricing band (Group $39, Semi-Private $57, Private $87 per week)
+- Add Communities We Serve strip covering Anne Arundel, Calvert, St. Mary's
+- Add 'not a good fit for' FAQ; standardize Parent Teacher Class (PTC) naming
+- Add Instagram and TikTok social links
+- Soften unverified '5-star Google Rating' claim to '5-star Reviews'
+- Route 'Want To Join Our Team' CTA to mailto:ew@centerlaneswim.com
+
+Gallery rebuilt (Wendy LCSS 2-row style):
+- 32 curated images split across 2 opposing rows (left and right scroll)
+- Click-to-enlarge lightbox with prev/next, counter, caption, keyboard controls
+- Hover pauses active row; prefers-reduced-motion fallback
+
+Performance (initial load 3965ms -> 240ms, ~16x faster):
+- Hero video: preload=none, poster image, JS-deferred source swap after window.load
+- Gallery: data-src pattern with IntersectionObserver (600px rootMargin)
+- Gallery container uses content-visibility:auto + contain-intrinsic-size
+- fetchpriority=low on below-fold heavy images
+- Review widget iframe lazy-mounts on viewport proximity, script injected on demand
+- Explicit image dimensions on gallery slides to prevent layout shift
+
+Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
