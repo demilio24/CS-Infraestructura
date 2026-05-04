@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-05-03T23:58:48Z",
+  "generatedAt": "2026-05-04T04:01:26Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "totals": {
     "contacts": 2800,
-    "summer": 69,
+    "summer": 70,
     "free": 0,
     "afterSchool": 0,
-    "leadOnly": 2738,
+    "leadOnly": 2737,
     "newLast7Days": 5,
     "newLast30Days": 2800
   },
@@ -26,10 +26,10 @@
     "August 17th-21st"
   ],
   "summer": {
-    "total": 69,
+    "total": 70,
     "byCampus": {
       "Upper Campus": 29,
-      "Lower Campus": 40,
+      "Lower Campus": 41,
       "Unknown": 0
     },
     "byWeek": {
@@ -38,10 +38,10 @@
       "June 15th-19th": 17,
       "June 22nd-26th": 8,
       "June 29th-July 3rd": 10,
-      "July 6th-10th": 16,
-      "July 13th-17th": 13,
-      "July 20th-24th": 14,
-      "July 27th-31st": 12,
+      "July 6th-10th": 17,
+      "July 13th-17th": 14,
+      "July 20th-24th": 15,
+      "July 27th-31st": 13,
       "August 3rd-7th": 15,
       "August 10th-14th": 7,
       "August 17th-21st": 9
@@ -74,22 +74,22 @@
       },
       "July 6th-10th": {
         "Upper Campus": 8,
-        "Lower Campus": 8,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 4,
-        "Lower Campus": 9,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "July 20th-24th": {
         "Upper Campus": 7,
-        "Lower Campus": 7,
+        "Lower Campus": 8,
         "Unknown": 0
       },
       "July 27th-31st": {
         "Upper Campus": 5,
-        "Lower Campus": 7,
+        "Lower Campus": 8,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -195,10 +195,10 @@
     "bySchool": {}
   },
   "combined": {
-    "total": 69,
+    "total": 70,
     "byCampus": {
       "Upper Campus": 29,
-      "Lower Campus": 40,
+      "Lower Campus": 41,
       "Unknown": 0
     },
     "byWeek": {
@@ -207,10 +207,10 @@
       "June 15th-19th": 17,
       "June 22nd-26th": 8,
       "June 29th-July 3rd": 10,
-      "July 6th-10th": 16,
-      "July 13th-17th": 13,
-      "July 20th-24th": 14,
-      "July 27th-31st": 12,
+      "July 6th-10th": 17,
+      "July 13th-17th": 14,
+      "July 20th-24th": 15,
+      "July 27th-31st": 13,
       "August 3rd-7th": 15,
       "August 10th-14th": 7,
       "August 17th-21st": 9
@@ -221,9 +221,9 @@
     "Other": 1
   },
   "sources": {
-    "(blank)": 2728,
+    "(blank)": 2727,
     "Summer Camp": 52,
-    "Summer Camp - DEV": 14,
+    "Summer Camp - DEV": 15,
     "Lead Form": 5,
     "Free Camp": 1
   },
@@ -836,6 +836,14 @@
           "type": "summer"
         },
         {
+          "name": "Lilly Heyes",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Luka DeAraujo",
           "campus": "Lower Campus",
           "lunch": true,
@@ -935,6 +943,14 @@
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": "N/A",
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Lilly Heyes",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
           "incomplete": false,
           "type": "summer"
         },
@@ -1066,6 +1082,14 @@
           "type": "summer"
         },
         {
+          "name": "Lilly Heyes",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Max Lopez Valencia",
           "campus": "Lower Campus",
           "lunch": false,
@@ -1164,6 +1188,14 @@
           "name": "Aria",
           "campus": "Lower Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Lilly Heyes",
+          "campus": "Lower Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
