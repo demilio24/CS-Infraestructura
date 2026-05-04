@@ -463,12 +463,20 @@
   }
   @media (max-width: 720px) {
     .hero-eyebrow {
-      font-size: 11px;
-      padding: 8px 16px;
-      letter-spacing: 0.06em;
-      line-height: 1.4;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: inline-block;
+      font-size: 10.5px;
+      padding: 7px 14px;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      text-align: center;
+      max-width: calc(100vw - 32px);
+    }
+    .hero-eyebrow::before {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+      position: relative;
+      top: -1px;
     }
   }
   @keyframes hero-eyebrow-pulse {
@@ -507,13 +515,14 @@
     text-decoration-color: var(--blue-light);
     text-decoration-thickness: 3px;
     text-underline-offset: 7px;
+    padding-bottom: 6px;
   }
   .h1-line {
     display: block;
   }
   .hero-h2 {
     font-family: var(--font-emphasis);
-    font-size: var(--h3);
+    font-size: clamp(17px, 2.2vw, 26px);
     font-weight: 700;
     color: rgba(255, 255, 255, 0.92);
     line-height: 1.4;
@@ -1022,6 +1031,14 @@
     letter-spacing: 3px;
     line-height: 1;
   }
+  .tp-stars-inline {
+    color: #00b67a;
+    font-size: 0.7em;
+    letter-spacing: 2.5px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
 
   /* Full-width CTA below split */
   .hero-cta-wrap {
@@ -1364,6 +1381,18 @@
     }
     .fix-divider-wrap.bridge-reveal .bridge-card {
       padding: 12px 22px;
+    }
+    /* Tighten the inline-text divider so the headline fits on a single line */
+    .fix-divider-wrap.theme-light .fix-divider {
+      gap: 8px;
+    }
+    .fix-divider-wrap.theme-light .fix-divider::before,
+    .fix-divider-wrap.theme-light .fix-divider::after {
+      min-width: 4px;
+    }
+    .fix-divider-wrap.theme-light .fix-divider-text {
+      font-size: clamp(13px, 4vw, 16px);
+      white-space: nowrap;
     }
   }
 
@@ -1740,21 +1769,33 @@
   }
   @media (max-width: 480px) {
     .audit-stat-num {
-      font-size: 26px;
+      font-size: 22px;
+      letter-spacing: -0.05em;
     }
     .audit-stat {
-      padding: 18px 14px;
+      padding: 16px 10px;
+    }
+    .audit-stat-label {
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
     }
     .audit-row {
-      grid-template-columns: 1fr;
-      gap: 8px;
-      padding: 14px;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      padding: 12px 14px;
     }
     .audit-row-name {
-      margin-bottom: 2px;
+      font-size: 13px;
+      gap: 8px;
+      min-width: 0;
+    }
+    .audit-row-name::before {
+      width: 3px;
+      height: 14px;
     }
     .audit-chip {
-      justify-self: start;
+      font-size: 11px;
+      padding: 3px 8px;
     }
   }
 
@@ -2692,7 +2733,7 @@
 
   @media (max-width: 760px) {
     .cost-section {
-      padding: 64px 16px 72px;
+      padding: 36px 16px 56px;
     }
     .cost-anim-wrap {
       grid-template-columns: 1fr;
@@ -2701,6 +2742,206 @@
     .cost-points li {
       padding: 16px 18px;
       gap: 14px;
+    }
+  }
+
+  /* ── BENEFIT CARDS (replaces 3-way comparison) ── */
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+  .benefit-card {
+    background: #ffffff;
+    border: 1px solid rgba(15, 191, 122, 0.18);
+    border-radius: 18px;
+    padding: 28px 24px;
+    box-shadow:
+      0 16px 40px rgba(10, 34, 26, 0.06),
+      0 2px 6px rgba(10, 34, 26, 0.03);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .benefit-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(15, 191, 122, 0.4);
+    box-shadow:
+      0 24px 48px rgba(10, 34, 26, 0.1),
+      0 4px 12px rgba(10, 34, 26, 0.06);
+  }
+  .benefit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(15, 191, 122, 0.16), rgba(15, 191, 122, 0.06));
+    border: 1px solid rgba(15, 191, 122, 0.22);
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    color: var(--blue-dark);
+  }
+  .benefit-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .benefit-title {
+    font-family: var(--font-emphasis);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #0a221a;
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .benefit-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(10, 34, 26, 0.72);
+  }
+  .benefit-desc strong {
+    color: #0a221a;
+    font-weight: 700;
+  }
+  @media (max-width: 768px) {
+    .benefit-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .benefit-card {
+      padding: 22px 20px;
+    }
+    .benefit-title {
+      font-size: 17px;
+    }
+    .benefit-desc {
+      font-size: 14px;
+    }
+  }
+
+  /* ── ABOUT US / OUR STORY ───────────────────── */
+  .about-us {
+    background:
+      radial-gradient(circle, rgba(52, 211, 153, 0.05) 1.5px, transparent 1.5px)
+        0 0 / 28px 28px,
+      #f7fbf9;
+    padding: 88px 24px 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-us-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .about-us-copy .section-eyebrow {
+    margin-bottom: 14px;
+  }
+  .about-us-copy .section-h {
+    margin-bottom: 18px;
+  }
+  .about-us-copy p {
+    font-size: var(--p);
+    line-height: 1.65;
+    color: rgba(10, 34, 26, 0.78);
+    margin-bottom: 14px;
+    text-align: left;
+  }
+  .about-us-copy p strong {
+    color: #0a221a;
+    font-weight: 700;
+  }
+  .about-us-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(15, 191, 122, 0.18);
+  }
+  .about-us-stat {
+    text-align: center;
+  }
+  .about-us-stat .stat-num {
+    font-family: var(--font-emphasis);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--blue-dark);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .about-us-stat .stat-label {
+    font-family: var(--font-emphasis);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(10, 34, 26, 0.55);
+  }
+  /* Photo gallery — hero on top, 3 thumbs below */
+  .about-us-gallery {
+    margin: 48px auto 0;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .about-us-gallery-hero {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 14px 36px rgba(10, 34, 26, 0.18),
+      0 4px 12px rgba(10, 34, 26, 0.08);
+    border: 1px solid rgba(15, 191, 122, 0.18);
+  }
+  .about-us-gallery-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .about-us-gallery-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .about-us-gallery-thumb {
+    aspect-ratio: 3 / 4;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 8px 22px rgba(10, 34, 26, 0.1),
+      0 2px 6px rgba(10, 34, 26, 0.05);
+    border: 1px solid rgba(15, 191, 122, 0.18);
+  }
+  .about-us-gallery-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 860px) {
+    .about-us-stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px 12px;
+    }
+    .about-us-stat .stat-num {
+      font-size: 24px;
+    }
+    .about-us-gallery {
+      margin-top: 32px;
+      gap: 10px;
+    }
+    .about-us-gallery-trio {
+      gap: 10px;
     }
   }
 
@@ -2904,23 +3145,92 @@
     font-weight: 600;
   }
   @media (max-width: 768px) {
-    .diff-cmp-table thead th,
+    /* Reformat the comparison table into a stack of feature cards.
+       Each row becomes a card; cells become labeled rows inside it. */
+    .diff-cmp-wrap {
+      overflow: visible;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+    }
+    .diff-cmp-table {
+      display: block;
+      min-width: 0;
+      background: transparent;
+    }
+    .diff-cmp-table thead {
+      display: none;
+    }
+    .diff-cmp-table tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .diff-cmp-table tbody tr {
+      display: block;
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid rgba(15, 191, 122, 0.18);
+      box-shadow: 0 6px 16px rgba(10, 34, 26, 0.05);
+      overflow: hidden;
+    }
     .diff-cmp-table tbody td {
-      padding: 12px 10px;
+      display: flex !important;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px !important;
+      width: auto !important;
+      border-bottom: 1px solid rgba(10, 34, 26, 0.06);
+      background: #ffffff;
+      vertical-align: initial;
     }
-    .diff-cmp-th-name {
-      font-size: 14px;
+    .diff-cmp-table tbody tr td:last-child {
+      border-bottom: 0;
     }
-    .diff-cmp-th-bad,
-    .diff-cmp-th-good {
-      font-size: 10px;
+    /* Feature name (first cell of each tr) becomes the card header */
+    .diff-cmp-table tbody td:first-child {
+      background: #fafdfb !important;
+      font-size: 12px !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 800;
+      color: rgba(10, 34, 26, 0.65);
+      border-bottom: 1px solid rgba(15, 191, 122, 0.22);
+    }
+    /* Option labels prepended via ::before (positional) */
+    .diff-cmp-table tbody td:not(:first-child)::before {
+      flex: 0 0 96px;
+      font-family: var(--font-emphasis);
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(10, 34, 26, 0.5);
+    }
+    .diff-cmp-table tbody td:nth-child(2)::before { content: "Freelancer"; }
+    .diff-cmp-table tbody td:nth-child(3)::before { content: "✓ Nils Digital"; color: var(--blue-dark); }
+    .diff-cmp-table tbody td:nth-child(4)::before { content: "Big Agency"; }
+    /* Reset the cell internal layout (was vertical column on desktop) */
+    .diff-cmp-cell {
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 8px !important;
+      flex: 1;
+      min-width: 0;
     }
     .diff-cmp-text {
-      font-size: 12.5px;
+      text-align: left !important;
+      font-size: 12.5px !important;
+      line-height: 1.35;
     }
-    .diff-cmp-table tbody td:first-child {
-      width: 110px;
-      font-size: 12.5px;
+    .diff-cmp-icon {
+      width: 22px;
+      height: 22px;
+      font-size: 11px;
+    }
+    /* Highlight the Nils row inside each card */
+    .diff-cmp-table tbody td.diff-cmp-col-good {
+      background: linear-gradient(90deg, rgba(15, 191, 122, 0.12), rgba(15, 191, 122, 0.04)) !important;
     }
   }
   /* Credentials bar */
@@ -2964,6 +3274,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 56px;
     align-items: stretch;
+  }
+  .diff-bottom--solo {
+    grid-template-columns: minmax(0, 720px);
+    justify-content: center;
   }
   .diff-photos {
     display: flex;
@@ -3146,7 +3460,7 @@
 
   /* ── HOW WE FIX IT ───────────────────────────── */
   .step-section {
-    padding: 64px 24px;
+    padding: 88px 24px 96px;
   }
   .step-inner {
     max-width: 1100px;
@@ -4579,7 +4893,9 @@
   }
   @media (max-width: 860px) {
     .matrix-cards {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
     }
     .matrix-blue {
       order: 2;
@@ -4592,7 +4908,24 @@
       padding: 72px 16px 84px;
     }
     .matrix-card {
-      padding: 28px 24px;
+      padding: 24px 20px;
+      min-width: 0;
+      max-width: 100%;
+    }
+    .matrix-header {
+      margin-bottom: 28px;
+    }
+    .matrix-card .matrix-cta {
+      white-space: normal;
+      text-align: center;
+      justify-content: center;
+      padding: 14px 16px;
+      font-size: 14px;
+      gap: 10px;
+    }
+    .matrix-card .matrix-cta .cta-arrow {
+      width: 26px;
+      height: 26px;
     }
   }
 
@@ -4817,9 +5150,14 @@
       gap: 32px;
     }
     .step01-inner {
-      grid-template-columns: 1fr;
-      padding: 64px 24px;
-      gap: 40px;
+      grid-template-columns: minmax(0, 1fr);
+      padding: 40px 0;
+      gap: 32px;
+    }
+    .step01-copy,
+    .step01-inner > .audit-card {
+      min-width: 0;
+      max-width: 100%;
     }
     .funnel-cascade {
       min-height: 380px;
@@ -4874,11 +5212,18 @@
   }
   @media (max-width: 520px) {
     .hero-cta-full {
-      white-space: normal;
-      padding: 16px 24px;
-      font-size: 16px;
+      white-space: nowrap;
+      padding: 16px 12px 16px 18px;
+      font-size: clamp(14px, 4.2vw, 17px);
+      gap: 8px;
       width: 100%;
-      text-align: center;
+      text-align: left;
+      justify-content: space-between;
+      letter-spacing: -0.02em;
+    }
+    .hero-cta-full .cta-arrow {
+      width: 28px;
+      height: 28px;
     }
     .calc-cta {
       white-space: normal;
@@ -4917,6 +5262,7 @@
     .step-02 {
       display: flex;
       flex-direction: column;
+      gap: 32px;
     }
     .step-02 .step-inner {
       display: contents;
@@ -4938,10 +5284,28 @@
   @media (max-width: 768px) {
     /* Add side padding to sections — backgrounds stay full-width */
     #ghl-breakout > section,
+    #ghl-breakout > .rain-stack > section,
     #ghl-breakout > .fix-divider-wrap,
     #ghl-breakout > footer {
       padding-left: 16px !important;
       padding-right: 16px !important;
+    }
+    /* Tighten hero bottom so it doesn't leave dead space above cost-section */
+    .hero {
+      padding-bottom: 40px !important;
+    }
+    /* Standardize vertical rhythm for all internal sections on mobile */
+    .cost-section,
+    .step-section.step-02,
+    .case-study-section,
+    .about-us,
+    .about,
+    .proof-section,
+    .guarantee,
+    .faq,
+    .matrix-section {
+      padding-top: 40px !important;
+      padding-bottom: 48px !important;
     }
     /* Clip horizontal overflow only — preserves ::before gradient effects */
     #ghl-breakout {
@@ -5268,19 +5632,25 @@
     }
   }
 
-  /* Tablet 768px overflow fix: audit-card chips push past viewport.
-     Stack the row at <=820px (was only stacking at 480px). */
+  /* Tablet/mobile audit-card layout: keep horizontal row, just tighten spacing */
   @media (max-width: 820px) {
     .audit-row {
-      grid-template-columns: 1fr;
-      gap: 8px;
-      padding: 14px;
+      grid-template-columns: 1fr auto auto;
+      gap: 6px;
+      padding: 12px 14px;
     }
     .audit-row-name {
-      margin-bottom: 2px;
+      font-size: 13px;
+      gap: 8px;
+      min-width: 0;
+    }
+    .audit-row-name::before {
+      width: 3px;
+      height: 14px;
     }
     .audit-chip {
-      justify-self: start;
+      font-size: 11.5px;
+      padding: 3px 8px;
     }
   }
 
@@ -5531,8 +5901,7 @@
               <div class="hero-proof-label">Businesses served</div>
             </div>
             <div class="hero-proof-item">
-              <div class="tp-stars">★★★★★</div>
-              <div class="hero-proof-num">5.0</div>
+              <div class="hero-proof-num">5.0 <span class="tp-stars-inline">★★★★★</span></div>
               <div class="hero-proof-label">on Trustpilot</div>
             </div>
             <div class="hero-proof-item">
@@ -6111,192 +6480,153 @@
     </div>
   </section>
 
+  <!-- ══════════════════════════════════════════ ABOUT US / OUR STORY -->
+  <section class="about-us theme-light">
+    <div class="about-us-inner">
+      <div class="about-us-copy anim">
+        <div class="section-eyebrow">Who We Are</div>
+        <h2 class="section-h">
+          I'm Emilio Nils. We've built AI &amp; automation
+          for <span class="accent">200+ businesses</span> over the past 7 years.
+        </h2>
+        <p>
+          We started Nils Digital because we kept watching small business owners
+          get burned: freelancers learning AI on their dime, agencies selling
+          decks that never shipped, software vendors charging $300/mo for tools
+          that solve 10% of the problem.
+        </p>
+        <p>
+          So we built a different model:
+          <strong>founder-led, hands-on, ROI-first.</strong> Every audit is run by
+          us, every implementation is done by our Chicago team, and every
+          recommendation is tied to a dollar amount. Never outsourced, never handed
+          off to a junior.
+        </p>
+        <p>
+          That approach has served compliance agencies, e-commerce brands, real
+          estate teams, healthcare clinics, and B2B service businesses, adding up to
+          <strong>$2.4M+ in recovered opportunity</strong> across the past 30 audits
+          alone.
+        </p>
+        <div class="about-us-stats">
+          <div class="about-us-stat">
+            <div class="stat-num">7+</div>
+            <div class="stat-label">Years building</div>
+          </div>
+          <div class="about-us-stat">
+            <div class="stat-num">200+</div>
+            <div class="stat-label">Businesses served</div>
+          </div>
+          <div class="about-us-stat">
+            <div class="stat-num">$2M+</div>
+            <div class="stat-label">Ad spend managed</div>
+          </div>
+          <div class="about-us-stat">
+            <div class="stat-num">★★★★★</div>
+            <div class="stat-label">Trustpilot rated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo gallery — hero on top, 3 thumbs below -->
+    <div class="about-us-gallery anim d2">
+      <div class="about-us-gallery-hero">
+        <img
+          loading="lazy"
+          src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/8b833c90-43f4-4f0e-ba28-1b6b3b441f3e.png"
+          alt="Nils Digital team and clients group photo"
+        />
+      </div>
+      <div class="about-us-gallery-trio">
+        <div class="about-us-gallery-thumb">
+          <img
+            loading="lazy"
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/c8afbdec-92cf-4acd-9e7a-4cd6c40bf04a.png"
+            alt="Nils in Times Square"
+          />
+        </div>
+        <div class="about-us-gallery-thumb">
+          <img
+            loading="lazy"
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
+            alt="Nils Digital GoHighLevel 200 clients award"
+          />
+        </div>
+        <div class="about-us-gallery-thumb">
+          <img
+            loading="lazy"
+            src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/c1040480-3157-4272-a912-4d210054ccf0.png"
+            alt="Nils Digital award plaque"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════════════════════════════════════ ABOUT / WHY WE'RE DIFFERENT -->
   <section class="about theme-light">
     <div class="diff-inner">
       <!-- Header -->
       <div class="diff-header anim">
-        <div class="section-eyebrow">Why We're Different</div>
+        <div class="section-eyebrow">Why Work With Us</div>
         <h2 class="section-h">
-          You really only have <span class="accent">three options.</span>
+          Here's how we <span class="accent">actually work.</span>
         </h2>
         <p class="diff-subtext">
-          Most freelancers learn AI on your dime. Most agencies sell slide
-          decks. We sit right in the middle: hands-on, founder-led, and proven
-          across 200+ businesses.
+          Most freelancers and agencies waste your time before they waste your
+          money. We've spent the last 7 years building the opposite of that.
+          Here's what that means in practice.
         </p>
       </div>
 
-      <!-- Sweet-spot comparison table -->
-      <div class="diff-cmp-wrap anim d2">
-        <table class="diff-cmp-table">
-          <thead>
-            <tr>
-              <th>What you get</th>
-              <th>
-                <div class="diff-cmp-th-bad">Option 1</div>
-                <div class="diff-cmp-th-name">The Freelancer</div>
-              </th>
-              <th class="diff-cmp-col-good">
-                <div class="diff-cmp-th-good">✓ The Sweet Spot</div>
-                <div class="diff-cmp-th-name">Nils Digital</div>
-              </th>
-              <th>
-                <div class="diff-cmp-th-bad">Option 3</div>
-                <div class="diff-cmp-th-name">The Big Agency</div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Track record</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">None or unverified</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">200+ businesses served</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Logos, but you get a junior</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Who does the work</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">One person learning AI</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">Founder-led, hands-on</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Sales rep + junior delivery</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Pricing</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Cheap until it fails</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">ROI-first, transparent</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">$10K+/mo for slide decks</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Implementation</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Disappears when it gets hard</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">Audit through deployment</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Strategy decks, no execution</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Outsourcing</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">You're the experiment</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">Chicago team, never outsourced</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Heavily, often offshore</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Reputation</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">No reviews, no proof</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">★★★★★ Trustpilot, award-winning</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Big logos, mixed outcomes</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Outcome focus</td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Hour-billing, not results</span>
-                </div>
-              </td>
-              <td class="diff-cmp-col-good">
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon check">✓</span>
-                  <span class="diff-cmp-text">ROI-first, always</span>
-                </div>
-              </td>
-              <td>
-                <div class="diff-cmp-cell">
-                  <span class="diff-cmp-icon x">✕</span>
-                  <span class="diff-cmp-text">Scale by caring less</span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Benefit cards (positive framing — what working with us delivers) -->
+      <div class="benefit-grid anim d2">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M2 20c0-4 4-7 10-7s10 3 10 7" />
+            </svg>
+          </div>
+          <h3 class="benefit-title">We do the work ourselves</h3>
+          <p class="benefit-desc">
+            You're not getting handed off to a sales rep or a junior who's
+            still figuring it out. The audit is run by us, the build is done
+            by us, and you have direct access to the people actually putting
+            your system together. <strong>No account managers in the middle.</strong>
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+          <h3 class="benefit-title">Every recommendation has a dollar on it</h3>
+          <p class="benefit-desc">
+            We don't pitch you on what's "possible." Every line in your audit
+            comes with a number attached, either
+            <strong>hours saved per week or revenue gained per year.</strong>
+            If we can't back it with math, it doesn't make it into the report.
+          </p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <h3 class="benefit-title">We've done this 200+ times</h3>
+          <p class="benefit-desc">
+            Seven years building automation for compliance agencies, e-commerce
+            brands, real estate teams, healthcare clinics, and B2B services.
+            <strong>$2.4M in recovered opportunity</strong> across the past 30
+            audits alone. The patterns repeat, even when your business feels
+            unique.
+          </p>
+        </div>
       </div>
 
       <!-- Credentials pills -->
@@ -6418,40 +6748,8 @@
         </div>
       </div>
 
-      <!-- Photos + closing copy -->
-      <div class="diff-bottom anim d4">
-        <div class="diff-photos">
-          <div class="diff-hero">
-            <img
-              loading="lazy"
-              src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/8b833c90-43f4-4f0e-ba28-1b6b3b441f3e.png"
-              alt="Nils presenting to a group on stage"
-            />
-          </div>
-          <div class="diff-trio">
-            <div class="diff-thumb diff-thumb-1">
-              <img
-                loading="lazy"
-                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/c8afbdec-92cf-4acd-9e7a-4cd6c40bf04a.png"
-                alt="Nils in Times Square"
-              />
-            </div>
-            <div class="diff-thumb diff-thumb-2">
-              <img
-                loading="lazy"
-                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png"
-                alt="Nils Digital GoHighLevel 200 clients award"
-              />
-            </div>
-            <div class="diff-thumb diff-thumb-3">
-              <img
-                loading="lazy"
-                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/c1040480-3157-4272-a912-4d210054ccf0.png"
-                alt="Nils Digital award plaque"
-              />
-            </div>
-          </div>
-        </div>
+      <!-- Closing copy (photos removed — already shown in About Us section above) -->
+      <div class="diff-bottom diff-bottom--solo anim d4">
         <div class="diff-closing">
           <div class="diff-closing-eyebrow">Our Promise to You</div>
           <h3 class="diff-closing-h">
@@ -6707,7 +7005,7 @@
   <!-- ══════════════════════════════════════════ FAQ, BLUE BACKGROUND -->
   <section class="faq theme-light">
     <div class="faq-inner">
-      <div style="text-align: center; margin-bottom: 52px" class="anim">
+      <div style="text-align: center; margin-bottom: 32px" class="anim">
         <div class="section-eyebrow-white">Questions?</div>
         <h2 class="section-h-white">
           Common questions, <span class="accent">honest answers.</span>
@@ -6715,10 +7013,10 @@
         <p
           style="
             font-size: 16px;
-            color: rgba(255, 255, 255, 0.55);
-            line-height: 1.7;
+            color: rgba(10, 34, 26, 0.6);
+            line-height: 1.6;
             max-width: 520px;
-            margin: 0 auto;
+            margin: 12px auto 0;
           "
         >
           No sales scripts. No vague answers. Just straight talk.
@@ -7870,6 +8168,7 @@
     if (_fy) _fy.textContent = new Date().getFullYear();
 
   </script>
+
 
   <!-- Image lightbox overlay -->
   <div class="img-lightbox" id="img-lightbox" onclick="closeLightbox()">
