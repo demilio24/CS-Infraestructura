@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-04T13:01:39Z",
+  "generatedAt": "2026-05-04T15:16:55Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "totals": {
@@ -8,7 +8,7 @@
     "free": 0,
     "afterSchool": 0,
     "leadOnly": 2737,
-    "newLast7Days": 5,
+    "newLast7Days": 4,
     "newLast30Days": 2800
   },
   "weekOrder": [
@@ -28,8 +28,8 @@
   "summer": {
     "total": 70,
     "byCampus": {
-      "Upper Campus": 29,
-      "Lower Campus": 41,
+      "Upper Campus": 28,
+      "Lower Campus": 42,
       "Unknown": 0
     },
     "byWeek": {
@@ -93,8 +93,8 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 4,
-        "Lower Campus": 11,
+        "Upper Campus": 3,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -197,8 +197,8 @@
   "combined": {
     "total": 70,
     "byCampus": {
-      "Upper Campus": 29,
-      "Lower Campus": 41,
+      "Upper Campus": 28,
+      "Lower Campus": 42,
       "Unknown": 0
     },
     "byWeek": {
@@ -218,13 +218,14 @@
   },
   "interest": {
     "Adult & Teen Classes": 4,
-    "Other": 1
+    "Other": 1,
+    "Camps": 1
   },
   "sources": {
-    "(blank)": 2727,
+    "(blank)": 2726,
     "Summer Camp": 52,
     "Summer Camp - DEV": 15,
-    "Lead Form": 5,
+    "Lead Form": 6,
     "Free Camp": 1
   },
   "roster": {
@@ -789,7 +790,7 @@
           "name": "Sebastian Martinat",
           "campus": "Upper Campus",
           "lunch": true,
-          "allergy": null,
+          "allergy": "NA",
           "incomplete": false,
           "type": "summer"
         },
@@ -1246,14 +1247,6 @@
     "August 3rd-7th": {
       "upper": [
         {
-          "name": "Carter Grant",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Henry Reynolds",
           "campus": "Upper Campus",
           "lunch": true,
@@ -1340,6 +1333,14 @@
           "campus": "Lower Campus",
           "lunch": true,
           "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Owen Grant",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": "NA",
           "incomplete": false,
           "type": "summer"
         },
