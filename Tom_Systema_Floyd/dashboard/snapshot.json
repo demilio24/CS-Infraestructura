@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-05-05T14:24:28Z",
+  "generatedAt": "2026-05-05T17:49:36Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "totals": {
     "contacts": 2802,
-    "summer": 73,
+    "summer": 74,
     "free": 0,
     "afterSchool": 0,
-    "leadOnly": 2737,
+    "leadOnly": 2736,
     "newLast7Days": 5,
     "newLast30Days": 2802
   },
@@ -26,15 +26,15 @@
     "August 17th-21st"
   ],
   "summer": {
-    "total": 73,
+    "total": 74,
     "byCampus": {
-      "Upper Campus": 29,
+      "Upper Campus": 30,
       "Lower Campus": 44,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 11,
-      "June 8th-12th": 14,
+      "June 1st-5th": 12,
+      "June 8th-12th": 15,
       "June 15th-19th": 17,
       "June 22nd-26th": 9,
       "June 29th-July 3rd": 10,
@@ -48,12 +48,12 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 5,
+        "Upper Campus": 6,
         "Lower Campus": 6,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 8,
+        "Upper Campus": 9,
         "Lower Campus": 6,
         "Unknown": 0
       },
@@ -195,15 +195,15 @@
     "bySchool": {}
   },
   "combined": {
-    "total": 73,
+    "total": 74,
     "byCampus": {
-      "Upper Campus": 29,
+      "Upper Campus": 30,
       "Lower Campus": 44,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 11,
-      "June 8th-12th": 14,
+      "June 1st-5th": 12,
+      "June 8th-12th": 15,
       "June 15th-19th": 17,
       "June 22nd-26th": 9,
       "June 29th-July 3rd": 10,
@@ -223,9 +223,9 @@
     "Camps": 1
   },
   "sources": {
-    "(blank)": 2725,
+    "(blank)": 2724,
     "Summer Camp": 52,
-    "Summer Camp - DEV": 17,
+    "Summer Camp - DEV": 18,
     "Lead Form": 7,
     "Free Camp": 1
   },
@@ -269,6 +269,14 @@
           "campus": "Upper Campus",
           "lunch": true,
           "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Vladimir Aheyev",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": "N/A",
           "incomplete": false,
           "type": "summer"
         }
@@ -388,6 +396,14 @@
           "campus": "Upper Campus",
           "lunch": false,
           "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Vladimir Aheyev",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": "N/A",
           "incomplete": false,
           "type": "summer"
         }
