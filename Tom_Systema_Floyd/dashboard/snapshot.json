@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-05-04T23:35:11Z",
+  "generatedAt": "2026-05-05T01:17:16Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "totals": {
     "contacts": 2801,
-    "summer": 70,
+    "summer": 71,
     "free": 0,
     "afterSchool": 0,
-    "leadOnly": 2738,
+    "leadOnly": 2737,
     "newLast7Days": 4,
     "newLast30Days": 2801
   },
@@ -26,9 +26,9 @@
     "August 17th-21st"
   ],
   "summer": {
-    "total": 70,
+    "total": 71,
     "byCampus": {
-      "Upper Campus": 28,
+      "Upper Campus": 29,
       "Lower Campus": 42,
       "Unknown": 0
     },
@@ -36,12 +36,12 @@
       "June 1st-5th": 11,
       "June 8th-12th": 14,
       "June 15th-19th": 17,
-      "June 22nd-26th": 8,
+      "June 22nd-26th": 9,
       "June 29th-July 3rd": 10,
       "July 6th-10th": 17,
       "July 13th-17th": 14,
-      "July 20th-24th": 15,
-      "July 27th-31st": 13,
+      "July 20th-24th": 16,
+      "July 27th-31st": 14,
       "August 3rd-7th": 15,
       "August 10th-14th": 7,
       "August 17th-21st": 9
@@ -63,7 +63,7 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 3,
+        "Upper Campus": 4,
         "Lower Campus": 5,
         "Unknown": 0
       },
@@ -83,12 +83,12 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 7,
+        "Upper Campus": 8,
         "Lower Campus": 8,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 5,
+        "Upper Campus": 6,
         "Lower Campus": 8,
         "Unknown": 0
       },
@@ -195,9 +195,9 @@
     "bySchool": {}
   },
   "combined": {
-    "total": 70,
+    "total": 71,
     "byCampus": {
-      "Upper Campus": 28,
+      "Upper Campus": 29,
       "Lower Campus": 42,
       "Unknown": 0
     },
@@ -205,12 +205,12 @@
       "June 1st-5th": 11,
       "June 8th-12th": 14,
       "June 15th-19th": 17,
-      "June 22nd-26th": 8,
+      "June 22nd-26th": 9,
       "June 29th-July 3rd": 10,
       "July 6th-10th": 17,
       "July 13th-17th": 14,
-      "July 20th-24th": 15,
-      "July 27th-31st": 13,
+      "July 20th-24th": 16,
+      "July 27th-31st": 14,
       "August 3rd-7th": 15,
       "August 10th-14th": 7,
       "August 17th-21st": 9
@@ -223,9 +223,9 @@
     "Camps": 1
   },
   "sources": {
-    "(blank)": 2726,
+    "(blank)": 2725,
     "Summer Camp": 52,
-    "Summer Camp - DEV": 15,
+    "Summer Camp - DEV": 16,
     "Lead Form": 7,
     "Free Camp": 1
   },
@@ -591,6 +591,14 @@
       "upper": [
         {
           "name": "Dawson Denney",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Ira Skaletsky",
           "campus": "Upper Campus",
           "lunch": false,
           "allergy": null,
@@ -1018,6 +1026,14 @@
           "type": "summer"
         },
         {
+          "name": "Ira Skaletsky",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Isaiah Plummer",
           "campus": "Upper Campus",
           "lunch": false,
@@ -1140,6 +1156,14 @@
           "name": "Billy Bob",
           "campus": "Upper Campus",
           "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Ira Skaletsky",
+          "campus": "Upper Campus",
+          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
