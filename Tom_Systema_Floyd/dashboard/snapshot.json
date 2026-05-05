@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-05-05T01:17:16Z",
+  "generatedAt": "2026-05-05T04:30:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "totals": {
-    "contacts": 2801,
-    "summer": 71,
+    "contacts": 2802,
+    "summer": 73,
     "free": 0,
     "afterSchool": 0,
     "leadOnly": 2737,
-    "newLast7Days": 4,
-    "newLast30Days": 2801
+    "newLast7Days": 5,
+    "newLast30Days": 2802
   },
   "weekOrder": [
     "June 1st-5th",
@@ -26,10 +26,10 @@
     "August 17th-21st"
   ],
   "summer": {
-    "total": 71,
+    "total": 73,
     "byCampus": {
       "Upper Campus": 29,
-      "Lower Campus": 42,
+      "Lower Campus": 44,
       "Unknown": 0
     },
     "byWeek": {
@@ -40,7 +40,7 @@
       "June 29th-July 3rd": 10,
       "July 6th-10th": 17,
       "July 13th-17th": 14,
-      "July 20th-24th": 16,
+      "July 20th-24th": 18,
       "July 27th-31st": 14,
       "August 3rd-7th": 15,
       "August 10th-14th": 7,
@@ -84,7 +84,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 8,
-        "Lower Campus": 8,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -195,10 +195,10 @@
     "bySchool": {}
   },
   "combined": {
-    "total": 71,
+    "total": 73,
     "byCampus": {
       "Upper Campus": 29,
-      "Lower Campus": 42,
+      "Lower Campus": 44,
       "Unknown": 0
     },
     "byWeek": {
@@ -209,7 +209,7 @@
       "June 29th-July 3rd": 10,
       "July 6th-10th": 17,
       "July 13th-17th": 14,
-      "July 20th-24th": 16,
+      "July 20th-24th": 18,
       "July 27th-31st": 14,
       "August 3rd-7th": 15,
       "August 10th-14th": 7,
@@ -225,7 +225,7 @@
   "sources": {
     "(blank)": 2725,
     "Summer Camp": 52,
-    "Summer Camp - DEV": 16,
+    "Summer Camp - DEV": 17,
     "Lead Form": 7,
     "Free Camp": 1
   },
@@ -1092,10 +1092,26 @@
           "type": "summer"
         },
         {
+          "name": "Avery McCauley",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": "None",
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Beckham Fox",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": "N/A",
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Griffin McCauley",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": "None",
           "incomplete": false,
           "type": "summer"
         },
