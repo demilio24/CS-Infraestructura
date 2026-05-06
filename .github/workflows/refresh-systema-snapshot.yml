@@ -25,10 +25,8 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Fetch snapshot from GHL
-        env:
-          GHL_PIT_SYSTEMA: ${{ secrets.GHL_PIT_SYSTEMA }}
-        run: python .claude/scripts/fetch-systema-snapshot.py
+      - name: Fetch snapshot from Apps Script (sheets)
+        run: python .claude/scripts/fetch-systema-snapshot-from-sheets.py
 
       - name: Commit if changed
         run: |
