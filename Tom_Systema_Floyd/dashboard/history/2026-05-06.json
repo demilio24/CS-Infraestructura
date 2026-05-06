@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-06T18:07:12Z",
+  "generatedAt": "2026-05-06T18:23:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 195,
+    "summer": 92,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,45 +107,45 @@
     "roster": []
   },
   "summer": {
-    "total": 195,
+    "total": 92,
     "byCampus": {
-      "Upper Campus": 80,
-      "Lower Campus": 115,
+      "Upper Campus": 39,
+      "Lower Campus": 53,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 14,
-      "June 8th-12th": 20,
-      "June 15th-19th": 23,
-      "June 22nd-26th": 14,
+      "June 1st-5th": 13,
+      "June 8th-12th": 17,
+      "June 15th-19th": 22,
+      "June 22nd-26th": 12,
       "June 29th-July 3rd": 10,
-      "July 6th-10th": 19,
+      "July 6th-10th": 17,
       "July 13th-17th": 15,
       "July 20th-24th": 18,
-      "July 27th-31st": 16,
+      "July 27th-31st": 15,
       "August 3rd-7th": 19,
-      "August 10th-14th": 12,
-      "August 17th-21st": 15
+      "August 10th-14th": 11,
+      "August 17th-21st": 14
     },
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 6,
-        "Lower Campus": 8,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 10,
-        "Lower Campus": 10,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 5,
-        "Lower Campus": 18,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 6,
-        "Lower Campus": 8,
+        "Lower Campus": 6,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -154,8 +154,8 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 9,
-        "Lower Campus": 10,
+        "Upper Campus": 8,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -170,7 +170,7 @@
       },
       "July 27th-31st": {
         "Upper Campus": 7,
-        "Lower Campus": 9,
+        "Lower Campus": 8,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -179,13 +179,13 @@
         "Unknown": 0
       },
       "August 10th-14th": {
-        "Upper Campus": 5,
+        "Upper Campus": 4,
         "Lower Campus": 7,
         "Unknown": 0
       },
       "August 17th-21st": {
         "Upper Campus": 9,
-        "Lower Campus": 6,
+        "Lower Campus": 5,
         "Unknown": 0
       }
     }
@@ -278,25 +278,88 @@
     }
   },
   "combined": {
-    "total": 196,
+    "total": 93,
+    "enrollments": 184,
     "byCampus": {
-      "Upper Campus": 80,
-      "Lower Campus": 116,
+      "Upper Campus": 39,
+      "Lower Campus": 54,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 15,
-      "June 8th-12th": 20,
-      "June 15th-19th": 23,
-      "June 22nd-26th": 14,
+      "June 1st-5th": 14,
+      "June 8th-12th": 17,
+      "June 15th-19th": 22,
+      "June 22nd-26th": 12,
       "June 29th-July 3rd": 10,
-      "July 6th-10th": 19,
+      "July 6th-10th": 17,
       "July 13th-17th": 15,
       "July 20th-24th": 18,
-      "July 27th-31st": 16,
+      "July 27th-31st": 15,
       "August 3rd-7th": 19,
-      "August 10th-14th": 12,
-      "August 17th-21st": 15
+      "August 10th-14th": 11,
+      "August 17th-21st": 14
+    },
+    "byWeekCampus": {
+      "June 1st-5th": {
+        "Upper Campus": 6,
+        "Lower Campus": 8,
+        "Unknown": 0
+      },
+      "June 8th-12th": {
+        "Upper Campus": 10,
+        "Lower Campus": 7,
+        "Unknown": 0
+      },
+      "June 15th-19th": {
+        "Upper Campus": 5,
+        "Lower Campus": 17,
+        "Unknown": 0
+      },
+      "June 22nd-26th": {
+        "Upper Campus": 6,
+        "Lower Campus": 6,
+        "Unknown": 0
+      },
+      "June 29th-July 3rd": {
+        "Upper Campus": 5,
+        "Lower Campus": 5,
+        "Unknown": 0
+      },
+      "July 6th-10th": {
+        "Upper Campus": 8,
+        "Lower Campus": 9,
+        "Unknown": 0
+      },
+      "July 13th-17th": {
+        "Upper Campus": 4,
+        "Lower Campus": 11,
+        "Unknown": 0
+      },
+      "July 20th-24th": {
+        "Upper Campus": 8,
+        "Lower Campus": 10,
+        "Unknown": 0
+      },
+      "July 27th-31st": {
+        "Upper Campus": 7,
+        "Lower Campus": 8,
+        "Unknown": 0
+      },
+      "August 3rd-7th": {
+        "Upper Campus": 6,
+        "Lower Campus": 13,
+        "Unknown": 0
+      },
+      "August 10th-14th": {
+        "Upper Campus": 4,
+        "Lower Campus": 7,
+        "Unknown": 0
+      },
+      "August 17th-21st": {
+        "Upper Campus": 9,
+        "Lower Campus": 5,
+        "Unknown": 0
+      }
     }
   },
   "interest": {},
@@ -390,14 +453,6 @@
           "name": "Grant \u201cGeo\u201d Olowin",
           "campus": "Lower Campus",
           "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Jacob Perna",
-          "campus": "Lower Campus",
-          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -525,30 +580,6 @@
         },
         {
           "name": "Austin Shue",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Austin Shue",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Campbell Rathlev",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Cort Pond",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
@@ -771,14 +802,6 @@
           "type": "summer"
         },
         {
-          "name": "Vincent Molinari",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Wells Corbat",
           "campus": "Lower Campus",
           "lunch": true,
@@ -843,22 +866,6 @@
       "lower": [
         {
           "name": "Aria",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Austin Shue",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Austin Shue",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
@@ -1046,14 +1053,6 @@
           "type": "summer"
         },
         {
-          "name": "Sebastian Martinat",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Sloane Kassatly",
           "campus": "Upper Campus",
           "lunch": false,
@@ -1075,14 +1074,6 @@
           "name": "Aria",
           "campus": "Lower Campus",
           "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Jacob Perna",
-          "campus": "Lower Campus",
-          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -1501,14 +1492,6 @@
           "type": "summer"
         },
         {
-          "name": "Annabelle Dockus",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Aria",
           "campus": "Lower Campus",
           "lunch": false,
@@ -1753,14 +1736,6 @@
           "type": "summer"
         },
         {
-          "name": "Sloane Deady-Laakso",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Tilly Robinson",
           "campus": "Upper Campus",
           "lunch": true,
@@ -1917,14 +1892,6 @@
           "name": "Huck Shaw",
           "campus": "Lower Campus",
           "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Jack Loeffler",
-          "campus": "Lower Campus",
-          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"

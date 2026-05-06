@@ -83,18 +83,12 @@ function buildSnapshot() {
   const allSummer = summerEnrollments.concat(lowerEnrollments);
   const allFree   = freeUpperEnrolls.concat(freeLowerEnrolls);
 
-  const summer = aggregate_(allSummer, 'summer');
-  const free   = aggregate_(allFree,   'free');
-
-  const combined = {
-    total: summer.total + free.total,
-    byCampus: {
-      'Upper Campus': summer.byCampus['Upper Campus'] + free.byCampus['Upper Campus'],
-      'Lower Campus': summer.byCampus['Lower Campus'] + free.byCampus['Lower Campus'],
-      'Unknown':      summer.byCampus['Unknown']      + free.byCampus['Unknown'],
-    },
-    byWeek: WEEK_ORDER.reduce((m, w) => { m[w] = summer.byWeek[w] + free.byWeek[w]; return m; }, {}),
-  };
+  const summer   = aggregate_(allSummer, 'summer');
+  const free     = aggregate_(allFree,   'free');
+  // Combined dedup: a kid in both summer + free counts once toward unique
+  // totals, so re-run the aggregator over the merged list rather than
+  // adding the two slice totals (that would double-count crossover kids).
+  const combined = aggregate_(allSummer.concat(allFree), 'combined');
 
   const roster = buildRoster_(allSummer, allFree);
   const bySchool = {};
@@ -223,24 +217,62 @@ function readFreeSheet_(spreadsheetId, campusLabel) {
 
 /* ───────────────────────── Aggregation ───────────────────────── */
 
+/**
+ * Aggregate raw rows into the dashboard's expected slice shape.
+ *
+ *   total          = unique students across all weeks (kpi-num "total" card)
+ *   byCampus       = unique students per campus (kpi-num "upper"/"lower")
+ *   byWeek         = enrollments per week, intra-week deduped
+ *                    (subtitle "X enrollments in total" = sum of byWeek)
+ *   byWeekCampus   = enrollments per week × campus (stacked bar input)
+ *
+ * Intra-week dedup: if the same student has two rows in the same week's tab
+ * (re-submission, manual paste, etc), it counts as one enrollment for that
+ * week. Across weeks, each week-attendance still counts once toward
+ * enrollments — that's what makes total < enrollments for multi-week kids.
+ */
 function aggregate_(enrollments, type) {
-  const byCampus = { 'Upper Campus': 0, 'Lower Campus': 0, 'Unknown': 0 };
   const byWeek = WEEK_ORDER.reduce((m, w) => { m[w] = 0; return m; }, {});
   const byWeekCampus = WEEK_ORDER.reduce((m, w) => {
     m[w] = { 'Upper Campus': 0, 'Lower Campus': 0, 'Unknown': 0 };
     return m;
   }, {});
-  let total = 0;
+
+  const seenInWeek = {};       // weekKey -> { nameKey: true }
+  const primaryCampus = {};    // nameKey -> first-seen campus (so a kid is
+                               // counted once globally toward exactly one
+                               // campus, byCampus.* sums to total cleanly)
+
   enrollments.forEach(e => {
-    total++;
-    const ck = e.campus === 'Upper Campus' || e.campus === 'Lower Campus' ? e.campus : 'Unknown';
-    byCampus[ck]++;
-    if (byWeek.hasOwnProperty(e.week)) {
-      byWeek[e.week]++;
-      byWeekCampus[e.week][ck]++;
-    }
+    if (!byWeek.hasOwnProperty(e.week)) return;
+    const nameKey = nameKey_(e.name);
+    if (!nameKey) return;
+    const ck = (e.campus === 'Upper Campus' || e.campus === 'Lower Campus') ? e.campus : 'Unknown';
+
+    if (!seenInWeek[e.week]) seenInWeek[e.week] = {};
+    if (seenInWeek[e.week][nameKey]) return;      // intra-week dup, skip
+    seenInWeek[e.week][nameKey] = true;
+
+    byWeek[e.week]++;
+    byWeekCampus[e.week][ck]++;
+
+    if (!primaryCampus[nameKey]) primaryCampus[nameKey] = ck;
   });
-  return { total, byCampus, byWeek, byWeekCampus };
+
+  const byCampus = { 'Upper Campus': 0, 'Lower Campus': 0, 'Unknown': 0 };
+  Object.keys(primaryCampus).forEach(k => { byCampus[primaryCampus[k]]++; });
+
+  return {
+    total:        Object.keys(primaryCampus).length,
+    enrollments:  Object.values(byWeek).reduce((a, b) => a + b, 0),
+    byCampus,
+    byWeek,
+    byWeekCampus,
+  };
+}
+
+function nameKey_(s) {
+  return String(s == null ? '' : s).trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
 function buildRoster_(allSummer, allFree) {
@@ -248,9 +280,17 @@ function buildRoster_(allSummer, allFree) {
     m[w] = { upper: [], lower: [], free: [] };
     return m;
   }, {});
+  // Per-week dedup so a kid appearing twice in the same tab shows once.
+  const seenSummer = {};   // weekKey -> { nameKey: true }
+  const seenFree   = {};
   allSummer.forEach(e => {
-    const bucket = e.campus === 'Upper Campus' ? 'upper' : 'lower';
     if (!roster[e.week]) return;
+    const k = nameKey_(e.name);
+    if (!k) return;
+    if (!seenSummer[e.week]) seenSummer[e.week] = {};
+    if (seenSummer[e.week][k]) return;
+    seenSummer[e.week][k] = true;
+    const bucket = e.campus === 'Upper Campus' ? 'upper' : 'lower';
     roster[e.week][bucket].push({
       name: e.name,
       campus: e.campus,
@@ -262,6 +302,11 @@ function buildRoster_(allSummer, allFree) {
   });
   allFree.forEach(e => {
     if (!roster[e.week]) return;
+    const k = nameKey_(e.name);
+    if (!k) return;
+    if (!seenFree[e.week]) seenFree[e.week] = {};
+    if (seenFree[e.week][k]) return;
+    seenFree[e.week][k] = true;
     roster[e.week].free.push({
       name: e.name,
       campus: e.campus || 'Unknown',
