@@ -73,7 +73,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .compare-status strong{color:var(--sf-ink-60);font-weight:600}
 
 /* ====== KPI strip ====== */
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:24px}
+#kpi-row-afterschool{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1280px){
+  .kpi-row{grid-template-columns:repeat(3,1fr)}
+}
 .kpi{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:20px 22px 18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:transform .35s var(--ease-out),box-shadow .35s,border-color .35s}
 .kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-blue);opacity:.85}
 .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--sf-border-strong)}
@@ -197,6 +201,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .empty{padding:60px 20px;text-align:center;color:var(--sf-ink-50);font-size:14px}
 .empty strong{display:block;font-family:'Oswald',sans-serif;font-size:18px;color:var(--sf-ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
 
+/* Occupancy progress bar inside the KPI card */
+.kpi-bar{margin-top:10px;height:4px;background:var(--sf-border);border-radius:2px;overflow:hidden}
+.kpi-bar-fill{display:block;height:100%;width:0;background:var(--grad-blue);border-radius:2px;transition:width .8s var(--ease-out)}
+.kpi-bar-fill.warn{background:linear-gradient(90deg,#e8a233,#d8453d)}
+.kpi-bar-fill.over{background:linear-gradient(90deg,#d8453d,#a31b16)}
+
 /* Animations */
 .anim{transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
 .js-ready .anim{opacity:0;transform:translateY(18px)}
@@ -223,10 +233,24 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .sf-strip-meta{margin-left:0;width:100%;justify-content:flex-start}
   .dash{padding:8px 18px 60px}
   .kpi-row{grid-template-columns:repeat(2,1fr)}
+  #kpi-row-afterschool{grid-template-columns:repeat(2,1fr)}
   .chart-row{grid-template-columns:1fr}
   .card{padding:20px}
   .donut{width:200px;height:200px}
   .roster-body{grid-template-columns:repeat(2,1fr)}
+  /* Span the orphan KPI across both columns so we never end up with a
+     half-width card alone in the last row. */
+  .kpi[data-kpi="topweek"]{grid-column:span 2}
+}
+/* Mobile-friendly nav: stack the filter row, scroll tabs horizontally
+   instead of letting them wrap onto multiple lines. */
+@media (max-width:700px){
+  .filter-row{flex-direction:column;align-items:stretch;gap:6px;margin:4px 0 18px}
+  .filter-row .lbl{margin:0 !important}
+  .filter,.filter.compare-pick{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;gap:4px;min-width:0}
+  .filter::-webkit-scrollbar,.filter.compare-pick::-webkit-scrollbar{display:none}
+  .filter button{flex-shrink:0;white-space:nowrap;padding:8px 14px;font-size:11.5px;letter-spacing:.08em}
+  .compare-status{font-size:11px;text-align:left}
 }
 @media (max-width:520px){
   .kpi-row{grid-template-columns:1fr 1fr;gap:12px}
@@ -236,6 +260,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .sf-strip-title{font-size:14px;letter-spacing:.12em}
   .roster-body{grid-template-columns:1fr}
   .cap-controls{gap:8px;padding:10px}
+  .roster-search{min-width:0;flex:1 1 100%}
 }
 </style>
 </head>
@@ -267,7 +292,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       <button data-filter="afterschool" role="tab" aria-selected="false">After-School</button>
     </div>
 
-    <span class="lbl" style="margin-left:18px">Compare to</span>
+    <span class="lbl">Compare to</span>
     <div class="filter compare-pick" role="tablist">
       <button data-compare="off" class="active" role="tab" aria-selected="true">Off</button>
       <button data-compare="-1" role="tab" aria-selected="false">Yesterday</button>
@@ -286,17 +311,23 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       <div class="kpi-num" data-num>—</div>
       <div class="kpi-sub" data-sub><strong data-enroll>—</strong> enrollments in total</div>
     </div>
-    <div class="kpi anim d3" data-kpi="upper">
+    <div class="kpi anim d3" data-kpi="occupancy">
+      <h3>Occupancy</h3>
+      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-sub" data-sub><strong data-occ-num>—</strong> of <strong data-occ-cap>—</strong> spots filled</div>
+      <div class="kpi-bar" aria-hidden="true"><span class="kpi-bar-fill" data-bar></span></div>
+    </div>
+    <div class="kpi anim d4" data-kpi="upper">
       <h3>Upper Campus</h3>
       <div class="kpi-num" data-num>—</div>
       <div class="kpi-sub" data-sub>Age 6+ on June 1</div>
     </div>
-    <div class="kpi anim d4" data-kpi="lower">
+    <div class="kpi anim d5" data-kpi="lower">
       <h3>Lower Campus</h3>
       <div class="kpi-num" data-num>—</div>
       <div class="kpi-sub" data-sub>Age 5 or younger on June 1</div>
     </div>
-    <div class="kpi anim d5" data-kpi="topweek">
+    <div class="kpi anim d6" data-kpi="topweek">
       <h3>Top Week</h3>
       <div class="kpi-num" data-num>—</div>
       <div class="kpi-sub" data-sub>—</div>
@@ -665,11 +696,21 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const cmp = getCompareView();
     const cmpEnrollments = cmp ? Object.values(cmp.byWeek || {}).reduce((a,b) => a+b, 0) : null;
 
+    // Occupancy = enrollments / (weekly cap × number of weeks).
+    // Caps come from the per-tab cap inputs in the Capacity Targets panel,
+    // so when staff bump a campus cap up/down, occupancy reflects that
+    // immediately. Skip on after-school (different KPI row anyway).
+    const numWeeks   = (state.snapshot && Array.isArray(state.snapshot.weekOrder)) ? state.snapshot.weekOrder.length : 12;
+    const weeklyCap  = (getCap(state.filter, 'upper') || 0) + (getCap(state.filter, 'lower') || 0);
+    const seasonCap  = weeklyCap * numWeeks;
+    const occPct     = seasonCap > 0 ? Math.round(enrollments / seasonCap * 100) : 0;
+
     const items = [
-      { key: 'total', value: view.total },
-      { key: 'upper', value: view.byCampus['Upper Campus'] || 0 },
-      { key: 'lower', value: view.byCampus['Lower Campus'] || 0 },
-      { key: 'topweek', custom: true }
+      { key: 'total',     value: view.total },
+      { key: 'occupancy', custom: true },
+      { key: 'upper',     value: view.byCampus['Upper Campus'] || 0 },
+      { key: 'lower',     value: view.byCampus['Lower Campus'] || 0 },
+      { key: 'topweek',   custom: true }
     ];
 
     // Per-card delta vs comparison snapshot
@@ -694,6 +735,20 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         animateNum(numEl, item.value);
         const enrollEl = card.querySelector('[data-enroll]');
         if (enrollEl) enrollEl.textContent = enrollments;
+      } else if (key === 'occupancy') {
+        animateNum(numEl, occPct);
+        // animateNum strips non-digits, so re-append % once it lands.
+        setTimeout(() => { numEl.textContent = occPct + '%'; }, 720);
+        const occNumEl = card.querySelector('[data-occ-num]');
+        const occCapEl = card.querySelector('[data-occ-cap]');
+        if (occNumEl) occNumEl.textContent = enrollments;
+        if (occCapEl) occCapEl.textContent = seasonCap;
+        const bar = card.querySelector('[data-bar]');
+        if (bar) {
+          bar.style.width = Math.min(occPct, 100) + '%';
+          bar.classList.toggle('over', occPct > 100);
+          bar.classList.toggle('warn', occPct > 85 && occPct <= 100);
+        }
       } else {
         animateNum(numEl, item.value);
       }
