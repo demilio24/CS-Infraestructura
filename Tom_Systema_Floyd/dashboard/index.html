@@ -201,6 +201,26 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .empty{padding:60px 20px;text-align:center;color:var(--sf-ink-50);font-size:14px}
 .empty strong{display:block;font-family:'Oswald',sans-serif;font-size:18px;color:var(--sf-ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
 
+/* Quick links strip — one-stop shop for the source-of-truth Sheets/Docs.
+   Styled as branded chips that scroll horizontally on phones. */
+.quicklinks{display:flex;align-items:stretch;gap:10px;margin:0 0 24px;padding:10px 12px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:10px;box-shadow:var(--shadow-sm);overflow-x:auto;scrollbar-width:thin}
+.quicklinks::-webkit-scrollbar{height:6px}
+.quicklinks::-webkit-scrollbar-thumb{background:var(--sf-border-strong);border-radius:3px}
+.quicklinks .ql-lbl{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--sf-ink-50);text-transform:uppercase;white-space:nowrap;align-self:center;flex-shrink:0;padding:0 6px}
+.ql{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:7px;text-decoration:none;color:var(--sf-ink);font-family:'Inter',sans-serif;font-size:12.5px;font-weight:500;white-space:nowrap;flex-shrink:0;transition:transform .2s,background .2s,border-color .2s,box-shadow .2s}
+.ql:hover{transform:translateY(-1px);background:var(--sf-blue-50);border-color:var(--sf-border-strong);box-shadow:var(--shadow-sm)}
+.ql .ql-icon{display:inline-flex;width:18px;height:18px;align-items:center;justify-content:center;border-radius:4px;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;line-height:1}
+.ql.sheet .ql-icon{background:#188038}
+.ql.doc   .ql-icon{background:#1a73e8}
+.ql.local .ql-icon{background:var(--sf-blue-700)}
+.ql .ql-title{font-weight:600}
+.ql .ql-tag{font-size:10.5px;color:var(--sf-ink-50);font-weight:500;letter-spacing:.04em}
+@media (max-width:520px){
+  .quicklinks{padding:8px;gap:8px}
+  .ql{padding:7px 10px;font-size:12px}
+  .quicklinks .ql-lbl{font-size:10px;padding:0 2px}
+}
+
 /* Occupancy progress bar inside the KPI card */
 .kpi-bar{margin-top:10px;height:4px;background:var(--sf-border);border-radius:2px;overflow:hidden}
 .kpi-bar-fill{display:block;height:100%;width:0;background:var(--grad-blue);border-radius:2px;transition:width .8s var(--ease-out)}
@@ -282,6 +302,39 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 </div>
 
 <main class="dash">
+
+  <!-- Quick links: one-stop shop for the source-of-truth Sheets / Docs / sub-views -->
+  <div class="quicklinks anim d1" aria-label="Quick links to source sheets and related views">
+    <span class="ql-lbl">Quick links</span>
+    <a class="ql local" href="./lunches.html">
+      <span class="ql-icon" aria-hidden="true">🍕</span>
+      <span><span class="ql-title">Lunches view</span> <span class="ql-tag">kitchen prep by week</span></span>
+    </a>
+    <a class="ql sheet" href="https://docs.google.com/spreadsheets/d/1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA/edit" target="_blank" rel="noopener">
+      <span class="ql-icon" aria-hidden="true">▦</span>
+      <span><span class="ql-title">Upper Campus</span> <span class="ql-tag">paid summer roster</span></span>
+    </a>
+    <a class="ql sheet" href="https://docs.google.com/spreadsheets/d/18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs/edit" target="_blank" rel="noopener">
+      <span class="ql-icon" aria-hidden="true">▦</span>
+      <span><span class="ql-title">Lower Campus</span> <span class="ql-tag">paid summer roster</span></span>
+    </a>
+    <a class="ql sheet" href="https://docs.google.com/spreadsheets/d/1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ/edit" target="_blank" rel="noopener">
+      <span class="ql-icon" aria-hidden="true">▦</span>
+      <span><span class="ql-title">FREE Higher Campus</span> <span class="ql-tag">scholarship roster</span></span>
+    </a>
+    <a class="ql sheet" href="https://docs.google.com/spreadsheets/d/1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY/edit" target="_blank" rel="noopener">
+      <span class="ql-icon" aria-hidden="true">▦</span>
+      <span><span class="ql-title">FREE Lower Campus</span> <span class="ql-tag">scholarship roster</span></span>
+    </a>
+    <a class="ql doc" href="https://docs.google.com/document/d/1IvGU5fHIIWVwSgA-0ybGmV7rvjjZof_iB_dMsMU52TM/edit" target="_blank" rel="noopener">
+      <span class="ql-icon" aria-hidden="true">📄</span>
+      <span><span class="ql-title">Billing Operations Manual</span> <span class="ql-tag">post-QA</span></span>
+    </a>
+    <a class="ql doc" href="https://docs.google.com/document/d/1Y6Gy7MNy8VPau-ORsg9slM-GWRPdhoG-R87W-ajRjTA/edit" target="_blank" rel="noopener">
+      <span class="ql-icon" aria-hidden="true">📄</span>
+      <span><span class="ql-title">Sheet Access Notes</span> <span class="ql-tag">how the sheets connect</span></span>
+    </a>
+  </div>
 
   <!-- Filter + Compare-to -->
   <div class="filter-row anim d1">

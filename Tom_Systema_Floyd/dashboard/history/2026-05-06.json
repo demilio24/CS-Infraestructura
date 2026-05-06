@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-06T18:23:05Z",
+  "generatedAt": "2026-05-06T19:19:42Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -359,6 +359,948 @@
         "Upper Campus": 9,
         "Lower Campus": 5,
         "Unknown": 0
+      }
+    }
+  },
+  "lunches": {
+    "summer": {
+      "June 1st-5th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 1,
+              "Wed": 2,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 7
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Chips (Deep River)|Smooth Moves: Very Berry",
+            "label": "Celis: Melt Belt grilled cheese + Chips (Deep River) + Smooth Moves: Very Berry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 0,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 0
+            },
+            "total": 3
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 8,
+              "Tue": 5,
+              "Wed": 8,
+              "Thu": 8,
+              "Fri": 5
+            },
+            "total": 34
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 13,
+            "Tue": 8,
+            "Wed": 13,
+            "Thu": 12,
+            "Fri": 8
+          },
+          "all": 54
+        }
+      },
+      "June 8th-12th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 0,
+              "Fri": 0
+            },
+            "total": 3
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
+            },
+            "total": 15
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Small fruit cup|Shake Break: El Tropical",
+            "label": "Celis: Melt Belt grilled cheese + Small fruit cup + Shake Break: El Tropical",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 11,
+              "Tue": 9,
+              "Wed": 12,
+              "Thu": 12,
+              "Fri": 9
+            },
+            "total": 53
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 16,
+            "Tue": 14,
+            "Wed": 17,
+            "Thu": 16,
+            "Fri": 13
+          },
+          "all": 76
+        }
+      },
+      "June 15th-19th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 4,
+              "Tue": 4,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 14
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
+            },
+            "total": 15
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Chips (Deep River)|Smooth Moves: Very Berry",
+            "label": "Celis: Melt Belt grilled cheese + Chips (Deep River) + Smooth Moves: Very Berry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 12,
+              "Tue": 12,
+              "Wed": 12,
+              "Thu": 12,
+              "Fri": 12
+            },
+            "total": 60
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 20,
+            "Tue": 20,
+            "Wed": 18,
+            "Thu": 18,
+            "Fri": 18
+          },
+          "all": 94
+        }
+      },
+      "June 22nd-26th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 10,
+              "Tue": 10,
+              "Wed": 8,
+              "Thu": 8,
+              "Fri": 8
+            },
+            "total": 44
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 12,
+            "Tue": 12,
+            "Wed": 10,
+            "Thu": 10,
+            "Fri": 10
+          },
+          "all": 54
+        }
+      },
+      "June 29th-July 3rd": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 4,
+              "Wed": 3,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 14
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 6,
+              "Tue": 5,
+              "Wed": 6,
+              "Thu": 6,
+              "Fri": 5
+            },
+            "total": 28
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 9,
+            "Tue": 9,
+            "Wed": 9,
+            "Thu": 8,
+            "Fri": 7
+          },
+          "all": 42
+        }
+      },
+      "July 6th-10th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 2,
+              "Wed": 1,
+              "Thu": 2,
+              "Fri": 1
+            },
+            "total": 7
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
+            },
+            "total": 15
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Small fruit cup|Shake Break: El Tropical",
+            "label": "Celis: Melt Belt grilled cheese + Small fruit cup + Shake Break: El Tropical",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 9,
+              "Tue": 10,
+              "Wed": 11,
+              "Thu": 9,
+              "Fri": 8
+            },
+            "total": 47
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 14,
+            "Tue": 16,
+            "Wed": 16,
+            "Thu": 15,
+            "Fri": 13
+          },
+          "all": 74
+        }
+      },
+      "July 13th-17th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 2,
+              "Wed": 1,
+              "Thu": 2,
+              "Fri": 1
+            },
+            "total": 7
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
+            },
+            "total": 15
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Small fruit cup|Shake Break: El Tropical",
+            "label": "Celis: Melt Belt grilled cheese + Small fruit cup + Shake Break: El Tropical",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-other||",
+            "label": "Celis: specialty (unspecified)",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 6,
+              "Tue": 6,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 5
+            },
+            "total": 31
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 13,
+            "Tue": 14,
+            "Wed": 14,
+            "Thu": 15,
+            "Fri": 12
+          },
+          "all": 68
+        }
+      },
+      "July 20th-24th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 4,
+              "Wed": 3,
+              "Thu": 4,
+              "Fri": 3
+            },
+            "total": 17
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 11
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 10,
+              "Tue": 10,
+              "Wed": 11,
+              "Thu": 11,
+              "Fri": 7
+            },
+            "total": 49
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 16,
+            "Tue": 16,
+            "Wed": 16,
+            "Thu": 17,
+            "Fri": 12
+          },
+          "all": 77
+        }
+      },
+      "July 27th-31st": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 1
+            },
+            "total": 8
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 4,
+              "Tue": 4,
+              "Wed": 4,
+              "Thu": 4,
+              "Fri": 4
+            },
+            "total": 20
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Chips (Deep River)|Smooth Moves: Very Berry",
+            "label": "Celis: Melt Belt grilled cheese + Chips (Deep River) + Smooth Moves: Very Berry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 8,
+              "Tue": 8,
+              "Wed": 8,
+              "Thu": 8,
+              "Fri": 8
+            },
+            "total": 40
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 14,
+            "Tue": 15,
+            "Wed": 15,
+            "Thu": 15,
+            "Fri": 14
+          },
+          "all": 73
+        }
+      },
+      "August 3rd-7th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 8,
+              "Tue": 8,
+              "Wed": 8,
+              "Thu": 8,
+              "Fri": 8
+            },
+            "total": 40
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Chips (Deep River)|Smooth Moves: Very Berry",
+            "label": "Celis: Melt Belt grilled cheese + Chips (Deep River) + Smooth Moves: Very Berry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 1
+            },
+            "total": 8
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-melt-belt|Small fruit cup|Shake Break: El Tropical",
+            "label": "Celis: Melt Belt grilled cheese + Small fruit cup + Shake Break: El Tropical",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 6,
+              "Tue": 6,
+              "Wed": 6,
+              "Thu": 6,
+              "Fri": 6
+            },
+            "total": 30
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 18,
+            "Tue": 19,
+            "Wed": 19,
+            "Thu": 19,
+            "Fri": 18
+          },
+          "all": 93
+        }
+      },
+      "August 10th-14th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 5,
+              "Thu": 5,
+              "Fri": 5
+            },
+            "total": 25
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-other||",
+            "label": "Celis: specialty (unspecified)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 4,
+              "Tue": 4,
+              "Wed": 4,
+              "Thu": 4,
+              "Fri": 4
+            },
+            "total": 20
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 11,
+            "Tue": 11,
+            "Wed": 11,
+            "Thu": 11,
+            "Fri": 11
+          },
+          "all": 55
+        }
+      },
+      "August 17th-21st": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 2
+            },
+            "total": 14
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-other||",
+            "label": "Celis: specialty (unspecified)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-wrap-trap|Small fruit cup|Smooth Moves: Very Berry",
+            "label": "Celis: Wrap Trap turkey wrap + Small fruit cup + Smooth Moves: Very Berry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 8,
+              "Tue": 8,
+              "Wed": 8,
+              "Thu": 8,
+              "Fri": 7
+            },
+            "total": 39
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 14,
+            "Tue": 14,
+            "Wed": 14,
+            "Thu": 14,
+            "Fri": 12
+          },
+          "all": 68
+        }
+      }
+    },
+    "free": {
+      "June 1st-5th": {
+        "rows": [
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
+          },
+          "all": 5
+        }
+      },
+      "June 8th-12th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "June 15th-19th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "June 22nd-26th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "June 29th-July 3rd": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "July 6th-10th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "July 13th-17th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "July 20th-24th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "July 27th-31st": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "August 3rd-7th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "August 10th-14th": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "August 17th-21st": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
       }
     }
   },
