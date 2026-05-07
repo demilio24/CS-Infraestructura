@@ -11,3 +11,18 @@ uploads/*
 
 # QA test harnesses (local-only)
 .claude/qa-systema-*.js
+.claude/qa-*.js
+.claude/screenshot-*.js
+.claude/scripts/
+
+# Claude scratch + session files (local-only)
+.claude/tmp/
+**/scheduled_tasks.lock
+
+# Raw GHL form-submission exports (PII, not project code)
+Tom_Systema_Floyd/Form Submission.csv
+
+# clasp / Apps Script local credentials (NEVER commit)
+**/.clasprc-creds.json
+.clasprc.json
+**/.clasp.local.json
