@@ -684,7 +684,7 @@ function pollFloridaSubmissions() {
 
 // ─── installPollingTrigger ───────────────────────────────────────────────────
 /**
- * Installs a 5-minute time-driven trigger for pollFloridaSubmissions.
+ * Installs a 30-minute time-driven trigger for pollFloridaSubmissions.
  * Removes any existing triggers for that function first.
  * Run once manually from the Apps Script editor.
  */
@@ -697,10 +697,14 @@ function installPollingTrigger() {
     }
   });
 
-  // Install fresh 5-minute trigger
+  // Install fresh 30-minute trigger.
+  // Why 30 min (was 5): syncTransactionsSheet runs unconditionally on every
+  // poll and burns ~3 GHL calls per Dashboard customer. At 5 min that's
+  // 864 calls/day per customer — blew past the 20K consumer UrlFetch
+  // quota at ~23 customers. 30 min = 48 polls/day, 6x reduction in waste.
   const trigger = ScriptApp.newTrigger('pollFloridaSubmissions')
     .timeBased()
-    .everyMinutes(5)
+    .everyMinutes(30)
     .create();
 
   Logger.log('[installPollingTrigger] Installed trigger: ' + trigger.getUniqueId());

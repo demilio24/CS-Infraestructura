@@ -2,6 +2,31 @@
 
 > Captured during the Stage 9 follow-up rounds. Most items shipped; only #7 remains deferred.
 
+---
+
+## ⚠️ OPEN: UrlFetch quota fix (long-term)
+
+**Context (2026-05-08):** Polling started failing daily with `Service invoked too many times for one day: urlfetch`. Root cause: `syncTransactionsSheet` runs unconditionally on every 5-min poll and burns roughly 3 GHL calls per Dashboard customer (`ghlGetContact` + `ghlSearchContactByEmail` + `payments/transactions`). At 5-min cadence that's 864 calls per customer per day, which blew past the 20K consumer Gmail UrlFetchApp quota at around 23 customers.
+
+**Short-term fix shipped 2026-05-08:** Polling interval bumped from 5 min to 30 min via `installPollingTrigger` in `Polling.js`. 6x reduction, safe up to ~138 customers on the consumer 20K quota. Holding for the weekend.
+
+**Long-term fix (do these in order):**
+
+1. **Decouple `syncTransactionsSheet` from the poll loop.** Either:
+   - **Gate it:** only run when `processedCount > 0` (cheapest, but means refunds/voids made directly in GHL won't reflect on the Transactions sheet until the next form submission arrives), OR
+   - **Move it to its own hourly trigger:** new `installTxSyncTrigger()` running `syncTransactionsSheet` every 60 min, independent of `pollFloridaSubmissions`. Preserves "refunds reflect automatically" behavior at 1/12 the call cost. Recommended.
+   - Either way, also strip the `if (processedCount > 0) { ... syncTransactionsSheet(); }` block from `pollFloridaSubmissions` in `Polling.js`.
+2. **Restore polling cadence to 5 min** once #1 is in place. New form submissions appear on the Dashboard within 5 min again.
+3. **Move triggers off the consumer Gmail account.** Currently `pollFloridaSubmissions` and `dailyHealthCheck` are owned by `systemafloydsheets@gmail.com` (20K/day UrlFetch). Move to a Google Workspace account (100K/day) for headroom:
+   - Share the Sheet with the Workspace account as Editor
+   - From the Gmail account: Triggers panel, delete both triggers
+   - From the Workspace account: open Apps Script editor, run `installPollingTrigger` and `installDailyHealthCheckTrigger`
+   - Verify in Triggers panel that the Workspace email is the trigger owner
+
+**Why all three:** With #1 + #3, you'd need around 1,400 customers to hit the daily quota again. Without #1, even Workspace's 100K caps out at around 115 customers.
+
+---
+
 ## ✅ 1. Grand total "balance owed" in row 1 — SHIPPED 2026-05-05
 
 - Row 1 col G now displays `Balance: $X,XXX.XX` — sum across every customer's outstanding balance.
