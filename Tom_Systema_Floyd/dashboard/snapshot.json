@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-08T12:19:07Z",
+  "generatedAt": "2026-05-08T14:20:42Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 92,
+    "summer": 94,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,17 +107,17 @@
     "roster": []
   },
   "summer": {
-    "total": 92,
+    "total": 94,
     "byCampus": {
-      "Upper Campus": 39,
+      "Upper Campus": 41,
       "Lower Campus": 53,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 13,
-      "June 8th-12th": 17,
+      "June 8th-12th": 18,
       "June 15th-19th": 22,
-      "June 22nd-26th": 12,
+      "June 22nd-26th": 13,
       "June 29th-July 3rd": 10,
       "July 6th-10th": 17,
       "July 13th-17th": 15,
@@ -134,7 +134,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 10,
+        "Upper Campus": 11,
         "Lower Campus": 7,
         "Unknown": 0
       },
@@ -144,7 +144,7 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 6,
+        "Upper Campus": 7,
         "Lower Campus": 6,
         "Unknown": 0
       },
@@ -278,18 +278,18 @@
     }
   },
   "combined": {
-    "total": 93,
-    "enrollments": 184,
+    "total": 95,
+    "enrollments": 186,
     "byCampus": {
-      "Upper Campus": 39,
+      "Upper Campus": 41,
       "Lower Campus": 54,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 14,
-      "June 8th-12th": 17,
+      "June 8th-12th": 18,
       "June 15th-19th": 22,
-      "June 22nd-26th": 12,
+      "June 22nd-26th": 13,
       "June 29th-July 3rd": 10,
       "July 6th-10th": 17,
       "July 13th-17th": 15,
@@ -306,7 +306,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 10,
+        "Upper Campus": 11,
         "Lower Campus": 7,
         "Unknown": 0
       },
@@ -316,7 +316,7 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 6,
+        "Upper Campus": 7,
         "Lower Campus": 6,
         "Unknown": 0
       },
@@ -476,24 +476,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 11,
-              "Tue": 9,
-              "Wed": 12,
-              "Thu": 12,
-              "Fri": 9
+              "Mon": 12,
+              "Tue": 10,
+              "Wed": 13,
+              "Thu": 13,
+              "Fri": 10
             },
-            "total": 53
+            "total": 58
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 16,
-            "Tue": 14,
-            "Wed": 17,
-            "Thu": 16,
-            "Fri": 13
+            "Mon": 17,
+            "Tue": 15,
+            "Wed": 18,
+            "Thu": 17,
+            "Fri": 14
           },
-          "all": 76
+          "all": 81
         }
       },
       "June 15th-19th": {
@@ -569,13 +569,13 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 2,
+              "Mon": 3,
               "Tue": 2,
-              "Wed": 2,
+              "Wed": 3,
               "Thu": 2,
-              "Fri": 2
+              "Fri": 3
             },
-            "total": 10
+            "total": 13
           },
           {
             "category": "none",
@@ -593,13 +593,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 12,
+            "Mon": 13,
             "Tue": 12,
-            "Wed": 10,
+            "Wed": 11,
             "Thu": 10,
-            "Fri": 10
+            "Fri": 11
           },
-          "all": 54
+          "all": 57
         }
       },
       "June 29th-July 3rd": {
@@ -1495,6 +1495,14 @@
           "type": "summer"
         },
         {
+          "name": "Skaar, Norah",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Tevet Topor",
           "campus": "Upper Campus",
           "lunch": true,
@@ -1768,6 +1776,14 @@
           "name": "Dawson Denney",
           "campus": "Upper Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Horta, Hudson",
+          "campus": "Upper Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
