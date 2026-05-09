@@ -14,15 +14,13 @@
 
 **Trade-off accepted with the gate:** refunds, voids, and manual GHL edits no longer auto-reflect on the Transactions sheet within 5 minutes. They appear on the next poll that processes a new submission. For a manual rebuild, call `syncTransactionsSheet()` from the editor or wire a menu item.
 
-**Still TODO:**
+**Workspace migration shipped 2026-05-08:** triggers moved off `systemafloydsheets@gmail.com` (20K/day) to `emilio@nilsdigital.com` Workspace (100K/day). Verified via `debugQuotaState` — `Session.getEffectiveUser()` returns the Workspace email. The systema-floyd-billing GCP project's OAuth consent screen is in Testing mode; both account emails are on the test users list.
 
-1. **Move triggers off the consumer Gmail account.** Currently `pollFloridaSubmissions` and `dailyHealthCheck` are owned by `systemafloydsheets@gmail.com` (20K/day UrlFetch). Move to `emilio@nilsdigital.com` Workspace (100K/day) for headroom:
-   - Share the Sheet with the Workspace account as Editor
-   - From the Gmail account: Triggers panel, delete both triggers
-   - From the Workspace account: open Apps Script editor, run `installPollingTrigger` and `installDailyHealthCheckTrigger`
-   - Verify in Triggers panel that the Workspace email is the trigger owner
-2. **Optional: restore polling to 5-min cadence.** With the gate fix in place, the math is now 288 idle polls × 1 call = 288 calls/day plus a handful of `1 + 3N` spikes when submissions arrive. Stays under any quota at any realistic scale. Edit `installPollingTrigger` in `Polling.js`, change `everyMinutes(30)` back to `everyMinutes(5)`, push, re-run.
-3. **Optional: standalone hourly tx-sync trigger.** If you want refunds/voids to keep auto-reflecting without depending on new submissions, add `installTxSyncTrigger()` that runs `syncTransactionsSheet` every 60 min independent of polling. Restores the "after-the-fact updates" behavior at fixed cost.
+**5-min cadence restored 2026-05-08:** with the gate fix in place, idle polls cost 1 UrlFetch instead of `1 + 3N`. Daily budget at Tom's volume sits around 2.5% of the 100K Workspace quota. New submissions appear on the Dashboard within 5 minutes again.
+
+**Optional, not currently needed:**
+
+1. **Standalone hourly tx-sync trigger.** If anyone wants refunds/voids to auto-reflect on the Transactions sheet without waiting for the next submission to arrive, add `installTxSyncTrigger()` that runs `syncTransactionsSheet` every 60 min independent of polling. Trade-off cost is fixed (1 sync × 60 min = 24 syncs/day × 3N calls). At 100 customers that's 7,200 calls/day, still well under quota.
 
 ---
 

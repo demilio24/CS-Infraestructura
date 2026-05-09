@@ -738,7 +738,7 @@ function debugQuotaState() {
 
 // ─── installPollingTrigger ───────────────────────────────────────────────────
 /**
- * Installs a 30-minute time-driven trigger for pollFloridaSubmissions.
+ * Installs a 5-minute time-driven trigger for pollFloridaSubmissions.
  * Removes any existing triggers for that function first.
  * Run once manually from the Apps Script editor.
  */
@@ -751,14 +751,13 @@ function installPollingTrigger() {
     }
   });
 
-  // Install fresh 30-minute trigger.
-  // Why 30 min (was 5): syncTransactionsSheet runs unconditionally on every
-  // poll and burns ~3 GHL calls per Dashboard customer. At 5 min that's
-  // 864 calls/day per customer — blew past the 20K consumer UrlFetch
-  // quota at ~23 customers. 30 min = 48 polls/day, 6x reduction in waste.
+  // Restored to 5 min after the syncTransactionsSheet gate landed: idle
+  // polls now cost 1 UrlFetch instead of 1 + 3N. Combined with the
+  // emilio@nilsdigital.com Workspace quota (100K/day vs 20K consumer),
+  // 5-min polling sits at ~2.5% of daily budget at Tom's volume.
   const trigger = ScriptApp.newTrigger('pollFloridaSubmissions')
     .timeBased()
-    .everyMinutes(30)
+    .everyMinutes(5)
     .create();
 
   Logger.log('[installPollingTrigger] Installed trigger: ' + trigger.getUniqueId());
