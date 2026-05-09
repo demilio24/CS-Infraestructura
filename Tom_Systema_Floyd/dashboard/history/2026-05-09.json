@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-09T15:42:16Z",
+  "generatedAt": "2026-05-09T15:47:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 124,
+    "summer": 125,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,9 +107,9 @@
     "roster": []
   },
   "summer": {
-    "total": 124,
+    "total": 125,
     "byCampus": {
-      "Upper Campus": 54,
+      "Upper Campus": 55,
       "Lower Campus": 70,
       "Unknown": 0
     },
@@ -125,7 +125,7 @@
       "July 27th-31st": 23,
       "August 3rd-7th": 30,
       "August 10th-14th": 15,
-      "August 17th-21st": 21
+      "August 17th-21st": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -184,7 +184,7 @@
         "Unknown": 0
       },
       "August 17th-21st": {
-        "Upper Campus": 11,
+        "Upper Campus": 12,
         "Lower Campus": 10,
         "Unknown": 0
       }
@@ -278,10 +278,10 @@
     }
   },
   "combined": {
-    "total": 125,
-    "enrollments": 321,
+    "total": 126,
+    "enrollments": 322,
     "byCampus": {
-      "Upper Campus": 54,
+      "Upper Campus": 55,
       "Lower Campus": 71,
       "Unknown": 0
     },
@@ -297,7 +297,7 @@
       "July 27th-31st": 23,
       "August 3rd-7th": 30,
       "August 10th-14th": 15,
-      "August 17th-21st": 21
+      "August 17th-21st": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -356,7 +356,7 @@
         "Unknown": 0
       },
       "August 17th-21st": {
-        "Upper Campus": 11,
+        "Upper Campus": 12,
         "Lower Campus": 10,
         "Unknown": 0
       }
@@ -1123,13 +1123,13 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
+              "Mon": 6,
+              "Tue": 6,
+              "Wed": 6,
+              "Thu": 6,
               "Fri": 3
             },
-            "total": 23
+            "total": 27
           },
           {
             "category": "pizza",
@@ -1186,13 +1186,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 21,
-            "Wed": 21,
-            "Thu": 21,
+            "Mon": 22,
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 22,
             "Fri": 18
           },
-          "all": 102
+          "all": 106
         }
       }
     },
@@ -3919,6 +3919,14 @@
         },
         {
           "name": "Remy Zimmer",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Sophia Englesbe",
           "campus": "Upper Campus",
           "lunch": true,
           "allergy": null,
