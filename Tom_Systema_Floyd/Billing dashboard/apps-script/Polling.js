@@ -669,17 +669,71 @@ function pollFloridaSubmissions() {
     }
   }
 
-  // Refresh the standalone Transactions sheet on EVERY poll (not just
-  // when new submissions arrive) so the sheet auto-updates after-the-fact
-  // changes too — refunds, manual GHL edits, voided charges. ~2 GHL
-  // calls per Dashboard customer; fits comfortably inside the 6-min
-  // trigger budget. Independent of processedCount so first-time
-  // bootstrapping populates the sheet without needing a new submission.
-  if (typeof syncTransactionsSheet === 'function') {
+  // Refresh the standalone Transactions sheet ONLY when new submissions
+  // arrived this poll. Was unconditional, but that costs 3 GHL calls per
+  // Dashboard customer per poll, which blew past the 20K daily UrlFetch
+  // quota in May 2026 at ~138 customers (with 30-min polling). Trade-off:
+  // refunds/voids made directly in GHL no longer reflect on the
+  // Transactions sheet until the next form submission triggers a sync.
+  // For a manual hourly rebuild, run the menu item or call
+  // syncTransactionsSheet() directly from the editor.
+  if (processedCount > 0 && typeof syncTransactionsSheet === 'function') {
     try { syncTransactionsSheet(); }
     catch (e) { Logger.log('[pollFloridaSubmissions] tx-sheet tail err: ' + e.message); }
   }
   } finally { _lock.releaseLock(); } // end lock wrapper
+}
+
+// ─── debugQuotaState ─────────────────────────────────────────────────────────
+/**
+ * One-shot diagnostic: dumps the live state Emilio needs to debug the quota
+ * issue. Logs everything to the Executions panel. Safe to run any time.
+ */
+function debugQuotaState() {
+  Logger.log('=== debugQuotaState @ ' + new Date().toISOString() + ' ===');
+
+  // 1. Who's running this?
+  try {
+    Logger.log('[1] Effective user (Session.getEffectiveUser): ' + Session.getEffectiveUser().getEmail());
+  } catch (e) { Logger.log('[1] effective user unavailable: ' + e.message); }
+  try {
+    Logger.log('[1] Active user (Session.getActiveUser): ' + Session.getActiveUser().getEmail());
+  } catch (e) { Logger.log('[1] active user unavailable: ' + e.message); }
+
+  // 2. Triggers visible to this user
+  var triggers = ScriptApp.getProjectTriggers();
+  Logger.log('[2] Visible triggers (count=' + triggers.length + '):');
+  triggers.forEach(function(t) {
+    try {
+      Logger.log('    handler=' + t.getHandlerFunction() +
+                 ' source=' + t.getTriggerSource() +
+                 ' eventType=' + t.getEventType() +
+                 ' uid=' + t.getUniqueId());
+    } catch (e) { Logger.log('    trigger inspect err: ' + e.message); }
+  });
+
+  // 3. Script properties relevant to polling
+  var props = PropertiesService.getScriptProperties();
+  Logger.log('[3] lastPolledAt: ' + props.getProperty('lastPolledAt'));
+  Logger.log('[3] lastPollSummary: ' + props.getProperty('lastPollSummary'));
+
+  // 4. Last 8 rows of Logs sheet (newest at top per Polling.js insertion logic)
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var logs = ss.getSheetByName('Logs');
+  if (!logs) { Logger.log('[4] Logs sheet missing'); return; }
+  var lastRow = logs.getLastRow();
+  Logger.log('[4] Logs sheet has ' + (lastRow - 1) + ' data rows. Last 8:');
+  if (lastRow >= 2) {
+    var n = Math.min(8, lastRow - 1);
+    var rows = logs.getRange(2, 1, n, 5).getValues();
+    rows.forEach(function(r, i) {
+      Logger.log('    [' + (i+1) + '] ' + r[0] + ' | sub=' + r[1] +
+                 ' | email=' + r[2] + ' | status=' + r[3] +
+                 ' | details=' + String(r[4]).substring(0, 200));
+    });
+  }
+
+  Logger.log('=== debugQuotaState done ===');
 }
 
 // ─── installPollingTrigger ───────────────────────────────────────────────────

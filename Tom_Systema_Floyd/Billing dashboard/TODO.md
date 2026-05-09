@@ -6,24 +6,23 @@
 
 ## ⚠️ OPEN: UrlFetch quota fix (long-term)
 
-**Context (2026-05-08):** Polling started failing daily with `Service invoked too many times for one day: urlfetch`. Root cause: `syncTransactionsSheet` runs unconditionally on every 5-min poll and burns roughly 3 GHL calls per Dashboard customer (`ghlGetContact` + `ghlSearchContactByEmail` + `payments/transactions`). At 5-min cadence that's 864 calls per customer per day, which blew past the 20K consumer Gmail UrlFetchApp quota at around 23 customers.
+**Context (2026-05-08):** Polling started failing daily with `Service invoked too many times for one day: urlfetch`. Root cause: `syncTransactionsSheet` ran unconditionally on every 5-min poll and burned roughly 3 GHL calls per Dashboard customer (`ghlGetContact` + `ghlSearchContactByEmail` + `payments/transactions`). At 5-min cadence that was 864 calls per customer per day, which blew past the 20K consumer Gmail UrlFetchApp quota at around 23 customers.
 
-**Short-term fix shipped 2026-05-08:** Polling interval bumped from 5 min to 30 min via `installPollingTrigger` in `Polling.js`. 6x reduction, safe up to ~138 customers on the consumer 20K quota. Holding for the weekend.
+**Short-term fix shipped 2026-05-08:** Polling interval bumped from 5 min to 30 min via `installPollingTrigger` in `Polling.js`. 6x reduction.
 
-**Long-term fix (do these in order):**
+**`syncTransactionsSheet` gate shipped 2026-05-08:** `pollFloridaSubmissions` now only calls `syncTransactionsSheet` when `processedCount > 0`. Drops the per-poll cost from `1 + 3N` calls to just `1` on idle polls. With Tom's customer count, daily calls drop from roughly 22,000 to under 500.
 
-1. **Decouple `syncTransactionsSheet` from the poll loop.** Either:
-   - **Gate it:** only run when `processedCount > 0` (cheapest, but means refunds/voids made directly in GHL won't reflect on the Transactions sheet until the next form submission arrives), OR
-   - **Move it to its own hourly trigger:** new `installTxSyncTrigger()` running `syncTransactionsSheet` every 60 min, independent of `pollFloridaSubmissions`. Preserves "refunds reflect automatically" behavior at 1/12 the call cost. Recommended.
-   - Either way, also strip the `if (processedCount > 0) { ... syncTransactionsSheet(); }` block from `pollFloridaSubmissions` in `Polling.js`.
-2. **Restore polling cadence to 5 min** once #1 is in place. New form submissions appear on the Dashboard within 5 min again.
-3. **Move triggers off the consumer Gmail account.** Currently `pollFloridaSubmissions` and `dailyHealthCheck` are owned by `systemafloydsheets@gmail.com` (20K/day UrlFetch). Move to a Google Workspace account (100K/day) for headroom:
+**Trade-off accepted with the gate:** refunds, voids, and manual GHL edits no longer auto-reflect on the Transactions sheet within 5 minutes. They appear on the next poll that processes a new submission. For a manual rebuild, call `syncTransactionsSheet()` from the editor or wire a menu item.
+
+**Still TODO:**
+
+1. **Move triggers off the consumer Gmail account.** Currently `pollFloridaSubmissions` and `dailyHealthCheck` are owned by `systemafloydsheets@gmail.com` (20K/day UrlFetch). Move to `emilio@nilsdigital.com` Workspace (100K/day) for headroom:
    - Share the Sheet with the Workspace account as Editor
    - From the Gmail account: Triggers panel, delete both triggers
    - From the Workspace account: open Apps Script editor, run `installPollingTrigger` and `installDailyHealthCheckTrigger`
    - Verify in Triggers panel that the Workspace email is the trigger owner
-
-**Why all three:** With #1 + #3, you'd need around 1,400 customers to hit the daily quota again. Without #1, even Workspace's 100K caps out at around 115 customers.
+2. **Optional: restore polling to 5-min cadence.** With the gate fix in place, the math is now 288 idle polls × 1 call = 288 calls/day plus a handful of `1 + 3N` spikes when submissions arrive. Stays under any quota at any realistic scale. Edit `installPollingTrigger` in `Polling.js`, change `everyMinutes(30)` back to `everyMinutes(5)`, push, re-run.
+3. **Optional: standalone hourly tx-sync trigger.** If you want refunds/voids to keep auto-reflecting without depending on new submissions, add `installTxSyncTrigger()` that runs `syncTransactionsSheet` every 60 min independent of polling. Restores the "after-the-fact updates" behavior at fixed cost.
 
 ---
 
