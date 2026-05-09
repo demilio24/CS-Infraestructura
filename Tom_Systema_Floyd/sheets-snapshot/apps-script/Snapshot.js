@@ -686,3 +686,238 @@ function runSmokeTest() {
     rosterWeekKeys: Object.keys(snap.roster).length,
   }, null, 2));
 }
+
+/* ═════════════════════════════════════════════════════════════════════
+   Direct-to-GitHub snapshot push
+   ═════════════════════════════════════════════════════════════════════
+   Replaces the .github/workflows/refresh-systema-snapshot.yml cron path,
+   which suffered from GitHub Actions free-tier delays (configured every
+   5 min, ran roughly hourly in practice). Apps Script time-driven
+   triggers fire reliably on schedule, so we drive snapshot refreshes
+   from here instead and PUT the JSON straight to the repo via the
+   GitHub Contents API.
+
+   Setup once:
+     1. Generate a fine-grained PAT scoped to demilio24/Websites with
+        Contents: Read and write
+     2. Project Settings → Script Properties → add GITHUB_PAT
+     3. Run testSnapshotPush() to verify auth + writes
+     4. Run installSnapshotPushTrigger() to start the 5-min cadence
+   ═══════════════════════════════════════════════════════════════════ */
+
+const GH_REPO_OWNER = 'demilio24';
+const GH_REPO_NAME  = 'Websites';
+const GH_BRANCH     = 'main';
+const GH_API_BASE   = 'https://api.github.com';
+
+const SNAPSHOT_PATH    = 'Tom_Systema_Floyd/dashboard/snapshot.json';
+const HISTORY_DIR_PATH = 'Tom_Systema_Floyd/dashboard/history';
+const COMMIT_AUTHOR    = {
+  name:  'github-actions[bot]',
+  email: 'github-actions[bot]@users.noreply.github.com'
+};
+
+function getGithubPat_() {
+  const pat = PropertiesService.getScriptProperties().getProperty('GITHUB_PAT');
+  if (!pat) {
+    throw new Error(
+      'GITHUB_PAT not set in Script Properties. ' +
+      'Add a fine-grained PAT scoped to ' + GH_REPO_OWNER + '/' + GH_REPO_NAME +
+      ' with Contents: read+write before installing the trigger.'
+    );
+  }
+  return pat;
+}
+
+/**
+ * GET the current SHA of a file in the repo.
+ * 200 → returns SHA. 404 → returns null. Anything else throws.
+ */
+function ghGetFileSha_(path) {
+  const url = GH_API_BASE + '/repos/' + GH_REPO_OWNER + '/' + GH_REPO_NAME +
+              '/contents/' + encodeURI(path) + '?ref=' + encodeURIComponent(GH_BRANCH);
+  const resp = UrlFetchApp.fetch(url, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Bearer ' + getGithubPat_(),
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    muteHttpExceptions: true
+  });
+  const code = resp.getResponseCode();
+  if (code === 200) return JSON.parse(resp.getContentText()).sha;
+  if (code === 404) return null;
+  throw new Error('GET ' + path + ' → HTTP ' + code + ': ' +
+                  resp.getContentText().substring(0, 300));
+}
+
+/**
+ * PUT (create or update) a file via the Contents API.
+ * Auto-fetches the current SHA. Retries once on 409/422 conflict
+ * (SHA mismatch from a concurrent commit), then surfaces the error.
+ */
+function ghPutFile_(path, contentString, commitMessage) {
+  const url = GH_API_BASE + '/repos/' + GH_REPO_OWNER + '/' + GH_REPO_NAME +
+              '/contents/' + encodeURI(path);
+
+  function attempt(sha) {
+    const body = {
+      message:   commitMessage,
+      content:   Utilities.base64Encode(contentString, Utilities.Charset.UTF_8),
+      branch:    GH_BRANCH,
+      committer: COMMIT_AUTHOR,
+      author:    COMMIT_AUTHOR
+    };
+    if (sha) body.sha = sha;
+
+    return UrlFetchApp.fetch(url, {
+      method: 'put',
+      headers: {
+        'Authorization': 'Bearer ' + getGithubPat_(),
+        'Accept': 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28'
+      },
+      contentType: 'application/json',
+      payload: JSON.stringify(body),
+      muteHttpExceptions: true
+    });
+  }
+
+  let sha = ghGetFileSha_(path);
+  let resp = attempt(sha);
+  let code = resp.getResponseCode();
+
+  if (code === 409 || code === 422) {
+    Logger.log('[ghPutFile_] ' + path + ' got HTTP ' + code + ', retrying with fresh SHA');
+    sha = ghGetFileSha_(path);
+    resp = attempt(sha);
+    code = resp.getResponseCode();
+  }
+
+  if (code !== 200 && code !== 201) {
+    throw new Error('PUT ' + path + ' → HTTP ' + code + ': ' +
+                    resp.getContentText().substring(0, 400));
+  }
+  return JSON.parse(resp.getContentText());
+}
+
+/**
+ * List filenames in a repo directory matching a regex.
+ * Returns [] if the directory doesn't exist.
+ */
+function ghListDir_(dirPath, filenameRegex) {
+  const url = GH_API_BASE + '/repos/' + GH_REPO_OWNER + '/' + GH_REPO_NAME +
+              '/contents/' + encodeURI(dirPath) + '?ref=' + encodeURIComponent(GH_BRANCH);
+  const resp = UrlFetchApp.fetch(url, {
+    method: 'get',
+    headers: {
+      'Authorization': 'Bearer ' + getGithubPat_(),
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    },
+    muteHttpExceptions: true
+  });
+  const code = resp.getResponseCode();
+  if (code === 404) return [];
+  if (code !== 200) throw new Error('GET dir ' + dirPath + ' → HTTP ' + code);
+  const items = JSON.parse(resp.getContentText());
+  return items
+    .filter(function(it) { return it.type === 'file' && filenameRegex.test(it.name); })
+    .map(function(it) { return it.name; });
+}
+
+/**
+ * Main worker: build a fresh snapshot, write it to GitHub, also write
+ * today's history file, also refresh history/index.json.
+ *
+ * Uses LockService so a slow run can't overlap with the next 5-min tick.
+ */
+function pushSnapshotToGitHub() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(0)) {
+    Logger.log('[pushSnapshotToGitHub] Skipping: previous run still in progress');
+    return;
+  }
+  try {
+    const startedAt = new Date();
+    Logger.log('[pushSnapshotToGitHub] Building snapshot at ' + startedAt.toISOString());
+
+    const snap = buildSnapshot();
+    const snapJson = JSON.stringify(snap, null, 2);
+    const message = 'snapshot: refresh systema floyd dashboard [skip ci]';
+
+    // 1. Live snapshot.json
+    ghPutFile_(SNAPSHOT_PATH, snapJson, message);
+    Logger.log('[pushSnapshotToGitHub] Wrote ' + SNAPSHOT_PATH);
+
+    // 2. Today's history archive (UTC date — matches the old python script)
+    const todayUtc = Utilities.formatDate(startedAt, 'UTC', 'yyyy-MM-dd');
+    const historyPath = HISTORY_DIR_PATH + '/' + todayUtc + '.json';
+    ghPutFile_(historyPath, snapJson, message);
+    Logger.log('[pushSnapshotToGitHub] Wrote ' + historyPath);
+
+    // 3. history/index.json — list every YYYY-MM-DD.json present in the dir
+    const dateFiles = ghListDir_(HISTORY_DIR_PATH, /^\d{4}-\d{2}-\d{2}\.json$/);
+    const dates = dateFiles
+      .map(function(n) { return n.replace(/\.json$/, ''); })
+      .sort();
+    const indexJson = JSON.stringify({
+      dates: dates,
+      latest: dates.length ? dates[dates.length - 1] : null
+    }, null, 2);
+    ghPutFile_(HISTORY_DIR_PATH + '/index.json', indexJson, message);
+    Logger.log('[pushSnapshotToGitHub] Wrote history/index.json (' + dates.length + ' dates)');
+
+    const elapsedMs = Date.now() - startedAt.getTime();
+    Logger.log('[pushSnapshotToGitHub] Done in ' + elapsedMs + 'ms');
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * One-shot diagnostic: runs pushSnapshotToGitHub once and prints rich
+ * status. Run this before installing the trigger to verify auth + writes.
+ */
+function testSnapshotPush() {
+  Logger.log('=== testSnapshotPush @ ' + new Date().toISOString() + ' ===');
+  try {
+    Logger.log('[1] effective user: ' + Session.getEffectiveUser().getEmail());
+  } catch (e) { Logger.log('[1] effective user err: ' + e.message); }
+  try {
+    const pat = getGithubPat_();
+    Logger.log('[2] PAT present: yes (length=' + pat.length + ')');
+  } catch (e) { Logger.log('[2] PAT err: ' + e.message); return; }
+
+  Logger.log('[3] running pushSnapshotToGitHub...');
+  try {
+    pushSnapshotToGitHub();
+    Logger.log('[3] success');
+  } catch (e) {
+    Logger.log('[3] ERROR: ' + e.message + '\n' + (e.stack || ''));
+    return;
+  }
+  Logger.log('=== testSnapshotPush done ===');
+}
+
+/**
+ * Installs a 5-minute time-driven trigger on pushSnapshotToGitHub.
+ * Removes any existing triggers for that handler first.
+ * Run from the Apps Script editor as the account that should own the
+ * trigger (recommended: emilio@nilsdigital.com for Workspace quota
+ * consistency with the billing dashboard).
+ */
+function installSnapshotPushTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function(t) {
+    if (t.getHandlerFunction() === 'pushSnapshotToGitHub') {
+      ScriptApp.deleteTrigger(t);
+      Logger.log('[installSnapshotPushTrigger] Removed old trigger: ' + t.getUniqueId());
+    }
+  });
+  const trigger = ScriptApp.newTrigger('pushSnapshotToGitHub')
+    .timeBased()
+    .everyMinutes(5)
+    .create();
+  Logger.log('[installSnapshotPushTrigger] Installed trigger: ' + trigger.getUniqueId());
+}

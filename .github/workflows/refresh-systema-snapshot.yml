@@ -1,10 +1,15 @@
 name: Refresh Systema Floyd Dashboard Snapshot
 
+# Cron disabled 2026-05-08: GitHub Actions free-tier scheduled workflows
+# fired only ~hourly under load (vs. the configured every-5-min). Replaced
+# by the Apps Script time-driven trigger pushSnapshotToGitHub in
+# Tom_Systema_Floyd/sheets-snapshot/apps-script/Snapshot.js, owned by
+# emilio@nilsdigital.com, which fires reliably every 5 min and writes
+# directly to the repo via the GitHub Contents API.
+#
+# The workflow_dispatch path stays available as a manual rebuild button
+# in case the Apps Script trigger ever has to be paused.
 on:
-  schedule:
-    # Every 5 minutes (GitHub Actions cron floor). Runs may be delayed by a
-    # few minutes under load, so effective freshness floor is ~5–10 min.
-    - cron: '*/5 * * * *'
   workflow_dispatch: # Manual trigger from GitHub UI
 
 # Prevent overlapping runs (a slow run gets cancelled when the next cron fires)
