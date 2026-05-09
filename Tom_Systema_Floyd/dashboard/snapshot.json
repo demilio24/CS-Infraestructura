@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-09T17:46:58Z",
+  "generatedAt": "2026-05-09T17:51:57Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 125,
+    "summer": 127,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,10 +107,10 @@
     "roster": []
   },
   "summer": {
-    "total": 125,
+    "total": 127,
     "byCampus": {
-      "Upper Campus": 55,
-      "Lower Campus": 70,
+      "Upper Campus": 56,
+      "Lower Campus": 71,
       "Unknown": 0
     },
     "byWeek": {
@@ -118,7 +118,7 @@
       "June 8th-12th": 26,
       "June 15th-19th": 41,
       "June 22nd-26th": 25,
-      "June 29th-July 3rd": 21,
+      "June 29th-July 3rd": 23,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
@@ -149,8 +149,8 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 9,
-        "Lower Campus": 12,
+        "Upper Campus": 10,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -278,11 +278,11 @@
     }
   },
   "combined": {
-    "total": 126,
-    "enrollments": 322,
+    "total": 128,
+    "enrollments": 324,
     "byCampus": {
-      "Upper Campus": 55,
-      "Lower Campus": 71,
+      "Upper Campus": 56,
+      "Lower Campus": 72,
       "Unknown": 0
     },
     "byWeek": {
@@ -290,7 +290,7 @@
       "June 8th-12th": 26,
       "June 15th-19th": 41,
       "June 22nd-26th": 25,
-      "June 29th-July 3rd": 21,
+      "June 29th-July 3rd": 23,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
@@ -321,8 +321,8 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 9,
-        "Lower Campus": 12,
+        "Upper Campus": 10,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -674,24 +674,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 12,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 12
+              "Mon": 15,
+              "Tue": 14,
+              "Wed": 15,
+              "Thu": 15,
+              "Fri": 14
             },
-            "total": 63
+            "total": 73
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 20,
-            "Tue": 20,
-            "Wed": 20,
-            "Thu": 19,
-            "Fri": 18
+            "Mon": 22,
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 21,
+            "Fri": 20
           },
-          "all": 97
+          "all": 107
         }
       },
       "July 6th-10th": {
@@ -2381,6 +2381,14 @@
           "type": "summer"
         },
         {
+          "name": "Eliana Loupis",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "hayden finneran",
           "campus": "Upper Campus",
           "lunch": true,
@@ -2522,6 +2530,14 @@
           "name": "Remy Sned",
           "campus": "Lower Campus",
           "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Sofia Loupis",
+          "campus": "Lower Campus",
+          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
