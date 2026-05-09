@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-09T12:31:59Z",
+  "generatedAt": "2026-05-09T12:37:00Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -120,11 +120,11 @@
       "June 22nd-26th": 24,
       "June 29th-July 3rd": 20,
       "July 6th-10th": 27,
-      "July 13th-17th": 26,
+      "July 13th-17th": 28,
       "July 20th-24th": 30,
       "July 27th-31st": 23,
       "August 3rd-7th": 30,
-      "August 10th-14th": 13,
+      "August 10th-14th": 15,
       "August 17th-21st": 20
     },
     "byWeekCampus": {
@@ -160,7 +160,7 @@
       },
       "July 13th-17th": {
         "Upper Campus": 6,
-        "Lower Campus": 20,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -180,7 +180,7 @@
       },
       "August 10th-14th": {
         "Upper Campus": 4,
-        "Lower Campus": 9,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -279,7 +279,7 @@
   },
   "combined": {
     "total": 121,
-    "enrollments": 309,
+    "enrollments": 313,
     "byCampus": {
       "Upper Campus": 50,
       "Lower Campus": 71,
@@ -292,11 +292,11 @@
       "June 22nd-26th": 24,
       "June 29th-July 3rd": 20,
       "July 6th-10th": 27,
-      "July 13th-17th": 26,
+      "July 13th-17th": 28,
       "July 20th-24th": 30,
       "July 27th-31st": 23,
       "August 3rd-7th": 30,
-      "August 10th-14th": 13,
+      "August 10th-14th": 15,
       "August 17th-21st": 20
     },
     "byWeekCampus": {
@@ -332,7 +332,7 @@
       },
       "July 13th-17th": {
         "Upper Campus": 6,
-        "Lower Campus": 20,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -352,7 +352,7 @@
       },
       "August 10th-14th": {
         "Upper Campus": 4,
-        "Lower Campus": 9,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -819,24 +819,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 14,
-              "Thu": 14,
-              "Fri": 12
+              "Mon": 15,
+              "Tue": 15,
+              "Wed": 16,
+              "Thu": 16,
+              "Fri": 14
             },
-            "total": 66
+            "total": 76
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 24,
-            "Tue": 25,
-            "Wed": 25,
-            "Thu": 26,
-            "Fri": 23
+            "Mon": 26,
+            "Tue": 27,
+            "Wed": 27,
+            "Thu": 28,
+            "Fri": 25
           },
-          "all": 123
+          "all": 133
         }
       },
       "July 20th-24th": {
@@ -1096,24 +1096,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 7,
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 7
             },
-            "total": 25
+            "total": 35
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 13,
-            "Tue": 13,
-            "Wed": 13,
-            "Thu": 13,
-            "Fri": 13
+            "Mon": 15,
+            "Tue": 15,
+            "Wed": 15,
+            "Thu": 15,
+            "Fri": 15
           },
-          "all": 65
+          "all": 75
         }
       },
       "August 17th-21st": {
@@ -2869,6 +2869,14 @@
           "type": "summer"
         },
         {
+          "name": "Hobie Grace",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Jayden Vititoe",
           "campus": "Lower Campus",
           "lunch": false,
@@ -2926,6 +2934,14 @@
         },
         {
           "name": "Reagan Olowin",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Teddy Grace",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
@@ -3705,6 +3721,14 @@
           "type": "summer"
         },
         {
+          "name": "Hobie Grace",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Julia Kozakowska",
           "campus": "Lower Campus",
           "lunch": true,
@@ -3730,6 +3754,14 @@
         },
         {
           "name": "Reagan Olowin",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Teddy Grace",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
