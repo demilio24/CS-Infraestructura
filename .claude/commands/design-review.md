@@ -69,16 +69,25 @@ curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=
       Pick the best result and use its `urls.regular` URL directly in the HTML.
    c. If the image needs to be generated — invoke the `/generate-image` workflow
 
-5. **Replace the image in the HTML** — Edit the file with the new image URL.
+5. **VERIFY the image content before placing it** — Never trust a filename, file size, or download order to tell you what an image actually shows. Open the candidate image with the Read tool (or fetch the URL and view it) and visually confirm:
+   - The subject matches the section it's being placed in (a "pool" card must actually show a pool — not an email signature avatar, logo, watermark, screenshot, or unrelated photo)
+   - The orientation, framing, and quality fit the placement
+   - No accidental private content (license plates, faces of minors without permission, document text, etc.)
 
-6. **Re-screenshot** — Repeat steps 1-2 after replacements.
+   This check is MANDATORY when images come from external sources where you didn't pick them by eye — Gmail attachments, batch scrapes, n8n workflow outputs, GHL CDN listings, Unsplash search results, AI-generated batches, or any pipeline that returns multiple files at once. Inline signatures, logos, and tiny thumbnails get mixed in with the real photos all the time. Filter by EXIF, file size, and dimensions for a first pass, but always confirm visually before committing the URL to HTML.
 
-7. **Check section connectors and overlays** — After images are fixed, verify:
+   If unsure which of several candidates is correct, surface the options to the user with thumbnails or descriptions rather than guessing.
+
+6. **Replace the image in the HTML** — Edit the file with the verified image URL.
+
+7. **Re-screenshot** — Repeat steps 1-2 after replacements.
+
+8. **Check section connectors and overlays** — After images are fixed, verify:
    - Hero image has enough contrast with the text overlay
    - Dark overlay opacity is between 60-80% so the image is still visible but text is readable
    - No section has a "floating" or disconnected image that breaks the layout flow
 
-8. **Check trust badge and pill consistency** — Read the HTML and verify:
+9. **Check trust badge and pill consistency** — Read the HTML and verify:
    - Every `<img>` inside a trust bar, credential bar, or pill container has a fixed `height` attribute or CSS `height` — never `auto` or unconstrained
    - All pill items render at the same visual height (consistent padding, `align-items: center` on container)
    - The Trustpilot badge image specifically must be `height: 22px` or similar — it will render huge without a constraint
@@ -86,9 +95,9 @@ curl -s "https://api.screenshotone.com/take?access_key=${SCREENSHOTONE_KEY}&url=
 
    Fix any violations immediately before the final report.
 
-9. **Loop until every image passes** — Keep going until no section has a failing image.
+10. **Loop until every image passes** — Keep going until no section has a failing image.
 
-10. **Final report** — List what was changed and why. Confirm the page now looks like a premium funnel.
+11. **Final report** — List what was changed and why. Confirm the page now looks like a premium funnel.
 
 ---
 
