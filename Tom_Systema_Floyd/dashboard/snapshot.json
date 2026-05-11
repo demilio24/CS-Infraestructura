@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-11T13:31:59Z",
+  "generatedAt": "2026-05-11T13:37:08Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 127,
+    "summer": 128,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,10 +107,10 @@
     "roster": []
   },
   "summer": {
-    "total": 127,
+    "total": 128,
     "byCampus": {
       "Upper Campus": 56,
-      "Lower Campus": 71,
+      "Lower Campus": 72,
       "Unknown": 0
     },
     "byWeek": {
@@ -118,7 +118,7 @@
       "June 8th-12th": 26,
       "June 15th-19th": 41,
       "June 22nd-26th": 25,
-      "June 29th-July 3rd": 23,
+      "June 29th-July 3rd": 24,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
@@ -150,7 +150,7 @@
       },
       "June 29th-July 3rd": {
         "Upper Campus": 10,
-        "Lower Campus": 13,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -278,11 +278,11 @@
     }
   },
   "combined": {
-    "total": 128,
-    "enrollments": 324,
+    "total": 129,
+    "enrollments": 325,
     "byCampus": {
       "Upper Campus": 56,
-      "Lower Campus": 72,
+      "Lower Campus": 73,
       "Unknown": 0
     },
     "byWeek": {
@@ -290,7 +290,7 @@
       "June 8th-12th": 26,
       "June 15th-19th": 41,
       "June 22nd-26th": 25,
-      "June 29th-July 3rd": 23,
+      "June 29th-July 3rd": 24,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
@@ -322,7 +322,7 @@
       },
       "June 29th-July 3rd": {
         "Upper Campus": 10,
-        "Lower Campus": 13,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -674,24 +674,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 15,
-              "Tue": 14,
-              "Wed": 15,
+              "Mon": 16,
+              "Tue": 15,
+              "Wed": 16,
               "Thu": 15,
-              "Fri": 14
+              "Fri": 15
             },
-            "total": 73
+            "total": 77
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 22,
-            "Wed": 22,
+            "Mon": 23,
+            "Tue": 23,
+            "Wed": 23,
             "Thu": 21,
-            "Fri": 20
+            "Fri": 21
           },
-          "all": 107
+          "all": 111
         }
       },
       "July 6th-10th": {
@@ -2496,6 +2496,14 @@
         },
         {
           "name": "Hobie Grace",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Jack Schwencke",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
