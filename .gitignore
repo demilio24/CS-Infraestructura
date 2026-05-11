@@ -1,3 +1,18 @@
+# Secrets — never commit, ever (public repo)
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+*.pem
+*.key
+**/credentials.json
+**/secrets.json
+**/.credentials.json
+**/oauth-token.json
+**/.gh-token
+
 # All tooling lives in .claude/ — ignore its local artifacts
 .claude/.env
 .claude/node_modules/
