@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-11T13:42:13Z",
+  "generatedAt": "2026-05-11T13:47:01Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 128,
+    "summer": 129,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,9 +107,9 @@
     "roster": []
   },
   "summer": {
-    "total": 128,
+    "total": 129,
     "byCampus": {
-      "Upper Campus": 56,
+      "Upper Campus": 57,
       "Lower Campus": 72,
       "Unknown": 0
     },
@@ -122,10 +122,10 @@
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
-      "July 27th-31st": 23,
+      "July 27th-31st": 24,
       "August 3rd-7th": 30,
       "August 10th-14th": 15,
-      "August 17th-21st": 22
+      "August 17th-21st": 23
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -169,7 +169,7 @@
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 9,
+        "Upper Campus": 10,
         "Lower Campus": 14,
         "Unknown": 0
       },
@@ -184,7 +184,7 @@
         "Unknown": 0
       },
       "August 17th-21st": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 10,
         "Unknown": 0
       }
@@ -278,10 +278,10 @@
     }
   },
   "combined": {
-    "total": 129,
-    "enrollments": 325,
+    "total": 130,
+    "enrollments": 327,
     "byCampus": {
-      "Upper Campus": 56,
+      "Upper Campus": 57,
       "Lower Campus": 73,
       "Unknown": 0
     },
@@ -294,10 +294,10 @@
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
-      "July 27th-31st": 23,
+      "July 27th-31st": 24,
       "August 3rd-7th": 30,
       "August 10th-14th": 15,
-      "August 17th-21st": 22
+      "August 17th-21st": 23
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -341,7 +341,7 @@
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 9,
+        "Upper Campus": 10,
         "Lower Campus": 14,
         "Unknown": 0
       },
@@ -356,7 +356,7 @@
         "Unknown": 0
       },
       "August 17th-21st": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 10,
         "Unknown": 0
       }
@@ -913,12 +913,12 @@
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
               "Mon": 1,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 1
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 2
             },
-            "total": 8
+            "total": 12
           },
           {
             "category": "pizza",
@@ -963,12 +963,12 @@
         "totals": {
           "byDay": {
             "Mon": 22,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 22
+            "Tue": 24,
+            "Wed": 24,
+            "Thu": 24,
+            "Fri": 23
           },
-          "all": 113
+          "all": 117
         }
       },
       "August 3rd-7th": {
@@ -1124,12 +1124,12 @@
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
               "Mon": 6,
-              "Tue": 6,
-              "Wed": 6,
-              "Thu": 6,
-              "Fri": 3
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 4
             },
-            "total": 27
+            "total": 31
           },
           {
             "category": "pizza",
@@ -1187,12 +1187,12 @@
         "totals": {
           "byDay": {
             "Mon": 22,
-            "Tue": 22,
-            "Wed": 22,
-            "Thu": 22,
-            "Fri": 18
+            "Tue": 23,
+            "Wed": 23,
+            "Thu": 23,
+            "Fri": 19
           },
-          "all": 106
+          "all": 110
         }
       }
     },
@@ -3329,6 +3329,14 @@
           "type": "summer"
         },
         {
+          "name": "Ella Schwencke",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Ira Skaletsky",
           "campus": "Upper Campus",
           "lunch": false,
@@ -3897,6 +3905,14 @@
           "name": "Colton Hendrix",
           "campus": "Upper Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Ella Schwencke",
+          "campus": "Upper Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
