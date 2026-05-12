@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-12T00:06:57Z",
+  "generatedAt": "2026-05-12T00:11:59Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 130,
+    "summer": 131,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,18 +107,18 @@
     "roster": []
   },
   "summer": {
-    "total": 130,
+    "total": 131,
     "byCampus": {
       "Upper Campus": 57,
-      "Lower Campus": 73,
+      "Lower Campus": 74,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 29,
       "June 8th-12th": 26,
       "June 15th-19th": 41,
-      "June 22nd-26th": 25,
-      "June 29th-July 3rd": 24,
+      "June 22nd-26th": 26,
+      "June 29th-July 3rd": 25,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
@@ -145,12 +145,12 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 11,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 10,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -278,19 +278,19 @@
     }
   },
   "combined": {
-    "total": 131,
-    "enrollments": 328,
+    "total": 132,
+    "enrollments": 330,
     "byCampus": {
       "Upper Campus": 57,
-      "Lower Campus": 74,
+      "Lower Campus": 75,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 30,
       "June 8th-12th": 26,
       "June 15th-19th": 41,
-      "June 22nd-26th": 25,
-      "June 29th-July 3rd": 24,
+      "June 22nd-26th": 26,
+      "June 29th-July 3rd": 25,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
       "July 20th-24th": 30,
@@ -317,12 +317,12 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 11,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 10,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -621,24 +621,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 17,
-              "Wed": 15,
-              "Thu": 15,
-              "Fri": 15
+              "Mon": 18,
+              "Tue": 18,
+              "Wed": 16,
+              "Thu": 16,
+              "Fri": 16
             },
-            "total": 79
+            "total": 84
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 25,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 21,
-            "Fri": 23
+            "Mon": 26,
+            "Tue": 24,
+            "Wed": 24,
+            "Thu": 22,
+            "Fri": 24
           },
-          "all": 115
+          "all": 120
         }
       },
       "June 29th-July 3rd": {
@@ -674,24 +674,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 15,
-              "Wed": 16,
-              "Thu": 15,
-              "Fri": 15
+              "Mon": 17,
+              "Tue": 16,
+              "Wed": 17,
+              "Thu": 16,
+              "Fri": 16
             },
-            "total": 77
+            "total": 82
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 23,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 21,
-            "Fri": 21
+            "Mon": 24,
+            "Tue": 24,
+            "Wed": 24,
+            "Thu": 22,
+            "Fri": 22
           },
-          "all": 111
+          "all": 116
         }
       },
       "July 6th-10th": {
@@ -2264,6 +2264,14 @@
       ],
       "lower": [
         {
+          "name": "Ace Godin",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Aria",
           "campus": "Lower Campus",
           "lunch": false,
@@ -2462,6 +2470,14 @@
         }
       ],
       "lower": [
+        {
+          "name": "Ace Godin",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
         {
           "name": "Aria",
           "campus": "Lower Campus",
