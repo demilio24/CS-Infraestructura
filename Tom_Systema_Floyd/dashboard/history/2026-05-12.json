@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-12T02:02:15Z",
+  "generatedAt": "2026-05-12T02:07:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 131,
+    "summer": 132,
     "free": 1,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,10 +107,10 @@
     "roster": []
   },
   "summer": {
-    "total": 131,
+    "total": 132,
     "byCampus": {
       "Upper Campus": 57,
-      "Lower Campus": 74,
+      "Lower Campus": 75,
       "Unknown": 0
     },
     "byWeek": {
@@ -121,9 +121,9 @@
       "June 29th-July 3rd": 25,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
-      "July 20th-24th": 30,
+      "July 20th-24th": 31,
       "July 27th-31st": 24,
-      "August 3rd-7th": 30,
+      "August 3rd-7th": 31,
       "August 10th-14th": 15,
       "August 17th-21st": 23
     },
@@ -165,7 +165,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 12,
-        "Lower Campus": 18,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -175,7 +175,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 6,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -278,11 +278,11 @@
     }
   },
   "combined": {
-    "total": 132,
-    "enrollments": 330,
+    "total": 133,
+    "enrollments": 332,
     "byCampus": {
       "Upper Campus": 57,
-      "Lower Campus": 75,
+      "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
@@ -293,9 +293,9 @@
       "June 29th-July 3rd": 25,
       "July 6th-10th": 30,
       "July 13th-17th": 30,
-      "July 20th-24th": 30,
+      "July 20th-24th": 31,
       "July 27th-31st": 24,
-      "August 3rd-7th": 30,
+      "August 3rd-7th": 31,
       "August 10th-14th": 15,
       "August 17th-21st": 23
     },
@@ -337,7 +337,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 12,
-        "Lower Campus": 18,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -347,7 +347,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 6,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -885,24 +885,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 17,
-              "Wed": 18,
-              "Thu": 18,
-              "Fri": 14
+              "Mon": 18,
+              "Tue": 18,
+              "Wed": 19,
+              "Thu": 19,
+              "Fri": 15
             },
-            "total": 84
+            "total": 89
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 27,
-            "Thu": 29,
-            "Fri": 23
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 28,
+            "Thu": 30,
+            "Fri": 24
           },
-          "all": 135
+          "all": 140
         }
       },
       "July 27th-31st": {
@@ -1030,24 +1030,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 13
+              "Mon": 14,
+              "Tue": 14,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 14
             },
-            "total": 65
+            "total": 70
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 29,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 29
+            "Mon": 30,
+            "Tue": 31,
+            "Wed": 31,
+            "Thu": 31,
+            "Fri": 30
           },
-          "all": 148
+          "all": 153
         }
       },
       "August 10th-14th": {
@@ -3308,6 +3308,14 @@
           "type": "summer"
         },
         {
+          "name": "Parker Faulkner",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Reagan Olowin",
           "campus": "Lower Campus",
           "lunch": false,
@@ -3739,6 +3747,14 @@
         },
         {
           "name": "Owen Grant",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Parker Faulkner",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
