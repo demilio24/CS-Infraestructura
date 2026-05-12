@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-12T20:06:57Z",
+  "generatedAt": "2026-05-12T20:11:59Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 132,
-    "free": 3,
+    "free": 4,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -191,19 +191,19 @@
     }
   },
   "free": {
-    "total": 3,
+    "total": 4,
     "byCampus": {
-      "Upper Campus": 2,
+      "Upper Campus": 3,
       "Lower Campus": 1,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 3,
-      "June 8th-12th": 2,
-      "June 15th-19th": 2,
-      "June 22nd-26th": 2,
-      "June 29th-July 3rd": 2,
-      "July 6th-10th": 2,
+      "June 8th-12th": 3,
+      "June 15th-19th": 3,
+      "June 22nd-26th": 3,
+      "June 29th-July 3rd": 3,
+      "July 6th-10th": 3,
       "July 13th-17th": 2,
       "July 20th-24th": 2,
       "July 27th-31st": 0,
@@ -218,27 +218,27 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 2,
+        "Upper Campus": 3,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 2,
+        "Upper Campus": 3,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 2,
+        "Upper Campus": 3,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 2,
+        "Upper Campus": 3,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 2,
+        "Upper Campus": 3,
         "Lower Campus": 0,
         "Unknown": 0
       },
@@ -275,24 +275,25 @@
     },
     "bySchool": {
       "Westward Elementary School": 18,
+      "Northboro Elementary School": 5,
       "Pleasant City Elementary School": 1
     }
   },
   "combined": {
-    "total": 135,
-    "enrollments": 352,
+    "total": 136,
+    "enrollments": 357,
     "byCampus": {
-      "Upper Campus": 59,
+      "Upper Campus": 60,
       "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 32,
-      "June 8th-12th": 28,
-      "June 15th-19th": 44,
-      "June 22nd-26th": 28,
-      "June 29th-July 3rd": 27,
-      "July 6th-10th": 33,
+      "June 8th-12th": 29,
+      "June 15th-19th": 45,
+      "June 22nd-26th": 29,
+      "June 29th-July 3rd": 28,
+      "July 6th-10th": 34,
       "July 13th-17th": 33,
       "July 20th-24th": 33,
       "July 27th-31st": 24,
@@ -307,27 +308,27 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 18,
+        "Upper Campus": 19,
         "Lower Campus": 10,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 15,
+        "Upper Campus": 16,
         "Lower Campus": 29,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 13,
+        "Upper Campus": 14,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 16,
+        "Upper Campus": 17,
         "Lower Campus": 17,
         "Unknown": 0
       },
@@ -1245,24 +1246,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 2,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 10
+            "total": 15
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 2,
-            "Tue": 2,
-            "Wed": 2,
-            "Thu": 2,
-            "Fri": 2
+            "Mon": 3,
+            "Tue": 3,
+            "Wed": 3,
+            "Thu": 3,
+            "Fri": 3
           },
-          "all": 10
+          "all": 15
         }
       },
       "June 15th-19th": {
@@ -1272,24 +1273,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 2,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 10
+            "total": 15
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 2,
-            "Tue": 2,
-            "Wed": 2,
-            "Thu": 2,
-            "Fri": 2
+            "Mon": 3,
+            "Tue": 3,
+            "Wed": 3,
+            "Thu": 3,
+            "Fri": 3
           },
-          "all": 10
+          "all": 15
         }
       },
       "June 22nd-26th": {
@@ -1299,24 +1300,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 2,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 10
+            "total": 15
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 2,
-            "Tue": 2,
-            "Wed": 2,
-            "Thu": 2,
-            "Fri": 2
+            "Mon": 3,
+            "Tue": 3,
+            "Wed": 3,
+            "Thu": 3,
+            "Fri": 3
           },
-          "all": 10
+          "all": 15
         }
       },
       "June 29th-July 3rd": {
@@ -1326,24 +1327,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 2,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 10
+            "total": 15
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 2,
-            "Tue": 2,
-            "Wed": 2,
-            "Thu": 2,
-            "Fri": 2
+            "Mon": 3,
+            "Tue": 3,
+            "Wed": 3,
+            "Thu": 3,
+            "Fri": 3
           },
-          "all": 10
+          "all": 15
         }
       },
       "July 6th-10th": {
@@ -1353,24 +1354,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 2,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 10
+            "total": 15
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 2,
-            "Tue": 2,
-            "Wed": 2,
-            "Thu": 2,
-            "Fri": 2
+            "Mon": 3,
+            "Tue": 3,
+            "Wed": 3,
+            "Thu": 3,
+            "Fri": 3
           },
-          "all": 10
+          "all": 15
         }
       },
       "July 13th-17th": {
@@ -1980,6 +1981,15 @@
       ],
       "free": [
         {
+          "name": "Autumn Willow Richardson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Taelynn Johnson",
           "campus": "Upper Campus",
           "lunch": true,
@@ -2342,6 +2352,15 @@
       ],
       "free": [
         {
+          "name": "Autumn Willow Richardson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Taelynn Johnson",
           "campus": "Upper Campus",
           "lunch": true,
@@ -2576,6 +2595,15 @@
       ],
       "free": [
         {
+          "name": "Autumn Willow Richardson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Taelynn Johnson",
           "campus": "Upper Campus",
           "lunch": true,
@@ -2801,6 +2829,15 @@
         }
       ],
       "free": [
+        {
+          "name": "Autumn Willow Richardson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
         {
           "name": "Taelynn Johnson",
           "campus": "Upper Campus",
@@ -3075,6 +3112,15 @@
         }
       ],
       "free": [
+        {
+          "name": "Autumn Willow Richardson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
         {
           "name": "Taelynn Johnson",
           "campus": "Upper Campus",
