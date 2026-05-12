@@ -170,10 +170,30 @@ function seenSubmissionIds() {
   return set;
 }
 
+// ─── isTransientGhlFailure_ ──────────────────────────────────────────────────
+/**
+ * Returns true for HTTP statuses + body patterns that suggest a transient
+ * GHL backend hiccup worth retrying once. Covers:
+ *   - 5xx: any server error
+ *   - 408, 429: client-side timeout / rate-limit
+ *   - 400 with "timed out" in the body — GHL specifically returns HTTP 400
+ *     when its internal MongoDB query (reporting_form_submissions.find())
+ *     times out after 10s. Real 400s (bad request) don't say "timed out",
+ *     so the body check distinguishes the transient case from a code bug.
+ */
+function isTransientGhlFailure_(code, body) {
+  if (code >= 500 && code <= 599) return true;
+  if (code === 408 || code === 429) return true;
+  if (code === 400 && /timed?\s*out|timeout/i.test(String(body || ''))) return true;
+  return false;
+}
+
 // ─── ghlListSubmissions ──────────────────────────────────────────────────────
 /**
  * Calls GHL's GET /forms/submissions endpoint for a date range.
- * Handles varied response shapes defensively.
+ * Retries once on transient backend failures (see isTransientGhlFailure_)
+ * before surfacing the error — silences sub-second GHL DB hiccups that
+ * historically generated ~1 false-alarm [CRITICAL] email per few days.
  * @param {string} subaccountName  e.g. 'Florida'
  * @param {string} startAt         ISO 8601
  * @param {string} endAt           ISO 8601
@@ -193,7 +213,7 @@ function ghlListSubmissions(subaccountName, startAt, endAt) {
 
   Logger.log('[ghlListSubmissions] GET ' + url);
 
-  const resp = UrlFetchApp.fetch(url, {
+  const fetchOpts = {
     method: 'get',
     headers: {
       'Authorization': 'Bearer ' + token,
@@ -201,10 +221,23 @@ function ghlListSubmissions(subaccountName, startAt, endAt) {
       'Accept': 'application/json',
     },
     muteHttpExceptions: true
-  });
+  };
 
-  const code = resp.getResponseCode();
-  const body = resp.getContentText();
+  let resp = UrlFetchApp.fetch(url, fetchOpts);
+  let code = resp.getResponseCode();
+  let body = resp.getContentText();
+
+  // One retry on transient backend hiccups. 2-second backoff is long enough
+  // for GHL's internal pool to recover from a sub-second blip but short
+  // enough not to push the poll into the 6-min Apps Script execution cap.
+  if (isTransientGhlFailure_(code, body)) {
+    Logger.log('[ghlListSubmissions] transient HTTP ' + code + ', retrying in 2s. body[0..200]: ' + body.substring(0, 200));
+    Utilities.sleep(2000);
+    resp = UrlFetchApp.fetch(url, fetchOpts);
+    code = resp.getResponseCode();
+    body = resp.getContentText();
+    Logger.log('[ghlListSubmissions] retry got HTTP ' + code);
+  }
 
   Logger.log('[ghlListSubmissions] HTTP ' + code + ' body[0..300]: ' + body.substring(0, 300));
 
