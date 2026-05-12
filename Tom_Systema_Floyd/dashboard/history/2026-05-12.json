@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-12T13:47:03Z",
+  "generatedAt": "2026-05-12T13:52:04Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -116,7 +116,7 @@
     "byWeek": {
       "June 1st-5th": 29,
       "June 8th-12th": 26,
-      "June 15th-19th": 41,
+      "June 15th-19th": 42,
       "June 22nd-26th": 26,
       "June 29th-July 3rd": 25,
       "July 6th-10th": 31,
@@ -125,7 +125,7 @@
       "July 27th-31st": 24,
       "August 3rd-7th": 31,
       "August 10th-14th": 15,
-      "August 17th-21st": 23
+      "August 17th-21st": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -140,7 +140,7 @@
       },
       "June 15th-19th": {
         "Upper Campus": 13,
-        "Lower Campus": 28,
+        "Lower Campus": 29,
         "Unknown": 0
       },
       "June 22nd-26th": {
@@ -185,7 +185,7 @@
       },
       "August 17th-21st": {
         "Upper Campus": 13,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       }
     }
@@ -288,7 +288,7 @@
     "byWeek": {
       "June 1st-5th": 30,
       "June 8th-12th": 26,
-      "June 15th-19th": 41,
+      "June 15th-19th": 42,
       "June 22nd-26th": 26,
       "June 29th-July 3rd": 25,
       "July 6th-10th": 31,
@@ -297,7 +297,7 @@
       "July 27th-31st": 24,
       "August 3rd-7th": 31,
       "August 10th-14th": 15,
-      "August 17th-21st": 23
+      "August 17th-21st": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -312,7 +312,7 @@
       },
       "June 15th-19th": {
         "Upper Campus": 13,
-        "Lower Campus": 28,
+        "Lower Campus": 29,
         "Unknown": 0
       },
       "June 22nd-26th": {
@@ -357,7 +357,7 @@
       },
       "August 17th-21st": {
         "Upper Campus": 13,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       }
     }
@@ -564,6 +564,19 @@
             "total": 10
           },
           {
+            "category": "celis",
+            "subtypeKey": "celis-wrap-trap|Small fruit cup|Smooth Moves: Very Berry",
+            "label": "Celis: Wrap Trap turkey wrap + Small fruit cup + Smooth Moves: Very Berry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
             "category": "none",
             "subtypeKey": "none",
             "label": "No lunch",
@@ -579,13 +592,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 39,
-            "Tue": 39,
-            "Wed": 37,
-            "Thu": 37,
-            "Fri": 37
+            "Mon": 40,
+            "Tue": 40,
+            "Wed": 38,
+            "Thu": 38,
+            "Fri": 38
           },
-          "all": 189
+          "all": 194
         }
       },
       "June 22nd-26th": {
@@ -1158,19 +1171,6 @@
             "total": 5
           },
           {
-            "category": "celis",
-            "subtypeKey": "celis-wrap-trap|Small fruit cup|Smooth Moves: Very Berry",
-            "label": "Celis: Wrap Trap turkey wrap + Small fruit cup + Smooth Moves: Very Berry",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5
-          },
-          {
             "category": "none",
             "subtypeKey": "none",
             "label": "No lunch",
@@ -1186,13 +1186,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 19
+            "Mon": 21,
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 22,
+            "Fri": 18
           },
-          "all": 110
+          "all": 105
         }
       }
     },
@@ -2020,6 +2020,14 @@
           "name": "Harrison Galligan",
           "campus": "Lower Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Huck Shaw",
+          "campus": "Lower Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -4059,14 +4067,6 @@
           "name": "August Johnson",
           "campus": "Lower Campus",
           "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Huck Shaw",
-          "campus": "Lower Campus",
-          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
