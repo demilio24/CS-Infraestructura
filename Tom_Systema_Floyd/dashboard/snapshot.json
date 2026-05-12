@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-12T18:47:05Z",
+  "generatedAt": "2026-05-12T18:52:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 132,
-    "free": 1,
+    "free": 2,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -191,64 +191,64 @@
     }
   },
   "free": {
-    "total": 1,
+    "total": 2,
     "byCampus": {
-      "Upper Campus": 0,
+      "Upper Campus": 1,
       "Lower Campus": 1,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 1,
-      "June 8th-12th": 0,
-      "June 15th-19th": 0,
-      "June 22nd-26th": 0,
-      "June 29th-July 3rd": 0,
-      "July 6th-10th": 0,
-      "July 13th-17th": 0,
-      "July 20th-24th": 0,
+      "June 1st-5th": 2,
+      "June 8th-12th": 1,
+      "June 15th-19th": 1,
+      "June 22nd-26th": 1,
+      "June 29th-July 3rd": 1,
+      "July 6th-10th": 1,
+      "July 13th-17th": 1,
+      "July 20th-24th": 1,
       "July 27th-31st": 0,
-      "August 3rd-7th": 0,
+      "August 3rd-7th": 1,
       "August 10th-14th": 0,
       "August 17th-21st": 0
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 1,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
@@ -258,7 +258,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 0,
+        "Upper Campus": 1,
         "Lower Campus": 0,
         "Unknown": 0
       },
@@ -274,69 +274,70 @@
       }
     },
     "bySchool": {
+      "Westward Elementary School": 9,
       "Pleasant City Elementary School": 1
     }
   },
   "combined": {
-    "total": 133,
-    "enrollments": 334,
+    "total": 134,
+    "enrollments": 343,
     "byCampus": {
-      "Upper Campus": 57,
+      "Upper Campus": 58,
       "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 30,
-      "June 8th-12th": 26,
-      "June 15th-19th": 42,
-      "June 22nd-26th": 26,
-      "June 29th-July 3rd": 25,
-      "July 6th-10th": 31,
-      "July 13th-17th": 31,
-      "July 20th-24th": 31,
+      "June 1st-5th": 31,
+      "June 8th-12th": 27,
+      "June 15th-19th": 43,
+      "June 22nd-26th": 27,
+      "June 29th-July 3rd": 26,
+      "July 6th-10th": 32,
+      "July 13th-17th": 32,
+      "July 20th-24th": 32,
       "July 27th-31st": 24,
-      "August 3rd-7th": 31,
+      "August 3rd-7th": 32,
       "August 10th-14th": 15,
       "August 17th-21st": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 10,
+        "Upper Campus": 11,
         "Lower Campus": 20,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 16,
+        "Upper Campus": 17,
         "Lower Campus": 10,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 13,
+        "Upper Campus": 14,
         "Lower Campus": 29,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 11,
+        "Upper Campus": 12,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 10,
+        "Upper Campus": 11,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 14,
+        "Upper Campus": 15,
         "Lower Campus": 17,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 9,
+        "Upper Campus": 10,
         "Lower Campus": 22,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 19,
         "Unknown": 0
       },
@@ -346,7 +347,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 6,
+        "Upper Campus": 7,
         "Lower Campus": 25,
         "Unknown": 0
       },
@@ -1211,6 +1212,46 @@
               "Fri": 1
             },
             "total": 5
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 2,
+            "Tue": 2,
+            "Wed": 2,
+            "Thu": 2,
+            "Fri": 2
+          },
+          "all": 10
+        }
+      },
+      "June 8th-12th": {
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
           }
         ],
         "totals": {
@@ -1224,95 +1265,166 @@
           "all": 5
         }
       },
-      "June 8th-12th": {
-        "rows": [],
-        "totals": {
-          "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
-          },
-          "all": 0
-        }
-      },
       "June 15th-19th": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "June 22nd-26th": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "June 29th-July 3rd": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "July 6th-10th": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "July 13th-17th": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "July 20th-24th": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "July 27th-31st": {
@@ -1329,16 +1441,30 @@
         }
       },
       "August 3rd-7th": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 1,
+            "Tue": 1,
+            "Wed": 1,
+            "Thu": 1,
+            "Fri": 1
           },
-          "all": 0
+          "all": 5
         }
       },
       "August 10th-14th": {
@@ -1611,6 +1737,15 @@
       ],
       "free": [
         {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
           "name": "Tom floyd",
           "campus": "Lower Campus",
           "lunch": false,
@@ -1834,7 +1969,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "June 15th-19th": {
       "upper": [
@@ -2177,7 +2322,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "June 22nd-26th": {
       "upper": [
@@ -2392,7 +2547,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "June 29th-July 3rd": {
       "upper": [
@@ -2599,7 +2764,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "July 6th-10th": {
       "upper": [
@@ -2854,7 +3029,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "July 13th-17th": {
       "upper": [
@@ -3109,7 +3294,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "July 20th-24th": {
       "upper": [
@@ -3364,7 +3559,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "July 27th-31st": {
       "upper": [
@@ -3818,7 +4023,17 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Taylor Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "August 10th-14th": {
       "upper": [
