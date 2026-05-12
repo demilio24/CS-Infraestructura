@@ -142,3 +142,151 @@ function removeStandalonePricingSyntaxTab() {
   ss.deleteSheet(sh);
   return { removed: true };
 }
+
+/* ═════════════════════════════════════════════════════════════════════
+   "Pricing" sheet — the team-editable price catalog
+   ═════════════════════════════════════════════════════════════════════
+   Built so the upcoming "registration-sheets-drive-billing" rewrite has
+   a single source of truth for prices Tom can edit. The team edits
+   prices here; the upcoming rewrite reads from here every poll.
+
+   This is a one-shot setup. After the initial population, Tom curates
+   the sheet manually. The script never overwrites it.
+   ═══════════════════════════════════════════════════════════════════ */
+
+const PRICING_SHEET_NAME = 'Pricing';
+
+/**
+ * Walk a subaccount's cached FieldRegistry, pull every picklist option
+ * whose label has a $ in it, parse the price + multiplier, and return
+ * a normalized list of priced items.
+ *
+ * Defensive: handles three picklistOption shapes GHL returns across
+ * versions ({label, value} objects, plain strings, and {key, value}).
+ *
+ * @param {string} subaccountName  e.g. 'Florida'
+ * @returns {Array<{fieldName, fieldId, optionLabel, cleanLabel, price, multiplier}>}
+ */
+function extractPricedOptionsFromRegistry(subaccountName) {
+  var registry = getFieldRegistry(subaccountName);
+  var out = [];
+  registry.forEach(function(meta, fieldId) {
+    var opts = (meta && meta.picklistOptions) || [];
+    if (!opts.length) return;
+    for (var i = 0; i < opts.length; i++) {
+      var o = opts[i];
+      var label = '';
+      if (typeof o === 'string') label = o;
+      else if (o && typeof o === 'object') label = o.label || o.value || o.key || '';
+      label = String(label).trim();
+      if (!label || label.indexOf('$') === -1) continue;
+      var price = parsePrice(label);
+      if (price === null) continue;
+      var mult = extractMultiplier(label);
+      out.push({
+        fieldName:   meta.name || '(unnamed field)',
+        fieldId:     fieldId,
+        optionLabel: label,
+        cleanLabel:  stripPriceFromLabel(label),
+        price:       price,
+        multiplier:  mult || ''
+      });
+    }
+  });
+  return out;
+}
+
+/**
+ * Build (or refresh) the "Pricing" sheet from GHL field picklist
+ * options. Idempotent. Sorts by field name, then by price.
+ *
+ * Columns:
+ *   A Category    – the GHL form field name (Camp Duration, Lunch, etc.)
+ *   B Item        – the priced option's clean label (price stripped)
+ *   C Price       – numeric, currency-formatted
+ *   D Multiplier  – '/day' | '/week' | '' (flat)
+ *   E Source      – the raw option label as it appears in GHL forms
+ *   F Notes       – left blank for the team to annotate
+ *
+ * Run once from the editor (as emilio@nilsdigital.com so the
+ * FieldRegistry fetch lands under the Workspace quota).
+ */
+function setupPricingSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(PRICING_SHEET_NAME);
+  if (!sh) {
+    sh = ss.insertSheet(PRICING_SHEET_NAME);
+  } else {
+    // Preserve existing data on re-run unless explicitly nuked.
+    var existingRows = sh.getLastRow();
+    if (existingRows > 1) {
+      Logger.log('[setupPricingSheet] Pricing sheet already has ' +
+                 (existingRows - 1) + ' rows. Skipping refresh to avoid ' +
+                 'clobbering Tom\'s edits. To force-refresh, delete the ' +
+                 'sheet and re-run.');
+      return { action: 'skipped_existing', rows: existingRows - 1 };
+    }
+    sh.clearContents();
+    sh.clearFormats();
+  }
+
+  // Header
+  var headers = ['Category', 'Item', 'Price', 'Multiplier', 'Source (raw GHL label)', 'Notes'];
+  sh.getRange(1, 1, 1, headers.length).setValues([headers])
+    .setBackground('#0F3634').setFontColor('#FFFFFF')
+    .setFontWeight('bold').setFontSize(11);
+  sh.setFrozenRows(1);
+
+  // Pull priced options. Florida is the polling subaccount; other states
+  // are routed via WaiverOrigin but use the same form catalog.
+  var priced = extractPricedOptionsFromRegistry('Florida');
+
+  // Sort by field name then price asc
+  priced.sort(function(a, b) {
+    var byField = String(a.fieldName).localeCompare(String(b.fieldName));
+    if (byField !== 0) return byField;
+    return Number(a.price) - Number(b.price);
+  });
+
+  var rows = priced.map(function(p) {
+    return [
+      p.fieldName,
+      p.cleanLabel || p.optionLabel,
+      p.price,
+      p.multiplier,
+      p.optionLabel,
+      ''
+    ];
+  });
+
+  if (rows.length) {
+    sh.getRange(2, 1, rows.length, 6).setValues(rows);
+    sh.getRange(2, 3, rows.length, 1).setNumberFormat('"$"#,##0.00');
+  }
+
+  // Column widths
+  sh.setColumnWidth(1, 200);  // Category
+  sh.setColumnWidth(2, 300);  // Item
+  sh.setColumnWidth(3, 90);   // Price
+  sh.setColumnWidth(4, 100);  // Multiplier
+  sh.setColumnWidth(5, 350);  // Source raw label
+  sh.setColumnWidth(6, 260);  // Notes
+
+  // Filter on header row
+  if (sh.getFilter()) sh.getFilter().remove();
+  sh.getRange(1, 1, Math.max(rows.length + 1, 2), 6).createFilter();
+
+  Logger.log('[setupPricingSheet] Wrote ' + rows.length + ' priced items from GHL Florida field registry.');
+  return { action: 'created', rows: rows.length };
+}
+
+/**
+ * Force-rebuild: wipes the Pricing sheet and repopulates from the GHL
+ * registry. Use only when you want to throw away Tom's manual edits.
+ */
+function forceRebuildPricingSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(PRICING_SHEET_NAME);
+  if (sh) ss.deleteSheet(sh);
+  return setupPricingSheet();
+}
