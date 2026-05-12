@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-12T12:57:10Z",
+  "generatedAt": "2026-05-12T13:02:00Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -119,8 +119,8 @@
       "June 15th-19th": 41,
       "June 22nd-26th": 26,
       "June 29th-July 3rd": 25,
-      "July 6th-10th": 30,
-      "July 13th-17th": 30,
+      "July 6th-10th": 31,
+      "July 13th-17th": 31,
       "July 20th-24th": 31,
       "July 27th-31st": 24,
       "August 3rd-7th": 31,
@@ -154,12 +154,12 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 13,
+        "Upper Campus": 14,
         "Lower Campus": 17,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 8,
+        "Upper Campus": 9,
         "Lower Campus": 22,
         "Unknown": 0
       },
@@ -279,7 +279,7 @@
   },
   "combined": {
     "total": 133,
-    "enrollments": 332,
+    "enrollments": 334,
     "byCampus": {
       "Upper Campus": 57,
       "Lower Campus": 76,
@@ -291,8 +291,8 @@
       "June 15th-19th": 41,
       "June 22nd-26th": 26,
       "June 29th-July 3rd": 25,
-      "July 6th-10th": 30,
-      "July 13th-17th": 30,
+      "July 6th-10th": 31,
+      "July 13th-17th": 31,
       "July 20th-24th": 31,
       "July 27th-31st": 24,
       "August 3rd-7th": 31,
@@ -326,12 +326,12 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 13,
+        "Upper Campus": 14,
         "Lower Campus": 17,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 8,
+        "Upper Campus": 9,
         "Lower Campus": 22,
         "Unknown": 0
       },
@@ -740,24 +740,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 18,
-              "Wed": 19,
+              "Mon": 18,
+              "Tue": 19,
+              "Wed": 20,
               "Thu": 17,
               "Fri": 16
             },
-            "total": 87
+            "total": 90
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 26,
-            "Tue": 29,
-            "Wed": 29,
+            "Mon": 27,
+            "Tue": 30,
+            "Wed": 30,
             "Thu": 28,
             "Fri": 26
           },
-          "all": 138
+          "all": 141
         }
       },
       "July 13th-17th": {
@@ -819,24 +819,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 15,
-              "Tue": 15,
-              "Wed": 16,
+              "Mon": 16,
+              "Tue": 16,
+              "Wed": 17,
               "Thu": 16,
               "Fri": 14
             },
-            "total": 76
+            "total": 79
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 29,
-            "Wed": 29,
+            "Mon": 29,
+            "Tue": 30,
+            "Wed": 30,
             "Thu": 30,
             "Fri": 27
           },
-          "all": 143
+          "all": 146
         }
       },
       "July 20th-24th": {
@@ -2612,6 +2612,14 @@
           "type": "summer"
         },
         {
+          "name": "Emily Hunt",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "hayden finneran",
           "campus": "Upper Campus",
           "lunch": true,
@@ -2846,6 +2854,14 @@
           "name": "Billy Bob",
           "campus": "Upper Campus",
           "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Emily Hunt",
+          "campus": "Upper Campus",
+          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
