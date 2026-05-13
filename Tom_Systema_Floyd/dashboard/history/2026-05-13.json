@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-13T00:11:59Z",
+  "generatedAt": "2026-05-13T00:17:04Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 126,
+    "summer": 122,
     "free": 7,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,15 +107,15 @@
     "roster": []
   },
   "summer": {
-    "total": 126,
+    "total": 122,
     "byCampus": {
-      "Upper Campus": 56,
+      "Upper Campus": 52,
       "Lower Campus": 70,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 28,
-      "June 8th-12th": 26,
+      "June 1st-5th": 27,
+      "June 8th-12th": 23,
       "June 15th-19th": 41,
       "June 22nd-26th": 24,
       "June 29th-July 3rd": 25,
@@ -123,18 +123,18 @@
       "July 13th-17th": 31,
       "July 20th-24th": 30,
       "July 27th-31st": 24,
-      "August 3rd-7th": 27,
+      "August 3rd-7th": 26,
       "August 10th-14th": 14,
       "August 17th-21st": 21
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 10,
+        "Upper Campus": 9,
         "Lower Campus": 18,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 17,
+        "Upper Campus": 14,
         "Lower Campus": 9,
         "Unknown": 0
       },
@@ -149,8 +149,8 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 11,
-        "Lower Campus": 14,
+        "Upper Campus": 10,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -175,7 +175,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 6,
-        "Lower Campus": 21,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -280,16 +280,16 @@
     }
   },
   "combined": {
-    "total": 133,
-    "enrollments": 368,
+    "total": 129,
+    "enrollments": 363,
     "byCampus": {
-      "Upper Campus": 60,
+      "Upper Campus": 56,
       "Lower Campus": 73,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 33,
-      "June 8th-12th": 31,
+      "June 1st-5th": 32,
+      "June 8th-12th": 28,
       "June 15th-19th": 47,
       "June 22nd-26th": 29,
       "June 29th-July 3rd": 31,
@@ -297,18 +297,18 @@
       "July 13th-17th": 36,
       "July 20th-24th": 35,
       "July 27th-31st": 24,
-      "August 3rd-7th": 31,
+      "August 3rd-7th": 30,
       "August 10th-14th": 14,
       "August 17th-21st": 21
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 13,
+        "Upper Campus": 12,
         "Lower Campus": 20,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 21,
+        "Upper Campus": 18,
         "Lower Campus": 10,
         "Unknown": 0
       },
@@ -323,8 +323,8 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 15,
-        "Lower Campus": 16,
+        "Upper Campus": 14,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -349,7 +349,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 9,
-        "Lower Campus": 22,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -386,13 +386,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 8,
-              "Tue": 8,
-              "Wed": 8,
-              "Thu": 8,
-              "Fri": 8
+              "Mon": 7,
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 7
             },
-            "total": 40
+            "total": 35
           },
           {
             "category": "celis",
@@ -436,13 +436,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 23,
-            "Wed": 28,
-            "Thu": 27,
-            "Fri": 23
+            "Mon": 27,
+            "Tue": 22,
+            "Wed": 27,
+            "Thu": 26,
+            "Fri": 22
           },
-          "all": 129
+          "all": 124
         }
       },
       "June 8th-12th": {
@@ -465,13 +465,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 6,
-              "Tue": 6,
-              "Wed": 6,
-              "Thu": 6,
-              "Fri": 6
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 5,
+              "Thu": 5,
+              "Fri": 5
             },
-            "total": 30
+            "total": 25
           },
           {
             "category": "celis",
@@ -491,24 +491,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 15,
-              "Wed": 18,
-              "Thu": 18,
-              "Fri": 15
+              "Mon": 15,
+              "Tue": 13,
+              "Wed": 16,
+              "Thu": 16,
+              "Fri": 13
             },
-            "total": 83
+            "total": 73
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 25,
-            "Tue": 23,
-            "Wed": 26,
-            "Thu": 25,
-            "Fri": 22
+            "Mon": 22,
+            "Tue": 20,
+            "Wed": 23,
+            "Thu": 22,
+            "Fri": 19
           },
-          "all": 121
+          "all": 106
         }
       },
       "June 15th-19th": {
@@ -1006,13 +1006,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 10,
-              "Tue": 10,
-              "Wed": 10,
-              "Thu": 10,
-              "Fri": 10
+              "Mon": 9,
+              "Tue": 9,
+              "Wed": 9,
+              "Thu": 9,
+              "Fri": 9
             },
-            "total": 50
+            "total": 45
           },
           {
             "category": "celis",
@@ -1056,13 +1056,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 26,
-            "Tue": 27,
-            "Wed": 27,
-            "Thu": 27,
-            "Fri": 26
+            "Mon": 25,
+            "Tue": 26,
+            "Wed": 26,
+            "Thu": 26,
+            "Fri": 25
           },
-          "all": 133
+          "all": 128
         }
       },
       "August 10th-14th": {
@@ -1542,14 +1542,6 @@
           "type": "summer"
         },
         {
-          "name": "Saylor",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Saylor Carter",
           "campus": "Upper Campus",
           "lunch": true,
@@ -1827,14 +1819,6 @@
           "type": "summer"
         },
         {
-          "name": "Hope Jean- Francois",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Hope Jean-Francois",
           "campus": "Upper Campus",
           "lunch": false,
@@ -1875,25 +1859,9 @@
           "type": "summer"
         },
         {
-          "name": "Saylor",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Saylor Carter",
           "campus": "Upper Campus",
           "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Skaar, Norah",
-          "campus": "Upper Campus",
-          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -2683,14 +2651,6 @@
           "type": "summer"
         },
         {
-          "name": "Eliana Loupis",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Hawthorn Fennell",
           "campus": "Upper Campus",
           "lunch": false,
@@ -2782,6 +2742,14 @@
         },
         {
           "name": "Austin Shue",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Eliana Loupis",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
@@ -4211,14 +4179,6 @@
           "name": "Parker Faulkner",
           "campus": "Lower Campus",
           "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Scott Wilder",
-          "campus": "Lower Campus",
-          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
