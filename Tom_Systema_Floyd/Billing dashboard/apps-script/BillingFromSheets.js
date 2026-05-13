@@ -362,6 +362,41 @@ function wipeDashboardDataArea_() {
    ═══════════════════════════════════════════════════════════════ */
 
 /**
+ * Build the cell-Note text shown when hovering over an Item cell.
+ * Surfaces source provenance prominently; fingerprint is stashed at
+ * the very end as an internal reference (reconciler reads it).
+ *
+ * Format:
+ *   Source: <sheet label>, <week>, row <N>
+ *   Link: <url to source cell>
+ *
+ *   Pricing: <fee breakdown>
+ *
+ *   (Internal ref: <fingerprint>)
+ */
+function bfsBuildItemNote_(item) {
+  var lines = [];
+  if (item.enrollment && item.enrollment.sheetLabel) {
+    var parts = [item.enrollment.sheetLabel];
+    if (item.enrollment.week)      parts.push(item.enrollment.week);
+    if (item.enrollment.sourceRow) parts.push('row ' + item.enrollment.sourceRow);
+    lines.push('Source: ' + parts.join(', '));
+  }
+  if (item.linkToSource) {
+    lines.push('Link: ' + item.linkToSource);
+  }
+  if (item.feeNote) {
+    lines.push('');
+    lines.push('Pricing: ' + item.feeNote);
+  }
+  if (item.fingerprint) {
+    lines.push('');
+    lines.push('(Internal ref: ' + item.fingerprint + ')');
+  }
+  return lines.join('\n');
+}
+
+/**
  * Build the human-readable label for a line item as it appears on the
  * Dashboard. Uses comma (no em-dash) per the team's preference.
  */
@@ -452,10 +487,12 @@ function readDashboardState_() {
     if (currentCustomer.txFirst === null) currentCustomer.txFirst = sheetRow;
     currentCustomer.txLast = sheetRow;
 
-    // Extract fingerprint from col B note (we store "Submission ID: <fp>")
+    // Extract fingerprint from col B note. New format uses "(Internal
+    // ref: <fp>)"; legacy uses "Submission ID: <fp>". Try both.
     var note = String(notes[i][0] || '');
-    var fpMatch = note.match(/Submission ID:\s*(\S+)/);
-    if (!fpMatch) continue;  // legacy row without fingerprint — skip from diff
+    var fpMatch = note.match(/Internal ref:\s*([^)\s]+)/) ||
+                  note.match(/Submission ID:\s*(\S+)/);
+    if (!fpMatch) continue;  // row without fingerprint — skip from diff
     var fp = fpMatch[1];
 
     items[fp] = {
@@ -649,10 +686,9 @@ function reconcileDashboard_(freshItems) {
       } else {
         cellB.setValue(label);
       }
-      // Note: fingerprint + fee breakdown
-      var noteLines = ['Submission ID: ' + u.fresh.fingerprint];
-      if (u.fresh.feeNote) noteLines.push(u.fresh.feeNote);
-      cellB.setNote(noteLines.join('\n'));
+      // Note: provenance-first (source sheet + week + row + link),
+      // fee breakdown, fingerprint at the bottom as internal ref
+      cellB.setNote(bfsBuildItemNote_(u.fresh));
     }
   });
 
@@ -740,11 +776,9 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
   });
   dash.getRange(firstNew, 1, matrix.length, 7).setValues(matrix);
 
-  // Fingerprint notes + fee-breakdown Note on each Item cell
+  // Provenance + pricing + internal-ref Notes on each Item cell
   var noteValues = newItems.map(function(it) {
-    var lines = ['Submission ID: ' + it.fingerprint];
-    if (it.feeNote) lines.push(it.feeNote);
-    return [lines.join('\n')];
+    return [bfsBuildItemNote_(it)];
   });
   dash.getRange(firstNew, 2, noteValues.length, 1).setNotes(noteValues);
 
@@ -758,8 +792,17 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
 
   // Extend the existing customer's row group to cover the inserted rows
   // so the new tx rows collapse with the rest of the section.
+  //
+  // Defensive: Sheets sometimes auto-extends groups when rows are
+  // inserted inside an existing group, so the new rows may already be
+  // at depth 1. Calling shiftRowGroupDepth(1) on already-depth-1 rows
+  // pushes them to depth 2, which is what created the nested-groups
+  // bug. Check current depth first.
   try {
-    dash.getRange(firstNew, 1, matrix.length, 1).shiftRowGroupDepth(1);
+    var depth = dash.getRowGroupDepth(firstNew);
+    if (depth < 1) {
+      dash.getRange(firstNew, 1, matrix.length, 1).shiftRowGroupDepth(1);
+    }
   } catch (e) {
     Logger.log('[appendItemsToCustomerSection_] group extend err: ' + e.message);
   }
@@ -826,9 +869,7 @@ function appendNewCustomerSection_(dash, email, newItems) {
     .setAllowInvalid(true).build();
   dash.getRange(firstTx, 7, newItems.length, 1).setDataValidation(statusRule);
   var noteValues = newItems.map(function(it) {
-    var lines = ['Submission ID: ' + it.fingerprint];
-    if (it.feeNote) lines.push(it.feeNote);
-    return [lines.join('\n')];
+    return [bfsBuildItemNote_(it)];
   });
   dash.getRange(firstTx, 2, noteValues.length, 1).setNotes(noteValues);
 
@@ -897,6 +938,38 @@ function buildBalanceNote_(email, items) {
   lines.push('Prices include inline tax and processing fee per item. Hover over each Item cell for the per-unit breakdown.');
 
   return lines.join('\n');
+}
+
+/**
+ * One-shot cleanup: rip out every row group on the Dashboard, then
+ * rebuild a single depth-1 group per customer (sub-header through
+ * their last tx row), collapsed by default. Fixes nested-group
+ * accumulation that built up across multiple reconciler runs.
+ */
+function fixDashboardGroups_() {
+  var dash = getDashboardSheet();
+  if (typeof resetAllRowGroups_ === 'function') {
+    try { resetAllRowGroups_(dash); } catch (e) {
+      Logger.log('[fixDashboardGroups_] reset err: ' + e.message);
+    }
+  }
+  var state = readDashboardState_();
+  var rebuilt = 0;
+  Object.keys(state.customers).forEach(function(email) {
+    var c = state.customers[email];
+    if (!c.subHeaderRow || !c.txLast || c.txLast < c.subHeaderRow) return;
+    try {
+      dash.getRange(c.subHeaderRow, 1, c.txLast - c.subHeaderRow + 1, 1)
+          .shiftRowGroupDepth(1);
+      var grp = dash.getRowGroup(c.subHeaderRow, 1);
+      if (grp) grp.collapse();
+      rebuilt++;
+    } catch (e) {
+      Logger.log('[fixDashboardGroups_] err for ' + email + ': ' + e.message);
+    }
+  });
+  Logger.log('[fixDashboardGroups_] rebuilt ' + rebuilt + ' customer row groups');
+  return { rebuilt: rebuilt };
 }
 
 /**
@@ -1195,7 +1268,7 @@ function rebuildDashboardHierarchical_(items) {
       dash.getRange(cr.txFirst, 7, cr.txLast - cr.txFirst + 1, 1).setDataValidation(statusRule);
 
       // Fingerprint notes on col B for status preservation on next rebuild
-      var noteValues = cr.fingerprints.map(function(fp) { return ['Submission ID: ' + fp]; });
+      var noteValues = cr.fingerprints.map(function(fp) { return ['(Internal ref: ' + fp + ')']; });
       dash.getRange(cr.txFirst, 2, noteValues.length, 1).setNotes(noteValues);
 
       // Row grouping + collapse (subheader through last tx)
