@@ -212,6 +212,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .nav-link.sheet::before,.nav-link.doc::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;flex-shrink:0}
 .nav-link.sheet::before{background:#34a853}
 .nav-link.doc::before{background:#4285f4}
+.nav-link.billing{background:#1e8e3e;color:#fff;border-color:#0f6b2c;box-shadow:0 4px 10px -4px rgba(30,142,62,.55);font-weight:600}
+.nav-link.billing:hover{background:#137333;color:#fff;border-color:#0f6b2c}
 .nav-link svg{flex-shrink:0;opacity:.85}
 .nav-link.active svg{opacity:1}
 @media (max-width:700px){
@@ -300,7 +302,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
 <main class="dash">
 
-  <!-- Dashboard nav: Pages | Sheets | Docs -->
+  <!-- Dashboard nav: Pages | Sheets | Billing -->
   <nav class="dash-nav anim d1" aria-label="Dashboard navigation">
     <div class="nav-group">
       <span class="nav-group-label">Pages</span>
@@ -323,9 +325,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
     <span class="nav-divider"></span>
     <div class="nav-group">
-      <span class="nav-group-label">Docs</span>
-      <a class="nav-link doc" href="https://docs.google.com/document/d/1IvGU5fHIIWVwSgA-0ybGmV7rvjjZof_iB_dMsMU52TM/edit" target="_blank" rel="noopener">Ops Manual</a>
-      <a class="nav-link doc" href="https://docs.google.com/document/d/1Y6Gy7MNy8VPau-ORsg9slM-GWRPdhoG-R87W-ajRjTA/edit" target="_blank" rel="noopener">Sheet Access</a>
+      <span class="nav-group-label">Billing</span>
+      <a class="nav-link billing" href="https://docs.google.com/spreadsheets/d/1VKwy29-ah7AznrcKs5aGqVKdIuOkCWO6JMUfonas2bM/edit?gid=1693204858#gid=1693204858" target="_blank" rel="noopener">💵 Billing Dashboard</a>
     </div>
   </nav>
 
