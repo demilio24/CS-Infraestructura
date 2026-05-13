@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T23:02:10Z",
+  "generatedAt": "2026-05-13T23:07:06Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,8 +110,8 @@
   "summer": {
     "total": 123,
     "byCampus": {
-      "Upper Campus": 53,
-      "Lower Campus": 70,
+      "Upper Campus": 52,
+      "Lower Campus": 71,
       "Unknown": 0
     },
     "byWeek": {
@@ -166,18 +166,18 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 9,
-        "Lower Campus": 22,
+        "Upper Campus": 8,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 13,
-        "Lower Campus": 18,
+        "Upper Campus": 12,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 10,
-        "Lower Campus": 14,
+        "Upper Campus": 9,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -191,8 +191,8 @@
         "Unknown": 0
       },
       "August 24th-28th": {
-        "Upper Campus": 13,
-        "Lower Campus": 9,
+        "Upper Campus": 12,
+        "Lower Campus": 10,
         "Unknown": 0
       }
     }
@@ -297,8 +297,8 @@
     "total": 140,
     "enrollments": 454,
     "byCampus": {
-      "Upper Campus": 65,
-      "Lower Campus": 75,
+      "Upper Campus": 64,
+      "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
@@ -353,18 +353,18 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 19,
-        "Lower Campus": 26,
+        "Upper Campus": 18,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 23,
-        "Lower Campus": 22,
+        "Upper Campus": 22,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 20,
-        "Lower Campus": 18,
+        "Upper Campus": 19,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -378,8 +378,8 @@
         "Unknown": 0
       },
       "August 24th-28th": {
-        "Upper Campus": 13,
-        "Lower Campus": 9,
+        "Upper Campus": 12,
+        "Lower Campus": 10,
         "Unknown": 0
       }
     }
@@ -3772,14 +3772,6 @@
           "allergy": null,
           "incomplete": false,
           "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
         }
       ],
       "lower": [
@@ -3945,6 +3937,14 @@
         },
         {
           "name": "Wheeler Wilson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
           "campus": "Lower Campus",
           "lunch": true,
           "allergy": null,
@@ -4186,14 +4186,6 @@
           "allergy": null,
           "incomplete": false,
           "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
         }
       ],
       "lower": [
@@ -4335,6 +4327,14 @@
         },
         {
           "name": "Wheeler Wilson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
           "campus": "Lower Campus",
           "lunch": true,
           "allergy": null,
@@ -4544,14 +4544,6 @@
           "allergy": null,
           "incomplete": false,
           "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
         }
       ],
       "lower": [
@@ -4655,6 +4647,14 @@
           "name": "Vincent Vallier",
           "campus": "Lower Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
+          "campus": "Lower Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
@@ -5291,14 +5291,6 @@
           "type": "summer"
         },
         {
-          "name": "Jack Loeffler",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Madelyn Rogers",
           "campus": "Upper Campus",
           "lunch": false,
@@ -5358,6 +5350,14 @@
         },
         {
           "name": "August Johnson",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Jack Loeffler",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
