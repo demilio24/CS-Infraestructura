@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-13T16:18:49Z",
+  "generatedAt": "2026-05-13T16:22:22Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 122,
+    "summer": 121,
     "free": 12,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,9 +107,9 @@
     "roster": []
   },
   "summer": {
-    "total": 122,
+    "total": 121,
     "byCampus": {
-      "Upper Campus": 52,
+      "Upper Campus": 51,
       "Lower Campus": 70,
       "Unknown": 0
     },
@@ -117,7 +117,7 @@
       "June 1st-5th": 27,
       "June 8th-12th": 23,
       "June 15th-19th": 41,
-      "June 22nd-26th": 24,
+      "June 22nd-26th": 23,
       "June 29th-July 3rd": 25,
       "July 6th-10th": 32,
       "July 13th-17th": 31,
@@ -144,7 +144,7 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 10,
+        "Upper Campus": 9,
         "Lower Campus": 14,
         "Unknown": 0
       },
@@ -281,10 +281,10 @@
     }
   },
   "combined": {
-    "total": 134,
-    "enrollments": 401,
+    "total": 133,
+    "enrollments": 400,
     "byCampus": {
-      "Upper Campus": 60,
+      "Upper Campus": 59,
       "Lower Campus": 74,
       "Unknown": 0
     },
@@ -292,7 +292,7 @@
       "June 1st-5th": 35,
       "June 8th-12th": 31,
       "June 15th-19th": 50,
-      "June 22nd-26th": 32,
+      "June 22nd-26th": 31,
       "June 29th-July 3rd": 34,
       "July 6th-10th": 40,
       "July 13th-17th": 40,
@@ -319,7 +319,7 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 16,
+        "Upper Campus": 15,
         "Lower Campus": 16,
         "Unknown": 0
       },
@@ -637,24 +637,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 17,
-              "Wed": 15,
-              "Thu": 15,
-              "Fri": 15
+              "Mon": 16,
+              "Tue": 16,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 14
             },
-            "total": 79
+            "total": 74
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 24,
-            "Tue": 23,
-            "Wed": 22,
-            "Thu": 21,
-            "Fri": 22
+            "Mon": 23,
+            "Tue": 22,
+            "Wed": 21,
+            "Thu": 20,
+            "Fri": 21
           },
-          "all": 112
+          "all": 107
         }
       },
       "June 29th-July 3rd": {
@@ -2553,14 +2553,6 @@
           "name": "Ryder Tarantino",
           "campus": "Upper Campus",
           "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
-          "name": "Stella Rose Ellis",
-          "campus": "Upper Campus",
-          "lunch": false,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
