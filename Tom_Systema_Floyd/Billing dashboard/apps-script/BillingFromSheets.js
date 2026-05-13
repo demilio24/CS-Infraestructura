@@ -188,9 +188,13 @@ function bfsClassifySheet_(folderPath) {
  * Runs every 5 min via installBillingFromSheetsTrigger.
  */
 function buildAllBilling() {
+  // Wait up to 2 minutes for any in-flight run to finish (instead of
+  // bailing instantly). Lets manual editor runs queue up cleanly
+  // behind concurrent scheduled triggers — no more "previous run
+  // still in progress, skipping" noise.
   var lock = LockService.getScriptLock();
-  if (!lock.tryLock(0)) {
-    Logger.log('[buildAllBilling] previous run still in progress, skipping');
+  if (!lock.tryLock(120000)) {
+    Logger.log('[buildAllBilling] could not acquire lock after 2 min — another run is taking unusually long. Skipping.');
     return;
   }
   try {
