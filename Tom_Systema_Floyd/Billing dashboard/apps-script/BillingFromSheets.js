@@ -518,6 +518,13 @@ function rebuildDashboardHierarchical_(items) {
     return;
   }
 
+  // Clear column-wide data validation rules left over from the legacy
+  // status-pill dropdown on col G — otherwise balance formulas in
+  // customer header rows fail with "violates the data validation rules".
+  // Also clears any stale formatting that might confuse the new render.
+  var stretchedRows = Math.max(matrix.length + 1, dash.getMaxRows() - 1);
+  dash.getRange(2, 1, stretchedRows, 7).clearDataValidations();
+
   dash.getRange(2, 1, matrix.length, 7).setValues(matrix);
 
   // 6. Pass 2: per-customer formatting (balance formula, header colors,
