@@ -50,6 +50,11 @@
 //       └── <one sheet per school program>
 const REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w';
 
+// Tax + fees applied during the Dashboard render. Edit these constants
+// when rates change; takes effect on the next 5-min trigger.
+const SHIRT_SALES_TAX_RATE  = 0.07;  // 7% on T-shirts only
+const PAYMENT_PROCESSING_FEE = 0.03;  // 3% on the customer's subtotal (incl. tax)
+
 // Fallback inventory: used when Drive folder scan fails (folder unshared,
 // API error, permission issue, etc.). Keeps the 4 known summer-camp
 // sheets discoverable as a safety net.
@@ -310,18 +315,100 @@ function wipeDashboardDataArea_() {
 }
 
 /**
- * Top-level renderer. Group items by parent email, wipe Dashboard,
- * re-emit hierarchically using SheetWrites helpers, restore statuses.
+ * Inject derived line items per parent:
+ *   - Sales tax (7%) on each priced T-shirt
+ *   - Payment processing fee (3%) on the customer's subtotal (incl. tax)
+ *
+ * Rates live in SHIRT_SALES_TAX_RATE / PAYMENT_PROCESSING_FEE constants
+ * at the top of this file. Edit there to change.
+ *
+ * Modifies parentBucket.items in place.
+ */
+function bfsInjectTaxAndFee_(parentBucket) {
+  var augmented = [];
+  // Pass 1: keep original items + inject sales tax line after each priced shirt
+  parentBucket.items.forEach(function(it) {
+    augmented.push(it);
+    if (it.kind === 'shirt' && !it.unpriced && Number(it.total) > 0) {
+      var taxTotal = Math.round(Number(it.total) * SHIRT_SALES_TAX_RATE * 100) / 100;
+      augmented.push({
+        kind:        'shirt-tax',
+        label:       'Sales Tax (' + Math.round(SHIRT_SALES_TAX_RATE * 100) + '%) on ' + it.label,
+        price:       taxTotal,
+        multiplier:  '',
+        qty:         1,
+        total:       taxTotal,
+        unpriced:    false,
+        ambiguous:   false,
+        source:      'sales-tax',
+        linkToSource: '',
+        enrollment:  it.enrollment,
+        fingerprint: it.fingerprint + '|tax-' + Math.round(SHIRT_SALES_TAX_RATE * 100) + 'pct'
+      });
+    }
+  });
+
+  // Pass 2: compute subtotal of all priced items + tax → append processing fee row
+  var subtotal = 0;
+  augmented.forEach(function(it) {
+    if (!it.unpriced) subtotal += Number(it.total) || 0;
+  });
+  if (subtotal > 0) {
+    var feeTotal = Math.round(subtotal * PAYMENT_PROCESSING_FEE * 100) / 100;
+    var feeEnrollment = {
+      email:    parentBucket.email,
+      emailRaw: parentBucket.emailRaw,
+      student:  '— ALL —',
+      week:     'All weeks',
+    };
+    augmented.push({
+      kind:        'processing-fee',
+      label:       'Payment Processing Fee (' + Math.round(PAYMENT_PROCESSING_FEE * 100) + '%)',
+      price:       feeTotal,
+      multiplier:  '',
+      qty:         1,
+      total:       feeTotal,
+      unpriced:    false,
+      ambiguous:   false,
+      source:      'processing-fee',
+      linkToSource: '',
+      enrollment:  feeEnrollment,
+      fingerprint: 'processing-fee|' + parentBucket.email.replace(/[^a-z0-9]/g, '-')
+    });
+  }
+
+  parentBucket.items = augmented;
+}
+
+/**
+ * Batch renderer. Builds the entire Dashboard data area in memory then
+ * writes it with a single setValues call. ~100× faster than the
+ * per-row helper approach the previous version used, which was hitting
+ * Apps Script's 6-min execution limit at ~441 enrollments.
+ *
+ * Layout matches the legacy Dashboard look:
+ *   - Header (row 1, untouched)
+ *   - Customer rows (dark blue background, name/email/students/balance)
+ *   - Sub-header rows (mid-blue: DATE | ITEM | UNIT PRICE | DAYS | WEEKS | TOTAL | STATUS)
+ *   - Tx rows beneath each customer (grouped + collapsed)
+ *
+ * Status preservation: each tx row stores its fingerprint as a cell Note
+ * on col B in the form "Submission ID: <fp>". Before wipe, we snapshot
+ * (fp, status) pairs by reading those notes; after rebuild, we restore.
  */
 function rebuildDashboardHierarchical_(items) {
-  // 1. Capture statuses before wipe
+  var dash = getDashboardSheet();
+
+  // 1. Snapshot statuses + existing customer header metadata (Name,
+  //    Phone, Waiver Origin) so we don't lose what's already there.
   var existingStatus = snapshotDashboardStatusesByFingerprint_();
+  var existingCustomerMeta = snapshotCustomerHeaderMeta_();
 
   // 2. Group items by parent email
   var byParent = {};
   items.forEach(function(it) {
     var email = (it.enrollment.email || '').toLowerCase();
-    if (!email) return;  // skip rows missing parent email (incomplete reg)
+    if (!email) return;
     if (!byParent[email]) {
       byParent[email] = {
         email:    email,
@@ -334,23 +421,29 @@ function rebuildDashboardHierarchical_(items) {
     byParent[email].items.push(it);
   });
 
-  // 3. Wipe Dashboard
-  wipeDashboardDataArea_();
+  // 3. Augment each parent's items with sales tax + processing fee
+  Object.keys(byParent).forEach(function(email) {
+    bfsInjectTaxAndFee_(byParent[email]);
+  });
 
-  // 4. For each parent (sorted by email for determinism), emit
-  //    customer row + sub-header + tx rows + balance + grouping
+  // 4. Build the matrix
+  var matrix = [];
+  var customerRows = [];   // [{ email, customerRow, subHeaderRow, txFirst, txLast, fingerprints, students }]
   var allPeriods = BFS_WEEK_ORDER
     .concat(AFTER_SCHOOL_MONTH_COLUMNS)
     .concat(AFTER_SCHOOL_QUARTER_COLUMNS);
 
   var emails = Object.keys(byParent).sort();
-  var parentsWritten = 0, txWritten = 0, unpriced = 0, ambiguous = 0;
+  var totalUnpriced = 0, totalAmbiguous = 0;
+  var nowDateStr = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  var currentRow = 2;  // row 1 is the header
 
   emails.forEach(function(email) {
     var p = byParent[email];
     var studentNames = Object.keys(p.students).sort();
+    var meta = existingCustomerMeta[email] || {};
 
-    // Sort this parent's items: student → period → kind
+    // Sort items: student → period → kind
     p.items.sort(function(a, b) {
       var byStudent = (a.enrollment.student || '').localeCompare(b.enrollment.student || '');
       if (byStudent !== 0) return byStudent;
@@ -359,76 +452,186 @@ function rebuildDashboardHierarchical_(items) {
       return (a.kind || '').localeCompare(b.kind || '');
     });
 
-    // Customer header row
-    var customerRow = upsertCustomerRow({
-      email:        email,
-      name:         '',           // unknown from sheets alone
-      phone:        '',
-      waiverOrigin: '',           // could be derived from first item's reg.type but skip for now
-      studentNames: studentNames,
-      profileUrl:   null,
-      contactId:    null,
-      subaccount:   'Florida'
-    });
+    var customerRow = currentRow;
+    matrix.push([
+      meta.name  || '',
+      p.emailRaw,
+      meta.phone || '',
+      meta.waiverOrigin || '',
+      studentNames.join(', '),
+      meta.profile || '',
+      ''  // balance — set via formula in pass 2
+    ]);
+    currentRow++;
 
-    // Sub-header row (only insert if not already present beneath the customer)
-    var dash = getDashboardSheet();
-    var subA = String(dash.getRange(customerRow + 1, 1).getValue() || '').trim().toUpperCase();
-    var subG = String(dash.getRange(customerRow + 1, 7).getValue() || '').trim().toUpperCase();
-    if (!(subA === 'DATE' && subG === 'STATUS')) {
-      appendSubHeaderRow(customerRow);
-    }
+    var subHeaderRow = currentRow;
+    matrix.push(['DATE', 'ITEM', 'UNIT PRICE', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']);
+    currentRow++;
 
-    // Tx rows
+    var txFirst = currentRow;
+    var fingerprints = [];
     p.items.forEach(function(it) {
       var defaultStatus = it.unpriced
         ? 'unpriced'
         : (it.ambiguous ? 'ambiguous' : 'owed');
       var status = existingStatus[it.fingerprint] || defaultStatus;
-      var itemLabel = it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')';
-      appendTxRow(customerRow, {
-        date:             new Date(),
-        item:             itemLabel,
-        unitPriceNumeric: it.price,
-        unitMultiplier:   it.multiplier || '',
-        pricingRule:      'sheet-driven',
-        days:             it.multiplier === '/day' ? it.qty : '',
-        weeks:            (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
-        status:           status,
-        submissionId:     it.fingerprint,   // re-purposed: stores our fingerprint, not a GHL id
-        sourceFieldName:  it.kind,
-        selectedWeeks:    [it.enrollment.week],
-        selectedDays:     [],
-        weekLabel:        it.enrollment.week,
-        allWeeksOnSubmission: [it.enrollment.week],
-        formAnswerLabel:  it.source || it.label
-      });
-      txWritten++;
-      if (it.unpriced)  unpriced++;
-      if (it.ambiguous) ambiguous++;
+      var label = it.enrollment.student
+        ? it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')'
+        : it.label;
+      matrix.push([
+        nowDateStr,
+        label,
+        Number(it.price) || 0,
+        it.multiplier === '/day' ? (Number(it.qty) || '') : '',
+        (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+        Number(it.total) || 0,
+        status
+      ]);
+      fingerprints.push(it.fingerprint);
+      if (it.unpriced)  totalUnpriced++;
+      if (it.ambiguous) totalAmbiguous++;
+      currentRow++;
     });
+    var txLast = currentRow - 1;
 
-    // Balance formula + grouping/collapse
-    updateBalanceFormula(customerRow, null, 'Florida');
-    var range = findCustomerTxRange(customerRow);
-    if (range && range.lastTx >= range.firstTx) {
-      var groupStart = customerRow + 1;
-      applyRowGrouping(groupStart, range.lastTx);
-      setGroupExpansion(groupStart, false);
-    }
-
-    parentsWritten++;
+    customerRows.push({
+      email:        email,
+      customerRow:  customerRow,
+      subHeaderRow: subHeaderRow,
+      txFirst:      txFirst,
+      txLast:       txLast,
+      fingerprints: fingerprints,
+      studentCount: studentNames.length
+    });
   });
 
-  // 5. Final cosmetic pass — DM Sans across the whole data area
-  var dashFinal = getDashboardSheet();
-  var finalLastRow = dashFinal.getLastRow();
-  if (finalLastRow >= 1) {
-    dashFinal.getRange(1, 1, finalLastRow, 7).setFontFamily('DM Sans');
+  // 5. Wipe + write. Wipe must be after we've computed everything in
+  //    case of an error mid-compute (we'd hate to wipe and then crash).
+  if (typeof resetAllRowGroups_ === 'function') {
+    try { resetAllRowGroups_(dash); } catch (e) { /* fall through */ }
+  }
+  var lastRow = dash.getLastRow();
+  if (lastRow >= 2) dash.deleteRows(2, lastRow - 1);
+
+  if (matrix.length === 0) {
+    Logger.log('[rebuildDashboardHierarchical_] no items — Dashboard left empty');
+    return;
   }
 
-  Logger.log('[rebuildDashboardHierarchical_] ' + parentsWritten + ' customer rows, ' +
-             txWritten + ' tx rows (' + unpriced + ' unpriced, ' + ambiguous + ' ambiguous)');
+  dash.getRange(2, 1, matrix.length, 7).setValues(matrix);
+
+  // 6. Pass 2: per-customer formatting (balance formula, header colors,
+  //    notes, status dropdown, grouping). Each operation is one API
+  //    call per customer — still fast (<1s per 100 customers).
+  customerRows.forEach(function(cr) {
+    // Customer header style — dark blue band
+    dash.getRange(cr.customerRow, 1, 1, 7)
+      .setBackground('#143980').setFontColor('#FFFFFF')
+      .setFontWeight('bold').setFontSize(12);
+
+    // Sub-header style — mid blue
+    dash.getRange(cr.subHeaderRow, 1, 1, 7)
+      .setBackground('#4a6493').setFontColor('#FFFFFF')
+      .setFontWeight('bold').setFontSize(10);
+
+    // Balance formula on customer row (SUMIFS over tx rows where status = "owed")
+    if (cr.txFirst <= cr.txLast) {
+      var balFormula = '=SUMIFS(F' + cr.txFirst + ':F' + cr.txLast + ', G' + cr.txFirst + ':G' + cr.txLast + ', "owed")';
+      dash.getRange(cr.customerRow, 7).setFormula(balFormula).setNumberFormat('"$"#,##0.00');
+
+      // Tx row: number formats on Unit Price + Total
+      dash.getRange(cr.txFirst, 3, cr.txLast - cr.txFirst + 1, 1).setNumberFormat('"$"#,##0.00');
+      dash.getRange(cr.txFirst, 6, cr.txLast - cr.txFirst + 1, 1).setNumberFormat('"$"#,##0.00');
+
+      // Status dropdown
+      var statusRule = SpreadsheetApp.newDataValidation()
+        .requireValueInList(['owed', 'paid', 'canceled', 'refunded', 'unpriced', 'ambiguous'], true)
+        .setAllowInvalid(false).build();
+      dash.getRange(cr.txFirst, 7, cr.txLast - cr.txFirst + 1, 1).setDataValidation(statusRule);
+
+      // Fingerprint notes on col B for status preservation on next rebuild
+      var noteValues = cr.fingerprints.map(function(fp) { return ['Submission ID: ' + fp]; });
+      dash.getRange(cr.txFirst, 2, noteValues.length, 1).setNotes(noteValues);
+
+      // Row grouping + collapse (subheader through last tx)
+      try {
+        dash.getRange(cr.subHeaderRow, 1, cr.txLast - cr.subHeaderRow + 1, 1).shiftRowGroupDepth(1);
+        var grp = dash.getRowGroup(cr.subHeaderRow, 1);
+        if (grp) grp.collapse();
+      } catch (e) {
+        Logger.log('[rebuildDashboardHierarchical_] group err for ' + cr.email + ': ' + e.message);
+      }
+    } else {
+      // Customer with no tx rows — leave balance blank
+      dash.getRange(cr.customerRow, 7).setValue('');
+    }
+  });
+
+  // 7. One-shot conditional formatting for status pills across the whole
+  //    tx area (much faster than per-customer rules).
+  var fullDataRange = dash.getRange(2, 1, dash.getLastRow() - 1, 7);
+  var statusColAll = dash.getRange(2, 7, dash.getLastRow() - 1, 1);
+  var rules = [];
+
+  // Whole-row yellow when status needs review
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenFormulaSatisfied('=OR($G2="unpriced",$G2="ambiguous")')
+    .setBackground('#FFF3B0')
+    .setRanges([fullDataRange]).build());
+
+  // Per-status pill colors on col G
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('paid').setBackground('#D4EDDA').setFontColor('#155724').setBold(true)
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('owed').setBackground('#FFF3CD').setFontColor('#856404')
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('canceled').setBackground('#E2E3E5').setFontColor('#383D41')
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('refunded').setBackground('#FFE5CC').setFontColor('#A05A00')
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('unpriced').setBackground('#F0AD4E').setFontColor('#5A3A00').setBold(true)
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('ambiguous').setBackground('#FFD966').setFontColor('#5A3A00').setBold(true)
+    .setRanges([statusColAll]).build());
+
+  dash.clearConditionalFormatRules();
+  dash.setConditionalFormatRules(rules);
+
+  // 8. DM Sans across everything
+  dash.getRange(1, 1, dash.getLastRow(), 7).setFontFamily('DM Sans');
+
+  Logger.log('[rebuildDashboardHierarchical_] wrote ' + emails.length + ' customer rows, ' +
+             (matrix.length - emails.length * 2) + ' tx rows (' + totalUnpriced + ' unpriced, ' +
+             totalAmbiguous + ' ambiguous) including sales tax + processing fee');
+}
+
+/**
+ * Read existing customer header rows (those with email in col B) and
+ * capture name/phone/waiverOrigin/profile so the rebuild doesn't lose
+ * fields populated by the legacy GHL-driven pipeline.
+ */
+function snapshotCustomerHeaderMeta_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return {};
+  var values = dash.getRange(2, 1, lastRow - 1, 6).getValues();
+  var out = {};
+  for (var i = 0; i < values.length; i++) {
+    var email = String(values[i][1] || '').trim().toLowerCase();
+    if (!email || email.indexOf('@') === -1) continue;
+    out[email] = {
+      name:         String(values[i][0] || ''),
+      phone:        String(values[i][2] || ''),
+      waiverOrigin: String(values[i][3] || ''),
+      profile:      values[i][5]  // may be HYPERLINK formula — preserve as value
+    };
+  }
+  return out;
 }
 
 /**
