@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T13:52:16Z",
+  "generatedAt": "2026-05-13T13:57:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -206,7 +206,7 @@
       "July 6th-10th": 7,
       "July 13th-17th": 8,
       "July 20th-24th": 8,
-      "July 27th-31st": 0,
+      "July 27th-31st": 6,
       "August 3rd-7th": 6,
       "August 10th-14th": 0,
       "August 17th-21st": 0
@@ -253,8 +253,8 @@
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 0,
-        "Lower Campus": 0,
+        "Upper Campus": 3,
+        "Lower Campus": 3,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -274,15 +274,15 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 39,
-      "Northboro Elementary School": 23,
-      "Roosevelt Elementary School": 7,
+      "Westward Elementary School": 43,
+      "Northboro Elementary School": 24,
+      "Roosevelt Elementary School": 8,
       "Pleasant City Elementary School": 1
     }
   },
   "combined": {
     "total": 132,
-    "enrollments": 388,
+    "enrollments": 394,
     "byCampus": {
       "Upper Campus": 58,
       "Lower Campus": 74,
@@ -297,7 +297,7 @@
       "July 6th-10th": 39,
       "July 13th-17th": 39,
       "July 20th-24th": 38,
-      "July 27th-31st": 24,
+      "July 27th-31st": 30,
       "August 3rd-7th": 32,
       "August 10th-14th": 14,
       "August 17th-21st": 21
@@ -344,8 +344,8 @@
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 10,
-        "Lower Campus": 14,
+        "Upper Campus": 13,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -1430,16 +1430,30 @@
         }
       },
       "July 27th-31st": {
-        "rows": [],
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 6,
+              "Tue": 6,
+              "Wed": 6,
+              "Thu": 6,
+              "Fri": 6
+            },
+            "total": 30
+          }
+        ],
         "totals": {
           "byDay": {
-            "Mon": 0,
-            "Tue": 0,
-            "Wed": 0,
-            "Thu": 0,
-            "Fri": 0
+            "Mon": 6,
+            "Tue": 6,
+            "Wed": 6,
+            "Thu": 6,
+            "Fri": 6
           },
-          "all": 0
+          "all": 30
         }
       },
       "August 3rd-7th": {
@@ -4201,7 +4215,62 @@
           "type": "summer"
         }
       ],
-      "free": []
+      "free": [
+        {
+          "name": "Ce’Yanna Adams",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Roosevelt Elementary School"
+        },
+        {
+          "name": "Jayceon Cooley",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Luvvie’Love Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
+          "name": "Nathaniel Martin",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
+          "name": "Sunni Hall",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
+          "name": "Taelynn Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Westward Elementary School"
+        }
+      ]
     },
     "August 3rd-7th": {
       "upper": [
