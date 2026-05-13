@@ -38,6 +38,7 @@ const WEEK_ORDER = [
   'August 3rd-7th',
   'August 10th-14th',
   'August 17th-21st',
+  'August 24th-28th',
 ];
 
 const PROGRAM_ORDER = [
@@ -146,9 +147,10 @@ function readCampSheet_(spreadsheetId, campusLabel) {
   const ss = SpreadsheetApp.openById(spreadsheetId);
   const tabs = ss.getSheets();
   const enrollments = [];
-  for (let i = 0; i < tabs.length && i < WEEK_ORDER.length; i++) {
-    const week = WEEK_ORDER[i];
+  for (let i = 0; i < tabs.length; i++) {
     const sheet = tabs[i];
+    const week = resolveWeek_(sheet.getName(), i);
+    if (!week) continue;
     const range = sheet.getDataRange();
     if (!range || range.getNumRows() < 2) continue;
     const values = range.getValues();
@@ -190,9 +192,10 @@ function readFreeSheet_(spreadsheetId, campusLabel) {
   const ss = SpreadsheetApp.openById(spreadsheetId);
   const tabs = ss.getSheets();
   const enrollments = [];
-  for (let i = 0; i < tabs.length && i < WEEK_ORDER.length; i++) {
-    const week = WEEK_ORDER[i];
+  for (let i = 0; i < tabs.length; i++) {
     const sheet = tabs[i];
+    const week = resolveWeek_(sheet.getName(), i);
+    if (!week) continue;
     const range = sheet.getDataRange();
     if (!range || range.getNumRows() < 2) continue;
     const values = range.getValues();
@@ -229,6 +232,42 @@ function readFreeSheet_(spreadsheetId, campusLabel) {
     }
   }
   return enrollments;
+}
+
+/* ───────────────────────── Week resolver ─────────────────────────
+ * Map a sheet tab name to one of WEEK_ORDER. Tabs are often named
+ * loosely ("Jun 8-12", "June 8 - 12", "6/8-6/12", "June 8th-12th").
+ * We extract the month + first day number and match against the canonical
+ * WEEK_ORDER labels. Falls back to tab position if the name can't be parsed
+ * (preserves legacy behavior). Returns null if no week can be resolved.
+ */
+const WEEK_KEY_MAP = (function() {
+  const m = {};
+  WEEK_ORDER.forEach(function(w) {
+    const k = weekKey_(w);
+    if (k) m[k] = w;
+  });
+  return m;
+})();
+
+function weekKey_(label) {
+  if (!label) return null;
+  const months = { jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12 };
+  const s = String(label).toLowerCase().replace(/(\d+)(st|nd|rd|th)/g, '$1');
+  // Try "<month> <day>" pattern (e.g. "june 8 12", "jun 8-12")
+  let m = s.match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s*(\d{1,2})/);
+  if (m) return months[m[1]] + '-' + parseInt(m[2], 10);
+  // Try "M/D" pattern (e.g. "6/8")
+  m = s.match(/(\d{1,2})\/(\d{1,2})/);
+  if (m) return parseInt(m[1], 10) + '-' + parseInt(m[2], 10);
+  return null;
+}
+
+function resolveWeek_(tabName, fallbackIndex) {
+  const key = weekKey_(tabName);
+  if (key && WEEK_KEY_MAP[key]) return WEEK_KEY_MAP[key];
+  if (fallbackIndex < WEEK_ORDER.length) return WEEK_ORDER[fallbackIndex];
+  return null;
 }
 
 /* ───────────────────────── Aggregation ───────────────────────── */
