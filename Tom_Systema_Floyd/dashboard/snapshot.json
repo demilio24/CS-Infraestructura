@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-13T22:47:02Z",
+  "generatedAt": "2026-05-13T22:52:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 112,
+    "summer": 123,
     "free": 17,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -24,7 +24,8 @@
     "July 27th-31st",
     "August 3rd-7th",
     "August 10th-14th",
-    "August 17th-21st"
+    "August 17th-21st",
+    "August 24th-28th"
   ],
   "programOrder": [
     "Foundations Block",
@@ -107,10 +108,10 @@
     "roster": []
   },
   "summer": {
-    "total": 112,
+    "total": 123,
     "byCampus": {
-      "Upper Campus": 44,
-      "Lower Campus": 68,
+      "Upper Campus": 53,
+      "Lower Campus": 70,
       "Unknown": 0
     },
     "byWeek": {
@@ -125,7 +126,8 @@
       "July 27th-31st": 31,
       "August 3rd-7th": 24,
       "August 10th-14th": 26,
-      "August 17th-21st": 14
+      "August 17th-21st": 14,
+      "August 24th-28th": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -187,6 +189,11 @@
         "Upper Campus": 4,
         "Lower Campus": 10,
         "Unknown": 0
+      },
+      "August 24th-28th": {
+        "Upper Campus": 13,
+        "Lower Campus": 9,
+        "Unknown": 0
       }
     }
   },
@@ -209,7 +216,8 @@
       "July 27th-31st": 14,
       "August 3rd-7th": 14,
       "August 10th-14th": 12,
-      "August 17th-21st": 0
+      "August 17th-21st": 0,
+      "August 24th-28th": 0
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -271,6 +279,11 @@
         "Upper Campus": 0,
         "Lower Campus": 0,
         "Unknown": 0
+      },
+      "August 24th-28th": {
+        "Upper Campus": 0,
+        "Lower Campus": 0,
+        "Unknown": 0
       }
     },
     "bySchool": {
@@ -281,11 +294,11 @@
     }
   },
   "combined": {
-    "total": 129,
-    "enrollments": 432,
+    "total": 140,
+    "enrollments": 454,
     "byCampus": {
-      "Upper Campus": 56,
-      "Lower Campus": 73,
+      "Upper Campus": 65,
+      "Lower Campus": 75,
       "Unknown": 0
     },
     "byWeek": {
@@ -300,7 +313,8 @@
       "July 27th-31st": 45,
       "August 3rd-7th": 38,
       "August 10th-14th": 38,
-      "August 17th-21st": 14
+      "August 17th-21st": 14,
+      "August 24th-28th": 22
     },
     "byWeekCampus": {
       "June 1st-5th": {
@@ -361,6 +375,11 @@
       "August 17th-21st": {
         "Upper Campus": 4,
         "Lower Campus": 10,
+        "Unknown": 0
+      },
+      "August 24th-28th": {
+        "Upper Campus": 13,
+        "Lower Campus": 9,
         "Unknown": 0
       }
     }
@@ -1144,6 +1163,72 @@
           },
           "all": 70
         }
+      },
+      "August 24th-28th": {
+        "rows": [
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 6,
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 4
+            },
+            "total": 31
+          },
+          {
+            "category": "pizza",
+            "subtypeKey": "pizza-weekly",
+            "label": "Pizza weekly ($30/wk)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "celis",
+            "subtypeKey": "celis-other||",
+            "label": "Celis: specialty (unspecified)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5
+          },
+          {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 13,
+              "Tue": 13,
+              "Wed": 13,
+              "Thu": 12,
+              "Fri": 11
+            },
+            "total": 62
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 21,
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 21,
+            "Fri": 17
+          },
+          "all": 103
+        }
       }
     },
     "free": {
@@ -1444,6 +1529,19 @@
         }
       },
       "August 17th-21st": {
+        "rows": [],
+        "totals": {
+          "byDay": {
+            "Mon": 0,
+            "Tue": 0,
+            "Wed": 0,
+            "Thu": 0,
+            "Fri": 0
+          },
+          "all": 0
+        }
+      },
+      "August 24th-28th": {
         "rows": [],
         "totals": {
           "byDay": {
@@ -5109,6 +5207,189 @@
         },
         {
           "name": "Teddy Grace",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Truett Rogers",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Wyld Torrealba",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        }
+      ],
+      "free": []
+    },
+    "August 24th-28th": {
+      "upper": [
+        {
+          "name": "Alex Nodland",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Capri Herbst",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Colton Hendrix",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Cora Cooke",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Ella Schwencke",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Ira Skaletsky",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Jack Loeffler",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Madelyn Rogers",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Olivia Englesbe",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Remy Zimmer",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Sophia Englesbe",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Thor Nodland",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Zoey Zimmer",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        }
+      ],
+      "lower": [
+        {
+          "name": "Aria Falzone",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": "Peanut, sesame seed, and green pea allergy; EpiPens required; Full Week",
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "August Johnson",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Leo Hamric",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Lily Johnson",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Marlow Rollins",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Reagan Olowin",
           "campus": "Lower Campus",
           "lunch": false,
           "allergy": null,
