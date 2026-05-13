@@ -362,6 +362,38 @@ function wipeDashboardDataArea_() {
    ═══════════════════════════════════════════════════════════════ */
 
 /**
+ * Build the human-readable label for a line item as it appears on the
+ * Dashboard. Uses comma (no em-dash) per the team's preference.
+ */
+function bfsBuildItemLabel_(item) {
+  if (item.enrollment && item.enrollment.student) {
+    return item.enrollment.student + ', ' + item.label +
+           (item.enrollment.week ? ' (' + item.enrollment.week + ')' : '');
+  }
+  return item.label;
+}
+
+/**
+ * Build the HYPERLINK formula or plain label for col B (Item) based on
+ * whether the item has a linkToSource URL.
+ */
+function bfsBuildItemCell_(item) {
+  var label = bfsBuildItemLabel_(item);
+  if (item.linkToSource) {
+    return '=HYPERLINK("' + item.linkToSource + '","' +
+           bfsEscapeFormula_(label) + '")';
+  }
+  return label;
+}
+
+/**
+ * Escape double quotes inside strings destined for a formula literal.
+ */
+function bfsEscapeFormula_(s) {
+  return String(s || '').replace(/"/g, '""');
+}
+
+/**
  * Walk the Dashboard tab and build a structured snapshot of what's
  * currently there. Returns:
  *   {
@@ -465,11 +497,24 @@ function reconcileDashboard_(freshItems) {
   var statusUpdates = [];   // [{row, newStatus, oldStatus, customerEmail}]
   var priceUpdates  = [];   // [{row, newPrice, newTotal}]
   var newItemsByCustomer = {};  // {email: [items]}
+  var rowsToDelete  = [];   // legacy fee/tax rows (architectural debris)
 
   // 3a. Cancellations: existing fingerprints no longer in fresh
   Object.keys(existingItems).forEach(function(fp) {
     if (freshByFingerprint[fp]) return;  // still present, not a cancellation
     var existing = existingItems[fp];
+
+    // Legacy tax/fee fingerprints (architectural debris) — delete the
+    // row outright. These exist on Dashboards built before fees moved
+    // inline. Fingerprint patterns:
+    //   *|tax-7pct    — the old shirt sales-tax row
+    //   processing-fee|*  — the old per-customer fee row
+    if (/\|tax-\d+pct$/.test(fp) || fp.indexOf('processing-fee|') === 0) {
+      rowsToDelete.push(existing.row);
+      return;
+    }
+
+    // Normal cancellation lifecycle
     var oldStatus = existing.status;
     var newStatus;
     if (oldStatus === 'paid') {
@@ -500,9 +545,11 @@ function reconcileDashboard_(freshItems) {
       if (Math.abs(existing.price - newPrice) > 0.005 ||
           Math.abs(existing.total - newTotal) > 0.005) {
         priceUpdates.push({
-          row:      existing.row,
-          newPrice: newPrice,
-          newTotal: newTotal
+          row:           existing.row,
+          newPrice:      newPrice,
+          newTotal:      newTotal,
+          fresh:         fresh,   // for label + linkToSource upgrade
+          customerEmail: existing.customerEmail
         });
       }
       return;
@@ -533,7 +580,45 @@ function reconcileDashboard_(freshItems) {
 
   var dash = getDashboardSheet();
 
-  // 5. Apply status updates. Each cell: clear any stale validation
+  // 5. Apply legacy row deletions FIRST (descending row order so
+  //    indices we still need don't shift). Touches:
+  //      - rows for the deprecated Sales Tax (7%) format
+  //      - rows for the deprecated Payment Processing Fee (3%) format
+  if (rowsToDelete.length > 0) {
+    rowsToDelete.sort(function(a, b) { return b - a; });
+    rowsToDelete.forEach(function(r) {
+      try { dash.deleteRows(r, 1); }
+      catch (e) { Logger.log('[reconcileDashboard_] delete err row ' + r + ': ' + e.message); }
+    });
+    // After deletions all row numbers above the deletions point have
+    // shifted. statusUpdates / priceUpdates row refs are now stale —
+    // safest path is to re-snapshot. Cheap on subsequent runs since
+    // there should be zero legacy rows left.
+    var rebuiltState = readDashboardState_();
+    existingItems = rebuiltState.items;
+    existingCustomers = rebuiltState.customers;
+    // Re-resolve statusUpdates + priceUpdates against rebuilt state
+    statusUpdates = statusUpdates.map(function(u) {
+      // Find the same fingerprint in the new state. If it's gone
+      // (because deletion shifted things around), skip silently.
+      for (var fp in existingItems) {
+        var it = existingItems[fp];
+        if (it.customerEmail === u.customerEmail && it.status === u.oldStatus) {
+          return Object.assign({}, u, { row: it.row });
+        }
+      }
+      return null;
+    }).filter(Boolean);
+    priceUpdates = priceUpdates.map(function(u) {
+      var fp = u.fresh && u.fresh.fingerprint;
+      if (fp && existingItems[fp]) {
+        return Object.assign({}, u, { row: existingItems[fp].row });
+      }
+      return null;
+    }).filter(Boolean);
+  }
+
+  // 6. Apply status updates. Each cell: clear any stale validation
   //    (legacy rule might not include 'refund-needed'), write the new
   //    value, then re-apply the expanded validation rule so the
   //    dropdown still works for Erin.
@@ -548,10 +633,27 @@ function reconcileDashboard_(freshItems) {
       .setDataValidation(statusRule);
   });
 
-  // 6. Apply price/total updates
+  // 7. Apply price/total updates AND overwrite the Item cell with a
+  //    HYPERLINK formula pointing to the source cell in the
+  //    registration sheet (real-time provenance). Also refresh the
+  //    fee-breakdown Note.
   priceUpdates.forEach(function(u) {
     dash.getRange(u.row, 3).setValue(u.newPrice);
     dash.getRange(u.row, 6).setValue(u.newTotal);
+    if (u.fresh) {
+      var label = bfsBuildItemLabel_(u.fresh);
+      var cellB = dash.getRange(u.row, 2);
+      if (u.fresh.linkToSource) {
+        cellB.setFormula('=HYPERLINK("' + u.fresh.linkToSource + '","' +
+                         bfsEscapeFormula_(label) + '")');
+      } else {
+        cellB.setValue(label);
+      }
+      // Note: fingerprint + fee breakdown
+      var noteLines = ['Submission ID: ' + u.fresh.fingerprint];
+      if (u.fresh.feeNote) noteLines.push(u.fresh.feeNote);
+      cellB.setNote(noteLines.join('\n'));
+    }
   });
 
   // 7. Insert new tx rows beneath existing customers + new customer sections
@@ -625,9 +727,7 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
     var status = it.unpriced
       ? 'unpriced'
       : (it.ambiguous ? 'ambiguous' : 'owed');
-    var label = it.enrollment.student
-      ? it.enrollment.student + ', ' + it.label + ' (' + it.enrollment.week + ')'
-      : it.label;
+    var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
     return [
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
       label,
@@ -692,9 +792,7 @@ function appendNewCustomerSection_(dash, email, newItems) {
     var status = it.unpriced
       ? 'unpriced'
       : (it.ambiguous ? 'ambiguous' : 'owed');
-    var label = it.enrollment.student
-      ? it.enrollment.student + ', ' + it.label + ' (' + it.enrollment.week + ')'
-      : it.label;
+    var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
     matrix.push([
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
       label,
@@ -1005,9 +1103,7 @@ function rebuildDashboardHierarchical_(items) {
         ? 'unpriced'
         : (it.ambiguous ? 'ambiguous' : 'owed');
       var status = existingStatus[it.fingerprint] || defaultStatus;
-      var label = it.enrollment.student
-        ? it.enrollment.student + ', ' + it.label + ' (' + it.enrollment.week + ')'
-        : it.label;
+      var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
       matrix.push([
         nowDateStr,
         label,
