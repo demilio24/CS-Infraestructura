@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T19:02:01Z",
+  "generatedAt": "2026-05-13T19:07:19Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -206,8 +206,8 @@
       "July 6th-10th": 12,
       "July 13th-17th": 13,
       "July 20th-24th": 13,
-      "July 27th-31st": 12,
-      "August 3rd-7th": 10,
+      "July 27th-31st": 13,
+      "August 3rd-7th": 11,
       "August 10th-14th": 0,
       "August 17th-21st": 0
     },
@@ -253,13 +253,13 @@
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 8,
+        "Upper Campus": 9,
         "Lower Campus": 4,
         "Unknown": 0
       },
       "August 3rd-7th": {
         "Upper Campus": 8,
-        "Lower Campus": 2,
+        "Lower Campus": 3,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -274,15 +274,15 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 78,
-      "Roosevelt Elementary School": 27,
-      "Northboro Elementary School": 24,
+      "Westward Elementary School": 88,
+      "Roosevelt Elementary School": 28,
+      "Northboro Elementary School": 26,
       "Pleasant City Elementary School": 1
     }
   },
   "combined": {
     "total": 138,
-    "enrollments": 439,
+    "enrollments": 441,
     "byCampus": {
       "Upper Campus": 63,
       "Lower Campus": 75,
@@ -297,8 +297,8 @@
       "July 6th-10th": 44,
       "July 13th-17th": 44,
       "July 20th-24th": 43,
-      "July 27th-31st": 36,
-      "August 3rd-7th": 36,
+      "July 27th-31st": 37,
+      "August 3rd-7th": 37,
       "August 10th-14th": 14,
       "August 17th-21st": 22
     },
@@ -344,13 +344,13 @@
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 18,
+        "Upper Campus": 19,
         "Lower Campus": 18,
         "Unknown": 0
       },
       "August 3rd-7th": {
         "Upper Campus": 14,
-        "Lower Campus": 22,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -1436,24 +1436,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 12,
-              "Tue": 12,
-              "Wed": 12,
-              "Thu": 12,
-              "Fri": 12
+              "Mon": 13,
+              "Tue": 13,
+              "Wed": 13,
+              "Thu": 13,
+              "Fri": 13
             },
-            "total": 60
+            "total": 65
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 12,
-            "Tue": 12,
-            "Wed": 12,
-            "Thu": 12,
-            "Fri": 12
+            "Mon": 13,
+            "Tue": 13,
+            "Wed": 13,
+            "Thu": 13,
+            "Fri": 13
           },
-          "all": 60
+          "all": 65
         }
       },
       "August 3rd-7th": {
@@ -1463,24 +1463,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 10,
-              "Tue": 10,
-              "Wed": 10,
-              "Thu": 10,
-              "Fri": 10
+              "Mon": 11,
+              "Tue": 11,
+              "Wed": 11,
+              "Thu": 11,
+              "Fri": 11
             },
-            "total": 50
+            "total": 55
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 10,
-            "Tue": 10,
-            "Wed": 10,
-            "Thu": 10,
-            "Fri": 10
+            "Mon": 11,
+            "Tue": 11,
+            "Wed": 11,
+            "Thu": 11,
+            "Fri": 11
           },
-          "all": 50
+          "all": 55
         }
       },
       "August 10th-14th": {
@@ -4587,6 +4587,15 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Rico Clark",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Serenity Canidate",
           "campus": "Upper Campus",
           "lunch": true,
@@ -4873,6 +4882,15 @@
           "incomplete": false,
           "type": "free",
           "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Lamar Brown",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "allergy": null,
+          "incomplete": false,
+          "type": "free",
+          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Luvvie’Love Johnson",
