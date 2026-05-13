@@ -55,6 +55,14 @@ const REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w';
 const SHIRT_SALES_TAX_RATE  = 0.07;  // 7% on T-shirts only
 const PAYMENT_PROCESSING_FEE = 0.03;  // 3% on the customer's subtotal (incl. tax)
 
+// Status pill lifecycle. 'refund-needed' is set automatically when a
+// 'paid' item's registration disappears — surfaces a refund obligation
+// for the team. After Tom processes the refund externally, he flips
+// the cell to 'refunded' manually.
+const STATUS_VALUES = [
+  'owed', 'paid', 'canceled', 'refund-needed', 'refunded', 'unpriced', 'ambiguous'
+];
+
 // Fallback inventory: used when Drive folder scan fails (folder unshared,
 // API error, permission issue, etc.). Keeps the 4 known summer-camp
 // sheets discoverable as a safety net.
@@ -232,11 +240,12 @@ function buildAllBilling() {
       return (a.kind || '').localeCompare(b.kind || '');
     });
 
-    // Render the consolidated billing into the existing Dashboard tab's
-    // hierarchical customer-row + tx-rows-grouped layout (the layout
-    // Tom prefers). The legacy "Billing" flat-table tab is no longer
-    // written to and should be deleted via deleteBillingFlatTab().
-    rebuildDashboardHierarchical_(allItems);
+    // Diff-based reconciliation: compute additions/cancellations/price
+    // changes vs the current Dashboard and apply only those. Way faster
+    // than full rebuild AND correctly transitions paid items into
+    // 'refund-needed' when their registration disappears (the refund
+    // flag the team needs).
+    reconcileDashboard_(allItems);
 
     var elapsedMs = Date.now() - startedAt.getTime();
     Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms — totals: ' +
@@ -312,6 +321,367 @@ function wipeDashboardDataArea_() {
     }
   }
   dash.deleteRows(2, lastRow - 1);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   DIFF-BASED RECONCILIATION (the new flow)
+   ═════════════════════════════════════════════════════════════════
+   Replaces the wipe-and-rebuild approach with surgical updates:
+
+     for each existing fingerprint NOT in fresh registration data:
+       if status == 'paid'     → set 'refund-needed' (the refund flag)
+       if status in {'refund-needed','refunded'} → leave (audit trail)
+       else                    → set 'canceled'
+
+     for each fresh fingerprint NOT in existing dashboard:
+       append a new tx row inside that customer's section
+       (or create a new customer section if email is new)
+
+     for each fingerprint in both:
+       if price / total changed → update cells, keep status
+       else                    → no-op
+
+   Result:
+     - 0 changes per 5-min poll → completes in <5s
+     - Status pills NEVER lost — preserved by row position
+     - Paid → canceled correctly transitions into refund-needed,
+       which Tom resolves by issuing a refund externally and then
+       flipping the status to refunded.
+   ═══════════════════════════════════════════════════════════════ */
+
+/**
+ * Walk the Dashboard tab and build a structured snapshot of what's
+ * currently there. Returns:
+ *   {
+ *     customers: { [email]: {customerRow, subHeaderRow, txFirst, txLast,
+ *                            name, phone, waiverOrigin, students, profile} },
+ *     items:     { [fingerprint]: {row, customerEmail, status, price,
+ *                                   total, item, qty, days, weeks, date} }
+ *   }
+ */
+function readDashboardState_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { customers: {}, items: {} };
+
+  // One bulk read for values + one for col B notes (fingerprints live there)
+  var values = dash.getRange(2, 1, lastRow - 1, 7).getValues();
+  var notes  = dash.getRange(2, 2, lastRow - 1, 1).getNotes();
+
+  var customers = {};
+  var items = {};
+  var currentCustomer = null;
+
+  for (var i = 0; i < values.length; i++) {
+    var row = values[i];
+    var sheetRow = i + 2;
+    var a = String(row[0] || '').trim();
+    var b = String(row[1] || '').trim();
+    var g = String(row[6] || '').trim().toLowerCase();
+
+    var isSubHeader = (a.toUpperCase() === 'DATE' && String(row[6] || '').toUpperCase() === 'STATUS');
+    var isCustomerHeader = (!isSubHeader && b.indexOf('@') !== -1);
+
+    if (isCustomerHeader) {
+      currentCustomer = {
+        email:        b.toLowerCase(),
+        customerRow:  sheetRow,
+        subHeaderRow: null,
+        txFirst:      null,
+        txLast:       null,
+        name:         row[0],
+        phone:        row[2],
+        waiverOrigin: row[3],
+        students:     row[4],
+        profile:      row[5]
+      };
+      customers[currentCustomer.email] = currentCustomer;
+      continue;
+    }
+    if (isSubHeader) {
+      if (currentCustomer) currentCustomer.subHeaderRow = sheetRow;
+      continue;
+    }
+    if (!currentCustomer) continue;
+
+    // Tx row
+    if (currentCustomer.txFirst === null) currentCustomer.txFirst = sheetRow;
+    currentCustomer.txLast = sheetRow;
+
+    // Extract fingerprint from col B note (we store "Submission ID: <fp>")
+    var note = String(notes[i][0] || '');
+    var fpMatch = note.match(/Submission ID:\s*(\S+)/);
+    if (!fpMatch) continue;  // legacy row without fingerprint — skip from diff
+    var fp = fpMatch[1];
+
+    items[fp] = {
+      row:           sheetRow,
+      customerEmail: currentCustomer.email,
+      status:        g,
+      price:         Number(row[2]) || 0,
+      total:         Number(row[5]) || 0,
+      item:          String(row[1] || ''),
+      days:          row[3],
+      weeks:         row[4],
+      date:          row[0]
+    };
+  }
+
+  return { customers: customers, items: items };
+}
+
+/**
+ * Diff the fresh items against existing Dashboard state, apply minimal
+ * updates. Returns a summary of what changed.
+ */
+function reconcileDashboard_(freshItems) {
+  var startedAt = new Date();
+
+  // 1. Snapshot existing state
+  var state = readDashboardState_();
+  var existingItems = state.items;
+  var existingCustomers = state.customers;
+
+  // 2. Build fresh lookup
+  var freshByFingerprint = {};
+  freshItems.forEach(function(it) {
+    if (!it || !it.fingerprint) return;
+    freshByFingerprint[it.fingerprint] = it;
+  });
+
+  // 3. Compute diff
+  var statusUpdates = [];   // [{row, newStatus, oldStatus, customerEmail}]
+  var priceUpdates  = [];   // [{row, newPrice, newTotal}]
+  var newItemsByCustomer = {};  // {email: [items]}
+
+  // 3a. Cancellations: existing fingerprints no longer in fresh
+  Object.keys(existingItems).forEach(function(fp) {
+    if (freshByFingerprint[fp]) return;  // still present, not a cancellation
+    var existing = existingItems[fp];
+    var oldStatus = existing.status;
+    var newStatus;
+    if (oldStatus === 'paid') {
+      newStatus = 'refund-needed';   // <-- the flag the user asked for
+    } else if (oldStatus === 'refund-needed' || oldStatus === 'refunded') {
+      return;  // already in refund flow — don't overwrite
+    } else if (oldStatus === 'canceled') {
+      return;  // already canceled — no-op
+    } else {
+      newStatus = 'canceled';
+    }
+    statusUpdates.push({
+      row: existing.row,
+      newStatus: newStatus,
+      oldStatus: oldStatus,
+      customerEmail: existing.customerEmail
+    });
+  });
+
+  // 3b. Additions + price updates
+  Object.keys(freshByFingerprint).forEach(function(fp) {
+    var fresh = freshByFingerprint[fp];
+    var existing = existingItems[fp];
+    if (existing) {
+      // Price/total comparison
+      var newPrice = Number(fresh.price) || 0;
+      var newTotal = Number(fresh.total) || 0;
+      if (Math.abs(existing.price - newPrice) > 0.005 ||
+          Math.abs(existing.total - newTotal) > 0.005) {
+        priceUpdates.push({
+          row:      existing.row,
+          newPrice: newPrice,
+          newTotal: newTotal
+        });
+      }
+      return;
+    }
+    // Brand-new fingerprint
+    var email = (fresh.enrollment.email || '').toLowerCase();
+    if (!email) return;
+    if (!newItemsByCustomer[email]) newItemsByCustomer[email] = [];
+    newItemsByCustomer[email].push(fresh);
+  });
+
+  var summary = {
+    elapsedMs:    null,
+    statusUpdates:  statusUpdates.length,
+    priceUpdates:   priceUpdates.length,
+    newItemRows:    0,
+    newCustomers:   0,
+    refundNeeded:   statusUpdates.filter(function(u) { return u.newStatus === 'refund-needed'; }).length,
+    canceled:       statusUpdates.filter(function(u) { return u.newStatus === 'canceled'; }).length
+  };
+
+  // 4. No changes → exit fast
+  if (statusUpdates.length === 0 && priceUpdates.length === 0 && Object.keys(newItemsByCustomer).length === 0) {
+    summary.elapsedMs = Date.now() - startedAt.getTime();
+    Logger.log('[reconcileDashboard_] no changes (' + summary.elapsedMs + 'ms)');
+    return summary;
+  }
+
+  var dash = getDashboardSheet();
+
+  // 5. Apply status updates. Each cell: clear any stale validation
+  //    (legacy rule might not include 'refund-needed'), write the new
+  //    value, then re-apply the expanded validation rule so the
+  //    dropdown still works for Erin.
+  var statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(STATUS_VALUES, true)
+    .setAllowInvalid(true)  // tolerant — legacy values still accepted
+    .build();
+  statusUpdates.forEach(function(u) {
+    dash.getRange(u.row, 7)
+      .clearDataValidations()
+      .setValue(u.newStatus)
+      .setDataValidation(statusRule);
+  });
+
+  // 6. Apply price/total updates
+  priceUpdates.forEach(function(u) {
+    dash.getRange(u.row, 3).setValue(u.newPrice);
+    dash.getRange(u.row, 6).setValue(u.newTotal);
+  });
+
+  // 7. Insert new tx rows beneath existing customers + new customer sections
+  Object.keys(newItemsByCustomer).forEach(function(email) {
+    var customer = existingCustomers[email];
+    var newItems = newItemsByCustomer[email];
+    if (customer && customer.txLast) {
+      // Append to existing customer's section
+      appendItemsToCustomerSection_(dash, customer, newItems);
+      summary.newItemRows += newItems.length;
+    } else {
+      // Create a new customer section at the end of the sheet
+      appendNewCustomerSection_(dash, email, newItems);
+      summary.newItemRows += newItems.length;
+      summary.newCustomers++;
+    }
+  });
+
+  summary.elapsedMs = Date.now() - startedAt.getTime();
+  Logger.log('[reconcileDashboard_] ' + summary.elapsedMs + 'ms — ' +
+             summary.statusUpdates + ' status changes (' + summary.refundNeeded + ' refund-needed, ' +
+             summary.canceled + ' canceled), ' + summary.priceUpdates + ' price updates, ' +
+             summary.newItemRows + ' new tx rows, ' + summary.newCustomers + ' new customer sections');
+  return summary;
+}
+
+/**
+ * Insert new tx rows at the bottom of an existing customer's section,
+ * preserving the row group and balance formula (Sheets auto-extends
+ * both when rows are inserted inside the group's range).
+ */
+function appendItemsToCustomerSection_(dash, customer, newItems) {
+  var insertPos = customer.txLast;  // insert AFTER this row
+  dash.insertRowsAfter(insertPos, newItems.length);
+
+  var firstNew = insertPos + 1;
+  var matrix = newItems.map(function(it) {
+    var status = it.unpriced
+      ? 'unpriced'
+      : (it.ambiguous ? 'ambiguous' : 'owed');
+    var label = it.enrollment.student
+      ? it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')'
+      : it.label;
+    return [
+      Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
+      label,
+      Number(it.price) || 0,
+      it.multiplier === '/day' ? (Number(it.qty) || '') : '',
+      (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+      Number(it.total) || 0,
+      status
+    ];
+  });
+  dash.getRange(firstNew, 1, matrix.length, 7).setValues(matrix);
+
+  // Fingerprint notes
+  var noteValues = newItems.map(function(it) { return ['Submission ID: ' + it.fingerprint]; });
+  dash.getRange(firstNew, 2, noteValues.length, 1).setNotes(noteValues);
+
+  // Number formats + status validation
+  dash.getRange(firstNew, 3, matrix.length, 1).setNumberFormat('"$"#,##0.00');
+  dash.getRange(firstNew, 6, matrix.length, 1).setNumberFormat('"$"#,##0.00');
+  var statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(STATUS_VALUES, true)
+    .setAllowInvalid(true).build();
+  dash.getRange(firstNew, 7, matrix.length, 1).setDataValidation(statusRule);
+
+  // DM Sans
+  dash.getRange(firstNew, 1, matrix.length, 7).setFontFamily('DM Sans');
+}
+
+/**
+ * Append a brand-new customer section at the end of the sheet
+ * (customer header + sub-header + tx rows + balance formula).
+ */
+function appendNewCustomerSection_(dash, email, newItems) {
+  var lastRow = dash.getLastRow();
+  var customerRow  = lastRow + 1;
+  var subHeaderRow = customerRow + 1;
+  var firstTx      = subHeaderRow + 1;
+  var lastTx       = firstTx + newItems.length - 1;
+
+  // Build matrix: customer header + sub-header + tx rows
+  var studentSet = {};
+  newItems.forEach(function(it) { studentSet[it.enrollment.student] = true; });
+  var students = Object.keys(studentSet).sort().join(', ');
+
+  var matrix = [
+    ['', email, '', '', students, '', ''],   // customer header
+    ['DATE', 'ITEM', 'UNIT PRICE', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']  // sub-header
+  ];
+  newItems.forEach(function(it) {
+    var status = it.unpriced
+      ? 'unpriced'
+      : (it.ambiguous ? 'ambiguous' : 'owed');
+    var label = it.enrollment.student
+      ? it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')'
+      : it.label;
+    matrix.push([
+      Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
+      label,
+      Number(it.price) || 0,
+      it.multiplier === '/day' ? (Number(it.qty) || '') : '',
+      (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+      Number(it.total) || 0,
+      status
+    ]);
+  });
+
+  dash.getRange(customerRow, 1, matrix.length, 7).setValues(matrix);
+
+  // Styles
+  dash.getRange(customerRow, 1, 1, 7)
+    .setBackground('#143980').setFontColor('#FFFFFF').setFontWeight('bold').setFontSize(12);
+  dash.getRange(subHeaderRow, 1, 1, 7)
+    .setBackground('#4a6493').setFontColor('#FFFFFF').setFontWeight('bold').setFontSize(10);
+
+  // Balance formula
+  dash.getRange(customerRow, 7).setFormula(
+    '=SUMIFS(F' + firstTx + ':F' + lastTx +
+    ', G' + firstTx + ':G' + lastTx + ', "owed")'
+  ).setNumberFormat('"$"#,##0.00');
+
+  // Number formats + dropdown + notes
+  dash.getRange(firstTx, 3, newItems.length, 1).setNumberFormat('"$"#,##0.00');
+  dash.getRange(firstTx, 6, newItems.length, 1).setNumberFormat('"$"#,##0.00');
+  var statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(STATUS_VALUES, true)
+    .setAllowInvalid(true).build();
+  dash.getRange(firstTx, 7, newItems.length, 1).setDataValidation(statusRule);
+  var noteValues = newItems.map(function(it) { return ['Submission ID: ' + it.fingerprint]; });
+  dash.getRange(firstTx, 2, noteValues.length, 1).setNotes(noteValues);
+
+  // Row group + collapse
+  try {
+    dash.getRange(subHeaderRow, 1, lastTx - subHeaderRow + 1, 1).shiftRowGroupDepth(1);
+    var grp = dash.getRowGroup(subHeaderRow, 1);
+    if (grp) grp.collapse();
+  } catch (e) { /* group API quirk — skip */ }
+
+  // DM Sans
+  dash.getRange(customerRow, 1, matrix.length, 7).setFontFamily('DM Sans');
 }
 
 /**
@@ -564,7 +934,7 @@ function rebuildDashboardHierarchical_(items) {
 
       // Status dropdown
       var statusRule = SpreadsheetApp.newDataValidation()
-        .requireValueInList(['owed', 'paid', 'canceled', 'refunded', 'unpriced', 'ambiguous'], true)
+        .requireValueInList(STATUS_VALUES, true)
         .setAllowInvalid(false).build();
       dash.getRange(cr.txFirst, 7, cr.txLast - cr.txFirst + 1, 1).setDataValidation(statusRule);
 
@@ -1726,7 +2096,7 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
 
     // Status dropdown
     var statusRule = SpreadsheetApp.newDataValidation()
-      .requireValueInList(['owed', 'paid', 'canceled', 'refunded', 'unpriced', 'ambiguous'], true)
+      .requireValueInList(STATUS_VALUES, true)
       .setAllowInvalid(false).build();
     billing.getRange(3, 9, rows.length, 1).setDataValidation(statusRule);
 
