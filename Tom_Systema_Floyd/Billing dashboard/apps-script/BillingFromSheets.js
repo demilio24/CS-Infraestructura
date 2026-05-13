@@ -510,18 +510,30 @@ function rebuildDashboardHierarchical_(items) {
   if (typeof resetAllRowGroups_ === 'function') {
     try { resetAllRowGroups_(dash); } catch (e) { /* fall through */ }
   }
-  var lastRow = dash.getLastRow();
-  if (lastRow >= 2) dash.deleteRows(2, lastRow - 1);
+
+  // Wipe data area without deleting rows. deleteRows(2, lastRow - 1)
+  // errors with "Sorry, it is not possible to delete all non-frozen
+  // rows" when maxRows == lastRow (Apps Script requires at least one
+  // non-frozen row to remain). Using clear() avoids the constraint
+  // and is just as effective since setValues immediately overwrites.
+  var oldLastRow = dash.getLastRow();
+  if (oldLastRow >= 2) {
+    dash.getRange(2, 1, oldLastRow - 1, dash.getMaxColumns())
+        .clearContent()
+        .clearFormat()
+        .clearDataValidations()
+        .clearNote();
+  }
 
   if (matrix.length === 0) {
     Logger.log('[rebuildDashboardHierarchical_] no items — Dashboard left empty');
     return;
   }
 
-  // Clear column-wide data validation rules left over from the legacy
-  // status-pill dropdown on col G — otherwise balance formulas in
-  // customer header rows fail with "violates the data validation rules".
-  // Also clears any stale formatting that might confuse the new render.
+  // Belt-and-braces: clear data validation across the data area we're
+  // about to write. Catches column-wide validations the row-level
+  // clear above might miss (the legacy status-pill dropdown sometimes
+  // is set sheet-wide on col G).
   var stretchedRows = Math.max(matrix.length + 1, dash.getMaxRows() - 1);
   dash.getRange(2, 1, stretchedRows, 7).clearDataValidations();
 
