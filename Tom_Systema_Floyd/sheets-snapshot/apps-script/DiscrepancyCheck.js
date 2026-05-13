@@ -1,0 +1,1659 @@
+/** ─── DiscrepancyCheck.js ─────────────────────────────────────────────
+ *  Failsafe that compares GHL form submissions against the Free Camp
+ *  and Summer Camp registration spreadsheets. If a submission selected
+ *  a week and there is no matching row in the corresponding tab, the
+ *  bot appends one (Free Camp only) or surfaces it in the report
+ *  (Summer Camp — schemas differ enough to keep auto-add out of v1).
+ *
+ *  Identity is tracked by writing the GHL submission ID into a hidden
+ *  "_submissionId" column on the right of each weekly tab. That gives
+ *  us idempotency: if the team manually deletes a row that the bot
+ *  previously wrote, we DO NOT re-add it (the deletion is respected).
+ *
+ *  Intended cadence: every 15 minutes via a time-driven trigger.
+ *  Submissions younger than GRACE_WINDOW_MS are ignored so we never
+ *  race the GHL routing workflow that handles the happy path.
+ *
+ *  Setup (one-time):
+ *    1. Set Script Properties (Project Settings → Script Properties):
+ *         SUPABASE_URL          = https://nroeiabeirifurdaybyo.supabase.co
+ *         SUPABASE_ANON_KEY     = <legacy anon key>
+ *         SUPABASE_TOKEN_SECRET = <secret matching get_systema_floyd_florida_token RPC>
+ *       The GHL access token is fetched fresh from Supabase on each
+ *       run via the SECURITY DEFINER RPC (no static PIT to rotate).
+ *    2. Run discrepancySetupTrigger() once from the editor.
+ *    3. Run discrepancyBackfillTracking() once to seed the hidden
+ *       _submissionId column for existing rows (so we don't re-add them).
+ *    4. Run discrepancyBackfillTombstones() once after step 3 to
+ *       create the persistent tombstone tab in each spreadsheet.
+ *       After this, deleting a row in the visible tabs is permanent —
+ *       the bot will never re-add a kid the team has removed.
+ *
+ *  Output: when a run finds anything (added rows, orphans, errors,
+ *  Summer Camp gaps), an email digest goes to DC_NOTIFY_EMAIL. Quiet
+ *  runs send nothing. The full report object is also returned + visible
+ *  in the Apps Script Executions log.
+ */
+
+// ─────────────────────── Constants ───────────────────────
+
+var DC_LOCATION_ID = '8IWtNFlmgJ8bif9DivHT';
+var DC_GRACE_WINDOW_MS = 5 * 60 * 1000;     // 5 min
+var DC_TRACKING_HEADER = '_submissionId';
+var DC_TRIGGER_FUNCTION = 'runDiscrepancyCheck';
+var DC_NOTIFY_EMAIL = 'emilio@nilsdigital.com';
+var DC_TOMBSTONE_TAB = '_dc_tombstones';
+
+// Form IDs
+var DC_FORM_FREE_CAMP   = '3Z4E9y7WlWgkZDxViBUW';
+var DC_FORM_SUMMER_CAMP = '61TiB5Zn1DJrGAsWiyTm';
+
+// Spreadsheet IDs (mirror of SHEETS in Snapshot.js — duplicated so
+// this file can be deleted/re-pushed independently)
+var DC_FREE_UPPER_SS   = '1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ';
+var DC_FREE_LOWER_SS   = '1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY';
+var DC_SUMMER_UPPER_SS = '1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA';
+var DC_SUMMER_LOWER_SS = '18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs';
+
+// Free Camp form field IDs
+var DC_FC_FIELD_WEEKS    = '0H3m5fBvXwD3frq75XKa';
+var DC_FC_FIELD_STUDENT  = 'rwAlfmxIbkk5k7nmgahu';
+var DC_FC_FIELD_GRADE    = 'M6cPG28rA41X3DtPf7WO';
+var DC_FC_FIELD_SCHOOL   = 'mtDthaZW5nm0SWGlp7XU';
+var DC_FC_FIELD_SHIRT    = 'zhMuamfr2EwwObWlfwPg';
+var DC_FC_FIELD_BREAKFAST= 'wZiqGsdaPlVBM3sydwxz';
+var DC_FC_FIELD_LUNCH    = 'iBrxWLqsNDpMjZFRsUwQ';
+
+// Summer Camp form field IDs
+var DC_SC_FIELD_WEEKS     = 'boH43tBf1W4BXcz1aRh4';
+var DC_SC_FIELD_STUDENT   = 'WitmrGYAPRw66ONJuRjQ';
+var DC_SC_FIELD_DOB       = 'oHlCv49wt2OTGuwUoNsn';
+var DC_SC_FIELD_SHIRT     = 'AY8wUz8iD6d5NEc4141l';
+var DC_SC_FIELD_POTTY     = 'TPUHytz5Qd8OJNswX9Xy';
+var DC_SC_FIELD_DURATION  = '1y8aMIgi84l2cfHnhFpc';
+var DC_SC_FIELD_DAYS      = 'oRu849usIbnHPIgDccBc';
+var DC_SC_FIELD_AFTERCARE = '7yIj793LRegIfN19Ux8r';
+var DC_SC_FIELD_BREAKFAST = 'KqJc1rwDbZByulZNCDcl';
+var DC_SC_FIELD_LUNCH     = 'MgE6T5xKZl2SZWGnPktO';
+
+// Map (form, week) → the GHL routing workflow that's supposed to
+// write the corresponding sheet row. When the bot has to add a row
+// itself, the email points at this workflow as "the one that failed
+// to fire" so you can jump straight to it in GHL and investigate.
+// IDs from listing workflows in Florida location (8IWtNFlmgJ8bif9DivHT).
+var DC_GHL_WORKFLOW_BY_FORM_WEEK = {
+  'free_camp': {
+    'June 1st-5th':       { id: 'e9bc2bb7-94ae-481f-9d8f-51df5b9d45bf', name: '1. Free Camp (June 1st-5th) -> Google Sheet routing' },
+    'June 8th-12th':      { id: '1b6e3514-e2d0-4ceb-801d-eef3795d3fb4', name: '2. Free Camp (June 8th-12th) -> Google Sheet routing' },
+    'June 15th-19th':     { id: 'ac889124-e4e8-4784-8f7c-bd03b8d526a4', name: '3. Free Camp (June 15th-19th) -> Google Sheet routing' },
+    'June 22nd-26th':     { id: '61389cbc-249e-445a-b4aa-a597d1019208', name: '4. Free Camp (June 22nd-26th) -> Google Sheet routing' },
+    'June 29th-July 3rd': { id: '03fc65ef-37cc-4f85-8a9e-41a6be2f08c9', name: '5. Free Camp (June 29th-July 3rd) -> Google Sheet routing' },
+    'July 6th-10th':      { id: '9ee99436-34aa-4790-8409-fb0e4b941212', name: '6. Free Camp (July 6th-10th) -> Google Sheet routing' },
+    'July 13th-17th':     { id: '37d80612-bc27-407d-85ff-1ece7a890e70', name: '7. Free Camp (July 13th-17th) -> Google Sheet routing' },
+    'July 20th-24th':     { id: '7b29ffcb-e421-4e27-9b88-a1f548846a98', name: '8. Free Camp (July 20th-24th) -> Google Sheet routing' },
+    'July 27th-31st':     { id: '89452dd8-dcd6-4e01-95b8-e72ed507cbca', name: '9. Free Camp (July 27th-31st) -> Google Sheet routing' },
+    'August 3rd-7th':     { id: '6c8f25e2-122a-474f-a810-892f8ad45b43', name: '9.1 Free Camp (August 3rd-7th) -> Google Sheet routing' },
+  },
+  'summer_camp': {
+    'June 1st-5th':       { id: '1e19a5e1-e45a-40f0-b800-98dd36395c2e', name: '1. Summer Camp (June 1st-5th) -> Google Sheet routing' },
+    'June 8th-12th':      { id: 'e5d2f966-6ffc-45a5-872d-948e4cca04c7', name: '2. Summer Camp (June 8th-12th) -> Google Sheet routing' },
+    'June 15th-19th':     { id: '4b570f25-00e6-45d0-b643-25dc5a52fc89', name: '3. Summer Camp (June 15th-19th) -> Google Sheet routing' },
+    'June 22nd-26th':     { id: '801e40bd-4d8e-41a1-83d8-7f272d9ce5c8', name: '4. Summer Camp (June 22nd-26th) -> Google Sheet routing' },
+    'June 29th-July 3rd': { id: 'afa65040-2f26-4256-b478-0680deefc93f', name: '5. Summer Camp (June 29th- July 3rd) -> Google Sheet routing' },
+    'July 6th-10th':      { id: 'bb327dd9-c837-4b3e-80f4-a11cf4642c69', name: '6. Summer Camp (July 6th - 10th) -> Google Sheet routing' },
+    'July 13th-17th':     { id: '3ec3777a-b3ee-47a2-8c50-f123c413a44d', name: '7. Summer Camp (July 13th - 17th) -> Google Sheet routing' },
+    'July 20th-24th':     { id: '75f3fc57-800a-4396-a0ba-f114539eeab8', name: '8. Summer Camp (July 20th - 24th) -> Google Sheet routing' },
+    'July 27th-31st':     { id: '642d3fb0-8104-4f43-9e9a-a16170729b59', name: '9. Summer Camp (July 27th - 31st) -> Google Sheet routing' },
+    'August 3rd-7th':     { id: '24b85262-e395-45d5-a4df-5e7a63ffd415', name: '9.1 Summer Camp (Aug 3rd - 7th) -> Google Sheet routing' },
+    'August 10th-14th':   { id: '7fff407e-f4d7-49f7-a8bc-d3c8dfc7731c', name: '9.2 Summer Camp (Aug 10th - 14th) -> Google Sheet routing' },
+    'August 17th-21st':   { id: 'b3c775af-f38e-46c6-80f8-20feac198c74', name: '9.3 Summer Camp (Aug 17th - 21st) -> Google Sheet routing' },
+  },
+};
+
+function _dcWorkflowFor(form, week) {
+  var wf = ((DC_GHL_WORKFLOW_BY_FORM_WEEK || {})[form] || {})[week];
+  if (!wf) return null;
+  return {
+    id: wf.id,
+    name: wf.name,
+    url: 'https://app.nilsdigital.com/location/' + DC_LOCATION_ID + '/workflow/' + wf.id,
+  };
+}
+
+// Map WEEK_ORDER token (used by Snapshot.js + the form select values)
+// → tab name actually used in the spreadsheets. Tabs use short form.
+var DC_WEEK_TO_TAB = {
+  'June 1st-5th':       '6/1-6/5',
+  'June 8th-12th':      '6/8-6/12',
+  'June 15th-19th':     '6/15-6/19',
+  'June 22nd-26th':     '6/22-6/26',
+  'June 29th-July 3rd': '6/29-7/3',
+  'July 6th-10th':      '7/6-7/10',
+  'July 13th-17th':     '7/13-7/17',
+  'July 20th-24th':     '7/20-7/24',
+  'July 27th-31st':     '7/27-7/31',
+  'August 3rd-7th':     '8/3-8/7',
+  'August 10th-14th':   '8/10-8/14',
+  'August 17th-21st':   '8/17-8/21',
+};
+
+// Free Camp Upper sheet column order (11 cols)
+var DC_FREE_UPPER_COLS = [
+  'School', 'Student Name', 'Grade', 'Age', 'Shirt Size',
+  'Address', 'Breakfast', ' Lunch', 'Parent/Guardian Name',
+  'Phone Number', 'Email Address',
+];
+// Free Camp Lower sheet column order (12 cols — adds Potty Trained)
+var DC_FREE_LOWER_COLS = [
+  'School', 'Student Name', 'Grade', 'Age', 'Potty Trained', 'Shirt Size',
+  'Address', 'Breakfast', ' Lunch', 'Parent/Guardian Name',
+  'Phone Number', 'Email Address',
+];
+
+// ─────────────────────── Public entry points ───────────────────────
+
+/**
+ * Main entry — pulled by the time-driven trigger every 15 min.
+ * Returns a JSON-serialisable report so it's also useful from the
+ * editor or from doGet?action=discrepancy.
+ */
+function runDiscrepancyCheck() {
+  var startedAt = new Date();
+  var report = {
+    startedAt: startedAt.toISOString(),
+    freeCamp:   { added: [], linkedManual: [], orphans: [], errors: [], skippedYoung: 0 },
+    summerCamp: { added: [], linkedManual: [], wouldAdd: [], missing: [], orphans: [], errors: [], skippedYoung: 0 },
+    duplicates: { clusters: [], crossCampus: [], errors: [] },
+  };
+  try {
+    _dcCheckFreeCamp(report);
+  } catch (err) {
+    report.freeCamp.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckSummerCamp(report);
+  } catch (err) {
+    report.summerCamp.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckDuplicates(report);
+  } catch (err) {
+    report.duplicates.errors.push(_dcErr(err));
+  }
+  report.finishedAt = new Date().toISOString();
+  report.durationMs = new Date() - startedAt;
+
+  Logger.log(
+    'DiscrepancyCheck: free added=' + report.freeCamp.added.length +
+    ' free linked=' + report.freeCamp.linkedManual.length +
+    ' free errors=' + report.freeCamp.errors.length +
+    ' summer added=' + report.summerCamp.added.length +
+    ' summer linked=' + report.summerCamp.linkedManual.length +
+    ' summer wouldAdd=' + report.summerCamp.wouldAdd.length +
+    ' summer errors=' + report.summerCamp.errors.length +
+    ' dup_clusters=' + report.duplicates.clusters.length +
+    ' dup_crossCampus=' + report.duplicates.crossCampus.length +
+    ' duration=' + report.durationMs + 'ms'
+  );
+
+  var noteworthy =
+    report.freeCamp.added.length        > 0 ||
+    report.freeCamp.linkedManual.length > 0 ||
+    report.freeCamp.orphans.length      > 0 ||
+    report.freeCamp.errors.length       > 0 ||
+    report.summerCamp.added.length        > 0 ||
+    report.summerCamp.linkedManual.length > 0 ||
+    report.summerCamp.wouldAdd.length     > 0 ||
+    report.summerCamp.errors.length       > 0 ||
+    report.duplicates.clusters.length     > 0 ||
+    report.duplicates.crossCampus.length  > 0;
+  if (noteworthy) {
+    try { _dcEmailReport(report); }
+    catch (mailErr) { report.notifyError = String(mailErr && mailErr.message || mailErr); }
+  }
+  return report;
+}
+
+/** Install the 15-min recurring trigger (no-op if already installed). */
+function discrepancySetupTrigger() {
+  var existing = ScriptApp.getProjectTriggers().filter(function (t) {
+    return t.getHandlerFunction() === DC_TRIGGER_FUNCTION;
+  });
+  if (existing.length > 0) {
+    return 'already installed (' + existing.length + ')';
+  }
+  ScriptApp.newTrigger(DC_TRIGGER_FUNCTION)
+    .timeBased()
+    .everyMinutes(15)
+    .create();
+  return 'installed';
+}
+
+/** Remove all triggers for this checker. */
+function discrepancyRemoveTrigger() {
+  var removed = 0;
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === DC_TRIGGER_FUNCTION) {
+      ScriptApp.deleteTrigger(t);
+      removed++;
+    }
+  });
+  return 'removed ' + removed;
+}
+
+/**
+ * One-time backfill: walk every row on every Free Camp + Summer Camp
+ * tab whose hidden _submissionId column is set, look up the matching
+ * GHL form submission, and stamp a source-cell note on the Student
+ * Name cell. Skips rows that already have a note (idempotent).
+ *
+ * After this runs, the rule is: a row WITH a note is tied to a known
+ * GHL submission. A row WITHOUT a note was typed in by hand and the
+ * bot has no record of it. (Summer Camp rows generally won't have
+ * tracking IDs yet — discrepancyBackfillTracking() Summer pass is
+ * future work.)
+ *
+ * Safe to re-run.
+ */
+function discrepancyBackfillNotes() {
+  var subsByForm = {
+    'Free Camp':   _dcIndexById(_dcListSubmissions(DC_FORM_FREE_CAMP)),
+    'Summer Camp': _dcIndexById(_dcListSubmissions(DC_FORM_SUMMER_CAMP)),
+  };
+  // Map a tab → which form's submissions to look in
+  var sheetSpecs = [
+    { ssId: DC_FREE_UPPER_SS,   form: 'Free Camp',   weekField: DC_FC_FIELD_WEEKS },
+    { ssId: DC_FREE_LOWER_SS,   form: 'Free Camp',   weekField: DC_FC_FIELD_WEEKS },
+    { ssId: DC_SUMMER_UPPER_SS, form: 'Summer Camp', weekField: DC_SC_FIELD_WEEKS },
+    { ssId: DC_SUMMER_LOWER_SS, form: 'Summer Camp', weekField: DC_SC_FIELD_WEEKS },
+  ];
+
+  var report = { stamped: 0, alreadyNoted: 0, missingSubmission: 0, byForm: { 'Free Camp': 0, 'Summer Camp': 0 } };
+  sheetSpecs.forEach(function (spec) {
+    var ss = SpreadsheetApp.openById(spec.ssId);
+    Object.keys(DC_WEEK_TO_TAB).forEach(function (week) {
+      var sheet = ss.getSheetByName(DC_WEEK_TO_TAB[week]);
+      if (!sheet) return;
+      var trackingCol = _dcEnsureTrackingCol(sheet);
+      var lastRow = sheet.getLastRow();
+      if (lastRow < 2) return;
+      var ids = sheet.getRange(2, trackingCol, lastRow - 1, 1).getValues();
+      var notes = sheet.getRange(2, 2, lastRow - 1, 1).getNotes();
+      ids.forEach(function (r, i) {
+        var subId = r[0];
+        if (!subId) return;
+        if (notes[i][0]) { report.alreadyNoted++; return; }
+        var sub = subsByForm[spec.form][subId];
+        if (!sub) { report.missingSubmission++; return; }
+        _dcSetSourceNote(sheet, i + 2, 'backfill', sub, week, spec.form);
+        report.stamped++;
+        report.byForm[spec.form]++;
+      });
+    });
+  });
+  return report;
+}
+
+function _dcIndexById(submissions) {
+  var out = {};
+  submissions.forEach(function (s) { out[s.id] = s; });
+  return out;
+}
+
+/**
+ * One-time migration of every tracked row → Supabase. Walks every
+ * weekly tab in all 4 sheets, reads the hidden _submissionId column,
+ * and upserts a row into sf_form_submissions for each ID. Also
+ * pulls any legacy entries from the hidden _dc_tombstones tabs.
+ *
+ * Idempotent — uses sf_record_processed which is an UPSERT.
+ */
+function discrepancyBackfillTombstones() {
+  var report = { added: 0, byForm: { free_camp: 0, summer_camp: 0 }, errors: [] };
+  var specs = [
+    { ssId: DC_FREE_UPPER_SS,   form: 'free_camp',   campus: 'upper' },
+    { ssId: DC_FREE_LOWER_SS,   form: 'free_camp',   campus: 'lower' },
+    { ssId: DC_SUMMER_UPPER_SS, form: 'summer_camp', campus: 'upper' },
+    { ssId: DC_SUMMER_LOWER_SS, form: 'summer_camp', campus: 'lower' },
+  ];
+  specs.forEach(function (spec) {
+    var ss = SpreadsheetApp.openById(spec.ssId);
+    Object.keys(DC_WEEK_TO_TAB).forEach(function (week) {
+      var tabName = DC_WEEK_TO_TAB[week];
+      var sheet = ss.getSheetByName(tabName);
+      if (!sheet) return;
+      var trackingCol = _dcEnsureTrackingCol(sheet);
+      var lastRow = sheet.getLastRow();
+      if (lastRow < 2) return;
+      var ids = sheet.getRange(2, trackingCol, lastRow - 1, 1).getValues();
+      ids.forEach(function (r, i) {
+        var id = String(r[0] || '').trim();
+        if (!id) return;
+        try {
+          _dcRecordProcessed(id, spec.form, week, {
+            campus: spec.campus,
+            status: 'backfilled',
+            spreadsheetId: spec.ssId,
+            tabName: tabName,
+            rowIndex: i + 2,
+            metadata: { migrated_from: 'hidden_tab_or_existing_row' },
+          });
+          report.added++;
+          report.byForm[spec.form]++;
+        } catch (err) {
+          report.errors.push(_dcErr(err, { id: id, week: week, form: spec.form }));
+        }
+      });
+    });
+    // Also drain any legacy entries from the hidden _dc_tombstones tab
+    // (rows that exist in tombstone but no longer have a sheet row).
+    var legacy = _dcLoadTombstonesFromTab(ss);
+    Object.keys(legacy).forEach(function (id) {
+      var entry = legacy[id];
+      try {
+        _dcRecordProcessed(id, spec.form, entry.week, {
+          campus: spec.campus,
+          status: 'backfilled',
+          spreadsheetId: spec.ssId,
+          tabName: entry.tabName,
+          metadata: { migrated_from: 'legacy_tombstone_tab', original_mode: entry.mode },
+        });
+        report.added++;
+        report.byForm[spec.form]++;
+      } catch (err) {
+        report.errors.push(_dcErr(err, { id: id, form: spec.form }));
+      }
+    });
+  });
+  return report;
+}
+
+/**
+ * One-time backfill: walk every existing row on every Free Camp tab,
+ * try to match it to a GHL form submission by (student name + parent
+ * email + week), and write the matched submission ID into the hidden
+ * tracking column. Without this, every existing row would be flagged
+ * as "missing" on the first scheduled run.
+ *
+ * Safe to re-run — idempotent.
+ */
+function discrepancyBackfillTracking() {
+  var subs = _dcListSubmissions(DC_FORM_FREE_CAMP);
+  var byKey = {};                       // (studentLower + '|' + parentEmailLower + '|' + week) → submissionId
+  subs.forEach(function (s) {
+    var others = s.others || {};
+    var weeks  = _dcAsArr(others[DC_FC_FIELD_WEEKS]);
+    var name   = String(others[DC_FC_FIELD_STUDENT] || '').trim();
+    var email  = String(s.email || '').trim().toLowerCase();
+    weeks.forEach(function (w) {
+      byKey[_dcKey(name, email, w)] = s.id;
+    });
+  });
+
+  var report = { freeUpper: { backfilled: 0, unmatched: 0 }, freeLower: { backfilled: 0, unmatched: 0 } };
+  ['freeUpper', 'freeLower'].forEach(function (which) {
+    var ssId = which === 'freeUpper' ? DC_FREE_UPPER_SS : DC_FREE_LOWER_SS;
+    var ss = SpreadsheetApp.openById(ssId);
+    var tabs = ss.getSheets();
+    Object.keys(DC_WEEK_TO_TAB).forEach(function (week) {
+      var tabName = DC_WEEK_TO_TAB[week];
+      var sheet = ss.getSheetByName(tabName);
+      if (!sheet) return;
+      var trackingCol = _dcEnsureTrackingCol(sheet);
+      var lastRow = sheet.getLastRow();
+      if (lastRow < 2) return;
+      var nameCol = which === 'freeUpper' ? 2 : 2;     // Student Name col
+      var emailCol = which === 'freeUpper' ? 11 : 12;  // Email Address col
+      var existing = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+      var trackingValues = sheet.getRange(2, trackingCol, lastRow - 1, 1).getValues();
+      var updates = trackingValues.slice();
+      existing.forEach(function (row, i) {
+        if (trackingValues[i][0]) return;        // already tracked
+        var name = String(row[nameCol - 1] || '').trim();
+        var email = String(row[emailCol - 1] || '').trim().toLowerCase();
+        var subId = byKey[_dcKey(name, email, week)];
+        if (subId) {
+          updates[i][0] = subId;
+          report[which].backfilled++;
+        } else {
+          report[which].unmatched++;
+        }
+      });
+      sheet.getRange(2, trackingCol, updates.length, 1).setValues(updates);
+    });
+  });
+  return report;
+}
+
+// ─────────────────────── Free Camp checker ───────────────────────
+
+function _dcCheckFreeCamp(report) {
+  report.freeCamp.linkedManual = report.freeCamp.linkedManual || [];
+  report.freeCamp.skippedTombstone = 0;
+  var subs = _dcListSubmissions(DC_FORM_FREE_CAMP);
+  var nowMs = Date.now();
+
+  // Supabase is the source of truth for "have we ever processed this
+  // submission?" — survives row deletions, manual sheet edits, and
+  // tombstone tab tampering.
+  var processed = _dcLoadProcessedFromSupabase();
+
+  // Index every existing row in both Free Camp spreadsheets:
+  //   existingByWeek[week][nameEmailKey] = { row info, currentSubId } — EVERY row, tracked or not
+  //   trackedByWeek[week][submissionId]  = campus — fast lookup by submission ID
+  // Critical: existingByWeek includes BOTH tracked and untracked rows
+  // so a re-submission (new sub ID, same name+email) finds and links
+  // to the existing row instead of duplicating.
+  var trackedByWeek = {};
+  var existingByWeek = {};
+  ['freeUpper', 'freeLower'].forEach(function (which) {
+    var ssId = which === 'freeUpper' ? DC_FREE_UPPER_SS : DC_FREE_LOWER_SS;
+    var ss = SpreadsheetApp.openById(ssId);
+    var nameCol  = 2;
+    var emailCol = which === 'freeUpper' ? 11 : 12;
+    Object.keys(DC_WEEK_TO_TAB).forEach(function (week) {
+      var sheet = ss.getSheetByName(DC_WEEK_TO_TAB[week]);
+      trackedByWeek[week] = trackedByWeek[week] || {};
+      existingByWeek[week] = existingByWeek[week] || {};
+      if (!sheet) return;
+      var trackingCol = _dcEnsureTrackingCol(sheet);
+      var lastRow = sheet.getLastRow();
+      if (lastRow < 2) return;
+      var lastCol = sheet.getLastColumn();
+      var grid = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+      grid.forEach(function (row, i) {
+        var subId = String(row[trackingCol - 1] || '').trim();
+        var name  = row[nameCol - 1];
+        var email = row[emailCol - 1];
+        if (!String(name || '').trim()) return;     // empty row guard
+        var key = _dcKey(name, email, week);
+        existingByWeek[week][key] = {
+          which: which,
+          sheet: sheet,
+          rowIndex: i + 2,
+          trackingCol: trackingCol,
+          currentSubId: subId,
+        };
+        if (subId) trackedByWeek[week][subId] = which;
+      });
+    });
+  });
+
+  subs.forEach(function (s) {
+    if (nowMs - new Date(s.createdAt).getTime() < DC_GRACE_WINDOW_MS) {
+      report.freeCamp.skippedYoung++;
+      return;
+    }
+    var others = s.others || {};
+    var studentName = String(others[DC_FC_FIELD_STUDENT] || '').trim();
+    if (_dcIsTestSubmission(s, studentName)) return;
+    var weeks = _dcAsArr(others[DC_FC_FIELD_WEEKS]);
+    var emailLc = String(s.email || '').trim().toLowerCase();
+    weeks.forEach(function (week) {
+      if (!DC_WEEK_TO_TAB[week]) return;
+      if ((trackedByWeek[week] || {})[s.id]) return;     // already in sheet
+      // Source-of-truth check: has Supabase recorded this submission
+      // as processed before? If so, the row may have been intentionally
+      // deleted by staff — respect their action and never re-add.
+      if (processed.free_camp[s.id + '|' + week]) {
+        report.freeCamp.skippedTombstone++;
+        return;
+      }
+      var key = _dcKey(studentName, emailLc, week);
+      var existing = (existingByWeek[week] || {})[key];
+      if (existing) {
+        // A row for this kid already exists for this week. Three cases:
+        //   - currentSubId === s.id : already perfectly linked, skip
+        //   - currentSubId is empty : link (manual entry by team)
+        //   - currentSubId is some OTHER submission ID : re-submission
+        //                                                 (parent submitted again)
+        //                                                 → link this newer ID
+        //                                                 to the same row,
+        //                                                 don't duplicate
+        if (existing.currentSubId === s.id) {
+          // perfect match, no-op (still record in case it's missing
+          // from Supabase due to a prior partial run)
+          _dcRecordProcessed(s.id, 'free_camp', week, {
+            campus: existing.which === 'freeUpper' ? 'upper' : 'lower',
+            status: 'processed',
+            spreadsheetId: existing.sheet.getParent().getId(),
+            tabName: DC_WEEK_TO_TAB[week],
+            rowIndex: existing.rowIndex,
+            studentName: studentName,
+            parentEmail: emailLc,
+            contactId: s.contactId,
+          });
+          processed.free_camp[s.id + '|' + week] = true;
+          return;
+        }
+        try {
+          existing.sheet.getRange(existing.rowIndex, existing.trackingCol).setValue(s.id);
+          _dcSetSourceNote(existing.sheet, existing.rowIndex, 'linked-manual', s, week, 'Free Camp');
+          _dcRecordProcessed(s.id, 'free_camp', week, {
+            campus: existing.which === 'freeUpper' ? 'upper' : 'lower',
+            status: 'linked_manual',
+            spreadsheetId: existing.sheet.getParent().getId(),
+            tabName: DC_WEEK_TO_TAB[week],
+            rowIndex: existing.rowIndex,
+            studentName: studentName,
+            parentEmail: emailLc,
+            contactId: s.contactId,
+            metadata: existing.currentSubId
+              ? { replaced_sub_id: existing.currentSubId }
+              : { source: 'untracked_existing_row' },
+          });
+          trackedByWeek[week][s.id] = existing.which;
+          processed.free_camp[s.id + '|' + week] = true;
+          report.freeCamp.linkedManual.push({
+            submissionId: s.id,
+            student: studentName,
+            week: week,
+            campus: existing.which,
+            row: existing.rowIndex,
+            replacedSubId: existing.currentSubId || null,
+          });
+        } catch (err) {
+          report.freeCamp.errors.push(_dcErr(err, { phase: 'link-manual', submissionId: s.id, week: week }));
+        }
+        return;
+      }
+      // Genuinely missing — append.
+      var campus = _dcDecideCampus(s, week, trackedByWeek);
+      try {
+        var added = _dcAppendFreeCamp(s, week, campus);
+        _dcRecordProcessed(s.id, 'free_camp', week, {
+          campus: campus,
+          status: 'processed',
+          spreadsheetId: campus === 'lower' ? DC_FREE_LOWER_SS : DC_FREE_UPPER_SS,
+          tabName: DC_WEEK_TO_TAB[week],
+          rowIndex: added.rowIndex,
+          studentName: studentName,
+          parentEmail: emailLc,
+          contactId: s.contactId,
+        });
+        processed.free_camp[s.id + '|' + week] = true;
+        report.freeCamp.added.push({
+          submissionId: s.id,
+          contactId: s.contactId,
+          student: studentName,
+          parent: s.name,
+          email: s.email,
+          week: week,
+          campus: campus,
+          row: added.row,
+          rowIndex: added.rowIndex,
+          likelyFailedWorkflow: _dcWorkflowFor('free_camp', week),
+        });
+      } catch (err) {
+        report.freeCamp.errors.push(_dcErr(err, { submissionId: s.id, week: week, campus: campus }));
+      }
+    });
+  });
+}
+
+/**
+ * Pick a campus for a Free Camp submission/week pair.
+ *  1. If the same student name + email appears tracked in EITHER sheet
+ *     for ANY other week, use that campus (consistency over time).
+ *  2. Else fall back to grade: Pre-K/K → Lower, 1st+ → Upper.
+ *  3. Else default to Upper and let the report surface flag it.
+ */
+function _dcDecideCampus(submission, week, trackedByWeek) {
+  var others = submission.others || {};
+  var name = String(others[DC_FC_FIELD_STUDENT] || '').trim().toLowerCase();
+  var email = String(submission.email || '').trim().toLowerCase();
+
+  // Heuristic 1: scan other weeks for a tracked row matching this kid
+  for (var w in trackedByWeek) {
+    if (!trackedByWeek.hasOwnProperty(w)) continue;
+    var ids = trackedByWeek[w];
+    for (var subId in ids) {
+      // We only have submissionId → campus here, no name. So we have to
+      // match by row content; the cheapest path is to skip this lookup
+      // unless we can resolve quickly. Instead use the contact's
+      // existing Free Camp Registration field if available.
+    }
+  }
+  // Heuristic 2: grade
+  var grade = String(others[DC_FC_FIELD_GRADE] || '').toLowerCase();
+  if (/pre[\-\s]?k|kinder/.test(grade)) return 'lower';
+  return 'upper';
+}
+
+/**
+ * Append a row matching the destination sheet's column order, write
+ * the submission ID into the hidden tracking column, and stamp a cell
+ * note on the Student Name cell so anyone hovering on that name later
+ * can see exactly where the row came from. Returns {row, rowIndex}.
+ */
+function _dcAppendFreeCamp(submission, week, campus) {
+  var ssId = campus === 'lower' ? DC_FREE_LOWER_SS : DC_FREE_UPPER_SS;
+  var ss = SpreadsheetApp.openById(ssId);
+  var tabName = DC_WEEK_TO_TAB[week];
+  var sheet = ss.getSheetByName(tabName);
+  if (!sheet) throw new Error('No tab ' + tabName + ' in ' + (campus === 'lower' ? 'Free Lower' : 'Free Upper'));
+
+  var others = submission.others || {};
+  var school = String(others[DC_FC_FIELD_SCHOOL] || '');
+  var name   = String(others[DC_FC_FIELD_STUDENT] || '');
+  var grade  = String(others[DC_FC_FIELD_GRADE] || '');
+  var shirt  = String(others[DC_FC_FIELD_SHIRT] || '');
+  var addr   = String(others.address || '');
+  var bfast  = String(others[DC_FC_FIELD_BREAKFAST] || '');
+  var lunch  = String(others[DC_FC_FIELD_LUNCH] || '');
+  var parent = String(submission.name || '');
+  var phone  = _dcFormatPhone(others.phone);
+  var email  = String(submission.email || '');
+
+  var row;
+  if (campus === 'lower') {
+    row = [school, name, grade, '', '', shirt, addr, bfast, lunch, parent, phone, email];
+  } else {
+    row = [school, name, grade, '', shirt, addr, bfast, lunch, parent, phone, email];
+  }
+  var trackingCol = _dcEnsureTrackingCol(sheet);
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  var newRowIndex = sheet.getLastRow();
+  _dcSetSourceNote(sheet, newRowIndex, 'auto-added', submission, week, 'Free Camp');
+  // Note: _dcRecordProcessed is also called by the caller with the
+  // resulting rowIndex + campus; this helper just writes the row.
+  return { row: row, rowIndex: newRowIndex };
+}
+
+/**
+ * Stamp a Sheets cell note on the Student Name cell so anyone hovering
+ * the name can see exactly where that row came from. Source-of-truth
+ * for "is this row tied to a known GHL form submission?" — if a row
+ * has NO note, it's a manual entry the bot has never seen.
+ *
+ *   mode = 'auto-added'    bot wrote this row from a missing submission
+ *   mode = 'linked-manual' team typed the row first, bot later matched
+ *                          it to a submission and stamped the hidden ID
+ *   mode = 'backfill'      historical row that pre-dates the bot;
+ *                          bot matched it to a submission and stamped
+ *                          a note retroactively
+ *
+ * formName is 'Free Camp' or 'Summer Camp'. Note links back to the
+ * GHL contact for one-click lookup (paste into a tab — Sheets notes
+ * are plain text, not auto-clickable, but the URL is right there).
+ *
+ * Visible on hover; doesn't show in CSV exports or affect formulas.
+ */
+function _dcSetSourceNote(sheet, rowIndex, mode, submission, week, formName) {
+  try {
+    var nameCol = 2;
+    var contactUrl = submission.contactId
+      ? 'https://app.nilsdigital.com/v2/location/' + DC_LOCATION_ID + '/contacts/detail/' + submission.contactId
+      : '';
+    var modeBlurb = ({
+      'auto-added':    'Auto-added by DiscrepancyCheck — no matching row existed when the bot ran, so it wrote this from the GHL submission below.',
+      'linked-manual': 'Linked by DiscrepancyCheck — this row was typed in manually, then the bot matched it to a GHL submission and stamped the ID.',
+      'backfill':      'Backfilled by DiscrepancyCheck — historical row, matched retroactively to a GHL submission so future runs treat it as tracked.',
+    })[mode] || ('DiscrepancyCheck (' + mode + ')');
+
+    var lines = [];
+    lines.push(modeBlurb);
+    lines.push('Stamped: ' + new Date().toISOString());
+    lines.push('');
+    lines.push('Form: ' + (formName || 'Free Camp'));
+    lines.push('Week selected: ' + week);
+    lines.push('Submission ID: ' + submission.id);
+    lines.push('Submitted: ' + (submission.createdAt || ''));
+    lines.push('Parent: ' + (submission.name || ''));
+    lines.push('Parent email: ' + (submission.email || ''));
+    lines.push('Contact ID: ' + (submission.contactId || ''));
+    if (contactUrl) lines.push('Contact: ' + contactUrl);
+    sheet.getRange(rowIndex, nameCol).setNote(lines.join('\n'));
+  } catch (e) {
+    Logger.log('setNote failed: ' + e);
+  }
+}
+
+// ─────────────────────── Summer Camp checker (report-only) ───────────────────────
+
+function _dcCheckSummerCamp(report) {
+  report.summerCamp.added        = report.summerCamp.added        || [];
+  report.summerCamp.linkedManual = report.summerCamp.linkedManual || [];
+  report.summerCamp.wouldAdd     = report.summerCamp.wouldAdd     || [];
+  report.summerCamp.skippedTombstone = 0;
+  var autoAddOn = PropertiesService.getScriptProperties().getProperty('DC_SUMMER_AUTOADD') === '1';
+  var subs = _dcListSubmissions(DC_FORM_SUMMER_CAMP);
+  var nowMs = Date.now();
+
+  var processed = _dcLoadProcessedFromSupabase();
+
+  var trackedByWeek = {};
+  var existingByWeek = {};
+  ['summerUpper', 'summerLower'].forEach(function (which) {
+    var ssId = which === 'summerUpper' ? DC_SUMMER_UPPER_SS : DC_SUMMER_LOWER_SS;
+    var ss = SpreadsheetApp.openById(ssId);
+    var nameCol  = 3;     // Student Name col on both Summer sheets
+    var emailCol = which === 'summerUpper' ? 9 : 10;   // Lower has +1 (Potty Trained)
+    Object.keys(DC_WEEK_TO_TAB).forEach(function (week) {
+      var sheet = ss.getSheetByName(DC_WEEK_TO_TAB[week]);
+      trackedByWeek[week] = trackedByWeek[week] || {};
+      existingByWeek[week] = existingByWeek[week] || {};
+      if (!sheet) return;
+      var trackingCol = _dcEnsureTrackingCol(sheet);
+      var lastRow = sheet.getLastRow();
+      if (lastRow < 2) return;
+      var lastCol = sheet.getLastColumn();
+      var grid = sheet.getRange(2, 1, lastRow - 1, lastCol).getValues();
+      grid.forEach(function (row, i) {
+        var subId = String(row[trackingCol - 1] || '').trim();
+        var name  = row[nameCol - 1];
+        var email = row[emailCol - 1];
+        if (!String(name || '').trim()) return;
+        var key = _dcKey(name, email, week);
+        existingByWeek[week][key] = {
+          which: which,
+          sheet: sheet,
+          rowIndex: i + 2,
+          trackingCol: trackingCol,
+          currentSubId: subId,
+        };
+        if (subId) trackedByWeek[week][subId] = which;
+      });
+    });
+  });
+
+  subs.forEach(function (s) {
+    if (nowMs - new Date(s.createdAt).getTime() < DC_GRACE_WINDOW_MS) {
+      report.summerCamp.skippedYoung++;
+      return;
+    }
+    var others = s.others || {};
+    var name   = String(others[DC_SC_FIELD_STUDENT] || '').trim();
+    if (_dcIsTestSubmission(s, name)) return;
+    var weeks  = _dcAsArr(others[DC_SC_FIELD_WEEKS]);
+    var emailLc = String(s.email || '').trim().toLowerCase();
+    weeks.forEach(function (week) {
+      if (!DC_WEEK_TO_TAB[week]) return;
+      if ((trackedByWeek[week] || {})[s.id]) return;
+      if (processed.summer_camp[s.id + '|' + week]) {
+        report.summerCamp.skippedTombstone++;
+        return;
+      }
+      var key = _dcKey(name, emailLc, week);
+      var existing = (existingByWeek[week] || {})[key];
+      if (existing) {
+        if (existing.currentSubId === s.id) {
+          _dcRecordProcessed(s.id, 'summer_camp', week, {
+            campus: existing.which === 'summerUpper' ? 'upper' : 'lower',
+            status: 'processed',
+            spreadsheetId: existing.sheet.getParent().getId(),
+            tabName: DC_WEEK_TO_TAB[week],
+            rowIndex: existing.rowIndex,
+            studentName: name, parentEmail: emailLc, contactId: s.contactId,
+          });
+          processed.summer_camp[s.id + '|' + week] = true;
+          return;
+        }
+        try {
+          existing.sheet.getRange(existing.rowIndex, existing.trackingCol).setValue(s.id);
+          _dcSetSourceNote(existing.sheet, existing.rowIndex, 'linked-manual', s, week, 'Summer Camp');
+          _dcRecordProcessed(s.id, 'summer_camp', week, {
+            campus: existing.which === 'summerUpper' ? 'upper' : 'lower',
+            status: 'linked_manual',
+            spreadsheetId: existing.sheet.getParent().getId(),
+            tabName: DC_WEEK_TO_TAB[week],
+            rowIndex: existing.rowIndex,
+            studentName: name,
+            parentEmail: emailLc,
+            contactId: s.contactId,
+            metadata: existing.currentSubId
+              ? { replaced_sub_id: existing.currentSubId }
+              : { source: 'untracked_existing_row' },
+          });
+          trackedByWeek[week][s.id] = existing.which;
+          processed.summer_camp[s.id + '|' + week] = true;
+          report.summerCamp.linkedManual.push({
+            submissionId: s.id, student: name, week: week,
+            campus: existing.which, row: existing.rowIndex,
+            replacedSubId: existing.currentSubId || null,
+          });
+        } catch (err) {
+          report.summerCamp.errors.push(_dcErr(err, { phase: 'link-existing', submissionId: s.id, week: week }));
+        }
+        return;
+      }
+      // Genuinely missing — auto-add (if gate is on) or just preview.
+      var campus = _dcDecideSummerCampus(s);
+      if (!autoAddOn) {
+        report.summerCamp.wouldAdd.push({
+          submissionId: s.id, contactId: s.contactId, student: name,
+          parent: s.name, email: s.email, week: week, campus: campus,
+          likelyFailedWorkflow: _dcWorkflowFor('summer_camp', week),
+        });
+        return;
+      }
+      try {
+        var added = _dcAppendSummerCamp(s, week, campus);
+        _dcRecordProcessed(s.id, 'summer_camp', week, {
+          campus: campus,
+          status: 'processed',
+          spreadsheetId: campus === 'lower' ? DC_SUMMER_LOWER_SS : DC_SUMMER_UPPER_SS,
+          tabName: DC_WEEK_TO_TAB[week],
+          rowIndex: added.rowIndex,
+          studentName: name,
+          parentEmail: emailLc,
+          contactId: s.contactId,
+        });
+        processed.summer_camp[s.id + '|' + week] = true;
+        report.summerCamp.added.push({
+          submissionId: s.id, contactId: s.contactId, student: name,
+          parent: s.name, email: s.email, week: week, campus: campus,
+          rowIndex: added.rowIndex,
+          likelyFailedWorkflow: _dcWorkflowFor('summer_camp', week),
+        });
+      } catch (err) {
+        report.summerCamp.errors.push(_dcErr(err, { submissionId: s.id, week: week, campus: campus }));
+      }
+    });
+  });
+
+  // For backwards compatibility with prior reports, keep `missing`
+  // mirroring `wouldAdd` so the email body still reads naturally when
+  // auto-add is off. When auto-add is on, missing is the rows we
+  // SHOULD have been able to add but errored out.
+  report.summerCamp.missing = autoAddOn
+    ? report.summerCamp.errors.slice()
+    : report.summerCamp.wouldAdd.slice();
+}
+
+// ─────────────────────── Duplicate resolution (destructive) ───────────────────────
+
+/**
+ * Auto-delete in-tab duplicate rows. For every (name + email + week)
+ * cluster with 2+ rows, the lowest row index is kept (likely the
+ * original entry) and the rest are deleted. Cross-campus duplicates
+ * are NOT touched — those need human judgment to pick a campus.
+ *
+ * The deleted rows had their submission IDs backfilled into the
+ * tombstone tab, so the bot will not re-add them on future runs.
+ *
+ * Idempotent: re-running after a clean state returns deleted=[].
+ * Returns the action list so you can audit what changed.
+ *
+ * Recovery: every spreadsheet has version history (File → Version
+ * history) — if a delete was wrong, restore from a snapshot before
+ * the run timestamp.
+ */
+function discrepancyDeleteInTabDuplicates() {
+  var report = { deleted: [], errors: [] };
+  var temp = { duplicates: { clusters: [], crossCampus: [], errors: [] } };
+  _dcCheckDuplicates(temp);
+
+  // Group deletes by destination sheet so we can delete bottom-up
+  // (preserves row indices on the same sheet).
+  var buckets = {};
+  temp.duplicates.clusters.forEach(function (c) {
+    var sorted = c.rows.slice().sort(function (a, b) { return a - b; });
+    var keepRow = sorted[0];
+    var deleteRows = sorted.slice(1);
+    var ssId = _dcSheetIdFor(c.form, c.campus);
+    var key = ssId + '|' + c.tabName;
+    deleteRows.forEach(function (rIdx) {
+      buckets[key] = buckets[key] || { ssId: ssId, tabName: c.tabName, items: [] };
+      buckets[key].items.push({ rowIndex: rIdx, cluster: c, keepRow: keepRow });
+    });
+  });
+
+  Object.keys(buckets).forEach(function (k) {
+    var bucket = buckets[k];
+    var ss = SpreadsheetApp.openById(bucket.ssId);
+    var sheet = ss.getSheetByName(bucket.tabName);
+    if (!sheet) {
+      bucket.items.forEach(function (item) {
+        report.errors.push({ error: 'tab missing', tabName: bucket.tabName });
+      });
+      return;
+    }
+    var sorted = bucket.items.slice().sort(function (a, b) { return b.rowIndex - a.rowIndex; });
+    sorted.forEach(function (item) {
+      try {
+        sheet.deleteRow(item.rowIndex);
+        report.deleted.push({
+          form: item.cluster.form,
+          campus: item.cluster.campus,
+          week: item.cluster.week,
+          tabName: item.cluster.tabName,
+          student: item.cluster.displayName,
+          email: item.cluster.displayEmail,
+          deletedRow: item.rowIndex,
+          keptRow: item.keepRow,
+        });
+      } catch (err) {
+        report.errors.push(_dcErr(err, { tabName: bucket.tabName, row: item.rowIndex }));
+      }
+    });
+  });
+
+  return report;
+}
+
+/**
+ * Find a GHL contact by email. Returns the first match or null.
+ * Used as a fallback when a sheet row doesn't trace back to a form
+ * submission (typically because the kid was added directly to GHL).
+ */
+function _dcLookupContactByEmail_(email) {
+  if (!email) return null;
+  var token = _dcGhlToken_();
+  var resp = UrlFetchApp.fetch('https://services.leadconnectorhq.com/contacts/search', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: { Authorization: 'Bearer ' + token, Version: '2021-07-28', 'User-Agent': 'Mozilla/5.0' },
+    payload: JSON.stringify({
+      locationId: DC_LOCATION_ID,
+      pageLimit: 5,
+      filters: [{ field: 'email', operator: 'eq', value: email }],
+    }),
+    muteHttpExceptions: true,
+  });
+  if (resp.getResponseCode() !== 200) return null;
+  var data = JSON.parse(resp.getContentText());
+  var arr = data.contacts || [];
+  return arr.length ? arr[0] : null;
+}
+
+function _dcSheetIdFor(form, campus) {
+  if (form === 'Free Camp') return campus === 'upper' ? DC_FREE_UPPER_SS : DC_FREE_LOWER_SS;
+  return campus === 'upper' ? DC_SUMMER_UPPER_SS : DC_SUMMER_LOWER_SS;
+}
+
+/**
+ * Resolve cross-campus duplicates (same kid on both Upper AND Lower
+ * for the same week). Strategy: pick the campus the GHL workflow
+ * would have picked, based on age on June 1 of the camp year.
+ *   < 5 yrs → Lower
+ *   ≥ 5 yrs → Upper
+ *
+ * For Free Camp specifically, also check the contact's
+ * `NdulijXuqRPG6FNdPJ5q` (Free Camp Registration) field — if present,
+ * that overrides the age rule (it's what the workflow last decided).
+ *
+ * Skips cases where DOB can't be found / parsed (logged in `skipped`),
+ * leaving them for human review. Returns the action list.
+ */
+function discrepancyDeleteCrossCampusDuplicates() {
+  var report = { deleted: [], skipped: [], errors: [] };
+  var temp = { duplicates: { clusters: [], crossCampus: [], errors: [] } };
+  _dcCheckDuplicates(temp);
+
+  // Pre-fetch all submissions for both forms so we can resolve DOB
+  // without a per-kid API call.
+  var subsByForm = {
+    'Free Camp':   _dcListSubmissions(DC_FORM_FREE_CAMP),
+    'Summer Camp': _dcListSubmissions(DC_FORM_SUMMER_CAMP),
+  };
+  // Index by (lowercased name + email) for fast match
+  var subIndex = { 'Free Camp': {}, 'Summer Camp': {} };
+  subsByForm['Free Camp'].forEach(function (s) {
+    var n = String((s.others || {})[DC_FC_FIELD_STUDENT] || '').trim().toLowerCase();
+    var e = String(s.email || '').trim().toLowerCase();
+    if (n) subIndex['Free Camp'][n + '|' + e] = s;
+  });
+  subsByForm['Summer Camp'].forEach(function (s) {
+    var n = String((s.others || {})[DC_SC_FIELD_STUDENT] || '').trim().toLowerCase();
+    var e = String(s.email || '').trim().toLowerCase();
+    if (n) subIndex['Summer Camp'][n + '|' + e] = s;
+  });
+
+  var deleteBuckets = {};
+  temp.duplicates.crossCampus.forEach(function (c) {
+    var key = c.displayName.toLowerCase() + '|' + (c.displayEmail || '').toLowerCase();
+    var s = subIndex[c.form][key];
+    var dobField = c.form === 'Free Camp' ? 'cuEVHLcCCk8c7zaMRQOj' : DC_SC_FIELD_DOB;
+    var dobRaw = s ? (s.others || {})[dobField] : null;
+    if (!dobRaw && c.displayEmail) {
+      // Fallback: no form submission match (kid may have been added
+      // directly in GHL without going through the form). Query the
+      // contact by email and read the DOB custom field.
+      try {
+        var contact = _dcLookupContactByEmail_(c.displayEmail);
+        if (contact) {
+          (contact.customFields || []).forEach(function (cf) {
+            if (cf.id === dobField && cf.value) dobRaw = cf.value;
+          });
+        }
+      } catch (e) {
+        report.errors.push(_dcErr(e, { phase: 'contact-lookup', email: c.displayEmail }));
+      }
+    }
+    if (!dobRaw) {
+      report.skipped.push({ reason: 'no DOB found (no submission, no contact field)', cluster: c });
+      return;
+    }
+    var dob = _dcParseDate(dobRaw);
+    if (!dob) {
+      report.skipped.push({ reason: 'unparseable DOB: ' + dobRaw, cluster: c });
+      return;
+    }
+    var fallbackYear = (s && s.createdAt) ? new Date(s.createdAt).getFullYear() : new Date().getFullYear();
+    var year = +((c.week.match(/(\d{4})/) || [])[1] || fallbackYear);
+    var june1 = new Date(year, 5, 1);
+    var ageYears = (june1 - dob) / (365.25 * 24 * 3600 * 1000);
+    // Rule: at least 6 yrs old by June 1 → Upper; otherwise Lower.
+    var keepCampus = ageYears >= 6 ? 'upper' : 'lower';
+    var deleteCampus = ageYears >= 6 ? 'lower' : 'upper';
+    var deleteRows = c[deleteCampus + 'Rows'];
+    if (!deleteRows || !deleteRows.length) return;
+    var ssId = _dcSheetIdFor(c.form, deleteCampus);
+    var bk = ssId + '|' + c.tabName;
+    deleteRows.forEach(function (rIdx) {
+      deleteBuckets[bk] = deleteBuckets[bk] || { ssId: ssId, tabName: c.tabName, items: [] };
+      deleteBuckets[bk].items.push({
+        rowIndex: rIdx,
+        cluster: c,
+        deleteCampus: deleteCampus,
+        keepCampus: keepCampus,
+        ageYears: ageYears,
+        dob: Utilities.formatDate(dob, 'America/New_York', 'yyyy-MM-dd'),
+      });
+    });
+  });
+
+  Object.keys(deleteBuckets).forEach(function (k) {
+    var bucket = deleteBuckets[k];
+    var ss = SpreadsheetApp.openById(bucket.ssId);
+    var sheet = ss.getSheetByName(bucket.tabName);
+    if (!sheet) return;
+    bucket.items.slice().sort(function (a, b) { return b.rowIndex - a.rowIndex; }).forEach(function (item) {
+      try {
+        sheet.deleteRow(item.rowIndex);
+        report.deleted.push({
+          form: item.cluster.form, week: item.cluster.week, tabName: item.cluster.tabName,
+          student: item.cluster.displayName, email: item.cluster.displayEmail,
+          dob: item.dob, ageYears: Math.round(item.ageYears * 10) / 10,
+          deletedRow: item.rowIndex, deletedFromCampus: item.deleteCampus,
+          keptCampus: item.keepCampus,
+        });
+      } catch (err) {
+        report.errors.push(_dcErr(err, { tabName: bucket.tabName, row: item.rowIndex }));
+      }
+    });
+  });
+
+  return report;
+}
+
+// ─────────────────────── Duplicate scan (read-only) ───────────────────────
+
+/**
+ * Scan all 4 spreadsheets for rows the bot DIDN'T create that look
+ * like duplicates of each other. Two checks:
+ *
+ *   clusters     — Same (name + email) appears 2+ times in the same
+ *                  weekly tab. Usually a parent re-submitted the form,
+ *                  or staff manually added on top of a workflow row.
+ *   crossCampus  — Same (name + email) appears on BOTH Upper AND
+ *                  Lower for the same week. Almost always a campus
+ *                  routing error, since most kids belong to one camp.
+ *
+ * Read-only — never auto-deletes. Surfaces the offending rows in the
+ * email so you can review and fix manually. Skips empty / unnamed rows.
+ */
+function _dcCheckDuplicates(report) {
+  var camps = [
+    {
+      name: 'Free Camp',
+      upperSs: DC_FREE_UPPER_SS, lowerSs: DC_FREE_LOWER_SS,
+      nameCol: 2, upperEmailCol: 11, lowerEmailCol: 12,
+    },
+    {
+      name: 'Summer Camp',
+      upperSs: DC_SUMMER_UPPER_SS, lowerSs: DC_SUMMER_LOWER_SS,
+      nameCol: 3, upperEmailCol: 9, lowerEmailCol: 10,
+    },
+  ];
+
+  camps.forEach(function (camp) {
+    Object.keys(DC_WEEK_TO_TAB).forEach(function (week) {
+      var tabName = DC_WEEK_TO_TAB[week];
+      var perCampus = { upper: {}, lower: {} };
+
+      ['upper', 'lower'].forEach(function (campusKey) {
+        var ssId = campusKey === 'upper' ? camp.upperSs : camp.lowerSs;
+        var emailCol = campusKey === 'upper' ? camp.upperEmailCol : camp.lowerEmailCol;
+        var ss = SpreadsheetApp.openById(ssId);
+        var sheet = ss.getSheetByName(tabName);
+        if (!sheet) return;
+        var lastRow = sheet.getLastRow();
+        if (lastRow < 2) return;
+        var grid = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+        var groups = perCampus[campusKey];
+        grid.forEach(function (row, i) {
+          var name = String(row[camp.nameCol - 1] || '').trim();
+          if (!name) return;                              // skip blank rows
+          var email = String(row[emailCol - 1] || '').trim();
+          var key = name.toLowerCase() + '|' + email.toLowerCase();
+          groups[key] = groups[key] || [];
+          groups[key].push({ rowIndex: i + 2, displayName: name, displayEmail: email });
+        });
+
+        // In-tab clusters: same key appearing 2+ times on this campus
+        Object.keys(groups).forEach(function (k) {
+          if (groups[k].length > 1) {
+            report.duplicates.clusters.push({
+              form: camp.name,
+              campus: campusKey,
+              week: week,
+              tabName: tabName,
+              displayName: groups[k][0].displayName,
+              displayEmail: groups[k][0].displayEmail,
+              rows: groups[k].map(function (r) { return r.rowIndex; }),
+              count: groups[k].length,
+            });
+          }
+        });
+      });
+
+      // Cross-campus: same key on BOTH Upper and Lower for this week
+      Object.keys(perCampus.upper).forEach(function (k) {
+        if (perCampus.lower[k]) {
+          report.duplicates.crossCampus.push({
+            form: camp.name,
+            week: week,
+            tabName: tabName,
+            displayName: perCampus.upper[k][0].displayName,
+            displayEmail: perCampus.upper[k][0].displayEmail,
+            upperRows: perCampus.upper[k].map(function (r) { return r.rowIndex; }),
+            lowerRows: perCampus.lower[k].map(function (r) { return r.rowIndex; }),
+          });
+        }
+      });
+    });
+  });
+}
+
+/**
+ * Pick a campus for a Summer Camp submission. Same logic as Free
+ * Camp would use: under 5 yrs on June 1 of the camp year → Lower,
+ * else Upper. Falls back to Upper if DOB unparseable.
+ */
+function _dcDecideSummerCampus(submission) {
+  var others = submission.others || {};
+  var dobRaw = String(others[DC_SC_FIELD_DOB] || '').trim();
+  var dob = _dcParseDate(dobRaw);
+  if (!dob) return 'upper';
+  // June 1 of registration year — try the year of the first selected
+  // week, else the year the submission was created.
+  var weeks = _dcAsArr(others[DC_SC_FIELD_WEEKS]);
+  var year = (weeks[0] && /(\d{4})/.test(weeks[0])) ? +RegExp.$1 :
+             new Date(submission.createdAt || Date.now()).getFullYear();
+  if (!year || year < 2024) year = new Date(submission.createdAt || Date.now()).getFullYear();
+  var june1 = new Date(year, 5, 1);
+  var ageYears = (june1 - dob) / (365.25 * 24 * 3600 * 1000);
+  // Rule: at least 6 yrs old by June 1 → Upper; otherwise Lower.
+  return ageYears >= 6 ? 'upper' : 'lower';
+}
+
+/**
+ * Build the day-of-week tick array (Mon..Fri). Full Week duration
+ * always returns 5 ticks; otherwise returns ticks for whichever days
+ * are listed in the daysField (Monday/Tuesday/etc).
+ */
+function _dcSummerDayTicks(duration, daysField) {
+  var ck = '✓';
+  if (/full\s*week/i.test(String(duration || ''))) {
+    return [ck, ck, ck, ck, ck];
+  }
+  var sel = (daysField || []).map(function (d) { return String(d).toLowerCase(); });
+  return ['monday','tuesday','wednesday','thursday','friday'].map(function (d) {
+    return sel.indexOf(d) >= 0 ? ck : '';
+  });
+}
+
+/**
+ * Append a Summer Camp row in the right column order, tag the hidden
+ * submission ID, and stamp a source note. Returns {row, rowIndex}.
+ */
+function _dcAppendSummerCamp(submission, week, campus) {
+  var ssId = campus === 'lower' ? DC_SUMMER_LOWER_SS : DC_SUMMER_UPPER_SS;
+  var ss = SpreadsheetApp.openById(ssId);
+  var tabName = DC_WEEK_TO_TAB[week];
+  var sheet = ss.getSheetByName(tabName);
+  if (!sheet) throw new Error('No tab ' + tabName + ' in ' + (campus === 'lower' ? 'Summer Lower' : 'Summer Upper'));
+
+  var others = submission.others || {};
+  var name      = String(others[DC_SC_FIELD_STUDENT]   || '').trim();
+  var bfast     = String(others[DC_SC_FIELD_BREAKFAST] || '');
+  var lunch     = String(others[DC_SC_FIELD_LUNCH]     || '');
+  var care      = String(others[DC_SC_FIELD_AFTERCARE] || '');
+  var shirt     = String(others[DC_SC_FIELD_SHIRT]     || '');
+  var email     = String(submission.email              || '');
+  var duration  = String(others[DC_SC_FIELD_DURATION]  || '');
+  var notes     = duration ? duration.replace(/\s*\(\$.*?\)\s*$/, '') : '';
+  var ticks     = _dcSummerDayTicks(duration, others[DC_SC_FIELD_DAYS]);
+  var pottyRaw  = others[DC_SC_FIELD_POTTY];
+  var potty     = (pottyRaw == null || pottyRaw === 'None') ? '' : String(pottyRaw);
+
+  // Upper:  Paid? | Amt | Name | Age | Breakfast | Lunch | Care | Shirt | Email | Notes | Mon..Fri
+  // Lower:  Paid? | Amt | Name | Age | Potty     | Breakfast | Lunch | Care | Shirt | Email | Notes | Mon..Fri
+  var row;
+  if (campus === 'lower') {
+    row = ['', '', name, '', potty, bfast, lunch, care, shirt, email, notes].concat(ticks);
+  } else {
+    row = ['', '', name, '', bfast, lunch, care, shirt, email, notes].concat(ticks);
+  }
+  var trackingCol = _dcEnsureTrackingCol(sheet);
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  var newRowIndex = sheet.getLastRow();
+  _dcSetSourceNote(sheet, newRowIndex, 'auto-added', submission, week, 'Summer Camp');
+  return { row: row, rowIndex: newRowIndex };
+}
+
+/** Parse "MM-DD-YYYY" or "YYYY-MM-DD" or browser-parseable date strings. */
+function _dcParseDate(s) {
+  if (!s) return null;
+  var m = String(s).match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/);
+  if (m) return new Date(+m[3], +m[1] - 1, +m[2]);
+  var iso = String(s).match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (iso) return new Date(+iso[1], +iso[2] - 1, +iso[3]);
+  var d = new Date(s);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+// ─────────────────────── GHL token (via Supabase RPC) ───────────────────────
+
+/**
+ * Returns a fresh GHL access token for the Florida location, fetched
+ * from Supabase. Cached in CacheService for 10 min so we hit Supabase
+ * at most ~once per check (1 cycle = 4 calls otherwise).
+ *
+ * Source of truth: the `ghl_tokens` table in Supabase, which is auto-
+ * refreshed externally before its 24h TTL. We never trust the table
+ * directly — we go through `get_systema_floyd_florida_token(secret)`,
+ * a SECURITY DEFINER RPC that ONLY ever returns the Florida row,
+ * re-checks account_name + locationId, and requires a shared secret.
+ *
+ * Verifies account_name === 'Systema Floyd - Florida' and
+ * locationId === DC_LOCATION_ID before returning. Aborts on mismatch
+ * so we never accidentally hit a sister account.
+ *
+ * Required Script Properties:
+ *   SUPABASE_URL          e.g. https://nroeiabeirifurdaybyo.supabase.co
+ *   SUPABASE_ANON_KEY     legacy anon key (RLS still applies, but RPC bypasses it)
+ *   SUPABASE_TOKEN_SECRET shared secret matching the RPC's expected value
+ */
+function _dcGhlToken_() {
+  var cache = CacheService.getScriptCache();
+  var cached = cache.get('GHL_FLORIDA_TOKEN');
+  if (cached) return cached;
+
+  var props = PropertiesService.getScriptProperties();
+  var url    = props.getProperty('SUPABASE_URL');
+  var anon   = props.getProperty('SUPABASE_ANON_KEY');
+  var secret = props.getProperty('SUPABASE_TOKEN_SECRET');
+  if (!url || !anon || !secret) {
+    throw new Error('Missing Script Properties (need SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_TOKEN_SECRET)');
+  }
+  var resp = UrlFetchApp.fetch(url + '/rest/v1/rpc/get_systema_floyd_florida_token', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: {
+      'apikey': anon,
+      'Authorization': 'Bearer ' + anon,
+    },
+    payload: JSON.stringify({ claim_secret: secret }),
+    muteHttpExceptions: true,
+  });
+  var code = resp.getResponseCode();
+  var body = resp.getContentText();
+  if (code !== 200) {
+    throw new Error('Supabase RPC HTTP ' + code + ': ' + body.substring(0, 200));
+  }
+  var rows = JSON.parse(body);
+  if (!Array.isArray(rows) || rows.length === 0) {
+    throw new Error('Supabase RPC returned no rows for Florida token');
+  }
+  var row = rows[0];
+  if (row.account_name !== 'Systema Floyd - Florida') {
+    throw new Error('Wrong account: got ' + row.account_name + ' (expected Systema Floyd - Florida)');
+  }
+  if (row.locationId !== DC_LOCATION_ID) {
+    throw new Error('Wrong locationId: got ' + row.locationId + ' (expected ' + DC_LOCATION_ID + ')');
+  }
+  var token = row.acces_token;
+  if (!token) throw new Error('Supabase RPC returned empty acces_token');
+  // Cache for 10 min — comfortably less than the GHL 24h token TTL and
+  // less than the 15-min trigger cadence so a single check uses one fetch.
+  cache.put('GHL_FLORIDA_TOKEN', token, 600);
+  return token;
+}
+
+// ─────────────────────── GHL fetch helpers ───────────────────────
+
+function _dcListSubmissions(formId) {
+  var token = _dcGhlToken_();
+  var out = [];
+  var page = 1;
+  while (true) {
+    var url = 'https://services.leadconnectorhq.com/forms/submissions' +
+      '?locationId=' + encodeURIComponent(DC_LOCATION_ID) +
+      '&formId='     + encodeURIComponent(formId) +
+      '&limit=100&page=' + page;
+    var resp = UrlFetchApp.fetch(url, {
+      method: 'get',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Version': '2021-07-28',
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0',
+      },
+      muteHttpExceptions: true,
+    });
+    var code = resp.getResponseCode();
+    var body = resp.getContentText();
+    if (code !== 200) {
+      throw new Error('GHL submissions HTTP ' + code + ': ' + body.substring(0, 200));
+    }
+    var data = JSON.parse(body);
+    var batch = data.submissions || data.results || data.data || [];
+    out = out.concat(batch);
+    if (batch.length < 100) break;
+    page++;
+    if (page > 50) break;                          // safety stop
+  }
+  return out;
+}
+
+// ─────────────────────── Sheet plumbing ───────────────────────
+
+/**
+ * Ensure each spreadsheet has a hidden `_dc_tombstones` tab that
+ * lists every submission ID the bot has ever written into that
+ * spreadsheet. This is the persistent "do-not-re-add" log — survives
+ * row deletions in the visible weekly tabs. Returns the tab.
+ *
+ * Schema:
+ *   A: Submission ID
+ *   B: Week (e.g. "July 27th-31st")
+ *   C: Tab Name (e.g. "7/27-7/31")
+ *   D: Mode (auto-added | linked-manual | backfill)
+ *   E: Recorded At (ISO timestamp)
+ *
+ * Why a separate tab instead of a column: the staff workflow for
+ * cancellations is "delete the row." If we stored the tombstone in
+ * the row, deletion would erase it. A separate hidden tab is
+ * untouched by row deletes on the visible tabs.
+ */
+/**
+ * Returns a Set-like map of every (form, submission_id, week) tuple
+ * the bot has ever processed, fetched from Supabase via the
+ * sf_list_processed RPC. Cached for 60s per run.
+ *
+ * Shape: { 'free_camp': {'subId|week':true,...}, 'summer_camp': {...} }
+ *
+ * Per-WEEK keying is critical: a single submission picks N weeks,
+ * each becomes its own row in the sheet. Skipping a submission as a
+ * whole after just one week was processed would make the bot drop
+ * the other N-1 weeks. Always include the week in the lookup.
+ */
+function _dcLoadProcessedFromSupabase() {
+  var cache = CacheService.getScriptCache();
+  var cached = cache.get('SF_PROCESSED');
+  if (cached) return JSON.parse(cached);
+
+  var props = PropertiesService.getScriptProperties();
+  var url    = props.getProperty('SUPABASE_URL');
+  var anon   = props.getProperty('SUPABASE_ANON_KEY');
+  var secret = props.getProperty('SUPABASE_TOKEN_SECRET');
+  if (!url || !anon || !secret) {
+    throw new Error('Missing Supabase Script Properties');
+  }
+  var resp = UrlFetchApp.fetch(url + '/rest/v1/rpc/sf_list_processed', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: { apikey: anon, Authorization: 'Bearer ' + anon },
+    payload: JSON.stringify({ claim_secret: secret }),
+    muteHttpExceptions: true,
+  });
+  if (resp.getResponseCode() !== 200) {
+    throw new Error('Supabase sf_list_processed HTTP ' + resp.getResponseCode() + ': ' + resp.getContentText().substring(0, 200));
+  }
+  var rows = JSON.parse(resp.getContentText());
+  var out = { free_camp: {}, summer_camp: {} };
+  rows.forEach(function (r) {
+    var bucket = out[r.form];
+    if (bucket) bucket[r.submission_id + '|' + r.week] = true;
+  });
+  cache.put('SF_PROCESSED', JSON.stringify(out), 60);
+  return out;
+}
+
+/**
+ * Upsert one (submission_id, week) row into Supabase via
+ * sf_record_processed. Form is 'free_camp' or 'summer_camp', status
+ * is one of 'processed' | 'linked_manual' | 'backfilled' | 'error'.
+ */
+function _dcRecordProcessed(submissionId, form, week, opts) {
+  if (!submissionId) return;
+  opts = opts || {};
+  var props = PropertiesService.getScriptProperties();
+  var url    = props.getProperty('SUPABASE_URL');
+  var anon   = props.getProperty('SUPABASE_ANON_KEY');
+  var secret = props.getProperty('SUPABASE_TOKEN_SECRET');
+  var payload = {
+    claim_secret: secret,
+    p_submission_id: submissionId,
+    p_form: form,
+    p_week: week,
+    p_campus: opts.campus || null,
+    p_status: opts.status || 'processed',
+    p_spreadsheet_id: opts.spreadsheetId || null,
+    p_tab_name: opts.tabName || null,
+    p_row_index: opts.rowIndex == null ? null : opts.rowIndex,
+    p_student_name: opts.studentName || null,
+    p_parent_email: opts.parentEmail || null,
+    p_contact_id: opts.contactId || null,
+    p_metadata: opts.metadata || {},
+  };
+  var resp = UrlFetchApp.fetch(url + '/rest/v1/rpc/sf_record_processed', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: { apikey: anon, Authorization: 'Bearer ' + anon },
+    payload: JSON.stringify(payload),
+    muteHttpExceptions: true,
+  });
+  if (resp.getResponseCode() >= 300) {
+    throw new Error('sf_record_processed HTTP ' + resp.getResponseCode() + ': ' + resp.getContentText().substring(0, 200));
+  }
+  // Bust the local cache so the next read sees this insert
+  CacheService.getScriptCache().remove('SF_PROCESSED');
+}
+
+// ─── Legacy hidden-tab helpers (kept for backfill/migration only) ───
+function _dcEnsureTombstoneTab(ss) {
+  var tab = ss.getSheetByName(DC_TOMBSTONE_TAB);
+  if (tab) return tab;
+  tab = ss.insertSheet(DC_TOMBSTONE_TAB);
+  tab.appendRow(['Submission ID', 'Week', 'Tab Name', 'Mode', 'Recorded At']);
+  tab.setFrozenRows(1);
+  tab.hideSheet();
+  return tab;
+}
+function _dcLoadTombstonesFromTab(ss) {
+  var tab = _dcEnsureTombstoneTab(ss);
+  var lastRow = tab.getLastRow();
+  if (lastRow < 2) return {};
+  var rows = tab.getRange(2, 1, lastRow - 1, 5).getValues();
+  var byId = {};
+  rows.forEach(function (r) {
+    var id = String(r[0] || '').trim();
+    if (!id) return;
+    byId[id] = { week: r[1], tabName: r[2], mode: r[3], recordedAt: r[4] };
+  });
+  return byId;
+}
+
+/**
+ * Ensure the rightmost column of `sheet` is a hidden _submissionId
+ * column and return its 1-based index. Adds the column + header if
+ * missing. Hides the column on first install.
+ */
+function _dcEnsureTrackingCol(sheet) {
+  var lastCol = sheet.getLastColumn();
+  if (lastCol < 1) {
+    // empty sheet — write header in column 1 (shouldn't happen for us)
+    sheet.getRange(1, 1).setValue(DC_TRACKING_HEADER);
+    sheet.hideColumns(1);
+    return 1;
+  }
+  var headers = sheet.getRange(1, 1, 1, lastCol).getValues()[0];
+  for (var i = 0; i < headers.length; i++) {
+    if (String(headers[i]).trim() === DC_TRACKING_HEADER) {
+      return i + 1;
+    }
+  }
+  // Append the tracking column
+  var newCol = lastCol + 1;
+  sheet.getRange(1, newCol).setValue(DC_TRACKING_HEADER);
+  sheet.hideColumns(newCol);
+  return newCol;
+}
+
+// ─────────────────────── Email notification ───────────────────────
+
+function _dcEmailReport(report) {
+  var fc = report.freeCamp;
+  var sc = report.summerCamp;
+
+  var lines = [];
+  lines.push('Camp roster discrepancy check — ' + report.startedAt);
+  lines.push('Run took ' + report.durationMs + 'ms');
+  lines.push('');
+  lines.push('FREE CAMP');
+  lines.push('  added (bot wrote new row)              : ' + fc.added.length);
+  lines.push('  linked (manual row, ID stamped)        : ' + fc.linkedManual.length);
+  lines.push('  skipped (tombstoned — staff deleted)   : ' + (fc.skippedTombstone || 0));
+  lines.push('  errors                                  : ' + fc.errors.length);
+  lines.push('  skipped<5m                              : ' + fc.skippedYoung);
+  fc.added.forEach(function (a) {
+    lines.push('  + [' + a.campus + '] ' + a.week + ' — ' + a.student +
+      ' (parent ' + (a.parent || '?') + ', ' + a.email + ', sub ' + a.submissionId + ')');
+    if (a.likelyFailedWorkflow) {
+      lines.push('      ⚠ Workflow that should have written this row: ' + a.likelyFailedWorkflow.name);
+      lines.push('         ' + a.likelyFailedWorkflow.url);
+    }
+  });
+  fc.linkedManual.forEach(function (l) {
+    lines.push('  ~ [' + l.campus + '] ' + l.week + ' — ' + l.student +
+      ' (matched manual row ' + l.row + ', sub ' + l.submissionId + ')');
+  });
+  if (fc.errors.length) {
+    lines.push('  Free Camp errors:');
+    fc.errors.forEach(function (e) { lines.push('    ! ' + JSON.stringify(e)); });
+  }
+
+  lines.push('');
+  var autoAddOn = PropertiesService.getScriptProperties().getProperty('DC_SUMMER_AUTOADD') === '1';
+  lines.push('SUMMER CAMP' + (autoAddOn ? ' (auto-add ON)' : ' (auto-add OFF — set Script Property DC_SUMMER_AUTOADD=1 to enable)'));
+  lines.push('  added (bot wrote new row)              : ' + sc.added.length);
+  lines.push('  linked (manual row, ID stamped)        : ' + sc.linkedManual.length);
+  lines.push('  would-add (preview only)               : ' + sc.wouldAdd.length);
+  lines.push('  skipped (tombstoned — staff deleted)   : ' + (sc.skippedTombstone || 0));
+  lines.push('  errors                                  : ' + sc.errors.length);
+  lines.push('  skipped<5m                              : ' + sc.skippedYoung);
+  sc.added.forEach(function (a) {
+    lines.push('  + [' + a.campus + '] ' + a.week + ' — ' + a.student +
+      ' (parent ' + (a.parent || '?') + ', ' + a.email + ', sub ' + a.submissionId + ')');
+    if (a.likelyFailedWorkflow) {
+      lines.push('      ⚠ Workflow that should have written this row: ' + a.likelyFailedWorkflow.name);
+      lines.push('         ' + a.likelyFailedWorkflow.url);
+    }
+  });
+  sc.linkedManual.forEach(function (l) {
+    lines.push('  ~ [' + l.campus + '] ' + l.week + ' — ' + l.student +
+      ' (matched manual row ' + l.row + ', sub ' + l.submissionId + ')');
+  });
+  sc.wouldAdd.forEach(function (m) {
+    lines.push('  ? [' + m.campus + '] ' + m.week + ' — ' + m.student +
+      ' (parent ' + (m.parent || '?') + ', ' + m.email + ', sub ' + m.submissionId + ')');
+    if (m.likelyFailedWorkflow) {
+      lines.push('      ⚠ Workflow that should have written this row: ' + m.likelyFailedWorkflow.name);
+      lines.push('         ' + m.likelyFailedWorkflow.url);
+    }
+  });
+  if (sc.errors.length) {
+    lines.push('  Summer Camp errors:');
+    sc.errors.forEach(function (e) { lines.push('    ! ' + JSON.stringify(e)); });
+  }
+
+  var dup = report.duplicates || { clusters: [], crossCampus: [] };
+  if (dup.clusters.length || dup.crossCampus.length) {
+    lines.push('');
+    lines.push('DUPLICATES (existing rows the bot did not create — please review)');
+    lines.push('  in-tab clusters    : ' + dup.clusters.length);
+    lines.push('  cross-campus       : ' + dup.crossCampus.length);
+    dup.clusters.forEach(function (c) {
+      lines.push('  x [' + c.form + ' ' + c.campus + '] ' + c.tabName +
+        ' — ' + c.displayName + ' <' + (c.displayEmail || 'no email') + '> on rows ' + c.rows.join(', '));
+    });
+    dup.crossCampus.forEach(function (c) {
+      lines.push('  ↔ [' + c.form + '] ' + c.tabName +
+        ' — ' + c.displayName + ' <' + (c.displayEmail || 'no email') + '>' +
+        '  Upper rows ' + c.upperRows.join(',') + ' AND Lower rows ' + c.lowerRows.join(','));
+    });
+  }
+
+  var subj = 'Camp roster discrepancy — ' +
+    (fc.added.length + sc.missing.length) + ' diff, ' +
+    (dup.clusters.length + dup.crossCampus.length) + ' dup, ' +
+    (fc.errors.length + sc.errors.length) + ' err';
+  MailApp.sendEmail({
+    to: DC_NOTIFY_EMAIL,
+    subject: subj,
+    body: lines.join('\n'),
+  });
+}
+
+// ─────────────────────── Small utilities ───────────────────────
+
+function _dcAsArr(v) {
+  if (v == null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+/**
+ * Heuristic skip for obvious test submissions so they don't pollute
+ * every report. Matches "test" in the student or parent name, or a
+ * known seed email. Easy to extend.
+ */
+function _dcIsTestSubmission(submission, studentName) {
+  var hay = (
+    String(studentName || '') + ' ' +
+    String(submission.name || '') + ' ' +
+    String(submission.email || '')
+  ).toLowerCase();
+  if (/\btest\b|\bfw test\b|tommy floyd|emilio arias/.test(hay)) return true;
+  return false;
+}
+
+function _dcKey(name, email, week) {
+  return String(name || '').trim().toLowerCase() + '|' +
+         String(email || '').trim().toLowerCase() + '|' +
+         String(week  || '').trim();
+}
+
+function _dcFormatPhone(p) {
+  if (!p) return '';
+  var s = String(p).replace(/[^\d]/g, '');
+  if (s.length === 11 && s.charAt(0) === '1') s = s.substr(1);
+  if (s.length !== 10) return String(p);
+  return '(' + s.substr(0, 3) + ') ' + s.substr(3, 3) + '-' + s.substr(6);
+}
+
+function _dcErr(err, extra) {
+  var o = {
+    message: String(err && err.message || err),
+    stack:   String(err && err.stack || ''),
+  };
+  if (extra) for (var k in extra) o[k] = extra[k];
+  return o;
+}
