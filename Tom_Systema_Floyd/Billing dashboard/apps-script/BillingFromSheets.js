@@ -50,10 +50,22 @@
 //       └── <one sheet per school program>
 const REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w';
 
-// Tax + fees applied during the Dashboard render. Edit these constants
-// when rates change; takes effect on the next 5-min trigger.
-const SHIRT_SALES_TAX_RATE  = 0.07;  // 7% on T-shirts only
-const PAYMENT_PROCESSING_FEE = 0.03;  // 3% on the customer's subtotal (incl. tax)
+// Tax + fees applied inline to each line item's unit price. Edit these
+// constants when rates change; takes effect on the next 5-min trigger.
+//
+// Why inline rather than separate rows:
+//   - Scales: if Tom adds a new item type tomorrow, the fee math
+//     follows automatically (no "where does the processing fee row go?")
+//   - Cleaner Dashboard: one row per priced item, fee baked in
+//   - Per-cell Note explains the breakdown ("$30.00 = base $27.27 +
+//     3% processing fee + 7% sales tax") so Erin can audit
+//
+// Per item kind:
+//   shirt → SHIRT_SALES_TAX_RATE + PAYMENT_PROCESSING_FEE  (7% + 3%)
+//   all other priced items → PAYMENT_PROCESSING_FEE        (3%)
+//   unpriced / $0 → no inflation
+const SHIRT_SALES_TAX_RATE   = 0.07;
+const PAYMENT_PROCESSING_FEE = 0.03;
 
 // Status pill lifecycle. 'refund-needed' is set automatically when a
 // 'paid' item's registration disappears — surfaces a refund obligation
@@ -558,11 +570,44 @@ function reconcileDashboard_(freshItems) {
     }
   });
 
+  // 8. Refresh balance Note for every customer touched (status change,
+  //    price change, or new items). Uses the items they currently
+  //    have in `freshByFingerprint` grouped by email.
+  var touchedEmails = {};
+  statusUpdates.forEach(function(u) { touchedEmails[u.customerEmail] = true; });
+  priceUpdates.forEach(function(u) {
+    // Look up customer email from the row number
+    Object.keys(existingItems).forEach(function(fp) {
+      if (existingItems[fp].row === u.row) {
+        touchedEmails[existingItems[fp].customerEmail] = true;
+      }
+    });
+  });
+  Object.keys(newItemsByCustomer).forEach(function(email) { touchedEmails[email] = true; });
+
+  // Group fresh items by email for the note builder
+  var freshByEmail = {};
+  freshItems.forEach(function(it) {
+    var em = (it.enrollment.email || '').toLowerCase();
+    if (!em) return;
+    if (!freshByEmail[em]) freshByEmail[em] = [];
+    freshByEmail[em].push(it);
+  });
+
+  Object.keys(touchedEmails).forEach(function(email) {
+    var customer = existingCustomers[email];
+    if (!customer || !customer.customerRow) return;
+    var itemsForCustomer = freshByEmail[email] || [];
+    var note = buildBalanceNote_(email, itemsForCustomer);
+    dash.getRange(customer.customerRow, 7).setNote(note);
+  });
+
   summary.elapsedMs = Date.now() - startedAt.getTime();
-  Logger.log('[reconcileDashboard_] ' + summary.elapsedMs + 'ms — ' +
+  Logger.log('[reconcileDashboard_] ' + summary.elapsedMs + 'ms - ' +
              summary.statusUpdates + ' status changes (' + summary.refundNeeded + ' refund-needed, ' +
              summary.canceled + ' canceled), ' + summary.priceUpdates + ' price updates, ' +
-             summary.newItemRows + ' new tx rows, ' + summary.newCustomers + ' new customer sections');
+             summary.newItemRows + ' new tx rows, ' + summary.newCustomers + ' new customer sections, ' +
+             Object.keys(touchedEmails).length + ' balance notes refreshed');
   return summary;
 }
 
@@ -581,7 +626,7 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
       ? 'unpriced'
       : (it.ambiguous ? 'ambiguous' : 'owed');
     var label = it.enrollment.student
-      ? it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')'
+      ? it.enrollment.student + ', ' + it.label + ' (' + it.enrollment.week + ')'
       : it.label;
     return [
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
@@ -595,8 +640,12 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
   });
   dash.getRange(firstNew, 1, matrix.length, 7).setValues(matrix);
 
-  // Fingerprint notes
-  var noteValues = newItems.map(function(it) { return ['Submission ID: ' + it.fingerprint]; });
+  // Fingerprint notes + fee-breakdown Note on each Item cell
+  var noteValues = newItems.map(function(it) {
+    var lines = ['Submission ID: ' + it.fingerprint];
+    if (it.feeNote) lines.push(it.feeNote);
+    return [lines.join('\n')];
+  });
   dash.getRange(firstNew, 2, noteValues.length, 1).setNotes(noteValues);
 
   // Number formats + status validation
@@ -606,6 +655,14 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
     .requireValueInList(STATUS_VALUES, true)
     .setAllowInvalid(true).build();
   dash.getRange(firstNew, 7, matrix.length, 1).setDataValidation(statusRule);
+
+  // Extend the existing customer's row group to cover the inserted rows
+  // so the new tx rows collapse with the rest of the section.
+  try {
+    dash.getRange(firstNew, 1, matrix.length, 1).shiftRowGroupDepth(1);
+  } catch (e) {
+    Logger.log('[appendItemsToCustomerSection_] group extend err: ' + e.message);
+  }
 
   // DM Sans
   dash.getRange(firstNew, 1, matrix.length, 7).setFontFamily('DM Sans');
@@ -636,7 +693,7 @@ function appendNewCustomerSection_(dash, email, newItems) {
       ? 'unpriced'
       : (it.ambiguous ? 'ambiguous' : 'owed');
     var label = it.enrollment.student
-      ? it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')'
+      ? it.enrollment.student + ', ' + it.label + ' (' + it.enrollment.week + ')'
       : it.label;
     matrix.push([
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
@@ -670,7 +727,11 @@ function appendNewCustomerSection_(dash, email, newItems) {
     .requireValueInList(STATUS_VALUES, true)
     .setAllowInvalid(true).build();
   dash.getRange(firstTx, 7, newItems.length, 1).setDataValidation(statusRule);
-  var noteValues = newItems.map(function(it) { return ['Submission ID: ' + it.fingerprint]; });
+  var noteValues = newItems.map(function(it) {
+    var lines = ['Submission ID: ' + it.fingerprint];
+    if (it.feeNote) lines.push(it.feeNote);
+    return [lines.join('\n')];
+  });
   dash.getRange(firstTx, 2, noteValues.length, 1).setNotes(noteValues);
 
   // Row group + collapse
@@ -682,6 +743,105 @@ function appendNewCustomerSection_(dash, email, newItems) {
 
   // DM Sans
   dash.getRange(customerRow, 1, matrix.length, 7).setFontFamily('DM Sans');
+}
+
+/**
+ * Build the cell-note text for a customer's balance cell. Lists every
+ * "owed" item with its line total, sums to the balance. No em-dashes.
+ *
+ * Note format example:
+ *
+ *   Balance breakdown for parent@example.com:
+ *
+ *   Nelson Gonzalez:
+ *     Camp Tuition (3 days), June 1st-5th: $293.55
+ *     T-Shirt (Small), one-time: $33.00
+ *
+ *   Vladimir Aheyev:
+ *     After care weekly, June 8th-12th: $180.25
+ *
+ *   Total owed: $506.80
+ *
+ *   Prices include the inline tax and processing fee per item; hover
+ *   over each Item cell for the per-unit breakdown.
+ */
+function buildBalanceNote_(email, items) {
+  var owedItems = items.filter(function(it) {
+    var status = it.statusOverride || (it.unpriced ? 'unpriced' : (it.ambiguous ? 'ambiguous' : 'owed'));
+    return status === 'owed' || status === 'unpriced' || status === 'ambiguous';
+  });
+  if (owedItems.length === 0) return 'No outstanding items for ' + email + '.';
+
+  // Group by student
+  var byStudent = {};
+  owedItems.forEach(function(it) {
+    var s = it.enrollment.student || '(no student)';
+    if (!byStudent[s]) byStudent[s] = [];
+    byStudent[s].push(it);
+  });
+
+  var lines = ['Balance breakdown for ' + email + ':', ''];
+  var total = 0;
+  Object.keys(byStudent).sort().forEach(function(student) {
+    lines.push(student + ':');
+    byStudent[student].forEach(function(it) {
+      var amt = Number(it.total) || 0;
+      total += amt;
+      var period = it.enrollment.week
+        ? ', ' + it.enrollment.week
+        : '';
+      lines.push('  ' + it.label + period + ': $' + amt.toFixed(2));
+    });
+    lines.push('');
+  });
+  lines.push('Total owed: $' + total.toFixed(2));
+  lines.push('');
+  lines.push('Prices include inline tax and processing fee per item. Hover over each Item cell for the per-unit breakdown.');
+
+  return lines.join('\n');
+}
+
+/**
+ * Walk all customer header rows and:
+ *   1. Replace "(not found in unknown)" or similar placeholder text in
+ *      the Profile column with an empty string.
+ *   2. Strip any em-dashes from cell Notes on the Balance column (col
+ *      G) and replace with commas — the team prefers no em-dashes.
+ *
+ * One-shot cleanup. Run from the editor when refreshing the look of
+ * already-populated rows.
+ */
+function sanitizeDashboardCustomerHeaders_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { profileCleared: 0, notesScrubbed: 0 };
+
+  var values = dash.getRange(2, 1, lastRow - 1, 7).getValues();
+  var notes  = dash.getRange(2, 7, lastRow - 1, 1).getNotes();
+  var profileCleared = 0;
+  var notesScrubbed  = 0;
+
+  for (var i = 0; i < values.length; i++) {
+    var b = String(values[i][1] || '').trim();
+    var sheetRow = i + 2;
+    if (b.indexOf('@') === -1) continue;  // not a customer header
+
+    var profile = String(values[i][5] || '');
+    if (/not\s+found/i.test(profile) || /unknown/i.test(profile)) {
+      dash.getRange(sheetRow, 6).setValue('');
+      profileCleared++;
+    }
+
+    var note = String(notes[i][0] || '');
+    if (note.indexOf('—') !== -1) {
+      dash.getRange(sheetRow, 7).setNote(note.replace(/—/g, ','));
+      notesScrubbed++;
+    }
+  }
+
+  Logger.log('[sanitizeDashboardCustomerHeaders_] profile cleared: ' + profileCleared +
+             ', notes scrubbed: ' + notesScrubbed);
+  return { profileCleared: profileCleared, notesScrubbed: notesScrubbed };
 }
 
 /**
@@ -791,10 +951,10 @@ function rebuildDashboardHierarchical_(items) {
     byParent[email].items.push(it);
   });
 
-  // 3. Augment each parent's items with sales tax + processing fee
-  Object.keys(byParent).forEach(function(email) {
-    bfsInjectTaxAndFee_(byParent[email]);
-  });
+  // 3. (Tax + processing fee are now applied inline to each item by
+  //    applyInlineFees_, called from priceEnrollment_. No separate
+  //    tax / fee rows generated — keeps the Dashboard cleaner and
+  //    scales when new item types are added.)
 
   // 4. Build the matrix
   var matrix = [];
@@ -846,7 +1006,7 @@ function rebuildDashboardHierarchical_(items) {
         : (it.ambiguous ? 'ambiguous' : 'owed');
       var status = existingStatus[it.fingerprint] || defaultStatus;
       var label = it.enrollment.student
-        ? it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')'
+        ? it.enrollment.student + ', ' + it.label + ' (' + it.enrollment.week + ')'
         : it.label;
       matrix.push([
         nowDateStr,
@@ -1772,7 +1932,9 @@ function priceEnrollment_(e, catalog) {
   // have a different shape (no per-day attendance, no lunch/breakfast/
   // care, billed monthly or quarterly per program).
   if (e.type === 'after-school') {
-    return priceAfterSchoolEnrollment_(e, catalog);
+    var afterSchoolItems = priceAfterSchoolEnrollment_(e, catalog);
+    afterSchoolItems.forEach(applyInlineFees_);
+    return afterSchoolItems;
   }
 
   var items = [];
@@ -1930,11 +2092,57 @@ function priceEnrollment_(e, catalog) {
     }
   }
 
+  // Inline tax/processing fee per item — every priced item gets its
+  // unit price + total inflated by the kind-appropriate rate, with a
+  // feeNote describing the breakdown.
+  items.forEach(applyInlineFees_);
   return items;
 }
 
 function bfsSlug_(s) {
   return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+/**
+ * Inflate a line item's price/total by the appropriate fees based on
+ * kind. Per-kind rates live in SHIRT_SALES_TAX_RATE +
+ * PAYMENT_PROCESSING_FEE constants. Sets item.feeNote describing the
+ * breakdown so the renderer can put it on the Item cell as a Note.
+ *
+ * Skips unpriced items (no inflation, keeps total = 0).
+ */
+function applyInlineFees_(item) {
+  if (!item || item.unpriced) return item;
+  if (item.kind === 'shirt-tax' || item.kind === 'processing-fee') return item;  // legacy, shouldn't appear in new flow
+  var basePrice = Number(item.price) || 0;
+  if (basePrice === 0) return item;
+
+  var rate, parts;
+  if (item.kind === 'shirt') {
+    rate = SHIRT_SALES_TAX_RATE + PAYMENT_PROCESSING_FEE;
+    parts = [
+      Math.round(SHIRT_SALES_TAX_RATE * 100) + '% sales tax',
+      Math.round(PAYMENT_PROCESSING_FEE * 100) + '% processing fee'
+    ];
+  } else {
+    rate = PAYMENT_PROCESSING_FEE;
+    parts = [Math.round(PAYMENT_PROCESSING_FEE * 100) + '% processing fee'];
+  }
+
+  var inflatedUnit = Math.round(basePrice * (1 + rate) * 100) / 100;
+  var qty = Number(item.qty) || 1;
+  var inflatedTotal = Math.round(inflatedUnit * qty * 100) / 100;
+
+  // Note for the Item cell (no em-dashes, plain English)
+  item.feeNote = 'Base unit $' + basePrice.toFixed(2) +
+                 ' includes ' + parts.join(' plus ') +
+                 ' = all-in $' + inflatedUnit.toFixed(2) + ' per unit.';
+
+  item.basePrice = basePrice;
+  item.baseTotal = Math.round(basePrice * qty * 100) / 100;
+  item.price = inflatedUnit;
+  item.total = inflatedTotal;
+  return item;
 }
 
 /**
