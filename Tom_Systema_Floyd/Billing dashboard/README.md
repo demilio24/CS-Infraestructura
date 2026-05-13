@@ -1,11 +1,14 @@
 # Systema Floyd — Billing Dashboard
 
-Single Google Sheet ("Systema Floyd — Billing Dashboard") backed by Google Apps Script. A 5-minute time-driven trigger polls `/forms/submissions` in three GoHighLevel subaccounts (Florida, Georgia, Virginia), writes one customer row per unique email plus collapsible groups of transaction rows beneath, and exposes a per-customer balance hyperlink that opens the right GHL subaccount profile so the operator (Erin) can charge the customer's card.
+Single Google Sheet ("Systema Floyd — Billing Dashboard") backed by Google Apps Script. The script aggregates billing from **two independent pipelines**:
+
+1. **Sheet-driven** (primary, since 2026-05-13): every 5 min, `buildAllBilling` in `BillingFromSheets.js` discovers registration sheets under the `registration sheets/` Drive folder, reads each kid's enrollment data, applies prices from the central `Pricing` tab, and writes a consolidated `Billing` tab listing every priced line item. Edits to a registration sheet propagate to billing within 5 min.
+2. **GHL-poll** (legacy, kept only for the $1 CC verification fee): every 5 min, `pollFloridaSubmissions` → `processSubmissionVerificationFeeOnly` captures the $1 fee from GHL's `payment` field whenever a waiver is signed. Writes those rows to the legacy `Dashboard` tab as a paid audit trail.
 
 **Owner:** Tom Floyd (Systema Floyd Martial Arts)
 **Operator:** Erin
 **Built by:** Emilio (Nils Digital)
-**State:** Stages 1–9 shipped. Five focused follow-ups remain (see `prompts/`).
+**State (2026-05-13):** Sheet-driven pipeline live, ~500 line items across summer-camp sheets, zero unpriced after the alias + Yes/No-skip fixes. After-school sheet reader shipped (prices need to be added to the catalog by Tom). Old prompts 1-5 are pre-rewrite and largely obsolete — see the change history at the bottom of this file for what's actually current.
 
 ---
 
@@ -136,6 +139,53 @@ For the full architecture picture, layout diagrams, pricing examples, and worked
 ### Companion change in `Tom_Systema_Floyd/sheets-snapshot/`
 
 The dashboard snapshot pipeline (separate from this billing dashboard, but architecturally related) was rewired the same day to bypass the unreliable GitHub Actions cron and write directly from Apps Script to GitHub via the Contents API. See [`Tom_Systema_Floyd/sheets-snapshot/README.md`](../sheets-snapshot/README.md) for that one's history.
+
+### 2026-05-13 — Sheet-driven billing rewrite
+
+**Motivation.** The GHL-poll pipeline froze a customer's billing rows at the moment of form submission. If a parent later changed their mind (swap weeks, drop a kid, add lunch), the team had to update *both* the registration sheet and the Dashboard tab manually. Two places to keep in sync, easy to drift.
+
+**New architecture.** The registration sheets are now the source of truth. Every 5 min, the script reads them and rebuilds the consolidated `Billing` tab. Edits propagate within 5 min.
+
+**Pieces shipped in this rewrite (in order):**
+
+1. **`Pricing` tab** ([`PricingGuide.js`](apps-script/PricingGuide.js)) — `setupPricingSheet` auto-extracts every priced GHL form-field option into a table (Category / Item / Price / Multiplier / Source). 19 priced items pulled from the live GHL field registry on first run.
+2. **`Aliases` column** ([`PricingGuide.js`](apps-script/PricingGuide.js)) — `migratePricingSheetAddAliases` adds an `Aliases` column with auto-derived comma-separated synonyms ("banana, fruit, with fruit" for the $10/day breakfast row, etc.). The team can append new aliases when the registration text doesn't match the catalog. Lookup is alias-aware.
+3. **`BillingFromSheets.js`** — the new pipeline. Walks each registration sheet, generates one priced line item per (kid × week × item type), aggregates by parent email, and writes to a consolidated `Billing` tab in this Billing Dashboard. Status pills preserved across rebuilds via a stable fingerprint stored in (hidden) col A.
+4. **Drive folder auto-discovery** — `discoverRegistrationSheets_` walks the `1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w` Drive folder recursively, classifying each sheet by its parent folder path (`Summer Camp/` → summer-paid, `Free Summer Camp/` → summer-free, `After School Registration/` → after-school). New sheets dropped in the right folder are picked up automatically on the next 5-min trigger. Falls back to `FALLBACK_REGISTRATION_SHEETS` on permission errors.
+5. **After-school reader** — `readAfterSchoolEnrollments_` understands the different schema (one `Enrollment` tab with monthly Jan-Dec or quarterly Q1-Q4 columns). Each active period becomes one line item, priced by program name (sheet title). After-school prices are not in the catalog yet — every after-school item starts as `(unpriced)` with yellow row highlight + Fix Link until Tom adds the rates.
+6. **Yes/No-marker skip** — FREE camp registration sheets use `"Yes"`/`"No"` in Lunch/Breakfast columns (those meals are free amenities). `isBfsYesNoMarker_` recognizes these and skips them entirely. Zero unpriced rows after this fix.
+7. **Yellow row + Fix Link for review-needed rows** — a row is flagged when (a) `unpriced` (no catalog match) or (b) `ambiguous` (multiple catalog entries match the same cell at the same priority stage). Both get a custom-formula conditional-format yellow band across the whole row, and a `Fix Link` column J with a clickable `HYPERLINK(..., "Open cell")` that jumps to the exact source cell in the registration sheet. The team scans for yellow, clicks "Open cell", fixes the typo or adds a Pricing row, and the next trigger run cleans it up.
+8. **`pollFloridaSubmissions` stripped to $1-fee-only** — the old GHL-submission processor is gutted. `processSubmissionVerificationFeeOnly` keeps the dedup + walks fields looking for GHL's `payment=$1` (the waiver verification fee) and writes a single paid `$1` row beneath the customer on the legacy Dashboard tab. Everything else (camp, lunch, shirt, breakfast, care) flows from registration sheets now. Old `processSubmission` retained in `Polling.js` as a rollback artifact (no live caller).
+9. **Per-sheet Billing tabs deleted** — earlier iteration wrote a `Billing` tab into each registration sheet. Consolidated into a single central `Billing` tab on this Billing Dashboard via `deleteBillingTabsFromRegistrationSheets`. One pane, one source of truth.
+
+**Numbers after rewrite settled** (verified via Drive API):
+
+| | Enrollments | Tx rows | Unpriced | Ambiguous |
+|---|---|---|---|---|
+| Upper Campus | 132 | 208 | 0 | (verifying) |
+| Lower Campus | 248 | 265 | 1 | (verifying) |
+| FREE Upper Campus | 38 | ~10 | 0 | 0 |
+| FREE Lower Campus | 23 | ~7 | 0 | 0 |
+| After-school | (one sheet, no months marked yet) | 0 | 0 | 0 |
+
+(FREE counts dropped from 81/52 → ~10/~7 once Yes/No skip landed — most of those rows were never priceable line items, just participation markers.)
+
+**Manifest scope changes:**
+- Added `https://www.googleapis.com/auth/drive.readonly` for `DriveApp.getFolderById` in `discoverRegistrationSheets_`. After the next manual `Run` from the Apps Script editor as `emilio@nilsdigital.com`, the trigger will be re-authorized and Drive scan kicks in. Until that re-auth, the script falls back to the hardcoded 4 summer-camp sheets in `FALLBACK_REGISTRATION_SHEETS`.
+
+**Trigger inventory now (owned by `emilio@nilsdigital.com`):**
+
+| Trigger | Cadence | What it does |
+|---|---|---|
+| `pollFloridaSubmissions` | 5 min | Captures $1 GHL CC verification fee only |
+| `dailyHealthCheck` | daily @ 9am ET | Alerts if no successful poll in last 30 min |
+| `buildAllBilling` | 5 min | Rebuilds the consolidated `Billing` tab from all discovered registration sheets |
+
+**Open items (not blockers, can be picked up anytime):**
+- **After-school pricing** — Tom needs to add a Pricing row per after-school program (or one generic per-school-monthly / per-school-quarterly rate row). All after-school items currently show `(unpriced)` yellow with Fix Link until then.
+- **Table-per-sheet Pricing restructure** — currently the Pricing tab is one flat table. The plan is to break it into sections (Summer Camp / Free / After School Monthly / After School Quarterly) so Tom can find the right rate to edit faster.
+- **Security tighten on registration sheets** — currently `"Anyone with the link can edit"`. Should be restricted to specific accounts.
+- **Erin UX feedback** — once she's been using the central `Billing` tab for a week, gather feedback on the layout and apply.
 
 ---
 

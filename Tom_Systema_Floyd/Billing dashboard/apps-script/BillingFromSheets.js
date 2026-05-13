@@ -32,9 +32,28 @@
  *  ─────────────────────────────────────────────────────────────── */
 
 // ─── Registration sheet inventory ─────────────────────────────────
-// Hardcoded for Phase 1. Auto-discovery via Drive folder + structure
-// detection lands in Phase 2 when the after-school folder is wired in.
-const REGISTRATION_SHEETS = [
+// Drive folder containing every registration sheet Tom uses. The
+// discoverRegistrationSheets_() function walks this tree recursively
+// every poll and classifies each sheet it finds (summer paid / free /
+// after-school) by the parent-folder path and the sheet's column
+// headers.
+//
+// Folder layout (as of 2026-05-13):
+//   registration sheets/
+//   ├── Summer Camp/
+//   │   ├── Upper Campus sheet
+//   │   ├── Lower Campus sheet
+//   │   └── Free Summer Camp/
+//   │       ├── FREE Upper Campus sheet
+//   │       └── FREE Lower Campus sheet
+//   └── After School Registration/
+//       └── <one sheet per school program>
+const REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w';
+
+// Fallback inventory: used when Drive folder scan fails (folder unshared,
+// API error, permission issue, etc.). Keeps the 4 known summer-camp
+// sheets discoverable as a safety net.
+const FALLBACK_REGISTRATION_SHEETS = [
   { id: '1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA', label: 'Upper Campus', type: 'summer-paid' },
   { id: '18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs', label: 'Lower Campus', type: 'summer-paid' },
   { id: '1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ', label: 'FREE Upper Campus', type: 'summer-free' },
@@ -58,8 +77,89 @@ const UNPRICED_TAG        = '(unpriced)';
    ENTRY POINTS
    ═════════════════════════════════════════════════════════════════ */
 
+/* ═════════════════════════════════════════════════════════════════
+   AUTO-DISCOVERY
+   ═════════════════════════════════════════════════════════════════ */
+
 /**
- * Main worker — refreshes the Billing tab in every registration sheet.
+ * Walks the REGISTRATION_ROOT_FOLDER_ID tree recursively, finding every
+ * Google Sheet that looks like a registration sheet. Each result is
+ * classified by parent-folder path:
+ *   - Path contains "Free Summer Camp"   → type: 'summer-free'
+ *   - Path contains "Summer Camp"        → type: 'summer-paid'
+ *   - Path contains "After School"       → type: 'after-school'
+ *   - Anything else                      → skipped
+ *
+ * Falls back to FALLBACK_REGISTRATION_SHEETS on any error so a
+ * permission glitch doesn't blow up the trigger.
+ *
+ * @returns {Array<{id, label, type, folderPath}>}
+ */
+function discoverRegistrationSheets_() {
+  try {
+    var rootFolder = DriveApp.getFolderById(REGISTRATION_ROOT_FOLDER_ID);
+    var found = [];
+    bfsWalkFolder_(rootFolder, rootFolder.getName(), function(file, folderPath) {
+      if (file.getMimeType() !== MimeType.GOOGLE_SHEETS) return;
+      var type = bfsClassifySheet_(folderPath);
+      if (!type) return;
+      found.push({
+        id: file.getId(),
+        label: file.getName(),
+        type: type,
+        folderPath: folderPath
+      });
+    });
+    if (found.length === 0) {
+      Logger.log('[discoverRegistrationSheets_] WARN: zero sheets discovered in Drive folder ' +
+                 REGISTRATION_ROOT_FOLDER_ID + ' — using fallback list');
+      return FALLBACK_REGISTRATION_SHEETS;
+    }
+    Logger.log('[discoverRegistrationSheets_] found ' + found.length + ' registration sheet(s):');
+    found.forEach(function(r) {
+      Logger.log('  - [' + r.type + '] ' + r.label + ' (' + r.folderPath + ')');
+    });
+    return found;
+  } catch (e) {
+    Logger.log('[discoverRegistrationSheets_] failed: ' + e.message + ' — using fallback list');
+    return FALLBACK_REGISTRATION_SHEETS;
+  }
+}
+
+function bfsWalkFolder_(folder, currentPath, callback) {
+  // Files in this folder
+  var files = folder.getFiles();
+  while (files.hasNext()) {
+    callback(files.next(), currentPath);
+  }
+  // Subfolders (recurse)
+  var subfolders = folder.getFolders();
+  while (subfolders.hasNext()) {
+    var sub = subfolders.next();
+    bfsWalkFolder_(sub, currentPath + '/' + sub.getName(), callback);
+  }
+}
+
+function bfsClassifySheet_(folderPath) {
+  if (/Free\s+Summer\s+Camp/i.test(folderPath)) return 'summer-free';
+  if (/Summer\s+Camp/i.test(folderPath))        return 'summer-paid';
+  if (/After\s+School/i.test(folderPath))       return 'after-school';
+  return null;
+}
+
+/**
+ * Main worker — aggregates priced line items across every registration
+ * sheet and writes one consolidated "Billing" tab into the central
+ * Billing Dashboard sheet (this script's bound spreadsheet).
+ *
+ * Was previously a per-sheet Billing tab per registration sheet, but
+ * the user consolidated to a single billing view 2026-05-13. The
+ * per-sheet tabs are cleaned up by deleteBillingTabsFromRegistrationSheets().
+ *
+ * Discovery: walks REGISTRATION_ROOT_FOLDER_ID (a Drive folder) every
+ * run. New registration sheets dropped in that folder tree are picked
+ * up automatically on the next 5-min trigger fire.
+ *
  * Runs every 5 min via installBillingFromSheetsTrigger.
  */
 function buildAllBilling() {
@@ -73,27 +173,119 @@ function buildAllBilling() {
     Logger.log('[buildAllBilling] start @ ' + startedAt.toISOString());
 
     var catalog = readPricingCatalog_();
-    Logger.log('[buildAllBilling] pricing catalog: ' + catalog.size + ' entries');
+    Logger.log('[buildAllBilling] pricing catalog: ' + catalog.items.length + ' entries');
 
-    var results = [];
-    REGISTRATION_SHEETS.forEach(function(reg) {
+    var registrationSheets = discoverRegistrationSheets_();
+    Logger.log('[buildAllBilling] processing ' + registrationSheets.length + ' registration sheet(s)');
+
+    // Collect priced items across every registration sheet
+    var allItems = [];
+    var perSheet = [];
+    var seenShirts = {};  // one-time-per-student dedup across all sheets
+    registrationSheets.forEach(function(reg) {
+      var sheetEnroll = 0, sheetItems = 0, sheetUnpriced = 0;
       try {
-        var r = buildBillingForSheet_(reg, catalog);
-        results.push(reg.label + ': ' + r.enrollments + ' enrollments, ' +
-                     r.txRows + ' tx rows, ' + r.unpriced + ' unpriced');
+        // Route to the right reader based on sheet type
+        var enrollments = (reg.type === 'after-school')
+          ? readAfterSchoolEnrollments_(reg)
+          : readRegistrationEnrollments_(reg);
+        sheetEnroll = enrollments.length;
+        enrollments.forEach(function(e) {
+          var items = priceEnrollment_(e, catalog);
+          items.forEach(function(it) {
+            if (it.oneTimePerStudent) {
+              if (seenShirts[it.fingerprint]) return;
+              seenShirts[it.fingerprint] = true;
+            }
+            it.enrollment = e;
+            allItems.push(it);
+            sheetItems++;
+            if (it.unpriced) sheetUnpriced++;
+          });
+        });
+        perSheet.push(reg.label + ': ' + sheetEnroll + ' enrollments, ' +
+                      sheetItems + ' tx rows, ' + sheetUnpriced + ' unpriced');
       } catch (e) {
-        results.push(reg.label + ': ERROR ' + e.message);
+        perSheet.push(reg.label + ': ERROR ' + e.message);
         Logger.log('[buildAllBilling] ' + reg.label + ' failed: ' + e.message +
                    '\n' + (e.stack || ''));
       }
     });
 
+    // Sort: parent email → student → week → kind
+    allItems.sort(function(a, b) {
+      var byEmail = (a.enrollment.email || '').localeCompare(b.enrollment.email || '');
+      if (byEmail !== 0) return byEmail;
+      var byStudent = (a.enrollment.student || '').localeCompare(b.enrollment.student || '');
+      if (byStudent !== 0) return byStudent;
+      // Unified ordering: summer weeks first, then months, then quarters
+      var allPeriods = BFS_WEEK_ORDER
+        .concat(AFTER_SCHOOL_MONTH_COLUMNS)
+        .concat(AFTER_SCHOOL_QUARTER_COLUMNS);
+      var byWeek = allPeriods.indexOf(a.enrollment.week) - allPeriods.indexOf(b.enrollment.week);
+      if (byWeek !== 0) return byWeek;
+      return (a.kind || '').localeCompare(b.kind || '');
+    });
+
+    // Locate / create the central "Billing" tab and capture existing status pills
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var billing = ss.getSheetByName(BILLING_TAB_NAME);
+    if (!billing) {
+      billing = ss.insertSheet(BILLING_TAB_NAME);
+      // Move to end of tab list
+      var pos = ss.getNumSheets();
+      ss.setActiveSheet(billing);
+      ss.moveActiveSheet(pos);
+    }
+    var existingStatus = {};
+    var lr = billing.getLastRow();
+    if (lr >= 3) {
+      var existing = billing.getRange(3, 1, lr - 2, 9).getValues();
+      existing.forEach(function(row) {
+        var fp = String(row[0] || '');
+        var status = String(row[8] || '');
+        if (fp && status) existingStatus[fp] = status;
+      });
+    }
+
+    renderBillingTab_(billing, { label: 'All Registration Sheets' }, allItems, existingStatus);
+
     var elapsedMs = Date.now() - startedAt.getTime();
-    Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms\n  - ' +
-               results.join('\n  - '));
+    Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms — totals: ' +
+               allItems.length + ' tx rows, ' +
+               allItems.filter(function(it){return it.unpriced;}).length + ' unpriced');
+    perSheet.forEach(function(s) { Logger.log('  - ' + s); });
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * One-shot cleanup: deletes the legacy per-sheet "Billing" tabs from
+ * every registration sheet. Run once after the consolidation cutover
+ * to remove the old per-camp Billing tabs we no longer write to.
+ *
+ * Safe to re-run (no-op if a sheet's Billing tab is already gone).
+ */
+function deleteBillingTabsFromRegistrationSheets() {
+  var report = [];
+  var registrationSheets = discoverRegistrationSheets_();
+  registrationSheets.forEach(function(reg) {
+    try {
+      var ss = SpreadsheetApp.openById(reg.id);
+      var sh = ss.getSheetByName(BILLING_TAB_NAME);
+      if (sh) {
+        ss.deleteSheet(sh);
+        report.push(reg.label + ': deleted Billing tab');
+      } else {
+        report.push(reg.label + ': no Billing tab to delete');
+      }
+    } catch (e) {
+      report.push(reg.label + ': ERROR ' + e.message);
+    }
+  });
+  report.forEach(function(r) { Logger.log('[deleteBillingTabsFromRegistrationSheets] ' + r); });
+  return report;
 }
 
 /**
@@ -135,14 +327,23 @@ function installBillingFromSheetsTrigger() {
    ═════════════════════════════════════════════════════════════════ */
 
 /**
- * Read the central Pricing tab into a Map keyed by the raw source
- * label (column E). Values: { category, item, price, multiplier }.
+ * Read the central Pricing tab and build a 3-way lookup structure.
  *
- * The script matches a registration cell value (e.g., "Pizza ($30/week)")
- * against catalog keys to find its price. Tom-edited rows in the
- * Pricing tab win — script never overwrites them.
+ * Returns {
+ *   bySource: Map<lowercase Source label → entry>,
+ *   byItem:   Map<lowercase Item label  → entry>,
+ *   items:    Array<entry>   // for last-resort fuzzy iteration
+ * }
  *
- * @returns {Map<string, {category, item, price, multiplier}>}
+ * The 3-way structure handles the gap between registration sheet text
+ * and GHL form labels. Example: GHL form option says "Small (+$30)"
+ * (the Source) but the team types just "Small" in the registration
+ * sheet. Source-only lookup misses; Item-keyed lookup catches it
+ * because PricingGuide stripped the "(+$30)" suffix into the Item col.
+ *
+ * Tom-edited rows in the Pricing tab win — script never overwrites them.
+ *
+ * @returns {{bySource: Map, byItem: Map, items: Array}}
  */
 function readPricingCatalog_() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -154,44 +355,207 @@ function readPricingCatalog_() {
   if (lastRow < 2) {
     throw new Error('Pricing sheet is empty. Run setupPricingSheet() first.');
   }
-  // Columns: A Category | B Item | C Price | D Multiplier | E Source | F Notes
-  var rows = sh.getRange(2, 1, lastRow - 1, 6).getValues();
-  var map = new Map();
+  // Detect post-migration column layout: A Category | B Item | C Price |
+  // D Multiplier | E Source | F Aliases | G Notes (or pre-migration
+  // F Notes if Aliases hasn't been added yet).
+  var headerRow = sh.getRange(1, 1, 1, Math.max(7, sh.getLastColumn())).getValues()[0];
+  var aliasesColIdx = -1;
+  for (var hi = 0; hi < headerRow.length; hi++) {
+    if (String(headerRow[hi]).trim().toLowerCase() === 'aliases') {
+      aliasesColIdx = hi;
+      break;
+    }
+  }
+  var numCols = Math.max(6, aliasesColIdx + 2);  // include Aliases if present
+  var rows = sh.getRange(2, 1, lastRow - 1, numCols).getValues();
+  var bySource = new Map();
+  var byItem = new Map();
+  var items = [];
   rows.forEach(function(r) {
     var category = String(r[0] || '').trim();
     var item     = String(r[1] || '').trim();
     var price    = Number(r[2]) || 0;
     var mult     = String(r[3] || '').trim();
     var source   = String(r[4] || '').trim();
-    if (!source) return;
-    map.set(source.toLowerCase(), {
-      category: category, item: item, price: price, multiplier: mult
-    });
+    var aliasRaw = aliasesColIdx >= 0 ? String(r[aliasesColIdx] || '') : '';
+    if (!item && !source) return;
+    var aliases = aliasRaw.split(/[,;\n]+/)
+      .map(function(a) { return a.trim().toLowerCase(); })
+      .filter(Boolean);
+    var entry = {
+      category: category, item: item, price: price,
+      multiplier: mult, source: source, aliases: aliases
+    };
+    if (source) bySource.set(source.toLowerCase(), entry);
+    if (item)   byItem.set(item.toLowerCase(),     entry);
+    items.push(entry);
   });
-  return map;
+  return { bySource: bySource, byItem: byItem, items: items };
 }
 
 /**
- * Look up a registration cell value in the catalog. Tries exact match
- * first, then a fuzzy contains-match on the dollar-suffix pattern.
- * Returns null on miss.
+ * Map a field-type tag to a regex that filters Pricing.Category. Used
+ * by lookupPrice_ to scope candidates so a "banana" alias for the
+ * breakfast row doesn't accidentally match a lunch cell that happens
+ * to mention bananas.
+ *
+ * @param {'lunch'|'breakfast'|'care'|'shirt'|'tuition'|null} fieldType
+ * @returns {RegExp|null}  null = no filter (consider all rows)
  */
-function lookupPrice_(cellValue, catalog) {
+function categoryFilterFor_(fieldType) {
+  switch (fieldType) {
+    case 'lunch':     return /lunch/i;
+    case 'breakfast': return /breakfast/i;
+    case 'care':      return /care/i;
+    case 'shirt':     return /shirt/i;
+    case 'tuition':   return /duration|tuition/i;
+    default:          return null;
+  }
+}
+
+/**
+ * Reduce a string to a comparison-friendly form: lowercased, only
+ * alphanumerics. "Small (+$30)" → "small30", "After care weekly option"
+ * → "aftercareweeklyoption". Helps the substring fallback match across
+ * spacing and punctuation variants ("Aftercare Weekly" ↔ "After care
+ * weekly option").
+ */
+function bfsSquish_(s) {
+  return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * Detects whether multiple Pricing entries match the same cell at the
+ * SAME deterministic stage (exact source / exact item / exact alias).
+ * Used to flag rows for human review when the catalog is ambiguous.
+ *
+ * Returns the count of distinct matches at the highest-priority stage
+ * that hit. 0 = no exact match (could still be matched fuzzily later).
+ * >1 = ambiguity → caller should flag the row for review.
+ */
+function countExactMatches_(cellValue, catalog, fieldType) {
   var v = String(cellValue || '').trim();
-  if (!v || /^none$/i.test(v) || /^no$/i.test(v) || /^n\/a$/i.test(v)) return null;
+  if (!v || /^(none|no|n\/a|na)$/i.test(v)) return 0;
+  var vLower = v.toLowerCase();
+  var catFilter = categoryFilterFor_(fieldType);
+  function inScope(entry) {
+    return !catFilter || catFilter.test(String(entry.category || ''));
+  }
 
-  // Exact (case-insensitive) match against the Source column
-  var direct = catalog.get(v.toLowerCase());
-  if (direct) return direct;
+  // Try each deterministic stage; stop at the first stage with matches
+  // and report the count there.
+  var matches;
 
-  // Fuzzy: the cell might be a longer string containing the catalog
-  // label (e.g., "Celis Special $15/day (added 5/2026)"). Walk the
-  // catalog and return the first entry whose source appears in the cell.
-  var hit = null;
-  catalog.forEach(function(meta, key) {
-    if (hit) return;
-    if (v.toLowerCase().indexOf(key) !== -1) hit = meta;
+  // Stage 1: exact Source
+  matches = catalog.items.filter(function(e) {
+    return inScope(e) && (e.source || '').toLowerCase() === vLower;
   });
+  if (matches.length > 0) return matches.length;
+
+  // Stage 2: exact Item
+  matches = catalog.items.filter(function(e) {
+    return inScope(e) && (e.item || '').toLowerCase() === vLower;
+  });
+  if (matches.length > 0) return matches.length;
+
+  // Stage 3: exact Alias
+  matches = catalog.items.filter(function(e) {
+    return inScope(e) && (e.aliases || []).indexOf(vLower) !== -1;
+  });
+  if (matches.length > 0) return matches.length;
+
+  return 0;
+}
+
+/**
+ * Look up a registration cell value in the catalog. Tries, in order:
+ *   1. Exact Source match (category-scoped if fieldType given)
+ *   2. Exact Item match
+ *   3. Exact match against any Alias (comma-separated list per row)
+ *   4. Cell contains Source as substring (raw + squished)
+ *   5. Cell contains Item as substring (raw + squished)
+ *   6. Cell contains any Alias as substring (or alias is contained in cell)
+ *   7. Catalog Item contains cell as substring (squished)
+ *
+ * The category-scope filter prevents a "banana" alias on the breakfast
+ * row from matching a lunch cell that mentions bananas in passing.
+ *
+ * @param {string} cellValue
+ * @param {object} catalog  from readPricingCatalog_
+ * @param {string=} fieldType  'lunch'|'breakfast'|'care'|'shirt'|'tuition'
+ * @returns {object|null} matching entry, or null
+ */
+function lookupPrice_(cellValue, catalog, fieldType) {
+  var v = String(cellValue || '').trim();
+  if (!v) return null;
+  if (/^(none|no|n\/a|na)$/i.test(v)) return null;
+
+  var vLower = v.toLowerCase();
+  var vSquish = bfsSquish_(v);
+  var catFilter = categoryFilterFor_(fieldType);
+  function inScope(entry) {
+    return !catFilter || catFilter.test(String(entry.category || ''));
+  }
+
+  // 1 + 2: exact matches (still scoped)
+  var src = catalog.bySource.get(vLower);
+  if (src && inScope(src)) return src;
+  var itm = catalog.byItem.get(vLower);
+  if (itm && inScope(itm)) return itm;
+
+  // 3: exact alias match
+  var hit = null;
+  catalog.items.forEach(function(entry) {
+    if (hit || !inScope(entry)) return;
+    for (var i = 0; i < entry.aliases.length; i++) {
+      if (entry.aliases[i] === vLower) { hit = entry; return; }
+    }
+  });
+  if (hit) return hit;
+
+  // 4: cell contains Source
+  catalog.bySource.forEach(function(meta, key) {
+    if (hit || !inScope(meta)) return;
+    if (vLower.indexOf(key) !== -1) hit = meta;
+    else if (vSquish.indexOf(bfsSquish_(key)) !== -1) hit = meta;
+  });
+  if (hit) return hit;
+
+  // 5: cell contains Item
+  catalog.byItem.forEach(function(meta, key) {
+    if (hit || !inScope(meta)) return;
+    if (vLower.indexOf(key) !== -1) hit = meta;
+    else if (vSquish.indexOf(bfsSquish_(key)) !== -1) hit = meta;
+  });
+  if (hit) return hit;
+
+  // 6: alias substring match — bidirectional. Catches "Daily ($10) with
+  //    fruit (banana)" cell matching breakfast alias "with fruit", and
+  //    catches alias "banana" appearing in the cell.
+  catalog.items.forEach(function(entry) {
+    if (hit || !inScope(entry)) return;
+    for (var i = 0; i < entry.aliases.length; i++) {
+      var alias = entry.aliases[i];
+      if (!alias || alias.length < 3) continue;
+      if (vLower.indexOf(alias) !== -1) { hit = entry; return; }
+      var aliasSquish = bfsSquish_(alias);
+      if (aliasSquish.length >= 3 && vSquish.indexOf(aliasSquish) !== -1) {
+        hit = entry; return;
+      }
+    }
+  });
+  if (hit) return hit;
+
+  // 7: Item contains cell — covers e.g. cell="Aftercare Weekly"
+  //    matching catalog item="After care weekly option"
+  if (vSquish.length >= 4) {
+    catalog.items.forEach(function(entry) {
+      if (hit || !inScope(entry)) return;
+      if (!entry.item) return;
+      var itemSquish = bfsSquish_(entry.item);
+      if (itemSquish.length && itemSquish.indexOf(vSquish) !== -1) hit = entry;
+    });
+  }
   return hit;
 }
 
@@ -242,6 +606,8 @@ function readRegistrationEnrollments_(reg) {
     };
     if (col.student < 0) continue;  // not a recognizable enrollment tab
 
+    var sheetGid = sheet.getSheetId();
+
     for (var r = 1; r < values.length; r++) {
       var row = values[r];
       var student = String(row[col.student] || '').trim();
@@ -265,6 +631,7 @@ function readRegistrationEnrollments_(reg) {
       var dayCount = 0;
       ['Mon','Tue','Wed','Thu','Fri'].forEach(function(d) { if (days[d]) dayCount++; });
 
+      var rowNumber = r + 1;  // Apps Script ranges are 1-indexed
       enrollments.push({
         sheetId:    reg.id,
         sheetLabel: reg.label,
@@ -281,6 +648,19 @@ function readRegistrationEnrollments_(reg) {
           care:      col.care >= 0      ? String(row[col.care] || '').trim()      : '',
           shirt:     col.shirt >= 0     ? String(row[col.shirt] || '').trim()     : '',
         },
+        // Coordinates of the source row, used to deep-link to the
+        // exact cell from the central Billing tab. cellLinks: per-item
+        // type, a full URL to that cell in the registration sheet.
+        sourceGid:  sheetGid,
+        sourceRow:  rowNumber,
+        cellLinks: {
+          lunch:     col.lunch >= 0     ? bfsCellUrl_(reg.id, sheetGid, rowNumber, col.lunch + 1)     : '',
+          breakfast: col.breakfast >= 0 ? bfsCellUrl_(reg.id, sheetGid, rowNumber, col.breakfast + 1) : '',
+          care:      col.care >= 0      ? bfsCellUrl_(reg.id, sheetGid, rowNumber, col.care + 1)     : '',
+          shirt:     col.shirt >= 0     ? bfsCellUrl_(reg.id, sheetGid, rowNumber, col.shirt + 1)    : '',
+          // For tuition there's no single cell — link to the whole row
+          row:       bfsRowUrl_(reg.id, sheetGid, rowNumber),
+        },
         notes:      col.notes >= 0 ? String(row[col.notes] || '').trim() : '',
         incomplete: !email,
       });
@@ -288,6 +668,257 @@ function readRegistrationEnrollments_(reg) {
   }
 
   return enrollments;
+}
+
+/**
+ * Convert a 1-indexed column number to an A1 letter. 1→A, 2→B, ...,
+ * 26→Z, 27→AA, 28→AB, etc.
+ */
+function bfsColLetter_(n) {
+  var letter = '';
+  while (n > 0) {
+    var rem = (n - 1) % 26;
+    letter = String.fromCharCode(65 + rem) + letter;
+    n = Math.floor((n - 1) / 26);
+  }
+  return letter;
+}
+
+/**
+ * Build a deep-link URL to a specific cell in a Google Sheet.
+ */
+function bfsCellUrl_(spreadsheetId, gid, row, colNum) {
+  var col = bfsColLetter_(colNum);
+  return 'https://docs.google.com/spreadsheets/d/' + spreadsheetId +
+         '/edit#gid=' + gid + '&range=' + col + row;
+}
+
+/**
+ * Build a deep-link URL to an entire row in a Google Sheet.
+ */
+function bfsRowUrl_(spreadsheetId, gid, row) {
+  return 'https://docs.google.com/spreadsheets/d/' + spreadsheetId +
+         '/edit#gid=' + gid + '&range=' + row + ':' + row;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   AFTER-SCHOOL READER
+   ═════════════════════════════════════════════════════════════════
+   After-school sheets have a totally different schema from summer
+   camp: one "Enrollment" tab (not 12 weekly tabs), columns
+     Student Name | Email | T Shirt | Grade
+   followed by either monthly columns (January..December) or
+   quarterly columns (Q1..Q4). Each filled cell = that student is
+   active for that period.
+
+   We generate one enrollment per (student × active period). The
+   "program" is the sheet's title (e.g. "Linwood Holton Elementary:
+   Friday 3-3:45PM"). The billing period (month/quarter) is detected
+   from which column set is present.
+
+   Pricing: looked up in the central Pricing tab using the program
+   name as the source/alias key. If no Pricing row exists yet, the
+   line item is generated as (unpriced) — yellow row + Fix Link
+   directing the team to the right cell so Tom can add it later.
+   ═══════════════════════════════════════════════════════════════ */
+
+const AFTER_SCHOOL_MONTH_COLUMNS = [
+  'January', 'February', 'March',     'April',
+  'May',     'June',     'July',      'August',
+  'September','October', 'November',  'December'
+];
+const AFTER_SCHOOL_QUARTER_COLUMNS = ['Q1', 'Q2', 'Q3', 'Q4'];
+
+function readAfterSchoolEnrollments_(reg) {
+  var ss = SpreadsheetApp.openById(reg.id);
+  var sheet = ss.getSheetByName('Enrollment');
+  if (!sheet) {
+    // Fall back to the first tab. The APPLICATION template names it
+    // "Enrollment", but any future variant just picks tab 0.
+    var tabs = ss.getSheets();
+    if (tabs.length === 0) return [];
+    sheet = tabs[0];
+  }
+
+  var range = sheet.getDataRange();
+  if (!range || range.getNumRows() < 2) return [];
+  var values = range.getValues();
+  var header = values[0].map(function(h) {
+    return String(h || '').replace(/\s+/g, ' ').trim();
+  });
+
+  var col = {
+    student: bfsCol_(header, ['Student Name']),
+    email:   bfsCol_(header, ['Email', 'Email Address']),
+    shirt:   bfsCol_(header, ['T Shirt', 'T-Shirt', 'Shirt Size']),
+    grade:   bfsCol_(header, ['Grade']),
+  };
+  if (col.student < 0) return [];
+
+  // Detect schema by which column set is present.
+  var periodCols = [];
+  var billingPeriod = null;
+  for (var i = 0; i < AFTER_SCHOOL_MONTH_COLUMNS.length; i++) {
+    var ix = bfsCol_(header, [AFTER_SCHOOL_MONTH_COLUMNS[i]]);
+    if (ix >= 0) periodCols.push({ name: AFTER_SCHOOL_MONTH_COLUMNS[i], col: ix });
+  }
+  if (periodCols.length > 0) {
+    billingPeriod = 'month';
+  } else {
+    for (var q = 0; q < AFTER_SCHOOL_QUARTER_COLUMNS.length; q++) {
+      var qx = bfsCol_(header, [AFTER_SCHOOL_QUARTER_COLUMNS[q]]);
+      if (qx >= 0) periodCols.push({ name: AFTER_SCHOOL_QUARTER_COLUMNS[q], col: qx });
+    }
+    if (periodCols.length > 0) billingPeriod = 'quarter';
+  }
+  if (!billingPeriod) return [];  // Neither monthly nor quarterly schema
+
+  var sheetGid = sheet.getSheetId();
+  var enrollments = [];
+
+  for (var r = 1; r < values.length; r++) {
+    var row = values[r];
+    var student = String(row[col.student] || '').trim();
+    if (!student) continue;
+    var email = col.email >= 0 ? String(row[col.email] || '').trim() : '';
+    var shirt = col.shirt >= 0 ? String(row[col.shirt] || '').trim() : '';
+    var grade = col.grade >= 0 ? String(row[col.grade] || '').trim() : '';
+    var rowNumber = r + 1;
+
+    // One enrollment per (student × active period). A period is
+    // "active" when the cell has any non-blank, non-marker value.
+    periodCols.forEach(function(p) {
+      var cellVal = String(row[p.col] || '').trim();
+      if (!cellVal) return;
+      if (isBfsYesNoMarker_(cellVal) && /^(no|n|false)$/i.test(cellVal)) return;  // explicit no = skip
+
+      enrollments.push({
+        sheetId:       reg.id,
+        sheetLabel:    reg.label,
+        type:          'after-school',
+        billingPeriod: billingPeriod,         // 'month' | 'quarter'
+        week:          p.name,                // reused as the "Period" display
+        program:       reg.label,             // sheet title = school+program name
+        student:       student,
+        email:         email.toLowerCase(),
+        emailRaw:      email,
+        grade:         grade,
+        days:          { Mon: true, Tue: true, Wed: true, Thu: true, Fri: true },
+        dayCount:      5,
+        cells: {
+          breakfast: '', lunch: '', care: '',
+          shirt:     shirt
+        },
+        sourceGid:     sheetGid,
+        sourceRow:     rowNumber,
+        cellLinks: {
+          shirt: col.shirt >= 0 ? bfsCellUrl_(reg.id, sheetGid, rowNumber, col.shirt + 1) : '',
+          period: bfsCellUrl_(reg.id, sheetGid, rowNumber, p.col + 1),
+          row:    bfsRowUrl_(reg.id, sheetGid, rowNumber),
+        },
+        notes:      '',
+        incomplete: !email,
+      });
+    });
+  }
+
+  return enrollments;
+}
+
+/**
+ * Price an after-school enrollment. The program name (sheet title) is
+ * the lookup key. If no matching Pricing row exists, the line item is
+ * created as (unpriced) — yellow row + Fix Link points to the period
+ * cell so Tom knows what to add to the Pricing catalog.
+ */
+function priceAfterSchoolEnrollment_(e, catalog) {
+  var items = [];
+  var fpBase = [e.email, e.student, e.program, e.week].map(bfsSlug_).join('|');
+
+  // Find a Pricing row matching this after-school program.
+  // Scope: only catalog entries whose Category contains "after school".
+  var entry = null;
+  var pgLower = String(e.program || '').toLowerCase();
+  var pgSquish = bfsSquish_(e.program);
+
+  catalog.items.forEach(function(m) {
+    if (entry) return;
+    if (!/after\s*school/i.test(String(m.category || ''))) return;
+    var src = String(m.source || '').toLowerCase();
+    var itm = String(m.item || '').toLowerCase();
+    if (src === pgLower || itm === pgLower) { entry = m; return; }
+    // Alias match
+    for (var i = 0; i < (m.aliases || []).length; i++) {
+      if (m.aliases[i] === pgLower) { entry = m; return; }
+    }
+    // Squished substring
+    var srcSq = bfsSquish_(src);
+    var itmSq = bfsSquish_(itm);
+    if (srcSq && (pgSquish.indexOf(srcSq) !== -1 || srcSq.indexOf(pgSquish) !== -1)) entry = m;
+    else if (itmSq && (pgSquish.indexOf(itmSq) !== -1 || itmSq.indexOf(pgSquish) !== -1)) entry = m;
+  });
+
+  var multStr = e.billingPeriod === 'month' ? '/month' : '/quarter';
+  if (entry && entry.price > 0) {
+    items.push({
+      kind:       'after-school',
+      label:      e.program + ' (' + e.week + ')',
+      price:      entry.price,
+      multiplier: entry.multiplier || multStr,
+      qty:        1,
+      total:      entry.price,
+      unpriced:   false,
+      source:     e.program,
+      linkToSource: e.cellLinks ? e.cellLinks.period : '',
+      fingerprint: fpBase + '|tuition'
+    });
+  } else {
+    items.push({
+      kind:       'after-school',
+      label:      UNPRICED_TAG + ' After School: ' + e.program + ' (' + e.week + ')',
+      price:      0,
+      multiplier: multStr,
+      qty:        1,
+      total:      0,
+      unpriced:   true,
+      source:     e.program,
+      linkToSource: e.cellLinks ? e.cellLinks.period : '',
+      fingerprint: fpBase + '|tuition'
+    });
+  }
+
+  // After-school T-shirt — flat one-time charge per student if specified
+  if (e.cells.shirt && !/^none$/i.test(e.cells.shirt) && !isBfsYesNoMarker_(e.cells.shirt)) {
+    var shirt = lookupPrice_(e.cells.shirt, catalog, 'shirt');
+    if (shirt) {
+      items.push({
+        kind:       'shirt',
+        label:      'T-Shirt (' + shirt.item + ')',
+        price:      shirt.price,
+        multiplier: shirt.multiplier || '',
+        qty:        1,
+        total:      shirt.price,
+        unpriced:   false,
+        source:     e.cells.shirt,
+        linkToSource: e.cellLinks ? e.cellLinks.shirt : '',
+        oneTimePerStudent: true,
+        fingerprint: [e.email, e.student].map(bfsSlug_).join('|') + '|shirt|' + bfsSlug_(shirt.item)
+      });
+    } else {
+      items.push({
+        kind:       'shirt',
+        label:      UNPRICED_TAG + ' T-Shirt: ' + e.cells.shirt,
+        price:      0, multiplier: '', qty: 1, total: 0,
+        unpriced:   true,
+        source:     e.cells.shirt,
+        linkToSource: e.cellLinks ? e.cellLinks.shirt : '',
+        oneTimePerStudent: true,
+        fingerprint: [e.email, e.student].map(bfsSlug_).join('|') + '|shirt|' + bfsSlug_(e.cells.shirt)
+      });
+    }
+  }
+
+  return items;
 }
 
 function bfsCol_(header, candidates) {
@@ -331,6 +962,13 @@ function bfsDayChecked_(v) {
  * @returns {Array<LineItem>}
  */
 function priceEnrollment_(e, catalog) {
+  // Route after-school enrollments through their own pricer — they
+  // have a different shape (no per-day attendance, no lunch/breakfast/
+  // care, billed monthly or quarterly per program).
+  if (e.type === 'after-school') {
+    return priceAfterSchoolEnrollment_(e, catalog);
+  }
+
   var items = [];
   var fpBase = [e.email, e.student, e.week].map(bfsSlug_).join('|');
 
@@ -339,12 +977,12 @@ function priceEnrollment_(e, catalog) {
     var tuitionKey = e.dayCount === 1 ? '1 day' : (e.dayCount + ' days');
     // Find by Category + Item match (multiple variants exist as "$X")
     var tuitionPrice = null, tuitionMult = '/week', tuitionSource = '';
-    catalog.forEach(function(m, src) {
+    catalog.items.forEach(function(m) {
       if (tuitionPrice !== null) return;
       if (/camp duration/i.test(m.category) && new RegExp('^' + tuitionKey + '$', 'i').test(m.item)) {
         tuitionPrice  = m.price;
         tuitionMult   = m.multiplier || '/week';
-        tuitionSource = src;
+        tuitionSource = m.source || m.item;
       }
     });
     items.push({
@@ -356,13 +994,14 @@ function priceEnrollment_(e, catalog) {
       total:      tuitionPrice == null ? 0 : tuitionPrice,
       unpriced:   tuitionPrice == null,
       source:     tuitionSource || (UNPRICED_TAG + ' ' + tuitionKey),
+      linkToSource: e.cellLinks ? e.cellLinks.row : '',
       fingerprint: fpBase + '|tuition|' + tuitionKey
     });
   }
 
   // 2. Lunch
-  if (e.cells.lunch && !/^none$/i.test(e.cells.lunch)) {
-    var lunchPrice = lookupPrice_(e.cells.lunch, catalog);
+  if (e.cells.lunch && !/^none$/i.test(e.cells.lunch) && !isBfsYesNoMarker_(e.cells.lunch)) {
+    var lunchPrice = lookupPrice_(e.cells.lunch, catalog, 'lunch');
     if (lunchPrice) {
       var qty = lunchPrice.multiplier === '/day' ? e.dayCount : 1;
       items.push({
@@ -373,7 +1012,9 @@ function priceEnrollment_(e, catalog) {
         qty:        qty,
         total:      lunchPrice.price * qty,
         unpriced:   false,
+        ambiguous:  countExactMatches_(e.cells.lunch, catalog, 'lunch') > 1,
         source:     e.cells.lunch,
+        linkToSource: e.cellLinks ? e.cellLinks.lunch : '',
         fingerprint: fpBase + '|lunch|' + bfsSlug_(lunchPrice.item)
       });
     } else {
@@ -383,14 +1024,15 @@ function priceEnrollment_(e, catalog) {
         price:      0, multiplier: '', qty: 1, total: 0,
         unpriced:   true,
         source:     e.cells.lunch,
+        linkToSource: e.cellLinks ? e.cellLinks.lunch : '',
         fingerprint: fpBase + '|lunch|' + bfsSlug_(e.cells.lunch)
       });
     }
   }
 
   // 3. Breakfast
-  if (e.cells.breakfast && !/^none$/i.test(e.cells.breakfast)) {
-    var bf = lookupPrice_(e.cells.breakfast, catalog);
+  if (e.cells.breakfast && !/^none$/i.test(e.cells.breakfast) && !isBfsYesNoMarker_(e.cells.breakfast)) {
+    var bf = lookupPrice_(e.cells.breakfast, catalog, 'breakfast');
     if (bf) {
       var bqty = bf.multiplier === '/day' ? e.dayCount : 1;
       items.push({
@@ -401,7 +1043,9 @@ function priceEnrollment_(e, catalog) {
         qty:        bqty,
         total:      bf.price * bqty,
         unpriced:   false,
+        ambiguous:  countExactMatches_(e.cells.breakfast, catalog, 'breakfast') > 1,
         source:     e.cells.breakfast,
+        linkToSource: e.cellLinks ? e.cellLinks.breakfast : '',
         fingerprint: fpBase + '|breakfast|' + bfsSlug_(bf.item)
       });
     } else {
@@ -411,14 +1055,15 @@ function priceEnrollment_(e, catalog) {
         price:      0, multiplier: '', qty: 1, total: 0,
         unpriced:   true,
         source:     e.cells.breakfast,
+        linkToSource: e.cellLinks ? e.cellLinks.breakfast : '',
         fingerprint: fpBase + '|breakfast|' + bfsSlug_(e.cells.breakfast)
       });
     }
   }
 
   // 4. Care (before / after)
-  if (e.cells.care && !/^none$/i.test(e.cells.care)) {
-    var care = lookupPrice_(e.cells.care, catalog);
+  if (e.cells.care && !/^none$/i.test(e.cells.care) && !isBfsYesNoMarker_(e.cells.care)) {
+    var care = lookupPrice_(e.cells.care, catalog, 'care');
     if (care) {
       var cqty = care.multiplier === '/day' ? e.dayCount : 1;
       items.push({
@@ -430,6 +1075,7 @@ function priceEnrollment_(e, catalog) {
         total:      care.price * cqty,
         unpriced:   false,
         source:     e.cells.care,
+        linkToSource: e.cellLinks ? e.cellLinks.care : '',
         fingerprint: fpBase + '|care|' + bfsSlug_(care.item)
       });
     } else {
@@ -439,6 +1085,7 @@ function priceEnrollment_(e, catalog) {
         price:      0, multiplier: '', qty: 1, total: 0,
         unpriced:   true,
         source:     e.cells.care,
+        linkToSource: e.cellLinks ? e.cellLinks.care : '',
         fingerprint: fpBase + '|care|' + bfsSlug_(e.cells.care)
       });
     }
@@ -447,8 +1094,8 @@ function priceEnrollment_(e, catalog) {
   // 5. T-shirt — flat one-time charge per registration. To avoid
   // duplicating across weeks for the same student, the fingerprint
   // omits week and the caller dedupes.
-  if (e.cells.shirt && !/^none$/i.test(e.cells.shirt) && !/^no$/i.test(e.cells.shirt)) {
-    var shirt = lookupPrice_(e.cells.shirt, catalog);
+  if (e.cells.shirt && !/^none$/i.test(e.cells.shirt) && !isBfsYesNoMarker_(e.cells.shirt)) {
+    var shirt = lookupPrice_(e.cells.shirt, catalog, 'shirt');
     if (shirt) {
       items.push({
         kind:       'shirt',
@@ -459,6 +1106,7 @@ function priceEnrollment_(e, catalog) {
         total:      shirt.price,
         unpriced:   false,
         source:     e.cells.shirt,
+        linkToSource: e.cellLinks ? e.cellLinks.shirt : '',
         oneTimePerStudent: true,
         fingerprint: [e.email, e.student].map(bfsSlug_).join('|') + '|shirt|' + bfsSlug_(shirt.item)
       });
@@ -469,6 +1117,7 @@ function priceEnrollment_(e, catalog) {
         price:      0, multiplier: '', qty: 1, total: 0,
         unpriced:   true,
         source:     e.cells.shirt,
+        linkToSource: e.cellLinks ? e.cellLinks.shirt : '',
         oneTimePerStudent: true,
         fingerprint: [e.email, e.student].map(bfsSlug_).join('|') + '|shirt|' + bfsSlug_(e.cells.shirt)
       });
@@ -480,6 +1129,17 @@ function priceEnrollment_(e, catalog) {
 
 function bfsSlug_(s) {
   return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+/**
+ * Recognizes a Yes/No/marker cell value (case-insensitive). The FREE
+ * camp sheets use "Yes"/"No" in Breakfast/Lunch columns to mean "kid
+ * wants the free meal" — these don't correspond to a priced line item
+ * and should be skipped (no row, neither priced nor unpriced).
+ */
+function isBfsYesNoMarker_(v) {
+  var t = String(v || '').trim();
+  return /^(yes|y|no|n|true|false|✓|✔|x)$/i.test(t);
 }
 
 /* ═════════════════════════════════════════════════════════════════
@@ -560,11 +1220,18 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   billing.clear();
   billing.clearConditionalFormatRules();
 
+  var NUM_COLS = 10;  // includes new "Fix Link" column
+
   // Row 1: title banner
   var title = 'Billing — ' + reg.label;
-  billing.getRange(1, 1, 1, 9).merge();
+  billing.getRange(1, 1, 1, NUM_COLS).merge();
+  var unpricedCount = items.filter(function(it) { return it.unpriced; }).length;
+  var ambigCount    = items.filter(function(it) { return it.ambiguous && !it.unpriced; }).length;
+  var reviewBlurb = unpricedCount + ' unpriced';
+  if (ambigCount) reviewBlurb += ' + ' + ambigCount + ' ambiguous';
   billing.getRange(1, 1)
-    .setValue(title + '   |   ' + items.length + ' line items   |   last refreshed ' +
+    .setValue(title + '   |   ' + items.length + ' line items   |   ' +
+              reviewBlurb + ' need review   |   last refreshed ' +
               new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'))
     .setBackground('#0F3634').setFontColor('#FFFFFF')
     .setFontWeight('bold').setFontSize(12)
@@ -574,7 +1241,7 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   // Row 2: column headers
   var headers = [
     'Fingerprint', 'Parent Email', 'Student', 'Week', 'Item',
-    'Unit Price', 'Qty', 'Total', 'Status'
+    'Unit Price', 'Qty', 'Total', 'Status', 'Fix Link'
   ];
   billing.getRange(2, 1, 1, headers.length).setValues([headers])
     .setBackground('#143980').setFontColor('#FFFFFF')
@@ -584,9 +1251,23 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   // Hide column A (fingerprint) — used internally for status preservation
   billing.hideColumns(1);
 
-  // Render data rows
+  // Build the data block. The Fix Link col is left as a string for
+  // priced rows ('') and as a HYPERLINK formula for unpriced rows.
+  // Mixing values + formulas in one setValues call needs the formula
+  // string to be a true formula (starting with '='), which Sheets
+  // recognizes and evaluates. Confirmed Apps Script behavior.
   var rows = items.map(function(it) {
-    var status = existingStatus[it.fingerprint] || (it.unpriced ? 'unpriced' : 'owed');
+    var defaultStatus = it.unpriced
+      ? 'unpriced'
+      : (it.ambiguous ? 'ambiguous' : 'owed');
+    var status = existingStatus[it.fingerprint] || defaultStatus;
+    var linkCell = '';
+    // Surface a "Open cell" jump-link whenever the row needs human
+    // attention (unmatched OR multiple matches) so the team can fix
+    // it in the registration sheet directly.
+    if ((it.unpriced || it.ambiguous) && it.linkToSource) {
+      linkCell = '=HYPERLINK("' + it.linkToSource + '","Open cell")';
+    }
     return [
       it.fingerprint,
       it.enrollment.emailRaw || it.enrollment.email,
@@ -596,38 +1277,53 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
       it.price,
       it.qty + (it.multiplier ? ' (' + it.multiplier.replace('/', 'per ') + ')' : ''),
       it.total,
-      status
+      status,
+      linkCell
     ];
   });
 
   if (rows.length) {
-    billing.getRange(3, 1, rows.length, 9).setValues(rows);
+    billing.getRange(3, 1, rows.length, NUM_COLS).setValues(rows);
     billing.getRange(3, 6, rows.length, 1).setNumberFormat('"$"#,##0.00');
     billing.getRange(3, 8, rows.length, 1).setNumberFormat('"$"#,##0.00');
 
     // Status dropdown
     var statusRule = SpreadsheetApp.newDataValidation()
-      .requireValueInList(['owed', 'paid', 'canceled', 'refunded', 'unpriced'], true)
+      .requireValueInList(['owed', 'paid', 'canceled', 'refunded', 'unpriced', 'ambiguous'], true)
       .setAllowInvalid(false).build();
     billing.getRange(3, 9, rows.length, 1).setDataValidation(statusRule);
 
-    // Conditional formatting on status column
     var rules = [];
+
+    // ENTIRE-ROW yellow highlight when status needs review (either
+    // unmatched or multiple-match-ambiguous). What the team scans for.
+    var allRows = billing.getRange(3, 1, rows.length, NUM_COLS);
+    rules.push(SpreadsheetApp.newConditionalFormatRule()
+      .whenFormulaSatisfied('=OR($I3="unpriced",$I3="ambiguous")')
+      .setBackground('#FFF3B0')
+      .setRanges([allRows]).build());
+
+    // Per-status color on the Status pill column (col I)
+    var statusCol = billing.getRange(3, 9, rows.length, 1);
     rules.push(SpreadsheetApp.newConditionalFormatRule()
       .whenTextEqualTo('paid').setBackground('#D4EDDA').setFontColor('#155724').setBold(true)
-      .setRanges([billing.getRange(3, 9, rows.length, 1)]).build());
+      .setRanges([statusCol]).build());
     rules.push(SpreadsheetApp.newConditionalFormatRule()
       .whenTextEqualTo('owed').setBackground('#FFF3CD').setFontColor('#856404')
-      .setRanges([billing.getRange(3, 9, rows.length, 1)]).build());
+      .setRanges([statusCol]).build());
     rules.push(SpreadsheetApp.newConditionalFormatRule()
       .whenTextEqualTo('canceled').setBackground('#E2E3E5').setFontColor('#383D41')
-      .setRanges([billing.getRange(3, 9, rows.length, 1)]).build());
+      .setRanges([statusCol]).build());
     rules.push(SpreadsheetApp.newConditionalFormatRule()
       .whenTextEqualTo('refunded').setBackground('#FFE5CC').setFontColor('#A05A00')
-      .setRanges([billing.getRange(3, 9, rows.length, 1)]).build());
+      .setRanges([statusCol]).build());
     rules.push(SpreadsheetApp.newConditionalFormatRule()
-      .whenTextEqualTo('unpriced').setBackground('#F8D7DA').setFontColor('#721C24').setBold(true)
-      .setRanges([billing.getRange(3, 9, rows.length, 1)]).build());
+      .whenTextEqualTo('unpriced').setBackground('#F0AD4E').setFontColor('#5A3A00').setBold(true)
+      .setRanges([statusCol]).build());
+    rules.push(SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo('ambiguous').setBackground('#FFD966').setFontColor('#5A3A00').setBold(true)
+      .setRanges([statusCol]).build());
+
     billing.setConditionalFormatRules(rules);
   }
 
@@ -640,8 +1336,9 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   billing.setColumnWidth(7, 120);  // Qty
   billing.setColumnWidth(8, 100);  // Total
   billing.setColumnWidth(9, 110);  // Status
+  billing.setColumnWidth(10, 120); // Fix Link
 
   // Filter on header row
   if (billing.getFilter()) billing.getFilter().remove();
-  billing.getRange(2, 1, Math.max(rows.length + 1, 2), 9).createFilter();
+  billing.getRange(2, 1, Math.max(rows.length + 1, 2), NUM_COLS).createFilter();
 }

@@ -355,9 +355,174 @@ function readWaiverOrigin(contact) {
   return '';
 }
 
+// ─── processSubmissionVerificationFeeOnly ───────────────────────────────────
+/**
+ * Stripped-down poll path. After 2026-05-13 cutover, the new
+ * sheet-driven pipeline (BillingFromSheets.js) handles every camp /
+ * lunch / shirt charge by reading the registration sheets directly.
+ *
+ * The ONE thing the sheet-driven pipeline can't see is the $1 GHL
+ * credit-card-verification fee, which arrives only inside GHL's
+ * `payment` field on every signed waiver. This function preserves
+ * that audit trail by writing a single $1 row per waiver into the
+ * central Billing Dashboard's Dashboard tab and marking it "paid"
+ * (it doesn't affect balance — it's pure paper trail).
+ *
+ * Everything else from the original processSubmission (camp tuition,
+ * lunch, shirt, etc.) is skipped on purpose. processSubmission is
+ * kept in this file for rollback only — no live caller invokes it.
+ *
+ * @param {Object} submission
+ * @returns {string}  'processed' | 'duplicate' | 'lead_only' | 'failed'
+ */
+function processSubmissionVerificationFeeOnly(submission) {
+  var submissionId = submission.id || submission._id || submission.submissionId;
+  if (!submissionId) {
+    logEvent({
+      timestamp: new Date().toISOString(),
+      submissionId: '(missing)',
+      email: '',
+      status: 'failed',
+      details: 'Submission missing id field',
+      rawPayload: JSON.stringify(submission).substring(0, 45000)
+    });
+    return 'failed';
+  }
+
+  // Dedup against the Logs sheet so we never double-write a $1 row
+  if (seenSubmissionIds().has(submissionId)) {
+    logEvent({
+      timestamp: new Date().toISOString(),
+      submissionId: submissionId,
+      email: (submission.contact && submission.contact.email) || '',
+      status: 'duplicate',
+      details: 'Already processed (verification-fee-only path)',
+      rawPayload: JSON.stringify(submission).substring(0, 45000)
+    });
+    return 'duplicate';
+  }
+
+  try {
+    // Detect the $1 CC verification fee
+    var extraction = extractSubmissionFieldsWithSelfHeal(submission, 'Florida');
+    var feeField = null;
+    for (var i = 0; i < extraction.fields.length; i++) {
+      var f = extraction.fields[i];
+      if (f.id !== 'payment') continue;
+      var price = parsePrice(String(f.value || ''));
+      var mult  = extractMultiplier(String(f.value || ''));
+      if (price === 1 && !mult) { feeField = f; break; }
+    }
+
+    if (!feeField) {
+      // Not a waiver submission (no $1 fee) — skip silently as lead_only
+      logEvent({
+        timestamp: new Date().toISOString(),
+        submissionId: submissionId,
+        email: (submission.contact && submission.contact.email) || '',
+        status: 'lead_only',
+        details: 'No $1 verification fee in payload — non-waiver submission, skipping',
+        rawPayload: JSON.stringify(submission).substring(0, 45000)
+      });
+      return 'lead_only';
+    }
+
+    // We have a waiver. Fetch the contact for name/email/phone, upsert
+    // the customer row, and append a paid $1 row beneath it.
+    var flContactId = submission.contactId ||
+                      (submission.contact && submission.contact.id);
+    if (!flContactId) throw new Error('No contactId in submission');
+
+    var flContact = ghlGetContact('Florida', flContactId);
+    var waiverOrigin = readWaiverOrigin(flContact);
+    var targetSubaccount = resolveSubaccount(waiverOrigin || 'Florida');
+
+    var email = ((flContact.email) ||
+                 (submission.contact && submission.contact.email) || '').toLowerCase().trim();
+    var firstName = flContact.firstName || '';
+    var lastName  = flContact.lastName  || '';
+    var name  = (firstName + ' ' + lastName).trim() || email;
+    var phone = flContact.phone || '';
+
+    var targetContactId = (targetSubaccount === 'Florida')
+      ? flContactId
+      : ghlSearchContactByEmail(targetSubaccount, email);
+    var profileUrl = targetContactId
+      ? buildProfileUrl(SUBACCOUNTS[targetSubaccount].locationId, targetContactId)
+      : null;
+
+    var customerRow = upsertCustomerRow({
+      email: email, name: name, phone: phone,
+      waiverOrigin: waiverOrigin || '',
+      studentNames: [],
+      profileUrl: profileUrl,
+      contactId: targetContactId,
+      subaccount: targetSubaccount
+    });
+
+    // Sub-header must exist before tx rows. Reuses the same check as
+    // the old processSubmission did.
+    var dashSheet = getDashboardSheet();
+    var possibleSubHeaderA = String(
+      dashSheet.getRange(customerRow + 1, 1).getValue() || ''
+    ).trim().toUpperCase();
+    var possibleSubHeaderG = String(
+      dashSheet.getRange(customerRow + 1, 7).getValue() || ''
+    ).trim().toUpperCase();
+    if (possibleSubHeaderA !== 'DATE' || possibleSubHeaderG !== 'STATUS') {
+      appendSubHeaderRow(customerRow);
+    }
+
+    appendTxRow(customerRow, {
+      date:             new Date(submission.createdAt || Date.now()),
+      item:             'CC verification fee',
+      unitPriceNumeric: 1,
+      unitMultiplier:   '',
+      pricingRule:      'flat',
+      days:             '',
+      weeks:            '',
+      status:           'paid',
+      submissionId:     submissionId,
+      sourceFieldName:  feeField.name || feeField.id || 'payment',
+      selectedWeeks:    [],
+      selectedDays:     [],
+      weekLabel:        '',
+      allWeeksOnSubmission: [],
+      formAnswerLabel:  String(feeField.value || '')
+    });
+
+    updateBalanceFormula(customerRow, profileUrl, targetSubaccount);
+
+    logEvent({
+      timestamp: new Date().toISOString(),
+      submissionId: submissionId,
+      email: email,
+      status: 'processed',
+      details: '$1 CC verification fee recorded (verification-fee-only path; ' +
+               'camp/lunch/shirt rows handled by BillingFromSheets)',
+      rawPayload: JSON.stringify(submission).substring(0, 45000)
+    });
+    return 'processed';
+  } catch (err) {
+    logEvent({
+      timestamp: new Date().toISOString(),
+      submissionId: submissionId,
+      email: (submission.contact && submission.contact.email) || '',
+      status: 'failed',
+      details: err.message + '\n' + (err.stack || '').substring(0, 800),
+      rawPayload: JSON.stringify(submission).substring(0, 45000)
+    });
+    return 'failed';
+  }
+}
+
 // ─── processSubmission ───────────────────────────────────────────────────────
 /**
- * Processes a single GHL form submission object.
+ * LEGACY: full-fat submission processor. No live caller after the
+ * 2026-05-13 cutover — kept here only as a rollback artifact in case
+ * the sheet-driven pipeline turns out to have a regression and we need
+ * the old form-driven billing back temporarily.
+ *
  * @param {Object} submission
  * @returns {string}  'processed' | 'duplicate' | 'lead_only' | 'failed'
  */
@@ -646,7 +811,10 @@ function pollFloridaSubmissions() {
 
   let processedCount = 0, dupCount = 0, leadCount = 0, failCount = 0;
   for (const sub of submissions) {
-    const result = processSubmission(sub);
+    // Post-2026-05-13: only the $1 CC verification fee is captured by
+    // this polling path. Camp/lunch/shirt billing comes from the
+    // sheet-driven pipeline in BillingFromSheets.js.
+    const result = processSubmissionVerificationFeeOnly(sub);
     if      (result === 'processed') processedCount++;
     else if (result === 'duplicate') dupCount++;
     else if (result === 'lead_only') leadCount++;

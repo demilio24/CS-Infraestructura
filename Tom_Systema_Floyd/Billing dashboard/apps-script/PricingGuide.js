@@ -290,3 +290,153 @@ function forceRebuildPricingSheet() {
   if (sh) ss.deleteSheet(sh);
   return setupPricingSheet();
 }
+
+/* ─── Pricing sheet — Aliases column migration ──────────────────────
+   Inserts an Aliases column at position F, shifting Notes to G.
+   Seeds each row with auto-derived alias suggestions so the team
+   doesn't start from zero. Tom can then edit any cell to add
+   typed variants the team uses ("banana", "fruit daily", etc.) and
+   the next billing rebuild picks them up automatically.
+
+   Idempotent — running again after the column exists just refreshes
+   any blank rows' suggested aliases without overwriting Tom's edits.
+   ──────────────────────────────────────────────────────────────── */
+function migratePricingSheetAddAliases() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(PRICING_SHEET_NAME);
+  if (!sh) {
+    throw new Error('Pricing sheet not found. Run setupPricingSheet() first.');
+  }
+  var lastRow = sh.getLastRow();
+  if (lastRow < 2) {
+    throw new Error('Pricing sheet is empty.');
+  }
+
+  // Detect whether Aliases column already exists by checking header F
+  var headers = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
+  var hasAliases = false;
+  for (var i = 0; i < headers.length; i++) {
+    if (String(headers[i]).trim().toLowerCase() === 'aliases') {
+      hasAliases = true;
+      break;
+    }
+  }
+
+  if (!hasAliases) {
+    // Insert column F (between Source at E and Notes at F → G)
+    sh.insertColumnAfter(5);  // shift everything right of col 5
+    sh.getRange(1, 6).setValue('Aliases')
+      .setBackground('#0F3634').setFontColor('#FFFFFF')
+      .setFontWeight('bold').setFontSize(11);
+    sh.setColumnWidth(6, 320);
+    Logger.log('[migratePricingSheetAddAliases] inserted Aliases column at F');
+  } else {
+    Logger.log('[migratePricingSheetAddAliases] Aliases column already exists, refreshing blanks');
+  }
+
+  // Walk every row, seed aliases where the cell is blank
+  var rows = sh.getRange(2, 1, lastRow - 1, 6).getValues();
+  var updates = 0;
+  for (var r = 0; r < rows.length; r++) {
+    var existing = String(rows[r][5] || '').trim();
+    if (existing) continue;  // Tom-edited; leave alone
+    var category = String(rows[r][0] || '');
+    var item     = String(rows[r][1] || '');
+    var source   = String(rows[r][4] || '');
+    var aliases  = deriveAliasesForItem_(category, item, source);
+    if (aliases.length === 0) continue;
+    sh.getRange(r + 2, 6).setValue(aliases.join(', '));
+    updates++;
+  }
+
+  // Filter on row 1 across all 7 columns
+  if (sh.getFilter()) sh.getFilter().remove();
+  sh.getRange(1, 1, lastRow, 7).createFilter();
+
+  Logger.log('[migratePricingSheetAddAliases] seeded ' + updates + ' alias cells');
+  return { aliasesColumnAdded: !hasAliases, rowsSeeded: updates };
+}
+
+/**
+ * Auto-derive a starter alias list for one Pricing row.
+ * Strategy: tokenize the Item label, strip price/punctuation, also pull
+ * in any tokens inside parentheses (which often hold the ingredient
+ * list or the brand). Add explicit common variants for known shapes.
+ *
+ * @returns {Array<string>}
+ */
+function deriveAliasesForItem_(category, item, source) {
+  var cat = String(category || '').toLowerCase();
+  var aliases = [];
+  function add(a) {
+    a = String(a || '').toLowerCase().trim();
+    if (!a) return;
+    if (aliases.indexOf(a) === -1) aliases.push(a);
+  }
+
+  // The stripped item name is always a useful alias
+  var itemClean = String(item || '').replace(/\s*\(\$[^)]+\)/g, '').trim();
+  if (itemClean) add(itemClean);
+
+  // Words inside parens — often comma-separated ingredient lists
+  var parens = String(item || '').match(/\(([^)]+)\)/g) || [];
+  parens.forEach(function(p) {
+    var inside = p.replace(/^\(|\)$/g, '').replace(/\$[^,)\s]+/g, '');
+    inside.split(/,/).forEach(function(t) {
+      var tok = t.replace(/[^a-z0-9\s]/gi, ' ').trim();
+      if (tok && tok.length >= 3) add(tok);
+    });
+  });
+
+  // Drop-the-price variants of the clean item name
+  add(itemClean.replace(/\$\d+(\.\d+)?\s*\/?\s*(day|week|wk|month|quarter|qt)?/gi, '').trim());
+
+  // Category-specific known synonyms
+  if (/breakfast/i.test(cat)) {
+    if (/with\s+fruit/i.test(item)) {
+      ['with fruit', 'fruit daily', 'daily fruit', 'fruit', 'banana', 'strawberry', 'blueberry']
+        .forEach(add);
+    }
+    if (/without\s+fruit/i.test(item)) {
+      ['without fruit', 'no fruit', 'plain', 'overnight oats'].forEach(add);
+    }
+  }
+  if (/lunch/i.test(cat)) {
+    if (/celis/i.test(item) || /celis/i.test(source)) {
+      ['celis', 'celis special', 'celis lunch', 'melt belt', 'wrap trap',
+       'grilled cheese', 'turkey wrap', 'special'].forEach(add);
+    }
+    if (/pizza/i.test(item)) {
+      add('pizza');
+      if (/week|wk/i.test(source)) add('pizza weekly');
+      if (/day/i.test(source))     add('pizza daily');
+    }
+  }
+  if (/care/i.test(cat)) {
+    if (/before/i.test(item)) ['before care', 'before-care', 'morning care'].forEach(add);
+    if (/after/i.test(item) && /weekly/i.test(item)) {
+      ['aftercare weekly', 'after care weekly', 'aftercare', 'after care weekly option']
+        .forEach(add);
+    }
+    if (/after/i.test(item) && !/weekly/i.test(item) && !/same/i.test(item)) {
+      ['after care', 'aftercare', 'aftercare daily', 'after care daily'].forEach(add);
+    }
+    if (/same\s+day/i.test(item)) {
+      ['same day', 'before and after', 'before+after', 'full day care'].forEach(add);
+    }
+  }
+  if (/shirt/i.test(cat)) {
+    if (/extra\s+small/i.test(item)) ['extra small', 'xs', 'xsmall'].forEach(add);
+    else if (/small/i.test(item))     ['small', 's'].forEach(add);
+    if (/medium/i.test(item))         ['medium', 'm', 'md'].forEach(add);
+    if (/extra\s+large/i.test(item))  ['extra large', 'xl', 'xlarge'].forEach(add);
+    else if (/large/i.test(item))     ['large', 'l', 'lg'].forEach(add);
+  }
+  if (/duration/i.test(cat)) {
+    // "1 day" → already covered by itemClean. Add bare numeric.
+    var dm = item.match(/^(\d+)\s*day/i);
+    if (dm) add(dm[1] + ' day');
+  }
+
+  return aliases;
+}
