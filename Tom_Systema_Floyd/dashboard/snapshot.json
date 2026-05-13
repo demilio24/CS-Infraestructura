@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T22:57:10Z",
+  "generatedAt": "2026-05-13T23:02:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -131,8 +131,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 9,
-        "Lower Campus": 18,
+        "Upper Campus": 8,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -318,8 +318,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 17,
-        "Lower Campus": 22,
+        "Upper Campus": 16,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -1578,14 +1578,6 @@
           "type": "summer"
         },
         {
-          "name": "Jacob Perna",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "allergy": null,
-          "incomplete": false,
-          "type": "summer"
-        },
-        {
           "name": "Matias McCollum",
           "campus": "Upper Campus",
           "lunch": false,
@@ -1703,6 +1695,14 @@
           "name": "Grant 'Geo' Olowin",
           "campus": "Lower Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Jacob Perna",
+          "campus": "Lower Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
