@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-13T20:47:39Z",
+  "generatedAt": "2026-05-13T20:52:03Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 122,
+    "summer": 123,
     "free": 17,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -107,9 +107,9 @@
     "roster": []
   },
   "summer": {
-    "total": 122,
+    "total": 123,
     "byCampus": {
-      "Upper Campus": 52,
+      "Upper Campus": 53,
       "Lower Campus": 70,
       "Unknown": 0
     },
@@ -119,9 +119,9 @@
       "June 15th-19th": 41,
       "June 22nd-26th": 24,
       "June 29th-July 3rd": 25,
-      "July 6th-10th": 32,
+      "July 6th-10th": 33,
       "July 13th-17th": 31,
-      "July 20th-24th": 30,
+      "July 20th-24th": 31,
       "July 27th-31st": 24,
       "August 3rd-7th": 26,
       "August 10th-14th": 14,
@@ -154,7 +154,7 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 15,
+        "Upper Campus": 16,
         "Lower Campus": 17,
         "Unknown": 0
       },
@@ -164,7 +164,7 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 18,
         "Unknown": 0
       },
@@ -281,10 +281,10 @@
     }
   },
   "combined": {
-    "total": 139,
-    "enrollments": 452,
+    "total": 140,
+    "enrollments": 454,
     "byCampus": {
-      "Upper Campus": 64,
+      "Upper Campus": 65,
       "Lower Campus": 75,
       "Unknown": 0
     },
@@ -294,9 +294,9 @@
       "June 15th-19th": 55,
       "June 22nd-26th": 37,
       "June 29th-July 3rd": 39,
-      "July 6th-10th": 45,
+      "July 6th-10th": 46,
       "July 13th-17th": 45,
-      "July 20th-24th": 44,
+      "July 20th-24th": 45,
       "July 27th-31st": 38,
       "August 3rd-7th": 38,
       "August 10th-14th": 14,
@@ -329,7 +329,7 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 25,
+        "Upper Campus": 26,
         "Lower Campus": 20,
         "Unknown": 0
       },
@@ -339,7 +339,7 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 22,
         "Unknown": 0
       },
@@ -756,24 +756,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 18,
-              "Tue": 19,
-              "Wed": 20,
-              "Thu": 17,
-              "Fri": 16
+              "Mon": 19,
+              "Tue": 20,
+              "Wed": 21,
+              "Thu": 18,
+              "Fri": 17
             },
-            "total": 90
+            "total": 95
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 29,
-            "Fri": 27
+            "Mon": 29,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 30,
+            "Fri": 28
           },
-          "all": 146
+          "all": 151
         }
       },
       "July 13th-17th": {
@@ -901,24 +901,24 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 16,
-              "Wed": 17,
-              "Thu": 17,
-              "Fri": 13
+              "Mon": 17,
+              "Tue": 17,
+              "Wed": 18,
+              "Thu": 18,
+              "Fri": 14
             },
-            "total": 79
+            "total": 84
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 27,
-            "Thu": 29,
-            "Fri": 23
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 28,
+            "Thu": 30,
+            "Fri": 24
           },
-          "all": 135
+          "all": 140
         }
       },
       "July 27th-31st": {
@@ -3343,6 +3343,14 @@
           "type": "summer"
         },
         {
+          "name": "Nolan Vallier",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
           "name": "Ryder Tarantino",
           "campus": "Upper Campus",
           "lunch": true,
@@ -4086,6 +4094,14 @@
           "campus": "Upper Campus",
           "lunch": false,
           "allergy": "Apple allergy \nGluten intolerance",
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Nolan Vallier",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "allergy": null,
           "incomplete": false,
           "type": "summer"
         },
