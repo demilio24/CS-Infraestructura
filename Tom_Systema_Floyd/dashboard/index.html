@@ -209,11 +209,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .nav-link:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);transform:translateY(-1px)}
 .nav-link.active{background:var(--grad-blue);color:#fff;font-weight:600;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
 .nav-link.active:hover{transform:none;color:#fff}
-.nav-link.sheet::before,.nav-link.doc::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;flex-shrink:0}
-.nav-link.sheet::before{background:#34a853}
-.nav-link.doc::before{background:#4285f4}
-.nav-link.billing{background:#1e8e3e;color:#fff;border-color:#0f6b2c;box-shadow:0 4px 10px -4px rgba(30,142,62,.55);font-weight:600}
-.nav-link.billing:hover{background:#137333;color:#fff;border-color:#0f6b2c}
+.nav-link.sheet,.nav-link.billing{background:#f4f8fd;border-color:#d4e3f3;color:var(--sf-ink);font-weight:600;box-shadow:0 1px 0 rgba(15,23,42,.04),0 2px 6px -3px rgba(47,130,196,.18)}
+.nav-link.sheet:hover,.nav-link.billing:hover{transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(47,130,196,.35)}
+.nav-link.sheet:active,.nav-link.billing:active{transform:translateY(0);box-shadow:0 1px 0 rgba(15,23,42,.04)}
+.nav-link.sheet::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;flex-shrink:0;background:#34a853}
+.nav-link.billing{background:#e6f4ea;border-color:#b8dfc3;color:#137333}
+.nav-link.billing:hover{background:#d4ecdc;color:#0d5723;border-color:#9bd1ac}
 .nav-link svg{flex-shrink:0;opacity:.85}
 .nav-link.active svg{opacity:1}
 @media (max-width:700px){
@@ -318,9 +319,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <span class="nav-divider"></span>
     <div class="nav-group">
       <span class="nav-group-label">Sheets</span>
-      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA/edit" target="_blank" rel="noopener">Upper Campus</a>
-      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs/edit" target="_blank" rel="noopener">Lower Campus</a>
-      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ/edit" target="_blank" rel="noopener">FREE Higher</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA/edit" target="_blank" rel="noopener">PAID Upper</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs/edit" target="_blank" rel="noopener">PAID Lower</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ/edit" target="_blank" rel="noopener">FREE Upper</a>
       <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY/edit" target="_blank" rel="noopener">FREE Lower</a>
     </div>
     <span class="nav-divider"></span>
