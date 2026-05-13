@@ -76,13 +76,18 @@ function doGet(e) {
 /* ───────────────────────── Core builder ───────────────────────── */
 
 function buildSnapshot() {
-  const summerEnrollments = readCampSheet_(SHEETS.upper, 'Upper Campus');
-  const lowerEnrollments  = readCampSheet_(SHEETS.lower, 'Lower Campus');
-  const freeUpperEnrolls  = readFreeSheet_(SHEETS.freeUpper, 'Upper Campus');
-  const freeLowerEnrolls  = readFreeSheet_(SHEETS.freeLower, 'Lower Campus');
+  const summerWeeksSeen = {};
+  const freeWeeksSeen   = {};
+  const summerEnrollments = readCampSheet_(SHEETS.upper, 'Upper Campus', summerWeeksSeen);
+  const lowerEnrollments  = readCampSheet_(SHEETS.lower, 'Lower Campus', summerWeeksSeen);
+  const freeUpperEnrolls  = readFreeSheet_(SHEETS.freeUpper, 'Upper Campus', freeWeeksSeen);
+  const freeLowerEnrolls  = readFreeSheet_(SHEETS.freeLower, 'Lower Campus', freeWeeksSeen);
 
   const allSummer = summerEnrollments.concat(lowerEnrollments);
   const allFree   = freeUpperEnrolls.concat(freeLowerEnrolls);
+
+  const summerWeekOrder = WEEK_ORDER.filter(w => summerWeeksSeen[w]);
+  const freeWeekOrder   = WEEK_ORDER.filter(w => freeWeeksSeen[w]);
 
   const summer   = aggregate_(allSummer, 'summer');
   const free     = aggregate_(allFree,   'free');
@@ -125,6 +130,7 @@ function buildSnapshot() {
       byCampus:     summer.byCampus,
       byWeek:       summer.byWeek,
       byWeekCampus: summer.byWeekCampus,
+      weekOrder:    summerWeekOrder,
     },
     free: {
       total:        free.total,
@@ -132,6 +138,7 @@ function buildSnapshot() {
       byWeek:       free.byWeek,
       byWeekCampus: free.byWeekCampus,
       bySchool:     sortDesc_(bySchool),
+      weekOrder:    freeWeekOrder,
     },
     combined: combined,
     lunches:  lunches,
@@ -143,7 +150,7 @@ function buildSnapshot() {
 
 /* ───────────────────────── Sheet readers ───────────────────────── */
 
-function readCampSheet_(spreadsheetId, campusLabel) {
+function readCampSheet_(spreadsheetId, campusLabel, weeksSeen) {
   const ss = SpreadsheetApp.openById(spreadsheetId);
   const tabs = ss.getSheets();
   const enrollments = [];
@@ -151,6 +158,7 @@ function readCampSheet_(spreadsheetId, campusLabel) {
     const sheet = tabs[i];
     const week = resolveWeek_(sheet.getName(), i);
     if (!week) continue;
+    if (weeksSeen) weeksSeen[week] = true;
     const range = sheet.getDataRange();
     if (!range || range.getNumRows() < 2) continue;
     const values = range.getValues();
@@ -188,7 +196,7 @@ function readCampSheet_(spreadsheetId, campusLabel) {
   return enrollments;
 }
 
-function readFreeSheet_(spreadsheetId, campusLabel) {
+function readFreeSheet_(spreadsheetId, campusLabel, weeksSeen) {
   const ss = SpreadsheetApp.openById(spreadsheetId);
   const tabs = ss.getSheets();
   const enrollments = [];
@@ -196,6 +204,7 @@ function readFreeSheet_(spreadsheetId, campusLabel) {
     const sheet = tabs[i];
     const week = resolveWeek_(sheet.getName(), i);
     if (!week) continue;
+    if (weeksSeen) weeksSeen[week] = true;
     const range = sheet.getDataRange();
     if (!range || range.getNumRows() < 2) continue;
     const values = range.getValues();

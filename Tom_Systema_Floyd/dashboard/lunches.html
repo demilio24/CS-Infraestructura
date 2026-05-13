@@ -354,7 +354,12 @@ table.lunch .cat-tag.other{background:rgba(155,75,180,.15);color:#7a3593}
   function render() {
     const weeksEl = document.getElementById('weeks');
     if (!state.snapshot) return;
-    const weekOrder = state.snapshot.weekOrder || [];
+    const sliceForOrder = state.filter === 'free' ? state.snapshot.free
+                        : state.filter === 'summer' ? state.snapshot.summer
+                        : null;
+    const weekOrder = (sliceForOrder && Array.isArray(sliceForOrder.weekOrder) && sliceForOrder.weekOrder.length)
+                      ? sliceForOrder.weekOrder
+                      : (state.snapshot.weekOrder || []);
 
     if (state.filter === 'afterschool') {
       document.getElementById('summary').hidden = true;

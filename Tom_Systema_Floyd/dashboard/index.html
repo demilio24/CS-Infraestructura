@@ -520,8 +520,18 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   // Per-week per-campus capacity. Same value applies to every week — the
   // physical campus capacity doesn't change week-to-week. One pair of caps
-  // per filter (combined / summer / free) so each tab can have its own.
+  // per filter (summer / free / afterschool) so each tab can have its own.
+  // Free Camp scholarship is 35 spots total split across campuses per Tom (2026-05-12).
+  const CAP_DEFAULTS_BY_FILTER = {
+    summer: { upper: 13, lower: 13 },
+    free:   { upper: 17, lower: 18 },
+  };
+  // Generic fallback (legacy code paths that don't know the filter)
   const CAP_DEFAULTS = { upper: 13, lower: 13 };
+  function defaultCapFor(filter, campus) {
+    const bucket = CAP_DEFAULTS_BY_FILTER[filter] || CAP_DEFAULTS;
+    return bucket[campus];
+  }
   const CAMPUSES = ['upper','lower'];
   const CAMPUS_LABELS = { upper: 'Upper Campus', lower: 'Lower Campus' };
   const CAMPUS_KEY = { upper: 'Upper Campus', lower: 'Lower Campus' };
@@ -576,7 +586,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function capKey(filter, campus) { return `cap.${filter}.${campus}`; }
   function getCap(filter, campus) {
     const v = state.goals[capKey(filter, campus)];
-    return (typeof v === 'number' && v > 0) ? v : CAP_DEFAULTS[campus];
+    return (typeof v === 'number' && v > 0) ? v : defaultCapFor(filter, campus);
   }
   // Per-day cap (after-school): cap.afterschool.<DayName>
   function dayCapKey(filter, day) { return `cap.${filter}.${day}`; }
@@ -657,7 +667,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       byCampus: slice.byCampus,
       byWeek: slice.byWeek,
       weekCampus: slice.byWeekCampus,
-      weekOrder: s.weekOrder
+      weekOrder: (slice && Array.isArray(slice.weekOrder) && slice.weekOrder.length) ? slice.weekOrder : s.weekOrder
     };
   }
 
@@ -746,7 +756,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     // Caps come from the per-tab cap inputs in the Capacity Targets panel,
     // so when staff bump a campus cap up/down, occupancy reflects that
     // immediately. Skip on after-school (different KPI row anyway).
-    const numWeeks   = (state.snapshot && Array.isArray(state.snapshot.weekOrder)) ? state.snapshot.weekOrder.length : 12;
+    const numWeeks   = (view && Array.isArray(view.weekOrder)) ? view.weekOrder.length
+                       : (state.snapshot && Array.isArray(state.snapshot.weekOrder) ? state.snapshot.weekOrder.length : 12);
     const weeklyCap  = (getCap(state.filter, 'upper') || 0) + (getCap(state.filter, 'lower') || 0);
     const seasonCap  = weeklyCap * numWeeks;
     const occPct     = seasonCap > 0 ? Math.round(enrollments / seasonCap * 100) : 0;
@@ -1407,7 +1418,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           const val = parseInt(raw, 10);
           if (raw === '' || isNaN(val) || val < 0) {
             delete state.goals[k];
-            inp.value = CAP_DEFAULTS[campus];
+            inp.value = defaultCapFor(state.filter, campus);
           } else {
             state.goals[k] = val;
             inp.value = val;
@@ -1428,7 +1439,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           if (e.key === 'Enter') { e.preventDefault(); inp.blur(); }
           else if (e.key === 'Escape') {
             const saved = state.goals[currentKey()];
-            inp.value = (typeof saved === 'number' && saved > 0) ? saved : CAP_DEFAULTS[campus];
+            inp.value = (typeof saved === 'number' && saved > 0) ? saved : defaultCapFor(state.filter, campus);
             inp.blur();
           }
         });
