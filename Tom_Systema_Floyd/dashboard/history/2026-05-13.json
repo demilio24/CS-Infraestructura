@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T19:37:06Z",
+  "generatedAt": "2026-05-13T19:41:59Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -117,7 +117,7 @@
       "June 1st-5th": 27,
       "June 8th-12th": 23,
       "June 15th-19th": 41,
-      "June 22nd-26th": 23,
+      "June 22nd-26th": 24,
       "June 29th-July 3rd": 25,
       "July 6th-10th": 32,
       "July 13th-17th": 31,
@@ -145,7 +145,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 9,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -282,7 +282,7 @@
   },
   "combined": {
     "total": 138,
-    "enrollments": 441,
+    "enrollments": 442,
     "byCampus": {
       "Upper Campus": 63,
       "Lower Campus": 75,
@@ -292,7 +292,7 @@
       "June 1st-5th": 38,
       "June 8th-12th": 35,
       "June 15th-19th": 54,
-      "June 22nd-26th": 35,
+      "June 22nd-26th": 36,
       "June 29th-July 3rd": 38,
       "July 6th-10th": 44,
       "July 13th-17th": 44,
@@ -320,7 +320,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 18,
-        "Lower Campus": 17,
+        "Lower Campus": 18,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -614,10 +614,10 @@
               "Mon": 6,
               "Tue": 5,
               "Wed": 6,
-              "Thu": 5,
+              "Thu": 6,
               "Fri": 6
             },
-            "total": 28
+            "total": 29
           },
           {
             "category": "pizza",
@@ -651,10 +651,10 @@
             "Mon": 23,
             "Tue": 22,
             "Wed": 21,
-            "Thu": 20,
+            "Thu": 21,
             "Fri": 21
           },
-          "all": 107
+          "all": 108
         }
       },
       "June 29th-July 3rd": {
@@ -2774,6 +2774,14 @@
           "name": "Vincent Molinari",
           "campus": "Lower Campus",
           "lunch": false,
+          "allergy": null,
+          "incomplete": false,
+          "type": "summer"
+        },
+        {
+          "name": "Wheeler Wilson",
+          "campus": "Lower Campus",
+          "lunch": true,
           "allergy": null,
           "incomplete": false,
           "type": "summer"
