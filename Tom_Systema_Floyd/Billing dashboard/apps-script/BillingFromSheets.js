@@ -259,6 +259,15 @@ function buildAllBilling() {
     // flag the team needs).
     reconcileDashboard_(allItems);
 
+    // Post-reconcile cleanup. Both functions are idempotent and cheap
+    // (read one column, write a handful of cells / group structures
+    // when needed). Running on every poll keeps the Dashboard cosmetic
+    // state self-healing.
+    try { sanitizeDashboardCustomerHeaders(); }
+    catch (e) { Logger.log('[buildAllBilling] sanitize err: ' + e.message); }
+    try { fixDashboardGroups(); }
+    catch (e) { Logger.log('[buildAllBilling] group fix err: ' + e.message); }
+
     var elapsedMs = Date.now() - startedAt.getTime();
     Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms — totals: ' +
                allItems.length + ' tx rows, ' +
@@ -945,8 +954,12 @@ function buildBalanceNote_(email, items) {
  * rebuild a single depth-1 group per customer (sub-header through
  * their last tx row), collapsed by default. Fixes nested-group
  * accumulation that built up across multiple reconciler runs.
+ *
+ * Public (no trailing underscore) so it appears in the editor's
+ * function dropdown and can be invoked manually as a one-shot.
+ * Also auto-called from buildAllBilling.
  */
-function fixDashboardGroups_() {
+function fixDashboardGroups() {
   var dash = getDashboardSheet();
   if (typeof resetAllRowGroups_ === 'function') {
     try { resetAllRowGroups_(dash); } catch (e) {
@@ -982,7 +995,7 @@ function fixDashboardGroups_() {
  * One-shot cleanup. Run from the editor when refreshing the look of
  * already-populated rows.
  */
-function sanitizeDashboardCustomerHeaders_() {
+function sanitizeDashboardCustomerHeaders() {
   var dash = getDashboardSheet();
   var lastRow = dash.getLastRow();
   if (lastRow < 2) return { profileCleared: 0, notesScrubbed: 0 };
