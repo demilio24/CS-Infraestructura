@@ -427,79 +427,30 @@ function processSubmissionVerificationFeeOnly(submission) {
       return 'lead_only';
     }
 
-    // We have a waiver. Fetch the contact for name/email/phone, upsert
-    // the customer row, and append a paid $1 row beneath it.
+    // Pull contact info for the audit log only — we no longer write
+    // a $1 tx row to the Dashboard tab because BillingFromSheets'
+    // rebuildDashboardHierarchical_ now wipes the Dashboard data area
+    // every 5 minutes and re-emits from registration sheets. The $1
+    // fee row would be destroyed on the next rebuild.
+    //
+    // Audit trail moves to the Logs sheet only. Tom can search Logs
+    // for "CC verification fee" / "$1" / a specific submissionId if
+    // he ever needs to confirm a parent's waiver fee was processed.
     var flContactId = submission.contactId ||
                       (submission.contact && submission.contact.id);
     if (!flContactId) throw new Error('No contactId in submission');
 
     var flContact = ghlGetContact('Florida', flContactId);
-    var waiverOrigin = readWaiverOrigin(flContact);
-    var targetSubaccount = resolveSubaccount(waiverOrigin || 'Florida');
-
     var email = ((flContact.email) ||
                  (submission.contact && submission.contact.email) || '').toLowerCase().trim();
-    var firstName = flContact.firstName || '';
-    var lastName  = flContact.lastName  || '';
-    var name  = (firstName + ' ' + lastName).trim() || email;
-    var phone = flContact.phone || '';
-
-    var targetContactId = (targetSubaccount === 'Florida')
-      ? flContactId
-      : ghlSearchContactByEmail(targetSubaccount, email);
-    var profileUrl = targetContactId
-      ? buildProfileUrl(SUBACCOUNTS[targetSubaccount].locationId, targetContactId)
-      : null;
-
-    var customerRow = upsertCustomerRow({
-      email: email, name: name, phone: phone,
-      waiverOrigin: waiverOrigin || '',
-      studentNames: [],
-      profileUrl: profileUrl,
-      contactId: targetContactId,
-      subaccount: targetSubaccount
-    });
-
-    // Sub-header must exist before tx rows. Reuses the same check as
-    // the old processSubmission did.
-    var dashSheet = getDashboardSheet();
-    var possibleSubHeaderA = String(
-      dashSheet.getRange(customerRow + 1, 1).getValue() || ''
-    ).trim().toUpperCase();
-    var possibleSubHeaderG = String(
-      dashSheet.getRange(customerRow + 1, 7).getValue() || ''
-    ).trim().toUpperCase();
-    if (possibleSubHeaderA !== 'DATE' || possibleSubHeaderG !== 'STATUS') {
-      appendSubHeaderRow(customerRow);
-    }
-
-    appendTxRow(customerRow, {
-      date:             new Date(submission.createdAt || Date.now()),
-      item:             'CC verification fee',
-      unitPriceNumeric: 1,
-      unitMultiplier:   '',
-      pricingRule:      'flat',
-      days:             '',
-      weeks:            '',
-      status:           'paid',
-      submissionId:     submissionId,
-      sourceFieldName:  feeField.name || feeField.id || 'payment',
-      selectedWeeks:    [],
-      selectedDays:     [],
-      weekLabel:        '',
-      allWeeksOnSubmission: [],
-      formAnswerLabel:  String(feeField.value || '')
-    });
-
-    updateBalanceFormula(customerRow, profileUrl, targetSubaccount);
 
     logEvent({
       timestamp: new Date().toISOString(),
       submissionId: submissionId,
       email: email,
       status: 'processed',
-      details: '$1 CC verification fee recorded (verification-fee-only path; ' +
-               'camp/lunch/shirt rows handled by BillingFromSheets)',
+      details: '$1 CC verification fee captured for ' + email +
+               ' (audit only — Dashboard tab now driven by registration sheets)',
       rawPayload: JSON.stringify(submission).substring(0, 45000)
     });
     return 'processed';

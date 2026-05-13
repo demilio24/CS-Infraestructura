@@ -227,28 +227,11 @@ function buildAllBilling() {
       return (a.kind || '').localeCompare(b.kind || '');
     });
 
-    // Locate / create the central "Billing" tab and capture existing status pills
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var billing = ss.getSheetByName(BILLING_TAB_NAME);
-    if (!billing) {
-      billing = ss.insertSheet(BILLING_TAB_NAME);
-      // Move to end of tab list
-      var pos = ss.getNumSheets();
-      ss.setActiveSheet(billing);
-      ss.moveActiveSheet(pos);
-    }
-    var existingStatus = {};
-    var lr = billing.getLastRow();
-    if (lr >= 3) {
-      var existing = billing.getRange(3, 1, lr - 2, 9).getValues();
-      existing.forEach(function(row) {
-        var fp = String(row[0] || '');
-        var status = String(row[8] || '');
-        if (fp && status) existingStatus[fp] = status;
-      });
-    }
-
-    renderBillingTab_(billing, { label: 'All Registration Sheets' }, allItems, existingStatus);
+    // Render the consolidated billing into the existing Dashboard tab's
+    // hierarchical customer-row + tx-rows-grouped layout (the layout
+    // Tom prefers). The legacy "Billing" flat-table tab is no longer
+    // written to and should be deleted via deleteBillingFlatTab().
+    rebuildDashboardHierarchical_(allItems);
 
     var elapsedMs = Date.now() - startedAt.getTime();
     Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms — totals: ' +
@@ -258,6 +241,237 @@ function buildAllBilling() {
   } finally {
     lock.releaseLock();
   }
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   HIERARCHICAL DASHBOARD RENDERER
+   ═════════════════════════════════════════════════════════════════
+   Replaces the flat "Billing" tab output with the hierarchical
+   layout the team prefers: customer header row → sub-header → tx
+   rows grouped/collapsible beneath. Uses the existing helpers in
+   SheetWrites.js so the look matches what the old GHL-poll pipeline
+   produced (balance formula, profile column, row grouping, status
+   pill conditional formatting, etc.).
+
+   Status preservation across rebuilds: each tx row stores its
+   fingerprint as part of the cell Note ("Submission ID: <fp>") on
+   col B (Item). On rebuild, the renderer scans those Notes first,
+   captures status pills by fingerprint, wipes the Dashboard data
+   area, re-appends, and restores statuses where fingerprints match.
+
+   $1 CC verification fee rows from processSubmissionVerificationFeeOnly
+   used to live on this tab too. After this refactor they no longer
+   get written (the function continues to log to the Logs sheet for
+   audit, but stops writing to Dashboard). If the team needs them
+   surfaced visually we can add a "CC Verification Fees" tab later.
+   ═══════════════════════════════════════════════════════════════ */
+
+/**
+ * Walk every existing Dashboard tx row's col B Note, extract the
+ * fingerprint (`Submission ID: <fp>`), and capture its current status
+ * pill (col G value).
+ */
+function snapshotDashboardStatusesByFingerprint_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return {};
+  var notes = dash.getRange(2, 2, lastRow - 1, 1).getNotes();
+  var statuses = dash.getRange(2, 7, lastRow - 1, 1).getValues();
+  var out = {};
+  for (var i = 0; i < notes.length; i++) {
+    var n = String(notes[i][0] || '');
+    if (!n) continue;
+    var m = n.match(/Submission ID:\s*(\S+)/);
+    if (!m) continue;
+    var status = String(statuses[i][0] || '').toLowerCase().trim();
+    if (status) out[m[1]] = status;
+  }
+  return out;
+}
+
+/**
+ * Wipes the Dashboard data area (rows 2+) and all row groups, leaving
+ * row 1 header intact. Resets formatting cleanly so the next rebuild
+ * starts from a known baseline.
+ */
+function wipeDashboardDataArea_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return;
+
+  // Strip row groups first; otherwise deleteRows fails with "Cannot
+  // delete rows in a group" in some edge cases.
+  if (typeof resetAllRowGroups_ === 'function') {
+    try { resetAllRowGroups_(dash); } catch (e) {
+      Logger.log('[wipeDashboardDataArea_] resetAllRowGroups_ err: ' + e.message);
+    }
+  }
+  dash.deleteRows(2, lastRow - 1);
+}
+
+/**
+ * Top-level renderer. Group items by parent email, wipe Dashboard,
+ * re-emit hierarchically using SheetWrites helpers, restore statuses.
+ */
+function rebuildDashboardHierarchical_(items) {
+  // 1. Capture statuses before wipe
+  var existingStatus = snapshotDashboardStatusesByFingerprint_();
+
+  // 2. Group items by parent email
+  var byParent = {};
+  items.forEach(function(it) {
+    var email = (it.enrollment.email || '').toLowerCase();
+    if (!email) return;  // skip rows missing parent email (incomplete reg)
+    if (!byParent[email]) {
+      byParent[email] = {
+        email:    email,
+        emailRaw: it.enrollment.emailRaw || email,
+        students: {},
+        items:    []
+      };
+    }
+    byParent[email].students[it.enrollment.student] = true;
+    byParent[email].items.push(it);
+  });
+
+  // 3. Wipe Dashboard
+  wipeDashboardDataArea_();
+
+  // 4. For each parent (sorted by email for determinism), emit
+  //    customer row + sub-header + tx rows + balance + grouping
+  var allPeriods = BFS_WEEK_ORDER
+    .concat(AFTER_SCHOOL_MONTH_COLUMNS)
+    .concat(AFTER_SCHOOL_QUARTER_COLUMNS);
+
+  var emails = Object.keys(byParent).sort();
+  var parentsWritten = 0, txWritten = 0, unpriced = 0, ambiguous = 0;
+
+  emails.forEach(function(email) {
+    var p = byParent[email];
+    var studentNames = Object.keys(p.students).sort();
+
+    // Sort this parent's items: student → period → kind
+    p.items.sort(function(a, b) {
+      var byStudent = (a.enrollment.student || '').localeCompare(b.enrollment.student || '');
+      if (byStudent !== 0) return byStudent;
+      var byPeriod = allPeriods.indexOf(a.enrollment.week) - allPeriods.indexOf(b.enrollment.week);
+      if (byPeriod !== 0) return byPeriod;
+      return (a.kind || '').localeCompare(b.kind || '');
+    });
+
+    // Customer header row
+    var customerRow = upsertCustomerRow({
+      email:        email,
+      name:         '',           // unknown from sheets alone
+      phone:        '',
+      waiverOrigin: '',           // could be derived from first item's reg.type but skip for now
+      studentNames: studentNames,
+      profileUrl:   null,
+      contactId:    null,
+      subaccount:   'Florida'
+    });
+
+    // Sub-header row (only insert if not already present beneath the customer)
+    var dash = getDashboardSheet();
+    var subA = String(dash.getRange(customerRow + 1, 1).getValue() || '').trim().toUpperCase();
+    var subG = String(dash.getRange(customerRow + 1, 7).getValue() || '').trim().toUpperCase();
+    if (!(subA === 'DATE' && subG === 'STATUS')) {
+      appendSubHeaderRow(customerRow);
+    }
+
+    // Tx rows
+    p.items.forEach(function(it) {
+      var defaultStatus = it.unpriced
+        ? 'unpriced'
+        : (it.ambiguous ? 'ambiguous' : 'owed');
+      var status = existingStatus[it.fingerprint] || defaultStatus;
+      var itemLabel = it.enrollment.student + ' — ' + it.label + ' (' + it.enrollment.week + ')';
+      appendTxRow(customerRow, {
+        date:             new Date(),
+        item:             itemLabel,
+        unitPriceNumeric: it.price,
+        unitMultiplier:   it.multiplier || '',
+        pricingRule:      'sheet-driven',
+        days:             it.multiplier === '/day' ? it.qty : '',
+        weeks:            (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+        status:           status,
+        submissionId:     it.fingerprint,   // re-purposed: stores our fingerprint, not a GHL id
+        sourceFieldName:  it.kind,
+        selectedWeeks:    [it.enrollment.week],
+        selectedDays:     [],
+        weekLabel:        it.enrollment.week,
+        allWeeksOnSubmission: [it.enrollment.week],
+        formAnswerLabel:  it.source || it.label
+      });
+      txWritten++;
+      if (it.unpriced)  unpriced++;
+      if (it.ambiguous) ambiguous++;
+    });
+
+    // Balance formula + grouping/collapse
+    updateBalanceFormula(customerRow, null, 'Florida');
+    var range = findCustomerTxRange(customerRow);
+    if (range && range.lastTx >= range.firstTx) {
+      var groupStart = customerRow + 1;
+      applyRowGrouping(groupStart, range.lastTx);
+      setGroupExpansion(groupStart, false);
+    }
+
+    parentsWritten++;
+  });
+
+  // 5. Final cosmetic pass — DM Sans across the whole data area
+  var dashFinal = getDashboardSheet();
+  var finalLastRow = dashFinal.getLastRow();
+  if (finalLastRow >= 1) {
+    dashFinal.getRange(1, 1, finalLastRow, 7).setFontFamily('DM Sans');
+  }
+
+  Logger.log('[rebuildDashboardHierarchical_] ' + parentsWritten + ' customer rows, ' +
+             txWritten + ' tx rows (' + unpriced + ' unpriced, ' + ambiguous + ' ambiguous)');
+}
+
+/**
+ * One-shot cleanup: deletes the now-redundant flat "Billing" tab on
+ * the central Billing Dashboard sheet (the sheet-driven output moved
+ * to the Dashboard tab hierarchically). Safe to re-run.
+ */
+function deleteBillingFlatTab() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(BILLING_TAB_NAME);
+  if (sh) {
+    ss.deleteSheet(sh);
+    Logger.log('[deleteBillingFlatTab] deleted flat Billing tab');
+    return { deleted: true };
+  }
+  Logger.log('[deleteBillingFlatTab] no Billing tab to delete');
+  return { deleted: false };
+}
+
+/**
+ * One-shot cleanup: deletes the legacy "Manual Imports" audit tab if
+ * present. That tab was populated only during the initial v1 data
+ * migration and has been dormant since.
+ */
+function deleteManualImportsTab() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('Manual Imports');
+  if (sh) {
+    ss.deleteSheet(sh);
+    Logger.log('[deleteManualImportsTab] deleted Manual Imports tab');
+    return { deleted: true };
+  }
+  Logger.log('[deleteManualImportsTab] no Manual Imports tab to delete');
+  return { deleted: false };
+}
+
+/**
+ * Convenience: run all cleanup actions in sequence.
+ */
+function runCleanupPostRefactor() {
+  var a = deleteBillingFlatTab();
+  var b = deleteManualImportsTab();
+  return { billingFlat: a, manualImports: b };
 }
 
 /**
@@ -1221,6 +1435,7 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   billing.clearConditionalFormatRules();
 
   var NUM_COLS = 10;  // includes new "Fix Link" column
+  var BILLING_FONT = 'DM Sans';  // applied to every cell at the end
 
   // Row 1: title banner
   var title = 'Billing — ' + reg.label;
@@ -1341,4 +1556,9 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   // Filter on header row
   if (billing.getFilter()) billing.getFilter().remove();
   billing.getRange(2, 1, Math.max(rows.length + 1, 2), NUM_COLS).createFilter();
+
+  // Apply DM Sans across every cell in the rendered area. Done last so
+  // it covers the banner, headers, and every data row uniformly.
+  var totalRows = 2 + rows.length;
+  billing.getRange(1, 1, totalRows, NUM_COLS).setFontFamily(BILLING_FONT);
 }

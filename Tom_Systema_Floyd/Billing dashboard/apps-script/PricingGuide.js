@@ -276,6 +276,10 @@ function setupPricingSheet() {
   if (sh.getFilter()) sh.getFilter().remove();
   sh.getRange(1, 1, Math.max(rows.length + 1, 2), 6).createFilter();
 
+  // Apply DM Sans across every cell in the rendered area for consistency
+  // with the Billing tab.
+  sh.getRange(1, 1, Math.max(rows.length + 1, 2), 6).setFontFamily('DM Sans');
+
   Logger.log('[setupPricingSheet] Wrote ' + rows.length + ' priced items from GHL Florida field registry.');
   return { action: 'created', rows: rows.length };
 }
@@ -289,6 +293,161 @@ function forceRebuildPricingSheet() {
   var sh = ss.getSheetByName(PRICING_SHEET_NAME);
   if (sh) ss.deleteSheet(sh);
   return setupPricingSheet();
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   "Pretty" Pricing layout — table per program type
+   ═════════════════════════════════════════════════════════════════
+   Reorganizes the Pricing tab from one flat table into multiple
+   labeled sections, one per program type. Existing rows are kept;
+   they just get grouped under section headers + spacing for
+   readability. New section headers added for currently-empty
+   program types so Tom has a clear place to add after-school rates.
+
+   Section layout (top to bottom):
+     ▌ SUMMER CAMP — PAID
+       (all rows whose Category contains "summer" but NOT "free")
+     ▌ SUMMER CAMP — FREE
+       (rows whose Category contains "free")
+     ▌ AFTER SCHOOL — MONTHLY
+       (Category contains "after school" + "monthly")
+     ▌ AFTER SCHOOL — QUARTERLY
+       (Category contains "after school" + "quarterly")
+     ▌ OTHER
+       (anything that didn't classify)
+
+   Idempotent: re-running rebuilds the layout from the source rows
+   without losing Tom's per-row aliases / notes.
+   ═══════════════════════════════════════════════════════════════ */
+
+function prettifyPricingSheet() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(PRICING_SHEET_NAME);
+  if (!sh) throw new Error('Pricing sheet not found. Run setupPricingSheet first.');
+  var lastRow = sh.getLastRow();
+  if (lastRow < 2) throw new Error('Pricing sheet is empty.');
+
+  // Snapshot every existing data row (skip headers + any section-banner rows)
+  var headerRow = sh.getRange(1, 1, 1, 7).getValues()[0];
+  var hasAliases = headerRow.indexOf('Aliases') !== -1;
+  var numCols = hasAliases ? 7 : 6;
+  var allRows = sh.getRange(2, 1, lastRow - 1, numCols).getValues();
+
+  // Filter out section banner rows (col A starts with a triangle or all-uppercase section name)
+  var dataRows = allRows.filter(function(r) {
+    var a = String(r[0] || '').trim();
+    if (!a) return false;
+    // Banner rows are styled but their col A starts with these markers
+    if (/^▌|^═|^Section:|^SECTION:/i.test(a)) return false;
+    return true;
+  });
+
+  // Classify each row
+  function classify(category) {
+    var c = String(category || '').toLowerCase();
+    if (/after\s*school/i.test(c) && /quarter/i.test(c)) return 'after-school-quarterly';
+    if (/after\s*school/i.test(c) && /month/i.test(c))   return 'after-school-monthly';
+    if (/after\s*school/i.test(c))                        return 'after-school-monthly'; // default monthly
+    if (/free/i.test(c))                                  return 'summer-free';
+    if (/camp|summer|lunch|breakfast|care|shirt|duration/i.test(c)) return 'summer-paid';
+    return 'other';
+  }
+
+  var sections = {
+    'summer-paid':           { title: 'SUMMER CAMP — PAID',         color: '#0F3634', rows: [] },
+    'summer-free':           { title: 'SUMMER CAMP — FREE',         color: '#143980', rows: [] },
+    'after-school-monthly':  { title: 'AFTER SCHOOL — MONTHLY',     color: '#5B2C6F', rows: [] },
+    'after-school-quarterly':{ title: 'AFTER SCHOOL — QUARTERLY',   color: '#7D3C98', rows: [] },
+    'other':                 { title: 'OTHER',                       color: '#555555', rows: [] }
+  };
+  var sectionOrder = ['summer-paid', 'summer-free', 'after-school-monthly', 'after-school-quarterly', 'other'];
+
+  dataRows.forEach(function(r) {
+    var key = classify(r[0]);
+    sections[key].rows.push(r);
+  });
+
+  // Sort within each section: category asc, then price asc
+  sectionOrder.forEach(function(k) {
+    sections[k].rows.sort(function(a, b) {
+      var byCat = String(a[0]).localeCompare(String(b[0]));
+      if (byCat !== 0) return byCat;
+      return Number(a[2]) - Number(b[2]);
+    });
+  });
+
+  // Now wipe + rebuild
+  sh.clear();
+  sh.clearConditionalFormatRules();
+
+  // Header row 1
+  var headers = ['Category', 'Item', 'Price', 'Multiplier', 'Source (raw GHL label)'];
+  if (hasAliases) headers.push('Aliases');
+  headers.push('Notes');
+  sh.getRange(1, 1, 1, headers.length).setValues([headers])
+    .setBackground('#000000').setFontColor('#FFFFFF')
+    .setFontWeight('bold').setFontSize(11)
+    .setHorizontalAlignment('left');
+  sh.setFrozenRows(1);
+  sh.setRowHeight(1, 28);
+
+  // Walk each section, write banner row + data rows + spacer
+  var currentRow = 2;
+  sectionOrder.forEach(function(k) {
+    var s = sections[k];
+    var emptyTag = s.rows.length === 0 ? '   (no rows yet — add prices here)' : '';
+
+    // Section banner: merge across all cols, color-coded
+    sh.getRange(currentRow, 1, 1, headers.length).merge();
+    sh.getRange(currentRow, 1)
+      .setValue('▌  ' + s.title + '   (' + s.rows.length + ' items)' + emptyTag)
+      .setBackground(s.color).setFontColor('#FFFFFF')
+      .setFontWeight('bold').setFontSize(12)
+      .setHorizontalAlignment('left')
+      .setVerticalAlignment('middle');
+    sh.setRowHeight(currentRow, 32);
+    currentRow++;
+
+    if (s.rows.length > 0) {
+      sh.getRange(currentRow, 1, s.rows.length, headers.length).setValues(s.rows);
+      sh.getRange(currentRow, 3, s.rows.length, 1).setNumberFormat('"$"#,##0.00');
+      // Subtle banding within the section for readability
+      sh.getRange(currentRow, 1, s.rows.length, headers.length).applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY)
+        .setHeaderRowColor(null);
+      currentRow += s.rows.length;
+    }
+
+    // Spacer row between sections
+    sh.setRowHeight(currentRow, 12);
+    currentRow++;
+  });
+
+  // Column widths
+  sh.setColumnWidth(1, 230);  // Category
+  sh.setColumnWidth(2, 320);  // Item
+  sh.setColumnWidth(3, 90);   // Price
+  sh.setColumnWidth(4, 100);  // Multiplier
+  sh.setColumnWidth(5, 350);  // Source
+  if (hasAliases) {
+    sh.setColumnWidth(6, 360);  // Aliases
+    sh.setColumnWidth(7, 240);  // Notes
+  } else {
+    sh.setColumnWidth(6, 240);  // Notes
+  }
+
+  // Font — DM Sans across the whole rebuilt range
+  sh.getRange(1, 1, currentRow, headers.length).setFontFamily('DM Sans');
+
+  // Drop the data-validation filter — section banners would break it
+  if (sh.getFilter()) sh.getFilter().remove();
+
+  Logger.log('[prettifyPricingSheet] Rebuilt Pricing tab with ' + sectionOrder.length + ' sections, ' +
+             dataRows.length + ' data rows total.');
+  return {
+    sections: sectionOrder.map(function(k) {
+      return { type: k, title: sections[k].title, count: sections[k].rows.length };
+    })
+  };
 }
 
 /* ─── Pricing sheet — Aliases column migration ──────────────────────
