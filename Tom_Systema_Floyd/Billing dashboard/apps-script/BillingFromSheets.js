@@ -954,6 +954,97 @@ function buildBalanceNote_(email, items) {
 }
 
 /**
+ * NUCLEAR RESET — wipes the Dashboard data area completely and
+ * rebuilds it from registration sheets in one clean pass.
+ *
+ * Use when:
+ *   - The Dashboard accumulated duplicates from prior reconciler runs
+ *     that couldn't match legacy GHL-format fingerprints against the
+ *     new email|student|week|kind|item format (a one-time migration
+ *     side-effect from the architecture switch).
+ *   - You want a known-clean starting point before letting the
+ *     5-min reconciler maintain incremental updates from there.
+ *
+ * Destroys ALL status pills (marks any prior "paid" or "refund-needed"
+ * back to "owed"). Only safe to run when no items have been marked
+ * paid yet — confirm by checking the Dashboard for paid rows first.
+ *
+ * After running, every item is fingerprinted in the new format, so
+ * subsequent reconciler runs will diff cleanly.
+ */
+function nuclearResetBilling() {
+  var startedAt = new Date();
+  Logger.log('[nuclearResetBilling] start at ' + startedAt.toISOString());
+
+  // 1. Wipe the Dashboard data area (everything below row 1 header)
+  var dash = getDashboardSheet();
+  if (typeof resetAllRowGroups_ === 'function') {
+    try { resetAllRowGroups_(dash); }
+    catch (e) { Logger.log('[nuclearResetBilling] reset groups err: ' + e.message); }
+  }
+  var lastRow = dash.getLastRow();
+  if (lastRow >= 2) {
+    var maxCols = Math.max(dash.getMaxColumns(), 10);
+    dash.getRange(2, 1, lastRow - 1, maxCols)
+        .clearContent()
+        .clearFormat()
+        .clearDataValidations()
+        .clearNote();
+  }
+  Logger.log('[nuclearResetBilling] Dashboard wiped (was ' + lastRow + ' rows)');
+
+  // 2. Build fresh items from registration sheets (same logic
+  //    buildAllBilling uses)
+  var catalog = readPricingCatalog_();
+  var registrationSheets = discoverRegistrationSheets_();
+  var allItems = [];
+  var seenShirts = {};
+  registrationSheets.forEach(function(reg) {
+    try {
+      var enrollments = (reg.type === 'after-school')
+        ? readAfterSchoolEnrollments_(reg)
+        : readRegistrationEnrollments_(reg);
+      enrollments.forEach(function(e) {
+        var items = priceEnrollment_(e, catalog);
+        items.forEach(function(it) {
+          if (it.oneTimePerStudent) {
+            if (seenShirts[it.fingerprint]) return;
+            seenShirts[it.fingerprint] = true;
+          }
+          it.enrollment = e;
+          allItems.push(it);
+        });
+      });
+    } catch (e) {
+      Logger.log('[nuclearResetBilling] read err for ' + reg.label + ': ' + e.message);
+    }
+  });
+
+  // Dedup by fingerprint just in case a kid appears multiple times in
+  // the same week tab (registration data entry duplicates).
+  var byFp = {};
+  allItems.forEach(function(it) {
+    if (it && it.fingerprint && !byFp[it.fingerprint]) byFp[it.fingerprint] = it;
+  });
+  allItems = Object.keys(byFp).map(function(fp) { return byFp[fp]; });
+  Logger.log('[nuclearResetBilling] ' + allItems.length + ' unique fresh items');
+
+  // 3. Reconcile against the now-empty Dashboard. Every fresh item
+  //    becomes a NEW addition; no canceled/refund-needed transitions
+  //    (since there's nothing existing to compare against).
+  reconcileDashboard_(allItems);
+
+  // 4. Run the standard cosmetic cleanups
+  try { sanitizeDashboardCustomerHeaders(); }
+  catch (e) { Logger.log('[nuclearResetBilling] sanitize err: ' + e.message); }
+  try { fixDashboardGroups(); }
+  catch (e) { Logger.log('[nuclearResetBilling] group fix err: ' + e.message); }
+
+  var elapsedMs = Date.now() - startedAt.getTime();
+  Logger.log('[nuclearResetBilling] done in ' + elapsedMs + 'ms');
+}
+
+/**
  * One-shot cleanup: rip out every row group on the Dashboard, then
  * rebuild a single depth-1 group per customer (sub-header through
  * their last tx row), collapsed by default. Fixes nested-group
