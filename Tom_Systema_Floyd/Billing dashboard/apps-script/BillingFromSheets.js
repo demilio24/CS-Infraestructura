@@ -976,25 +976,7 @@ function nuclearResetBilling() {
   var startedAt = new Date();
   Logger.log('[nuclearResetBilling] start at ' + startedAt.toISOString());
 
-  // 1. Wipe the Dashboard data area (everything below row 1 header)
-  var dash = getDashboardSheet();
-  if (typeof resetAllRowGroups_ === 'function') {
-    try { resetAllRowGroups_(dash); }
-    catch (e) { Logger.log('[nuclearResetBilling] reset groups err: ' + e.message); }
-  }
-  var lastRow = dash.getLastRow();
-  if (lastRow >= 2) {
-    var maxCols = Math.max(dash.getMaxColumns(), 10);
-    dash.getRange(2, 1, lastRow - 1, maxCols)
-        .clearContent()
-        .clearFormat()
-        .clearDataValidations()
-        .clearNote();
-  }
-  Logger.log('[nuclearResetBilling] Dashboard wiped (was ' + lastRow + ' rows)');
-
-  // 2. Build fresh items from registration sheets (same logic
-  //    buildAllBilling uses)
+  // 1. Build fresh items from registration sheets
   var catalog = readPricingCatalog_();
   var registrationSheets = discoverRegistrationSheets_();
   var allItems = [];
@@ -1020,8 +1002,7 @@ function nuclearResetBilling() {
     }
   });
 
-  // Dedup by fingerprint just in case a kid appears multiple times in
-  // the same week tab (registration data entry duplicates).
+  // Dedup by fingerprint (registration data-entry duplicates)
   var byFp = {};
   allItems.forEach(function(it) {
     if (it && it.fingerprint && !byFp[it.fingerprint]) byFp[it.fingerprint] = it;
@@ -1029,19 +1010,199 @@ function nuclearResetBilling() {
   allItems = Object.keys(byFp).map(function(fp) { return byFp[fp]; });
   Logger.log('[nuclearResetBilling] ' + allItems.length + ' unique fresh items');
 
-  // 3. Reconcile against the now-empty Dashboard. Every fresh item
-  //    becomes a NEW addition; no canceled/refund-needed transitions
-  //    (since there's nothing existing to compare against).
-  reconcileDashboard_(allItems);
+  // 2. Group by parent email + sort
+  var byParent = {};
+  allItems.forEach(function(it) {
+    var email = (it.enrollment.email || '').toLowerCase();
+    if (!email) return;
+    if (!byParent[email]) {
+      byParent[email] = {
+        email:    email,
+        emailRaw: it.enrollment.emailRaw || email,
+        students: {},
+        items:    []
+      };
+    }
+    byParent[email].students[it.enrollment.student] = true;
+    byParent[email].items.push(it);
+  });
 
-  // 4. Run the standard cosmetic cleanups
-  try { sanitizeDashboardCustomerHeaders(); }
-  catch (e) { Logger.log('[nuclearResetBilling] sanitize err: ' + e.message); }
-  try { fixDashboardGroups(); }
-  catch (e) { Logger.log('[nuclearResetBilling] group fix err: ' + e.message); }
+  var allPeriods = BFS_WEEK_ORDER
+    .concat(AFTER_SCHOOL_MONTH_COLUMNS)
+    .concat(AFTER_SCHOOL_QUARTER_COLUMNS);
+  var emails = Object.keys(byParent).sort();
+
+  // 3. Build PARALLEL matrices in one pass — data + every formatting
+  //    dimension we'd otherwise set per-customer. setValues +
+  //    setBackgrounds + setFontColors + etc. each take a 2D array and
+  //    apply the whole sheet in ONE API call. Cuts ~108 customers ×
+  //    10 per-customer calls down to ~10 batch calls total. ~30s
+  //    instead of >6 min.
+  var dataMatrix = [];
+  var bgMatrix = [];
+  var fontColorMatrix = [];
+  var fontWeightMatrix = [];
+  var fontSizeMatrix = [];
+  var noteMatrix = [];
+  var numFormatMatrix = [];
+
+  var nowDateStr = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd');
+  var currentRow = 2;
+  var customerGroups = [];  // [{subHeaderRow, txLast}] for the row-group pass
+
+  function blankRow7(v) { return [v,v,v,v,v,v,v]; }
+
+  emails.forEach(function(email) {
+    var p = byParent[email];
+    var studentNames = Object.keys(p.students).sort();
+    p.items.sort(function(a, b) {
+      var s = (a.enrollment.student || '').localeCompare(b.enrollment.student || '');
+      if (s !== 0) return s;
+      var w = allPeriods.indexOf(a.enrollment.week) - allPeriods.indexOf(b.enrollment.week);
+      if (w !== 0) return w;
+      return (a.kind || '').localeCompare(b.kind || '');
+    });
+
+    var customerRowIdx = currentRow;
+    var subHeaderIdx   = currentRow + 1;
+    var txFirst        = currentRow + 2;
+    var txLast         = txFirst + p.items.length - 1;
+
+    // Customer header row: email + students + balance formula inline
+    var balFormula = (p.items.length > 0)
+      ? '=SUMIFS(F' + txFirst + ':F' + txLast + ', G' + txFirst + ':G' + txLast + ', "owed")'
+      : '';
+    dataMatrix.push(['', p.emailRaw, '', '', studentNames.join(', '), '', balFormula]);
+    bgMatrix.push(blankRow7('#143980'));
+    fontColorMatrix.push(blankRow7('#FFFFFF'));
+    fontWeightMatrix.push(blankRow7('bold'));
+    fontSizeMatrix.push(blankRow7(12));
+    noteMatrix.push(blankRow7(''));
+    numFormatMatrix.push(['','','','','','','"$"#,##0.00']);
+    currentRow++;
+
+    // Sub-header row
+    dataMatrix.push(['DATE', 'ITEM', 'UNIT PRICE', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']);
+    bgMatrix.push(blankRow7('#4a6493'));
+    fontColorMatrix.push(blankRow7('#FFFFFF'));
+    fontWeightMatrix.push(blankRow7('bold'));
+    fontSizeMatrix.push(blankRow7(10));
+    noteMatrix.push(blankRow7(''));
+    numFormatMatrix.push(blankRow7(''));
+    currentRow++;
+
+    // Tx rows
+    p.items.forEach(function(it) {
+      var defaultStatus = it.unpriced
+        ? 'unpriced'
+        : (it.ambiguous ? 'ambiguous' : 'owed');
+      var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
+      dataMatrix.push([
+        nowDateStr,
+        label,
+        Number(it.price) || 0,
+        it.multiplier === '/day' ? (Number(it.qty) || '') : '',
+        (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+        Number(it.total) || 0,
+        defaultStatus
+      ]);
+      bgMatrix.push(blankRow7('#FFFFFF'));
+      fontColorMatrix.push(blankRow7('#000000'));
+      fontWeightMatrix.push(blankRow7('normal'));
+      fontSizeMatrix.push(blankRow7(11));
+      noteMatrix.push(['', bfsBuildItemNote_(it), '', '', '', '', '']);
+      numFormatMatrix.push(['','','"$"#,##0.00','','','"$"#,##0.00','']);
+      currentRow++;
+    });
+
+    customerGroups.push({ subHeaderRow: subHeaderIdx, txLast: txLast });
+  });
+
+  Logger.log('[nuclearResetBilling] matrices built: ' + dataMatrix.length + ' rows for ' +
+             emails.length + ' customers');
+
+  // 4. Wipe Dashboard data area
+  var dash = getDashboardSheet();
+  if (typeof resetAllRowGroups_ === 'function') {
+    try { resetAllRowGroups_(dash); } catch (e) { /* fall through */ }
+  }
+  var oldLastRow = dash.getLastRow();
+  if (oldLastRow >= 2) {
+    dash.getRange(2, 1, oldLastRow - 1, dash.getMaxColumns())
+        .clearContent().clearFormat().clearDataValidations().clearNote();
+  }
+  Logger.log('[nuclearResetBilling] wiped ' + (oldLastRow - 1) + ' old rows');
+
+  if (dataMatrix.length === 0) {
+    Logger.log('[nuclearResetBilling] no items — Dashboard left empty');
+    return;
+  }
+
+  // 5. Batch-apply EVERYTHING to one big range
+  var range = dash.getRange(2, 1, dataMatrix.length, 7);
+  range.setValues(dataMatrix);          // includes inline balance formulas
+  range.setBackgrounds(bgMatrix);
+  range.setFontColors(fontColorMatrix);
+  range.setFontWeights(fontWeightMatrix);
+  range.setFontSizes(fontSizeMatrix);
+  range.setNotes(noteMatrix);
+  range.setNumberFormats(numFormatMatrix);
+  range.setFontFamily('DM Sans');
+
+  // 6. Status validation — one rule, applied to col G across all rows.
+  //    setAllowInvalid(true) so the customer-row balance formula in col
+  //    G doesn't trigger validation errors.
+  var statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(STATUS_VALUES, true)
+    .setAllowInvalid(true).build();
+  dash.getRange(2, 7, dataMatrix.length, 1).setDataValidation(statusRule);
+
+  // 7. Conditional formatting (one-shot, covers all tx rows)
+  var fullDataRange = dash.getRange(2, 1, dataMatrix.length, 7);
+  var statusColAll  = dash.getRange(2, 7, dataMatrix.length, 1);
+  var rules = [];
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenFormulaSatisfied('=OR($G2="unpriced",$G2="ambiguous")')
+    .setBackground('#FFF3B0').setRanges([fullDataRange]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('paid').setBackground('#D4EDDA').setFontColor('#155724').setBold(true)
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('owed').setBackground('#FFF3CD').setFontColor('#856404')
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('canceled').setBackground('#E2E3E5').setFontColor('#383D41')
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('refunded').setBackground('#FFE5CC').setFontColor('#A05A00')
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('refund-needed').setBackground('#FFE5CC').setFontColor('#A05A00').setBold(true)
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('unpriced').setBackground('#F0AD4E').setFontColor('#5A3A00').setBold(true)
+    .setRanges([statusColAll]).build());
+  rules.push(SpreadsheetApp.newConditionalFormatRule()
+    .whenTextEqualTo('ambiguous').setBackground('#FFD966').setFontColor('#5A3A00').setBold(true)
+    .setRanges([statusColAll]).build());
+  dash.clearConditionalFormatRules();
+  dash.setConditionalFormatRules(rules);
+
+  // 8. Row groups — per-customer (collapse). This is the only step we
+  //    can't fully batch via a 2D array. ~108 calls but each is cheap.
+  customerGroups.forEach(function(g) {
+    if (g.txLast >= g.subHeaderRow) {
+      try {
+        dash.getRange(g.subHeaderRow, 1, g.txLast - g.subHeaderRow + 1, 1).shiftRowGroupDepth(1);
+        var grp = dash.getRowGroup(g.subHeaderRow, 1);
+        if (grp) grp.collapse();
+      } catch (e) { /* group quirk */ }
+    }
+  });
 
   var elapsedMs = Date.now() - startedAt.getTime();
-  Logger.log('[nuclearResetBilling] done in ' + elapsedMs + 'ms');
+  Logger.log('[nuclearResetBilling] done in ' + elapsedMs + 'ms — ' +
+             emails.length + ' customers, ' + (dataMatrix.length - emails.length * 2) + ' tx rows');
 }
 
 /**
