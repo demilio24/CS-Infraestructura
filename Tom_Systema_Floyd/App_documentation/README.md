@@ -16,6 +16,7 @@ to reverse-engineer code or trace through GHL workflows.
 | File | App | What it does |
 |---|---|---|
 | [registration_system.md](./registration_system.md) | **Camp Registration System + Discrepancy Check** | Full pipeline: parent submits a Free Camp / Summer Camp form on `systemafloyd.com` → GHL routing workflow writes a row in the right Google Sheet → dashboard renders it. Includes the Apps Script failsafe that auto-fixes missed writes, with Supabase tombstones, cell notes, and email alerts that name the failed workflow. |
+| [dashboard.md](./dashboard.md) | **Camp Dashboard** (browser + Apps Script) | The staff-facing dashboard at `dashboard/index.html` and the Apps Script `Snapshot.js` pipeline that feeds it. Reads the 4 roster sheets every 5 min, builds `snapshot.json` + history archive + Supabase mirror, and renders KPIs, charts, capacity targets, lunch prep, ops alerts (allergies + data quality), 14-day growth sparkline, and a click-to-expand student roster. |
 | [school_enrollment_router.md](./school_enrollment_router.md) | **School Enrollment Router** (Apps Script) | Routes every new student enrollment from a single Main Table into the correct per-school spreadsheet, auto-creating that spreadsheet from a Monthly or Quarterly template the first time it's needed. Defensive against deleted/moved files; uses three-tier name matching (exact → case-insensitive → Levenshtein fuzzy). |
 | [camp_day_validator.md](./camp_day_validator.md) | **Camp Day Validator** (browser JS) | Client-side JS pasted into a Custom Code element at the bottom of the GHL summer camp signup form. Keeps the "Select Camp Duration" dropdown in sync with the per-week day checkboxes; blocks form submission until every chosen week has the right number of days ticked. |
 | [waiver_matcher.md](./waiver_matcher.md) | **Waiver Matcher** (Apps Script) | Bound to the Waiver APP spreadsheet. On every change, scans every camp roster sheet in Drive, fuzzy-matches student names from waiver rows against camp rows by email + Jaro-Winkler name similarity. Highlights matched cells green and adds health/allergy info as a cell note. |
@@ -93,6 +94,9 @@ and break something.
 |---|---|
 | Registration System (Discrepancy Check) | `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` |
 | Registration System (Snapshot polling) | `Tom_Systema_Floyd/sheets-snapshot/apps-script/Snapshot.js` |
+| Dashboard pages | `Tom_Systema_Floyd/dashboard/index.html`, `lunches.html` |
+| Dashboard data | `Tom_Systema_Floyd/dashboard/snapshot.json` + `dashboard/history/*.json` (auto-pushed by Snapshot.js) |
+| Supabase mirror (read by other tools) | Tables `sf_camp_enrollments`, `sf_camp_snapshots` in Zona Libre project `nroeiabeirifurdaybyo` |
 | School Enrollment Router | Apps Script bound to the central enrollment intake spreadsheet (not in this repo) |
 | Camp Day Validator | `Tom_Systema_Floyd/Form/script.html` (also pasted into a GHL Custom Code element) |
 | Waiver Matcher | Apps Script bound to the Waiver APP spreadsheet (not in this repo) |
