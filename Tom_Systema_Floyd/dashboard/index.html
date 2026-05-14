@@ -230,7 +230,20 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .ros-day-strip .d.zero .dn{color:var(--sf-ink-40)}
 .ros-week-h .ros-count{font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;color:var(--sf-blue-700);font-variant-numeric:tabular-nums;font-size:11px;letter-spacing:.04em}
 .ros-week ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px}
-.ros-week li{display:flex;align-items:center;gap:5px;padding:3px 5px;border-radius:4px;font-size:11.5px;color:var(--sf-ink);font-family:'Inter',sans-serif;line-height:1.3}
+.ros-week li{display:flex;flex-direction:column;font-size:11.5px;color:var(--sf-ink);font-family:'Inter',sans-serif;line-height:1.3}
+.ros-week li .ros-row{display:flex;align-items:center;gap:5px;padding:3px 5px;border-radius:4px;cursor:pointer;transition:background .15s}
+.ros-week li .ros-row:hover{background:var(--sf-blue-50)}
+.ros-week li.expanded .ros-row{background:#fff7e0;outline:1px solid var(--sf-yellow)}
+.ros-detail{display:none;margin:4px 0 6px;padding:10px 12px;background:#fff;border:1px solid var(--sf-yellow);border-left-width:3px;border-radius:0 8px 8px 0;font-size:11.5px;line-height:1.5;color:var(--sf-ink);animation:slideDown .22s var(--ease-out)}
+.ros-detail.open{display:block}
+.ros-detail dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:0}
+.ros-detail dt{font-family:'Space Grotesk','Inter',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-ink-40);align-self:center}
+.ros-detail dd{margin:0;color:var(--sf-ink);font-size:11.5px;word-break:break-word}
+.ros-detail dd.muted{color:var(--sf-ink-40);font-style:italic}
+.ros-detail .days-chip{display:inline-flex;flex-wrap:wrap;gap:3px}
+.ros-detail .days-chip span{display:inline-flex;align-items:center;justify-content:center;width:24px;height:18px;border-radius:4px;background:var(--sf-cream);color:var(--sf-ink-40);font-size:9.5px;font-weight:700;font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:.04em}
+.ros-detail .days-chip span.on{background:var(--sf-blue-700);color:#fff}
+.ros-detail .allergy-cell{background:#fff7e0;border-left:3px solid #f4b63a;padding:4px 8px;border-radius:0 4px 4px 0;color:var(--sf-ink)}
 .ros-week li .campus-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .ros-week li.upper .campus-dot{background:#1b2f6e}
 .ros-week li.lower .campus-dot{background:#4aa3e0}
@@ -1719,6 +1732,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     if (!body || !state.snapshot) return;
 
     wireRosterSearch();
+    wireRosterRowClicks();
     const isAS = isAfterSchool(state.filter);
     if (isAS) renderRosterBodyAfterSchool(body);
     else      renderRosterBody(body, state.snapshot.roster || {});
@@ -1863,22 +1877,28 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
       const items = all.length === 0
         ? `<div class="ros-empty">No students yet</div>`
-        : `<ul>${all.map(r => {
+        : `<ul>${all.map((r, idx) => {
             const campusCls = r.campus === 'Upper Campus' ? 'upper'
                             : r.campus === 'Lower Campus' ? 'lower'
                             : 'unknown';
             const incomplete = r.incomplete || r.name === '(name missing)' || r.campus === 'Unknown';
             const safeName = highlightMatches(String(r.name).replace(/</g,'&lt;'));
             const badges = [];
-            if (r.lunch) badges.push('<span class="badge lunch" title="Lunch opt-in">🥪</span>');
+            if (r.lunch) badges.push('<span class="badge lunch" title="Click for lunch details">🥪</span>');
             if (r.allergy) {
               const safe = String(r.allergy).replace(/"/g,'&quot;').replace(/</g,'&lt;');
               badges.push(`<span class="badge allergy" title="${safe}">⚠</span>`);
             }
-            return `<li class="${campusCls}">
-              <span class="campus-dot" title="${r.campus || 'Unknown'}"></span>
-              <span class="nm ${incomplete ? 'incomplete' : ''}">${safeName}</span>
-              ${badges.join('')}
+            // Store entry as a JSON blob on the li so the click handler can
+            // build the detail panel without re-walking state.snapshot.roster.
+            const entryAttr = encodeURIComponent(JSON.stringify({ ...r, week: w }));
+            return `<li class="${campusCls}" data-entry="${entryAttr}">
+              <div class="ros-row" tabindex="0" role="button" aria-expanded="false">
+                <span class="campus-dot" title="${r.campus || 'Unknown'}"></span>
+                <span class="nm ${incomplete ? 'incomplete' : ''}">${safeName}</span>
+                ${badges.join('')}
+              </div>
+              <div class="ros-detail" data-detail></div>
             </li>`;
           }).join('')}</ul>`;
 
@@ -1912,6 +1932,79 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     }
   }
 
+
+  // ─── Roster row click → inline detail ────────────────────────────
+  // Wires once. Click on any roster row (name / lunch icon / allergy icon)
+  // toggles a slide-down detail panel inside the same li with every field
+  // we know about that kid: campus, week, days attending, lunch order,
+  // allergy notes, email, school, etc.
+  function wireRosterRowClicks() {
+    const body = document.getElementById('roster-body');
+    if (!body || body.dataset.clickWired === '1') return;
+    body.dataset.clickWired = '1';
+    body.addEventListener('click', e => {
+      const row = e.target.closest('.ros-row');
+      if (!row) return;
+      const li = row.parentElement;
+      if (!li || !li.dataset.entry) return;
+      const detail = li.querySelector('.ros-detail');
+      if (!detail) return;
+      const opening = !li.classList.contains('expanded');
+      // Single-open per panel: collapse any other open row first.
+      body.querySelectorAll('li.expanded').forEach(other => {
+        if (other === li) return;
+        other.classList.remove('expanded');
+        const d = other.querySelector('.ros-detail');
+        if (d) { d.classList.remove('open'); d.innerHTML = ''; }
+        const r = other.querySelector('.ros-row');
+        if (r) r.setAttribute('aria-expanded', 'false');
+      });
+      if (opening) {
+        let entry = null;
+        try { entry = JSON.parse(decodeURIComponent(li.dataset.entry)); } catch (err) { return; }
+        detail.innerHTML = renderEntryDetailHTML(entry);
+        detail.classList.add('open');
+        li.classList.add('expanded');
+        row.setAttribute('aria-expanded', 'true');
+      } else {
+        detail.classList.remove('open');
+        detail.innerHTML = '';
+        li.classList.remove('expanded');
+        row.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  function renderEntryDetailHTML(entry) {
+    const days = Array.isArray(entry.days) ? entry.days : [true,true,true,true,true];
+    const dayLabels = ['M','T','W','Th','F'];
+    const dayChips = `<div class="days-chip">${dayLabels.map((d, i) =>
+      `<span class="${days[i] ? 'on' : ''}">${d}</span>`).join('')}</div>`;
+    const rows = [];
+    function row(label, value, opts) {
+      opts = opts || {};
+      if (value == null || value === '' || value === false) {
+        if (!opts.always) return;
+        value = '—';
+        opts.muted = true;
+      }
+      const ddCls = opts.muted ? ' class="muted"' : (opts.cls ? ` class="${opts.cls}"` : '');
+      rows.push(`<dt>${escapeHtml(label)}</dt><dd${ddCls}>${opts.html ? value : escapeHtml(String(value))}</dd>`);
+    }
+    row('Camp',  entry.type === 'free' ? 'Free Camp' : 'Summer Camp', { always: true });
+    row('Week',  shortenWeek(entry.week), { always: true });
+    row('Campus', entry.campus || 'Unknown', { always: true });
+    row('Days',  dayChips, { html: true, always: true });
+    if (entry.lunchRaw)      row('Lunch order', entry.lunchRaw);
+    else if (entry.lunch)    row('Lunch', 'Yes (no detail)', { muted: true });
+    if (entry.breakfastRaw)  row('Breakfast', entry.breakfastRaw);
+    if (entry.school)        row('School', entry.school);
+    if (entry.email)         row('Email', `<a href="mailto:${escapeHtml(entry.email)}">${escapeHtml(entry.email)}</a>`, { html: true });
+    else                     row('Email', 'Missing', { muted: true, always: true });
+    if (entry.allergy)       row('Allergy', `<span class="allergy-cell">${escapeHtml(entry.allergy)}</span>`, { html: true });
+    if (entry.notes)         row('Notes',  entry.notes);
+    return `<dl>${rows.join('')}</dl>`;
+  }
 
   // ─── Ops strip (allergies + data quality) ───────────────────────
   // Two click-to-expand chips above the roster. State.openOpsPanel
