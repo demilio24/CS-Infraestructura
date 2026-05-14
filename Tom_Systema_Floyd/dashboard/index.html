@@ -2537,16 +2537,28 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function renderOpsStrip() {
     const allergies = collectAllergyEntries();
     const issues = collectDataIssues();
-    const issuesTotal = issues.missingName.length + issues.missingCampus.length + issues.incomplete.length;
+    // Allergy chip should count UNIQUE students with allergies, not the
+    // raw (student x week) row count. The detail panel already groups by
+    // name, so this matches what the user actually sees when they click.
+    const uniqueAllergyStudents = new Set(
+      allergies.map(e => (e.name || '').toLowerCase().trim()).filter(Boolean)
+    ).size;
+    // Data issues chip: dedupe by student name too, so a kid missing an
+    // email across 4 weeks counts as 1 issue, not 4.
+    const issueRows = []
+      .concat(issues.missingName, issues.missingCampus, issues.incomplete);
+    const uniqueIssueStudents = new Set(
+      issueRows.map(r => (r.name || '').toLowerCase().trim()).filter(Boolean)
+    ).size;
 
     const aBtn = document.getElementById('ops-allergies-btn');
     const qBtn = document.getElementById('ops-quality-btn');
     const aCnt = document.getElementById('ops-allergies-count');
     const qCnt = document.getElementById('ops-quality-count');
-    if (aCnt) aCnt.textContent = allergies.length;
-    if (qCnt) qCnt.textContent = issuesTotal;
-    if (aBtn) aBtn.classList.toggle('has-items', allergies.length > 0);
-    if (qBtn) qBtn.classList.toggle('has-items', issuesTotal > 0);
+    if (aCnt) aCnt.textContent = uniqueAllergyStudents;
+    if (qCnt) qCnt.textContent = uniqueIssueStudents;
+    if (aBtn) aBtn.classList.toggle('has-items', uniqueAllergyStudents > 0);
+    if (qBtn) qBtn.classList.toggle('has-items', uniqueIssueStudents > 0);
 
     wireOpsStrip();
     renderOpsAllergies(allergies);
