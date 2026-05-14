@@ -60,6 +60,14 @@ when a parent cancels.
               └────────────────────────────────────────────────┘
 ```
 
+**Scope exclusion: free summer camp is never billed.** Registration sheets
+classified `summer-free` (i.e., living under the `Free Summer Camp/` Drive
+sub-folder) are filtered out by `bfsFilterBillable_` immediately after
+discovery. Free campers don't owe anything by definition, so they never
+appear on the billing dashboard even if their reg sheets happen to carry
+opt-in fields the pricer could otherwise charge for. To change this, edit
+the `BFS_NON_BILLABLE_TYPES` constant at the top of `BillingFromSheets.js`.
+
 **Two independent triggers, both running as `emilio@nilsdigital.com`:**
 
 | Trigger | Cadence | Function | What it owns |
@@ -174,6 +182,17 @@ Transaction row (one per priced line item):
   F: total (unit × qty)
   G: status pill — one of `owed | paid | canceled | refund-needed | refunded | unpriced | ambiguous`
 ```
+
+**Customer-header enrichment** — Parent Name (col A), Phone (col C), Waiver
+Origin (col D), and the Contact Profile link (col F) all come from a one-shot
+**GHL contact lookup** keyed by parent email. `bfsEnrichCustomer_(email)`
+does one `POST /contacts/search` + one `GET /contacts/{id}` per unique
+email and caches the result for the rest of the execution. At ~100 customers
+that's ~200 UrlFetch calls per `nuclearResetBilling` run — well under the
+Workspace 100K daily quota. The 5-min reconciler only enriches genuinely
+new customers, so steady-state cost is near zero. If an enrichment fails
+(transient GHL outage, no contact found, etc.) the four columns are left
+empty; re-running `nuclearResetBilling` is the recover path.
 
 Status pill values drive conditional formatting:
 
@@ -506,6 +525,7 @@ Public functions (no trailing underscore) appear in the editor dropdown:
 | `buildAllBilling()` | The 5-min trigger entry point. Diffs and applies. Idempotent. |
 | `nuclearResetBilling()` | Wipes the Dashboard data area and rebuilds from scratch. Use after structural drift. Lock-protected against concurrent runs. |
 | `fixDashboardGroups()` | Rebuild the customer-level row groups (the +/- toggles) from scratch. Useful if grouping looks broken without doing a full rebuild. |
+| `fixDashboardStatusValidation()` | Surgical: clears the status-dropdown data validation from customer header + sub-header rows (where a SUMIFS balance or the literal "STATUS" text triggers a red "Invalid" warning) and re-applies it on tx rows only. ~5-10s. Run after upgrading from an older nuclearResetBilling that applied the rule too broadly. Idempotent. |
 | `sanitizeDashboardCustomerHeaders()` | Wipe placeholder text from customer headers ("(not found in unknown)" etc) and strip em-dashes from balance cell Notes. |
 | `installBillingFromSheetsTrigger()` | (Re)create the 5-min trigger on `buildAllBilling`. Deletes any prior trigger on the same function first. |
 | `setupPricingSheet()` | First-time bootstrap of the Pricing tab. Pulls every priced option from GHL form fields. |

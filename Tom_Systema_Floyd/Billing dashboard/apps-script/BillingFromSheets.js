@@ -172,6 +172,32 @@ function bfsClassifySheet_(folderPath) {
   return null;
 }
 
+// Sheet types we DON'T want on the billing dashboard. Free summer camp
+// is intentionally excluded: those kids registered for the no-cost
+// program and shouldn't appear with priced line items, even if the
+// registration sheet happens to include opt-in fields the pricer
+// could otherwise charge for.
+const BFS_NON_BILLABLE_TYPES = ['summer-free'];
+
+/**
+ * Filter a discovered registration-sheet list down to only the types
+ * we bill on. Logs the exclusions so it's obvious which sheets were
+ * skipped on this run.
+ */
+function bfsFilterBillable_(sheets, logPrefix) {
+  var keep = [], skip = [];
+  sheets.forEach(function(r) {
+    if (BFS_NON_BILLABLE_TYPES.indexOf(r.type) === -1) keep.push(r);
+    else skip.push(r);
+  });
+  if (skip.length > 0) {
+    Logger.log((logPrefix || '[bfsFilterBillable_]') + ' skipping ' +
+               skip.length + ' non-billable sheet(s): ' +
+               skip.map(function(r) { return r.label + ' (' + r.type + ')'; }).join(', '));
+  }
+  return keep;
+}
+
 /**
  * Main worker — aggregates priced line items across every registration
  * sheet and writes one consolidated "Billing" tab into the central
@@ -205,6 +231,7 @@ function buildAllBilling() {
     Logger.log('[buildAllBilling] pricing catalog: ' + catalog.items.length + ' entries');
 
     var registrationSheets = discoverRegistrationSheets_();
+    registrationSheets = bfsFilterBillable_(registrationSheets, '[buildAllBilling]');
     Logger.log('[buildAllBilling] processing ' + registrationSheets.length + ' registration sheet(s)');
 
     // Collect priced items across every registration sheet
@@ -1076,6 +1103,7 @@ function nuclearResetBilling_() {
   // 1. Build fresh items from registration sheets
   var catalog = readPricingCatalog_();
   var registrationSheets = discoverRegistrationSheets_();
+  registrationSheets = bfsFilterBillable_(registrationSheets, '[nuclearResetBilling]');
   var allItems = [];
   var seenShirts = {};
   registrationSheets.forEach(function(reg) {
