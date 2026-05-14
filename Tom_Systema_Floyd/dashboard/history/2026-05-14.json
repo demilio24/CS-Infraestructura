@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-14T11:02:03Z",
+  "generatedAt": "2026-05-14T11:07:06Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 125,
-    "free": 18,
+    "free": 19,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -212,17 +212,17 @@
     ]
   },
   "free": {
-    "total": 18,
+    "total": 19,
     "byCampus": {
       "Upper Campus": 13,
-      "Lower Campus": 5,
+      "Lower Campus": 6,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 12,
-      "June 8th-12th": 13,
-      "June 15th-19th": 14,
-      "June 22nd-26th": 13,
+      "June 1st-5th": 13,
+      "June 8th-12th": 14,
+      "June 15th-19th": 15,
+      "June 22nd-26th": 14,
       "June 29th-July 3rd": 15,
       "July 6th-10th": 14,
       "July 13th-17th": 15,
@@ -236,22 +236,22 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 8,
-        "Lower Campus": 4,
+        "Lower Campus": 5,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 10,
-        "Lower Campus": 3,
+        "Lower Campus": 4,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 10,
-        "Lower Campus": 4,
+        "Lower Campus": 5,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 10,
-        "Lower Campus": 3,
+        "Lower Campus": 4,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -304,7 +304,8 @@
       "Westward Elementary School": 80,
       "Roosevelt Elementary School": 29,
       "Northboro Elementary School": 26,
-      "Pleasant City Elementary School": 6
+      "Pleasant City Elementary School": 6,
+      "U.B. Kinsey Educational and Community Center": 4
     },
     "weekOrder": [
       "June 1st-5th",
@@ -322,18 +323,18 @@
     ]
   },
   "combined": {
-    "total": 143,
-    "enrollments": 470,
+    "total": 144,
+    "enrollments": 474,
     "byCampus": {
       "Upper Campus": 67,
-      "Lower Campus": 76,
+      "Lower Campus": 77,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 40,
-      "June 8th-12th": 37,
-      "June 15th-19th": 56,
-      "June 22nd-26th": 38,
+      "June 1st-5th": 41,
+      "June 8th-12th": 38,
+      "June 15th-19th": 57,
+      "June 22nd-26th": 39,
       "June 29th-July 3rd": 41,
       "July 6th-10th": 48,
       "July 13th-17th": 47,
@@ -347,22 +348,22 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 19,
-        "Lower Campus": 21,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 25,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 24,
-        "Lower Campus": 32,
+        "Lower Campus": 33,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 20,
-        "Lower Campus": 18,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -1280,40 +1281,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 11,
-              "Tue": 11,
-              "Wed": 11,
-              "Thu": 11,
-              "Fri": 11
+              "Mon": 12,
+              "Tue": 12,
+              "Wed": 12,
+              "Thu": 12,
+              "Fri": 12
             },
-            "total": 55
-          }
-        ],
-        "totals": {
-          "byDay": {
-            "Mon": 12,
-            "Tue": 12,
-            "Wed": 12,
-            "Thu": 12,
-            "Fri": 12
-          },
-          "all": 60
-        }
-      },
-      "June 8th-12th": {
-        "rows": [
-          {
-            "category": "other",
-            "subtypeKey": "other|yes",
-            "label": "Yes",
-            "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 13
-            },
-            "total": 65
+            "total": 60
           }
         ],
         "totals": {
@@ -1327,7 +1301,7 @@
           "all": 65
         }
       },
-      "June 15th-19th": {
+      "June 8th-12th": {
         "rows": [
           {
             "category": "other",
@@ -1354,6 +1328,33 @@
           "all": 70
         }
       },
+      "June 15th-19th": {
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 15,
+              "Tue": 15,
+              "Wed": 15,
+              "Thu": 15,
+              "Fri": 15
+            },
+            "total": 75
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 15,
+            "Tue": 15,
+            "Wed": 15,
+            "Thu": 15,
+            "Fri": 15
+          },
+          "all": 75
+        }
+      },
       "June 22nd-26th": {
         "rows": [
           {
@@ -1361,24 +1362,24 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 13
+              "Mon": 14,
+              "Tue": 14,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 14
             },
-            "total": 65
+            "total": 70
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 13,
-            "Tue": 13,
-            "Wed": 13,
-            "Thu": 13,
-            "Fri": 13
+            "Mon": 14,
+            "Tue": 14,
+            "Wed": 14,
+            "Thu": 14,
+            "Fri": 14
           },
-          "all": 65
+          "all": 70
         }
       },
       "June 29th-July 3rd": {
@@ -2342,6 +2343,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Kali ridgeway",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "keiilove93@icloud.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 6,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Lamar Brown",
           "campus": "Lower Campus",
           "lunch": true,
@@ -3264,6 +3289,32 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Kali ridgeway",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Lamar Brown",
@@ -4614,6 +4665,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Kali ridgeway",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "keiilove93@icloud.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 6,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Lamar Brown",
           "campus": "Lower Campus",
           "lunch": true,
@@ -5563,6 +5638,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Kali ridgeway",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "keiilove93@icloud.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 5,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Lamar Brown",
