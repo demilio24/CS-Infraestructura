@@ -83,7 +83,7 @@ etc.), the row never lands in the sheet. The discrepancy bot catches it:
 5. For each `(submission, week)` pair, the bot decides:
    - **Already in Supabase** → skip (already handled, possibly deleted)
    - **5 min grace not elapsed yet** → skip (let GHL workflow finish)
-   - **Existing row matches by `(name + email + week)`** → link, don't duplicate
+   - **Existing row matches by email + week with a fuzzy student-name match** (exact, single-token "first name in" the other, first+last token match, or Jaro-Winkler ≥ 0.92) → link, don't duplicate. This is what catches "Aria" vs "Aria Falzone" as the same kid.
    - **No row, no record** → APPEND a new row, write tombstone, stamp source note
 6. If the bot added anything, emails `emilio@nilsdigital.com` with the
    list — **and names the specific GHL workflow that failed to write each row**.
@@ -401,10 +401,12 @@ Every time the bot processes a `(submission_id, week)`:
   with it. But Supabase still has the record. → Bot sees Supabase entry → skips.
   The deletion is permanent.
 - If the team manually re-adds the kid (typed in by hand without an ID) → the
-  bot's `(name + email + week)` dedup catches it on next run, links the
-  submission_id to it. No duplicate.
+  bot's fuzzy `(name + email + week)` dedup catches it on next run, links the
+  submission_id to it. No duplicate. The fuzzy match means even partial-name
+  manual entries ("Aria" vs the parent's "Aria Falzone" submission) are
+  recognized as the same kid.
 - If the parent submits the form again (new submission_id, same kid+week) →
-  bot finds the existing row by `(name + email + week)` → updates the hidden
+  bot finds the existing row by fuzzy email+name match → updates the hidden
   ID to the new submission_id. The row stays; the new submission gets linked.
 
 To **un-tombstone** a submission (rare — e.g. you accidentally deleted the row
@@ -537,6 +539,8 @@ GROUP BY form, week, status ORDER BY form, week;
 | Auto-add lands data in wrong columns | Sheet column added/renamed/reordered | Update column constants in `_dcAppendFreeCamp` / `_dcAppendSummerCamp` |
 | Whole week silently fails | Tab renamed in spreadsheet | Update `DC_WEEK_TO_TAB` mapping |
 | Trigger doesn't fire | Quota exhausted, owner switched | Check Triggers panel in editor |
+| Bot duplicated a row that staff manually entered with a different name spelling | Names too dissimilar for the fuzzy matcher (e.g. "Bobby" vs "Robert") | Run `discrepancyMergeNameVariantDuplicates()` to merge, OR delete the bot row by hand — the tombstone keeps it from being re-added |
+| Bot conflated two siblings with the same first name | Same email + same first name on both records | Edge case — manually delete the bot's add and update the manual row's name to be unique enough that the fuzzy matcher distinguishes them (e.g. include last name) |
 
 ### Pulling a sample submission for debugging
 
@@ -557,7 +561,7 @@ curl 'https://services.leadconnectorhq.com/forms/submissions?locationId=8IWtNFlm
 | Wrong row deleted | Sheets → File → Version history → restore prior snapshot |
 | Bot wrote a wrong row | Delete the row by hand. Tombstone protects against re-add. |
 | Tombstone table corrupted | Re-run `discrepancyBackfillTombstones()` to rebuild from sheet rows |
-| Hidden `_submissionId` column wiped | Re-run `discrepancyBackfillTracking()` to re-match by name+email+week |
+| Hidden `_submissionId` column wiped | Re-run `discrepancyBackfillTracking()` to re-match by fuzzy name+email+week |
 | Cell notes wiped | Re-run `discrepancyBackfillNotes()` |
 | Whole script project deleted | Code lives in `Tom_Systema_Floyd/sheets-snapshot/apps-script/` in this repo. Re-push via clasp or REST API. |
 | Supabase project deleted | Re-create the table + RPCs (migration files in Supabase migration history). Re-run all backfill functions. |
