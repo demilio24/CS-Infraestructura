@@ -1,0 +1,560 @@
+# Systema Floyd — Camp Registration System
+
+How a parent's form submission becomes a row on the dashboard, what catches it
+when something breaks, and where every piece lives.
+
+> **Audience:** the operator (you) and any future engineer who needs to debug or
+> extend the system. Read top to bottom on first pass; refer to specific sections
+> later.
+
+---
+
+## 1. Bird's-eye view
+
+```
+            ┌──────────────────────────────────────────────────────────┐
+            │  Parent on systemafloyd.com                              │
+            │  → fills "Free Camp" or "Summer Camp" form               │
+            └────────────────────────┬─────────────────────────────────┘
+                                     │ form submission
+                                     ▼
+            ┌──────────────────────────────────────────────────────────┐
+            │  GoHighLevel (Florida location 8IWtNFlmgJ8bif9DivHT)     │
+            │  • Stores submission                                     │
+            │  • Creates / updates Contact record                      │
+            │  • Triggers per-week Routing Workflow                    │
+            └────────────────────────┬─────────────────────────────────┘
+                                     │ "Add row" action
+                                     ▼
+            ┌──────────────────────────────────────────────────────────┐
+            │  Google Sheets — 4 roster spreadsheets                   │
+            │  • Free Camp Upper / Lower                               │
+            │  • Summer Camp Upper / Lower                             │
+            │  • One tab per week (e.g. "7/27-7/31")                   │
+            └─────────┬─────────────────────────────────────┬──────────┘
+                      │ snapshot poll                       │ failsafe poll
+                      │ (Apps Script Snapshot.js)           │ (Apps Script DiscrepancyCheck.js)
+                      ▼                                     ▼
+            ┌──────────────────┐                ┌─────────────────────────┐
+            │  snapshot.json   │                │  Compare GHL → sheets   │
+            │  (in repo,       │                │  • If row missing → ADD │
+            │  served by       │                │  • If duplicate → flag  │
+            │  GitHub Pages)   │                │  • If deleted → leave   │
+            └────────┬─────────┘                └────────────┬────────────┘
+                     │                                       │
+                     ▼                                       ▼
+            ┌──────────────────────┐         ┌─────────────────────────────┐
+            │  Live dashboard      │         │  Email to                   │
+            │  /dashboard/         │         │  emilio@nilsdigital.com     │
+            │  index.html          │         │  (only when something fired)│
+            └──────────────────────┘         └─────────────────────────────┘
+```
+
+The **GHL routing workflow is the primary writer**. Apps Script's
+DiscrepancyCheck is a failsafe that watches for missed writes and patches them.
+
+---
+
+## 2. The happy path (parent submits form → row on dashboard)
+
+1. Parent submits a form (Free Camp or Summer Camp) on `systemafloyd.com`.
+2. GHL creates a form submission record + creates/updates a Contact.
+3. For **each week** the parent ticked, the matching GHL routing workflow
+   fires (e.g. "9. Free Camp (July 27th-31st) -> Google Sheet routing").
+4. Each workflow's "Add Row to Sheet" action writes one row into the right
+   weekly tab on the right campus sheet.
+5. The `sheets-snapshot` Apps Script polls the sheets every ~10 minutes,
+   builds `snapshot.json`, and pushes it to the GitHub Pages-served dashboard.
+6. The dashboard reads `snapshot.json` and renders the roster.
+
+When this works, the discrepancy bot is silent.
+
+---
+
+## 3. The failsafe path (when GHL fails, like Jul 27-31 did)
+
+If a routing workflow doesn't fire (broken if/else, bad field mapping,
+etc.), the row never lands in the sheet. The discrepancy bot catches it:
+
+1. Trigger fires `runDiscrepancyCheck()` every 15 min.
+2. Bot reads every form submission from GHL (Free Camp + Summer Camp).
+3. Bot reads every roster row from all 4 sheets.
+4. Bot reads the Supabase tombstone log (`public.sf_form_submissions`).
+5. For each `(submission, week)` pair, the bot decides:
+   - **Already in Supabase** → skip (already handled, possibly deleted)
+   - **5 min grace not elapsed yet** → skip (let GHL workflow finish)
+   - **Existing row matches by `(name + email + week)`** → link, don't duplicate
+   - **No row, no record** → APPEND a new row, write tombstone, stamp source note
+6. If the bot added anything, emails `emilio@nilsdigital.com` with the
+   list — **and names the specific GHL workflow that failed to write each row**.
+
+---
+
+## 4. Components
+
+### 4.1 GHL Forms
+
+Florida location: `8IWtNFlmgJ8bif9DivHT` (`Systema Floyd - Florida`).
+
+| Form name | Form ID | Covered by bot? |
+|---|---|---|
+| Free Camp | `3Z4E9y7WlWgkZDxViBUW` | ✅ |
+| Summer Camp | `61TiB5Zn1DJrGAsWiyTm` | ✅ |
+| Summer Camp - DEV | `oEDRZoVTuCWHt5cnMLpH` | ⏩ skipped (dev) |
+| After School Registration | `TkioOL4IoByeHU3K2gTs` | ❌ TODO |
+| Liability Waiver - Free | `y3Ztbvsy0JAZt8dx453Y` | n/a (not roster) |
+| Liability Waiver | `2vMqRPJVSiNx9qowOcpD` | n/a |
+| Lead Form | `yP3OPoUimfOZgrXJo2mI` | n/a |
+
+### 4.2 GHL Routing Workflows
+
+Each form has one routing workflow per week. The workflow:
+1. Triggers on form submission **with** "Weeks Attending contains [this week]"
+2. Decides campus (Upper/Lower) — by grade for Free Camp, by age for Summer
+3. Calls "Add Row to Google Sheet" with the correct spreadsheet+tab
+4. Updates a custom field as a breadcrumb (e.g. `contact.free_camp_registration`)
+
+**Free Camp routing workflows (10 — one per week):**
+
+| Week | Workflow ID |
+|---|---|
+| June 1st-5th | `e9bc2bb7-94ae-481f-9d8f-51df5b9d45bf` |
+| June 8th-12th | `1b6e3514-e2d0-4ceb-801d-eef3795d3fb4` |
+| June 15th-19th | `ac889124-e4e8-4784-8f7c-bd03b8d526a4` |
+| June 22nd-26th | `61389cbc-249e-445a-b4aa-a597d1019208` |
+| June 29th-July 3rd | `03fc65ef-37cc-4f85-8a9e-41a6be2f08c9` |
+| July 6th-10th | `9ee99436-34aa-4790-8409-fb0e4b941212` |
+| July 13th-17th | `37d80612-bc27-407d-85ff-1ece7a890e70` |
+| July 20th-24th | `7b29ffcb-e421-4e27-9b88-a1f548846a98` |
+| **July 27th-31st** | `89452dd8-dcd6-4e01-95b8-e72ed507cbca` *(broke this morning)* |
+| August 3rd-7th | `6c8f25e2-122a-474f-a810-892f8ad45b43` |
+
+Workflow URL format:
+`https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/workflow/{workflow-id}`
+
+**Summer Camp routing workflows (12 — one per week):**
+
+| Week | Workflow ID |
+|---|---|
+| June 1st-5th | `1e19a5e1-e45a-40f0-b800-98dd36395c2e` |
+| June 8th-12th | `e5d2f966-6ffc-45a5-872d-948e4cca04c7` |
+| June 15th-19th | `4b570f25-00e6-45d0-b643-25dc5a52fc89` |
+| June 22nd-26th | `801e40bd-4d8e-41a1-83d8-7f272d9ce5c8` |
+| June 29th-July 3rd | `afa65040-2f26-4256-b478-0680deefc93f` |
+| July 6th-10th | `bb327dd9-c837-4b3e-80f4-a11cf4642c69` |
+| July 13th-17th | `3ec3777a-b3ee-47a2-8c50-f123c413a44d` |
+| July 20th-24th | `75f3fc57-800a-4396-a0ba-f114539eeab8` |
+| July 27th-31st | `642d3fb0-8104-4f43-9e9a-a16170729b59` |
+| August 3rd-7th | `24b85262-e395-45d5-a4df-5e7a63ffd415` |
+| August 10th-14th | `7fff407e-f4d7-49f7-a8bc-d3c8dfc7731c` |
+| August 17th-21st | `b3c775af-f38e-46c6-80f8-20feac198c74` |
+
+### 4.3 Google Sheets — the rosters
+
+Owned by `systemafloydsheets@gmail.com`. Shared with `emilio@nilsdigital.com`
+(read+write).
+
+| Sheet name (in code) | Spreadsheet ID | Cols |
+|---|---|---|
+| Free Camp Upper | `1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ` | 11 |
+| Free Camp Lower | `1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY` | 12 |
+| Summer Camp Upper | `1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA` | 15 |
+| Summer Camp Lower | `18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs` | 16 |
+
+**Tab structure (all 4 sheets):**
+- 12 weekly tabs named in short form: `6/1-6/5`, `6/8-6/12`, ..., `8/17-8/21`
+- 1 `Billing` tab (separate, ignored by bot)
+- Hidden `_submissionId` column appended to the right of every weekly tab —
+  bot stamps the GHL submission ID here for each tracked row
+
+**⚠ Tab name gotcha:** the tabs use **short form** (`7/27-7/31`), but the
+`WEEK_ORDER` constant in `Snapshot.js` and the form submissions use
+**long form** (`July 27th-31st`). The mapping lives in
+`DC_WEEK_TO_TAB` in `DiscrepancyCheck.js`. Don't call `getSheetByName(WEEK_ORDER[i])` —
+it returns null silently.
+
+**Column orders:**
+
+```
+Free Upper  (11): School | Student Name | Grade | Age | Shirt Size | Address | Breakfast | Lunch | Parent | Phone | Email
+Free Lower  (12): School | Student Name | Grade | Age | Potty Trained | Shirt Size | Address | Breakfast | Lunch | Parent | Phone | Email
+Summer Up   (15): Paid? | Amt | Student Name | Age | Breakfast | Lunch | Before/After Care | Shirt? | Email | Additional Notes | Mon | Tue | Wed | Thu | Fri
+Summer Low  (16): Paid? | Amt | Student Name | Age | Potty Trained | Breakfast | Lunch | Before/After Care | Shirt? | Email | Additional Notes | Mon | Tue | Wed | Thu | Fri
+```
+
+### 4.4 Apps Script project — `sheets-snapshot`
+
+Script ID: `1EcPTHTRypJX_ywQXqj_LQuJMNk2RAjzSkIxsG8QzLe64jQtRXvEf6f8Y`
+Editor URL: <https://script.google.com/d/1EcPTHTRypJX_ywQXqj_LQuJMNk2RAjzSkIxsG8QzLe64jQtRXvEf6f8Y/edit>
+
+Files:
+- `Snapshot.js` — polls the 4 sheets every ~10 min, builds `snapshot.json` for
+  the dashboard. **Pre-existing**, untouched by the discrepancy work.
+- `DiscrepancyCheck.js` — the failsafe described in this doc.
+- `appsscript.json` — manifest with required OAuth scopes.
+
+**OAuth scopes:**
+- `spreadsheets` — read/write the rosters
+- `script.external_request` — call GHL + Supabase APIs
+- `script.scriptapp` — manage triggers
+- `script.send_mail` — send the discrepancy email
+
+**Script Properties:**
+- `SUPABASE_URL` = `https://nroeiabeirifurdaybyo.supabase.co`
+- `SUPABASE_ANON_KEY` = (legacy anon key)
+- `SUPABASE_TOKEN_SECRET` = (shared secret used by both Supabase RPCs)
+
+**Triggers:**
+- One time-driven trigger fires `runDiscrepancyCheck` every 15 minutes
+- Installed by **emilio@nilsdigital.com** (uses Workspace daily quota)
+
+### 4.5 Supabase — `nroeiabeirifurdaybyo`
+
+Two relevant pieces:
+
+**`public.ghl_tokens`** — pre-existing table, externally maintained.
+Holds GHL OAuth access tokens for all subaccounts. Auto-refreshed by an
+external service before the 24-hour TTL expires. **Do not modify directly.**
+
+Read access via `SECURITY DEFINER` RPC:
+```
+sf_get_systema_floyd_florida_token(claim_secret text)
+  → (acces_token, account_name, locationId, updated_at)
+  Verifies account_name = 'Systema Floyd - Florida' before returning.
+```
+
+**`public.sf_form_submissions`** — created by this project.
+Tombstone log: every `(submission_id, week)` the bot has ever processed.
+
+```sql
+CREATE TABLE public.sf_form_submissions (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  submission_id   text NOT NULL,
+  form            text NOT NULL,         -- 'free_camp' | 'summer_camp'
+  week            text NOT NULL,         -- "July 27th-31st"
+  campus          text,                  -- 'upper' | 'lower'
+  status          text NOT NULL,         -- processed | linked_manual | backfilled | error
+  spreadsheet_id  text,
+  tab_name        text,
+  row_index       int,
+  student_name    text,
+  parent_email    text,
+  contact_id      text,
+  metadata        jsonb,
+  recorded_at     timestamptz NOT NULL DEFAULT now(),
+  UNIQUE(submission_id, week)
+);
+```
+
+Read/write access via two `SECURITY DEFINER` RPCs:
+- `sf_list_processed(claim_secret)` → all rows (used by the bot at start of every run)
+- `sf_record_processed(claim_secret, submission_id, form, week, ...)` → upsert
+
+Both gated by the same shared secret (in Apps Script `SUPABASE_TOKEN_SECRET`).
+
+---
+
+## 5. Form field mappings
+
+These are the GHL custom field IDs the bot reads from each form submission's
+`others` object.
+
+### Free Camp form (`3Z4E9y7WlWgkZDxViBUW`)
+
+| Constant | Field ID | GHL field name |
+|---|---|---|
+| `DC_FC_FIELD_WEEKS` | `0H3m5fBvXwD3frq75XKa` | Camp Week Choices (Free Camp) |
+| `DC_FC_FIELD_STUDENT` | `rwAlfmxIbkk5k7nmgahu` | Student Full Name (Free Camp) |
+| `DC_FC_FIELD_GRADE` | `M6cPG28rA41X3DtPf7WO` | Child Grade (In School) (Free Camp) |
+| `DC_FC_FIELD_SCHOOL` | `mtDthaZW5nm0SWGlp7XU` | Select School (Free Camp) |
+| `DC_FC_FIELD_SHIRT` | `zhMuamfr2EwwObWlfwPg` | T-Shirt Size (Free Camp) |
+| `DC_FC_FIELD_BREAKFAST` | `wZiqGsdaPlVBM3sydwxz` | Free Breakfast (Free Camp) |
+| `DC_FC_FIELD_LUNCH` | `iBrxWLqsNDpMjZFRsUwQ` | Free Lunch (Free Camp) |
+| (DOB, used for cross-camp dedup) | `cuEVHLcCCk8c7zaMRQOj` | Student's birthday (Free Camp) |
+
+### Summer Camp form (`61TiB5Zn1DJrGAsWiyTm`)
+
+| Constant | Field ID | GHL field name |
+|---|---|---|
+| `DC_SC_FIELD_WEEKS` | `boH43tBf1W4BXcz1aRh4` | Select Camp Dates (Summer Camp) |
+| `DC_SC_FIELD_STUDENT` | `WitmrGYAPRw66ONJuRjQ` | Student Name (Summer Camp) |
+| `DC_SC_FIELD_DOB` | `oHlCv49wt2OTGuwUoNsn` | Student Birthday (Summer Camp) |
+| `DC_SC_FIELD_SHIRT` | `AY8wUz8iD6d5NEc4141l` | Student T-Shirt (Summer Camp) |
+| `DC_SC_FIELD_POTTY` | `TPUHytz5Qd8OJNswX9Xy` | Is this student potty trained? (Summer Camp) |
+| `DC_SC_FIELD_DURATION` | `1y8aMIgi84l2cfHnhFpc` | Select Camp Duration (Summer Camp) |
+| `DC_SC_FIELD_DAYS` | `oRu849usIbnHPIgDccBc` | Which days of the week? |
+| `DC_SC_FIELD_AFTERCARE` | `7yIj793LRegIfN19Ux8r` | After care options (Summer Camp) |
+| `DC_SC_FIELD_BREAKFAST` | `KqJc1rwDbZByulZNCDcl` | Select Breakfast Option: Overnight Oats (Summer Camp) |
+| `DC_SC_FIELD_LUNCH` | `MgE6T5xKZl2SZWGnPktO` | Select lunch option (Summer Camp) |
+
+### Verifying a field ID
+1. Open the form in GHL → select the field → right panel shows the field key
+2. Or pull a sample submission and inspect the `others` keys:
+   ```
+   GET /forms/submissions?locationId=8IWtNFlmgJ8bif9DivHT&formId=<id>&limit=1
+   ```
+
+---
+
+## 6. The decision tree (per submission per week, every 15 min)
+
+```
+For each form submission in GHL:
+  For each week the parent ticked:
+
+    1. Is this submission less than 5 minutes old?
+         → SKIP. Let the GHL workflow finish first.
+
+    2. Is (submission_id, week) already in Supabase sf_form_submissions?
+         → SKIP. Already processed; respect any deletion the team made.
+
+    3. Is the submission_id already stamped on a row in this week's tab?
+         → SKIP. Already in sheet.
+
+    4. Is there an existing row for the same (student_name, parent_email, week)?
+         → If its currentSubId == this submission_id: no-op (verified)
+         → Else: LINK — overwrite hidden submission_id on existing row,
+                 write source note, record in Supabase, do NOT duplicate.
+
+    5. None of the above → APPEND a new row.
+         • Pick campus:
+             - Free Camp: Pre-K/K → Lower, 1st+ → Upper (from Grade)
+             - Summer Camp: ≥6 yrs by June 1 of camp year → Upper, else Lower
+         • Write the row in the correct column order
+         • Stamp hidden submission_id on the new row
+         • Stamp a Sheets cell note on the Student Name cell with the source
+         • Record (submission_id, week) in Supabase
+         • Add to the email digest with the failed workflow's URL
+```
+
+**After the per-row pass:**
+- Scan all 4 sheets for duplicates (in-tab + cross-campus). Read-only — flag in
+  the email if found.
+
+---
+
+## 7. Tombstone semantics (the deletion-respect rule)
+
+Every time the bot processes a `(submission_id, week)`:
+- Either a row gets written/linked
+- Either way, a Supabase row is recorded
+
+**On future runs:**
+- If the team manually deletes a roster row → its hidden submission_id goes
+  with it. But Supabase still has the record. → Bot sees Supabase entry → skips.
+  The deletion is permanent.
+- If the team manually re-adds the kid (typed in by hand without an ID) → the
+  bot's `(name + email + week)` dedup catches it on next run, links the
+  submission_id to it. No duplicate.
+- If the parent submits the form again (new submission_id, same kid+week) →
+  bot finds the existing row by `(name + email + week)` → updates the hidden
+  ID to the new submission_id. The row stays; the new submission gets linked.
+
+To **un-tombstone** a submission (rare — e.g. you accidentally deleted the row
+and want the bot to re-add it):
+```sql
+DELETE FROM public.sf_form_submissions
+ WHERE submission_id = '<id>' AND week = '<week>';
+```
+Next run will treat it as fresh.
+
+---
+
+## 8. The cell note (the visible "where did this row come from?" badge)
+
+Every bot-tracked row has a Sheets cell note on the **Student Name cell**.
+Hover the name → see something like:
+
+```
+Backfilled by DiscrepancyCheck — historical row, matched retroactively to a
+GHL submission so future runs treat it as tracked.
+Stamped: 2026-05-13T20:57:25.464Z
+
+Form: Free Camp
+Week selected: July 27th-31st
+Submission ID: 6a0376806cf02462f24408e3
+Submitted: 2026-05-12T18:50:40.444Z
+Parent: Paula brown Johnson
+Parent email: alekaleebrown@yahoo.com
+Contact ID: LobkcDtQr97NiS1aUCmK
+Contact: https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/contacts/detail/LobkcDtQr97NiS1aUCmK
+```
+
+**Three modes** the note can describe:
+- `Auto-added by DiscrepancyCheck` — the bot wrote this row from scratch
+  because it was missing
+- `Linked by DiscrepancyCheck` — row was already there (typed in manually
+  or re-submitted) and the bot stamped the submission_id on it
+- `Backfilled by DiscrepancyCheck` — historical row that pre-dates the bot;
+  the bot matched it retroactively during the one-time backfill
+
+**A row WITHOUT a cell note** = manual entry the bot has never seen / matched.
+Useful for spotting hand-typed rows that don't trace back to a form submission.
+
+---
+
+## 9. The email (your inbox alert)
+
+Sent to `emilio@nilsdigital.com` only when a run finds something noteworthy
+(added, linked, duplicate, or error). Quiet runs send nothing.
+
+**Subject:** `Camp roster discrepancy — N diff, M dup, K err`
+
+**Body shape:**
+```
+Camp roster discrepancy check — 2026-05-13T20:30:00Z
+Run took 38000ms
+
+FREE CAMP
+  added (bot wrote new row)              : 1
+  linked (manual row, ID stamped)        : 0
+  skipped (tombstoned — staff deleted)   : 0
+  errors                                 : 0
+  skipped<5m                             : 0
+  + [upper] July 27th-31st — Taylor Johnson (parent Paula brown Johnson, alekaleebrown@yahoo.com, sub abc123)
+      ⚠ Workflow that should have written this row: 9. Free Camp (July 27th-31st) -> Google Sheet routing
+         https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/workflow/89452dd8-dcd6-4e01-95b8-e72ed507cbca
+
+SUMMER CAMP
+  added                                   : 0
+  linked                                  : 0
+  ...
+
+DUPLICATES (existing rows the bot did not create — please review)
+  in-tab clusters                         : 0
+  cross-campus                            : 0
+```
+
+**When you get an email saying the bot ADDED something:**
+1. The "⚠ Workflow that should have written this row" line names a specific GHL
+   workflow that failed to fire.
+2. Click the URL to open it.
+3. Investigate (check for broken if/else conditions, deleted custom fields,
+   misconfigured "Add Row" actions — see "Common failures" below).
+
+---
+
+## 10. Operations
+
+### Manually run a check
+
+In the Apps Script editor: function dropdown → `runDiscrepancyCheck` → Run.
+Returns the full report object; visible in the Executions log.
+
+### Check what's in the tombstone table
+
+```sql
+-- Everything
+SELECT * FROM public.sf_form_submissions ORDER BY recorded_at DESC LIMIT 50;
+
+-- For a specific kid
+SELECT * FROM public.sf_form_submissions
+WHERE student_name ILIKE '%taylor%' OR parent_email ILIKE '%alekaleebrown%';
+
+-- Counts by week + status
+SELECT form, week, status, count(*) FROM public.sf_form_submissions
+GROUP BY form, week, status ORDER BY form, week;
+```
+
+### Functions you can call manually from the editor
+
+| Function | What it does |
+|---|---|
+| `runDiscrepancyCheck()` | The main loop the trigger calls |
+| `discrepancySetupTrigger()` / `discrepancyRemoveTrigger()` | Trigger management |
+| `discrepancyBackfillTracking()` | Match existing rows to submissions, stamp hidden ID column. One-shot. |
+| `discrepancyBackfillNotes()` | Stamp source-cell notes on every tracked row. One-shot. |
+| `discrepancyBackfillTombstones()` | Push every tracked row's submission_id into Supabase. One-shot. |
+| `discrepancyDeleteInTabDuplicates()` | Auto-delete duplicates within the same tab (keep lowest row). |
+| `discrepancyDeleteCrossCampusDuplicates()` | Auto-delete cross-campus duplicates using age rule. |
+
+### Common failures
+
+| Symptom in email | Likely cause | Fix |
+|---|---|---|
+| `errors` includes `Supabase ... HTTP 401` | Shared secret rotated | Update `SUPABASE_TOKEN_SECRET` Script Property |
+| `errors` includes `GHL submissions HTTP 401/403` | Token expired in Supabase | External refresh service may be down — investigate |
+| `errors` includes `Cannot openById` | Sheet permission revoked from `emilio@nilsdigital.com` | Re-share the sheet |
+| Auto-add picks wrong campus | Bad DOB on the contact (e.g. future date) | Fix DOB in GHL → manually move row → tombstone protects against re-add |
+| Auto-add lands data in wrong columns | Sheet column added/renamed/reordered | Update column constants in `_dcAppendFreeCamp` / `_dcAppendSummerCamp` |
+| Whole week silently fails | Tab renamed in spreadsheet | Update `DC_WEEK_TO_TAB` mapping |
+| Trigger doesn't fire | Quota exhausted, owner switched | Check Triggers panel in editor |
+
+### Pulling a sample submission for debugging
+
+```bash
+# Replace <token> with a fresh GHL access token
+curl 'https://services.leadconnectorhq.com/forms/submissions?locationId=8IWtNFlmgJ8bif9DivHT&formId=3Z4E9y7WlWgkZDxViBUW&limit=1' \
+  -H 'Authorization: Bearer <token>' \
+  -H 'Version: 2021-07-28' \
+  -H 'Accept: application/json'
+```
+
+---
+
+## 11. Recovery
+
+| Disaster | Recovery |
+|---|---|
+| Wrong row deleted | Sheets → File → Version history → restore prior snapshot |
+| Bot wrote a wrong row | Delete the row by hand. Tombstone protects against re-add. |
+| Tombstone table corrupted | Re-run `discrepancyBackfillTombstones()` to rebuild from sheet rows |
+| Hidden `_submissionId` column wiped | Re-run `discrepancyBackfillTracking()` to re-match by name+email+week |
+| Cell notes wiped | Re-run `discrepancyBackfillNotes()` |
+| Whole script project deleted | Code lives in `Tom_Systema_Floyd/sheets-snapshot/apps-script/` in this repo. Re-push via clasp or REST API. |
+| Supabase project deleted | Re-create the table + RPCs (migration files in Supabase migration history). Re-run all backfill functions. |
+
+---
+
+## 12. Extending the system — adding After School (TODO)
+
+The After School Registration form (`TkioOL4IoByeHU3K2gTs`) is **not** currently
+covered by the bot. To wire it up:
+
+1. **Get the destination sheet ID(s).** Find the After School roster
+   spreadsheet(s) in Google Drive (owned by `systemafloydsheets@gmail.com`).
+2. **Add constants** in `DiscrepancyCheck.js`:
+   ```js
+   var DC_FORM_AFTER_SCHOOL = 'TkioOL4IoByeHU3K2gTs';
+   var DC_AFTER_SCHOOL_UPPER_SS = '<sheet id>';
+   var DC_AFTER_SCHOOL_LOWER_SS = '<sheet id or null>';
+   ```
+3. **Map the form's field IDs** by pulling a sample submission (see §10).
+4. **Add `_dcCheckAfterSchool()` and `_dcAppendAfterSchool()`** following the
+   same pattern as the Free Camp / Summer Camp helpers.
+5. **Wire into the table** `DC_GHL_WORKFLOW_BY_FORM_WEEK['after_school']` with
+   the After School routing workflow IDs.
+6. **Call from `runDiscrepancyCheck()`** alongside the other two forms.
+7. **Run** `discrepancyBackfillTracking()` + `discrepancyBackfillNotes()` +
+   `discrepancyBackfillTombstones()` once for the new form/sheet so existing
+   rows are protected.
+
+---
+
+## 13. Reference: Constants in `DiscrepancyCheck.js`
+
+All the magic numbers live at the top of the file in named groups:
+
+- `DC_LOCATION_ID` — Florida GHL location
+- `DC_GRACE_WINDOW_MS` — 5 min, the do-not-touch-fresh-submissions window
+- `DC_TRACKING_HEADER` — `_submissionId` (hidden column header name)
+- `DC_TRIGGER_FUNCTION` — `runDiscrepancyCheck` (trigger entry point name)
+- `DC_NOTIFY_EMAIL` — `emilio@nilsdigital.com`
+- `DC_FORM_FREE_CAMP` / `DC_FORM_SUMMER_CAMP` — form IDs
+- `DC_FREE_UPPER_SS` / `DC_FREE_LOWER_SS` / `DC_SUMMER_UPPER_SS` / `DC_SUMMER_LOWER_SS` — spreadsheet IDs
+- `DC_FC_FIELD_*` / `DC_SC_FIELD_*` — form field IDs (see §5)
+- `DC_WEEK_TO_TAB` — `"July 27th-31st" → "7/27-7/31"` mapping
+- `DC_GHL_WORKFLOW_BY_FORM_WEEK` — workflow names + IDs (see §4.2)
+
+When something needs changing, look here first.
+
+---
+
+## 14. Related memory notes (for future Claude/AI sessions)
+
+- `reference_systema_floyd_discrepancy_checker.md` — high-level summary of the
+  bot for AI context
+- `reference_systema_floyd_supabase_ghl_token.md` — how to fetch a fresh GHL
+  token from Supabase (the RPC pattern)
+- `project_systema_floyd_sheet_tab_names.md` — the short-form vs long-form tab
+  name gotcha
