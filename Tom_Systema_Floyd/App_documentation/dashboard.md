@@ -20,7 +20,7 @@ back to Sheets or Supabase.
 > - Snapshot builder: `Tom_Systema_Floyd/sheets-snapshot/apps-script/Snapshot.js`
 > - Live data:       `Tom_Systema_Floyd/dashboard/snapshot.json` (auto-pushed every 5 min)
 > - History:         `Tom_Systema_Floyd/dashboard/history/*.json` (one per UTC day) + `history/index.json`
-> - Supabase mirror: tables `sf_camp_enrollments`, `sf_camp_snapshots` in project `nroeiabeirifurdaybyo`
+> - Supabase mirror: tables `sf_camp_enrollments`, `sf_camp_snapshots`, `sf_daily_attendance` in project `nroeiabeirifurdaybyo`
 
 ## Data flow at a glance
 
@@ -56,8 +56,12 @@ back to Sheets or Supabase.
 ┌─────────────────────────────────────────────────┐
 │ Browser dashboard                               │
 │  fetches snapshot.json on load (no-cache)       │
-│  fetches sparkline via Supabase public RPC      │
+│  fetches sparkline via public RPC               │
 │   sf_recent_camp_totals(days_back)              │
+│  fetches attendance via public RPC              │
+│   sf_get_daily_attendance(week?)                │
+│  WRITES attendance via claim_secret RPC         │
+│   sf_set_daily_attendance(...)                  │
 │  fetches a prior day from history/YYYY-MM-DD.   │
 │   json when user picks a compare-to date        │
 └─────────────────────────────────────────────────┘
@@ -79,13 +83,13 @@ Top-to-bottom anatomy:
 | Region | What it shows |
 |---|---|
 | **Top nav** | Three pill groups: `Pages` (Registrations + Lunches), `Sheets` (links to the 4 source Google Sheets, labeled `PAID Upper / PAID Lower / FREE Upper / FREE Lower`), `Billing` (mint-green button linking to the Billing Dashboard sheet) |
-| **Filter row** | Tabs: `Summer Camp` / `Free Camp` / `After-School` + a "compare to" date picker that reloads against a prior day's history snapshot |
+| **Filter row** | Tabs: `Paid Camp` / `Free Camp` + a "compare to" date picker that reloads against a prior day's history snapshot. The After-School tab still exists in the DOM but is `hidden` until after-school sheets are created |
 | **KPI row** (camp) | 5 cards: Unique Students (with **14-day sparkline** inline), Occupancy %, Upper Campus, Lower Campus, Top Week |
 | **KPI row** (after-school) | 4 cards: Total Enrolled, By Program, Waitlist, Top Day (hidden when filter ≠ after-school) |
-| **Charts** | Donut (campus split) + horizontal stacked bars (by week, color by campus) |
+| **Charts** | Donut (campus split) + horizontal stacked bars (by week, color by campus). The bars chart card header has a **Registrations / Attendance mode toggle** that swaps the data source between registered counts and actual attendance counts. The two cap-line values now live in the legend below the chart (`Upper Campus — cap 13`), not on the chart itself, so they can never collide with bar values. |
 | **Capacity Targets** | Editable per-tab per-campus caps. Reset button below. Values persist in `localStorage`. |
-| **Ops strip** | Two click-to-expand chips: `⚠ Allergies (N)` + `🛠 Data issues (N)`. Counts ignore quick-filter so users see the full backlog. |
-| **Student Rosters** | Search box, quick-filter pills (`All / Upper / Lower / 🥪 Lunch / ⚠ Allergies / Incomplete`), then a grid of week cards. Each week card has a Mon-Fri daily-attendance strip, then the student list. Click any student row to expand an inline detail card. |
+| **Ops strip** | Two click-to-expand chips: `⚠ Allergies (N)` + `🛠 Data issues (N)`. Counts ignore quick-filter so users see the full backlog. Data issues are **grouped by student**: one card per kid with the union of missing fields across every affected week + a per-source-sheet link strip. |
+| **Student Rosters** | Search box, quick-filter pills (`All / Upper / Lower / 🥪 Lunch / ⚠ Allergies / Incomplete`), then a grid of week cards. Each week card has a Mon-Fri daily-attendance strip — **each chip is a clickable attendance button** (see the Attendance Tracker section below) — then the student list. Click any student row to expand an inline detail card. |
 
 ### `lunches.html` — Lunch Prep
 
@@ -115,7 +119,7 @@ in Snapshot.js. Top-level fields:
 | `free`        | Same as `summer` plus `bySchool` (descending count) and its own per-slice `weekOrder` (so the free view won't show paid-only weeks like Aug 24-28) |
 | `combined`    | Dedup of summer+free for cross-camp metrics |
 | `lunches`     | `{ summer: { [weekLabel]: { rows, totals } }, free: same }` — pre-aggregated for `lunches.html` |
-| `roster`      | `{ [weekLabel]: { upper: [...], lower: [...], free: [...] } }` — each entry has `name, campus, lunch, lunchRaw, breakfastRaw, allergy, notes, email, school?, incomplete, days[5], type` |
+| `roster`      | `{ [weekLabel]: { upper: [...], lower: [...], free: [...] } }` — each entry has `name, campus, lunch, lunchRaw, breakfastRaw, allergy, notes, email, school?, incomplete, missingFields[], sourceSheetId, sourceTabName, sourceRow, days[5], type` |
 | `afterSchool` | Empty scaffolded shape; populated when after-school sheets exist |
 
 Fields prefixed with `_` (e.g. `_allSummer`, `_allFree`) are **internal raw
@@ -199,15 +203,36 @@ queries) can query enrollments without re-parsing snapshot.json.
 | `summer_total`, `free_total` | Cached totals (so dashboards can graph without parsing payload) |
 | `payload` | Full `snapshot.json` as JSONB |
 
+**`public.sf_daily_attendance`** — staff-edited actual headcount per week × day.
+
+| Column | Meaning |
+|---|---|
+| `week_label` | e.g. `'June 1st-5th'` — matches `WEEK_ORDER` |
+| `day_of_week` | `'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri'` (CHECK constraint) |
+| `count_upper`, `count_lower`, `count_free` | Headcounts entered by staff via the chip popup. All default 0, all CHECKed ≥ 0 |
+| `marked_by` | Optional free-text identifier of who recorded it (not yet wired to a login system) |
+| `marked_at` | `now()` on each upsert |
+
+Unique on `(week_label, day_of_week)`, so re-saving the same day just
+overwrites the prior value. Indexed on `week_label`.
+
 ### RPCs
 
-All `SECURITY DEFINER` and gated by `claim_secret` (matching `SUPABASE_TOKEN_SECRET`) **except** the public read-only one used by the sparkline.
+All `SECURITY DEFINER` and gated by `claim_secret` (matching `SUPABASE_TOKEN_SECRET`) **except** the public read-only ones used by client-side fetches.
 
 | Function | Purpose | Auth |
 |---|---|---|
 | `sf_upsert_camp_enrollments(claim_secret, rows jsonb)` | Bulk upsert into `sf_camp_enrollments`. Returns `(inserted, updated, total)`. Called from Apps Script in batches of 500. | `claim_secret` |
 | `sf_insert_camp_snapshot(claim_secret, payload, summer_total, free_total, generated_at_override)` | Single insert into `sf_camp_snapshots`. `generated_at_override` lets the historical backfill set the real timestamp; live runs leave it null and use `now()`. | `claim_secret` |
+| `sf_set_daily_attendance(claim_secret, p_week_label, p_day_of_week, p_count_upper, p_count_lower, p_count_free, p_marked_by)` | Upserts one row into `sf_daily_attendance`. Returns the saved row. Called from the chip popup on Save. | `claim_secret` |
+| `sf_get_daily_attendance(p_week_label text default null)` | Returns rows from `sf_daily_attendance`. Filterable by week or returns everything. Called once on first dashboard render and re-called whenever a save happens. | **public** (anon) |
 | `sf_recent_camp_totals(days_back int default 60)` | Returns `(snapshot_date, summer_total, free_total)` aggregated to one row per UTC date (latest snapshot of that day). Used by the dashboard sparkline. | **public** (anon) |
+
+⚠ **Security note**: The dashboard JS embeds the `claim_secret` directly
+for the attendance save RPC, so anyone who views the page source can write
+attendance. This is acceptable today because the dashboard is embedded
+behind the GHL portal (which gates access), but if it ever goes fully
+public, swap `sf_set_daily_attendance` for a session-token model.
 
 ### One-time backfill
 
@@ -233,6 +258,10 @@ collaborators:
 | `renderOpsStrip()` | Counts allergies + data-quality issues, populates the two chips. |
 | `renderSparkline()` | Reads `state.recentTotals` (lazy-loaded from `sf_recent_camp_totals` RPC) and draws a 120×34 SVG path inside the Unique Students KPI card. |
 | `loadRecentTotals()` | Fetches from Supabase via the anon key. Result is cached for the session. |
+| `loadAttendance(force?)` | Lazy-loads `state.attendanceByWeek` via `sf_get_daily_attendance`. Called on first roster render and whenever `state.chartMode` flips to `'attendance'`. `force=true` bypasses the cache. |
+| `saveAttendanceCell(week, day, upper, lower, free)` | POSTs to `sf_set_daily_attendance`, updates `state.attendanceByWeek` in place, returns the saved row. Triggered by the Save button in the chip popup. |
+| `openAttendanceModal(week, day)` | Opens the focused per-day attendance popup. Prefills inputs from existing row or expected counts. |
+| `wireChartModeToggle()` / `wireDayChipClicks()` / `wireAttendanceModal()` | One-shot event wiring helpers that guard against double-binding via a `data-wired="1"` attribute. |
 
 ### Persisted state (`localStorage`)
 
@@ -278,22 +307,82 @@ the affected weeks summarized in the meta column. Click any row to reveal
 the full allergy text in an amber-bordered slide-down. Single-row-open per
 panel.
 
-Counts respect the **main filter (summer/free/afterschool)** but ignore the
+Counts respect the **main filter (paid/free)** but ignore the
 roster quick-filter and search bar — so users always see the full backlog
 even when the roster grid is filtered down.
 
-### Data issues
+### Data issues (grouped by student)
 
-Three sub-sections, each conditional:
+The panel is one card per kid summarizing every issue across every week.
+Each card shows:
 
-| Section | Trigger |
-|---|---|
-| `Missing name in roster row` | `entry.name === '(name missing)'` or empty |
-| `Unknown campus assignment`  | `entry.campus === 'Unknown'` (Free Camp rows without an explicit campus) |
-| `Incomplete row (missing email etc.)` | `entry.incomplete === true` — currently equivalent to "Email column is empty" |
+- Student name + `N weeks affected` summary
+- **Missing-field chips** — the union of fields blank in that kid's rows:
+  - `Student name` (when the cell is blank)
+  - `Campus` (when the Free Camp row has no explicit campus)
+  - `Email`, `Lunch`, `Age`, `Days attending` (paid sheets)
+  - `School`, `Parent/Guardian name`, `Grade` (free sheets)
+- **Per-source-sheet links** — one line per source sheet:
+  `PAID Upper · Jun 1–5, Jun 8–12 · rows 14, 18 [Open ↗]`
+  The Open link jumps straight to that sheet in a new tab.
 
-The "Incomplete" quick-filter on the roster matches the same predicate so
-users can drill from the count into the actual rows in-grid.
+Snapshot.js classifies each row's `missingFields` array in `readCampSheet_`
+and `readFreeSheet_` and propagates them through `buildRoster_` along with
+`sourceSheetId`, `sourceTabName`, and `sourceRow`. The frontend's
+`collectDataIssues()` then groups by lowercased student name and unions the
+fields + source locations.
+
+The `Incomplete` quick-filter on the roster matches the same `incomplete`
+predicate, so users can drill from the count into the actual rows in-grid.
+
+## Attendance Tracker
+
+Staff record actual daily attendance directly on the dashboard. The data
+lives in the Supabase table `sf_daily_attendance` (one row per
+`(week_label, day_of_week)`), exposed through two RPCs gated by the shared
+`claim_secret`.
+
+### Where to mark attendance
+
+Inside each week card on the Student Rosters panel, every Mon-Fri chip in
+the daily-attendance strip is a clickable button. Clicking it opens a
+focused popup for that specific (week × day) cell:
+
+- **Header**: `Mon attendance · Jun 1–5`
+- **Expected row**: `Expected: 30 (U13 · L17 · F0)` — derived from the
+  current registered roster honoring each kid's days[5] flags
+- **Three editable inputs** (Upper / Lower / Free), prefilled with either
+  the previously saved actual counts or the expected counts if none recorded
+- **Live total** display below the inputs
+- **Save / Clear** buttons; success state collapses the modal after 0.7s
+- **Last-saved hint**: `Last saved today 14:32` if the row was already in
+  Supabase
+
+Chips that already have an attendance row recorded get a green tint + a `✓`
+check in the corner so staff can scan a week at a glance and see which days
+are still pending. The tooltip on the chip shows the saved count + when it
+was marked.
+
+### Chart-mode toggle (Registrations vs Attendance)
+
+The bars chart card header has a small `[Registrations] [Attendance]`
+pill toggle. State is held in `state.chartMode`. Switching to Attendance:
+
+1. Lazy-loads `state.attendanceByWeek` from Supabase via `sf_get_daily_attendance` (cached for the session, invalidated whenever the user saves)
+2. Replaces each week's per-campus counts with the **summed Mon-Fri actual** split by Upper / Lower / Free
+3. Renders the **expected (registered) counts as dashed ghost outlines** behind each filled bar — so staff see actual vs expected side-by-side without flipping back to the Registrations view
+4. Updates the chart heading to "Attendance by Week" and appends a legend hint explaining the dashed outlines
+5. Clicking any bar still opens the existing day modal, which in attendance mode shows the per-day actuals (read-only view; staff use the chip-based popup to edit)
+
+### Cap labels on the chart
+
+Cap thresholds are still shown as dashed lines across the chart (one per
+campus, in that campus's color), but the **numeric cap values** now live
+exclusively in the legend below the chart as `Upper Campus — cap 13` /
+`Lower Campus — cap 13`. This was changed because the in-chart "Upper cap 13"
+text used to overlap bar values when a bar's count was close to the cap.
+The legend values update live whenever the caps are edited in Capacity
+Targets.
 
 ## Sparkline (14-day growth)
 
@@ -356,6 +445,10 @@ into GHL, and document.
 | User picks a compare-to date that doesn't have a history file | Dashboard shows "No data for that date" in the compare status text; KPI deltas don't render |
 | `localStorage` for caps is corrupted/missing | Falls back to `CAP_DEFAULTS_BY_FILTER` from the IIFE constants |
 | Two browser tabs both edit a cap | Last write wins per tab; no cross-tab sync — staff are warned in the panel subtitle |
+| Two staff mark attendance for the same (week × day) at the same time | Last write wins. `sf_set_daily_attendance` is an upsert keyed on `(week_label, day_of_week)`. The losing tab won't know it's been overwritten until next render. Acceptable for the current low-volume use case. |
+| Attendance saved before any registration row exists for that week | The save still succeeds (no foreign key). The chip will show ✓ and the saved counts even though the "expected" reads 0. |
+| Chart-mode toggle clicked before attendance data loads | The toggle flips immediately and `loadAttendance()` is kicked off; `renderBars` re-runs once the fetch resolves. |
+| Filter set to "After-School" | The tab is hidden via `hidden` attribute today, but the underlying view-resolution + KPI/donut/bars switch logic still works. Un-hide the button to bring it back. |
 
 ## When you change something
 
