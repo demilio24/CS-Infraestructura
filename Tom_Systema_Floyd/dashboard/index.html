@@ -530,7 +530,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <div class="filter-row anim d1">
     <span class="lbl">Filter</span>
     <div class="filter" role="tablist">
-      <button data-filter="summer" class="active" role="tab" aria-selected="true">Summer Camp</button>
+      <button data-filter="summer" class="active" role="tab" aria-selected="true">Paid Camp</button>
       <button data-filter="free" role="tab" aria-selected="false">Free Camp</button>
       <button data-filter="afterschool" role="tab" aria-selected="false">After-School</button>
     </div>
@@ -2330,7 +2330,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
     const allTotal = totals.reduce((a,b) => a+b, 0);
     const peakLabel = totals[peakIdx] > 0 ? `${dayLabels[peakIdx]} (${totals[peakIdx]})` : '—';
-    const filterLabel = state.filter === 'free' ? 'Free Camp only' : state.filter === 'summer' ? 'Summer Camp only' : 'All camps';
+    const filterLabel = state.filter === 'free' ? 'Free Camp only' : state.filter === 'summer' ? 'Paid Camp only' : 'All camps';
 
     document.getElementById('day-modal-title').textContent = week;
     document.getElementById('day-modal-sub').textContent = `Daily attendance · ${filterLabel}`;
@@ -2902,7 +2902,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // Toggle headings, legends, and the secondary day-of-week chart based on
   // the active filter. Centralized so render() and liveUpdate() stay aligned.
   function renderChromeForFilter(view) {
-    const labels = { summer: 'Summer Camp only', free: 'Free Camp only', afterschool: 'After-School only' };
+    const labels = { summer: 'Paid Camp only', free: 'Free Camp only', afterschool: 'After-School only' };
     const campusSub = document.getElementById('campus-sub');
     const weeksSub  = document.getElementById('weeks-sub');
     if (campusSub) campusSub.textContent = labels[state.filter] || '';
