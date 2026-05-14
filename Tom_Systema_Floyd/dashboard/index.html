@@ -167,6 +167,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .roster-search .clear-btn{display:none;background:transparent;border:none;color:var(--sf-ink-40);cursor:pointer;font-size:16px;padding:0 2px;line-height:1;flex-shrink:0}
 .roster-search.has-query .clear-btn{display:inline-block}
 .roster-search .clear-btn:hover{color:var(--sf-ink)}
+.roster-quick{display:flex;align-items:center;gap:6px;flex-wrap:wrap;width:100%;margin-top:8px}
+.roster-quick .qf-label{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--sf-ink-40);text-transform:uppercase;margin-right:4px}
+.roster-quick .qf{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--sf-border);background:var(--sf-white);color:var(--sf-ink-60);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;white-space:nowrap}
+.roster-quick .qf:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);border-color:var(--sf-blue-700);transform:translateY(-1px)}
+.roster-quick .qf.active{background:var(--grad-blue);color:#fff;border-color:transparent;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
+.roster-quick .qf .qf-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.roster-quick .qf-upper .qf-dot{background:#1b2f6e}
+.roster-quick .qf-lower .qf-dot{background:#4aa3e0}
+.roster-quick .qf.active .qf-dot{background:#fff}
 .roster-body{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-sm)}
 .roster-body.empty-search{display:block;padding:24px;text-align:center;color:var(--sf-ink-50);font-size:13px}
 .ros-week .nm mark{background:rgba(244,193,79,.45);color:inherit;padding:0 1px;border-radius:2px;font-weight:700}
@@ -538,6 +547,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
                    aria-label="Filter roster by student name" />
             <button type="button" class="clear-btn" id="roster-search-clear" aria-label="Clear search">×</button>
           </div>
+          <div class="roster-quick" id="roster-quick" role="toolbar" aria-label="Quick roster filters">
+            <span class="qf-label">Quick filter</span>
+            <button type="button" class="qf active" data-qf="all">All</button>
+            <button type="button" class="qf qf-upper" data-qf="upper"><span class="qf-dot"></span>Upper</button>
+            <button type="button" class="qf qf-lower" data-qf="lower"><span class="qf-dot"></span>Lower</button>
+            <button type="button" class="qf" data-qf="lunch">🥪 Lunch</button>
+            <button type="button" class="qf" data-qf="allergy">⚠ Allergies</button>
+            <button type="button" class="qf" data-qf="incomplete">Incomplete</button>
+          </div>
         </div>
         <div class="roster-body" id="roster-body"></div>
       </div>
@@ -608,6 +626,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     historyDates: [],          // available historical dates (from index.json)
     rosterSearch: '',          // raw input value
     rosterSearchTerms: [],     // normalized comma-split terms (lowercase)
+    rosterQuickFilter: 'all',  // 'all'|'upper'|'lower'|'lunch'|'allergy'|'incomplete'
   };
 
   function loadGoalsFromCache() {
@@ -1568,7 +1587,28 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function rosterIncludes(entry) {
     if (state.filter === 'summer' && entry.type !== 'summer') return false;
     if (state.filter === 'free'   && entry.type !== 'free')   return false;
+    if (!matchesRosterQuickFilter(entry)) return false;
     return matchesRosterSearch(entry.name);
+  }
+
+  function matchesRosterQuickFilter(entry) {
+    switch (state.rosterQuickFilter) {
+      case 'upper':      return entry.campus === 'Upper Campus';
+      case 'lower':      return entry.campus === 'Lower Campus';
+      case 'lunch':      return !!entry.lunch;
+      case 'allergy':    return !!entry.allergy;
+      case 'incomplete': return !!entry.incomplete || entry.name === '(name missing)' || entry.campus === 'Unknown';
+      case 'all':
+      default:           return true;
+    }
+  }
+
+  function setRosterQuickFilter(value) {
+    state.rosterQuickFilter = value || 'all';
+    document.querySelectorAll('#roster-quick .qf').forEach(b => {
+      b.classList.toggle('active', b.dataset.qf === state.rosterQuickFilter);
+    });
+    renderRosterPanel();
   }
 
   function matchesRosterSearch(name) {
@@ -1627,7 +1667,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function countAfterSchoolVisible() {
     const slice = state.snapshot.afterSchool || {};
     const roster = Array.isArray(slice.roster) ? slice.roster : [];
-    return roster.filter(e => matchesRosterSearch(e.name)).length;
+    return roster.filter(e => matchesRosterQuickFilter(e) && matchesRosterSearch(e.name)).length;
   }
 
   function wireRosterSearch() {
@@ -1642,6 +1682,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       clear.addEventListener('click', () => {
         if (input) { input.value = ''; input.focus(); }
         setRosterSearch('');
+      });
+    }
+    const quick = document.getElementById('roster-quick');
+    if (quick && quick.dataset.wired !== '1') {
+      quick.dataset.wired = '1';
+      quick.addEventListener('click', e => {
+        const btn = e.target.closest('.qf');
+        if (!btn) return;
+        setRosterQuickFilter(btn.dataset.qf);
       });
     }
   }
@@ -1661,7 +1710,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function renderRosterBodyAfterSchool(body) {
     const slice = state.snapshot.afterSchool || {};
     const rosterRaw = Array.isArray(slice.roster) ? slice.roster : [];
-    const roster = rosterRaw.filter(e => matchesRosterSearch(e.name));
+    const roster = rosterRaw.filter(e => matchesRosterQuickFilter(e) && matchesRosterSearch(e.name));
     const programOrder = (state.snapshot.programOrder || []).slice();
     const isFiltered = state.rosterSearchTerms.length > 0;
 
