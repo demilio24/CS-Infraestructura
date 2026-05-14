@@ -973,6 +973,23 @@ function buildBalanceNote_(email, items) {
  * subsequent reconciler runs will diff cleanly.
  */
 function nuclearResetBilling() {
+  // Hold the same script lock that buildAllBilling uses. Without
+  // this, running nuclearResetBilling from two accounts at once
+  // (or alongside the 5-min reconciler) corrupts the Dashboard
+  // because both runs race on setValues / clearContent.
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(120000)) {
+    Logger.log('[nuclearResetBilling] could not acquire lock after 2 min — another run is taking unusually long. Skipping.');
+    return;
+  }
+  try {
+    return nuclearResetBilling_();
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function nuclearResetBilling_() {
   var startedAt = new Date();
   Logger.log('[nuclearResetBilling] start at ' + startedAt.toISOString());
 
