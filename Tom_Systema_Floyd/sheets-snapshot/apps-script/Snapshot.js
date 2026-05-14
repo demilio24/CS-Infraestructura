@@ -62,7 +62,7 @@ function doGet(e) {
         .setMimeType(ContentService.MimeType.JSON);
     }
     const snap = buildSnapshot();
-    const out = ContentService.createTextOutput(JSON.stringify(snap))
+    const out = ContentService.createTextOutput(JSON.stringify(stripInternalFields_(snap)))
       .setMimeType(ContentService.MimeType.JSON);
     return out;
   } catch (err) {
@@ -107,7 +107,9 @@ function buildSnapshot() {
     if (e.school) bySchool[e.school] = (bySchool[e.school] || 0) + 1;
   });
 
-  return {
+  const snap = {
+    _allSummer: allSummer,
+    _allFree:   allFree,
     generatedAt: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
     locationId:  LOCATION_ID,
     cutoff:      CUTOFF_ISO,
@@ -146,6 +148,14 @@ function buildSnapshot() {
     sources:  {},
     roster:   roster,
   };
+  return snap;
+}
+
+/** Strip non-serializable internal fields (prefix _) before writing JSON. */
+function stripInternalFields_(snap) {
+  const out = {};
+  Object.keys(snap).forEach(function(k) { if (k.charAt(0) !== '_') out[k] = snap[k]; });
+  return out;
 }
 
 /* ───────────────────────── Sheet readers ───────────────────────── */
@@ -892,8 +902,17 @@ function pushSnapshotToGitHub() {
     Logger.log('[pushSnapshotToGitHub] Building snapshot at ' + startedAt.toISOString());
 
     const snap = buildSnapshot();
-    const snapJson = JSON.stringify(snap, null, 2);
+    const cleanSnap = stripInternalFields_(snap);
+    const snapJson = JSON.stringify(cleanSnap, null, 2);
     const message = 'snapshot: refresh systema floyd dashboard [skip ci]';
+
+    // 0. Mirror enrollments + snapshot to Supabase. Non-fatal — log and
+    // continue if the call fails so the GitHub push still happens.
+    try {
+      pushEnrollmentsToSupabase_(snap._allSummer, snap._allFree, cleanSnap);
+    } catch (e) {
+      Logger.log('[pushSnapshotToGitHub] Supabase push failed: ' + e.message);
+    }
 
     // 1. Live snapshot.json
     ghPutFile_(SNAPSHOT_PATH, snapJson, message);
@@ -968,4 +987,161 @@ function installSnapshotPushTrigger() {
     .everyMinutes(5)
     .create();
   Logger.log('[installSnapshotPushTrigger] Installed trigger: ' + trigger.getUniqueId());
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   Supabase mirror
+   ═════════════════════════════════════════════════════════════════════
+   Each snapshot also pushes raw enrollment rows + the full JSON payload
+   to Supabase, so other tools (billing dashboard, queries, future apps)
+   can read the same source of truth without re-parsing snapshot.json.
+
+   Auth pattern matches DiscrepancyCheck.js: SECURITY DEFINER RPCs gated
+   by a shared SUPABASE_TOKEN_SECRET, called with the existing anon key.
+   No new credentials required.
+
+   Required Script Properties:
+     SUPABASE_URL          https://nroeiabeirifurdaybyo.supabase.co
+     SUPABASE_ANON_KEY     legacy anon key (already set)
+     SUPABASE_TOKEN_SECRET shared RPC secret (already set)
+   ═══════════════════════════════════════════════════════════════════ */
+
+// Hardcoded calendar dates for the 13 known weeks. Used to populate
+// week_start_date so SQL can sort by real chronology instead of label text.
+const WEEK_START_DATES = {
+  'June 1st-5th':         '2026-06-01',
+  'June 8th-12th':        '2026-06-08',
+  'June 15th-19th':       '2026-06-15',
+  'June 22nd-26th':       '2026-06-22',
+  'June 29th-July 3rd':   '2026-06-29',
+  'July 6th-10th':        '2026-07-06',
+  'July 13th-17th':       '2026-07-13',
+  'July 20th-24th':       '2026-07-20',
+  'July 27th-31st':       '2026-07-27',
+  'August 3rd-7th':       '2026-08-03',
+  'August 10th-14th':     '2026-08-10',
+  'August 17th-21st':     '2026-08-17',
+  'August 24th-28th':     '2026-08-24',
+};
+
+function sheetIdForEnrollment_(e) {
+  if (e.type === 'free') {
+    return e.campus === 'Upper Campus' ? SHEETS.freeUpper : SHEETS.freeLower;
+  }
+  return e.campus === 'Upper Campus' ? SHEETS.upper : SHEETS.lower;
+}
+
+function enrollmentRow_(e, idx) {
+  const order = parseLunch_(e.lunchRaw);
+  const days = e.days || [true,true,true,true,true];
+  return {
+    type:            e.type,
+    campus:          e.campus || 'Unknown',
+    week_label:      e.week,
+    week_start_date: WEEK_START_DATES[e.week] || null,
+    student_name:    e.name,
+    name_key:        nameKey_(e.name),
+    email:           e.email || null,
+    parent_name:     null,
+    school:          e.school || null,
+    grade:           null,
+    age:             null,
+    lunch_raw:       e.lunchRaw || null,
+    lunch_category:  order.category,
+    lunch_label:     order.label,
+    breakfast_raw:   e.breakfastRaw || null,
+    shirt_size:      null,
+    days_mon:        !!days[0],
+    days_tue:        !!days[1],
+    days_wed:        !!days[2],
+    days_thu:        !!days[3],
+    days_fri:        !!days[4],
+    allergy_notes:   e.allergy || null,
+    notes:           e.notes || null,
+    source_sheet_id: sheetIdForEnrollment_(e),
+    source_row:      idx + 2, // header is row 1
+  };
+}
+
+function pushEnrollmentsToSupabase_(allSummer, allFree, cleanSnap) {
+  const props = PropertiesService.getScriptProperties();
+  const url    = props.getProperty('SUPABASE_URL');
+  const anon   = props.getProperty('SUPABASE_ANON_KEY');
+  const secret = props.getProperty('SUPABASE_TOKEN_SECRET');
+  if (!url || !anon || !secret) {
+    throw new Error('Missing Supabase Script Properties (SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_TOKEN_SECRET)');
+  }
+
+  // Dedup (type,campus,week,name_key) within the batch so the upsert's
+  // ON CONFLICT clause never sees two conflicting incoming rows.
+  const seen = {};
+  const rows = [];
+  function addRow(e, idx) {
+    const r = enrollmentRow_(e, idx);
+    if (!r.name_key || !r.week_label) return;
+    const k = r.type + '|' + r.campus + '|' + r.week_label + '|' + r.name_key;
+    if (seen[k]) return;
+    seen[k] = true;
+    rows.push(r);
+  }
+  allSummer.forEach(addRow);
+  allFree.forEach(addRow);
+
+  const headers = {
+    'apikey': anon,
+    'Authorization': 'Bearer ' + anon,
+    'Content-Type': 'application/json',
+  };
+
+  // 1. Upsert enrollments in batches of 500 to stay under URL/payload limits
+  const BATCH = 500;
+  let totalInserted = 0, totalUpdated = 0;
+  for (let i = 0; i < rows.length; i += BATCH) {
+    const slice = rows.slice(i, i + BATCH);
+    const resp = UrlFetchApp.fetch(url + '/rest/v1/rpc/sf_upsert_camp_enrollments', {
+      method: 'post',
+      headers: headers,
+      payload: JSON.stringify({ claim_secret: secret, rows: slice }),
+      muteHttpExceptions: true,
+    });
+    const code = resp.getResponseCode();
+    if (code !== 200) {
+      throw new Error('sf_upsert_camp_enrollments HTTP ' + code + ': ' +
+                      resp.getContentText().substring(0, 300));
+    }
+    const result = JSON.parse(resp.getContentText());
+    if (Array.isArray(result) && result.length) {
+      totalInserted += (result[0].inserted || 0);
+      totalUpdated  += (result[0].updated  || 0);
+    }
+  }
+  Logger.log('[pushEnrollmentsToSupabase_] upserted ' + rows.length +
+             ' rows (inserted=' + totalInserted + ', updated=' + totalUpdated + ')');
+
+  // 2. Archive full snapshot payload
+  const snapResp = UrlFetchApp.fetch(url + '/rest/v1/rpc/sf_insert_camp_snapshot', {
+    method: 'post',
+    headers: headers,
+    payload: JSON.stringify({
+      claim_secret: secret,
+      payload:      cleanSnap,
+      summer_total: cleanSnap.totals.summer || 0,
+      free_total:   cleanSnap.totals.free   || 0,
+    }),
+    muteHttpExceptions: true,
+  });
+  const sCode = snapResp.getResponseCode();
+  if (sCode !== 200) {
+    throw new Error('sf_insert_camp_snapshot HTTP ' + sCode + ': ' +
+                    snapResp.getContentText().substring(0, 300));
+  }
+  Logger.log('[pushEnrollmentsToSupabase_] archived snapshot id=' + snapResp.getContentText());
+}
+
+/** One-shot smoke test: build a snapshot and push to Supabase only. */
+function testSupabasePush() {
+  const snap = buildSnapshot();
+  const cleanSnap = stripInternalFields_(snap);
+  pushEnrollmentsToSupabase_(snap._allSummer, snap._allFree, cleanSnap);
+  Logger.log('testSupabasePush done');
 }
