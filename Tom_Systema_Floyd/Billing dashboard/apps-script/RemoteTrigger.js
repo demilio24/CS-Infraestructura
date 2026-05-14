@@ -77,6 +77,8 @@ const REMOTE_TRIGGER_WHITELIST = {
   remoteTriggerStatus:             'Return current trigger inventory + last reconcile / nuclear summary. Read-only.',
   traceCustomer:                   'Return a customer\'s Dashboard rows + col B cell notes (with source provenance). Pass &email=<addr>. Use sync=1.',
   traceAllFreeCampSources:         'Scan every tx row\'s col B note. Return ones whose Source line mentions FREE Upper / FREE Lower. Use sync=1.',
+  listShirtOnlyCustomers:          'Walk the Dashboard and return every customer whose ONLY tx items are shirts (no tuition/lunch/breakfast/care). Includes source provenance per row. Use sync=1.',
+  dumpRegRow:                      'Return the raw cells of one row from a registration sheet. Pass &sheetId=<id>&tabName=<short-tab>&row=<N>. Useful for verifying what\'s actually in the source. Use sync=1.',
 };
 
 function doGet(e) {
@@ -195,6 +197,8 @@ function _rtDispatch_(fn, params) {
     case 'remoteTriggerStatus':              return _rtStatus_();
     case 'traceCustomer':                    return _rtTraceCustomer_(params);
     case 'traceAllFreeCampSources':          return _rtTraceFreeCampSources_();
+    case 'listShirtOnlyCustomers':           return _rtListShirtOnlyCustomers_();
+    case 'dumpRegRow':                       return _rtDumpRegRow_(params);
     default: throw new Error('Dispatcher missing for whitelisted fn: ' + fn);
   }
 }
@@ -351,6 +355,134 @@ function _rtTraceFreeCampSources_() {
   }
 
   return { ok: true, count: leaked.length, leaked: leaked };
+}
+
+/**
+ * Walk every customer section on the Dashboard. Return ones whose
+ * ONLY tx items are shirts (kind inferred from the Item label
+ * starting with "<student>, T-Shirt"). Include each row's source
+ * provenance from the col B cell note.
+ *
+ * These are the "phantom" registrations the user is concerned
+ * about: parents whose form submission produced a shirt charge
+ * with no actual camp-day enrollment.
+ */
+function _rtListShirtOnlyCustomers_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, count: 0, customers: [] };
+
+  var data = dash.getRange(2, 1, lastRow - 1, 7).getValues();
+  var notes = dash.getRange(2, 2, lastRow - 1, 1).getNotes();
+
+  // Group by customer. State machine: walking rows, accumulating tx
+  // rows under the current customer.
+  var customers = [];
+  var currentCustomer = null;
+
+  function pushCustomerIfShirtOnly(c) {
+    if (!c || c.txRows.length === 0) return;
+    var nonShirt = c.txRows.filter(function(r) {
+      // Items look like "<student>, T-Shirt (Small) (Week)" for shirts.
+      // Lunch items look like "<student>, Lunch: ...". Camp tuition
+      // looks like "<student>, Camp Tuition (X days) (Week)". Etc.
+      var label = String(r.item || '');
+      return label.indexOf(', T-Shirt') === -1 && label.indexOf(', T‑Shirt') === -1;
+    });
+    if (nonShirt.length === 0) {
+      customers.push(c);
+    }
+  }
+
+  for (var i = 0; i < data.length; i++) {
+    var colA = data[i][0];
+    var colB = String(data[i][1] || '');
+    var isCustomerHeader = colB.indexOf('@') !== -1;
+    var isSubHeader = String(colA || '').toUpperCase() === 'DATE';
+
+    if (isCustomerHeader) {
+      pushCustomerIfShirtOnly(currentCustomer);
+      currentCustomer = {
+        sheetRow:    i + 2,
+        email:       colB.toLowerCase().trim(),
+        name:        String(data[i][0] || ''),
+        students:    String(data[i][4] || ''),
+        balance:     data[i][6],
+        txRows:      []
+      };
+      continue;
+    }
+    if (isSubHeader) continue;
+    if (!currentCustomer) continue;
+
+    var note = String(notes[i][0] || '');
+    var sourceMatch = note.match(/Source:\s*([^\n]+)/i);
+    currentCustomer.txRows.push({
+      sheetRow:  i + 2,
+      item:      colB,
+      unitPrice: data[i][2],
+      days:      data[i][3],
+      weeks:     data[i][4],
+      total:     data[i][5],
+      status:    data[i][6],
+      source:    sourceMatch ? sourceMatch[1].trim() : ''
+    });
+  }
+  pushCustomerIfShirtOnly(currentCustomer);
+
+  // Tally by source-sheet label so the operator can see at a glance
+  // whether they're paid or free
+  var bySource = {};
+  customers.forEach(function(c) {
+    c.txRows.forEach(function(r) {
+      var s = r.source.split(',')[0].trim() || '(no source)';
+      bySource[s] = (bySource[s] || 0) + 1;
+    });
+  });
+
+  return {
+    ok: true,
+    count: customers.length,
+    bySourceSheet: bySource,
+    customers: customers
+  };
+}
+
+/**
+ * Dump one row of a registration sheet. Useful for verifying what
+ * the source row actually contains.
+ * Params: &sheetId=<id>&tabName=<short-form like "6/22-6/26">&row=<N>
+ */
+function _rtDumpRegRow_(params) {
+  var p = params || {};
+  var sheetId = String(p.sheetId || '');
+  var tabName = String(p.tabName || '');
+  var row = Number(p.row || 0);
+  if (!sheetId || !tabName || !row) {
+    return { ok: false, error: 'Missing one of &sheetId=, &tabName=, &row=' };
+  }
+  try {
+    var ss = SpreadsheetApp.openById(sheetId);
+    var tab = ss.getSheetByName(tabName);
+    if (!tab) return { ok: false, error: 'Tab not found: ' + tabName, availableTabs: ss.getSheets().map(function(s){return s.getName();}) };
+    var lastCol = tab.getLastColumn();
+    var headers = tab.getRange(1, 1, 1, lastCol).getValues()[0];
+    var values  = tab.getRange(row, 1, 1, lastCol).getValues()[0];
+    var paired = {};
+    for (var i = 0; i < headers.length; i++) {
+      paired[String(headers[i] || ('col' + (i+1)))] = values[i] instanceof Date ? values[i].toISOString() : values[i];
+    }
+    return {
+      ok: true,
+      sheetId: sheetId,
+      tabName: tabName,
+      row: row,
+      headers: headers,
+      cells: paired
+    };
+  } catch (e) {
+    return { ok: false, error: String(e && e.message || e) };
+  }
 }
 
 function _rtJson_(obj) {

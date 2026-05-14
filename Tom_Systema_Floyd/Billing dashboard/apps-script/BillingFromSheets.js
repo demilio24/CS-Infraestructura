@@ -2630,6 +2630,17 @@ function priceEnrollment_(e, catalog) {
     return afterSchoolItems;
   }
 
+  // Phantom-enrollment skip: paid summer camp registrations where the
+  // parent picked a shirt size etc. but never checked any Mon-Fri
+  // boxes (dayCount === 0) are treated as abandoned form fills. Bill
+  // nothing for them, including the shirt. Without this guard, the
+  // shirt block below would still write a one-time $33 charge for
+  // every phantom registration, which is what produced the
+  // "shirt-only customers" the team flagged as wrong.
+  if (e.type === 'summer-paid' && (!e.dayCount || Number(e.dayCount) === 0)) {
+    return [];
+  }
+
   var items = [];
   var fpBase = [e.email, e.student, e.week].map(bfsSlug_).join('|');
 
