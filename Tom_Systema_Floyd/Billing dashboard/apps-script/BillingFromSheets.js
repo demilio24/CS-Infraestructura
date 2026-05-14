@@ -441,6 +441,84 @@ function bfsEscapeFormula_(s) {
   return String(s || '').replace(/"/g, '""');
 }
 
+/* ═════════════════════════════════════════════════════════════════
+   CUSTOMER ENRICHMENT (GHL contact lookup)
+   ═════════════════════════════════════════════════════════════════
+   The registration sheets carry parent email + student name, but not
+   reliably parent name / phone / waiver origin. Those live on the GHL
+   contact. Enrichment runs one Search + one Get per unique email,
+   caches the result for the rest of the execution, and falls back to
+   empty strings when the contact can't be found or the API errors.
+
+   2 calls per unique customer per run. At ~108 customers that's ~216
+   calls — under 1% of the Workspace 100K UrlFetch daily quota. Per
+   5-min reconciler run only NEW customers are looked up (the existing
+   ones keep whatever enrichment was written on their last full
+   refresh), so cost stays near zero on the steady-state cadence.
+   ═══════════════════════════════════════════════════════════════ */
+var BFS_ENRICH_CACHE = {};
+
+function bfsClearEnrichCache_() {
+  BFS_ENRICH_CACHE = {};
+}
+
+/**
+ * Enrich a customer email with GHL contact data. Returns
+ *   { name, phone, waiverOrigin, profileUrl }
+ * with empty strings for any field that can't be resolved. Cached
+ * per-email for the rest of the execution.
+ */
+function bfsEnrichCustomer_(email) {
+  var out = { name: '', phone: '', waiverOrigin: '', profileUrl: '' };
+  if (!email) return out;
+  var key = String(email).toLowerCase().trim();
+  if (BFS_ENRICH_CACHE.hasOwnProperty(key)) return BFS_ENRICH_CACHE[key];
+
+  try {
+    var contactId = ghlSearchContactByEmail('Florida', key);
+    if (contactId) {
+      var contact = {};
+      try { contact = ghlGetContact('Florida', contactId) || {}; }
+      catch (e2) { Logger.log('[bfsEnrichCustomer_] get ' + key + ' failed: ' + e2.message); }
+
+      var first = String(contact.firstName || '').trim();
+      var last  = String(contact.lastName  || '').trim();
+      var full  = (first + ' ' + last).trim();
+      if (!full) full = String(contact.contactName || contact.fullNameLowerCase || '').trim();
+
+      out.name         = full;
+      out.phone        = String(contact.phone || '').trim();
+      try { out.waiverOrigin = readWaiverOrigin(contact); } catch (e3) {}
+      out.profileUrl   = buildProfileUrl(SUBACCOUNTS.Florida.locationId, contactId);
+    }
+  } catch (e) {
+    Logger.log('[bfsEnrichCustomer_] search ' + key + ' failed: ' + e.message);
+  }
+
+  BFS_ENRICH_CACHE[key] = out;
+  return out;
+}
+
+/**
+ * Build the 7-cell customer header row tuple given the enrichment.
+ * Profile col is a HYPERLINK formula if a contact was found, else
+ * empty. Balance col gets a SUMIFS formula computed by the caller.
+ */
+function bfsCustomerHeaderTuple_(enriched, email, students, balFormula) {
+  var profileCell = enriched.profileUrl
+    ? '=HYPERLINK("' + enriched.profileUrl + '","View profile")'
+    : '';
+  return [
+    enriched.name || '',     // A: Parent name
+    email,                   // B: Email
+    enriched.phone || '',    // C: Phone
+    enriched.waiverOrigin || '',  // D: Waiver Origin
+    students,                // E: Student Names
+    profileCell,             // F: Contact Profile
+    balFormula               // G: Balance
+  ];
+}
+
 /**
  * Walk the Dashboard tab and build a structured snapshot of what's
  * currently there. Returns:
@@ -840,8 +918,9 @@ function appendNewCustomerSection_(dash, email, newItems) {
   newItems.forEach(function(it) { studentSet[it.enrollment.student] = true; });
   var students = Object.keys(studentSet).sort().join(', ');
 
+  var enriched = bfsEnrichCustomer_(email);
   var matrix = [
-    ['', email, '', '', students, '', ''],   // customer header
+    bfsCustomerHeaderTuple_(enriched, email, students, ''),  // customer header (balance set via formula below)
     ['DATE', 'ITEM', 'UNIT PRICE (incl. tax + fee)', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']  // sub-header
   ];
   newItems.forEach(function(it) {
@@ -992,6 +1071,7 @@ function nuclearResetBilling() {
 function nuclearResetBilling_() {
   var startedAt = new Date();
   Logger.log('[nuclearResetBilling] start at ' + startedAt.toISOString());
+  bfsClearEnrichCache_();  // fresh enrichment lookups for every full rebuild
 
   // 1. Build fresh items from registration sheets
   var catalog = readPricingCatalog_();
@@ -1085,11 +1165,16 @@ function nuclearResetBilling_() {
     var txFirst        = currentRow + 2;
     var txLast         = txFirst + p.items.length - 1;
 
-    // Customer header row: email + students + balance formula inline
+    // Customer header row: enriched parent name + phone + waiver origin
+    // + contact-profile link from a GHL contact lookup; email + students
+    // + balance formula always present.
     var balFormula = (p.items.length > 0)
       ? '=SUMIFS(F' + txFirst + ':F' + txLast + ', G' + txFirst + ':G' + txLast + ', "owed")'
       : '';
-    dataMatrix.push(['', p.emailRaw, '', '', studentNames.join(', '), '', balFormula]);
+    var enriched = bfsEnrichCustomer_(p.emailRaw);
+    dataMatrix.push(bfsCustomerHeaderTuple_(
+      enriched, p.emailRaw, studentNames.join(', '), balFormula
+    ));
     bgMatrix.push(blankRow7('#143980'));
     fontColorMatrix.push(blankRow7('#FFFFFF'));
     fontWeightMatrix.push(blankRow7('bold'));
