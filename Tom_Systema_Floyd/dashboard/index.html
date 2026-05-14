@@ -1293,12 +1293,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
     // Y axis max — bigger of the largest actual, the cap, OR any comparison
     // count (so ghost bars don't clip), plus a little headroom for labels.
+    // In attendance mode also include the expected (registration) counts so
+    // the expected-ghosts can render at full height.
     const peakActual = weeks.reduce((m, w) => {
       const c = byWC[w] || {};
       const cc = cmpView ? (cmpView.weekCampus[w] || {}) : {};
+      const ce = isAttendance ? (view.weekCampus[w] || {}) : {};
       return Math.max(m,
         c['Upper Campus']||0, c['Lower Campus']||0, c['Unknown']||0,
-        cc['Upper Campus']||0, cc['Lower Campus']||0
+        cc['Upper Campus']||0, cc['Lower Campus']||0,
+        ce['Upper Campus']||0, ce['Lower Campus']||0
       );
     }, 0);
     const max = Math.max(peakActual, capUpper, capLower, 1);
@@ -1355,10 +1359,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const xUpper = cx - groupGap / 2 - barW;
       const xLower = cx + groupGap / 2;
 
-      // Comparison snapshot: ghost bars showing prior counts behind current
+      // Ghost bars behind each campus bar:
+      //  - Compare-to-date mode: ghost = the prior snapshot's count
+      //  - Attendance mode: ghost = the registration count (expected) so
+      //    staff can see actual-vs-expected side by side without toggling
       const cmpC = cmpView ? (cmpView.weekCampus[w] || {}) : null;
       const cmpUpper = cmpC ? (cmpC['Upper Campus'] || 0) : null;
       const cmpLower = cmpC ? (cmpC['Lower Campus'] || 0) : null;
+      const expC = isAttendance ? (view.weekCampus[w] || {}) : null;
+      const expUpper = expC ? (expC['Upper Campus'] || 0) : null;
+      const expLower = expC ? (expC['Lower Campus'] || 0) : null;
 
       svg += `<g class="bar-group" data-week="${String(w).replace(/"/g,'&quot;')}">`;
 
@@ -1366,15 +1376,23 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
       }
 
-      // Ghost bars (comparison) — drawn behind current bars, hollow outline.
-      const drawGhost = (count, x) => {
+      // Ghost bars — drawn behind current bars, hollow outline.
+      const drawGhost = (count, x, strokeColor) => {
         if (count == null || count <= 0) return;
         const h = (count / niceMax) * innerH;
         const y = yBase - h;
-        svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="none" stroke="#8b95ad" stroke-width="1" stroke-dasharray="2 2" rx="2"></rect>`;
+        const c = strokeColor || '#8b95ad';
+        svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" fill="none" stroke="${c}" stroke-width="1.2" stroke-dasharray="3 2" rx="2"></rect>`;
       };
-      drawGhost(cmpUpper, xUpper);
-      drawGhost(cmpLower, xLower);
+      // Attendance ghosts (expected) take precedence over compare ghosts so
+      // the relevant comparison is always foregrounded.
+      if (isAttendance) {
+        drawGhost(expUpper, xUpper, CAMPUS_COLOR.upper);
+        drawGhost(expLower, xLower, CAMPUS_COLOR.lower);
+      } else {
+        drawGhost(cmpUpper, xUpper);
+        drawGhost(cmpLower, xLower);
+      }
 
       // Format spots-left text: "X left", "FULL", "+N OVER"
       const spotsText = (count, cap) => {
@@ -1466,6 +1484,21 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const capLEl = document.getElementById('legend-cap-lower');
     if (capUEl) capUEl.textContent = capUpper > 0 ? `— cap ${capUpper}` : '';
     if (capLEl) capLEl.textContent = capLower > 0 ? `— cap ${capLower}` : '';
+
+    // Hint about the expected-ghost overlay (only relevant in attendance mode)
+    let attHint = document.getElementById('bars-attendance-hint');
+    const legendEl = document.getElementById('bars-legend-camp');
+    if (isAttendance && legendEl && !attHint) {
+      attHint = document.createElement('span');
+      attHint.id = 'bars-attendance-hint';
+      attHint.style.color = 'var(--sf-ink-50)';
+      attHint.style.fontStyle = 'italic';
+      attHint.innerHTML = '<span class="swatch" style="background:transparent;border:1px dashed #1b2f6e"></span> Dashed outline = expected (registered)';
+      legendEl.appendChild(attHint);
+    } else if (!isAttendance && attHint) {
+      attHint.remove();
+    }
+
     wireBarClicks();
   }
 
