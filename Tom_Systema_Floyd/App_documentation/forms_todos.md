@@ -87,19 +87,16 @@ event in September or October. We can't move until Tom unblocks.
 
 ---
 
-## 4. Rent-A-Sensei (Babysitting) — READY TO BUILD
-
-Not on Tom's explicit priority list but **all pricing is confirmed** and
-the spec is ready. We can build this in parallel with Private Lessons
-verification.
+## 4. Rent-A-Sensei (Babysitting) — FIELDS LIVE, FORM NEXT
 
 ### Done
 - [x] OCR'd Tom's 3-photo spec (May 5)
 - [x] Spec'd all 12 fields + the age-based sensei filter
 - [x] Confirmed this is **babysitting only** (not parties/events) — there's an explicit acknowledgment checkbox
+- [x] GHL folder `Rent-A-Sensei` (id `RbjiHT0moCfDgm5OEnHW`) + all 12 fields created via API on 2026-05-14
+- [x] Field IDs saved to `.claude/scratch/ghl_rent_a_sensei_ids.json`
 
 ### To do
-- [ ] Build GHL folder `Rent-A-Sensei` + 12 fields via script (clone the private-lessons script and swap the FIELDS array)
 - [ ] Build GHL Form via Chrome extension
   - Required overview banner above form: *"In-home babysitting service…"* (not a field, must show)
   - Required acknowledgment checkbox: *"I confirm this service is not for parties or events"*
@@ -115,7 +112,7 @@ verification.
 
 ---
 
-## 5. Balloons add-on — READY TO BUILD (sub-form of Birthday Parties)
+## 5. Balloons add-on — FIELDS LIVE, FORM NEXT (sub-form of Birthday Parties)
 
 Triggered when a Birthday Party customer selects "Custom Balloon Decor"
 in §3 Special Add-Ons. Tom's wife Emily runs the work
@@ -123,10 +120,11 @@ in §3 Special Add-Ons. Tom's wife Emily runs the work
 
 ### Done
 - [x] OCR'd Tom's pricing image (May 5)
-- [x] Spec'd all 13 fields with prices
+- [x] Spec'd all 14 fields with prices
+- [x] GHL folder `Balloons` (id `Snj5a0BsE8Y6ehLgXwl8`) + all 14 fields created via API on 2026-05-14
+- [x] Field IDs saved to `.claude/scratch/ghl_balloons_ids.json`
 
 ### To do
-- [ ] Build GHL folder `Balloons` + 13 fields via script
 - [ ] Build the balloon flow either as:
   - (a) A second GHL form linked from the Birthday Party confirmation, OR
   - (b) Conditional fields inside the Birthday Party form

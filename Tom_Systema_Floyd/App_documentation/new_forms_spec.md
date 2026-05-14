@@ -15,10 +15,10 @@ For a per-form punch list of outstanding work, see [forms_todos.md](./forms_todo
 | Form | Spec'd | GHL fields created | GHL form built | Notes |
 |---|---|---|---|---|
 | Vladimir Seminar | ⏳ shape only | ❌ | ❌ | Waiting on Tom (date, page link, pricing, capacity, waiver) |
-| **Private Lessons** | ✅ | ✅ **2026-05-14** | 🟡 in progress via Chrome extension | Folder + 12 fields live in Systema Floyd FL — see IDs table below |
+| **Private Lessons** | ✅ | ✅ **2026-05-14** | 🟡 in progress via Chrome extension | Folder + 12 fields live — see IDs below |
 | Birthday Parties | ✅ fields only | ❌ | ❌ | 17 prices still missing from Tom |
-| Rent-A-Sensei | ✅ | ❌ | ❌ | Ready to build — all pricing confirmed |
-| Balloons | ✅ | ❌ | ❌ | Ready to build — all pricing confirmed |
+| **Rent-A-Sensei** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 12 fields live — see IDs below |
+| **Balloons** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 14 fields live — see IDs below |
 | Teen & Adult Classes | ⏸ | ❌ | ❌ | Paused until next school year schedule lands |
 
 ### Private Lessons — live GHL IDs (Systema Floyd FL, location `8IWtNFlmgJ8bif9DivHT`)
@@ -43,6 +43,52 @@ Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 | 11 | Phone Number | `PHONE` | `tsE8g8jrAmtjlooOHpcX` | `contact.pl_contact_phone` |
 | 12 | Email Address | `TEXT` | `do6jyYCs9EyGPhLPSmpN` | `contact.pl_contact_email` |
 
+### Rent-A-Sensei — live GHL IDs (Systema Floyd FL)
+
+Created 2026-05-14 via `.claude/scratch/ghl_create_form_fields.py`.
+Map written to `.claude/scratch/ghl_rent_a_sensei_ids.json`.
+
+**Folder**: `Rent-A-Sensei` — id `RbjiHT0moCfDgm5OEnHW`
+
+| # | Label | Type | Field ID | Field Key |
+|---|---|---|---|---|
+| 1 | Service Type | `RADIO` | `tVvxHXE0BTzsfxYl4MKG` | `contact.ras_service_type` |
+| 2 | Number of Children | `RADIO` | `Uj9ks7LGvM8ktbwBOwV2` | `contact.ras_num_children` |
+| 3 | Duration | `RADIO` | `ARSwE9pJ06KJYX0LnaOT` | `contact.ras_duration` |
+| 4 | Full Address | `TEXT` | `O6GFJ6sNFoUagmdd8ZO2` | `contact.ras_address` |
+| 5 | Date | `DATE` | `K5Pc8pQFCeBemDEkeH5a` | `contact.ras_date` |
+| 6 | Start Time | `TIME` | `jzBUh8W0TOZmAViareOt` | `contact.ras_start_time` |
+| 7 | End Time | `TIME` | `TtP6R6L2UkghX4HQAsrb` | `contact.ras_end_time` |
+| 8 | Parent Name | `TEXT` | `5qDvryYkMEDctfJoQ2Xl` | `contact.ras_parent_name` |
+| 9 | Phone | `PHONE` | `T3P6Je57aJXV3pHwrYPj` | `contact.ras_parent_phone` |
+| 10 | Email | `TEXT` | `Bsbz0A0pWpUKG76gpzZV` | `contact.ras_parent_email` |
+| 11 | Confirm: not for parties or events | `CHECKBOX` | `QPLML2pF756ANddSifu9` | `contact.ras_acknowledgment` |
+| 12 | Special instructions / extra children info | `LARGE_TEXT` | `jGkL6wJBjtKHMsNSbB9n` | `contact.ras_special_instructions` |
+
+### Balloons — live GHL IDs (Systema Floyd FL)
+
+Created 2026-05-14 via `.claude/scratch/ghl_create_form_fields.py`.
+Map written to `.claude/scratch/ghl_balloons_ids.json`.
+
+**Folder**: `Balloons` — id `Snj5a0BsE8Y6ehLgXwl8`
+
+| # | Label | Type | Field ID | Field Key |
+|---|---|---|---|---|
+| 1 | Garland | `RADIO` | `NgH8RGRgtisBtbWyEqiP` | `contact.bal_garland` |
+| 2 | Additional Feet of Garland | `NUMERICAL` | `7eKUJW88eiyN2yeXNFT6` | `contact.bal_garland_extra_feet` |
+| 3 | Columns | `MULTIPLE_OPTIONS` | `RO0xzR1IU1WRWEOmXpNg` | `contact.bal_columns` |
+| 4 | Arch | `RADIO` | `qrWRc6GRCWQsinxgvkaj` | `contact.bal_arch` |
+| 5 | Balloon Wall / Backdrop | `RADIO` | `zin97S10jzsx5OG820Vl` | `contact.bal_wall` |
+| 6 | Add-Ons (range-priced) | `MULTIPLE_OPTIONS` | `QrwTL3UiBXtZCfqaX0I8` | `contact.bal_addons` |
+| 7 | Delivery Fee | `RADIO` | `lVlCygHaoeF8Eo9q22jn` | `contact.bal_delivery` |
+| 8 | Setup Complexity | `RADIO` | `OQj4Vy8csQlNX6SlHJRA` | `contact.bal_setup_complexity` |
+| 9 | Optional Fees | `MULTIPLE_OPTIONS` | `TLf16K3hfjE5K0CFbOja` | `contact.bal_optional_fees` |
+| 10 | Party Theme | `TEXT` | `Q8YWJQlSiOOShOrszL1K` | `contact.bal_theme` |
+| 11 | Primary Color | `TEXT` | `qVrRHhQ58cUXPkvdTUyr` | `contact.bal_primary_color` |
+| 12 | Secondary Color | `TEXT` | `nILU7wT94JtKjtdShgib` | `contact.bal_secondary_color` |
+| 13 | Accent Color | `TEXT` | `ewqqWviYBsUTf1KvJzDk` | `contact.bal_accent_color` |
+| 14 | Notes for Emily | `LARGE_TEXT` | `JqBcKlhr1886D5nrgp1J` | `contact.bal_notes` |
+
 ### GHL API quirks worth remembering for the next form
 
 1. **Folders use `documentType: "folder"`** on the same `/locations/{loc}/customFields` endpoint as fields — there is NO separate folder endpoint for contact custom fields (the v2 `/custom-fields/folder` is for custom objects only)
@@ -50,6 +96,8 @@ Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 3. **`options` must be a plain string array** (`["Florida", "Virginia"]`), NOT objects like `{key, label}` — sending objects triggers the cryptic `v.trim is not a function` 400 error
 4. **Accepted `dataType` values:** `TEXT, LARGE_TEXT, NUMERICAL, PHONE, MONETORY, CHECKBOX, SINGLE_OPTIONS, MULTIPLE_OPTIONS, FLOAT, TIME, DATE, TEXTBOX_LIST, FILE_UPLOAD, SIGNATURE, RADIO` — note GHL **does** have `TIME` (use it for time-of-day fields instead of `TEXT`)
 5. **Folder listing**: folders don't appear in `GET /customFields` — to dedup by name, walk the unique `parentId`s of the existing fields and GET each one to check its name
+6. **`CHECKBOX` also requires `options`**: the checkbox label is provided as the single string in the `options` array (e.g. `["I confirm this service is not for parties or events"]`). Without `options`, GHL returns `422 "options must contain at least 1 elements"`. Single-line confirmation checkboxes feel weird in this shape but it's the only path.
+7. **Windows console encoding**: Python's default Windows console codec (`cp1252`) chokes on box-drawing chars in script output. Use ASCII (`==`) instead of `══` in print statements, or set `PYTHONIOENCODING=utf-8`
 
 ---
 
