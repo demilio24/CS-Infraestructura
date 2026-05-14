@@ -314,6 +314,21 @@ These are the GHL custom field IDs the bot reads from each form submission's
 | `DC_SC_FIELD_BREAKFAST` | `KqJc1rwDbZByulZNCDcl` | Select Breakfast Option: Overnight Oats (Summer Camp) |
 | `DC_SC_FIELD_LUNCH` | `MgE6T5xKZl2SZWGnPktO` | Select lunch option (Summer Camp) |
 
+### After School Registration form (`TkioOL4IoByeHU3K2gTs`)
+
+| Constant | Field ID | GHL field name |
+|---|---|---|
+| `DC_AS_FIELD_STUDENT` | `mCopCd8PHPPGBdo30zYK` | Student Name (After School Registration) |
+| `DC_AS_FIELD_GRADE` | `wiv3eF5jZoPalmg7yTmQ` | Child Grade (After School Registration) |
+| `DC_AS_FIELD_SHIRT` | `Ysom5PswWL2N0eouKwiS` | T-Shirt Size (After School Registration) |
+| `DC_AS_FIELD_CLASS` | `UluqGJoN855415yTyiXd` | Select Class (After School Registration) |
+| `DC_AS_FIELD_NKS` | `9kWksqJLFmmGoxfFDsay` | Neighborhood Kids Schools (After School Registration) |
+| `DC_AS_FIELD_NOTES` | `40KOxhzNEKTjyhvi20fb` | Notes (After School Registration) — captured but not currently written to Main Table |
+
+> Note: After School submissions also include payment fields (card number,
+> expiry, CVV, ZIP). The bot ignores those — they're handled by GHL's payment
+> integration, not the failsafe.
+
 ### Verifying a field ID
 1. Open the form in GHL → select the field → right panel shows the field key
 2. Or pull a sample submission and inspect the `others` keys:
@@ -323,40 +338,48 @@ These are the GHL custom field IDs the bot reads from each form submission's
 
 ---
 
-## 6. The decision tree (per submission per week, every 15 min)
+## 6. The decision tree (per submission, every 15 min)
+
+The "second key" varies by form: camps iterate per-week, After School iterates
+per-class. Below uses `<key>` for that.
 
 ```
 For each form submission in GHL:
-  For each week the parent ticked:
+  For each <key> the parent picked:
+    (camps: each WEEK they ticked)
+    (After School: the SINGLE class they selected)
 
     1. Is this submission less than 5 minutes old?
          → SKIP. Let the GHL workflow finish first.
 
-    2. Is (submission_id, week) already in Supabase sf_form_submissions?
+    2. Is (submission_id, <key>) already in Supabase sf_form_submissions?
          → SKIP. Already processed; respect any deletion the team made.
 
-    3. Is the submission_id already stamped on a row in this week's tab?
+    3. Is the submission_id already stamped on a row in the destination tab?
          → SKIP. Already in sheet.
 
-    4. Is there an existing row for the same (student_name, parent_email, week)?
+    4. Is there an existing row for the same (student_name, parent_email, <key>)?
          → If its currentSubId == this submission_id: no-op (verified)
          → Else: LINK — overwrite hidden submission_id on existing row,
                  write source note, record in Supabase, do NOT duplicate.
 
     5. None of the above → APPEND a new row.
-         • Pick campus:
-             - Free Camp: Pre-K/K → Lower, 1st+ → Upper (from Grade)
-             - Summer Camp: ≥6 yrs by June 1 of camp year → Upper, else Lower
-         • Write the row in the correct column order
+         • Pick destination:
+             - Free Camp: Upper or Lower campus sheet (Pre-K/K → Lower, 1st+ → Upper from Grade)
+             - Summer Camp: Upper or Lower campus sheet (≥6 yrs by June 1 → Upper, else Lower)
+             - After School: Main Table tab in After School Registration - APPLICATION
+                            (the School Enrollment Router routes to the right per-school sheet downstream)
+         • Write the row in the correct column order for that destination
          • Stamp hidden submission_id on the new row
          • Stamp a Sheets cell note on the Student Name cell with the source
-         • Record (submission_id, week) in Supabase
+         • Record (submission_id, <key>) in Supabase
          • Add to the email digest with the failed workflow's URL
 ```
 
 **After the per-row pass:**
-- Scan all 4 sheets for duplicates (in-tab + cross-campus). Read-only — flag in
-  the email if found.
+- Scan all 4 camp sheets for duplicates (in-tab + cross-campus). Read-only —
+  flag in the email if found. (After School duplicate scanning isn't run since
+  Main Table is single-tab and the Router enforces uniqueness downstream.)
 
 ---
 
@@ -533,28 +556,76 @@ curl 'https://services.leadconnectorhq.com/forms/submissions?locationId=8IWtNFlm
 
 ---
 
-## 12. Extending the system — adding After School (TODO)
+## 12. Extending the system — adding a new camp / event / program
 
-The After School Registration form (`TkioOL4IoByeHU3K2gTs`) is **not** currently
-covered by the bot. To wire it up:
+The bot currently covers Free Camp, Summer Camp, and After School. Two
+patterns exist; pick whichever matches the new program.
 
-1. **Get the destination sheet ID(s).** Find the After School roster
-   spreadsheet(s) in Google Drive (owned by `systemafloydsheets@gmail.com`).
+### Pattern A — per-week camp with multiple roster sheets (like Free / Summer)
+
+Use this when the new program has discrete weekly sessions and writes to
+distinct per-campus / per-tab spreadsheets.
+
+1. **Get the destination spreadsheet IDs** for each campus.
 2. **Add constants** in `DiscrepancyCheck.js`:
    ```js
-   var DC_FORM_AFTER_SCHOOL = 'TkioOL4IoByeHU3K2gTs';
-   var DC_AFTER_SCHOOL_UPPER_SS = '<sheet id>';
-   var DC_AFTER_SCHOOL_LOWER_SS = '<sheet id or null>';
+   var DC_FORM_<NAME>      = '<form id>';
+   var DC_<NAME>_UPPER_SS  = '<upper sheet id>';
+   var DC_<NAME>_LOWER_SS  = '<lower sheet id or null>';
    ```
 3. **Map the form's field IDs** by pulling a sample submission (see §10).
-4. **Add `_dcCheckAfterSchool()` and `_dcAppendAfterSchool()`** following the
-   same pattern as the Free Camp / Summer Camp helpers.
-5. **Wire into the table** `DC_GHL_WORKFLOW_BY_FORM_WEEK['after_school']` with
-   the After School routing workflow IDs.
-6. **Call from `runDiscrepancyCheck()`** alongside the other two forms.
-7. **Run** `discrepancyBackfillTracking()` + `discrepancyBackfillNotes()` +
-   `discrepancyBackfillTombstones()` once for the new form/sheet so existing
-   rows are protected.
+   Add `DC_<NAME>_FIELD_*` constants alongside the Free/Summer ones.
+4. **Add `_dcCheck<Name>()` and `_dcAppend<Name>()`** by copying the
+   `_dcCheckSummerCamp` / `_dcAppendSummerCamp` shape and adapting the
+   column mapping.
+5. **Add the per-week routing workflow IDs** to
+   `DC_GHL_WORKFLOW_BY_FORM_WEEK['<form_key>']` so the email can name the
+   failing workflow.
+6. **Call from `runDiscrepancyCheck()`** alongside the existing three.
+7. **Update Supabase**: extend the `form` CHECK constraint to allow the new
+   slug. Migration template:
+   ```sql
+   ALTER TABLE public.sf_form_submissions DROP CONSTRAINT sf_form_submissions_form_check;
+   ALTER TABLE public.sf_form_submissions ADD CONSTRAINT sf_form_submissions_form_check
+     CHECK (form IN ('free_camp','summer_camp','after_school','<new>'));
+   ```
+8. **Run** `discrepancyBackfillTombstones()` once for the new sheets so
+   existing rows are protected.
+
+### Pattern B — single intake table feeding a router (like After School)
+
+Use this when there's ONE intake spreadsheet/tab and a downstream routing
+script handles the rest.
+
+1. **Get the intake spreadsheet ID + tab name.**
+2. **Add constants** in `DiscrepancyCheck.js`:
+   ```js
+   var DC_FORM_<NAME>  = '<form id>';
+   var DC_<NAME>_SS    = '<intake spreadsheet id>';
+   var DC_<NAME>_TAB   = '<tab name>';
+   ```
+3. **Map the form's field IDs.** Note: only fields the intake table actually
+   uses; payment fields and the like can be ignored.
+4. **Add `_dcCheck<Name>()` and `_dcAppend<Name>()`** by copying the
+   `_dcCheckAfterSchool` / `_dcAppendAfterSchool` shape. The "second key" for
+   tombstones is whatever uniquely identifies the program slot (class name,
+   event date, etc.).
+5. **Add the single routing workflow ID** to
+   `DC_GHL_WORKFLOW_BY_FORM_WEEK['<form_key>']` under the `'*'` key (since
+   one workflow handles all variants).
+6. **Update Supabase** `form` CHECK constraint (see step 7 above).
+7. **Run** `runDiscrepancyCheck()` manually to verify; the first run will
+   link any pre-existing intake rows and add any missing ones.
+
+### What to update OUTSIDE of code
+
+- **App_documentation/registration_system.md** — add the new form to the
+  table in §4.1, add field mappings to §5, mention it in §6's decision tree
+  if the rules differ.
+- **App_documentation/README.md** — update the first-row description to
+  mention the new program.
+- **Memory note** `reference_systema_floyd_discrepancy_checker.md` — append
+  the new form so future Claude sessions are aware.
 
 ---
 
