@@ -371,6 +371,7 @@ function buildRoster_(allSummer, allFree) {
       lunch: e.lunch,
       allergy: e.allergy,
       incomplete: e.incomplete,
+      days: e.days || [true,true,true,true,true],
       type: 'summer',
     });
   });
@@ -387,6 +388,7 @@ function buildRoster_(allSummer, allFree) {
       lunch: e.lunch,
       allergy: null,
       incomplete: e.incomplete,
+      days: [true,true,true,true,true],
       type: 'free',
       school: e.school || null,
     });
