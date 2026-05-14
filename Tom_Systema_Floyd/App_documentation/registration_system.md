@@ -527,6 +527,8 @@ GROUP BY form, week, status ORDER BY form, week;
 | `discrepancyDeleteInTabDuplicates()` | Auto-delete EXACT-name duplicates within the same tab (keep lowest row). For most cases use `discrepancyMergeNameVariantDuplicates()` instead — it handles name variants too. |
 | `discrepancyMergeNameVariantDuplicates()` | Merge fuzzy-name duplicates (e.g. "Aria" + "Aria Falzone" → keeps "Aria Falzone", absorbs day ticks + submission ID from "Aria", deletes "Aria"). Picks the row with the fuller name as primary, copies non-empty values from secondaries into primary's empty cells, never overwrites. |
 | `discrepancyDeleteCrossCampusDuplicates()` | Auto-delete cross-campus duplicates using age rule. |
+| `discrepancyHeartbeatGuard()` | Silence-broken alert. Reads `sf_bot_health.discrepancy_check` from Supabase; if it's older than `DC_HEARTBEAT_MAX_AGE_HOURS` (24h), emails the recipient list. Runs as its own daily trigger (install via `discrepancyHeartbeatSetupTrigger`) so it can fire even if the main bot's trigger has died. |
+| `discrepancyHeartbeatSetupTrigger()` / `discrepancyHeartbeatRemoveTrigger()` | Install / remove the daily heartbeat-guard trigger. |
 
 ### Common failures
 
@@ -649,12 +651,41 @@ All the magic numbers live at the top of the file in named groups:
 - `DC_GRACE_WINDOW_MS` — 5 min, the do-not-touch-fresh-submissions window
 - `DC_TRACKING_HEADER` — `_submissionId` (hidden column header name)
 - `DC_TRIGGER_FUNCTION` — `runDiscrepancyCheck` (trigger entry point name)
-- `DC_NOTIFY_EMAIL` — `emilio@nilsdigital.com`
-- `DC_FORM_FREE_CAMP` / `DC_FORM_SUMMER_CAMP` — form IDs
-- `DC_FREE_UPPER_SS` / `DC_FREE_LOWER_SS` / `DC_SUMMER_UPPER_SS` / `DC_SUMMER_LOWER_SS` — spreadsheet IDs
-- `DC_FC_FIELD_*` / `DC_SC_FIELD_*` — form field IDs (see §5)
+- `DC_NOTIFY_EMAIL_DEFAULT` — fallback email recipient when Script Property `DC_NOTIFY_EMAIL` is unset
+- `DC_TOKEN_STALE_WARN_HOURS` — warn in the email digest when Supabase's `ghl_tokens.updated_at` is older than this (12h)
+- `DC_HEARTBEAT_MAX_AGE_HOURS` — `discrepancyHeartbeatGuard` alerts when last successful run is older than this (24h)
+- `DC_FORM_FREE_CAMP` / `DC_FORM_SUMMER_CAMP` / `DC_FORM_AFTER_SCHOOL` — form IDs
+- `DC_FREE_UPPER_SS` / `DC_FREE_LOWER_SS` / `DC_SUMMER_UPPER_SS` / `DC_SUMMER_LOWER_SS` / `DC_AFTER_SCHOOL_SS` — spreadsheet IDs
+- `DC_FC_FIELD_*` / `DC_SC_FIELD_*` / `DC_AS_FIELD_*` — form field IDs (see §5)
 - `DC_WEEK_TO_TAB` — `"July 27th-31st" → "7/27-7/31"` mapping
 - `DC_GHL_WORKFLOW_BY_FORM_WEEK` — workflow names + IDs (see §4.2)
+
+### Heartbeat / silence-broken alerting
+
+The bot writes `sf_bot_health.discrepancy_check` (in Supabase) after every
+successful run. A separate daily trigger calls `discrepancyHeartbeatGuard`,
+which reads that timestamp; if it's older than `DC_HEARTBEAT_MAX_AGE_HOURS`
+(24h), it emails the recipient list. **The two triggers fail independently** —
+if the main bot's trigger dies, the guard's trigger still fires the alert.
+
+Does NOT defend against:
+- Whole script project deleted (both triggers gone)
+- Apps Script outage (no triggers running)
+For those, an external monitor (UptimeRobot, n8n cron) would be needed.
+
+### Token-age warning
+
+On every run, the bot records the age of the GHL OAuth access token (read
+from Supabase `ghl_tokens.updated_at`). If older than
+`DC_TOKEN_STALE_WARN_HOURS` (12h), the email digest gets a `⚠ GHL TOKEN AGE
+WARNING` block. The external refresh service is supposed to keep the token
+< 24h old; this surfaces drift before the token expires hard.
+
+### Email recipient
+
+Set Script Property `DC_NOTIFY_EMAIL` to a comma-separated list to add
+recipients without redeploying. Falls back to `DC_NOTIFY_EMAIL_DEFAULT`
+constant if unset.
 
 When something needs changing, look here first.
 

@@ -41,8 +41,21 @@ var DC_LOCATION_ID = '8IWtNFlmgJ8bif9DivHT';
 var DC_GRACE_WINDOW_MS = 5 * 60 * 1000;     // 5 min
 var DC_TRACKING_HEADER = '_submissionId';
 var DC_TRIGGER_FUNCTION = 'runDiscrepancyCheck';
-var DC_NOTIFY_EMAIL = 'emilio@nilsdigital.com';
+// Default email recipient if Script Property `DC_NOTIFY_EMAIL` is unset.
+// Override the property to a comma-separated list to add recipients
+// without redeploying. Example: "emilio@nilsdigital.com, ops@..."
+var DC_NOTIFY_EMAIL_DEFAULT = 'emilio@nilsdigital.com';
 var DC_TOMBSTONE_TAB = '_dc_tombstones';
+
+// If the GHL OAuth token in Supabase hasn't refreshed in this many
+// hours, the email digest gets a warning. The external refresh
+// service is supposed to keep the token < 24h old; 12 is the trip-
+// wire so we surface drift before the token actually expires.
+var DC_TOKEN_STALE_WARN_HOURS = 12;
+
+// How long since the last successful run before discrepancyHeartbeatGuard
+// declares the bot dead and emails an alert.
+var DC_HEARTBEAT_MAX_AGE_HOURS = 24;
 
 // Form IDs
 var DC_FORM_FREE_CAMP    = '3Z4E9y7WlWgkZDxViBUW';
@@ -213,6 +226,24 @@ function runDiscrepancyCheck() {
   }
   report.finishedAt = new Date().toISOString();
   report.durationMs = new Date() - startedAt;
+  report.tokenAgeHours = (typeof globalThis._dcTokenAgeHours === 'number')
+    ? Math.round(globalThis._dcTokenAgeHours * 10) / 10
+    : null;
+  report.tokenStaleWarning = (report.tokenAgeHours != null && report.tokenAgeHours > DC_TOKEN_STALE_WARN_HOURS);
+
+  // Heartbeat: record this successful run so the daily guard knows
+  // the bot is alive. Done BEFORE email so a mail-send failure
+  // doesn't break the heartbeat (the run did succeed at the work).
+  _dcRecordHeartbeat('discrepancy_check', {
+    durationMs: report.durationMs,
+    free_added: report.freeCamp.added.length,
+    summer_added: report.summerCamp.added.length,
+    afterschool_added: report.afterSchool.added.length,
+    duplicates_in_tab: report.duplicates.clusters.length,
+    errors: report.freeCamp.errors.length + report.summerCamp.errors.length + report.afterSchool.errors.length,
+    token_age_hours: report.tokenAgeHours,
+    token_stale: report.tokenStaleWarning,
+  });
 
   Logger.log(
     'DiscrepancyCheck: free added=' + report.freeCamp.added.length +
@@ -241,7 +272,8 @@ function runDiscrepancyCheck() {
     report.afterSchool.linkedManual.length > 0 ||
     report.afterSchool.errors.length       > 0 ||
     report.duplicates.clusters.length     > 0 ||
-    report.duplicates.crossCampus.length  > 0;
+    report.duplicates.crossCampus.length  > 0 ||
+    report.tokenStaleWarning              === true;
   if (noteworthy) {
     try { _dcEmailReport(report); }
     catch (mailErr) { report.notifyError = String(mailErr && mailErr.message || mailErr); }
@@ -1740,10 +1772,19 @@ function _dcParseDate(s) {
  *   SUPABASE_ANON_KEY     legacy anon key (RLS still applies, but RPC bypasses it)
  *   SUPABASE_TOKEN_SECRET shared secret matching the RPC's expected value
  */
+/**
+ * Returns the live GHL Florida access token AND records its source
+ * row's `updated_at` in a script-global `_dcTokenAgeHours` so the
+ * email digest can warn when the upstream refresher is drifting.
+ */
 function _dcGhlToken_() {
   var cache = CacheService.getScriptCache();
   var cached = cache.get('GHL_FLORIDA_TOKEN');
-  if (cached) return cached;
+  var cachedAge = cache.get('GHL_FLORIDA_TOKEN_AGE_HOURS');
+  if (cached) {
+    if (cachedAge != null) globalThis._dcTokenAgeHours = parseFloat(cachedAge);
+    return cached;
+  }
 
   var props = PropertiesService.getScriptProperties();
   var url    = props.getProperty('SUPABASE_URL');
@@ -1780,9 +1821,17 @@ function _dcGhlToken_() {
   }
   var token = row.acces_token;
   if (!token) throw new Error('Supabase RPC returned empty acces_token');
-  // Cache for 10 min — comfortably less than the GHL 24h token TTL and
-  // less than the 15-min trigger cadence so a single check uses one fetch.
+  // Stash the token's age so the email digest can warn if drifting
+  var ageHours = null;
+  if (row.updated_at) {
+    var updatedMs = new Date(row.updated_at).getTime();
+    if (!isNaN(updatedMs)) {
+      ageHours = (Date.now() - updatedMs) / (1000 * 60 * 60);
+      globalThis._dcTokenAgeHours = ageHours;
+    }
+  }
   cache.put('GHL_FLORIDA_TOKEN', token, 600);
+  if (ageHours != null) cache.put('GHL_FLORIDA_TOKEN_AGE_HOURS', String(ageHours), 600);
   return token;
 }
 
@@ -1977,6 +2026,154 @@ function _dcEnsureTrackingCol(sheet) {
   return newCol;
 }
 
+// ─────────────────────── Heartbeat (silence-broken alerts) ───────────────────────
+
+/**
+ * Record a "this component is alive" timestamp in Supabase
+ * sf_bot_health. Called at the end of every successful run of
+ * `runDiscrepancyCheck` (the bot itself) and `discrepancyHeartbeatGuard`
+ * (the guard).
+ */
+function _dcRecordHeartbeat(component, metadata) {
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var url    = props.getProperty('SUPABASE_URL');
+    var anon   = props.getProperty('SUPABASE_ANON_KEY');
+    var secret = props.getProperty('SUPABASE_TOKEN_SECRET');
+    if (!url || !anon || !secret) return;
+    UrlFetchApp.fetch(url + '/rest/v1/rpc/sf_record_heartbeat', {
+      method: 'post',
+      contentType: 'application/json',
+      headers: { apikey: anon, Authorization: 'Bearer ' + anon },
+      payload: JSON.stringify({
+        claim_secret: secret,
+        p_component: component,
+        p_metadata: metadata || {},
+      }),
+      muteHttpExceptions: true,
+    });
+  } catch (e) {
+    Logger.log('heartbeat record failed (' + component + '): ' + e);
+  }
+}
+
+/**
+ * Look up a component's last successful run from Supabase
+ * sf_bot_health. Returns { component, last_ok_at, age_seconds, metadata }
+ * or null if no row.
+ */
+function _dcGetHeartbeat(component) {
+  var props = PropertiesService.getScriptProperties();
+  var url    = props.getProperty('SUPABASE_URL');
+  var anon   = props.getProperty('SUPABASE_ANON_KEY');
+  var secret = props.getProperty('SUPABASE_TOKEN_SECRET');
+  if (!url || !anon || !secret) throw new Error('Missing Supabase Script Properties');
+  var resp = UrlFetchApp.fetch(url + '/rest/v1/rpc/sf_get_heartbeat', {
+    method: 'post',
+    contentType: 'application/json',
+    headers: { apikey: anon, Authorization: 'Bearer ' + anon },
+    payload: JSON.stringify({ claim_secret: secret, p_component: component }),
+    muteHttpExceptions: true,
+  });
+  if (resp.getResponseCode() !== 200) {
+    throw new Error('sf_get_heartbeat HTTP ' + resp.getResponseCode() + ': ' + resp.getContentText().substring(0, 200));
+  }
+  var rows = JSON.parse(resp.getContentText());
+  return (rows && rows.length) ? rows[0] : null;
+}
+
+/**
+ * Silence-broken alert. Runs as its own time-driven trigger (install
+ * via discrepancyHeartbeatSetupTrigger). Reads the last successful
+ * run of `discrepancy_check` from Supabase; if it's older than
+ * DC_HEARTBEAT_MAX_AGE_HOURS, emails an alert.
+ *
+ * Independent failure modes from the main bot:
+ *   - main bot's trigger could die (quota, scope, owner change)
+ *     → guard's trigger is unaffected, fires the alert
+ *   - this guard's trigger could die
+ *     → main bot still works, you just lose the alert (silent
+ *       degradation; manual periodic Supabase check would catch)
+ *   - whole script project could die
+ *     → both die. External monitor (UptimeRobot, n8n cron) is the
+ *       only way to defend against this. Out of scope.
+ */
+function discrepancyHeartbeatGuard() {
+  var report = { startedAt: new Date().toISOString() };
+  try {
+    var hb = _dcGetHeartbeat('discrepancy_check');
+    if (!hb) {
+      _dcSendHeartbeatAlert('Discrepancy bot has NEVER recorded a successful run. Either it has never been run, or the Supabase recording is failing. Run runDiscrepancyCheck() manually from the editor and check that sf_bot_health gets a row for component=discrepancy_check.');
+      report.alerted = true;
+      report.reason = 'no heartbeat ever';
+    } else {
+      var ageHours = hb.age_seconds / 3600;
+      report.lastOkAt = hb.last_ok_at;
+      report.ageHours = Math.round(ageHours * 10) / 10;
+      if (ageHours > DC_HEARTBEAT_MAX_AGE_HOURS) {
+        _dcSendHeartbeatAlert(
+          'Discrepancy bot has not run successfully in ' +
+          report.ageHours + ' hours (last OK: ' + hb.last_ok_at + ').\n\n' +
+          'Likely causes:\n' +
+          '  - Trigger was disabled or deleted\n' +
+          '  - Owner account hit Workspace quota\n' +
+          '  - Apps Script outage\n' +
+          '  - Required scope was revoked\n\n' +
+          'Open the script editor and check Triggers + Executions:\n' +
+          '  https://script.google.com/d/1EcPTHTRypJX_ywQXqj_LQuJMNk2RAjzSkIxsG8QzLe64jQtRXvEf6f8Y/edit'
+        );
+        report.alerted = true;
+      } else {
+        report.alerted = false;
+      }
+    }
+  } catch (err) {
+    report.error = String(err && err.message || err);
+    _dcSendHeartbeatAlert('Heartbeat guard ERRORED: ' + report.error +
+      '\n\nMost likely the Supabase RPC call failed. Check SUPABASE_TOKEN_SECRET.');
+    report.alerted = true;
+  }
+  // Record the guard's own heartbeat so we can monitor IT too if needed
+  _dcRecordHeartbeat('heartbeat_guard', report);
+  Logger.log('heartbeatGuard: ' + JSON.stringify(report));
+  return report;
+}
+
+function _dcSendHeartbeatAlert(message) {
+  try {
+    var to = _dcNotifyRecipients();
+    if (!to.length) return;
+    MailApp.sendEmail({
+      to: to.join(','),
+      subject: '⚠ Systema Floyd discrepancy bot heartbeat alert',
+      body: message + '\n\n— sent by discrepancyHeartbeatGuard at ' + new Date().toISOString(),
+    });
+  } catch (e) {
+    Logger.log('heartbeat alert send failed: ' + e);
+  }
+}
+
+function discrepancyHeartbeatSetupTrigger() {
+  var existing = ScriptApp.getProjectTriggers().filter(function (t) {
+    return t.getHandlerFunction() === 'discrepancyHeartbeatGuard';
+  });
+  if (existing.length > 0) return 'already installed (' + existing.length + ')';
+  // Daily — catches "bot died yesterday" within ~24-48h.
+  ScriptApp.newTrigger('discrepancyHeartbeatGuard').timeBased().everyDays(1).atHour(8).create();
+  return 'installed (daily at 8am)';
+}
+
+function discrepancyHeartbeatRemoveTrigger() {
+  var removed = 0;
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'discrepancyHeartbeatGuard') {
+      ScriptApp.deleteTrigger(t);
+      removed++;
+    }
+  });
+  return 'removed ' + removed;
+}
+
 // ─────────────────────── Email notification ───────────────────────
 
 function _dcEmailReport(report) {
@@ -1986,6 +2183,13 @@ function _dcEmailReport(report) {
   var lines = [];
   lines.push('Camp roster discrepancy check — ' + report.startedAt);
   lines.push('Run took ' + report.durationMs + 'ms');
+  if (report.tokenStaleWarning) {
+    lines.push('');
+    lines.push('⚠ GHL TOKEN AGE WARNING');
+    lines.push('  Supabase ghl_tokens.acces_token for Florida is ' +
+      report.tokenAgeHours + ' hours old (warn threshold: ' + DC_TOKEN_STALE_WARN_HOURS + ' hours).');
+    lines.push('  The external refresher should keep this < 24h. Check whatever job is responsible (n8n, etc.).');
+  }
   lines.push('');
   lines.push('FREE CAMP');
   lines.push('  added (bot wrote new row)              : ' + fc.added.length);
@@ -2079,11 +2283,24 @@ function _dcEmailReport(report) {
     (fc.added.length + sc.added.length + as.added.length) + ' added, ' +
     (dup.clusters.length + dup.crossCampus.length) + ' dup, ' +
     (fc.errors.length + sc.errors.length + as.errors.length) + ' err';
+  var to = _dcNotifyRecipients();
+  if (!to.length) return;
   MailApp.sendEmail({
-    to: DC_NOTIFY_EMAIL,
+    to: to.join(','),
     subject: subj,
     body: lines.join('\n'),
   });
+}
+
+/**
+ * Resolve email recipients. Supports a comma-separated list in
+ * Script Property `DC_NOTIFY_EMAIL`. Falls back to DC_NOTIFY_EMAIL_DEFAULT
+ * if the property is unset or empty.
+ */
+function _dcNotifyRecipients() {
+  var raw = PropertiesService.getScriptProperties().getProperty('DC_NOTIFY_EMAIL');
+  if (!raw) raw = DC_NOTIFY_EMAIL_DEFAULT;
+  return String(raw).split(',').map(function (s) { return s.trim(); }).filter(Boolean);
 }
 
 // ─────────────────────── Small utilities ───────────────────────
