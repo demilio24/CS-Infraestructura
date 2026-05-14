@@ -842,7 +842,7 @@ function appendNewCustomerSection_(dash, email, newItems) {
 
   var matrix = [
     ['', email, '', '', students, '', ''],   // customer header
-    ['DATE', 'ITEM', 'UNIT PRICE', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']  // sub-header
+    ['DATE', 'ITEM', 'UNIT PRICE (incl. tax + fee)', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']  // sub-header
   ];
   newItems.forEach(function(it) {
     var status = it.unpriced
@@ -1082,7 +1082,7 @@ function nuclearResetBilling() {
     currentRow++;
 
     // Sub-header row
-    dataMatrix.push(['DATE', 'ITEM', 'UNIT PRICE', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']);
+    dataMatrix.push(['DATE', 'ITEM', 'UNIT PRICE (incl. tax + fee)', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']);
     bgMatrix.push(blankRow7('#4a6493'));
     fontColorMatrix.push(blankRow7('#FFFFFF'));
     fontWeightMatrix.push(blankRow7('bold'));
@@ -1359,7 +1359,7 @@ function bfsInjectTaxAndFee_(parentBucket) {
  * Layout matches the legacy Dashboard look:
  *   - Header (row 1, untouched)
  *   - Customer rows (dark blue background, name/email/students/balance)
- *   - Sub-header rows (mid-blue: DATE | ITEM | UNIT PRICE | DAYS | WEEKS | TOTAL | STATUS)
+ *   - Sub-header rows (mid-blue: DATE | ITEM | UNIT PRICE (incl. tax + fee) | DAYS | WEEKS | TOTAL | STATUS)
  *   - Tx rows beneath each customer (grouped + collapsed)
  *
  * Status preservation: each tx row stores its fingerprint as a cell Note
@@ -1435,7 +1435,7 @@ function rebuildDashboardHierarchical_(items) {
     currentRow++;
 
     var subHeaderRow = currentRow;
-    matrix.push(['DATE', 'ITEM', 'UNIT PRICE', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']);
+    matrix.push(['DATE', 'ITEM', 'UNIT PRICE (incl. tax + fee)', 'DAYS', 'WEEKS', 'TOTAL', 'STATUS']);
     currentRow++;
 
     var txFirst = currentRow;
