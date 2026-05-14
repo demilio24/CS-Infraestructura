@@ -882,12 +882,15 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
       ? 'unpriced'
       : (it.ambiguous ? 'ambiguous' : 'owed');
     var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
+    var dc = (it.enrollment && Number(it.enrollment.dayCount)) || 0;
+    var daysCell  = dc > 0 ? dc : '';
+    var weeksCell = (it.enrollment && it.enrollment.week) || '';
     return [
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
       label,
       Number(it.price) || 0,
-      it.multiplier === '/day' ? (Number(it.qty) || '') : '',
-      (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+      daysCell,
+      weeksCell,
       Number(it.total) || 0,
       status
     ];
@@ -955,12 +958,15 @@ function appendNewCustomerSection_(dash, email, newItems) {
       ? 'unpriced'
       : (it.ambiguous ? 'ambiguous' : 'owed');
     var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
+    var dc = (it.enrollment && Number(it.enrollment.dayCount)) || 0;
+    var daysCell  = dc > 0 ? dc : '';
+    var weeksCell = (it.enrollment && it.enrollment.week) || '';
     matrix.push([
       Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd'),
       label,
       Number(it.price) || 0,
-      it.multiplier === '/day' ? (Number(it.qty) || '') : '',
-      (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+      daysCell,
+      weeksCell,
       Number(it.total) || 0,
       status
     ]);
@@ -1100,6 +1106,24 @@ function nuclearResetBilling_() {
   Logger.log('[nuclearResetBilling] start at ' + startedAt.toISOString());
   bfsClearEnrichCache_();  // fresh enrichment lookups for every full rebuild
 
+  // 0. Snapshot existing per-fingerprint statuses so the rebuild doesn't
+  //    lose paid / refunded / refund-needed flags Erin or Tom has set
+  //    manually. readDashboardState_ parses both the new "Internal ref"
+  //    note format and the legacy "Submission ID" format.
+  var priorStatuses = {};
+  try {
+    var existingState = readDashboardState_();
+    Object.keys(existingState.items).forEach(function(fp) {
+      var s = String(existingState.items[fp].status || '').toLowerCase().trim();
+      if (s) priorStatuses[fp] = s;
+    });
+    Logger.log('[nuclearResetBilling] snapshotted ' +
+               Object.keys(priorStatuses).length + ' prior statuses');
+  } catch (snapErr) {
+    Logger.log('[nuclearResetBilling] status snapshot failed: ' + snapErr.message +
+               ' — proceeding with all-fresh statuses');
+  }
+
   // 1. Build fresh items from registration sheets
   var catalog = readPricingCatalog_();
   var registrationSheets = discoverRegistrationSheets_();
@@ -1227,16 +1251,35 @@ function nuclearResetBilling_() {
 
     // Tx rows
     p.items.forEach(function(it) {
-      var defaultStatus = it.unpriced
+      // Status: prefer the prior pill if it's a user-controlled value
+      // (paid/refunded/refund-needed); otherwise use the fresh pricer
+      // verdict. We don't preserve 'canceled' because if the fingerprint
+      // is back in fresh items, the row was re-added in the reg sheet
+      // and the parent owes again. Don't preserve 'owed'/'unpriced'/
+      // 'ambiguous' either — those are auto-set and should reflect
+      // fresh state.
+      var freshStatus = it.unpriced
         ? 'unpriced'
         : (it.ambiguous ? 'ambiguous' : 'owed');
+      var prior = priorStatuses[it.fingerprint];
+      var defaultStatus =
+        (prior === 'paid' || prior === 'refunded' || prior === 'refund-needed')
+          ? prior
+          : freshStatus;
+
       var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
+      // Days: enrollment.dayCount when present (1+), else blank.
+      // Weeks: enrollment.week label (e.g. "June 1st-5th" or "Q2" or
+      // "March"). Always populate so the team can scan by period.
+      var dc = (it.enrollment && Number(it.enrollment.dayCount)) || 0;
+      var daysCell  = dc > 0 ? dc : '';
+      var weeksCell = (it.enrollment && it.enrollment.week) || '';
       dataMatrix.push([
         nowDateStr,
         label,
         Number(it.price) || 0,
-        it.multiplier === '/day' ? (Number(it.qty) || '') : '',
-        (it.multiplier === '/week' || it.multiplier === '/wk') ? 1 : '',
+        daysCell,
+        weeksCell,
         Number(it.total) || 0,
         defaultStatus
       ]);
