@@ -359,6 +359,13 @@ For each form submission in GHL:
          → SKIP. Already in sheet.
 
     4. Is there an existing row for the same (student_name, parent_email, <key>)?
+         The match is FUZZY on student_name within the same email+key:
+           a. exact match (lowercased, trimmed) — fastest path, OR
+           b. one name is a single token whose first name matches the
+              other's first name (e.g. "Aria" matches "Aria Falzone"), OR
+           c. both multi-token, first AND last name match (handles
+              middle-name / initial differences), OR
+           d. Jaro-Winkler ≥ 0.92 (typo tolerance like "Sara" vs "Sarah")
          → If its currentSubId == this submission_id: no-op (verified)
          → Else: LINK — overwrite hidden submission_id on existing row,
                  write source note, record in Supabase, do NOT duplicate.
@@ -515,7 +522,8 @@ GROUP BY form, week, status ORDER BY form, week;
 | `discrepancyBackfillTracking()` | Match existing rows to submissions, stamp hidden ID column. One-shot. |
 | `discrepancyBackfillNotes()` | Stamp source-cell notes on every tracked row. One-shot. |
 | `discrepancyBackfillTombstones()` | Push every tracked row's submission_id into Supabase. One-shot. |
-| `discrepancyDeleteInTabDuplicates()` | Auto-delete duplicates within the same tab (keep lowest row). |
+| `discrepancyDeleteInTabDuplicates()` | Auto-delete EXACT-name duplicates within the same tab (keep lowest row). For most cases use `discrepancyMergeNameVariantDuplicates()` instead — it handles name variants too. |
+| `discrepancyMergeNameVariantDuplicates()` | Merge fuzzy-name duplicates (e.g. "Aria" + "Aria Falzone" → keeps "Aria Falzone", absorbs day ticks + submission ID from "Aria", deletes "Aria"). Picks the row with the fuller name as primary, copies non-empty values from secondaries into primary's empty cells, never overwrites. |
 | `discrepancyDeleteCrossCampusDuplicates()` | Auto-delete cross-campus duplicates using age rule. |
 
 ### Common failures

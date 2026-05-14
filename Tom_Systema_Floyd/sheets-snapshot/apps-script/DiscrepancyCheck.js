@@ -535,7 +535,10 @@ function _dcCheckFreeCamp(report) {
         return;
       }
       var key = _dcKey(studentName, emailLc, week);
-      var existing = (existingByWeek[week] || {})[key];
+      // Try exact name+email+week first; fall back to fuzzy (same
+      // email+week, likely-same-person name) so "Aria" links to
+      // existing "Aria Falzone" instead of duplicating.
+      var existing = _dcFindExistingRowFuzzy(existingByWeek, studentName, emailLc, week);
       if (existing) {
         // A row for this kid already exists for this week. Three cases:
         //   - currentSubId === s.id : already perfectly linked, skip
@@ -824,7 +827,7 @@ function _dcCheckSummerCamp(report) {
         return;
       }
       var key = _dcKey(name, emailLc, week);
-      var existing = (existingByWeek[week] || {})[key];
+      var existing = _dcFindExistingRowFuzzy(existingByWeek, name, emailLc, week);
       if (existing) {
         if (existing.currentSubId === s.id) {
           _dcRecordProcessed(s.id, 'summer_camp', week, {
@@ -997,6 +1000,23 @@ function _dcCheckAfterSchool(report) {
 
     var dedupKey = _dcAfterSchoolKey(name, emailLc, cls);
     var existing = existingByKey[dedupKey];
+    if (!existing) {
+      // Fuzzy fallback: same email + class but a name variant
+      // ("Aria" vs "Aria Falzone").
+      var emailLcKey = String(emailLc || '').trim().toLowerCase();
+      var clsLcKey = String(cls || '').trim().toLowerCase();
+      for (var ek in existingByKey) {
+        if (!existingByKey.hasOwnProperty(ek)) continue;
+        var parts = ek.split('|');
+        if (parts.length < 3) continue;
+        if (parts[1] !== emailLcKey) continue;
+        if (parts[2] !== clsLcKey) continue;
+        if (_dcNamesLikelySamePerson(parts[0], name)) {
+          existing = existingByKey[ek];
+          break;
+        }
+      }
+    }
     if (existing) {
       // Row already in Main Table for this (kid, class). Either
       // currentSubId matches (verified record-only) or it's an old
@@ -1243,6 +1263,149 @@ function _dcSheetIdFor(form, campus) {
 }
 
 /**
+ * Merge name-variant duplicates within the same email + week. Picks
+ * the row with the **fuller name** as the primary (so "Aria Falzone"
+ * wins over "Aria"; "Grant 'Geo' Olowin" wins over "Grant 'Geo' Olowin"
+ * — the curly-quote vs straight-quote pair will pick whichever has
+ * more non-empty cells as a tie-break).
+ *
+ * Then merges any non-empty cells from the secondary rows into the
+ * primary row's EMPTY cells (never overwrites — preserves intentional
+ * differences). Stamps the secondary's submission ID on the primary if
+ * the primary doesn't have one yet. Finally deletes the secondaries.
+ *
+ * Supabase tombstones for the deleted rows are preserved as-is — the
+ * bot's idempotency check is by submission_id, not row_index, so the
+ * row_index field becoming stale doesn't break anything. The orphaned
+ * submission IDs stay tombstoned so they're never re-added.
+ *
+ * Recovery: every spreadsheet has File → Version history if the merge
+ * was wrong. Returns the action list so you can audit.
+ */
+function discrepancyMergeNameVariantDuplicates() {
+  var report = { merged: [], errors: [] };
+  var temp = { duplicates: { clusters: [], crossCampus: [], errors: [] } };
+  _dcCheckDuplicates(temp);
+
+  // Group merges + deletes by destination sheet so we can write +
+  // delete bottom-up (preserves row indices in the same sheet).
+  var pendingDeletes = {};   // ssKey → { ssId, tabName, rows: [] }
+
+  temp.duplicates.clusters.forEach(function (cluster) {
+    try {
+      var ssId = _dcSheetIdFor(cluster.form, cluster.campus);
+      var ss = SpreadsheetApp.openById(ssId);
+      var sheet = ss.getSheetByName(cluster.tabName);
+      if (!sheet) {
+        report.errors.push({ error: 'sheet missing', cluster: cluster });
+        return;
+      }
+      var trackingCol = _dcEnsureTrackingCol(sheet);
+      var lastCol = sheet.getLastColumn();
+      // Student Name column: 2 for Free Camp, 3 for Summer Camp
+      var nameCol = cluster.form === 'Free Camp' ? 2 : 3;
+
+      // Read all rows in the cluster
+      var rows = cluster.rows.map(function (rIdx) {
+        var values = sheet.getRange(rIdx, 1, 1, lastCol).getValues()[0];
+        var subId = String(values[trackingCol - 1] || '').trim();
+        var nonEmpty = values.filter(function (v) {
+          return v !== '' && v !== null && v !== undefined;
+        }).length;
+        var nameStr = String(values[nameCol - 1] || '').trim();
+        var tokens = nameStr.split(/\s+/).filter(Boolean).length;
+        return {
+          rowIndex: rIdx, values: values, subId: subId,
+          nonEmpty: nonEmpty, tokens: tokens, nameStr: nameStr,
+        };
+      });
+
+      // Pick primary: most-tokens name wins; tie → most non-empty cells; tie → lowest rowIndex.
+      rows.sort(function (a, b) {
+        if (a.tokens !== b.tokens) return b.tokens - a.tokens;
+        if (a.nonEmpty !== b.nonEmpty) return b.nonEmpty - a.nonEmpty;
+        return a.rowIndex - b.rowIndex;
+      });
+      var primary = rows[0];
+      var others = rows.slice(1);
+
+      // Merge non-empty values from others into primary's empty cells.
+      var mergedValues = primary.values.slice();
+      var primarySubId = primary.subId;
+      var copiedFields = 0;
+      others.forEach(function (other) {
+        for (var col = 0; col < lastCol; col++) {
+          var primVal = mergedValues[col];
+          var otherVal = other.values[col];
+          var primEmpty = (primVal === '' || primVal === null || primVal === undefined);
+          var otherHas = (otherVal !== '' && otherVal !== null && otherVal !== undefined);
+          if (col === trackingCol - 1) {
+            // Submission ID: take other's only if primary's is empty
+            if (primEmpty && otherHas) {
+              mergedValues[col] = otherVal;
+              primarySubId = String(otherVal).trim();
+              copiedFields++;
+            }
+          } else if (primEmpty && otherHas) {
+            mergedValues[col] = otherVal;
+            copiedFields++;
+          }
+        }
+      });
+
+      // Write merged values back if anything changed
+      if (copiedFields > 0) {
+        sheet.getRange(primary.rowIndex, 1, 1, lastCol).setValues([mergedValues]);
+      }
+
+      // Update the cell note on primary so it reflects the merge
+      try {
+        var existingNote = sheet.getRange(primary.rowIndex, nameCol).getNote() || '';
+        var stamp = 'Merged by DiscrepancyCheck on ' + new Date().toISOString() +
+          ' — primary row, kept name "' + primary.nameStr + '"; absorbed from rows ' +
+          others.map(function (o) { return o.rowIndex + ' ("' + o.nameStr + '")'; }).join(', ') +
+          '; copied ' + copiedFields + ' non-empty fields into empty cells';
+        var newNote = existingNote ? (existingNote + '\n\n' + stamp) : stamp;
+        sheet.getRange(primary.rowIndex, nameCol).setNote(newNote);
+      } catch (noteErr) { /* notes are best-effort */ }
+
+      // Queue secondary rows for deletion
+      var bk = ssId + '|' + cluster.tabName;
+      others.forEach(function (other) {
+        pendingDeletes[bk] = pendingDeletes[bk] || { ssId: ssId, tabName: cluster.tabName, rows: [] };
+        pendingDeletes[bk].rows.push(other.rowIndex);
+      });
+
+      report.merged.push({
+        form: cluster.form, campus: cluster.campus, week: cluster.week,
+        tabName: cluster.tabName,
+        primary: { row: primary.rowIndex, name: primary.nameStr, subId: primarySubId },
+        deleted: others.map(function (o) {
+          return { row: o.rowIndex, name: o.nameStr, subId: o.subId };
+        }),
+        copiedFields: copiedFields,
+      });
+    } catch (err) {
+      report.errors.push(_dcErr(err, { cluster: cluster }));
+    }
+  });
+
+  // Apply deletes bottom-up so row indices on the same sheet don't shift
+  Object.keys(pendingDeletes).forEach(function (bk) {
+    var bucket = pendingDeletes[bk];
+    var ss = SpreadsheetApp.openById(bucket.ssId);
+    var sheet = ss.getSheetByName(bucket.tabName);
+    if (!sheet) return;
+    bucket.rows.slice().sort(function (a, b) { return b - a; }).forEach(function (rIdx) {
+      try { sheet.deleteRow(rIdx); }
+      catch (e) { report.errors.push(_dcErr(e, { tabName: bucket.tabName, row: rIdx })); }
+    });
+  });
+
+  return report;
+}
+
+/**
  * Resolve cross-campus duplicates (same kid on both Upper AND Lower
  * for the same week). Strategy: pick the campus the GHL workflow
  * would have picked, based on age on June 1 of the camp year.
@@ -1403,29 +1566,47 @@ function _dcCheckDuplicates(report) {
         if (lastRow < 2) return;
         var grid = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
         var groups = perCampus[campusKey];
+        // Bucket by EMAIL first; within each bucket, fuzzy-cluster by
+        // name so variants like "Aria" + "Aria Falzone" collapse.
+        var byEmail = {};
         grid.forEach(function (row, i) {
           var name = String(row[camp.nameCol - 1] || '').trim();
           if (!name) return;                              // skip blank rows
           var email = String(row[emailCol - 1] || '').trim();
-          var key = name.toLowerCase() + '|' + email.toLowerCase();
-          groups[key] = groups[key] || [];
-          groups[key].push({ rowIndex: i + 2, displayName: name, displayEmail: email });
+          var ek = email.toLowerCase();
+          byEmail[ek] = byEmail[ek] || [];
+          byEmail[ek].push({ rowIndex: i + 2, displayName: name, displayEmail: email });
         });
-
-        // In-tab clusters: same key appearing 2+ times on this campus
-        Object.keys(groups).forEach(function (k) {
-          if (groups[k].length > 1) {
-            report.duplicates.clusters.push({
-              form: camp.name,
-              campus: campusKey,
-              week: week,
-              tabName: tabName,
-              displayName: groups[k][0].displayName,
-              displayEmail: groups[k][0].displayEmail,
-              rows: groups[k].map(function (r) { return r.rowIndex; }),
-              count: groups[k].length,
-            });
-          }
+        Object.keys(byEmail).forEach(function (ek) {
+          var rows = byEmail[ek];
+          var clusters = [];
+          rows.forEach(function (r) {
+            var hit = null;
+            for (var c = 0; c < clusters.length; c++) {
+              if (_dcNamesLikelySamePerson(clusters[c][0].displayName, r.displayName)) {
+                hit = clusters[c]; break;
+              }
+            }
+            if (hit) hit.push(r); else clusters.push([r]);
+          });
+          clusters.forEach(function (cluster) {
+            if (cluster.length > 1) {
+              report.duplicates.clusters.push({
+                form: camp.name,
+                campus: campusKey,
+                week: week,
+                tabName: tabName,
+                displayName: cluster[0].displayName,
+                displayEmail: cluster[0].displayEmail,
+                rows: cluster.map(function (r) { return r.rowIndex; }),
+                names: cluster.map(function (r) { return r.displayName; }),
+                count: cluster.length,
+              });
+            }
+            // Feed perCampus groups (used by cross-campus check) with one entry per cluster
+            var key = cluster[0].displayName.toLowerCase() + '|' + (cluster[0].displayEmail || '').toLowerCase();
+            groups[key] = (groups[key] || []).concat(cluster);
+          });
         });
       });
 
@@ -1931,6 +2112,111 @@ function _dcKey(name, email, week) {
   return String(name || '').trim().toLowerCase() + '|' +
          String(email || '').trim().toLowerCase() + '|' +
          String(week  || '').trim();
+}
+
+/**
+ * Decide whether two student-name strings on rows with the same
+ * email + week refer to the same kid. Used both by the auto-add
+ * dedup path and by the duplicate scanner.
+ *
+ * Cases handled:
+ *   "Aria"          vs "Aria Falzone"   → SAME (one is a single token,
+ *                                          first-name matches)
+ *   "Aria Falzone"  vs "Aria L Falzone" → SAME (first AND last match,
+ *                                          middle name added)
+ *   "Aria"          vs "Aria-Bella"     → DIFFERENT (first tokens differ)
+ *   "Sarah Smith"   vs "Sara Smith"     → SAME via Jaro-Winkler ≥ 0.92
+ *   "Aria"          vs "Bob"            → DIFFERENT
+ *
+ * Conservatively scoped to within-same-email comparisons. Two kids
+ * named "Aria" in completely different families would still be
+ * distinguished by their parent emails.
+ */
+function _dcNamesLikelySamePerson(a, b) {
+  if (a == null || b == null) return false;
+  var sa = String(a).trim().toLowerCase();
+  var sb = String(b).trim().toLowerCase();
+  if (!sa || !sb) return false;
+  if (sa === sb) return true;
+  var ta = sa.split(/\s+/).filter(Boolean);
+  var tb = sb.split(/\s+/).filter(Boolean);
+  if (!ta.length || !tb.length) return false;
+  // Single-token side matches multi-token side iff first token matches
+  // (e.g. "Aria" vs "Aria Falzone").
+  if ((ta.length === 1 || tb.length === 1) && ta[0] === tb[0] && ta[0].length >= 3) {
+    return true;
+  }
+  // Both multi-token: same first AND same last token = same kid (middle
+  // names / initials can differ).
+  if (ta.length >= 2 && tb.length >= 2) {
+    if (ta[0] === tb[0] && ta[ta.length - 1] === tb[tb.length - 1]) return true;
+  }
+  // Typo tolerance via Jaro-Winkler.
+  if (_dcJaroWinkler(sa, sb) >= 0.92) return true;
+  return false;
+}
+
+/** Jaro-Winkler similarity (0..1). Used by _dcNamesLikelySamePerson. */
+function _dcJaroWinkler(s1, s2) {
+  if (s1 === s2) return 1;
+  var l1 = s1.length, l2 = s2.length;
+  if (!l1 || !l2) return 0;
+  var matchDist = Math.max(0, Math.floor(Math.max(l1, l2) / 2) - 1);
+  var s1Matches = new Array(l1), s2Matches = new Array(l2);
+  var matches = 0;
+  for (var i = 0; i < l1; i++) {
+    var lo = Math.max(0, i - matchDist);
+    var hi = Math.min(i + matchDist + 1, l2);
+    for (var j = lo; j < hi; j++) {
+      if (s2Matches[j]) continue;
+      if (s1.charAt(i) !== s2.charAt(j)) continue;
+      s1Matches[i] = true; s2Matches[j] = true; matches++;
+      break;
+    }
+  }
+  if (!matches) return 0;
+  var transpositions = 0, k = 0;
+  for (var ii = 0; ii < l1; ii++) {
+    if (!s1Matches[ii]) continue;
+    while (!s2Matches[k]) k++;
+    if (s1.charAt(ii) !== s2.charAt(k)) transpositions++;
+    k++;
+  }
+  transpositions /= 2;
+  var jaro = (matches / l1 + matches / l2 + (matches - transpositions) / matches) / 3;
+  // Winkler boost: up to 4 chars of common prefix
+  var prefix = 0;
+  for (var p = 0; p < Math.min(4, l1, l2); p++) {
+    if (s1.charAt(p) === s2.charAt(p)) prefix++;
+    else break;
+  }
+  return jaro + prefix * 0.1 * (1 - jaro);
+}
+
+/**
+ * Look up an existing row in `existingByWeek[week]` by either:
+ *   1. Exact (name + email + week) key match, OR
+ *   2. Same email+week with a "likely same person" name match
+ * Returns the existing-row entry or null.
+ */
+function _dcFindExistingRowFuzzy(existingByWeek, name, email, week) {
+  if (!existingByWeek || !existingByWeek[week]) return null;
+  var bucket = existingByWeek[week];
+  var exactKey = _dcKey(name, email, week);
+  if (bucket[exactKey]) return bucket[exactKey];
+  // Fuzzy: walk all rows with the same email+week, return first whose
+  // existing name matches by likely-same-person rule.
+  var emailLc = String(email || '').trim().toLowerCase();
+  for (var k in bucket) {
+    if (!bucket.hasOwnProperty(k)) continue;
+    // Key shape: "<name>|<email>|<week>"
+    var parts = k.split('|');
+    if (parts.length < 3) continue;
+    if (parts[1] !== emailLc) continue;
+    if (parts[2] !== week) continue;
+    if (_dcNamesLikelySamePerson(parts[0], name)) return bucket[k];
+  }
+  return null;
 }
 
 function _dcFormatPhone(p) {
