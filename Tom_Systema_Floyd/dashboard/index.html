@@ -267,22 +267,56 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 /* Mobile-friendly nav: stack the filter row, scroll tabs horizontally
    instead of letting them wrap onto multiple lines. */
 @media (max-width:700px){
-  .filter-row{flex-direction:column;align-items:stretch;gap:6px;margin:4px 0 18px}
+  .filter-row{flex-direction:column;align-items:stretch;gap:6px;margin:4px 0 18px;width:100%;min-width:0}
   .filter-row .lbl{margin:0 !important}
-  .filter,.filter.compare-pick{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;gap:4px;min-width:0}
+  .filter,.filter.compare-pick{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;gap:4px;min-width:0;width:100%;max-width:100%}
   .filter::-webkit-scrollbar,.filter.compare-pick::-webkit-scrollbar{display:none}
-  .filter button{flex-shrink:0;white-space:nowrap;padding:8px 14px;font-size:11.5px;letter-spacing:.08em}
-  .compare-status{font-size:11px;text-align:left}
+  .filter button{flex-shrink:0;white-space:nowrap;padding:10px 14px;font-size:11.5px;letter-spacing:.08em;min-height:40px}
+  .compare-status{font-size:11px;text-align:left;word-break:break-word}
+  .compare-date{min-height:40px;font-size:13px}
+  /* Capacity panel — wrap controls onto separate rows so the inputs don't get squished. */
+  .cap-controls{gap:10px 14px;padding:12px}
+  .cap-controls .ctl{font-size:12.5px}
+  .cap-controls .ctl input{width:56px;min-height:36px;font-size:14px;padding:6px}
+  .cap-controls .reset-btn{min-height:36px;padding:8px 12px;font-size:11px}
+  /* Roster header — give the search room and bigger tap target */
+  .roster-header{padding:12px}
+  .roster-search{padding:10px 12px}
+  .roster-search input{min-height:24px;font-size:14px}
+  /* Bars chart legend wraps neatly */
+  .bars-legend{gap:10px 14px;font-size:11.5px}
+  /* Dashboard meta — refresh button bigger tap target */
+  .dash-meta button{padding:9px 14px;font-size:11px;min-height:38px}
 }
 @media (max-width:520px){
-  .kpi-row{grid-template-columns:1fr 1fr;gap:12px}
-  .kpi{padding:16px 16px 14px}
-  .kpi-num{font-size:38px}
-  .dash-brand img{height:36px}
-  .dash-title{font-size:13px;letter-spacing:.2em;padding-left:12px}
-  .roster-body{grid-template-columns:1fr}
-  .cap-controls{gap:8px;padding:10px}
+  .dash-header{padding:12px 14px;gap:10px}
+  .dash{padding:8px 14px 60px}
+  .kpi-row{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+  #kpi-row-afterschool{grid-template-columns:1fr 1fr}
+  .kpi{padding:14px 14px 12px;border-radius:12px}
+  .kpi h3{font-size:10px;letter-spacing:.14em}
+  .kpi-num{font-size:32px;margin-bottom:4px}
+  .kpi-sub{font-size:11px;min-height:14px;line-height:1.3}
+  .kpi-cmp{font-size:10.5px;margin-top:4px}
+  .kpi[data-kpi="topweek"]{grid-column:span 2}
+  .dash-brand img{height:34px}
+  .dash-title{font-size:12px;letter-spacing:.2em;padding-left:10px}
+  .card{padding:16px;border-radius:14px}
+  .card h3{font-size:12px;letter-spacing:.12em;margin-bottom:14px}
+  .donut{width:180px;height:180px}
+  .donut-center .num{font-size:28px}
+  .donut-center .num-sm{font-size:18px}
+  .legend li{padding:8px 10px;font-size:12.5px;min-height:40px}
+  .roster-body{grid-template-columns:1fr;padding:12px;gap:10px}
+  .ros-week{padding:10px}
+  .ros-week li{padding:5px 6px;font-size:12px;min-height:24px}
+  .ros-week li .badge{font-size:9.5px}
+  .cap-controls{gap:8px 12px;padding:10px}
+  .cap-controls .ctl-lbl{width:100%;flex-basis:100%}
   .roster-search{min-width:0;flex:1 1 100%}
+  .roster-header .label{font-size:11px;letter-spacing:.12em}
+  /* Bars SVG — let it shrink and keep aspect via preserveAspectRatio in markup; ensure no min width */
+  .bars-svg{min-width:0}
 }
 </style>
 </head>

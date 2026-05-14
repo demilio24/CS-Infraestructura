@@ -112,28 +112,40 @@ table.lunch .cat-tag.other{background:rgba(155,75,180,.15);color:#7a3593}
   .summary-strip{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:700px){
-  .dash-header{gap:10px}
+  .dash-header{gap:10px;padding:12px 14px}
   .dash-brand img{height:36px}
   .dash-title{font-size:13px;letter-spacing:.2em;padding-left:12px}
+  main.dash{padding:8px 14px 60px}
   .dash-nav{padding:8px 10px;gap:4px}
   .nav-divider{margin:0 4px}
   .nav-group-label{font-size:9.5px;padding:0 4px 0 0}
-  .nav-link{padding:6px 11px;font-size:12.5px}
-  .filter-row{flex-direction:column;align-items:stretch;gap:8px}
-  .filter{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:4px}
+  .nav-link{padding:8px 12px;font-size:12.5px;min-height:38px}
+  .filter-row{flex-direction:column;align-items:stretch;gap:8px;width:100%;min-width:0}
+  .filter{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px;width:100%;max-width:100%;min-width:0}
   .filter::-webkit-scrollbar{display:none}
-  .filter button{flex-shrink:0;white-space:nowrap;padding:8px 14px;font-size:11.5px}
-  table.lunch{font-size:12px}
+  .filter button{flex-shrink:0;white-space:nowrap;padding:10px 14px;font-size:11.5px;min-height:40px}
+  /* Tables: wrap each .lunch in a scroll container via the week-block itself */
+  .week-block{padding:14px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .week-h{flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .week-h .week-title{font-size:13px}
+  table.lunch{font-size:12px;min-width:480px}
   table.lunch thead th{font-size:10px;padding:6px 6px}
   table.lunch tbody td{padding:6px 6px;font-size:12px}
-  table.lunch tbody td:first-child{padding-left:8px}
+  table.lunch tbody td:first-child{padding-left:8px;white-space:normal;line-height:1.3}
+  table.lunch .cat-tag{margin-right:5px;padding:2px 5px;font-size:8.5px}
+  .summary-card{padding:14px 14px}
+  .summary-card h3{font-size:10px}
 }
 @media (max-width:520px){
-  .summary-strip{grid-template-columns:1fr 1fr;gap:10px}
-  .summary-card .num{font-size:28px}
-  .week-block{padding:14px}
+  .summary-strip{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+  .summary-card .num{font-size:26px}
+  .summary-card .sub{font-size:11px}
+  .week-block{padding:12px 10px}
+  table.lunch{min-width:440px}
+  table.lunch thead th{font-size:9.5px;padding:6px 4px;letter-spacing:.1em}
+  table.lunch tbody td{padding:6px 4px;font-size:11.5px}
   /* Drop the long sub-type label to two lines on phones rather than crushing days */
-  table.lunch tbody td:first-child{white-space:normal;line-height:1.3}
+  table.lunch tbody td:first-child{white-space:normal;line-height:1.3;padding-left:6px}
 }
 </style>
 </head>
