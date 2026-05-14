@@ -45,19 +45,9 @@ var DC_NOTIFY_EMAIL = 'emilio@nilsdigital.com';
 var DC_TOMBSTONE_TAB = '_dc_tombstones';
 
 // Form IDs
-var DC_FORM_FREE_CAMP   = '3Z4E9y7WlWgkZDxViBUW';
-var DC_FORM_SUMMER_CAMP = '61TiB5Zn1DJrGAsWiyTm';
-// TODO: After School Registration form (`TkioOL4IoByeHU3K2gTs`) is
-// currently NOT covered by the discrepancy bot. To wire it up:
-//   1. Add DC_FORM_AFTER_SCHOOL = 'TkioOL4IoByeHU3K2gTs'
-//   2. Add the After School roster spreadsheet ID(s) as constants
-//      (DC_AFTER_SCHOOL_UPPER_SS / _LOWER_SS, or a single sheet)
-//   3. Map the After School form's field IDs (sample a submission via
-//      GET /forms/submissions?formId=TkioOL4IoByeHU3K2gTs)
-//   4. Add _dcCheckAfterSchool() and _dcAppendAfterSchool() following
-//      the same pattern as Free Camp / Summer Camp
-//   5. Add the After School routing workflows to DC_GHL_WORKFLOW_BY_FORM_WEEK
-// Wire it from runDiscrepancyCheck() like the other two forms.
+var DC_FORM_FREE_CAMP    = '3Z4E9y7WlWgkZDxViBUW';
+var DC_FORM_SUMMER_CAMP  = '61TiB5Zn1DJrGAsWiyTm';
+var DC_FORM_AFTER_SCHOOL = 'TkioOL4IoByeHU3K2gTs';
 
 // Spreadsheet IDs (mirror of SHEETS in Snapshot.js — duplicated so
 // this file can be deleted/re-pushed independently)
@@ -65,6 +55,15 @@ var DC_FREE_UPPER_SS   = '1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ';
 var DC_FREE_LOWER_SS   = '1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY';
 var DC_SUMMER_UPPER_SS = '1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA';
 var DC_SUMMER_LOWER_SS = '18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs';
+
+// After School: writes go to the Main Table tab of the central
+// "After School Registration - APPLICATION" spreadsheet. The School
+// Enrollment Router (separate Apps Script bound to that sheet) then
+// routes each Main Table row to the correct per-school spreadsheet.
+// The bot only ensures Main Table has a row for every form submission;
+// it does NOT duplicate the routing logic.
+var DC_AFTER_SCHOOL_SS  = '1XRhQe1VTujc3qlC3DdWdfoAsPabPXVLI8PdFvs7JKhY';
+var DC_AFTER_SCHOOL_TAB = 'Main Table';
 
 // Free Camp form field IDs
 var DC_FC_FIELD_WEEKS    = '0H3m5fBvXwD3frq75XKa';
@@ -87,6 +86,14 @@ var DC_SC_FIELD_AFTERCARE = '7yIj793LRegIfN19Ux8r';
 var DC_SC_FIELD_BREAKFAST = 'KqJc1rwDbZByulZNCDcl';
 var DC_SC_FIELD_LUNCH     = 'MgE6T5xKZl2SZWGnPktO';
 
+// After School Registration form field IDs
+var DC_AS_FIELD_STUDENT = 'mCopCd8PHPPGBdo30zYK';   // Student Name
+var DC_AS_FIELD_GRADE   = 'wiv3eF5jZoPalmg7yTmQ';   // Child Grade
+var DC_AS_FIELD_SHIRT   = 'Ysom5PswWL2N0eouKwiS';   // T-Shirt Size
+var DC_AS_FIELD_CLASS   = 'UluqGJoN855415yTyiXd';   // Select Class (school + day/time)
+var DC_AS_FIELD_NKS     = '9kWksqJLFmmGoxfFDsay';   // Neighborhood Kids Schools
+var DC_AS_FIELD_NOTES   = '40KOxhzNEKTjyhvi20fb';   // Notes (not currently written to Main Table)
+
 // Map (form, week) → the GHL routing workflow that's supposed to
 // write the corresponding sheet row. When the bot has to add a row
 // itself, the email points at this workflow as "the one that failed
@@ -105,6 +112,12 @@ var DC_GHL_WORKFLOW_BY_FORM_WEEK = {
     'July 27th-31st':     { id: '89452dd8-dcd6-4e01-95b8-e72ed507cbca', name: '9. Free Camp (July 27th-31st) -> Google Sheet routing' },
     'August 3rd-7th':     { id: '6c8f25e2-122a-474f-a810-892f8ad45b43', name: '9.1 Free Camp (August 3rd-7th) -> Google Sheet routing' },
   },
+  'after_school': {
+    // After School has a single workflow that routes ALL submissions
+    // (no per-class workflows). Used as the "likely failed workflow"
+    // hint in the email regardless of which class the parent picked.
+    '*': { id: 'a9154b76-5174-4129-8370-e7f3f425ab89', name: 'After School Registration Main Branch' },
+  },
   'summer_camp': {
     'June 1st-5th':       { id: '1e19a5e1-e45a-40f0-b800-98dd36395c2e', name: '1. Summer Camp (June 1st-5th) -> Google Sheet routing' },
     'June 8th-12th':      { id: 'e5d2f966-6ffc-45a5-872d-948e4cca04c7', name: '2. Summer Camp (June 8th-12th) -> Google Sheet routing' },
@@ -122,7 +135,8 @@ var DC_GHL_WORKFLOW_BY_FORM_WEEK = {
 };
 
 function _dcWorkflowFor(form, week) {
-  var wf = ((DC_GHL_WORKFLOW_BY_FORM_WEEK || {})[form] || {})[week];
+  var formMap = (DC_GHL_WORKFLOW_BY_FORM_WEEK || {})[form] || {};
+  var wf = formMap[week] || formMap['*'];        // After School uses '*' since one workflow handles all classes
   if (!wf) return null;
   return {
     id: wf.id,
@@ -172,9 +186,10 @@ function runDiscrepancyCheck() {
   var startedAt = new Date();
   var report = {
     startedAt: startedAt.toISOString(),
-    freeCamp:   { added: [], linkedManual: [], orphans: [], errors: [], skippedYoung: 0 },
-    summerCamp: { added: [], linkedManual: [], wouldAdd: [], missing: [], orphans: [], errors: [], skippedYoung: 0 },
-    duplicates: { clusters: [], crossCampus: [], errors: [] },
+    freeCamp:    { added: [], linkedManual: [], orphans: [], errors: [], skippedYoung: 0 },
+    summerCamp:  { added: [], linkedManual: [], wouldAdd: [], missing: [], orphans: [], errors: [], skippedYoung: 0 },
+    afterSchool: { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0 },
+    duplicates:  { clusters: [], crossCampus: [], errors: [] },
   };
   try {
     _dcCheckFreeCamp(report);
@@ -185,6 +200,11 @@ function runDiscrepancyCheck() {
     _dcCheckSummerCamp(report);
   } catch (err) {
     report.summerCamp.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckAfterSchool(report);
+  } catch (err) {
+    report.afterSchool.errors.push(_dcErr(err));
   }
   try {
     _dcCheckDuplicates(report);
@@ -201,6 +221,9 @@ function runDiscrepancyCheck() {
     ' summer added=' + report.summerCamp.added.length +
     ' summer linked=' + report.summerCamp.linkedManual.length +
     ' summer errors=' + report.summerCamp.errors.length +
+    ' afterschool added=' + report.afterSchool.added.length +
+    ' afterschool linked=' + report.afterSchool.linkedManual.length +
+    ' afterschool errors=' + report.afterSchool.errors.length +
     ' dup_clusters=' + report.duplicates.clusters.length +
     ' dup_crossCampus=' + report.duplicates.crossCampus.length +
     ' duration=' + report.durationMs + 'ms'
@@ -214,6 +237,9 @@ function runDiscrepancyCheck() {
     report.summerCamp.added.length        > 0 ||
     report.summerCamp.linkedManual.length > 0 ||
     report.summerCamp.errors.length       > 0 ||
+    report.afterSchool.added.length       > 0 ||
+    report.afterSchool.linkedManual.length > 0 ||
+    report.afterSchool.errors.length       > 0 ||
     report.duplicates.clusters.length     > 0 ||
     report.duplicates.crossCampus.length  > 0;
   if (noteworthy) {
@@ -882,6 +908,239 @@ function _dcCheckSummerCamp(report) {
   report.summerCamp.missing = report.summerCamp.errors.slice();
 }
 
+// ─────────────────────── After School checker ───────────────────────
+
+/**
+ * After School failsafe.
+ *
+ *   Architecture: After School is fundamentally different from
+ *   Free/Summer Camp. There is ONE intake spreadsheet (the central
+ *   "After School Registration - APPLICATION" with a "Main Table" tab).
+ *   The "After School Registration Main Branch" workflow appends one
+ *   row per submission to Main Table. A separate Apps Script (the
+ *   "School Enrollment Router", bound to that spreadsheet) then reads
+ *   each new Main Table row and routes it to the correct per-school
+ *   spreadsheet — auto-creating that sheet from a template if needed.
+ *
+ *   This bot's job: ensure Main Table has a row for every form
+ *   submission. Once the row is in Main Table, the existing Router
+ *   handles all the per-school routing. We do NOT duplicate that
+ *   logic; we just close the gap between GHL and Main Table.
+ *
+ *   Dedup key: (student_name + parent_email + class) — both because
+ *   Main Table can hold multiple submissions per kid (different
+ *   classes) and because re-submissions for the same class shouldn't
+ *   double up.
+ *
+ *   No 5-min grace racing concern: only one workflow handles all
+ *   classes, and Main Table writes are fast. We keep the 5-min grace
+ *   anyway for consistency.
+ */
+function _dcCheckAfterSchool(report) {
+  report.afterSchool.added            = report.afterSchool.added            || [];
+  report.afterSchool.linkedManual     = report.afterSchool.linkedManual     || [];
+  report.afterSchool.skippedYoung     = report.afterSchool.skippedYoung     || 0;
+  report.afterSchool.skippedTombstone = report.afterSchool.skippedTombstone || 0;
+  var subs = _dcListSubmissions(DC_FORM_AFTER_SCHOOL);
+  var nowMs = Date.now();
+  var processed = _dcLoadProcessedFromSupabase();
+
+  // Build the Main Table existing-row index.
+  // Cols: A=Student Name, B=Email, C=T-Shirt, D=Grade, E=Date,
+  //       F=Class, G=NKS, H=Status, then hidden _submissionId
+  var ss = SpreadsheetApp.openById(DC_AFTER_SCHOOL_SS);
+  var sheet = ss.getSheetByName(DC_AFTER_SCHOOL_TAB);
+  if (!sheet) {
+    report.afterSchool.errors.push({ message: 'Main Table tab not found in After School spreadsheet' });
+    return;
+  }
+  var trackingCol = _dcEnsureTrackingCol(sheet);
+  var lastRow = sheet.getLastRow();
+  var existingByKey = {};            // key → { rowIndex, currentSubId }
+  var trackedById = {};              // submissionId → rowIndex (for fast in-sheet check)
+  if (lastRow >= 2) {
+    var grid = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+    grid.forEach(function (row, i) {
+      var subId = String(row[trackingCol - 1] || '').trim();
+      var name  = row[0];
+      var email = row[1];
+      var cls   = row[5];
+      if (!String(name || '').trim()) return;          // empty/blank rows
+      var key = _dcAfterSchoolKey(name, email, cls);
+      existingByKey[key] = { rowIndex: i + 2, currentSubId: subId, trackingCol: trackingCol };
+      if (subId) trackedById[subId] = i + 2;
+    });
+  }
+
+  subs.forEach(function (s) {
+    if (nowMs - new Date(s.createdAt).getTime() < DC_GRACE_WINDOW_MS) {
+      report.afterSchool.skippedYoung++;
+      return;
+    }
+    var others = s.others || {};
+    var name = String(others[DC_AS_FIELD_STUDENT] || '').trim();
+    if (!name) return;                              // skip headerless / malformed
+    if (_dcIsTestSubmission(s, name)) return;
+    var emailLc = String(s.email || '').trim().toLowerCase();
+    var cls    = String(others[DC_AS_FIELD_CLASS] || '').trim();
+    var nks    = String(others[DC_AS_FIELD_NKS]   || '').trim();
+    // Use class as the tombstone "week" key so each (sub, class) is
+    // tracked independently. After School submissions are 1:1 with
+    // class, but the field guarantees a stable key in Supabase.
+    var classKey = cls || (nks ? 'NKS:' + nks : '<no-class>');
+
+    if (trackedById[s.id]) return;                  // already in Main Table
+    if (processed.after_school[s.id + '|' + classKey]) {
+      report.afterSchool.skippedTombstone++;
+      return;
+    }
+
+    var dedupKey = _dcAfterSchoolKey(name, emailLc, cls);
+    var existing = existingByKey[dedupKey];
+    if (existing) {
+      // Row already in Main Table for this (kid, class). Either
+      // currentSubId matches (verified record-only) or it's an old
+      // submission ID we should refresh. Either way, no append.
+      if (existing.currentSubId === s.id) {
+        _dcRecordProcessed(s.id, 'after_school', classKey, {
+          status: 'processed',
+          spreadsheetId: DC_AFTER_SCHOOL_SS,
+          tabName: DC_AFTER_SCHOOL_TAB,
+          rowIndex: existing.rowIndex,
+          studentName: name, parentEmail: emailLc, contactId: s.contactId,
+          metadata: { class: cls, nks: nks },
+        });
+        processed.after_school[s.id + '|' + classKey] = true;
+        return;
+      }
+      try {
+        sheet.getRange(existing.rowIndex, existing.trackingCol).setValue(s.id);
+        _dcSetAfterSchoolNote(sheet, existing.rowIndex, 'linked-manual', s, cls, nks);
+        _dcRecordProcessed(s.id, 'after_school', classKey, {
+          status: 'linked_manual',
+          spreadsheetId: DC_AFTER_SCHOOL_SS,
+          tabName: DC_AFTER_SCHOOL_TAB,
+          rowIndex: existing.rowIndex,
+          studentName: name, parentEmail: emailLc, contactId: s.contactId,
+          metadata: { class: cls, nks: nks, replaced_sub_id: existing.currentSubId || null },
+        });
+        processed.after_school[s.id + '|' + classKey] = true;
+        trackedById[s.id] = existing.rowIndex;
+        report.afterSchool.linkedManual.push({
+          submissionId: s.id, student: name, class: cls, nks: nks,
+          parent: s.name, email: s.email, row: existing.rowIndex,
+        });
+      } catch (err) {
+        report.afterSchool.errors.push(_dcErr(err, { phase: 'link-existing', submissionId: s.id }));
+      }
+      return;
+    }
+
+    // Genuinely missing — append to Main Table. The Router will
+    // pick up the row on its next on-edit/on-change trigger.
+    try {
+      var added = _dcAppendAfterSchool(s);
+      _dcRecordProcessed(s.id, 'after_school', classKey, {
+        status: 'processed',
+        spreadsheetId: DC_AFTER_SCHOOL_SS,
+        tabName: DC_AFTER_SCHOOL_TAB,
+        rowIndex: added.rowIndex,
+        studentName: name, parentEmail: emailLc, contactId: s.contactId,
+        metadata: { class: cls, nks: nks },
+      });
+      processed.after_school[s.id + '|' + classKey] = true;
+      // Reflect in indices so a duplicate sub for same kid+class
+      // within this run gets caught by the existing-row branch.
+      existingByKey[dedupKey] = {
+        rowIndex: added.rowIndex,
+        currentSubId: s.id,
+        trackingCol: trackingCol,
+      };
+      trackedById[s.id] = added.rowIndex;
+      report.afterSchool.added.push({
+        submissionId: s.id, contactId: s.contactId, student: name,
+        class: cls, nks: nks,
+        parent: s.name, email: s.email, rowIndex: added.rowIndex,
+        likelyFailedWorkflow: _dcWorkflowFor('after_school', '*'),
+      });
+    } catch (err) {
+      report.afterSchool.errors.push(_dcErr(err, { submissionId: s.id, phase: 'append' }));
+    }
+  });
+}
+
+function _dcAfterSchoolKey(name, email, cls) {
+  return String(name || '').trim().toLowerCase() + '|' +
+         String(email || '').trim().toLowerCase() + '|' +
+         String(cls || '').trim().toLowerCase();
+}
+
+/**
+ * Append one row to Main Table. Column order is fixed by the School
+ * Enrollment Router — DO NOT REORDER without updating the router.
+ *   A: Student Name (from form)
+ *   B: Parent Email (from form)
+ *   C: T-Shirt Size (from form)
+ *   D: Grade (from form)
+ *   E: Date (use the form submission's createdAt — preserves timeline)
+ *   F: Class (from form's "Select Class")
+ *   G: NKS (from form's "Neighborhood Kids Schools" — only set if Class
+ *      resolves to "Neighborhood Kids Schools")
+ *   H: Status (LEAVE BLANK — the Router fills this in when it processes)
+ *   ...: hidden _submissionId at the rightmost
+ */
+function _dcAppendAfterSchool(submission) {
+  var ss = SpreadsheetApp.openById(DC_AFTER_SCHOOL_SS);
+  var sheet = ss.getSheetByName(DC_AFTER_SCHOOL_TAB);
+  if (!sheet) throw new Error('Main Table tab missing in After School spreadsheet');
+  var others = submission.others || {};
+  var name  = String(others[DC_AS_FIELD_STUDENT] || '');
+  var email = String(submission.email || '');
+  var shirt = String(others[DC_AS_FIELD_SHIRT] || '');
+  var grade = String(others[DC_AS_FIELD_GRADE] || '');
+  var dateIso = submission.createdAt || new Date().toISOString();
+  var cls   = String(others[DC_AS_FIELD_CLASS] || '');
+  var nks   = String(others[DC_AS_FIELD_NKS]   || '');
+  var row = [name, email, shirt, grade, dateIso, cls, nks, ''];
+  var trackingCol = _dcEnsureTrackingCol(sheet);
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  var newRowIndex = sheet.getLastRow();
+  _dcSetAfterSchoolNote(sheet, newRowIndex, 'auto-added', submission, cls, nks);
+  return { row: row, rowIndex: newRowIndex };
+}
+
+/** Cell note specifically for After School rows (different schema than camp rows). */
+function _dcSetAfterSchoolNote(sheet, rowIndex, mode, submission, cls, nks) {
+  try {
+    var nameCol = 1;       // Main Table col A = Student Name
+    var contactUrl = submission.contactId
+      ? 'https://app.nilsdigital.com/v2/location/' + DC_LOCATION_ID + '/contacts/detail/' + submission.contactId
+      : '';
+    var modeBlurb = ({
+      'auto-added':    'Auto-added by DiscrepancyCheck — the After School Registration Main Branch workflow did not write this row, so the bot did. The School Enrollment Router will route this to the per-school sheet on its next trigger.',
+      'linked-manual': 'Linked by DiscrepancyCheck — this row was already here (typed in or written by an earlier workflow run); bot stamped the GHL submission ID on it.',
+    })[mode] || ('DiscrepancyCheck (' + mode + ')');
+    var lines = [];
+    lines.push(modeBlurb);
+    lines.push('Stamped: ' + new Date().toISOString());
+    lines.push('');
+    lines.push('Form: After School Registration');
+    lines.push('Class: ' + (cls || '(none)'));
+    if (nks) lines.push('NKS: ' + nks);
+    lines.push('Submission ID: ' + submission.id);
+    lines.push('Submitted: ' + (submission.createdAt || ''));
+    lines.push('Parent: ' + (submission.name || ''));
+    lines.push('Parent email: ' + (submission.email || ''));
+    lines.push('Contact ID: ' + (submission.contactId || ''));
+    if (contactUrl) lines.push('Contact: ' + contactUrl);
+    sheet.getRange(rowIndex, nameCol).setNote(lines.join('\n'));
+  } catch (e) {
+    Logger.log('After-school setNote failed: ' + e);
+  }
+}
+
 // ─────────────────────── Duplicate resolution (destructive) ───────────────────────
 
 /**
@@ -1437,7 +1696,7 @@ function _dcLoadProcessedFromSupabase() {
     throw new Error('Supabase sf_list_processed HTTP ' + resp.getResponseCode() + ': ' + resp.getContentText().substring(0, 200));
   }
   var rows = JSON.parse(resp.getContentText());
-  var out = { free_camp: {}, summer_camp: {} };
+  var out = { free_camp: {}, summer_camp: {}, after_school: {} };
   rows.forEach(function (r) {
     var bucket = out[r.form];
     if (bucket) bucket[r.submission_id + '|' + r.week] = true;
@@ -1594,6 +1853,30 @@ function _dcEmailReport(report) {
     sc.errors.forEach(function (e) { lines.push('    ! ' + JSON.stringify(e)); });
   }
 
+  var as = report.afterSchool || { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0 };
+  lines.push('');
+  lines.push('AFTER SCHOOL (writes to Main Table; School Enrollment Router routes to per-school sheets)');
+  lines.push('  added (bot wrote to Main Table)        : ' + as.added.length);
+  lines.push('  linked (existing row, ID stamped)      : ' + as.linkedManual.length);
+  lines.push('  skipped (tombstoned — staff deleted)   : ' + (as.skippedTombstone || 0));
+  lines.push('  errors                                  : ' + as.errors.length);
+  lines.push('  skipped<5m                              : ' + as.skippedYoung);
+  as.added.forEach(function (a) {
+    lines.push('  + ' + (a.class || '(no class)') + ' — ' + a.student +
+      ' (parent ' + (a.parent || '?') + ', ' + a.email + ', sub ' + a.submissionId + ')');
+    if (a.likelyFailedWorkflow) {
+      lines.push('      ⚠ Workflow that should have written this row: ' + a.likelyFailedWorkflow.name);
+      lines.push('         ' + a.likelyFailedWorkflow.url);
+    }
+  });
+  as.linkedManual.forEach(function (l) {
+    lines.push('  ~ ' + (l.class || '(no class)') + ' — ' + l.student + ' (matched Main Table row ' + l.row + ', sub ' + l.submissionId + ')');
+  });
+  if (as.errors.length) {
+    lines.push('  After School errors:');
+    as.errors.forEach(function (e) { lines.push('    ! ' + JSON.stringify(e)); });
+  }
+
   var dup = report.duplicates || { clusters: [], crossCampus: [] };
   if (dup.clusters.length || dup.crossCampus.length) {
     lines.push('');
@@ -1611,10 +1894,10 @@ function _dcEmailReport(report) {
     });
   }
 
-  var subj = 'Camp roster discrepancy — ' +
-    (fc.added.length + sc.missing.length) + ' diff, ' +
+  var subj = 'Roster discrepancy — ' +
+    (fc.added.length + sc.added.length + as.added.length) + ' added, ' +
     (dup.clusters.length + dup.crossCampus.length) + ' dup, ' +
-    (fc.errors.length + sc.errors.length) + ' err';
+    (fc.errors.length + sc.errors.length + as.errors.length) + ' err';
   MailApp.sendEmail({
     to: DC_NOTIFY_EMAIL,
     subject: subj,

@@ -100,11 +100,38 @@ Florida location: `8IWtNFlmgJ8bif9DivHT` (`Systema Floyd - Florida`).
 |---|---|---|
 | Free Camp | `3Z4E9y7WlWgkZDxViBUW` | ✅ |
 | Summer Camp | `61TiB5Zn1DJrGAsWiyTm` | ✅ |
+| After School Registration | `TkioOL4IoByeHU3K2gTs` | ✅ (writes to Main Table; Router handles routing) |
 | Summer Camp - DEV | `oEDRZoVTuCWHt5cnMLpH` | ⏩ skipped (dev) |
-| After School Registration | `TkioOL4IoByeHU3K2gTs` | ❌ TODO |
 | Liability Waiver - Free | `y3Ztbvsy0JAZt8dx453Y` | n/a (not roster) |
 | Liability Waiver | `2vMqRPJVSiNx9qowOcpD` | n/a |
 | Lead Form | `yP3OPoUimfOZgrXJo2mI` | n/a |
+
+> **After School architectural note:** Camp forms write directly to per-week
+> spreadsheets via per-week routing workflows. After School is different — ONE
+> workflow (`After School Registration Main Branch`,
+> `a9154b76-5174-4129-8370-e7f3f425ab89`) writes to ONE central Main Table in
+> the `After School Registration - APPLICATION` spreadsheet
+> (`1XRhQe1VTujc3qlC3DdWdfoAsPabPXVLI8PdFvs7JKhY`). The separate **School
+> Enrollment Router** (Apps Script bound to that spreadsheet) then routes each
+> Main Table row to the correct per-school spreadsheet. The discrepancy bot
+> only ensures Main Table has a row for every form submission; the Router
+> handles everything downstream. See
+> [school_enrollment_router.md](./school_enrollment_router.md) for the
+> router's logic.
+>
+> **Form field map for After School (writes to Main Table cols A–H):**
+> - A = `mCopCd8PHPPGBdo30zYK` ("Student Name (After School Registration)")
+> - B = submission's parent email
+> - C = `Ysom5PswWL2N0eouKwiS` ("T-Shirt Size (After School Registration)")
+> - D = `wiv3eF5jZoPalmg7yTmQ` ("Child Grade (After School Registration)")
+> - E = submission's `createdAt`
+> - F = `UluqGJoN855415yTyiXd` ("Select Class (After School Registration)" — the school+day+time string)
+> - G = `9kWksqJLFmmGoxfFDsay` ("Neighborhood Kids Schools (After School Registration)" — only set if Class is "Neighborhood Kids Schools")
+> - H = empty (Router fills in `Processed`/`ERROR`/`SKIPPED`)
+>
+> Tombstone key in Supabase: `(submission_id, class)` — class plays the role
+> "week" plays for camps. After School submissions are 1:1 with class so this
+> works cleanly.
 
 ### 4.2 GHL Routing Workflows
 
