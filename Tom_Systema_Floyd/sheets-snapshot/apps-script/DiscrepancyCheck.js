@@ -763,7 +763,13 @@ function _dcAppendFreeCamp(submission, week, campus) {
  */
 function _dcSetSourceNote(sheet, rowIndex, mode, submission, week, formName) {
   try {
-    var nameCol = 2;
+    // Student Name column varies by form:
+    //   Free Camp Upper/Lower → col 2 (B)
+    //   Summer Camp Upper/Lower → col 3 (C)  ← Summer's col B is "Amt"!
+    // Bug history: for several days notes for Summer Camp were
+    // stamped on col B (Amt) instead of col C. The migration in
+    // discrepancyFixSummerCampNotes() moves them to the correct cell.
+    var nameCol = (formName === 'Summer Camp') ? 3 : 2;
     var contactUrl = submission.contactId
       ? 'https://app.nilsdigital.com/v2/location/' + DC_LOCATION_ID + '/contacts/detail/' + submission.contactId
       : '';
@@ -2024,6 +2030,64 @@ function _dcEnsureTrackingCol(sheet) {
   sheet.getRange(1, newCol).setValue(DC_TRACKING_HEADER);
   sheet.hideColumns(newCol);
   return newCol;
+}
+
+/**
+ * One-shot fix: a previous version of _dcSetSourceNote hardcoded
+ * `nameCol = 2`, which is correct for Free Camp but wrong for Summer
+ * Camp (where col B is Amt and Student Name is col C). This walks
+ * the two Summer Camp spreadsheets, moves any DiscrepancyCheck-
+ * authored note from col B to col C (only if col C doesn't already
+ * have a note). If col C already has a non-empty note, the col B
+ * note is just cleared (the col C one is the authoritative version).
+ *
+ * Idempotent — safe to re-run.
+ *
+ * Returns: { moved, cleared, skipped, errors }
+ */
+function discrepancyFixSummerCampNotes() {
+  var report = { moved: 0, cleared: 0, skipped: 0, errors: [] };
+  [DC_SUMMER_UPPER_SS, DC_SUMMER_LOWER_SS].forEach(function (ssId) {
+    try {
+      var ss = SpreadsheetApp.openById(ssId);
+      ss.getSheets().forEach(function (sheet) {
+        var nm = sheet.getName();
+        if (nm === 'Billing' || nm === '_dc_tombstones' || nm.indexOf('Template') === 0) return;
+        var lastRow = sheet.getLastRow();
+        if (lastRow < 2) return;
+        // Read all col B + col C notes for the data range
+        var bNotes = sheet.getRange(2, 2, lastRow - 1, 1).getNotes();
+        var cNotes = sheet.getRange(2, 3, lastRow - 1, 1).getNotes();
+        var newBNotes = bNotes.slice();   // mutate copy
+        var newCNotes = cNotes.slice();
+        for (var i = 0; i < bNotes.length; i++) {
+          var bN = bNotes[i][0] || '';
+          if (!bN.trim()) continue;
+          // Only touch notes that look like they came from us
+          if (bN.indexOf('DiscrepancyCheck') < 0) {
+            report.skipped++;
+            continue;
+          }
+          var cN = cNotes[i][0] || '';
+          if (cN.trim()) {
+            // C already has a note — keep C, drop B
+            newBNotes[i][0] = '';
+            report.cleared++;
+          } else {
+            // Move B → C
+            newCNotes[i][0] = bN;
+            newBNotes[i][0] = '';
+            report.moved++;
+          }
+        }
+        sheet.getRange(2, 2, lastRow - 1, 1).setNotes(newBNotes);
+        sheet.getRange(2, 3, lastRow - 1, 1).setNotes(newCNotes);
+      });
+    } catch (err) {
+      report.errors.push(_dcErr(err, { ssId: ssId }));
+    }
+  });
+  return report;
 }
 
 // ─────────────────────── Heartbeat (silence-broken alerts) ───────────────────────
