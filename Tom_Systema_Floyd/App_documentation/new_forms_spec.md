@@ -1,370 +1,377 @@
 # Systema Floyd — New Forms Spec
 
-> Build order per Tom's May 13 call:
-> **1. Vladimir Seminar → 2. Private Lessons → 3. Birthday Parties**
->
-> Additional forms surfaced in his May 5 email (not yet prioritized):
-> **4. Rent a Sensei** · **5. Balloons add-on** (lives inside Birthday Parties)
-> · **6. Teen & Adult Classes** *(paused until next school year schedule is finalized)*
+> Build order per Tom's May 13 call: **1. Vladimir Seminar → 2. Private Lessons → 3. Birthday Parties**
+> Additional forms surfaced in his May 5 email: **4. Rent-A-Sensei (Babysitting)** · **5. Balloons add-on** (lives inside Birthday Parties) · **6. Teen & Adult Classes** *(paused until next school year)*
 
-This doc is the canonical field list per form, using the pricing syntax
-already in use across the camp Google Sheets:
+All pricing below came from photos Tom sent on May 5 (OCR'd 2026-05-14 — see
+`.claude/scratch/sf_pricing_imgs/`). The Birthday Party section is fields-only
+because Tom never sent prices for it. The Vladimir Seminar section is shape-only
+because he hasn't sent the existing page link yet.
+
+Pricing syntax mirrors the camp Google Sheets so the billing dashboard parser
+extracts amounts automatically:
 
 | Pattern | Meaning | Example |
 |---|---|---|
-| `Label ($N/unit)` | Item has its own price | `Pizza ($30/week)` · `Single Session ($60/session)` |
-| `Label (+$N)` | Add-on charged on top of base | `Small (+$30)` (shirt addon) |
-| `Label (+$N/unit)` | Recurring/per-unit add-on | `After care ($25/day)` |
-| `Label` (no $) | Free option / placeholder | `None` · `Full Week` |
+| `Label ($N)` | Flat price | `Standard Arch ($450)` |
+| `Label ($N/unit)` | Per-unit price | `Pizza ($30/week)` · `1 Child ($25/hour)` |
+| `Label (+$N)` | Add-on on top of base | `2 Students (+$25)` |
+| `Label (+$N/unit)` | Per-unit add-on | `Each additional foot (+$30)` |
 
-All currency in **USD**. **Florida sales tax** applies to *food and clothing* only.
-**Transaction fee** is a flat **3%** applied to the total at checkout (already implemented in billing dashboard).
-
-Fields marked `*` are required. Anything in `{curly braces}` means **the value still
-needs to come from Tom** — I have not fabricated a number.
+Florida sales tax (7%) applies to food/clothing line items only. Transaction
+fee (3% flat) applies to the total at checkout.
 
 ---
 
 ## 1. Vladimir Seminar (Priority #1)
 
-> Annual flagship weekend event in **September or October**. Tom said he already
-> has an existing registration page he'll send the link to. Until that arrives,
-> these are the fields a Systema HQ-style weekend seminar typically needs.
+> Annual flagship weekend event in **September or October**. Tom said on
+> April 24 that he already has an existing registration page; the link he
+> said he'd send has not arrived. Until it does, the field layout below
+> follows the Systema HQ weekend-seminar standard.
 
-### A. Identity
-- Student Name *
-- Date of Birth *
-- Email Address *
-- Phone Number *
-- Emergency Contact Name *
-- Emergency Contact Phone *
-- Home School / Systema Affiliation
-- City + State (so Tom knows who's traveling)
+### Field list
 
-### B. Experience
-- Systema experience level *
-  - `None — first seminar`
-  - `Beginner (< 1 year)`
-  - `Intermediate (1-3 years)`
-  - `Advanced (3+ years)`
-  - `Instructor`
-- Prior seminars with Vladimir Vasiliev (Yes / No)
-- Other martial arts background (free text)
-
-### C. Registration Type *
-*(One selection — these mirror Vasiliev's standard weekend structure)*
-- `Full Weekend Pass ($ {weekend_price} /weekend)`
-- `Saturday Only ($ {sat_price} /day)`
-- `Sunday Only ($ {sun_price} /day)`
-- `Friday Pre-Seminar Workshop ($ {fri_price} )` *(only if Tom is running one)*
-- `Early Bird Full Weekend ($ {early_bird_price} /weekend)` — auto-shown only if registered before `{early_bird_cutoff_date}`
-
-### D. Apparel Add-on
-- Event T-shirt
-  - `None`
-  - `Small (+$ {shirt_price} )`
-  - `Medium (+$ {shirt_price} )`
-  - `Large (+$ {shirt_price} )`
-  - `Extra Large (+$ {shirt_price} )`
-  - `XXL (+$ {shirt_price_xxl} )` *(if priced higher per camp pattern)*
-
-> Apparel = Florida sales tax applies (+7% on shirt line items only).
-
-### E. Optional Add-ons
-- Group dinner (Saturday night)  
-  - `None`
-  - `Attending (+$ {dinner_price} /person)`
-- Photo with Vladimir Vasiliev (+$ {photo_price} ) *(if offered)*
-- Equipment/mat rental (+$ {equipment_price} ) *(if applicable)*
-
-### F. Health & Waiver
-- Medical conditions or injuries (free text)
-- Allergies (free text)
-- Liability waiver — checkbox + signature *(use existing seminar waiver Tom said Juliana would send)*
-- Photo/video release — checkbox
-
-### G. Notes
-- Anything else we should know (free text)
+| Field | Type | Notes |
+|---|---|---|
+| Student Name | TEXT | required |
+| Date of Birth | DATE | required |
+| Email Address | TEXT | required |
+| Phone Number | PHONE | required |
+| Emergency Contact Name | TEXT | required |
+| Emergency Contact Phone | PHONE | required |
+| Home School / Systema Affiliation | TEXT | optional |
+| City + State | TEXT | optional — track who's traveling |
+| Systema Experience Level | SINGLE_OPTIONS | None / Beginner (<1yr) / Intermediate (1-3yr) / Advanced (3+yr) / Instructor |
+| Prior seminars with Vladimir Vasiliev | CHECKBOX | |
+| Other martial arts background | LARGE_TEXT | |
+| Registration Type | SINGLE_OPTIONS | `Full Weekend Pass ($ {weekend_price} /weekend)` · `Saturday Only ($ {sat_price} /day)` · `Sunday Only ($ {sun_price} /day)` · `Early Bird Full Weekend ($ {early_bird_price} /weekend)` |
+| Event T-shirt | SINGLE_OPTIONS | `None` · `Small (+$ {shirt_price} )` · `Medium (+$ {shirt_price} )` · `Large (+$ {shirt_price} )` · `XL (+$ {shirt_price} )` · `XXL (+$ {shirt_xxl_price} )` |
+| Medical conditions or injuries | LARGE_TEXT | |
+| Allergies | LARGE_TEXT | |
+| Liability waiver | SIGNATURE | use existing waiver Tom said Juliana would send |
+| Photo/video release | CHECKBOX | |
+| Notes | LARGE_TEXT | |
 
 ### Still needed from Tom
-1. **Date(s)** of the seminar weekend
-2. **Link to existing seminar page** (he said "she'll send it to you" on Apr 24)
-3. **Existing waiver** PDF or link
-4. All `{ … }` prices above
-5. Capacity cap (for sold-out logic)
+- Date(s) of the weekend
+- Link to existing seminar page
+- Existing waiver PDF/link
+- All `{ }` prices
+- Capacity cap
 
 ---
 
 ## 2. Private Lessons (Priority #2)
 
-> Tom sent **3 photos** titled "private lesson options" on May 5 — those photos
-> contain the pricing tiers. I haven't seen them yet, so the tier labels below
-> are placeholders matching typical Systema private-lesson package structures.
+> Source: 3 photos sent May 5, titled "Systema Floyd – Private Lesson Booking
+> Form Requirements." All pricing below is **as Tom wrote it**.
 
-### A. Identity
-- Student Name *
-- Age (or DOB) *
-- Parent/Guardian Name *  *(only required if student is under 18)*
-- Parent/Guardian Email *
-- Parent/Guardian Phone *
-- Student Email *(if 18+)*
+### A. State Selection *(required)*
 
-### B. Package Selection *
-- `Single Session ($ {single_price} /session)`
-- `4-Session Pack ($ {pack_4_price} /4-pack)`
-- `8-Session Pack ($ {pack_8_price} /8-pack)`
-- `12-Session Pack ($ {pack_12_price} /12-pack)`
-- `Monthly Unlimited ($ {monthly_price} /month)` *(if offered)*
+- `Florida`
+- `Virginia`
 
-> Tom's 3-photo package list is the source of truth for which tiers exist
-> and at what price. The above is a placeholder shape.
+### B. Instructor Selection *(filtered by State)*
 
-### C. Sensei Preference
-- `No preference — any available`
-- `Tom Floyd`
-- `Sean Nasif`
-- `Alex Henry`
-- `Other (specify in notes)`
+**If Florida:**
+- `Mr. Floyd (Premium Tier)`
+- `Alex`
+- `George`
+- `James`
+- `Sean`
+- `Evenson (Boxing Only)`
+- `Jessica (Dance)`
+- `Bianca (Dance)`
+- `Carolina (Dance)`
 
-### D. Scheduling
-- Preferred days (multi-select Mon → Sun)
-- Preferred time of day *
-  - `Morning (before 12pm)`
-  - `Afternoon (12pm-5pm)`
-  - `Evening (5pm+)`
-- Preferred campus
-  - `Upper Campus`
-  - `Lower Campus`
-  - `No preference`
-- Start date (date picker) *
+**If Virginia:**
+- `Ryan`
 
-### E. Goals
-- What do you want to work on? (free text — Tom uses this to match the right sensei)
+### C. Lesson Duration *(required)*
 
-### F. Health & Waiver
-- Medical notes / injuries
-- Allergies *(only required if student is under 18)*
-- Liability waiver checkbox + signature
-- Photo/video release checkbox
+- `30 Minutes`
+- `45 Minutes`
+- `1 Hour`
 
-### Still needed from Tom
-1. **Pricing tiers** from the 3 photos he sent
-2. Whether package sessions expire (e.g. 4-pack good for 3 months) and what to do at expiry
-3. Cancellation / no-show policy text for the waiver
+### D. Pricing Logic *(auto-calculated from instructor × duration)*
+
+**Standard Instructors** (everyone except Mr. Floyd):
+- `30 min ($100/session)`
+- `45 min ($125/session)`
+- `1 hour ($150/session)`
+
+**Mr. Floyd (Premium Tier):**
+- `30 min ($170/session)`
+- `45 min ($200/session)`
+- `1 hour ($225/session)`
+
+### E. Additional Students *(stackable add-on, max 3 students)*
+
+- `1 Student` — base price (no addition)
+- `2 Students (+$25)`
+- `3 Students (+$50)`
+- Max: 3 students
+
+### F. Training Type *(dynamic based on instructor selection)*
+
+- If `Evenson` selected → **only show** `Boxing`
+- If `Jessica / Bianca / Carolina` selected → **only show** `Dance`
+- All other instructors → show `Martial Arts` · `Fitness` · `Sports` · `Combination`
+
+### G. Age Group
+
+- `Ages 2.5 – 6 (recommended 30 min)`
+- `Ages 7+`
+
+### H. Package Option
+
+- `Single Session` — price = computed total from above
+- `10 Sessions (Get 1 Free)` — price = 10 × per-session × 0.909... *(i.e., pay for 10, get 11)*
+
+> **Important math note**: "10 Sessions (Get 1 Free)" means the parent pays
+> the price of 10 sessions and receives 11. Effective per-session discount
+> is ~9.1%. Display as `10 Sessions Pack ($N total — 11 sessions included)`
+> where `N = 10 × per-session price`.
+
+### I. Scheduling
+
+| Field | Type |
+|---|---|
+| Preferred Date | DATE |
+| Preferred Time | TEXT or TIME |
+
+### J. Contact Info
+
+| Field | Type | Notes |
+|---|---|---|
+| Full Name | TEXT | required |
+| Phone Number | PHONE | required |
+| Email | TEXT | required |
+
+### K. Important functionality (Tom's notes)
+
+- Pricing updates automatically based on instructor × duration × number of students
+- Instructor list filters based on state
+- Training type options lock based on instructor type
+- Ready for Square/Stripe integration
 
 ---
 
 ## 3. Birthday Parties (Priority #3)
 
-> Juliana sent the section structure on May 4 (image `IMG_0316.jpeg`) — **without
-> prices**. Tom has not yet sent per-item pricing. The Balloons add-on (see §5)
-> is triggered conditionally from inside this form.
+> Source: `IMG_0316.jpeg` from Juliana on May 4 — titled "Systema Floyd
+> Birthday Party / Private Event Request Form." **No prices** included.
 
-### A. Identity
-- Parent Name *
-- Parent Email *
-- Parent Phone *
-- Child Name (the birthday kid) *
-- Child's age (turning) *
-- Estimated guest count *
+### Field list
 
-### B. Party Date & Time
-- Preferred date * (date picker)
-- Alternate date (date picker)
-- Time slot * 
-  - `Morning (10am-12pm)`
-  - `Afternoon (1pm-3pm)`
-  - `Late Afternoon (3pm-5pm)`
-  - `Evening (5pm-7pm)`
-- Party duration *
-  - `1.5 hours ($ {duration_15_price} )`
-  - `2 hours ($ {duration_2_price} )`
-  - `3 hours ($ {duration_3_price} )`
-
-### C. Package *
-- `Basic Package ($ {basic_price} )` — *{what's included — needs Tom}*
-- `Standard Package ($ {standard_price} )` — *{what's included}*
-- `Premium Package ($ {premium_price} )` — *{what's included}*
-
-### D. Food Add-ons (FL sales tax applies on food)
-- Pizza
-  - `None`
-  - `Cheese (+$ {pizza_cheese_price} /pizza)`
-  - `Pepperoni (+$ {pizza_pep_price} /pizza)`
-  - Number of pizzas (numeric input, auto-multiplies)
-- Drinks
-  - `None`
-  - `Juice boxes per guest (+$ {juice_price} /guest)`
-  - `Water bottles per guest (+$ {water_price} /guest)`
-- Cake
-  - `None — providing our own`
-  - `Standard cake (+$ {cake_std_price} )`
-  - `Custom themed cake (+$ {cake_custom_price} )`
-
-### E. Apparel Add-ons (FL sales tax applies on apparel)
-- T-shirt for birthday kid
-  - `None`
-  - `Size: Extra Small (+$ {shirt_price} )` *(repeat through XL using camp shirt syntax)*
-- T-shirts for guests (count + size matrix)
-
-### F. Decorations
-- **Balloon decorations** ✱ — `Yes — show me options` triggers §5 Balloons sub-form
-- Streamers/banner (+$ {streamer_price} )
-- Themed table setting (+$ {table_setting_price} )
-- Photographer
-  - `None`
-  - `1 hour (+$ {photog_1h_price} )`
-  - `2 hours (+$ {photog_2h_price} )`
-
-### G. Goody Bags
-- `None`
-- `Standard goody bag (+$ {goody_std_price} /guest)`
-- `Premium goody bag (+$ {goody_premium_price} /guest)`
-
-### H. Notes & Waiver
-- Allergies among guests (free text — critical for food)
-- Special requests (free text)
-- Liability waiver checkbox + signature
-- Photo/video release checkbox
+| Field | Type | Notes |
+|---|---|---|
+| Event Type | SINGLE_OPTIONS | `Birthday Party` · `Private Event` · `School Event` · `Corporate` · `Other` |
+| Event Location | SINGLE_OPTIONS | `At Systema Floyd Gym` · `At My Home` · `At Event Space` |
+| Address (if home / event space) | TEXT | conditional |
+| Date of Event | DATE | required |
+| Preferred Start Time | TEXT or TIME | required |
+| Birthday Child Name | TEXT | required |
+| Age of Birthday Child | NUMERICAL | required |
+| Total Number of Kids | SINGLE_OPTIONS | `10` · `15` · `20` · `25+` |
+| Age Range of Kids | SINGLE_OPTIONS | `2.5–4` · `5–6` · `7–9` · `10–12` · `13+` · `Mixed` |
+| If mixed, describe breakdown | TEXT | conditional on "Mixed" |
+| Event Duration | SINGLE_OPTIONS | `1 Hour` · `2 Hours` · `3+ Hours` |
+| Party Activities | MULTIPLE_OPTIONS | `Martial Arts` · `Nerf` · `Dodgeball` · `Obstacle Course` · `Laser Tag` · `Dance` · `Custom` |
+| Custom Theme Details | TEXT | conditional on "Custom" |
+| Food Options | MULTIPLE_OPTIONS | `Pizza` · `Drinks` · `Cake` |
+| **Special Add-Ons** | MULTIPLE_OPTIONS | `Custom Balloon Decor (Specialized Setup)` ← triggers §5 Balloons · `Decorations Setup` · `Extra Instructor` · `Goodie Bags` · `Custom Shirt for Birthday Child` |
+| **Premium Extras (Additional Cost)** | MULTIPLE_OPTIONS | `Bounce House Rental` · `Laser Tag Rental` · `Gaga Ball Arena Rental` · `Inflatable Soccer Arena Rental` · `Board Breaking Upgrade` · `Foam Party / Slip & Slide` |
+| Parent Name | TEXT | required |
+| Phone Number | PHONE | required |
+| Email Address | TEXT | required |
 
 ### Still needed from Tom
-1. **All `{ }` prices** above — package contents and add-on rates
-2. What's included in each package tier
-3. Maximum guest count per package
-4. Deposit policy (full payment up-front vs. deposit + balance)
+- Prices for **every line item** above (base packages, food options, special
+  add-ons, and every premium extra). Form should be auto-calculating; without
+  prices we can collect inquiries but can't tally totals.
+- Whether packages exist (e.g. Basic / Standard / Premium) or whether
+  everything is à la carte
+- Deposit policy
 
 ---
 
-## 4. Rent a Sensei
+## 4. Rent-A-Sensei (Babysitting)
 
-> Item #5 in Tom's May 5 email. Tom sent **3 photos** with options.
-> Used for one-off bookings: corporate events, women's self-defense afternoons,
-> school assemblies, demos.
+> Source: 3 photos sent May 5, titled "Systema Floyd – Rent-A-Sensei
+> (Babysitting) Requirements." This is **NOT** for parties/corporate events.
 
-### A. Identity
-- Contact Name *
-- Email *
-- Phone *
-- Organization name *
-- Organization type *
-  - `Corporate / Office`
-  - `School`
-  - `Private group / individual`
-  - `Non-profit`
-  - `Other (specify)`
+### Overview *(shown on the form as a confirmation box)*
 
-### B. Event Details
-- Event date * (date picker)
-- Event start time * (time picker)
-- Estimated duration *
-  - `1 hour ($ {rent_1h_price} )`
-  - `2 hours ($ {rent_2h_price} )`
-  - `Half day / 3 hours ($ {rent_half_price} )`
-  - `Full day ($ {rent_full_price} )`
-- Number of participants *
-- Event address * (location)
+> In-home babysitting service with energetic professional Senseis.
+> Focused on supervision, engagement, and active play (games, movement,
+> structured activity). **NOT for parties, events, or large group bookings.**
 
-### C. Workshop Type *
-- `Women's Self-Defense (+$ {wsd_price} )`
-- `Kids Workshop (+$ {kids_ws_price} )`
-- `Corporate Team-Building (+$ {corp_price} )`
-- `Demonstration / Performance (+$ {demo_price} )`
-- `Custom — describe below`
+### A. Service Type
 
-### D. Sensei Preference
-- `No preference`
-- `Tom Floyd`
-- `Sean Nasif (Georgia-based; travel fees may apply)`
-- `Alex Henry`
+- `Rent-A-Sensei (Babysitting)` (only option — locked)
 
-### E. Add-ons
-- Travel beyond `{free_miles}` miles (+$ {travel_per_mile} /mile)
-- Equipment & mats (+$ {equipment_price} )
-- Multiple senseis (+$ {extra_sensei_price} /additional sensei)
+### B. Number of Children *(auto-adjusts pricing)*
 
-### F. Notes & Waiver
-- Special requests / focus areas (free text)
-- Group waiver — uploaded after booking confirmation OR each participant signs on-site
+- `1`
+- `2`
+- `3`
 
-### Still needed from Tom
-1. **All `{ }` prices** from the 3 photos he sent
-2. Free travel radius (miles)
-3. Whether each participant signs an individual waiver or one group waiver
+### C. Hourly Pricing *(auto-calculated from kid count, minimum 3 hours)*
+
+- `1 Child ($25/hour)`
+- `2 Children ($30/hour)`
+- `3 Children ($35/hour)`
+
+> Any friend or added child counts toward total. Pricing adjusts automatically
+> based on number of children present.
+
+### D. Duration
+
+- `3 hours` *(minimum)*
+- `4 hours`
+- `5+ hours`
+
+### E. Travel / Gas Fee
+
+- Travel fee may be added based on distance
+- Determined by driving time and location
+- *(Calculated manually by Tom's team after booking; not auto-quoted on form)*
+
+### F. Tipping
+
+- Tipping your Sensei is greatly appreciated
+- Not required, but encouraged for excellent service
+- *(Shown as a footer note, not a field)*
+
+### G. Sensei Assignment *(age-based, auto-filtered)*
+
+- Ages 6 months – 3 years old: **Female Sensei only**
+- Ages 4 and up: Male or Female Sensei available
+
+### H. Location *(required)*
+
+| Field | Type | Notes |
+|---|---|---|
+| Full address | TEXT | required for travel fee calculation |
+
+### I. Date & Time *(all required)*
+
+| Field | Type |
+|---|---|
+| Date | DATE |
+| Start time | TEXT or TIME |
+| End time | TEXT or TIME |
+
+### J. Contact Info *(all required)*
+
+| Field | Type |
+|---|---|
+| Parent name | TEXT |
+| Phone | PHONE |
+| Email | TEXT |
+
+### K. Acknowledgment *(required)*
+
+- `I confirm this service is not for parties or events` (CHECKBOX)
+
+### L. Notes
+
+- Special instructions or extra children info (LARGE_TEXT)
 
 ---
 
-## 5. Balloons Add-on  *(conditional sub-form inside Birthday Parties)*
+## 5. Balloons add-on *(conditional sub-form inside Birthday Parties)*
 
-> Emily (Tom's wife) — `Balloonsontheave@gmail.com` — runs "Balloons on the Ave"
-> as a side business. Her existing intake form:
-> https://docs.google.com/forms/d/11_gxq6I0QdPpdwfL5nJMq7ZY4en4LPViuuwmR_ShN9Q/viewform
-> When triggered, Systema Floyd charges the customer; Emily's email gets the
-> order details for fulfillment. Tom sent her price-breakdown image on May 5.
+> Source: `image0.png` (1024×1024) sent May 5, titled "Premium Balloon
+> Design Menu." Tom's wife Emily runs "Balloons on the Ave" —
+> `Balloonsontheave@gmail.com`. Triggered when the customer selects
+> **Custom Balloon Decor** in the Birthday Party special add-ons section.
 
-### A. Theme & Colors
-- Party theme (free text)
-- Primary color * (color picker or named option list)
-- Secondary color
-- Tertiary color
+### A. Balloon Garlands
 
-### B. Items
-- Number/letter balloons (for "Happy Birthday" or kid's name) — multi-line text input
-  - Each letter/number (+$ {letter_price} /each)
-- Number balloon (turning age) (+$ {age_balloon_price} )
-- Helium balloon bouquet
-  - `Small bouquet (5 balloons) (+$ {bouquet_small_price} )`
-  - `Medium bouquet (10 balloons) (+$ {bouquet_med_price} )`
-  - `Large bouquet (15+ balloons) (+$ {bouquet_large_price} )`
-- Balloon arch
-  - `Half arch (+$ {arch_half_price} )`
-  - `Full arch (+$ {arch_full_price} )`
-- Balloon garland (+$ {garland_price} /linear foot)
-- Centerpiece (+$ {centerpiece_price} /each)
+- `5 ft Garland ($140)`
+- `Each additional foot (+$30/foot)`
+- *Organic/custom styling included* (no extra charge)
 
-### C. Delivery
-- Pickup at studio (no fee) OR
-- Delivery + setup (+$ {balloon_delivery_price} )
+### B. Balloon Columns
 
-### Still needed from Tom (or Emily directly)
-1. **All `{ }` prices** from Emily's image
-2. Whether she handles setup or just delivery
-3. Lead time required (days notice for orders)
+- `Classic Column ($100)`
+- `Organic Column ($150)`
+- `Table Centerpieces ($50)`
+
+### C. Balloon Arches
+
+- `Standard Arch ($450)`
+- `Deluxe Arch (includes vinyl wording) ($600)`
+- `Walk-Through Arch ($750+)`
+
+### D. Balloon Wall / Backdrop
+
+- `Starting at $800` *(quote-based; show "Contact for quote" CTA)*
+- Custom installs priced based on size and complexity
+
+### E. Add-Ons *(stackable; ranges shown to the customer; final price set by Emily)*
+
+- `Foil Balloons ($10–$30 each)`
+- `Custom Vinyl Wording ($50–$100)`
+- `Backdrop / Stand Rental ($150–$250)`
+- `Florals ($100–$200)`
+- `Custom Cutouts ($50–$150)`
+
+### F. Additional Fees & Policies
+
+- `Delivery Fee ($25–$75, based on distance)`
+- `Setup Fee ($50–$150, depending on install complexity)`
+- `Breakdown Fee ($50)` *(optional if client wants removal)*
+- `Same-Day / Rush Fee ($100+)`
+- `Early Morning / Late Night Setup Fee ($50+)`
+- `Outdoor Setup Fee ($50)` *(weather risk & reinforcement)*
+- `Damage Waiver recommended for large installs`
+- **`Minimum Booking ($300)`** *(hard floor — block submission below this)*
+
+### G. Theme & Colors *(custom design fields)*
+
+| Field | Type |
+|---|---|
+| Party theme | TEXT |
+| Primary color | TEXT (or color picker) |
+| Secondary color | TEXT |
+| Accent color | TEXT |
+
+### Routing
+After submission, Systema Floyd takes payment; the order details get forwarded
+to `Balloonsontheave@gmail.com` for fulfillment.
 
 ---
 
 ## 6. Teen & Adult Classes *(PAUSED)*
 
-Tom confirmed on **May 5**: *"We actually need our class schedule for next
-year or the next school year for our gym."* Skip this form until the next
-school-year schedule is finalized.
+Tom on May 5: *"We actually need our class schedule for next year or the
+next school year for our gym."* Skip until the next school-year schedule
+is finalized.
 
-### When unpaused, expect to need
-- Day-of-week schedule per class type
-- Pricing per class / drop-in vs. monthly
-- Belt/rank prerequisite logic
-- Trial class offering (typically first class free or `$X` trial)
+When unpaused we'll need: day-of-week schedule, drop-in vs. monthly pricing,
+belt/rank prerequisite logic, and a trial class offering.
 
 ---
 
-## Build sequence summary
+## Build sequence
 
-| # | Form | Tom's priority | Blocker on Tom's end |
+| # | Form | Tom's priority | Status |
 |---|---|---|---|
-| 1 | **Vladimir Seminar** | #1 | Date, link to existing page, pricing, capacity |
-| 2 | **Private Lessons** | #2 | Pricing from 3 photos (he already sent) — needs to be transcribed |
-| 3 | **Birthday Parties** | #3 | All pricing — never sent |
-| 4 | **Rent a Sensei** | not ranked | Pricing from 3 photos (he already sent) |
-| 5 | **Balloons** | not ranked (sub-form) | Pricing from Emily's image (he already sent) |
-| 6 | **Teen & Adult Classes** | paused | Next school year schedule |
+| 1 | **Vladimir Seminar** | #1 | Blocked — needs date, page link, pricing, capacity |
+| 2 | **Private Lessons** | #2 | **Ready to build** — all pricing confirmed |
+| 3 | **Birthday Parties** | #3 | Fields confirmed, **all prices missing** |
+| 4 | **Rent-A-Sensei** | not ranked | **Ready to build** — all pricing confirmed |
+| 5 | **Balloons** (sub-form) | not ranked | **Ready to build** — all pricing confirmed |
+| 6 | **Teen & Adult Classes** | paused | Waiting on next school year schedule |
 
 ## Conventions used everywhere
 
-- Required fields: marked with `*`
-- Conditional fields: only shown when a parent option is chosen (e.g. Balloons § triggers only if "Yes — show me options" is selected on Birthday Parties §F)
-- Pricing displayed as **$X.XX** with the `($ N /unit)` syntax inline so the
-  billing dashboard can parse and tally automatically (same pattern as the
-  existing camp Lunch column)
-- All forms get the same footer: 3% transaction fee + 7% FL sales tax on
-  food/apparel items (auto-calculated, not asked of the parent)
-- Every form ends with a liability waiver checkbox; same waiver flow as the
-  camp registration (signed once per child per form-type per year)
+- Required fields marked `*` (or `required` in the type column)
+- Conditional fields only shown when parent option is chosen
+- All pricing baked into option strings using `Label ($N/unit)` or `Label (+$N)` so the billing dashboard parser extracts amounts automatically (same pattern as the camp Lunch column)
+- Footer-level 3% transaction fee + 7% FL sales tax on food/apparel auto-calculated, not asked
+- Every form ends with a liability waiver checkbox/signature
