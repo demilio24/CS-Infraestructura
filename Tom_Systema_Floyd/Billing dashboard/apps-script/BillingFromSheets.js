@@ -1251,13 +1251,28 @@ function nuclearResetBilling_() {
   range.setNumberFormats(numFormatMatrix);
   range.setFontFamily('DM Sans');
 
-  // 6. Status validation — one rule, applied to col G across all rows.
-  //    setAllowInvalid(true) so the customer-row balance formula in col
-  //    G doesn't trigger validation errors.
+  // 6. Status validation — only on tx rows. Earlier versions applied
+  //    the rule to all of col G which made Sheets flash a red "Invalid"
+  //    triangle on every customer-row balance cell (a SUMIFS number is
+  //    not in STATUS_VALUES). Build a parallel 2D rules matrix with
+  //    statusRule for tx rows and null elsewhere, then push it all in
+  //    one batch.
   var statusRule = SpreadsheetApp.newDataValidation()
     .requireValueInList(STATUS_VALUES, true)
     .setAllowInvalid(true).build();
-  dash.getRange(2, 7, dataMatrix.length, 1).setDataValidation(statusRule);
+  var validationMatrix = [];
+  for (var vi = 0; vi < dataMatrix.length; vi++) validationMatrix.push([null]);
+  customerGroups.forEach(function(g) {
+    // dataMatrix index = sheetRow - 2. tx rows = subHeaderRow+1 .. txLast.
+    var firstIdx = g.subHeaderRow - 1;  // (subHeaderRow + 1) - 2
+    var lastIdx  = g.txLast - 2;
+    for (var j = firstIdx; j <= lastIdx; j++) {
+      if (j >= 0 && j < validationMatrix.length) {
+        validationMatrix[j] = [statusRule];
+      }
+    }
+  });
+  dash.getRange(2, 7, dataMatrix.length, 1).setDataValidations(validationMatrix);
 
   // 7. Conditional formatting (one-shot, covers all tx rows)
   var fullDataRange = dash.getRange(2, 1, dataMatrix.length, 7);
@@ -1341,6 +1356,46 @@ function fixDashboardGroups() {
   });
   Logger.log('[fixDashboardGroups_] rebuilt ' + rebuilt + ' customer row groups');
   return { rebuilt: rebuilt };
+}
+
+/**
+ * One-shot surgical fix: clears the status-dropdown data validation
+ * from customer-header rows and sub-header rows, leaving it in place
+ * on tx rows. Cures the red "Invalid: Input must be an item on the
+ * specified list" tooltip that appears on customer balance cells
+ * when an earlier rebuild applied the rule too broadly.
+ *
+ * Re-applies the rule to every tx row so the dropdown still works.
+ * Idempotent. Faster than a full nuclearResetBilling rebuild (~5s
+ * vs ~3-5min) and doesn't touch any other cell state.
+ */
+function fixDashboardStatusValidation() {
+  var dash = getDashboardSheet();
+  var state = readDashboardState_();
+  var statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(STATUS_VALUES, true)
+    .setAllowInvalid(true).build();
+
+  var cleared = 0, applied = 0;
+  Object.keys(state.customers).forEach(function(email) {
+    var c = state.customers[email];
+    if (!c.customerRow) return;
+    // Clear validation on customer header row + sub-header row (cols G only)
+    if (c.subHeaderRow && c.subHeaderRow > c.customerRow) {
+      dash.getRange(c.customerRow, 7, c.subHeaderRow - c.customerRow + 1, 1)
+          .clearDataValidations();
+      cleared += (c.subHeaderRow - c.customerRow + 1);
+    }
+    // Re-apply on tx range
+    if (c.txFirst && c.txLast && c.txLast >= c.txFirst) {
+      dash.getRange(c.txFirst, 7, c.txLast - c.txFirst + 1, 1)
+          .setDataValidation(statusRule);
+      applied += (c.txLast - c.txFirst + 1);
+    }
+  });
+  Logger.log('[fixDashboardStatusValidation] cleared ' + cleared +
+             ' header cells, re-applied rule to ' + applied + ' tx cells');
+  return { cleared: cleared, applied: applied };
 }
 
 /**
