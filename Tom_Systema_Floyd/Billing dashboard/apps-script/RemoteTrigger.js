@@ -79,6 +79,8 @@ const REMOTE_TRIGGER_WHITELIST = {
   traceAllFreeCampSources:         'Scan every tx row\'s col B note. Return ones whose Source line mentions FREE Upper / FREE Lower. Use sync=1.',
   listShirtOnlyCustomers:          'Walk the Dashboard and return every customer whose ONLY tx items are shirts (no tuition/lunch/breakfast/care). Includes source provenance per row. Use sync=1.',
   dumpRegRow:                      'Return the raw cells of one row from a registration sheet. Pass &sheetId=<id>&tabName=<short-tab>&row=<N>. Useful for verifying what\'s actually in the source. Use sync=1.',
+  dashboardStats:                  'Count unique parents, unique students, tx rows, and status counts on the Billing Dashboard. Use sync=1.',
+  registrationStats:               'Per-sheet count of enrollments, unique students, unique parents, and dayCount=0 phantom registrations from the source registration sheets. Use sync=1.',
 };
 
 function doGet(e) {
@@ -199,6 +201,8 @@ function _rtDispatch_(fn, params) {
     case 'traceAllFreeCampSources':          return _rtTraceFreeCampSources_();
     case 'listShirtOnlyCustomers':           return _rtListShirtOnlyCustomers_();
     case 'dumpRegRow':                       return _rtDumpRegRow_(params);
+    case 'dashboardStats':                   return _rtDashboardStats_();
+    case 'registrationStats':                return _rtRegistrationStats_();
     default: throw new Error('Dispatcher missing for whitelisted fn: ' + fn);
   }
 }
@@ -483,6 +487,104 @@ function _rtDumpRegRow_(params) {
   } catch (e) {
     return { ok: false, error: String(e && e.message || e) };
   }
+}
+
+/**
+ * Count unique parents, students, tx rows, and status pills on the
+ * current Billing Dashboard.
+ */
+function _rtDashboardStats_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, uniqueCustomers: 0, uniqueStudents: 0, txRows: 0 };
+
+  var data = dash.getRange(2, 1, lastRow - 1, 7).getValues();
+  var customers = {};
+  var students = {};
+  var txCount = 0;
+  var statusCounts = {};
+  var totalOwed = 0;
+
+  for (var i = 0; i < data.length; i++) {
+    var colA = data[i][0];
+    var colB = String(data[i][1] || '');
+    var isCustomerHeader = colB.indexOf('@') !== -1;
+    var isSubHeader = String(colA || '').toUpperCase() === 'DATE';
+
+    if (isCustomerHeader) {
+      customers[colB.toLowerCase().trim()] = true;
+      var studentStr = String(data[i][4] || '');
+      studentStr.split(',').forEach(function(s) {
+        var n = s.trim().toLowerCase();
+        if (n) students[n] = true;
+      });
+    } else if (!isSubHeader) {
+      txCount++;
+      var status = String(data[i][6] || '').toLowerCase().trim();
+      if (status) statusCounts[status] = (statusCounts[status] || 0) + 1;
+      if (status === 'owed') totalOwed += Number(data[i][5]) || 0;
+    }
+  }
+
+  return {
+    ok: true,
+    uniqueCustomers: Object.keys(customers).length,
+    uniqueStudents:  Object.keys(students).length,
+    txRows:          txCount,
+    statusCounts:    statusCounts,
+    totalOwed:       Math.round(totalOwed * 100) / 100
+  };
+}
+
+/**
+ * Pull per-sheet stats from the source registration sheets after the
+ * billable-sheet filter is applied. Useful for comparing against
+ * dashboard counts and identifying drift.
+ */
+function _rtRegistrationStats_() {
+  var sheets = bfsFilterBillable_(discoverRegistrationSheets_(), '[registrationStats]');
+  var perSheet = [];
+  var globalStudents = {};
+  var globalParents = {};
+  var globalDayZero = 0;
+
+  sheets.forEach(function(reg) {
+    try {
+      var enrollments = (reg.type === 'after-school')
+        ? readAfterSchoolEnrollments_(reg)
+        : readRegistrationEnrollments_(reg);
+      var sheetStudents = {};
+      var sheetParents = {};
+      var dayZeroCount = 0;
+      enrollments.forEach(function(e) {
+        var s = String(e.student || '').toLowerCase().trim();
+        var p = String(e.email   || '').toLowerCase().trim();
+        if (s) { sheetStudents[s] = true; globalStudents[s] = true; }
+        if (p) { sheetParents[p]  = true; globalParents[p]  = true; }
+        if ((Number(e.dayCount) || 0) === 0) dayZeroCount++;
+      });
+      perSheet.push({
+        label: reg.label,
+        type: reg.type,
+        enrollments: enrollments.length,
+        uniqueStudents: Object.keys(sheetStudents).length,
+        uniqueParents:  Object.keys(sheetParents).length,
+        dayZeroEnrollments: dayZeroCount
+      });
+      globalDayZero += dayZeroCount;
+    } catch (e) {
+      perSheet.push({ label: reg.label, error: String(e && e.message || e) });
+    }
+  });
+
+  return {
+    ok: true,
+    billableSheetsCount: sheets.length,
+    sheets: perSheet,
+    globalUniqueStudents: Object.keys(globalStudents).length,
+    globalUniqueParents:  Object.keys(globalParents).length,
+    globalDayZeroEnrollments: globalDayZero
+  };
 }
 
 function _rtJson_(obj) {
