@@ -804,6 +804,7 @@ function reconcileDashboard_(freshItems) {
       } else {
         cellB.setValue(label);
       }
+      cellB.setFontLine('none');  // strip default HYPERLINK underline
       // Note: provenance-first (source sheet + week + row + link),
       // fee breakdown, fingerprint at the bottom as internal ref
       cellB.setNote(bfsBuildItemNote_(u.fresh));
@@ -903,7 +904,8 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
   });
   dash.getRange(firstNew, 2, noteValues.length, 1).setNotes(noteValues);
 
-  // Number formats + status validation
+  // Strip default HYPERLINK underline + number formats + status validation
+  dash.getRange(firstNew, 1, matrix.length, 7).setFontLine('none');
   dash.getRange(firstNew, 3, matrix.length, 1).setNumberFormat('"$"#,##0.00');
   dash.getRange(firstNew, 6, matrix.length, 1).setNumberFormat('"$"#,##0.00');
   var statusRule = SpreadsheetApp.newDataValidation()
@@ -1005,8 +1007,10 @@ function appendNewCustomerSection_(dash, email, newItems) {
     if (grp) grp.collapse();
   } catch (e) { /* group API quirk — skip */ }
 
-  // DM Sans
-  dash.getRange(customerRow, 1, matrix.length, 7).setFontFamily('DM Sans');
+  // DM Sans + no-underline (HYPERLINK cells would otherwise show underlined)
+  dash.getRange(customerRow, 1, matrix.length, 7)
+      .setFontFamily('DM Sans')
+      .setFontLine('none');
 }
 
 /**
@@ -1325,6 +1329,7 @@ function nuclearResetBilling_() {
   range.setNotes(noteMatrix);
   range.setNumberFormats(numFormatMatrix);
   range.setFontFamily('DM Sans');
+  range.setFontLine('none');  // strip default underline from HYPERLINK cells (Item col B + Profile col F)
 
   // 6. Status validation — only on tx rows. Earlier versions applied
   //    the rule to all of col G which made Sheets flash a red "Invalid"
@@ -1431,6 +1436,24 @@ function fixDashboardGroups() {
   });
   Logger.log('[fixDashboardGroups_] rebuilt ' + rebuilt + ' customer row groups');
   return { rebuilt: rebuilt };
+}
+
+/**
+ * One-shot cosmetic fix: strips the default underline from every cell
+ * in the Dashboard data area. HYPERLINK formulas (Item col B + Profile
+ * col F + balance col G when it's a HYPERLINK) render with a default
+ * blue underline; this removes that underline while keeping the link
+ * clickable.
+ *
+ * Idempotent and fast (~3-5s). Run after a nuclear if any links look
+ * underlined, or as a side-effect of any cosmetic refresh.
+ */
+function removeItemUnderlines() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, rowsTouched: 0 };
+  dash.getRange(2, 1, lastRow - 1, 7).setFontLine('none');
+  return { ok: true, rowsTouched: lastRow - 1 };
 }
 
 /**
