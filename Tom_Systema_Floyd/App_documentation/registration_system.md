@@ -237,7 +237,7 @@ Files:
 
 ### 4.5 Supabase — `nroeiabeirifurdaybyo`
 
-Two relevant pieces:
+Three relevant pieces:
 
 **`public.ghl_tokens`** — pre-existing table, externally maintained.
 Holds GHL OAuth access tokens for all subaccounts. Auto-refreshed by an
@@ -250,15 +250,18 @@ sf_get_systema_floyd_florida_token(claim_secret text)
   Verifies account_name = 'Systema Floyd - Florida' before returning.
 ```
 
+The bot reads `updated_at` to compute token age — if > 12h old (`DC_TOKEN_STALE_WARN_HOURS`), the email digest gets a warning block. The external refresher should keep this < 24h.
+
 **`public.sf_form_submissions`** — created by this project.
 Tombstone log: every `(submission_id, week)` the bot has ever processed.
+For After School, `week` holds the class string (e.g. `"Linwood Holton Elementary: Friday 3–3:45PM"`) since each submission is per-class not per-week.
 
 ```sql
 CREATE TABLE public.sf_form_submissions (
   id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   submission_id   text NOT NULL,
-  form            text NOT NULL,         -- 'free_camp' | 'summer_camp'
-  week            text NOT NULL,         -- "July 27th-31st"
+  form            text NOT NULL,         -- 'free_camp' | 'summer_camp' | 'after_school'
+  week            text NOT NULL,         -- "July 27th-31st" or class string for after_school
   campus          text,                  -- 'upper' | 'lower'
   status          text NOT NULL,         -- processed | linked_manual | backfilled | error
   spreadsheet_id  text,
@@ -277,7 +280,23 @@ Read/write access via two `SECURITY DEFINER` RPCs:
 - `sf_list_processed(claim_secret)` → all rows (used by the bot at start of every run)
 - `sf_record_processed(claim_secret, submission_id, form, week, ...)` → upsert
 
-Both gated by the same shared secret (in Apps Script `SUPABASE_TOKEN_SECRET`).
+**`public.sf_bot_health`** — created by this project.
+Heartbeat log. The discrepancy bot writes `component='discrepancy_check'` after every successful run; a separate daily trigger reads it and emails an alert if the timestamp is > 24h old.
+
+```sql
+CREATE TABLE public.sf_bot_health (
+  component   text PRIMARY KEY,           -- 'discrepancy_check' | 'heartbeat_guard' | (future bots)
+  last_ok_at  timestamptz NOT NULL DEFAULT now(),
+  metadata    jsonb       NOT NULL DEFAULT '{}'::jsonb,
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+```
+
+Read/write access via two `SECURITY DEFINER` RPCs:
+- `sf_record_heartbeat(claim_secret, p_component, p_metadata)` → upsert (called at the end of every successful `runDiscrepancyCheck` and `discrepancyHeartbeatGuard`)
+- `sf_get_heartbeat(claim_secret, p_component)` → returns `(component, last_ok_at, age_seconds, metadata)`
+
+All four RPCs gated by the same shared secret (in Apps Script `SUPABASE_TOKEN_SECRET`).
 
 ---
 
@@ -454,10 +473,20 @@ Useful for spotting hand-typed rows that don't trace back to a form submission.
 
 ## 9. The email (your inbox alert)
 
-Sent to `emilio@nilsdigital.com` only when a run finds something noteworthy
-(added, linked, duplicate, or error). Quiet runs send nothing.
+There are **two distinct emails** the system can send:
 
-**Subject:** `Camp roster discrepancy — N diff, M dup, K err`
+### 9.1 Discrepancy digest (sent by `runDiscrepancyCheck`)
+
+Sent only when a run finds something noteworthy (added row, linked row,
+duplicate cluster, error, or the GHL token is older than 12h). Quiet runs
+send nothing.
+
+**Recipient:** Script Property `DC_NOTIFY_EMAIL` (comma-separated list
+supported), falling back to `DC_NOTIFY_EMAIL_DEFAULT` (`emilio@nilsdigital.com`)
+if unset. To add another recipient without redeploying, edit the property:
+`emilio@nilsdigital.com, ops@nilsdigital.com`.
+
+**Subject:** `Roster discrepancy — N added, M dup, K err`
 
 **Body shape:**
 ```
@@ -490,6 +519,29 @@ DUPLICATES (existing rows the bot did not create — please review)
 2. Click the URL to open it.
 3. Investigate (check for broken if/else conditions, deleted custom fields,
    misconfigured "Add Row" actions — see "Common failures" below).
+
+**Token-age warning at top of digest:**
+If you see `⚠ GHL TOKEN AGE WARNING`, the GHL OAuth token in Supabase is
+older than `DC_TOKEN_STALE_WARN_HOURS` (12h). The token is still valid but
+the upstream refresher (n8n / scheduled function) is drifting. Investigate
+that refresh job — if the token reaches 24h it expires hard and the bot
+loses GHL access entirely.
+
+### 9.2 Heartbeat alert (sent by `discrepancyHeartbeatGuard`)
+
+Sent only when the main discrepancy bot hasn't recorded a successful run
+in `DC_HEARTBEAT_MAX_AGE_HOURS` (24h). Same recipient resolution as 9.1.
+
+**Subject:** `⚠ Systema Floyd discrepancy bot heartbeat alert`
+
+**Body:** plain text explaining the symptom + likely causes (trigger
+disabled, quota exhausted, scope revoked, Apps Script outage) + a direct
+link to the script editor.
+
+**The two triggers fail independently** — if the main bot's trigger dies,
+the heartbeat-guard trigger still fires every day at 8am and surfaces the
+silence. If you NEVER want to receive a digest from the bot, this guard
+is your only safety net for "is it still running?"
 
 ---
 
@@ -529,6 +581,7 @@ GROUP BY form, week, status ORDER BY form, week;
 | `discrepancyDeleteCrossCampusDuplicates()` | Auto-delete cross-campus duplicates using age rule. |
 | `discrepancyHeartbeatGuard()` | Silence-broken alert. Reads `sf_bot_health.discrepancy_check` from Supabase; if it's older than `DC_HEARTBEAT_MAX_AGE_HOURS` (24h), emails the recipient list. Runs as its own daily trigger (install via `discrepancyHeartbeatSetupTrigger`) so it can fire even if the main bot's trigger has died. |
 | `discrepancyHeartbeatSetupTrigger()` / `discrepancyHeartbeatRemoveTrigger()` | Install / remove the daily heartbeat-guard trigger. |
+| `discrepancyFixSummerCampNotes()` | One-shot migration. A previous version of `_dcSetSourceNote` stamped Summer Camp source-cell notes on col B (Amt) instead of col C (Student Name). This walks the two Summer Camp spreadsheets, moves any DiscrepancyCheck-authored note from col B to col C (clears col B if col C already has a note). Idempotent — safe to re-run. Already executed; should be `{moved: 0, cleared: 0}` going forward. |
 
 ### Common failures
 
