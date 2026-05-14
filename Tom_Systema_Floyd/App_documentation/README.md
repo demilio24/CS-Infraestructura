@@ -8,8 +8,9 @@ to reverse-engineer code or trace through GHL workflows.
 > **For AI assistants:** Read every file in this folder before making changes
 > to any Systema Floyd app. Each doc is self-contained but they reference each
 > other where the apps interact (e.g. the registration system writes to sheets
-> that the waiver matcher reads). Knowing all four lets you answer cross-cutting
-> questions and avoid breaking adjacent systems.
+> that the waiver matcher reads, and that the billing dashboard prices).
+> Knowing all of them lets you answer cross-cutting questions and avoid
+> breaking adjacent systems.
 
 ## What's in here
 
@@ -17,6 +18,7 @@ to reverse-engineer code or trace through GHL workflows.
 |---|---|---|
 | [registration_system.md](./registration_system.md) | **Camp Registration System + Discrepancy Check** | Full pipeline: parent submits a Free Camp / Summer Camp form on `systemafloyd.com` → GHL routing workflow writes a row in the right Google Sheet → dashboard renders it. Includes the Apps Script failsafe that auto-fixes missed writes, with Supabase tombstones, cell notes, and email alerts that name the failed workflow. |
 | [dashboard.md](./dashboard.md) | **Camp Dashboard** (browser + Apps Script) | The staff-facing dashboard at `dashboard/index.html` and the Apps Script `Snapshot.js` pipeline that feeds it. Reads the 4 roster sheets every 5 min, builds `snapshot.json` + history archive + Supabase mirror, and renders KPIs, charts, capacity targets, lunch prep, ops alerts (allergies + data quality), 14-day growth sparkline, and a click-to-expand student roster. |
+| [billing_dashboard.md](./billing_dashboard.md) | **Billing Dashboard** (Apps Script) | Sheet-driven billing pipeline: every 5 min, reads the camp + after-school registration sheets, prices each enrollment via the team-editable `Pricing` tab, inflates unit prices with inline tax + processing fee, and diffs against the live Dashboard. Handles cancellations (owed → canceled) and refunds (paid → refund-needed) automatically. Also captures the $1 GHL CC verification fee for audit. |
 | [school_enrollment_router.md](./school_enrollment_router.md) | **School Enrollment Router** (Apps Script) | Routes every new student enrollment from a single Main Table into the correct per-school spreadsheet, auto-creating that spreadsheet from a Monthly or Quarterly template the first time it's needed. Defensive against deleted/moved files; uses three-tier name matching (exact → case-insensitive → Levenshtein fuzzy). |
 | [camp_day_validator.md](./camp_day_validator.md) | **Camp Day Validator** (browser JS) | Client-side JS pasted into a Custom Code element at the bottom of the GHL summer camp signup form. Keeps the "Select Camp Duration" dropdown in sync with the per-week day checkboxes; blocks form submission until every chosen week has the right number of days ticked. |
 | [waiver_matcher.md](./waiver_matcher.md) | **Waiver Matcher** (Apps Script) | Bound to the Waiver APP spreadsheet. On every change, scans every camp roster sheet in Drive, fuzzy-matches student names from waiver rows against camp rows by email + Jaro-Winkler name similarity. Highlights matched cells green and adds health/allergy info as a cell note. |
@@ -28,12 +30,16 @@ to reverse-engineer code or trace through GHL workflows.
    alongside it.
 2. **camp_day_validator.md** next — it's the front-end gatekeeper that
    produces the form submissions the registration system processes.
-3. **waiver_matcher.md** — runs against the rosters that the registration
+3. **dashboard.md** — the operational view of the rosters the registration
+   system populates.
+4. **billing_dashboard.md** — the financial view of the same rosters,
+   pricing each enrollment + handling refunds.
+5. **waiver_matcher.md** — runs against the rosters that the registration
    system writes.
-4. **school_enrollment_router.md** — separate flow for non-camp school
+6. **school_enrollment_router.md** — separate flow for non-camp school
    enrollments. Same author / pattern, but operates on a different intake.
 
-## How the four apps relate
+## How the apps relate
 
 ```
                        ┌──────────────────────────┐
@@ -59,14 +65,25 @@ to reverse-engineer code or trace through GHL workflows.
     │ sheets          │◄─┤ scans rosters,    │   │ Router routes by   │
     │ (Free Up/Lo,    │  │ highlights        │   │ school name to     │
     │  Summer Up/Lo)  │  │ matched students  │   │ per-school sheets  │
-    └────────┬────────┘  └───────────────────┘   └────────────────────┘
-             │
-             ▼
-    ┌─────────────────┐         ┌──────────────────────────┐
-    │ Snapshot.js +   │         │ DiscrepancyCheck.js      │
-    │ dashboard       │         │ failsafe (every 15 min)  │
-    │                 │         │ + Supabase tombstones    │
-    └─────────────────┘         └──────────────────────────┘
+    └────┬───────┬────┘  └───────────────────┘   └────────────────────┘
+         │       │
+         │       └────────────────────────────┐
+         ▼                                    ▼
+    ┌─────────────────┐         ┌─────────────────────────┐
+    │ Snapshot.js +   │         │ BillingFromSheets.js    │
+    │ Camp Dashboard  │         │ Billing Dashboard       │
+    │ (operational    │         │ (prices each enrollment,│
+    │  view, every    │         │  inflates with tax+fee, │
+    │  5 min)         │         │  diff-based reconcile)  │
+    └─────────────────┘         └─────────────────────────┘
+                ▲                          ▲
+                │                          │
+         ┌──────┴──────────────────────────┴─────┐
+         │ DiscrepancyCheck.js failsafe          │
+         │ (every 15 min, Supabase tombstones)   │
+         │ Keeps the rosters accurate so both    │
+         │ dashboards downstream stay trustworthy│
+         └────────────────────────────────────────┘
 ```
 
 ## Conventions used across all docs
@@ -83,7 +100,7 @@ to reverse-engineer code or trace through GHL workflows.
 
 ## When you change something
 
-If you change behavior in any of these four apps, **update the corresponding
+If you change behavior in any of these apps, **update the corresponding
 doc in the same change**. The docs in this folder ARE the spec. If they drift
 from reality, the next person (human or AI) will make incorrect assumptions
 and break something.
@@ -97,6 +114,10 @@ and break something.
 | Dashboard pages | `Tom_Systema_Floyd/dashboard/index.html`, `lunches.html` |
 | Dashboard data | `Tom_Systema_Floyd/dashboard/snapshot.json` + `dashboard/history/*.json` (auto-pushed by Snapshot.js) |
 | Supabase mirror (read by other tools) | Tables `sf_camp_enrollments`, `sf_camp_snapshots` in Zona Libre project `nroeiabeirifurdaybyo` |
+| Billing Dashboard (sheet-driven pipeline) | `Tom_Systema_Floyd/Billing dashboard/apps-script/BillingFromSheets.js` |
+| Billing Dashboard (Pricing tab + catalog) | `Tom_Systema_Floyd/Billing dashboard/apps-script/PricingGuide.js` |
+| Billing Dashboard ($1 GHL fee polling) | `Tom_Systema_Floyd/Billing dashboard/apps-script/Polling.js` |
+| Billing Dashboard sheet (the operator UI) | Apps Script bound to `Systema Floyd — Billing Dashboard` Google Sheet (script ID `19RyUD7iaxws4yM2OMMABHkDZQWIiPigEl3xFno_OoB04kEfbra86xenH`) |
 | School Enrollment Router | Apps Script bound to the central enrollment intake spreadsheet (not in this repo) |
 | Camp Day Validator | `Tom_Systema_Floyd/Form/script.html` (also pasted into a GHL Custom Code element) |
 | Waiver Matcher | Apps Script bound to the Waiver APP spreadsheet (not in this repo) |
