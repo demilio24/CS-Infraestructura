@@ -1,4 +1,4 @@
-# Systema Floyd — Billing Dashboard
+# Systema Floyd, Billing Dashboard
 
 How camp / after-school registrations become priced line items on a single
 Google Sheet, how the team marks items paid, and how the system handles refunds
@@ -43,9 +43,9 @@ when a parent cancels.
                                     ▼
               ┌────────────────────────────────────────────────┐
               │  Billing Dashboard sheet (the operator's UI)   │
-              │  • Dashboard tab — hierarchical view           │
-              │  • Pricing tab — team-editable catalog         │
-              │  • Logs tab — audit trail                      │
+              │  • Dashboard tab, hierarchical view           │
+              │  • Pricing tab, team-editable catalog         │
+              │  • Logs tab, audit trail                      │
               └────────────────────────────────────────────────┘
                                     ▲
                                     │ writes audit row (paid)
@@ -115,7 +115,7 @@ removes a row on their behalf), the next 5-min reconciler picks it up:
   automatically. Nothing further to do.
 - **Item was `paid`** → reconciler flips it to `refund-needed`. This is the
   flag for the team: "you've collected money for something that's no longer
-  on the roster — issue a refund." Once Tom processes the refund externally,
+  on the roster, issue a refund." Once Tom processes the refund externally,
   he manually flips the cell from `refund-needed` → `refunded`.
 - **Item was `refund-needed` or `refunded`** → reconciler does nothing.
   The refund flow is already in motion or done; the script doesn't loop
@@ -126,7 +126,7 @@ acted on once, never overwritten by a later run, and `paid → refund-needed`
 is the only transition that signals an actual obligation.
 
 If the parent re-adds themselves (same email + student + week → same
-fingerprint) before the reconciler has run, no transition happens — the
+fingerprint) before the reconciler has run, no transition happens, the
 item stays where it was.
 
 ---
@@ -180,15 +180,15 @@ Transaction row (one per priced line item):
   D: day count (e.g. "5" for a full-week tuition)
   E: week label (e.g. "July 27th-31st" or "March" or "Q2")
   F: total (unit × qty)
-  G: status pill — one of `owed | paid | canceled | refund-needed | refunded | unpriced | ambiguous`
+  G: status pill, one of `owed | paid | canceled | refund-needed | refunded | unpriced | ambiguous`
 ```
 
-**Customer-header enrichment** — Parent Name (col A), Phone (col C), Waiver
+**Customer-header enrichment**, Parent Name (col A), Phone (col C), Waiver
 Origin (col D), and the Contact Profile link (col F) all come from a one-shot
 **GHL contact lookup** keyed by parent email. `bfsEnrichCustomer_(email)`
 does one `POST /contacts/search` + one `GET /contacts/{id}` per unique
 email and caches the result for the rest of the execution. At ~100 customers
-that's ~200 UrlFetch calls per `nuclearResetBilling` run — well under the
+that's ~200 UrlFetch calls per `nuclearResetBilling` run, well under the
 Workspace 100K daily quota. The 5-min reconciler only enriches genuinely
 new customers, so steady-state cost is near zero. If an enrichment fails
 (transient GHL outage, no contact found, etc.) the four columns are left
@@ -206,7 +206,7 @@ Status pill values drive conditional formatting:
 | `unpriced` | dark orange + whole row highlighted yellow |
 | `ambiguous` | yellow + whole row highlighted yellow |
 
-### 4.2 Apps Script project — Billing Dashboard
+### 4.2 Apps Script project, Billing Dashboard
 
 Script ID: `19RyUD7iaxws4yM2OMMABHkDZQWIiPigEl3xFno_OoB04kEfbra86xenH`
 Editor URL: <https://script.google.com/d/19RyUD7iaxws4yM2OMMABHkDZQWIiPigEl3xFno_OoB04kEfbra86xenH/edit>
@@ -214,13 +214,13 @@ Editor URL: <https://script.google.com/d/19RyUD7iaxws4yM2OMMABHkDZQWIiPigEl3xFno
 **Bound to** the Billing Dashboard Google Sheet (container-bound).
 
 **OAuth scopes** (`appsscript.json`):
-- `spreadsheets` — read/write the dashboard, pricing, logs tabs + all reg sheets
-- `drive.readonly` — `DriveApp.getFolderById` for auto-discovery
-- `script.external_request` — call GHL for the $1 fee polling path
-- `script.scriptapp` — manage triggers
-- `script.send_mail` — `notifyError` emails
-- `script.container.ui` — the custom Maintenance / Bulk menus
-- `userinfo.email` — surface `Session.getActiveUser()` in `debugQuotaState`
+- `spreadsheets`, read/write the dashboard, pricing, logs tabs + all reg sheets
+- `drive.readonly`, `DriveApp.getFolderById` for auto-discovery
+- `script.external_request`, call GHL for the $1 fee polling path
+- `script.scriptapp`, manage triggers
+- `script.send_mail`, `notifyError` emails
+- `script.container.ui`, the custom Maintenance / Bulk menus
+- `userinfo.email`, surface `Session.getActiveUser()` in `debugQuotaState`
 
 **Time zone:** `America/Chicago` (Tom is on Central; the team operates from
 Florida but bills + accounting are Chicago-anchored).
@@ -231,7 +231,7 @@ Florida but bills + accounting are Chicago-anchored).
 |---|---|---|
 | `BillingFromSheets.js` | ~2830 | The entire sheet-driven pipeline: discovery, reading, pricing, reconciling, rendering. The big one. |
 | `Polling.js` | ~1150 | GHL polling + the $1-fee-only writer (`processSubmissionVerificationFeeOnly`). Most of the old GHL-driven billing logic still lives here as a rollback artifact (`processSubmission`, no live caller). |
-| `PricingGuide.js` | ~600 | `setupPricingSheet`, `migratePricingSheetAddAliases`, `prettifyPricingSheet` — bootstraps + maintains the Pricing tab. |
+| `PricingGuide.js` | ~600 | `setupPricingSheet`, `migratePricingSheetAddAliases`, `prettifyPricingSheet`, bootstraps + maintains the Pricing tab. |
 | `SheetWrites.js` | ~1260 | All Dashboard cell writes used by the legacy poll flow. Some helpers (`getDashboardSheet`) still used by `BillingFromSheets.js`. |
 | `Configuration.js` | 83 | `SUBACCOUNTS`, `COL` column constants, `STUDENT_NAME_FIELD_IDS`, `getTokenFor`. |
 | `Helpers.js` | 338 | Pure helpers (`parsePrice`, `extractMultiplier`, `parseMultiSelectValue`, etc.). |
@@ -246,11 +246,11 @@ Florida but bills + accounting are Chicago-anchored).
 | `Transactions.js` | 647 | Legacy Transactions-sheet rebuilder. Currently gated behind `processedCount > 0`. |
 
 **Script Properties:**
-- `GHL_TOKEN_FLORIDA` — GHL access token for `8IWtNFlmgJ8bif9DivHT`
-- `GHL_TOKEN_GEORGIA` — `ufcwXlTuemk8qbAZQPT6`
-- `GHL_TOKEN_VIRGINIA` — `19PYgF6rAz20w4ZyLEGX`
-- `lastPolledAt` — ISO timestamp of last poll (for the gap-fill window)
-- `lastPollSummary` — JSON dump of the last poll's outcome
+- `GHL_TOKEN_FLORIDA`, GHL access token for `8IWtNFlmgJ8bif9DivHT`
+- `GHL_TOKEN_GEORGIA`, `ufcwXlTuemk8qbAZQPT6`
+- `GHL_TOKEN_VIRGINIA`, `19PYgF6rAz20w4ZyLEGX`
+- `lastPolledAt`, ISO timestamp of last poll (for the gap-fill window)
+- `lastPollSummary`, JSON dump of the last poll's outcome
 
 Tokens are externally rotated. If a poll starts erroring with HTTP 401,
 rotate the token in Script Properties; do not commit it to the repo.
@@ -266,7 +266,7 @@ rotate the token in Script Properties; do not commit it to the repo.
 Triggers are owned by whoever installed them. Reinstall as emilio if they're
 ever recreated, to keep the Workspace 100K UrlFetch quota.
 
-### 4.3 GCP project — `systema-floyd-billing`
+### 4.3 GCP project, `systema-floyd-billing`
 
 The Apps Script project's OAuth consent screen lives in this GCP project.
 **Testing mode**, not verified. Practical consequence: only allowlisted test
@@ -293,32 +293,32 @@ The `Pricing` tab in the Billing Dashboard sheet is a 6-column table:
 Category | Item | Price | Multiplier | Source | Aliases
 ```
 
-- **Category** — one of `Camp Duration`, `Lunch`, `Breakfast`, `Care`, `T-Shirt`,
+- **Category**, one of `Camp Duration`, `Lunch`, `Breakfast`, `Care`, `T-Shirt`,
   `After School Monthly`, `After School Quarterly`, `Other`. Banded by color
   in the sheet for visual scanning.
-- **Item** — the clean item name (e.g. `Small`, `Lunchbox lunch ($10/day)`,
+- **Item**, the clean item name (e.g. `Small`, `Lunchbox lunch ($10/day)`,
   `2 days`).
-- **Price** — base price, before tax/fee inflation. **Just the number** — the
+- **Price**, base price, before tax/fee inflation. **Just the number**, the
   script applies fees on read.
-- **Multiplier** — `/day`, `/week`, or blank (one-time). Determines how the
+- **Multiplier**, `/day`, `/week`, or blank (one-time). Determines how the
   reader multiplies by `dayCount`.
-- **Source** — the original GHL form-field option label the catalog row was
+- **Source**, the original GHL form-field option label the catalog row was
   derived from (e.g. `Small (+$30)`). Lookup uses this verbatim when the
   registration sheet copies the form text exactly.
-- **Aliases** — comma-separated synonyms the team can append for fuzzy
+- **Aliases**, comma-separated synonyms the team can append for fuzzy
   matching. Lookup is alias-aware: if the reg sheet says `lunchbox` and that
   appears in the Aliases column for `Lunchbox lunch ($10/day)`, it matches.
 
 The Pricing tab is **auto-populated** by `setupPricingSheet()` on first run,
 pulling priced options from every GHL form field with a price tag in its
-option labels. After that, team edits win — the script will not overwrite
+option labels. After that, team edits win, the script will not overwrite
 team-edited rows. Run `forceRebuildPricingSheet()` only when you want to
 nuke the tab and re-pull from GHL.
 
 ### 5.2 Inline tax + processing fee
 
 Every priced line item gets its **unit price inflated** before being written
-to the Dashboard. No separate fee rows — the math is baked into each item.
+to the Dashboard. No separate fee rows, the math is baked into each item.
 
 | Item kind | Tax / fee applied | Total inflation |
 |---|---|---|
@@ -337,10 +337,10 @@ Pricing: Base unit $30.00 includes 7% sales tax plus 3% processing fee = all-in 
 (Internal ref: parent.email|jane-doe|july-27th-31st|shirt|small)
 ```
 
-The internal-ref line at the bottom is the **fingerprint** — the script
+The internal-ref line at the bottom is the **fingerprint**, the script
 uses it to track this row across rebuilds. Don't edit it by hand.
 
-### 5.3 Pricing rates — single source of truth
+### 5.3 Pricing rates, single source of truth
 
 Both rates are defined as JavaScript constants at the top of
 `BillingFromSheets.js`:
@@ -361,41 +361,41 @@ read time).
 `priceEnrollment_` (in `BillingFromSheets.js`) walks each enrollment and
 generates up to 5 line items:
 
-1. **Tuition** (`kind: 'tuition'`) — paid camps only, FREE camps skip. One
+1. **Tuition** (`kind: 'tuition'`), paid camps only, FREE camps skip. One
    per (student, week). Multiplier `/week`, qty=1, so total = base price.
    Catalog lookup is by Category=`Camp Duration` + Item=`{N} days`.
-2. **Lunch** (`kind: 'lunch'`) — if the lunch cell is non-blank and not a
+2. **Lunch** (`kind: 'lunch'`), if the lunch cell is non-blank and not a
    Yes/No marker. Quantity = `dayCount` if multiplier is `/day`, else 1.
-3. **Breakfast** (`kind: 'breakfast'`) — same logic as lunch.
-4. **Care** (`kind: 'care'`) — same logic. Before-care, after-care, or both.
-5. **T-shirt** (`kind: 'shirt'`) — **one-time per student**, not per week.
+3. **Breakfast** (`kind: 'breakfast'`), same logic as lunch.
+4. **Care** (`kind: 'care'`), same logic. Before-care, after-care, or both.
+5. **T-shirt** (`kind: 'shirt'`), **one-time per student**, not per week.
    The fingerprint omits the week and the orchestrator dedupes across all
    sheets so a student registered for 5 weeks gets exactly 1 shirt charge.
 
 **After-school** enrollments route through `priceAfterSchoolEnrollment_`,
-which has a different shape — no per-day attendance, no lunch/breakfast/care,
+which has a different shape, no per-day attendance, no lunch/breakfast/care,
 just monthly or quarterly tuition per program. The catalog rows live under
 Category `After School Monthly` / `After School Quarterly`.
 
 ### 5.5 Yes/No skip rule
 
 FREE camp registration sheets use `"Yes"` / `"No"` markers in Lunch and
-Breakfast columns to mean "kid wants the free meal" — these are participation
+Breakfast columns to mean "kid wants the free meal", these are participation
 indicators, not priced line items. `isBfsYesNoMarker_` recognizes
 `Yes / Y / No / N / True / False / ✓ / ✔ / x` (case-insensitive) and skips
 those cells entirely. Neither a priced nor an unpriced row is generated.
 
 If you ever change a real lunch option to be called literally `"Yes Special"`,
-that's fine — the regex requires the marker word to be the whole cell.
+that's fine, the regex requires the marker word to be the whole cell.
 
 ### 5.6 Unpriced + ambiguous flags
 
 A line item gets one of these flags when pricing fails to resolve cleanly:
 
-- **`unpriced`** — no catalog row matches the cell value at all. The item
+- **`unpriced`**, no catalog row matches the cell value at all. The item
   is still written to the Dashboard (so the team sees it), with `(unpriced)`
   prefix on the label and unit price = $0. Whole row highlighted yellow.
-- **`ambiguous`** — more than one catalog row matches the same cell value at
+- **`ambiguous`**, more than one catalog row matches the same cell value at
   the same lookup priority stage. Same treatment as unpriced.
 
 Both are recoverable by the team: open the cell Note's Link to jump to the
@@ -407,8 +407,8 @@ for the next 5-min trigger.
 ## 6. The reconciliation decision tree (per fingerprint, every 5 min)
 
 ```
-1. Read current Dashboard state — map every existing tx row by fingerprint.
-2. Build fresh items from registration sheets — map by fingerprint.
+1. Read current Dashboard state, map every existing tx row by fingerprint.
+2. Build fresh items from registration sheets, map by fingerprint.
 3. For each existing fingerprint NOT in fresh (CANCELLATION):
      • Legacy tax/fee row format?  → delete the row outright (architectural debris).
      • status was 'paid'?          → flip to 'refund-needed'. NEVER overwrite.
@@ -494,13 +494,13 @@ Pricing: Base unit $30.00 includes 7% sales tax plus 3% processing fee = all-in 
 (Internal ref: jane.doe-gmail.com|j-doe|july-27th-31st|shirt|small)
 ```
 
-- **Source** — which registration sheet, which week tab, which row.
-- **Link** — clickable URL into the source cell. Opens the right tab + row +
+- **Source**, which registration sheet, which week tab, which row.
+- **Link**, clickable URL into the source cell. Opens the right tab + row +
   column so the team can fix typos without hunting.
-- **Pricing** — the inflation breakdown (only on priced items; missing on
+- **Pricing**, the inflation breakdown (only on priced items; missing on
   `$0` / unpriced items).
-- **Internal ref** — the fingerprint. Used by the reconciler to track this
-  row across rebuilds. **Don't edit by hand** — if it changes, the next
+- **Internal ref**, the fingerprint. Used by the reconciler to track this
+  row across rebuilds. **Don't edit by hand**, if it changes, the next
   rebuild creates a duplicate.
 
 A row **without a cell Note on col B** means it predates this convention or
@@ -509,7 +509,7 @@ as untracked and leaves them alone.
 
 The customer-row Balance cell (col G) also carries a Note listing every owed
 item for that customer (built by `buildBalanceNote_`). No em-dashes, no
-cross-customer info — just that one customer's owed items, line by line,
+cross-customer info, just that one customer's owed items, line by line,
 totalled at the bottom.
 
 ---
@@ -556,7 +556,7 @@ On open, the Billing Dashboard sheet exposes two custom menus (defined in
 - Set all → refunded
 
 These are convenience wrappers for marking multiple rows at once. They don't
-bypass the reconciler — the next 5-min run will respect the new status pills
+bypass the reconciler, the next 5-min run will respect the new status pills
 because of the `paid → refund-needed` no-op rule.
 
 ### 9.3 Common failures
@@ -569,7 +569,7 @@ because of the `paid → refund-needed` no-op rule.
 | Dashboard shows `(unpriced)` rows the team can't clear | Reg cell text doesn't match any Pricing row's Item or Source; no Alias added | Click the cell Note's Link, see what the reg sheet actually says, then either fix the typo there or add an alias in the Pricing tab |
 | `+/-` toggle next to customer doesn't work | Row groups went nested across multiple reconciler runs | Run `fixDashboardGroups` (or `nuclearResetBilling` for a full reset) |
 | Total balance at top of dashboard is wrong by a lot | Stale customer balance formulas pointing to wrong row ranges (usually after a manual row insert/delete) | Run `nuclearResetBilling` |
-| Two concurrent `nuclearResetBilling` runs corrupt the sheet | (Fixed 2026-05-14.) Older versions didn't hold the script lock. | Pull latest from `clasp push`; current version logs "could not acquire lock after 2 min — Skipping" instead of stomping. |
+| Two concurrent `nuclearResetBilling` runs corrupt the sheet | (Fixed 2026-05-14.) Older versions didn't hold the script lock. | Pull latest from `clasp push`; current version logs "could not acquire lock after 2 min, Skipping" instead of stomping. |
 | `$1` rows missing or duplicated | GHL token expired, or dedup state lost | Check `GHL_TOKEN_FLORIDA`; run `replayAllSubmissions` to re-scan a window |
 | Email alerts stopped arriving | `notifyError` is throttled to 1/hour per `(severity, subject)` pair | Check the Logs sheet for `poll_error` rows; not a bug |
 
@@ -595,7 +595,7 @@ form. This is also true for the discrepancy bot; see
 | Disaster | Recovery |
 |---|---|
 | Dashboard data area accidentally wiped | The fingerprints are gone, so paid pills are lost. Run `nuclearResetBilling` to rebuild from registration sheets, then re-flip paid rows by hand from your records (or from Stripe history). |
-| Pricing tab corrupted | Run `forceRebuildPricingSheet()` — re-pulls every priced option from GHL fields. **Loses team-edited aliases.** If aliases were valuable, restore via Sheets → File → Version history. |
+| Pricing tab corrupted | Run `forceRebuildPricingSheet()`, re-pulls every priced option from GHL fields. **Loses team-edited aliases.** If aliases were valuable, restore via Sheets → File → Version history. |
 | Trigger not firing | Check the editor's Triggers panel as `emilio@nilsdigital.com`. Re-run `installBillingFromSheetsTrigger()` to recreate. |
 | Whole script project deleted | Code lives in `Tom_Systema_Floyd/Billing dashboard/apps-script/`. Re-clone via `clasp clone <SCRIPT_ID>`, then `clasp push -f`. |
 | GHL token rotated and not updated in Script Properties | Polls error out with HTTP 401. Update `GHL_TOKEN_FLORIDA` (or GA/VA) in Project Settings → Script Properties. |
@@ -673,7 +673,7 @@ enable them in polling:
    (e.g. emilio runs FL at :00/:05, GA at :01/:06, VA at :02/:07) to avoid
    simultaneous Workspace UrlFetch bursts.
 4. If they share the same Billing Dashboard sheet, the sheet-driven pipeline
-   is location-agnostic — reg sheets are reg sheets, regardless of which
+   is location-agnostic, reg sheets are reg sheets, regardless of which
    GHL location seeded them.
 
 ---
@@ -681,25 +681,25 @@ enable them in polling:
 ## 12. Reference: Constants in the codebase
 
 `BillingFromSheets.js` top of file:
-- `REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w'` — Drive root for reg-sheet discovery
-- `SHIRT_SALES_TAX_RATE = 0.07` — 7% sales tax inflated into shirt unit prices
-- `PAYMENT_PROCESSING_FEE = 0.03` — 3% processing fee inflated into all priced items
-- `STATUS_VALUES = ['owed', 'paid', 'canceled', 'refund-needed', 'refunded', 'unpriced', 'ambiguous']` — the col G dropdown
-- `FALLBACK_REGISTRATION_SHEETS` — 4 hardcoded summer-camp sheet IDs used when Drive discovery fails
-- `BFS_WEEK_ORDER` — 12-week summer camp chronological order
-- `BILLING_TAB_NAME = 'Billing'` — name of the (deprecated) per-sheet billing tab
-- `UNPRICED_TAG = '(unpriced)'` — prefix on unpriced item labels
-- `AFTER_SCHOOL_MONTH_COLUMNS` — Jan..Dec month names used by after-school readers
+- `REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w'`, Drive root for reg-sheet discovery
+- `SHIRT_SALES_TAX_RATE = 0.07`, 7% sales tax inflated into shirt unit prices
+- `PAYMENT_PROCESSING_FEE = 0.03`, 3% processing fee inflated into all priced items
+- `STATUS_VALUES = ['owed', 'paid', 'canceled', 'refund-needed', 'refunded', 'unpriced', 'ambiguous']`, the col G dropdown
+- `FALLBACK_REGISTRATION_SHEETS`, 4 hardcoded summer-camp sheet IDs used when Drive discovery fails
+- `BFS_WEEK_ORDER`, 12-week summer camp chronological order
+- `BILLING_TAB_NAME = 'Billing'`, name of the (deprecated) per-sheet billing tab
+- `UNPRICED_TAG = '(unpriced)'`, prefix on unpriced item labels
+- `AFTER_SCHOOL_MONTH_COLUMNS`, Jan..Dec month names used by after-school readers
 - `AFTER_SCHOOL_QUARTER_COLUMNS = ['Q1', 'Q2', 'Q3', 'Q4']`
 
 `Configuration.js`:
-- `SUBACCOUNTS` — Florida / Georgia / Virginia with locationId + tokenKey
+- `SUBACCOUNTS`, Florida / Georgia / Virginia with locationId + tokenKey
 - `DEFAULT_SUBACCOUNT = 'Florida'`
 - `GHL_API_BASE = 'https://services.leadconnectorhq.com'`
 - `GHL_API_VERSION = '2021-07-28'`
-- `SHEET_NAME = 'Dashboard'` — the canonical tab name
-- `COL.*` — column constants (`NAME_OR_DATE=1`, `EMAIL_OR_ITEM=2`, ...)
-- `STUDENT_NAME_FIELD_IDS` — priority-ordered list of GHL custom-field IDs
+- `SHEET_NAME = 'Dashboard'`, the canonical tab name
+- `COL.*`, column constants (`NAME_OR_DATE=1`, `EMAIL_OR_ITEM=2`, ...)
+- `STUDENT_NAME_FIELD_IDS`, priority-ordered list of GHL custom-field IDs
   the script tries when extracting a student name from a submission
 
 `PricingGuide.js`:
@@ -712,19 +712,19 @@ When something needs to change, look here first.
 
 ## 13. Related memory notes (for future Claude/AI sessions)
 
-- `project_ghl_script_deployment.md` — GHL script deployment uses commit-pinned
+- `project_ghl_script_deployment.md`, GHL script deployment uses commit-pinned
   jsDelivr URLs; purge cache after each push.
-- `feedback_ghl_verify_location_first.md` — always cross-check `.env`'s
+- `feedback_ghl_verify_location_first.md`, always cross-check `.env`'s
   `GHL_LOCATION_ID` against Supabase `ghl_tokens` or `Configuration.js` before
   writing.
-- `feedback_no_emdashes.md` — never use em-dashes in copy or cell notes; use
+- `feedback_no_emdashes.md`, never use em-dashes in copy or cell notes; use
   commas.
-- `feedback_ghl_cloudflare_ua.md` — direct GHL API calls from Python need a
+- `feedback_ghl_cloudflare_ua.md`, direct GHL API calls from Python need a
   browser User-Agent.
-- `reference_systema_floyd_supabase_ghl_token.md` — fetching the Florida GHL
+- `reference_systema_floyd_supabase_ghl_token.md`, fetching the Florida GHL
   access token from Supabase via the `get_systema_floyd_florida_token` RPC.
-- `reference_systema_floyd_discrepancy_checker.md` — the 15-min failsafe that
+- `reference_systema_floyd_discrepancy_checker.md`, the 15-min failsafe that
   keeps the registration sheets this billing dashboard reads from accurate.
-- `project_systema_floyd_sheet_tab_names.md` — reg sheet tabs use short form
+- `project_systema_floyd_sheet_tab_names.md`, reg sheet tabs use short form
   (`6/1-6/5`), not WEEK_ORDER long form. Affects both the discrepancy bot and
   any direct `getSheetByName` calls in billing code.

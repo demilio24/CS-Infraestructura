@@ -1,15 +1,15 @@
-# Systema Floyd — Camp Dashboard
+# Systema Floyd, Camp Dashboard
 
 > Browser dashboard at `Tom_Systema_Floyd/dashboard/index.html` (and
 > `lunches.html`) that surfaces the live state of all four camp registration
-> sheets — Free Upper, Free Lower, Paid Upper, Paid Lower — plus historical
+> sheets, Free Upper, Free Lower, Paid Upper, Paid Lower, plus historical
 > trend, daily attendance, lunch prep counts, and data-quality alerts.
 >
 > Embedded inside a GoHighLevel iframe via the standard GHL embed wrapper
 > (see project `CLAUDE.md` for the snippet). Public URL:
 > `https://demilio24.github.io/Websites/Tom_Systema_Floyd/dashboard/index.html`
 
-The dashboard is **read-only** for staff — every number is derived from the
+The dashboard is **read-only** for staff, every number is derived from the
 four Google Sheets via the Apps Script snapshot pipeline. The cap inputs in
 the Capacity Targets panel are the one editable surface, and they persist in
 `localStorage` per filter (summer / free / afterschool); they do not write
@@ -73,9 +73,9 @@ roster sheets.
 
 ## Pages
 
-### `index.html` — Registrations
+### `index.html`, Registrations
 
-The main dashboard. Single page, single tab UI (no client-side routing —
+The main dashboard. Single page, single tab UI (no client-side routing ,
 everything is on one screen, toggled by filter pills and quick-filter pills).
 
 Top-to-bottom anatomy:
@@ -86,12 +86,12 @@ Top-to-bottom anatomy:
 | **Filter row** | Tabs: `Paid Camp` / `Free Camp` + a "compare to" date picker that reloads against a prior day's history snapshot. The After-School tab still exists in the DOM but is `hidden` until after-school sheets are created |
 | **KPI row** (camp) | 5 cards: Unique Students (with **14-day sparkline** inline), Occupancy %, Upper Campus, Lower Campus, Top Week |
 | **KPI row** (after-school) | 4 cards: Total Enrolled, By Program, Waitlist, Top Day (hidden when filter ≠ after-school) |
-| **Charts** | Donut (campus split) + horizontal stacked bars (by week, color by campus). The bars chart card header has a **Registrations / Attendance mode toggle** that swaps the data source between registered counts and actual attendance counts. The two cap-line values now live in the legend below the chart (`Upper Campus — cap 13`), not on the chart itself, so they can never collide with bar values. |
+| **Charts** | Donut (campus split) + horizontal stacked bars (by week, color by campus). The bars chart card header has a **Registrations / Attendance mode toggle** that swaps the data source between registered counts and actual attendance counts. The two cap-line values now live in the legend below the chart (`Upper Campus, cap 13`), not on the chart itself, so they can never collide with bar values. |
 | **Capacity Targets** | Editable per-tab per-campus caps. Reset button below. Values persist in `localStorage`. |
 | **Ops strip** | Two click-to-expand chips: `⚠ Allergies (N)` + `🛠 Data issues (N)`. Counts ignore quick-filter so users see the full backlog. Data issues are **grouped by student**: one card per kid with the union of missing fields across every affected week + a per-source-sheet link strip. |
-| **Student Rosters** | Search box, quick-filter pills (`All / Upper / Lower / 🥪 Lunch / ⚠ Allergies / Incomplete`), then a grid of week cards. Each week card has a Mon-Fri daily-attendance strip — **each chip is a clickable attendance button** (see the Attendance Tracker section below) — then the student list. Click any student row to expand an inline detail card. |
+| **Student Rosters** | Search box, quick-filter pills (`All / Upper / Lower / 🥪 Lunch / ⚠ Allergies / Incomplete`), then a grid of week cards. Each week card has a Mon-Fri daily-attendance strip, **each chip is a clickable attendance button** (see the Attendance Tracker section below), then the student list. Click any student row to expand an inline detail card. |
 
-### `lunches.html` — Lunch Prep
+### `lunches.html`, Lunch Prep
 
 Kitchen-facing view of every parsed lunch order. Top-of-page summary strip,
 then one card per week with a Mon-Fri × order-type matrix. Reuses the same
@@ -111,15 +111,15 @@ in Snapshot.js. Top-level fields:
 |---|---|
 | `generatedAt` | ISO timestamp of the Apps Script run that produced this snapshot |
 | `locationId`  | Hardcoded `8IWtNFlmgJ8bif9DivHT` (Systema Floyd Florida GHL location) |
-| `cutoff`      | `2026-06-01` — used by KPIs to phrase "Age 6+ on June 1" |
-| `weekOrder`   | Global chronological week list — fallback when a slice doesn't carry its own |
+| `cutoff`      | `2026-06-01`, used by KPIs to phrase "Age 6+ on June 1" |
+| `weekOrder`   | Global chronological week list, fallback when a slice doesn't carry its own |
 | `programOrder`, `dayOrder` | After-school orderings |
-| `totals`      | `{ summer, free, afterSchool, contacts, leadOnly, newLast7Days, newLast30Days }` — `contacts`/`leadOnly`/`new*` are stubs currently zeroed |
-| `summer`      | `{ total, byCampus, byWeek, byWeekCampus, weekOrder }` — `weekOrder` lists only weeks where the paid sheets actually have tabs |
+| `totals`      | `{ summer, free, afterSchool, contacts, leadOnly, newLast7Days, newLast30Days }`, `contacts`/`leadOnly`/`new*` are stubs currently zeroed |
+| `summer`      | `{ total, byCampus, byWeek, byWeekCampus, weekOrder }`, `weekOrder` lists only weeks where the paid sheets actually have tabs |
 | `free`        | Same as `summer` plus `bySchool` (descending count) and its own per-slice `weekOrder` (so the free view won't show paid-only weeks like Aug 24-28) |
 | `combined`    | Dedup of summer+free for cross-camp metrics |
-| `lunches`     | `{ summer: { [weekLabel]: { rows, totals } }, free: same }` — pre-aggregated for `lunches.html` |
-| `roster`      | `{ [weekLabel]: { upper: [...], lower: [...], free: [...] } }` — each entry has `name, campus, lunch, lunchRaw, breakfastRaw, allergy, notes, email, school?, incomplete, missingFields[], sourceSheetId, sourceTabName, sourceRow, days[5], type` |
+| `lunches`     | `{ summer: { [weekLabel]: { rows, totals } }, free: same }`, pre-aggregated for `lunches.html` |
+| `roster`      | `{ [weekLabel]: { upper: [...], lower: [...], free: [...] } }`, each entry has `name, campus, lunch, lunchRaw, breakfastRaw, allergy, notes, email, school?, incomplete, missingFields[], sourceSheetId, sourceTabName, sourceRow, days[5], type` |
 | `afterSchool` | Empty scaffolded shape; populated when after-school sheets exist |
 
 Fields prefixed with `_` (e.g. `_allSummer`, `_allFree`) are **internal raw
@@ -133,11 +133,11 @@ The pipeline driver. Triggered every 5 minutes by `pushSnapshotToGitHub`
 (installed via `installSnapshotPushTrigger`). Each run:
 
 1. Reads each of the four sheets via `readCampSheet_` / `readFreeSheet_`.
-2. Resolves each tab to a `WEEK_ORDER` label via `resolveWeek_(tabName, fallbackIndex)` — name-based matching with positional fallback. Patterns it understands: "June 8th-12th", "Jun 8-12", "June 8 - 12", "6/8-6/12".
+2. Resolves each tab to a `WEEK_ORDER` label via `resolveWeek_(tabName, fallbackIndex)`, name-based matching with positional fallback. Patterns it understands: "June 8th-12th", "Jun 8-12", "June 8 - 12", "6/8-6/12".
 3. Aggregates totals, by-week, by-campus, lunches, daily attendance.
 4. Builds `roster` with one entry per (week × bucket × student), per-week deduplicated.
 5. Writes:
-   - **Supabase first** via `pushEnrollmentsToSupabase_` (non-fatal — failure is logged but won't block the GitHub push)
+   - **Supabase first** via `pushEnrollmentsToSupabase_` (non-fatal, failure is logged but won't block the GitHub push)
    - `snapshot.json` (live)
    - `history/YYYY-MM-DD.json` (one per UTC day, overwritten same-day)
    - `history/index.json` (re-listed every run from the directory contents)
@@ -165,10 +165,10 @@ the spreadsheet's tab order.
 
 | Property | Used by |
 |---|---|
-| `GITHUB_PAT` | `pushSnapshotToGitHub` — fine-grained PAT scoped to `demilio24/Websites` with Contents:read+write |
+| `GITHUB_PAT` | `pushSnapshotToGitHub`, fine-grained PAT scoped to `demilio24/Websites` with Contents:read+write |
 | `SUPABASE_URL` | `pushEnrollmentsToSupabase_` and `DiscrepancyCheck.js` |
-| `SUPABASE_ANON_KEY` | Same — legacy anon JWT |
-| `SUPABASE_TOKEN_SECRET` | Same — shared claim_secret matching the SECURITY DEFINER RPCs |
+| `SUPABASE_ANON_KEY` | Same, legacy anon JWT |
+| `SUPABASE_TOKEN_SECRET` | Same, shared claim_secret matching the SECURITY DEFINER RPCs |
 | `SECRET_KEY` *(optional)* | Gates the `doGet` web-app endpoint when set |
 
 ## Supabase mirror
@@ -179,15 +179,15 @@ queries) can query enrollments without re-parsing snapshot.json.
 
 ### Tables (in project `nroeiabeirifurdaybyo`)
 
-**`public.sf_camp_enrollments`** — current state, upsert keyed by `(type, campus, week_label, name_key)`.
+**`public.sf_camp_enrollments`**, current state, upsert keyed by `(type, campus, week_label, name_key)`.
 
 | Column | Meaning |
 |---|---|
 | `type` | `summer` or `free` |
 | `campus` | `Upper Campus` / `Lower Campus` / `Unknown` |
-| `week_label` | `'June 8th-12th'` etc. — matches `WEEK_ORDER` |
+| `week_label` | `'June 8th-12th'` etc., matches `WEEK_ORDER` |
 | `week_start_date` | Concrete date derived from `WEEK_START_DATES` for chronological sorting |
-| `name_key` | Lowercased, whitespace-collapsed student name — the dedup key |
+| `name_key` | Lowercased, whitespace-collapsed student name, the dedup key |
 | `student_name`, `email`, `school`, `parent_name`, `grade`, `age` | Identifying fields |
 | `lunch_raw`, `lunch_category`, `lunch_label`, `breakfast_raw` | Lunch + breakfast info |
 | `days_mon` … `days_fri` | Attendance booleans |
@@ -195,7 +195,7 @@ queries) can query enrollments without re-parsing snapshot.json.
 | `source_sheet_id`, `source_row` | Provenance |
 | `snapshot_at` | Updated to `now()` each upsert |
 
-**`public.sf_camp_snapshots`** — append-only point-in-time archive.
+**`public.sf_camp_snapshots`**, append-only point-in-time archive.
 
 | Column | Meaning |
 |---|---|
@@ -203,11 +203,11 @@ queries) can query enrollments without re-parsing snapshot.json.
 | `summer_total`, `free_total` | Cached totals (so dashboards can graph without parsing payload) |
 | `payload` | Full `snapshot.json` as JSONB |
 
-**`public.sf_daily_attendance`** — staff-edited actual headcount per week × day.
+**`public.sf_daily_attendance`**, staff-edited actual headcount per week × day.
 
 | Column | Meaning |
 |---|---|
-| `week_label` | e.g. `'June 1st-5th'` — matches `WEEK_ORDER` |
+| `week_label` | e.g. `'June 1st-5th'`, matches `WEEK_ORDER` |
 | `day_of_week` | `'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri'` (CHECK constraint) |
 | `count_upper`, `count_lower`, `count_free` | Headcounts entered by staff via the chip popup. All default 0, all CHECKed ≥ 0 |
 | `marked_by` | Optional free-text identifier of who recorded it (not yet wired to a login system) |
@@ -279,7 +279,7 @@ in the worst case.
 
 ## Roster entry click-to-expand
 
-Click any student row in the roster (anywhere — name, 🥪 badge, or ⚠ badge)
+Click any student row in the roster (anywhere, name, 🥪 badge, or ⚠ badge)
 and an inline detail card slides down inside that week column, showing:
 
 - Camp type + week + campus
@@ -308,7 +308,7 @@ the full allergy text in an amber-bordered slide-down. Single-row-open per
 panel.
 
 Counts respect the **main filter (paid/free)** but ignore the
-roster quick-filter and search bar — so users always see the full backlog
+roster quick-filter and search bar, so users always see the full backlog
 even when the roster grid is filtered down.
 
 ### Data issues (grouped by student)
@@ -317,12 +317,12 @@ The panel is one card per kid summarizing every issue across every week.
 Each card shows:
 
 - Student name + `N weeks affected` summary
-- **Missing-field chips** — the union of fields blank in that kid's rows:
+- **Missing-field chips**, the union of fields blank in that kid's rows:
   - `Student name` (when the cell is blank)
   - `Campus` (when the Free Camp row has no explicit campus)
   - `Email`, `Lunch`, `Age`, `Days attending` (paid sheets)
   - `School`, `Parent/Guardian name`, `Grade` (free sheets)
-- **Per-source-sheet links** — one line per source sheet:
+- **Per-source-sheet links**, one line per source sheet:
   `PAID Upper · Jun 1–5, Jun 8–12 · rows 14, 18 [Open ↗]`
   The Open link jumps straight to that sheet in a new tab.
 
@@ -349,7 +349,7 @@ the daily-attendance strip is a clickable button. Clicking it opens a
 focused popup for that specific (week × day) cell:
 
 - **Header**: `Mon attendance · Jun 1–5`
-- **Expected row**: `Expected: 30 (U13 · L17 · F0)` — derived from the
+- **Expected row**: `Expected: 30 (U13 · L17 · F0)`, derived from the
   current registered roster honoring each kid's days[5] flags
 - **Three editable inputs** (Upper / Lower / Free), prefilled with either
   the previously saved actual counts or the expected counts if none recorded
@@ -370,7 +370,7 @@ pill toggle. State is held in `state.chartMode`. Switching to Attendance:
 
 1. Lazy-loads `state.attendanceByWeek` from Supabase via `sf_get_daily_attendance` (cached for the session, invalidated whenever the user saves)
 2. Replaces each week's per-campus counts with the **summed Mon-Fri actual** split by Upper / Lower / Free
-3. Renders the **expected (registered) counts as dashed ghost outlines** behind each filled bar — so staff see actual vs expected side-by-side without flipping back to the Registrations view
+3. Renders the **expected (registered) counts as dashed ghost outlines** behind each filled bar, so staff see actual vs expected side-by-side without flipping back to the Registrations view
 4. Updates the chart heading to "Attendance by Week" and appends a legend hint explaining the dashed outlines
 5. Clicking any bar still opens the existing day modal, which in attendance mode shows the per-day actuals (read-only view; staff use the chip-based popup to edit)
 
@@ -378,8 +378,8 @@ pill toggle. State is held in `state.chartMode`. Switching to Attendance:
 
 Cap thresholds are still shown as dashed lines across the chart (one per
 campus, in that campus's color), but the **numeric cap values** now live
-exclusively in the legend below the chart as `Upper Campus — cap 13` /
-`Lower Campus — cap 13`. This was changed because the in-chart "Upper cap 13"
+exclusively in the legend below the chart as `Upper Campus, cap 13` /
+`Lower Campus, cap 13`. This was changed because the in-chart "Upper cap 13"
 text used to overlap bar values when a bar's count was close to the cap.
 The legend values update live whenever the caps are edited in Capacity
 Targets.
@@ -400,15 +400,15 @@ filter toggles don't refetch.
 
 Desktop layout is the default. Two media queries fire on mobile:
 
-- `@media (max-width: 700px)` — KPI cards shrink, capacity inputs become
+- `@media (max-width: 700px)`, KPI cards shrink, capacity inputs become
   tappable (>= 36px height), filter pills wrap.
-- `@media (max-width: 520px)` — KPI grid drops to 2 columns with Top Week
+- `@media (max-width: 520px)`, KPI grid drops to 2 columns with Top Week
   spanning both, donut shrinks, roster goes single-column, lunch tables
   scroll horizontally inside their card instead of crushing the Mon-Fri
   columns.
 
 The horizontally-scrollable elements (`.dash-nav`, `.filter`, `.week-block`)
-are intentional — every other container is locked to `width:100%; min-width:0`
+are intentional, every other container is locked to `width:100%; min-width:0`
 so the page itself never produces horizontal page-scroll on iOS.
 
 ## Adding a new feature without bloating the UI
@@ -439,12 +439,12 @@ into GHL, and document.
 | A tab name doesn't match any `WEEK_ORDER` entry | `resolveWeek_` falls back to positional (`fallbackIndex`); if out of range, the tab is skipped entirely |
 | Two rows for the same kid in the same week tab | Per-week dedup by `nameKey_` (lowercased + whitespace-collapsed name). One enrollment counted. |
 | A kid is enrolled in both Free and Paid for the same week | Counted once toward `combined.total`, twice toward `byWeek` (once in summer aggregate, once in free aggregate) |
-| Lunch column has free-text the parser doesn't recognise | Falls into the `other` category with the raw text as both label and subtypeKey — visible in lunches.html in the Other bucket so you can spot the pattern and extend `parseLunch_` |
-| Apps Script trigger fails for one tick | The lock skips overlap; the next tick rebuilds from current sheet state. Supabase will show a small gap in `sf_camp_snapshots.generated_at` but the live snapshot.json is always a full rebuild — no incremental state to corrupt |
+| Lunch column has free-text the parser doesn't recognise | Falls into the `other` category with the raw text as both label and subtypeKey, visible in lunches.html in the Other bucket so you can spot the pattern and extend `parseLunch_` |
+| Apps Script trigger fails for one tick | The lock skips overlap; the next tick rebuilds from current sheet state. Supabase will show a small gap in `sf_camp_snapshots.generated_at` but the live snapshot.json is always a full rebuild, no incremental state to corrupt |
 | Supabase write fails | Logged; GitHub push still runs. Dashboard keeps working from snapshot.json. |
 | User picks a compare-to date that doesn't have a history file | Dashboard shows "No data for that date" in the compare status text; KPI deltas don't render |
 | `localStorage` for caps is corrupted/missing | Falls back to `CAP_DEFAULTS_BY_FILTER` from the IIFE constants |
-| Two browser tabs both edit a cap | Last write wins per tab; no cross-tab sync — staff are warned in the panel subtitle |
+| Two browser tabs both edit a cap | Last write wins per tab; no cross-tab sync, staff are warned in the panel subtitle |
 | Two staff mark attendance for the same (week × day) at the same time | Last write wins. `sf_set_daily_attendance` is an upsert keyed on `(week_label, day_of_week)`. The losing tab won't know it's been overwritten until next render. Acceptable for the current low-volume use case. |
 | Attendance saved before any registration row exists for that week | The save still succeeds (no foreign key). The chip will show ✓ and the saved counts even though the "expected" reads 0. |
 | Chart-mode toggle clicked before attendance data loads | The toggle flips immediately and `loadAttendance()` is kicked off; `renderBars` re-runs once the fetch resolves. |

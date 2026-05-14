@@ -1,4 +1,4 @@
-# Systema Floyd — Camp Day Validator
+# Systema Floyd, Camp Day Validator
 
 > Client-side JavaScript file (`camp-validator.js`) pasted into a Custom Code
 > element at the bottom of the summer camp signup form in GoHighLevel (GHL).

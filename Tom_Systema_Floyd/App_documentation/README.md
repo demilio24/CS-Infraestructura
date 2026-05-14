@@ -1,4 +1,4 @@
-# Systema Floyd — App Documentation
+# Systema Floyd, App Documentation
 
 This folder is the canonical reference for every Systema Floyd automation,
 script, and data pipeline. It exists so that any operator (human or AI) can pick
@@ -27,18 +27,18 @@ to reverse-engineer code or trace through GHL workflows.
 
 ## Reading order (for a new contributor)
 
-1. **registration_system.md** first — it's the core of the system and the
+1. **registration_system.md** first, it's the core of the system and the
    document with the most surface area. Everything else relates to or runs
    alongside it.
-2. **camp_day_validator.md** next — it's the front-end gatekeeper that
+2. **camp_day_validator.md** next, it's the front-end gatekeeper that
    produces the form submissions the registration system processes.
-3. **dashboard.md** — the operational view of the rosters the registration
+3. **dashboard.md**, the operational view of the rosters the registration
    system populates.
-4. **billing_dashboard.md** — the financial view of the same rosters,
+4. **billing_dashboard.md**, the financial view of the same rosters,
    pricing each enrollment + handling refunds.
-5. **waiver_matcher.md** — runs against the rosters that the registration
+5. **waiver_matcher.md**, runs against the rosters that the registration
    system writes.
-6. **school_enrollment_router.md** — separate flow for non-camp school
+6. **school_enrollment_router.md**, separate flow for non-camp school
    enrollments. Same author / pattern, but operates on a different intake.
 
 ## How the apps relate
@@ -119,7 +119,7 @@ and break something.
 | Billing Dashboard (sheet-driven pipeline) | `Tom_Systema_Floyd/Billing dashboard/apps-script/BillingFromSheets.js` |
 | Billing Dashboard (Pricing tab + catalog) | `Tom_Systema_Floyd/Billing dashboard/apps-script/PricingGuide.js` |
 | Billing Dashboard ($1 GHL fee polling) | `Tom_Systema_Floyd/Billing dashboard/apps-script/Polling.js` |
-| Billing Dashboard sheet (the operator UI) | Apps Script bound to `Systema Floyd — Billing Dashboard` Google Sheet (script ID `19RyUD7iaxws4yM2OMMABHkDZQWIiPigEl3xFno_OoB04kEfbra86xenH`) |
+| Billing Dashboard sheet (the operator UI) | Apps Script bound to `Systema Floyd, Billing Dashboard` Google Sheet (script ID `19RyUD7iaxws4yM2OMMABHkDZQWIiPigEl3xFno_OoB04kEfbra86xenH`) |
 | School Enrollment Router | Apps Script bound to the central enrollment intake spreadsheet (not in this repo) |
 | Camp Day Validator | `Tom_Systema_Floyd/Form/script.html` (also pasted into a GHL Custom Code element) |
 | Waiver Matcher | Apps Script bound to the Waiver APP spreadsheet (not in this repo) |

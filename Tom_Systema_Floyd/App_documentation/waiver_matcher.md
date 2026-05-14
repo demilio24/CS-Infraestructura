@@ -1,10 +1,10 @@
-# Systema Floyd — Waiver Matcher
+# Systema Floyd, Waiver Matcher
 
 > Google Apps Script bound directly to the **Waiver APP** spreadsheet.
 > Automatically cross-references every parent waiver submission against every
 > school registration spreadsheet in the Drive, visually flags matched
 > students in green, and surfaces any allergy or health information as a cell
-> note — zero manual effort required.
+> note, zero manual effort required.
 
 ## How it works (end to end)
 
@@ -16,7 +16,7 @@
 4. It scans every Google Sheet in the Drive that the account owns, skipping a
    defined exclusion list.
 5. For each sheet, it auto-detects which column is the email and which columns
-   are student names — **no hardcoded positions**.
+   are student names, **no hardcoded positions**.
 6. It compares every student name in every camp sheet against every waiver
    entry with a matching email. Matching uses **Jaro-Winkler fuzzy matching
    at 90% minimum similarity**.

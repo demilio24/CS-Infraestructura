@@ -1,4 +1,4 @@
-# Systema Floyd — School Enrollment Router
+# Systema Floyd, School Enrollment Router
 
 > Google Apps Script bound to the central enrollment intake spreadsheet.
 > Routes every new student enrollment from a single Main Table into the
@@ -18,7 +18,7 @@ skipped, or errored.
 2. The on-edit trigger fires and calls `scanUnprocessedRows()`.
 3. The script walks every row from row 2 down. Any row with a value in the
    **Status** column (H) is skipped. Any row missing a student name is skipped.
-4. For each unprocessed row, it determines the **lookup name** — normally the
+4. For each unprocessed row, it determines the **lookup name**, normally the
    value in **Class** (column F), except when Class is `Neighborhood Kids
    Schools`, in which case the **NKS** value (column G) is used instead.
 5. It looks up that name in the **Source** tab using a three-tier match:

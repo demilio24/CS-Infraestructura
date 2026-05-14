@@ -1,4 +1,4 @@
-# Systema Floyd — Camp Registration System
+# Systema Floyd, Camp Registration System
 
 How a parent's form submission becomes a row on the dashboard, what catches it
 when something breaks, and where every piece lives.
@@ -27,7 +27,7 @@ when something breaks, and where every piece lives.
                                      │ "Add row" action
                                      ▼
             ┌──────────────────────────────────────────────────────────┐
-            │  Google Sheets — 4 roster spreadsheets                   │
+            │  Google Sheets, 4 roster spreadsheets                   │
             │  • Free Camp Upper / Lower                               │
             │  • Summer Camp Upper / Lower                             │
             │  • One tab per week (e.g. "7/27-7/31")                   │
@@ -86,7 +86,7 @@ etc.), the row never lands in the sheet. The discrepancy bot catches it:
    - **Existing row matches by email + week with a fuzzy student-name match** (exact, single-token "first name in" the other, first+last token match, or Jaro-Winkler ≥ 0.92) → link, don't duplicate. This is what catches "Aria" vs "Aria Falzone" as the same kid.
    - **No row, no record** → APPEND a new row, write tombstone, stamp source note
 6. If the bot added anything, emails `emilio@nilsdigital.com` with the
-   list — **and names the specific GHL workflow that failed to write each row**.
+   list, **and names the specific GHL workflow that failed to write each row**.
 
 ---
 
@@ -107,7 +107,7 @@ Florida location: `8IWtNFlmgJ8bif9DivHT` (`Systema Floyd - Florida`).
 | Lead Form | `yP3OPoUimfOZgrXJo2mI` | n/a |
 
 > **After School architectural note:** Camp forms write directly to per-week
-> spreadsheets via per-week routing workflows. After School is different — ONE
+> spreadsheets via per-week routing workflows. After School is different, ONE
 > workflow (`After School Registration Main Branch`,
 > `a9154b76-5174-4129-8370-e7f3f425ab89`) writes to ONE central Main Table in
 > the `After School Registration - APPLICATION` spreadsheet
@@ -125,11 +125,11 @@ Florida location: `8IWtNFlmgJ8bif9DivHT` (`Systema Floyd - Florida`).
 > - C = `Ysom5PswWL2N0eouKwiS` ("T-Shirt Size (After School Registration)")
 > - D = `wiv3eF5jZoPalmg7yTmQ` ("Child Grade (After School Registration)")
 > - E = submission's `createdAt`
-> - F = `UluqGJoN855415yTyiXd` ("Select Class (After School Registration)" — the school+day+time string)
-> - G = `9kWksqJLFmmGoxfFDsay` ("Neighborhood Kids Schools (After School Registration)" — only set if Class is "Neighborhood Kids Schools")
+> - F = `UluqGJoN855415yTyiXd` ("Select Class (After School Registration)", the school+day+time string)
+> - G = `9kWksqJLFmmGoxfFDsay` ("Neighborhood Kids Schools (After School Registration)", only set if Class is "Neighborhood Kids Schools")
 > - H = empty (Router fills in `Processed`/`ERROR`/`SKIPPED`)
 >
-> Tombstone key in Supabase: `(submission_id, class)` — class plays the role
+> Tombstone key in Supabase: `(submission_id, class)`, class plays the role
 > "week" plays for camps. After School submissions are 1:1 with class so this
 > works cleanly.
 
@@ -137,11 +137,11 @@ Florida location: `8IWtNFlmgJ8bif9DivHT` (`Systema Floyd - Florida`).
 
 Each form has one routing workflow per week. The workflow:
 1. Triggers on form submission **with** "Weeks Attending contains [this week]"
-2. Decides campus (Upper/Lower) — by grade for Free Camp, by age for Summer
+2. Decides campus (Upper/Lower), by grade for Free Camp, by age for Summer
 3. Calls "Add Row to Google Sheet" with the correct spreadsheet+tab
 4. Updates a custom field as a breadcrumb (e.g. `contact.free_camp_registration`)
 
-**Free Camp routing workflows (10 — one per week):**
+**Free Camp routing workflows (10, one per week):**
 
 | Week | Workflow ID |
 |---|---|
@@ -159,7 +159,7 @@ Each form has one routing workflow per week. The workflow:
 Workflow URL format:
 `https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/workflow/{workflow-id}`
 
-**Summer Camp routing workflows (12 — one per week):**
+**Summer Camp routing workflows (12, one per week):**
 
 | Week | Workflow ID |
 |---|---|
@@ -176,7 +176,7 @@ Workflow URL format:
 | August 10th-14th | `7fff407e-f4d7-49f7-a8bc-d3c8dfc7731c` |
 | August 17th-21st | `b3c775af-f38e-46c6-80f8-20feac198c74` |
 
-### 4.3 Google Sheets — the rosters
+### 4.3 Google Sheets, the rosters
 
 Owned by `systemafloydsheets@gmail.com`. Shared with `emilio@nilsdigital.com`
 (read+write).
@@ -191,13 +191,13 @@ Owned by `systemafloydsheets@gmail.com`. Shared with `emilio@nilsdigital.com`
 **Tab structure (all 4 sheets):**
 - 12 weekly tabs named in short form: `6/1-6/5`, `6/8-6/12`, ..., `8/17-8/21`
 - 1 `Billing` tab (separate, ignored by bot)
-- Hidden `_submissionId` column appended to the right of every weekly tab —
+- Hidden `_submissionId` column appended to the right of every weekly tab ,
   bot stamps the GHL submission ID here for each tracked row
 
 **⚠ Tab name gotcha:** the tabs use **short form** (`7/27-7/31`), but the
 `WEEK_ORDER` constant in `Snapshot.js` and the form submissions use
 **long form** (`July 27th-31st`). The mapping lives in
-`DC_WEEK_TO_TAB` in `DiscrepancyCheck.js`. Don't call `getSheetByName(WEEK_ORDER[i])` —
+`DC_WEEK_TO_TAB` in `DiscrepancyCheck.js`. Don't call `getSheetByName(WEEK_ORDER[i])` ,
 it returns null silently.
 
 **Column orders:**
@@ -209,22 +209,22 @@ Summer Up   (15): Paid? | Amt | Student Name | Age | Breakfast | Lunch | Before/
 Summer Low  (16): Paid? | Amt | Student Name | Age | Potty Trained | Breakfast | Lunch | Before/After Care | Shirt? | Email | Additional Notes | Mon | Tue | Wed | Thu | Fri
 ```
 
-### 4.4 Apps Script project — `sheets-snapshot`
+### 4.4 Apps Script project, `sheets-snapshot`
 
 Script ID: `1EcPTHTRypJX_ywQXqj_LQuJMNk2RAjzSkIxsG8QzLe64jQtRXvEf6f8Y`
 Editor URL: <https://script.google.com/d/1EcPTHTRypJX_ywQXqj_LQuJMNk2RAjzSkIxsG8QzLe64jQtRXvEf6f8Y/edit>
 
 Files:
-- `Snapshot.js` — polls the 4 sheets every ~10 min, builds `snapshot.json` for
+- `Snapshot.js`, polls the 4 sheets every ~10 min, builds `snapshot.json` for
   the dashboard. **Pre-existing**, untouched by the discrepancy work.
-- `DiscrepancyCheck.js` — the failsafe described in this doc.
-- `appsscript.json` — manifest with required OAuth scopes.
+- `DiscrepancyCheck.js`, the failsafe described in this doc.
+- `appsscript.json`, manifest with required OAuth scopes.
 
 **OAuth scopes:**
-- `spreadsheets` — read/write the rosters
-- `script.external_request` — call GHL + Supabase APIs
-- `script.scriptapp` — manage triggers
-- `script.send_mail` — send the discrepancy email
+- `spreadsheets`, read/write the rosters
+- `script.external_request`, call GHL + Supabase APIs
+- `script.scriptapp`, manage triggers
+- `script.send_mail`, send the discrepancy email
 
 **Script Properties:**
 - `SUPABASE_URL` = `https://nroeiabeirifurdaybyo.supabase.co`
@@ -235,11 +235,11 @@ Files:
 - One time-driven trigger fires `runDiscrepancyCheck` every 15 minutes
 - Installed by **emilio@nilsdigital.com** (uses Workspace daily quota)
 
-### 4.5 Supabase — `nroeiabeirifurdaybyo`
+### 4.5 Supabase, `nroeiabeirifurdaybyo`
 
 Three relevant pieces:
 
-**`public.ghl_tokens`** — pre-existing table, externally maintained.
+**`public.ghl_tokens`**, pre-existing table, externally maintained.
 Holds GHL OAuth access tokens for all subaccounts. Auto-refreshed by an
 external service before the 24-hour TTL expires. **Do not modify directly.**
 
@@ -250,9 +250,9 @@ sf_get_systema_floyd_florida_token(claim_secret text)
   Verifies account_name = 'Systema Floyd - Florida' before returning.
 ```
 
-The bot reads `updated_at` to compute token age — if > 12h old (`DC_TOKEN_STALE_WARN_HOURS`), the email digest gets a warning block. The external refresher should keep this < 24h.
+The bot reads `updated_at` to compute token age, if > 12h old (`DC_TOKEN_STALE_WARN_HOURS`), the email digest gets a warning block. The external refresher should keep this < 24h.
 
-**`public.sf_form_submissions`** — created by this project.
+**`public.sf_form_submissions`**, created by this project.
 Tombstone log: every `(submission_id, week)` the bot has ever processed.
 For After School, `week` holds the class string (e.g. `"Linwood Holton Elementary: Friday 3–3:45PM"`) since each submission is per-class not per-week.
 
@@ -280,7 +280,7 @@ Read/write access via two `SECURITY DEFINER` RPCs:
 - `sf_list_processed(claim_secret)` → all rows (used by the bot at start of every run)
 - `sf_record_processed(claim_secret, submission_id, form, week, ...)` → upsert
 
-**`public.sf_bot_health`** — created by this project.
+**`public.sf_bot_health`**, created by this project.
 Heartbeat log. The discrepancy bot writes `component='discrepancy_check'` after every successful run; a separate daily trigger reads it and emails an alert if the timestamp is > 24h old.
 
 ```sql
@@ -342,10 +342,10 @@ These are the GHL custom field IDs the bot reads from each form submission's
 | `DC_AS_FIELD_SHIRT` | `Ysom5PswWL2N0eouKwiS` | T-Shirt Size (After School Registration) |
 | `DC_AS_FIELD_CLASS` | `UluqGJoN855415yTyiXd` | Select Class (After School Registration) |
 | `DC_AS_FIELD_NKS` | `9kWksqJLFmmGoxfFDsay` | Neighborhood Kids Schools (After School Registration) |
-| `DC_AS_FIELD_NOTES` | `40KOxhzNEKTjyhvi20fb` | Notes (After School Registration) — captured but not currently written to Main Table |
+| `DC_AS_FIELD_NOTES` | `40KOxhzNEKTjyhvi20fb` | Notes (After School Registration), captured but not currently written to Main Table |
 
 > Note: After School submissions also include payment fields (card number,
-> expiry, CVV, ZIP). The bot ignores those — they're handled by GHL's payment
+> expiry, CVV, ZIP). The bot ignores those, they're handled by GHL's payment
 > integration, not the failsafe.
 
 ### Verifying a field ID
@@ -379,14 +379,14 @@ For each form submission in GHL:
 
     4. Is there an existing row for the same (student_name, parent_email, <key>)?
          The match is FUZZY on student_name within the same email+key:
-           a. exact match (lowercased, trimmed) — fastest path, OR
+           a. exact match (lowercased, trimmed), fastest path, OR
            b. one name is a single token whose first name matches the
               other's first name (e.g. "Aria" matches "Aria Falzone"), OR
            c. both multi-token, first AND last name match (handles
               middle-name / initial differences), OR
            d. Jaro-Winkler ≥ 0.92 (typo tolerance like "Sara" vs "Sarah")
          → If its currentSubId == this submission_id: no-op (verified)
-         → Else: LINK — overwrite hidden submission_id on existing row,
+         → Else: LINK, overwrite hidden submission_id on existing row,
                  write source note, record in Supabase, do NOT duplicate.
 
     5. None of the above → APPEND a new row.
@@ -403,7 +403,7 @@ For each form submission in GHL:
 ```
 
 **After the per-row pass:**
-- Scan all 4 camp sheets for duplicates (in-tab + cross-campus). Read-only —
+- Scan all 4 camp sheets for duplicates (in-tab + cross-campus). Read-only ,
   flag in the email if found. (After School duplicate scanning isn't run since
   Main Table is single-tab and the Router enforces uniqueness downstream.)
 
@@ -428,7 +428,7 @@ Every time the bot processes a `(submission_id, week)`:
   bot finds the existing row by fuzzy email+name match → updates the hidden
   ID to the new submission_id. The row stays; the new submission gets linked.
 
-To **un-tombstone** a submission (rare — e.g. you accidentally deleted the row
+To **un-tombstone** a submission (rare, e.g. you accidentally deleted the row
 and want the bot to re-add it):
 ```sql
 DELETE FROM public.sf_form_submissions
@@ -444,7 +444,7 @@ Every bot-tracked row has a Sheets cell note on the **Student Name cell**.
 Hover the name → see something like:
 
 ```
-Backfilled by DiscrepancyCheck — historical row, matched retroactively to a
+Backfilled by DiscrepancyCheck, historical row, matched retroactively to a
 GHL submission so future runs treat it as tracked.
 Stamped: 2026-05-13T20:57:25.464Z
 
@@ -459,11 +459,11 @@ Contact: https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/contacts/d
 ```
 
 **Three modes** the note can describe:
-- `Auto-added by DiscrepancyCheck` — the bot wrote this row from scratch
+- `Auto-added by DiscrepancyCheck`, the bot wrote this row from scratch
   because it was missing
-- `Linked by DiscrepancyCheck` — row was already there (typed in manually
+- `Linked by DiscrepancyCheck`, row was already there (typed in manually
   or re-submitted) and the bot stamped the submission_id on it
-- `Backfilled by DiscrepancyCheck` — historical row that pre-dates the bot;
+- `Backfilled by DiscrepancyCheck`, historical row that pre-dates the bot;
   the bot matched it retroactively during the one-time backfill
 
 **A row WITHOUT a cell note** = manual entry the bot has never seen / matched.
@@ -486,20 +486,20 @@ supported), falling back to `DC_NOTIFY_EMAIL_DEFAULT` (`emilio@nilsdigital.com`)
 if unset. To add another recipient without redeploying, edit the property:
 `emilio@nilsdigital.com, ops@nilsdigital.com`.
 
-**Subject:** `Roster discrepancy — N added, M dup, K err`
+**Subject:** `Roster discrepancy, N added, M dup, K err`
 
 **Body shape:**
 ```
-Camp roster discrepancy check — 2026-05-13T20:30:00Z
+Camp roster discrepancy check, 2026-05-13T20:30:00Z
 Run took 38000ms
 
 FREE CAMP
   added (bot wrote new row)              : 1
   linked (manual row, ID stamped)        : 0
-  skipped (tombstoned — staff deleted)   : 0
+  skipped (tombstoned, staff deleted)   : 0
   errors                                 : 0
   skipped<5m                             : 0
-  + [upper] July 27th-31st — Taylor Johnson (parent Paula brown Johnson, alekaleebrown@yahoo.com, sub abc123)
+  + [upper] July 27th-31st, Taylor Johnson (parent Paula brown Johnson, alekaleebrown@yahoo.com, sub abc123)
       ⚠ Workflow that should have written this row: 9. Free Camp (July 27th-31st) -> Google Sheet routing
          https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/workflow/89452dd8-dcd6-4e01-95b8-e72ed507cbca
 
@@ -508,7 +508,7 @@ SUMMER CAMP
   linked                                  : 0
   ...
 
-DUPLICATES (existing rows the bot did not create — please review)
+DUPLICATES (existing rows the bot did not create, please review)
   in-tab clusters                         : 0
   cross-campus                            : 0
 ```
@@ -518,13 +518,13 @@ DUPLICATES (existing rows the bot did not create — please review)
    workflow that failed to fire.
 2. Click the URL to open it.
 3. Investigate (check for broken if/else conditions, deleted custom fields,
-   misconfigured "Add Row" actions — see "Common failures" below).
+   misconfigured "Add Row" actions, see "Common failures" below).
 
 **Token-age warning at top of digest:**
 If you see `⚠ GHL TOKEN AGE WARNING`, the GHL OAuth token in Supabase is
 older than `DC_TOKEN_STALE_WARN_HOURS` (12h). The token is still valid but
 the upstream refresher (n8n / scheduled function) is drifting. Investigate
-that refresh job — if the token reaches 24h it expires hard and the bot
+that refresh job, if the token reaches 24h it expires hard and the bot
 loses GHL access entirely.
 
 ### 9.2 Heartbeat alert (sent by `discrepancyHeartbeatGuard`)
@@ -538,7 +538,7 @@ in `DC_HEARTBEAT_MAX_AGE_HOURS` (24h). Same recipient resolution as 9.1.
 disabled, quota exhausted, scope revoked, Apps Script outage) + a direct
 link to the script editor.
 
-**The two triggers fail independently** — if the main bot's trigger dies,
+**The two triggers fail independently**, if the main bot's trigger dies,
 the heartbeat-guard trigger still fires every day at 8am and surfaces the
 silence. If you NEVER want to receive a digest from the bot, this guard
 is your only safety net for "is it still running?"
@@ -576,26 +576,26 @@ GROUP BY form, week, status ORDER BY form, week;
 | `discrepancyBackfillTracking()` | Match existing rows to submissions, stamp hidden ID column. One-shot. |
 | `discrepancyBackfillNotes()` | Stamp source-cell notes on every tracked row. One-shot. |
 | `discrepancyBackfillTombstones()` | Push every tracked row's submission_id into Supabase. One-shot. |
-| `discrepancyDeleteInTabDuplicates()` | Auto-delete EXACT-name duplicates within the same tab (keep lowest row). For most cases use `discrepancyMergeNameVariantDuplicates()` instead — it handles name variants too. |
+| `discrepancyDeleteInTabDuplicates()` | Auto-delete EXACT-name duplicates within the same tab (keep lowest row). For most cases use `discrepancyMergeNameVariantDuplicates()` instead, it handles name variants too. |
 | `discrepancyMergeNameVariantDuplicates()` | Merge fuzzy-name duplicates (e.g. "Aria" + "Aria Falzone" → keeps "Aria Falzone", absorbs day ticks + submission ID from "Aria", deletes "Aria"). Picks the row with the fuller name as primary, copies non-empty values from secondaries into primary's empty cells, never overwrites. |
 | `discrepancyDeleteCrossCampusDuplicates()` | Auto-delete cross-campus duplicates using age rule. |
 | `discrepancyHeartbeatGuard()` | Silence-broken alert. Reads `sf_bot_health.discrepancy_check` from Supabase; if it's older than `DC_HEARTBEAT_MAX_AGE_HOURS` (24h), emails the recipient list. Runs as its own daily trigger (install via `discrepancyHeartbeatSetupTrigger`) so it can fire even if the main bot's trigger has died. |
 | `discrepancyHeartbeatSetupTrigger()` / `discrepancyHeartbeatRemoveTrigger()` | Install / remove the daily heartbeat-guard trigger. |
-| `discrepancyFixSummerCampNotes()` | One-shot migration. A previous version of `_dcSetSourceNote` stamped Summer Camp source-cell notes on col B (Amt) instead of col C (Student Name). This walks the two Summer Camp spreadsheets, moves any DiscrepancyCheck-authored note from col B to col C (clears col B if col C already has a note). Idempotent — safe to re-run. Already executed; should be `{moved: 0, cleared: 0}` going forward. |
+| `discrepancyFixSummerCampNotes()` | One-shot migration. A previous version of `_dcSetSourceNote` stamped Summer Camp source-cell notes on col B (Amt) instead of col C (Student Name). This walks the two Summer Camp spreadsheets, moves any DiscrepancyCheck-authored note from col B to col C (clears col B if col C already has a note). Idempotent, safe to re-run. Already executed; should be `{moved: 0, cleared: 0}` going forward. |
 
 ### Common failures
 
 | Symptom in email | Likely cause | Fix |
 |---|---|---|
 | `errors` includes `Supabase ... HTTP 401` | Shared secret rotated | Update `SUPABASE_TOKEN_SECRET` Script Property |
-| `errors` includes `GHL submissions HTTP 401/403` | Token expired in Supabase | External refresh service may be down — investigate |
+| `errors` includes `GHL submissions HTTP 401/403` | Token expired in Supabase | External refresh service may be down, investigate |
 | `errors` includes `Cannot openById` | Sheet permission revoked from `emilio@nilsdigital.com` | Re-share the sheet |
 | Auto-add picks wrong campus | Bad DOB on the contact (e.g. future date) | Fix DOB in GHL → manually move row → tombstone protects against re-add |
 | Auto-add lands data in wrong columns | Sheet column added/renamed/reordered | Update column constants in `_dcAppendFreeCamp` / `_dcAppendSummerCamp` |
 | Whole week silently fails | Tab renamed in spreadsheet | Update `DC_WEEK_TO_TAB` mapping |
 | Trigger doesn't fire | Quota exhausted, owner switched | Check Triggers panel in editor |
-| Bot duplicated a row that staff manually entered with a different name spelling | Names too dissimilar for the fuzzy matcher (e.g. "Bobby" vs "Robert") | Run `discrepancyMergeNameVariantDuplicates()` to merge, OR delete the bot row by hand — the tombstone keeps it from being re-added |
-| Bot conflated two siblings with the same first name | Same email + same first name on both records | Edge case — manually delete the bot's add and update the manual row's name to be unique enough that the fuzzy matcher distinguishes them (e.g. include last name) |
+| Bot duplicated a row that staff manually entered with a different name spelling | Names too dissimilar for the fuzzy matcher (e.g. "Bobby" vs "Robert") | Run `discrepancyMergeNameVariantDuplicates()` to merge, OR delete the bot row by hand, the tombstone keeps it from being re-added |
+| Bot conflated two siblings with the same first name | Same email + same first name on both records | Edge case, manually delete the bot's add and update the manual row's name to be unique enough that the fuzzy matcher distinguishes them (e.g. include last name) |
 
 ### Pulling a sample submission for debugging
 
@@ -623,12 +623,12 @@ curl 'https://services.leadconnectorhq.com/forms/submissions?locationId=8IWtNFlm
 
 ---
 
-## 12. Extending the system — adding a new camp / event / program
+## 12. Extending the system, adding a new camp / event / program
 
 The bot currently covers Free Camp, Summer Camp, and After School. Two
 patterns exist; pick whichever matches the new program.
 
-### Pattern A — per-week camp with multiple roster sheets (like Free / Summer)
+### Pattern A, per-week camp with multiple roster sheets (like Free / Summer)
 
 Use this when the new program has discrete weekly sessions and writes to
 distinct per-campus / per-tab spreadsheets.
@@ -659,7 +659,7 @@ distinct per-campus / per-tab spreadsheets.
 8. **Run** `discrepancyBackfillTombstones()` once for the new sheets so
    existing rows are protected.
 
-### Pattern B — single intake table feeding a router (like After School)
+### Pattern B, single intake table feeding a router (like After School)
 
 Use this when there's ONE intake spreadsheet/tab and a downstream routing
 script handles the rest.
@@ -686,12 +686,12 @@ script handles the rest.
 
 ### What to update OUTSIDE of code
 
-- **App_documentation/registration_system.md** — add the new form to the
+- **App_documentation/registration_system.md**, add the new form to the
   table in §4.1, add field mappings to §5, mention it in §6's decision tree
   if the rules differ.
-- **App_documentation/README.md** — update the first-row description to
+- **App_documentation/README.md**, update the first-row description to
   mention the new program.
-- **Memory note** `reference_systema_floyd_discrepancy_checker.md` — append
+- **Memory note** `reference_systema_floyd_discrepancy_checker.md`, append
   the new form so future Claude sessions are aware.
 
 ---
@@ -700,25 +700,25 @@ script handles the rest.
 
 All the magic numbers live at the top of the file in named groups:
 
-- `DC_LOCATION_ID` — Florida GHL location
-- `DC_GRACE_WINDOW_MS` — 5 min, the do-not-touch-fresh-submissions window
-- `DC_TRACKING_HEADER` — `_submissionId` (hidden column header name)
-- `DC_TRIGGER_FUNCTION` — `runDiscrepancyCheck` (trigger entry point name)
-- `DC_NOTIFY_EMAIL_DEFAULT` — fallback email recipient when Script Property `DC_NOTIFY_EMAIL` is unset
-- `DC_TOKEN_STALE_WARN_HOURS` — warn in the email digest when Supabase's `ghl_tokens.updated_at` is older than this (12h)
-- `DC_HEARTBEAT_MAX_AGE_HOURS` — `discrepancyHeartbeatGuard` alerts when last successful run is older than this (24h)
-- `DC_FORM_FREE_CAMP` / `DC_FORM_SUMMER_CAMP` / `DC_FORM_AFTER_SCHOOL` — form IDs
-- `DC_FREE_UPPER_SS` / `DC_FREE_LOWER_SS` / `DC_SUMMER_UPPER_SS` / `DC_SUMMER_LOWER_SS` / `DC_AFTER_SCHOOL_SS` — spreadsheet IDs
-- `DC_FC_FIELD_*` / `DC_SC_FIELD_*` / `DC_AS_FIELD_*` — form field IDs (see §5)
-- `DC_WEEK_TO_TAB` — `"July 27th-31st" → "7/27-7/31"` mapping
-- `DC_GHL_WORKFLOW_BY_FORM_WEEK` — workflow names + IDs (see §4.2)
+- `DC_LOCATION_ID`, Florida GHL location
+- `DC_GRACE_WINDOW_MS`, 5 min, the do-not-touch-fresh-submissions window
+- `DC_TRACKING_HEADER`, `_submissionId` (hidden column header name)
+- `DC_TRIGGER_FUNCTION`, `runDiscrepancyCheck` (trigger entry point name)
+- `DC_NOTIFY_EMAIL_DEFAULT`, fallback email recipient when Script Property `DC_NOTIFY_EMAIL` is unset
+- `DC_TOKEN_STALE_WARN_HOURS`, warn in the email digest when Supabase's `ghl_tokens.updated_at` is older than this (12h)
+- `DC_HEARTBEAT_MAX_AGE_HOURS`, `discrepancyHeartbeatGuard` alerts when last successful run is older than this (24h)
+- `DC_FORM_FREE_CAMP` / `DC_FORM_SUMMER_CAMP` / `DC_FORM_AFTER_SCHOOL`, form IDs
+- `DC_FREE_UPPER_SS` / `DC_FREE_LOWER_SS` / `DC_SUMMER_UPPER_SS` / `DC_SUMMER_LOWER_SS` / `DC_AFTER_SCHOOL_SS`, spreadsheet IDs
+- `DC_FC_FIELD_*` / `DC_SC_FIELD_*` / `DC_AS_FIELD_*`, form field IDs (see §5)
+- `DC_WEEK_TO_TAB`, `"July 27th-31st" → "7/27-7/31"` mapping
+- `DC_GHL_WORKFLOW_BY_FORM_WEEK`, workflow names + IDs (see §4.2)
 
 ### Heartbeat / silence-broken alerting
 
 The bot writes `sf_bot_health.discrepancy_check` (in Supabase) after every
 successful run. A separate daily trigger calls `discrepancyHeartbeatGuard`,
 which reads that timestamp; if it's older than `DC_HEARTBEAT_MAX_AGE_HOURS`
-(24h), it emails the recipient list. **The two triggers fail independently** —
+(24h), it emails the recipient list. **The two triggers fail independently** ,
 if the main bot's trigger dies, the guard's trigger still fires the alert.
 
 Does NOT defend against:
@@ -746,9 +746,9 @@ When something needs changing, look here first.
 
 ## 14. Related memory notes (for future Claude/AI sessions)
 
-- `reference_systema_floyd_discrepancy_checker.md` — high-level summary of the
+- `reference_systema_floyd_discrepancy_checker.md`, high-level summary of the
   bot for AI context
-- `reference_systema_floyd_supabase_ghl_token.md` — how to fetch a fresh GHL
+- `reference_systema_floyd_supabase_ghl_token.md`, how to fetch a fresh GHL
   token from Supabase (the RPC pattern)
-- `project_systema_floyd_sheet_tab_names.md` — the short-form vs long-form tab
+- `project_systema_floyd_sheet_tab_names.md`, the short-form vs long-form tab
   name gotcha

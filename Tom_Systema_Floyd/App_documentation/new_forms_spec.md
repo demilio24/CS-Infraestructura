@@ -1,4 +1,4 @@
-# Systema Floyd — New Forms Spec
+# Systema Floyd, New Forms Spec
 
 > Build order per Tom's May 13 call: **1. Vladimir Seminar → 2. Private Lessons → 3. Birthday Parties**
 > Additional forms surfaced in his May 5 email: **4. Rent-A-Sensei (Babysitting)** · **5. Balloons add-on** (lives inside Birthday Parties) · **6. Teen & Adult Classes** *(paused until next school year)*
@@ -15,18 +15,18 @@ For a per-form punch list of outstanding work, see [forms_todos.md](./forms_todo
 | Form | Spec'd | GHL fields created | GHL form built | Notes |
 |---|---|---|---|---|
 | Vladimir Seminar | ⏳ shape only | ❌ | ❌ | Waiting on Tom (date, page link, pricing, capacity, waiver) |
-| **Private Lessons** | ✅ | ✅ **2026-05-14** | 🟡 in progress via Chrome extension | Folder + 12 fields live — see IDs below |
+| **Private Lessons** | ✅ | ✅ **2026-05-14** | 🟡 in progress via Chrome extension | Folder + 12 fields live, see IDs below |
 | Birthday Parties | ✅ fields only | ❌ | ❌ | 17 prices still missing from Tom |
-| **Rent-A-Sensei** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 12 fields live — see IDs below |
-| **Balloons** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 14 fields live — see IDs below |
+| **Rent-A-Sensei** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 12 fields live, see IDs below |
+| **Balloons** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 14 fields live, see IDs below |
 | Teen & Adult Classes | ⏸ | ❌ | ❌ | Paused until next school year schedule lands |
 
-### Private Lessons — live GHL IDs (Systema Floyd FL, location `8IWtNFlmgJ8bif9DivHT`)
+### Private Lessons, live GHL IDs (Systema Floyd FL, location `8IWtNFlmgJ8bif9DivHT`)
 
 Created 2026-05-14 via `.claude/scratch/ghl_create_private_lessons.py`.
 Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 
-**Folder**: `Private Lessons` — id `X4a97HKQJdXVkGV6R4Vg`
+**Folder**: `Private Lessons`, id `X4a97HKQJdXVkGV6R4Vg`
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
@@ -43,12 +43,12 @@ Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 | 11 | Phone Number | `PHONE` | `tsE8g8jrAmtjlooOHpcX` | `contact.pl_contact_phone` |
 | 12 | Email Address | `TEXT` | `do6jyYCs9EyGPhLPSmpN` | `contact.pl_contact_email` |
 
-### Rent-A-Sensei — live GHL IDs (Systema Floyd FL)
+### Rent-A-Sensei, live GHL IDs (Systema Floyd FL)
 
 Created 2026-05-14 via `.claude/scratch/ghl_create_form_fields.py`.
 Map written to `.claude/scratch/ghl_rent_a_sensei_ids.json`.
 
-**Folder**: `Rent-A-Sensei` — id `RbjiHT0moCfDgm5OEnHW`
+**Folder**: `Rent-A-Sensei`, id `RbjiHT0moCfDgm5OEnHW`
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
@@ -65,12 +65,12 @@ Map written to `.claude/scratch/ghl_rent_a_sensei_ids.json`.
 | 11 | Confirm: not for parties or events | `CHECKBOX` | `QPLML2pF756ANddSifu9` | `contact.ras_acknowledgment` |
 | 12 | Special instructions / extra children info | `LARGE_TEXT` | `jGkL6wJBjtKHMsNSbB9n` | `contact.ras_special_instructions` |
 
-### Balloons — live GHL IDs (Systema Floyd FL)
+### Balloons, live GHL IDs (Systema Floyd FL)
 
 Created 2026-05-14 via `.claude/scratch/ghl_create_form_fields.py`.
 Map written to `.claude/scratch/ghl_balloons_ids.json`.
 
-**Folder**: `Balloons` — id `Snj5a0BsE8Y6ehLgXwl8`
+**Folder**: `Balloons`, id `Snj5a0BsE8Y6ehLgXwl8`
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
@@ -91,11 +91,11 @@ Map written to `.claude/scratch/ghl_balloons_ids.json`.
 
 ### GHL API quirks worth remembering for the next form
 
-1. **Folders use `documentType: "folder"`** on the same `/locations/{loc}/customFields` endpoint as fields — there is NO separate folder endpoint for contact custom fields (the v2 `/custom-fields/folder` is for custom objects only)
-2. **Do NOT pass `objectKey`** on contact custom-field endpoints — that's the v2 custom-objects API and triggers `422 property objectKey should not exist`
-3. **`options` must be a plain string array** (`["Florida", "Virginia"]`), NOT objects like `{key, label}` — sending objects triggers the cryptic `v.trim is not a function` 400 error
-4. **Accepted `dataType` values:** `TEXT, LARGE_TEXT, NUMERICAL, PHONE, MONETORY, CHECKBOX, SINGLE_OPTIONS, MULTIPLE_OPTIONS, FLOAT, TIME, DATE, TEXTBOX_LIST, FILE_UPLOAD, SIGNATURE, RADIO` — note GHL **does** have `TIME` (use it for time-of-day fields instead of `TEXT`)
-5. **Folder listing**: folders don't appear in `GET /customFields` — to dedup by name, walk the unique `parentId`s of the existing fields and GET each one to check its name
+1. **Folders use `documentType: "folder"`** on the same `/locations/{loc}/customFields` endpoint as fields, there is NO separate folder endpoint for contact custom fields (the v2 `/custom-fields/folder` is for custom objects only)
+2. **Do NOT pass `objectKey`** on contact custom-field endpoints, that's the v2 custom-objects API and triggers `422 property objectKey should not exist`
+3. **`options` must be a plain string array** (`["Florida", "Virginia"]`), NOT objects like `{key, label}`, sending objects triggers the cryptic `v.trim is not a function` 400 error
+4. **Accepted `dataType` values:** `TEXT, LARGE_TEXT, NUMERICAL, PHONE, MONETORY, CHECKBOX, SINGLE_OPTIONS, MULTIPLE_OPTIONS, FLOAT, TIME, DATE, TEXTBOX_LIST, FILE_UPLOAD, SIGNATURE, RADIO`, note GHL **does** have `TIME` (use it for time-of-day fields instead of `TEXT`)
+5. **Folder listing**: folders don't appear in `GET /customFields`, to dedup by name, walk the unique `parentId`s of the existing fields and GET each one to check its name
 6. **`CHECKBOX` also requires `options`**: the checkbox label is provided as the single string in the `options` array (e.g. `["I confirm this service is not for parties or events"]`). Without `options`, GHL returns `422 "options must contain at least 1 elements"`. Single-line confirmation checkboxes feel weird in this shape but it's the only path.
 7. **Windows console encoding**: Python's default Windows console codec (`cp1252`) chokes on box-drawing chars in script output. Use ASCII (`==`) instead of `══` in print statements, or set `PYTHONIOENCODING=utf-8`
 
@@ -128,7 +128,7 @@ GoHighLevel custom fields support these types:
 - Multi-select → always `MULTIPLE_OPTIONS`
 - GHL has no native time-picker custom field → we use `TEXT` with a clear placeholder for time-of-day fields
 
-**Pricing syntax inside option strings** (so the billing dashboard parser extracts amounts automatically — same pattern as the camp `Lunch` column):
+**Pricing syntax inside option strings** (so the billing dashboard parser extracts amounts automatically, same pattern as the camp `Lunch` column):
 
 | Pattern | Meaning | Example |
 |---|---|---|
@@ -136,7 +136,7 @@ GoHighLevel custom fields support these types:
 | `Label ($N/unit)` | Per-unit price | `1 Child ($25/hour)` |
 | `Label (+$N)` | Add-on on top of base | `2 Students (+$25)` |
 | `Label (+$N/unit)` | Per-unit add-on | `Each additional foot (+$30/foot)` |
-| `Label ($N — $M)` | Quote range (final price set manually) | `Foil Balloons ($10 — $30 each)` |
+| `Label ($N, $M)` | Quote range (final price set manually) | `Foil Balloons ($10 to $30 each)` |
 
 Florida sales tax (7%) applies to food and clothing line items only.
 Transaction fee (3% flat) applies to the order total at checkout.
@@ -161,7 +161,7 @@ across the location.
 | 6 | Emergency Contact Phone | | `PHONE` | ✓ | `vladimir_emerg_contact_phone` | |
 | 7 | Home School / Systema Affiliation | If you train regularly with another school | `TEXT` | | `vladimir_home_school` | |
 | 8 | City + State | Where are you traveling from? | `TEXT` | | `vladimir_city_state` | |
-| 9 | Systema Experience Level | | `RADIO` | ✓ | `vladimir_experience_level` | `None — first seminar` · `Beginner (< 1 year)` · `Intermediate (1-3 years)` · `Advanced (3+ years)` · `Instructor` |
+| 9 | Systema Experience Level | | `RADIO` | ✓ | `vladimir_experience_level` | `None, first seminar` · `Beginner (< 1 year)` · `Intermediate (1-3 years)` · `Advanced (3+ years)` · `Instructor` |
 | 10 | Have you trained with Vladimir Vasiliev before? | | `CHECKBOX` | | `vladimir_prior_vasiliev` | |
 | 11 | Other martial arts background | Other styles, ranks, experience | `LARGE_TEXT` | | `vladimir_other_arts` | |
 | 12 | Registration Type | Choose your pass | `RADIO` | ✓ | `vladimir_registration_type` | `Full Weekend Pass ($ {weekend_price} /weekend)` · `Saturday Only ($ {sat_price} /day)` · `Sunday Only ($ {sun_price} /day)` · `Early Bird Full Weekend ($ {early_bird_price} /weekend)` |
@@ -181,7 +181,7 @@ across the location.
 
 ---
 
-## 2. Private Lessons (Priority #2) — *ALL PRICING CONFIRMED*
+## 2. Private Lessons (Priority #2), *ALL PRICING CONFIRMED*
 
 > Source: 3 photos titled *"Systema Floyd – Private Lesson Booking Form
 > Requirements"* sent May 5.
@@ -194,9 +194,9 @@ across the location.
 | 4 | Number of Students | Up to 3 students per session | `RADIO` | ✓ | `pl_num_students` | `1 Student` · `2 Students (+$25)` · `3 Students (+$50)` |
 | 5 | Training Type | What do you want to work on? | `RADIO` | ✓ | `pl_training_type` | **Default:** `Martial Arts` · `Fitness` · `Sports` · `Combination`<br>**If Evenson:** `Boxing` (locked)<br>**If Jessica / Bianca / Carolina:** `Dance` (locked) |
 | 6 | Age Group | Affects recommended duration | `RADIO` | ✓ | `pl_age_group` | `Ages 2.5–6 (30 min recommended)` · `Ages 7+` |
-| 7 | Package | Save when you commit to a pack | `RADIO` | ✓ | `pl_package` | `Single Session` · `10 Sessions Pack (Get 1 Free — pay for 10, receive 11)` |
+| 7 | Package | Save when you commit to a pack | `RADIO` | ✓ | `pl_package` | `Single Session` · `10 Sessions Pack (Get 1 Free, pay for 10, receive 11)` |
 | 8 | Preferred Date | First-choice day | `DATE` | ✓ | `pl_preferred_date` | |
-| 9 | Preferred Time | e.g. 4:00 PM | `TEXT` | ✓ | `pl_preferred_time` | GHL has no time-picker — capture as text |
+| 9 | Preferred Time | e.g. 4:00 PM | `TEXT` | ✓ | `pl_preferred_time` | GHL has no time-picker, capture as text |
 | 10 | Full Name | First and last | `TEXT` | ✓ | `pl_contact_name` | |
 | 11 | Phone Number | | `PHONE` | ✓ | `pl_contact_phone` | |
 | 12 | Email Address | | `TEXT` | ✓ | `pl_contact_email` | email validation |
@@ -220,9 +220,9 @@ If package = "10 Sessions Pack":
 
 ---
 
-## 3. Birthday Parties (Priority #3) — *PRICES MISSING*
+## 3. Birthday Parties (Priority #3), *PRICES MISSING*
 
-> Source: `IMG_0316.jpeg` from Juliana on May 4. No prices yet — each priced
+> Source: `IMG_0316.jpeg` from Juliana on May 4. No prices yet, each priced
 > option below has `($ {…} )` until Tom sends them.
 
 | # | Label | Placeholder / help text | Type | Req | Field key | Options / notes |
@@ -241,7 +241,7 @@ If package = "10 Sessions Pack":
 | 12 | Party Activities | Pick all that apply | `MULTIPLE_OPTIONS` | | `bp_activities` | `Martial Arts` · `Nerf` · `Dodgeball` · `Obstacle Course` · `Laser Tag` · `Dance` · `Custom` |
 | 13 | Custom Theme Details | If you picked Custom above | `TEXT` | conditional | `bp_custom_theme` | shown when #12 includes Custom |
 | 14 | Food Options | (FL sales tax applies) | `MULTIPLE_OPTIONS` | | `bp_food_options` | `Pizza (+$ {pizza_price} )` · `Drinks (+$ {drinks_price} )` · `Cake (+$ {cake_price} )` |
-| 15 | Special Add-Ons | | `MULTIPLE_OPTIONS` | | `bp_special_addons` | `Custom Balloon Decor — see balloon menu` ← triggers §5 · `Decorations Setup (+$ {decor_price} )` · `Extra Instructor (+$ {extra_instructor_price} )` · `Goodie Bags (+$ {goody_bags_price} /guest)` · `Custom Shirt for Birthday Child (+$ {birthday_shirt_price} )` |
+| 15 | Special Add-Ons | | `MULTIPLE_OPTIONS` | | `bp_special_addons` | `Custom Balloon Decor, see balloon menu` ← triggers §5 · `Decorations Setup (+$ {decor_price} )` · `Extra Instructor (+$ {extra_instructor_price} )` · `Goodie Bags (+$ {goody_bags_price} /guest)` · `Custom Shirt for Birthday Child (+$ {birthday_shirt_price} )` |
 | 16 | Premium Extras | Additional rental fees | `MULTIPLE_OPTIONS` | | `bp_premium_extras` | `Bounce House Rental (+$ {bounce_house_price} )` · `Laser Tag Rental (+$ {laser_tag_price} )` · `Gaga Ball Arena Rental (+$ {gaga_ball_price} )` · `Inflatable Soccer Arena Rental (+$ {soccer_arena_price} )` · `Board Breaking Upgrade (+$ {board_break_price} )` · `Foam Party / Slip & Slide (+$ {foam_party_price} )` |
 | 17 | Parent Name | | `TEXT` | ✓ | `bp_parent_name` | |
 | 18 | Phone Number | | `PHONE` | ✓ | `bp_parent_phone` | |
@@ -254,10 +254,10 @@ If package = "10 Sessions Pack":
 
 ---
 
-## 4. Rent-A-Sensei (Babysitting) — *ALL PRICING CONFIRMED*
+## 4. Rent-A-Sensei (Babysitting), *ALL PRICING CONFIRMED*
 
 > Source: 3 photos titled *"Systema Floyd – Rent-A-Sensei (Babysitting)
-> Requirements"* sent May 5. **In-home babysitting only — NOT parties/events.**
+> Requirements"* sent May 5. **In-home babysitting only, NOT parties/events.**
 
 Show this banner above the form (not a field):
 
@@ -268,10 +268,10 @@ Show this banner above the form (not a field):
 
 | # | Label | Placeholder / help text | Type | Req | Field key | Options / notes |
 |---|---|---|---|---|---|---|
-| 1 | Service Type | | `RADIO` | ✓ | `ras_service_type` | `Rent-A-Sensei (Babysitting)` (single option, locked) — kept as a field so the routing logic can read it |
+| 1 | Service Type | | `RADIO` | ✓ | `ras_service_type` | `Rent-A-Sensei (Babysitting)` (single option, locked), kept as a field so the routing logic can read it |
 | 2 | Number of Children | Rate adjusts automatically | `RADIO` | ✓ | `ras_num_children` | `1 Child ($25/hour)` · `2 Children ($30/hour)` · `3 Children ($35/hour)` |
 | 3 | Duration | Minimum 3 hours | `RADIO` | ✓ | `ras_duration` | `3 hours (minimum)` · `4 hours` · `5+ hours` |
-| 4 | Full Address | Including city + ZIP — used for travel-fee quote | `TEXT` | ✓ | `ras_address` | |
+| 4 | Full Address | Including city + ZIP, used for travel-fee quote | `TEXT` | ✓ | `ras_address` | |
 | 5 | Date | | `DATE` | ✓ | `ras_date` | |
 | 6 | Start Time | e.g. 6:00 PM | `TEXT` | ✓ | `ras_start_time` | |
 | 7 | End Time | e.g. 9:00 PM | `TEXT` | ✓ | `ras_end_time` | |
@@ -286,29 +286,29 @@ Show this banner above the form (not a field):
 - **Sensei auto-filter by age:**
   - Ages 6 months – 3 years old → assign **Female Sensei only**
   - Ages 4+ → Male or Female Sensei available
-- **Travel / Gas Fee:** quoted by Tom's team based on driving time and distance — **not** auto-calculated on the form
+- **Travel / Gas Fee:** quoted by Tom's team based on driving time and distance, **not** auto-calculated on the form
 - **Footer note** to display (not a field): *"Tipping your Sensei is greatly appreciated. Not required, but encouraged for excellent service."*
 
 ---
 
-## 5. Balloons add-on *(conditional sub-form inside Birthday Parties)* — *ALL PRICING CONFIRMED*
+## 5. Balloons add-on *(conditional sub-form inside Birthday Parties)*, *ALL PRICING CONFIRMED*
 
-> Source: `image0.png` (1024×1024) sent May 5 — *"Premium Balloon Design
-> Menu."* Run by Emily (Tom's wife) — `Balloonsontheave@gmail.com`. Triggered
+> Source: `image0.png` (1024×1024) sent May 5, *"Premium Balloon Design
+> Menu."* Run by Emily (Tom's wife), `Balloonsontheave@gmail.com`. Triggered
 > from §3 Birthday Parties Special Add-Ons when **Custom Balloon Decor** is
 > selected. **Minimum booking $300 (block submission below).**
 
 | # | Label | Placeholder / help text | Type | Req | Field key | Options / notes |
 |---|---|---|---|---|---|---|
-| 1 | Garland | Organic / custom styling included | `RADIO` | | `bal_garland` | `None` · `5 ft Garland ($140)` · `Custom length — base 5 ft ($140) + each additional foot (+$30/foot)` |
+| 1 | Garland | Organic / custom styling included | `RADIO` | | `bal_garland` | `None` · `5 ft Garland ($140)` · `Custom length, base 5 ft ($140) + each additional foot (+$30/foot)` |
 | 1b | Additional feet of garland | Only fill in if you picked "Custom length" above | `NUMERICAL` | conditional | `bal_garland_extra_feet` | each foot = `(+$30/foot)` |
 | 2 | Columns | Pick any | `MULTIPLE_OPTIONS` | | `bal_columns` | `Classic Column ($100)` · `Organic Column ($150)` · `Table Centerpieces ($50)` |
-| 3 | Arch | Floor arch over the entrance / dessert table | `RADIO` | | `bal_arch` | `None` · `Standard Arch ($450)` · `Deluxe Arch — includes vinyl wording ($600)` · `Walk-Through Arch ($750+)` |
-| 4 | Balloon Wall / Backdrop | Quote-based; we'll confirm exact pricing after submission | `RADIO` | | `bal_wall` | `None` · `Starting at $800 — request quote` |
-| 5 | Add-Ons (range-priced) | Final price confirmed by Emily after submission | `MULTIPLE_OPTIONS` | | `bal_addons` | `Foil Balloons ($10 — $30 each)` · `Custom Vinyl Wording ($50 — $100)` · `Backdrop / Stand Rental ($150 — $250)` · `Florals ($100 — $200)` · `Custom Cutouts ($50 — $150)` |
+| 3 | Arch | Floor arch over the entrance / dessert table | `RADIO` | | `bal_arch` | `None` · `Standard Arch ($450)` · `Deluxe Arch, includes vinyl wording ($600)` · `Walk-Through Arch ($750+)` |
+| 4 | Balloon Wall / Backdrop | Quote-based; we'll confirm exact pricing after submission | `RADIO` | | `bal_wall` | `None` · `Starting at $800, request quote` |
+| 5 | Add-Ons (range-priced) | Final price confirmed by Emily after submission | `MULTIPLE_OPTIONS` | | `bal_addons` | `Foil Balloons ($10 to $30 each)` · `Custom Vinyl Wording ($50 to $100)` · `Backdrop / Stand Rental ($150 to $250)` · `Florals ($100 to $200)` · `Custom Cutouts ($50 to $150)` |
 | 6 | Delivery Fee | Based on distance | `RADIO` | ✓ | `bal_delivery` | `Local (+$25)` · `Mid-distance (+$50)` · `Long-distance (+$75)` |
 | 7 | Setup Complexity | We'll size this with you | `RADIO` | ✓ | `bal_setup_complexity` | `Simple setup (+$50)` · `Standard setup (+$100)` · `Complex install (+$150)` |
-| 8 | Optional Fees | Add only if applicable | `MULTIPLE_OPTIONS` | | `bal_optional_fees` | `Breakdown / removal (+$50)` · `Same-Day / Rush (+$100)` · `Early Morning / Late Night Setup (+$50)` · `Outdoor Setup — weather risk & reinforcement (+$50)` · `Damage Waiver — recommended for large installs` |
+| 8 | Optional Fees | Add only if applicable | `MULTIPLE_OPTIONS` | | `bal_optional_fees` | `Breakdown / removal (+$50)` · `Same-Day / Rush (+$100)` · `Early Morning / Late Night Setup (+$50)` · `Outdoor Setup, weather risk & reinforcement (+$50)` · `Damage Waiver, recommended for large installs` |
 | 9 | Party theme | e.g. "Unicorn", "Star Wars", "Pastel pink + gold" | `TEXT` | | `bal_theme` | |
 | 10 | Primary color | Hex code or color name | `TEXT` | ✓ | `bal_primary_color` | |
 | 11 | Secondary color | | `TEXT` | | `bal_secondary_color` | |
@@ -342,7 +342,7 @@ class free or `Trial Class ($X)`).
 
 | # | Form | Tom's priority | Status | Buildable now? |
 |---|---|---|---|---|
-| 1 | **Vladimir Seminar** | #1 | Blocked — needs date, page link, pricing, capacity | ❌ |
+| 1 | **Vladimir Seminar** | #1 | Blocked, needs date, page link, pricing, capacity | ❌ |
 | 2 | **Private Lessons** | #2 | All pricing confirmed | ✅ |
 | 3 | **Birthday Parties** | #3 | Fields confirmed, **17 prices missing** | ❌ (skeleton only) |
 | 4 | **Rent-A-Sensei** | not ranked | All pricing confirmed | ✅ |
