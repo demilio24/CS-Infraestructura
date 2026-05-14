@@ -187,6 +187,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .ops-detail .ops-section:first-child{margin-top:0;padding-top:0;border-top:0}
 .ops-detail .ops-section-h{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-ink-60);margin:0 0 6px}
 .ops-detail .ops-issue-tag{display:inline-block;padding:2px 8px;border-radius:999px;background:#fff7e0;color:#8a5a04;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-right:6px;font-family:'Space Grotesk','Inter',sans-serif}
+.ops-detail .ops-list-issues > li{display:flex;flex-direction:column;gap:4px;margin-bottom:6px}
+.ops-detail .ops-row-issue{cursor:default}
+.ops-detail .ops-row-issue:hover{background:var(--sf-cream);border-color:var(--sf-border)}
+.ops-detail .ops-issue-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:0 10px 0 10px;font-size:11px;color:var(--sf-ink-60)}
+.ops-detail .ops-field-chips{display:inline-flex;flex-wrap:wrap;gap:4px}
+.ops-detail .ops-field-chip{display:inline-block;padding:2px 8px;border-radius:6px;background:#fff1ec;border:1px solid #fcb98a;color:#b54708;font-size:10.5px;font-weight:600;font-family:'Space Grotesk','Inter',sans-serif;letter-spacing:.02em}
+.ops-detail .ops-where{display:inline-block;font-family:'Space Grotesk','Inter',sans-serif;font-size:10.5px;color:var(--sf-ink-40);letter-spacing:.02em}
+.ops-detail .ops-open{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);font-family:'Space Grotesk','Inter',sans-serif;font-size:10.5px;font-weight:700;text-decoration:none;border:1px solid #d4e3f3;transition:background .15s,color .15s,transform .15s}
+.ops-detail .ops-open:hover{background:var(--sf-blue-700);color:#fff;transform:translateY(-1px)}
 
 /* Sparkline tucked inside the Unique Students KPI card */
 .kpi[data-kpi="total"]{position:relative}
@@ -2217,14 +2226,35 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         (wk[b] || []).forEach(r => {
           const isMissingName = !r.name || r.name === '(name missing)';
           const isUnknownCampus = r.campus === 'Unknown';
-          if (isMissingName) missingName.push({ name: r.name || '(blank)', week: w, type: r.type });
-          else if (isUnknownCampus) missingCampus.push({ name: r.name, week: w, type: r.type });
-          else if (r.incomplete) incomplete.push({ name: r.name, week: w, campus: r.campus, type: r.type });
+          const baseRow = {
+            name: r.name || '(blank)',
+            week: w,
+            campus: r.campus,
+            type: r.type,
+            missingFields: Array.isArray(r.missingFields) ? r.missingFields.slice() : [],
+            sourceSheetId: r.sourceSheetId || null,
+            sourceTabName: r.sourceTabName || null,
+            sourceRow: r.sourceRow || null,
+          };
+          if (isMissingName) missingName.push(baseRow);
+          else if (isUnknownCampus) missingCampus.push(baseRow);
+          else if (r.incomplete) incomplete.push(baseRow);
         });
       });
     });
     return { missingName, missingCampus, incomplete };
   }
+
+  // Map a sheet ID back to a human label so the data-issues panel can say
+  // "FREE Upper · Week of June 8th-12th" instead of an opaque ID.
+  const SHEET_LABELS = {
+    '1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA': 'PAID Upper',
+    '18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs': 'PAID Lower',
+    '1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ': 'FREE Upper',
+    '1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY': 'FREE Lower',
+  };
+  function sheetLabelForId(id) { return SHEET_LABELS[id] || 'Source sheet'; }
+  function sheetUrlForId(id)   { return id ? `https://docs.google.com/spreadsheets/d/${id}/edit` : null; }
 
   function pipForType(type, campus) {
     if (type === 'free') return 'free';
@@ -2328,23 +2358,52 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function renderOpsQuality(issues) {
     const panel = document.getElementById('ops-quality-detail');
     if (!panel) return;
+
+    function renderRow(r, tag, alwaysShowTag) {
+      const sheetLbl = sheetLabelForId(r.sourceSheetId);
+      const sheetUrl = sheetUrlForId(r.sourceSheetId);
+      const fields = Array.isArray(r.missingFields) ? r.missingFields : [];
+      // Top-level tag pill (only shown for the "incomplete" bucket so the
+      // missing-name and unknown-campus sections still get their single tag).
+      const tagPill = alwaysShowTag
+        ? `<span class="ops-issue-tag">${escapeHtml(tag)}</span>`
+        : '';
+      // Per-field chips — what's actually missing in this row.
+      const fieldChips = fields.length
+        ? `<span class="ops-field-chips">${fields.map(f => `<span class="ops-field-chip">${escapeHtml(f)}</span>`).join('')}</span>`
+        : '';
+      // Compact location strip + open-sheet link.
+      const where = (r.sourceTabName || r.sourceRow)
+        ? `<span class="ops-where">${escapeHtml(sheetLbl)} · tab “${escapeHtml(r.sourceTabName || '—')}” · row ${escapeHtml(String(r.sourceRow || '?'))}</span>`
+        : `<span class="ops-where">${escapeHtml(sheetLbl)}</span>`;
+      const openLink = sheetUrl
+        ? `<a class="ops-open" href="${sheetUrl}" target="_blank" rel="noopener" title="Open ${escapeHtml(sheetLbl)} in Google Sheets">Open ↗</a>`
+        : '';
+      return `<li>
+        <div class="ops-row ops-row-issue" tabindex="0">
+          ${tagPill}
+          <span class="nm">${escapeHtml(r.name || '(blank)')}</span>
+          <span class="meta">${escapeHtml(shortenWeek(r.week))}</span>
+        </div>
+        <div class="ops-issue-meta">
+          ${fieldChips}
+          ${where}
+          ${openLink}
+        </div>
+      </li>`;
+    }
+
     const sections = [];
-    function section(title, list, tag) {
+    function section(title, list, tag, alwaysShowTag) {
       if (!list.length) return;
       sections.push(`<div class="ops-section">
         <h4 class="ops-section-h">${escapeHtml(title)} (${list.length})</h4>
-        <ul class="ops-list">${list.map(r => `<li>
-          <div class="ops-row" tabindex="0">
-            <span class="ops-issue-tag">${escapeHtml(tag)}</span>
-            <span class="nm">${escapeHtml(r.name || '(blank)')}</span>
-            <span class="meta">${escapeHtml(shortenWeek(r.week))}</span>
-          </div>
-        </li>`).join('')}</ul>
+        <ul class="ops-list ops-list-issues">${list.map(r => renderRow(r, tag, alwaysShowTag)).join('')}</ul>
       </div>`);
     }
-    section('Missing name in roster row', issues.missingName, 'NO NAME');
-    section('Unknown campus assignment', issues.missingCampus, 'NO CAMPUS');
-    section('Incomplete row (missing email etc.)', issues.incomplete, 'INCOMPLETE');
+    section('Missing name in roster row', issues.missingName, 'NO NAME', true);
+    section('Unknown campus assignment',   issues.missingCampus, 'NO CAMPUS', true);
+    section('Incomplete row (specific fields below)', issues.incomplete, 'INCOMPLETE', false);
 
     panel.innerHTML = sections.length
       ? sections.join('')

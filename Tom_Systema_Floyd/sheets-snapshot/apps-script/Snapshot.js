@@ -183,10 +183,18 @@ function readCampSheet_(spreadsheetId, campusLabel, weeksSeen) {
       const name = String(row[idx['Student Name']] || '').trim();
       if (!name) continue;
       const email = String(row[idx['Email']] || '').trim();
+      const ageVal = idx['Age'] >= 0 ? String(row[idx['Age']] || '').trim() : '';
+      const shirtVal = idx['Shirt?'] >= 0 ? String(row[idx['Shirt?']] || '').trim() : '';
       const lunchVal = idx['Lunch'] >= 0 ? String(row[idx['Lunch']] || '').trim() : '';
       const breakfastVal = idx['Breakfast'] >= 0 ? String(row[idx['Breakfast']] || '').trim() : '';
       const notes = idx['Additional Notes'] >= 0 ? String(row[idx['Additional Notes']] || '').trim() : '';
       const days = ['Mon','Tue','Wed','Thu','Fri'].map(d => isDayChecked_(row[idx[d]]));
+      const anyDayPicked = days.some(Boolean);
+      const missingFields = [];
+      if (!email)         missingFields.push('Email');
+      if (!ageVal)        missingFields.push('Age');
+      if (!lunchVal)      missingFields.push('Lunch');
+      if (!anyDayPicked)  missingFields.push('Days attending');
       enrollments.push({
         type: 'summer',
         week: week,
@@ -199,7 +207,11 @@ function readCampSheet_(spreadsheetId, campusLabel, weeksSeen) {
         allergy: extractAllergy_(notes),
         notes: notes || null,
         days: days,
-        incomplete: !email,
+        incomplete: missingFields.length > 0,
+        missingFields: missingFields,
+        sourceSheetId: spreadsheetId,
+        sourceTabName: sheet.getName(),
+        sourceRow: r + 1,
       });
     }
   }
@@ -231,9 +243,18 @@ function readFreeSheet_(spreadsheetId, campusLabel, weeksSeen) {
       const lunchVal = idx['Lunch'] >= 0 ? String(row[idx['Lunch']] || '').trim() : '';
       const breakfastVal = idx['Breakfast'] >= 0 ? String(row[idx['Breakfast']] || '').trim() : '';
       const school = idx['School'] >= 0 ? String(row[idx['School']] || '').trim() : '';
+      const parentName = idx['Parent/Guardian Name'] >= 0 ? String(row[idx['Parent/Guardian Name']] || '').trim() : '';
+      const ageVal = idx['Age'] >= 0 ? String(row[idx['Age']] || '').trim() : '';
+      const gradeVal = idx['Grade'] >= 0 ? String(row[idx['Grade']] || '').trim() : '';
       // Free sheets currently have no per-day attendance columns, so assume
       // a kid attends every weekday they're registered for that week.
       const days = [true, true, true, true, true];
+      const missingFields = [];
+      if (!email)       missingFields.push('Email');
+      if (!school)      missingFields.push('School');
+      if (!parentName)  missingFields.push('Parent/Guardian name');
+      if (!gradeVal)    missingFields.push('Grade');
+      if (!ageVal)      missingFields.push('Age');
       enrollments.push({
         type: 'free',
         week: week,
@@ -246,7 +267,11 @@ function readFreeSheet_(spreadsheetId, campusLabel, weeksSeen) {
         allergy: null,
         school: school || null,
         days: days,
-        incomplete: !email,
+        incomplete: missingFields.length > 0,
+        missingFields: missingFields,
+        sourceSheetId: spreadsheetId,
+        sourceTabName: sheet.getName(),
+        sourceRow: r + 1,
       });
     }
   }
@@ -375,6 +400,10 @@ function buildRoster_(allSummer, allFree) {
       notes: e.notes || null,
       email: e.email || null,
       incomplete: e.incomplete,
+      missingFields: e.missingFields || [],
+      sourceSheetId: e.sourceSheetId || null,
+      sourceTabName: e.sourceTabName || null,
+      sourceRow: e.sourceRow || null,
       days: e.days || [true,true,true,true,true],
       type: 'summer',
     });
@@ -396,6 +425,10 @@ function buildRoster_(allSummer, allFree) {
       notes: null,
       email: e.email || null,
       incomplete: e.incomplete,
+      missingFields: e.missingFields || [],
+      sourceSheetId: e.sourceSheetId || null,
+      sourceTabName: e.sourceTabName || null,
+      sourceRow: e.sourceRow || null,
       days: [true,true,true,true,true],
       type: 'free',
       school: e.school || null,
