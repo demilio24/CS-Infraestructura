@@ -666,10 +666,18 @@ function aggregateLunches_(enrollments) {
         label:      order.label,
         byDay:      zeroDay_(),
         total:      0,
+        students:   [],
       };
       slice.rowsByKey[order.subtypeKey] = row;
       slice.rows.push(row);
     }
+    row.students.push({
+      name: e.name,
+      campus: e.campus || 'Unknown',
+      type: e.type,
+      days: days.slice(),
+      lunchRaw: e.lunchRaw || null,
+    });
     days.forEach(dShort => {
       row.byDay[dShort] = (row.byDay[dShort] || 0) + 1;
       row.total++;
@@ -685,6 +693,10 @@ function aggregateLunches_(enrollments) {
       const ob = order[b.category] || 9;
       if (oa !== ob) return oa - ob;
       return a.label.localeCompare(b.label);
+    });
+    // Sort each row's students alphabetically so the dropdown is scannable
+    out[w].rows.forEach(r => {
+      if (r.students) r.students.sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     });
     delete out[w].rowsByKey;
   });

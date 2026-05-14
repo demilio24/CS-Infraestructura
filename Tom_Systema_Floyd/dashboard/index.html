@@ -155,7 +155,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .cap-controls .reset-btn{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;border-radius:5px;background:transparent;color:var(--sf-ink-50);border:1px solid var(--sf-border);transition:background .2s,color .2s}
 .cap-controls .reset-btn:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);border-color:var(--sf-border-strong)}
 
-/* Ops strip — slim row of clickable chips above the roster (allergies, data-quality) */
+/* Ops strip, slim row of clickable chips above the roster (allergies, data-quality) */
 .ops-strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
 .ops-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1px solid var(--sf-border);background:var(--sf-white);color:var(--sf-ink);font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s,box-shadow .18s;box-shadow:0 1px 0 rgba(15,23,42,.04)}
 .ops-chip:hover{transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(47,130,196,.3)}
@@ -210,7 +210,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .kpi-sparkline .spark-trend.down{color:#b54708}
 .kpi-sparkline.empty{display:none}
 
-/* Chart mode toggle (Registrations / Attendance) — sits in the chart card header */
+/* Chart mode toggle (Registrations / Attendance), sits in the chart card header */
 .card-h-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
 .card-h-row h3{margin:0}
 .chart-mode-toggle{display:inline-flex;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:999px;padding:3px;gap:2px}
@@ -219,7 +219,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .cmode-btn.active{background:var(--sf-white);color:var(--sf-blue-700);box-shadow:0 1px 3px rgba(15,23,42,.08),0 0 0 1px var(--sf-border)}
 @media(max-width:520px){.card-h-row{flex-direction:column;align-items:flex-start;gap:8px}.chart-mode-toggle{width:100%}.cmode-btn{flex:1;text-align:center}}
 
-/* Week-bar click-to-open modal — daily attendance breakdown */
+/* Week-bar click-to-open modal, daily attendance breakdown */
 .bar-group{cursor:pointer}
 .bar-group:hover .bar-grp-bg{fill:var(--sf-yellow-soft);opacity:.6}
 .day-modal-backdrop{position:fixed;inset:0;background:rgba(13,21,52,.45);backdrop-filter:blur(2px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s var(--ease-out)}
@@ -284,7 +284,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .day-modal-body{padding:14px 16px 18px}
 }
 
-/* Roster panel — always open, with live search filter */
+/* Roster panel, always open, with live search filter */
 .roster-panel{margin-top:12px}
 .roster-header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;width:100%;padding:10px 14px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:10px}
 .roster-header .label{display:flex;align-items:baseline;gap:10px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sf-ink-60);text-transform:uppercase}
@@ -356,7 +356,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .empty{padding:60px 20px;text-align:center;color:var(--sf-ink-50);font-size:14px}
 .empty strong{display:block;font-family:'Oswald',sans-serif;font-size:18px;color:var(--sf-ink);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
 
-/* Dashboard nav bar — grouped horizontal navigation: Pages | Sheets | Docs.
+/* Dashboard nav bar, grouped horizontal navigation: Pages | Sheets | Docs.
    Active page gets a filled blue pill; external links get a colored
    leading dot (green = Sheets, blue = Docs). Scrolls horizontally on
    phones so all groups stay accessible without wrapping into clutter. */
@@ -435,18 +435,18 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .filter button{flex-shrink:0;white-space:nowrap;padding:10px 14px;font-size:11.5px;letter-spacing:.08em;min-height:40px}
   .compare-status{font-size:11px;text-align:left;word-break:break-word}
   .compare-date{min-height:40px;font-size:13px}
-  /* Capacity panel — wrap controls onto separate rows so the inputs don't get squished. */
+  /* Capacity panel, wrap controls onto separate rows so the inputs don't get squished. */
   .cap-controls{gap:10px 14px;padding:12px}
   .cap-controls .ctl{font-size:12.5px}
   .cap-controls .ctl input{width:56px;min-height:36px;font-size:14px;padding:6px}
   .cap-controls .reset-btn{min-height:36px;padding:8px 12px;font-size:11px}
-  /* Roster header — give the search room and bigger tap target */
+  /* Roster header, give the search room and bigger tap target */
   .roster-header{padding:12px}
   .roster-search{padding:10px 12px}
   .roster-search input{min-height:24px;font-size:14px}
   /* Bars chart legend wraps neatly */
   .bars-legend{gap:10px 14px;font-size:11.5px}
-  /* Dashboard meta — refresh button bigger tap target */
+  /* Dashboard meta, refresh button bigger tap target */
   .dash-meta button{padding:9px 14px;font-size:11px;min-height:38px}
 }
 @media (max-width:520px){
@@ -476,7 +476,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .cap-controls .ctl-lbl{width:100%;flex-basis:100%}
   .roster-search{min-width:0;flex:1 1 100%}
   .roster-header .label{font-size:11px;letter-spacing:.12em}
-  /* Bars SVG — let it shrink and keep aspect via preserveAspectRatio in markup; ensure no min width */
+  /* Bars SVG, let it shrink and keep aspect via preserveAspectRatio in markup; ensure no min width */
   .bars-svg{min-width:0}
 }
 </style>
@@ -491,7 +491,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <span class="dash-title">Dashboard</span>
   <div class="dash-meta">
     <span class="dot" title="Live data via private integration"></span>
-    <span>Updated <span id="updated-at">—</span></span>
+    <span>Updated <span id="updated-at">,</span></span>
     <button id="refresh-btn">Refresh</button>
   </div>
 </header>
@@ -551,60 +551,60 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <section class="kpi-row" id="kpi-row-camp">
     <div class="kpi anim d2" data-kpi="total">
       <h3>Unique Students</h3>
-      <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub><strong data-enroll>—</strong> enrollments in total</div>
+      <div class="kpi-num" data-num>,</div>
+      <div class="kpi-sub" data-sub><strong data-enroll>,</strong> enrollments in total</div>
       <div class="kpi-sparkline empty" id="kpi-sparkline" aria-label="14-day growth trend">
         <svg viewBox="0 0 120 34" preserveAspectRatio="none" aria-hidden="true">
           <path id="spark-area" fill="rgba(47,130,196,.12)" stroke="none"></path>
           <polyline id="spark-line" fill="none" stroke="#2f82c4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" points=""></polyline>
           <circle id="spark-last" cx="0" cy="0" r="2.4" fill="#2f82c4"></circle>
         </svg>
-        <span><span class="spark-trend" id="spark-trend">—</span> 14d</span>
+        <span><span class="spark-trend" id="spark-trend">,</span> 14d</span>
       </div>
     </div>
     <div class="kpi anim d3" data-kpi="occupancy">
       <h3>Occupancy</h3>
-      <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub><strong data-occ-num>—</strong> of <strong data-occ-cap>—</strong> spots filled</div>
+      <div class="kpi-num" data-num>,</div>
+      <div class="kpi-sub" data-sub><strong data-occ-num>,</strong> of <strong data-occ-cap>,</strong> spots filled</div>
       <div class="kpi-bar" aria-hidden="true"><span class="kpi-bar-fill" data-bar></span></div>
     </div>
     <div class="kpi anim d4" data-kpi="upper">
       <h3>Upper Campus</h3>
-      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-num" data-num>,</div>
       <div class="kpi-sub" data-sub>Age 6+ on June 1</div>
     </div>
     <div class="kpi anim d5" data-kpi="lower">
       <h3>Lower Campus</h3>
-      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-num" data-num>,</div>
       <div class="kpi-sub" data-sub>Age 5 or younger on June 1</div>
     </div>
     <div class="kpi anim d6" data-kpi="topweek">
       <h3>Top Week</h3>
-      <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub>—</div>
+      <div class="kpi-num" data-num>,</div>
+      <div class="kpi-sub" data-sub>,</div>
     </div>
   </section>
 
-  <!-- KPIs (after-school tab) — hidden by default, swapped in by JS -->
+  <!-- KPIs (after-school tab), hidden by default, swapped in by JS -->
   <section class="kpi-row" id="kpi-row-afterschool" hidden>
     <div class="kpi anim d2" data-kpi="as-total">
       <h3>Total Enrolled</h3>
-      <div class="kpi-num" data-num>—</div>
-      <div class="kpi-sub" data-sub><strong data-waitlist>—</strong> on waitlist</div>
+      <div class="kpi-num" data-num>,</div>
+      <div class="kpi-sub" data-sub><strong data-waitlist>,</strong> on waitlist</div>
     </div>
     <div class="kpi anim d3" data-kpi="as-capleft">
       <h3>Capacity Remaining</h3>
-      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-num" data-num>,</div>
       <div class="kpi-sub" data-sub>Across Mon to Fri</div>
     </div>
     <div class="kpi anim d4" data-kpi="as-retention">
       <h3>Retention</h3>
-      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-num" data-num>,</div>
       <div class="kpi-sub" data-sub>Wired when data lands</div>
     </div>
     <div class="kpi anim d5" data-kpi="as-new7">
       <h3>New Last 7 Days</h3>
-      <div class="kpi-num" data-num>—</div>
+      <div class="kpi-num" data-num>,</div>
       <div class="kpi-sub" data-sub>After-school enrollments</div>
     </div>
   </section>
@@ -621,10 +621,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <circle id="seg-unknown" cx="120" cy="120" r="92" stroke="#c6d1e4" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
         </svg>
         <div class="donut-center">
-          <div class="num" id="donut-total">—</div>
+          <div class="num" id="donut-total">,</div>
           <div class="lbl">Unique Students</div>
           <div class="donut-divider"></div>
-          <div class="num-sm" id="donut-enrollments">—</div>
+          <div class="num-sm" id="donut-enrollments">,</div>
           <div class="lbl-sm">Enrollments</div>
         </div>
       </div>
@@ -643,8 +643,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <svg class="bars-svg" viewBox="0 0 800 340" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
       <div class="bars-legend" id="bars-legend-camp">
-        <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus <span class="legend-cap" id="legend-cap-upper" style="color:#1b2f6e;font-weight:700">— cap 0</span></span>
-        <span><span class="swatch" style="background:#4aa3e0"></span> Lower Campus <span class="legend-cap" id="legend-cap-lower" style="color:#4aa3e0;font-weight:700">— cap 0</span></span>
+        <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus <span class="legend-cap" id="legend-cap-upper" style="color:#1b2f6e;font-weight:700">, cap 0</span></span>
+        <span><span class="swatch" style="background:#4aa3e0"></span> Lower Campus <span class="legend-cap" id="legend-cap-lower" style="color:#4aa3e0;font-weight:700">, cap 0</span></span>
         <span id="bars-unknown" style="display:none"><span class="swatch" style="background:#c6d1e4"></span> Unknown</span>
         <span><span class="swatch" style="background:transparent;border:1px dashed var(--sf-amber-deep)"></span> Dashed line = weekly cap</span>
         <span style="color:var(--sf-ink-50);font-style:italic">↓ <em>italic number = spots left under each bar</em></span>
@@ -661,7 +661,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <svg class="bars-svg" viewBox="0 0 800 220" id="bars-dow" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
 
-      <!-- Inline cap controls — campus pair (summer / free) -->
+      <!-- Inline cap controls, campus pair (summer / free) -->
       <div class="cap-controls" id="cap-controls">
         <span class="ctl-lbl">Weekly cap</span>
         <span class="ctl">
@@ -677,7 +677,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <button class="reset-btn" id="cap-reset">Reset to defaults</button>
       </div>
 
-      <!-- Inline cap controls — per-day (after-school only) -->
+      <!-- Inline cap controls, per-day (after-school only) -->
       <div class="cap-controls" id="cap-controls-day" hidden>
         <span class="ctl-lbl">Daily cap</span>
         <span class="ctl">
@@ -703,7 +703,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <button class="reset-btn" id="cap-reset-day">Reset to defaults</button>
       </div>
 
-      <!-- Ops strip — slim row of click-to-expand chips (allergies, data-quality) -->
+      <!-- Ops strip, slim row of click-to-expand chips (allergies, data-quality) -->
       <div class="ops-strip" id="ops-strip" role="toolbar" aria-label="Operations chips">
         <button type="button" class="ops-chip allergies" id="ops-allergies-btn" data-target="ops-allergies-detail" aria-expanded="false">
           <span class="ops-ico" aria-hidden="true">⚠</span> Allergies
@@ -717,10 +717,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       <div class="ops-detail" id="ops-allergies-detail" hidden></div>
       <div class="ops-detail" id="ops-quality-detail" hidden></div>
 
-      <!-- Inline roster panel — always open, with live search filter -->
+      <!-- Inline roster panel, always open, with live search filter -->
       <div class="roster-panel">
         <div class="roster-header">
-          <div class="label">Student Rosters <span class="count" id="roster-count">—</span></div>
+          <div class="label">Student Rosters <span class="count" id="roster-count">,</span></div>
           <div class="roster-search" id="roster-search-wrap">
             <span class="icon" aria-hidden="true">⌕</span>
             <input id="roster-search" type="search" autocomplete="off"
@@ -743,19 +743,19 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
   </section>
 
-  <!-- Single-day attendance popup — opened by clicking a Mon-Fri chip on a roster week card -->
+  <!-- Single-day attendance popup, opened by clicking a Mon-Fri chip on a roster week card -->
   <div class="day-modal-backdrop" id="att-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="att-modal-title" hidden>
     <div class="day-modal" role="document" style="max-width:380px">
       <div class="day-modal-h">
         <div>
           <h3 id="att-modal-title">Mark attendance</h3>
-          <div class="sub" id="att-modal-sub">—</div>
+          <div class="sub" id="att-modal-sub">,</div>
         </div>
         <button type="button" class="day-modal-close" id="att-modal-close" aria-label="Close">×</button>
       </div>
       <div class="day-modal-body">
         <div class="att-row">
-          <div class="att-expected" id="att-expected">Expected: —</div>
+          <div class="att-expected" id="att-expected">Expected: ,</div>
           <div class="att-marked" id="att-marked"></div>
         </div>
         <div class="att-inputs" id="att-inputs">
@@ -773,12 +773,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
   </div>
 
-  <!-- Daily attendance modal — opened by clicking a bar in the weekly chart -->
+  <!-- Daily attendance modal, opened by clicking a bar in the weekly chart -->
   <div class="day-modal-backdrop" id="day-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="day-modal-title" hidden>
     <div class="day-modal" role="document">
       <div class="day-modal-h">
         <div>
-          <h3 id="day-modal-title">—</h3>
+          <h3 id="day-modal-title">,</h3>
           <div class="sub" id="day-modal-sub">Daily attendance</div>
         </div>
         <button type="button" class="day-modal-close" id="day-modal-close" aria-label="Close">×</button>
@@ -797,7 +797,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     unknown: '#c6d1e4'
   };
 
-  // Per-week per-campus capacity. Same value applies to every week — the
+  // Per-week per-campus capacity. Same value applies to every week, the
   // physical campus capacity doesn't change week-to-week. One pair of caps
   // per filter (summer / free / afterschool) so each tab can have its own.
   // Free Camp scholarship is 35 spots total split across campuses per Tom (2026-05-12).
@@ -821,7 +821,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   const DAY_CAP_DEFAULTS = { Monday: 20, Tuesday: 20, Wednesday: 20, Thursday: 20, Friday: 20 };
   const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
   const DAY_SHORT = { Monday: 'Mon', Tuesday: 'Tue', Wednesday: 'Wed', Thursday: 'Thu', Friday: 'Fri' };
-  // Program palette — recycle the brand palette so program bars feel native.
+  // Program palette, recycle the brand palette so program bars feel native.
   const PROGRAM_COLORS = ['#1b2f6e','#2f82c4','#4aa3e0','#234091','#0a1028'];
 
   function isAfterSchool(filter) { return filter === 'afterschool'; }
@@ -840,7 +840,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   const state = {
     snapshot: null,
-    filter: 'summer',  // 'summer' | 'free' — default Summer per Tom
+    filter: 'summer',  // 'summer' | 'free', default Summer per Tom
     goals: loadGoalsFromCache(),
     editingKeys: new Set(),
     openRosters: new Set(),
@@ -906,7 +906,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   function fmtTime(iso) {
-    if (!iso) return '—';
+    if (!iso) return ',';
     try {
       const d = new Date(iso);
       return d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
@@ -1067,7 +1067,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       if (key === 'topweek') {
         const t = topWeek(view.byWeek);
         numEl.textContent = t.n;
-        subEl.innerHTML = t.week ? `<strong>${t.week}</strong>` : '—';
+        subEl.innerHTML = t.week ? `<strong>${t.week}</strong>` : ',';
       } else if (key === 'total') {
         animateNum(numEl, item.value);
         const enrollEl = card.querySelector('[data-enroll]');
@@ -1090,7 +1090,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         animateNum(numEl, item.value);
       }
 
-      // Date-compare delta — added as a small extra line below the existing sub
+      // Date-compare delta, added as a small extra line below the existing sub
       let deltaEl = card.querySelector('[data-cmp-delta]');
       if (!deltaEl) {
         deltaEl = document.createElement('div');
@@ -1156,10 +1156,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         animateNum(numEl, capLeft);
         if (subEl) subEl.textContent = `${dayEnrolled} of ${capSum} day-slots filled`;
       } else if (key === 'as-retention') {
-        numEl.textContent = '—';
+        numEl.textContent = ',';
         if (subEl) subEl.textContent = 'Wired when data lands';
       } else if (key === 'as-new7') {
-        numEl.textContent = (new7 == null) ? '—' : new7;
+        numEl.textContent = (new7 == null) ? ',' : new7;
         if (subEl) subEl.textContent = 'After-school enrollments';
       }
 
@@ -1231,7 +1231,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     segUnk.setAttribute('stroke-dasharray', `${lenUnk} ${C - lenUnk}`);
     segUnk.setAttribute('stroke-dashoffset', `${-(lenUpper + lenLower)}`);
 
-    // Legend — Lower on top per Tom's preference
+    // Legend, Lower on top per Tom's preference
     const items = [
       { name: 'Lower Campus', v: lower, color: COLORS.lower },
       { name: 'Upper Campus', v: upper, color: COLORS.upper }
@@ -1255,7 +1255,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   //   - Δ vs prior camp week above each bar count (e.g. "▲1")
   //   - "X left" / "FULL" / "+N OVER" below each bar (no math required)
   //
-  // For after-school: bars-by-program (no caps drawn — caps are per-day) and
+  // For after-school: bars-by-program (no caps drawn, caps are per-day) and
   // a secondary mini-chart for byDayOfWeek with per-day caps.
   function renderBars(view) {
     if (isAfterSchool(view.filter)) {
@@ -1284,14 +1284,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         })()
       : view.weekCampus;
 
-    // Per-campus cap (same for every week — physical campus capacity)
+    // Per-campus cap (same for every week, physical campus capacity)
     const capUpper = getCap(state.filter, 'upper');
     const capLower = getCap(state.filter, 'lower');
 
     // Comparison snapshot view (date-compare). Computed once per render.
     const cmpView = getCompareView();
 
-    // Y axis max — bigger of the largest actual, the cap, OR any comparison
+    // Y axis max, bigger of the largest actual, the cap, OR any comparison
     // count (so ghost bars don't clip), plus a little headroom for labels.
     // In attendance mode also include the expected (registration) counts so
     // the expected-ghosts can render at full height.
@@ -1333,7 +1333,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const capLineY = (cap) => yBase - (cap / niceMax) * innerH;
     if (capUpper > 0) {
       const y = capLineY(capUpper);
-      // Dashed cap line only — labels moved to the legend below the chart
+      // Dashed cap line only, labels moved to the legend below the chart
       // to avoid colliding with bar value labels near the cap.
       svg += `<line class="cap-line" x1="${padL + 2}" x2="${W - padR - 2}" y1="${y}" y2="${y}" style="stroke:${CAMPUS_COLOR.upper};stroke-dasharray:5 4;opacity:.55"/>`;
     }
@@ -1376,7 +1376,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
       }
 
-      // Ghost bars — drawn behind current bars, hollow outline.
+      // Ghost bars, drawn behind current bars, hollow outline.
       const drawGhost = (count, x, strokeColor) => {
         if (count == null || count <= 0) return;
         const h = (count / niceMax) * innerH;
@@ -1404,14 +1404,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       };
 
       // Format Δ vs prior week: "+N" / "−N" (no arrow). Skip when 0 or no prior.
-      // Using a real minus sign (U+2212) — wider than a hyphen, balances with "+".
+      // Using a real minus sign (U+2212), wider than a hyphen, balances with "+".
       const deltaText = (d) => {
         if (d == null || d === 0) return { txt: '', cls: '' };
         if (d > 0) return { txt: `+${d}`, cls: 'up' };
         return { txt: `−${-d}`, cls: 'down' };
       };
 
-      // Helper to draw one campus bar — count + Δ above, spots-left below.
+      // Helper to draw one campus bar, count + Δ above, spots-left below.
       // The spots-left text sits directly under each bar, centered on its own
       // column. To avoid Upper/Lower collisions in the narrow gap, use a
       // shorter format: just the number (italic) for partial, "FULL" at cap,
@@ -1435,7 +1435,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         // Bar count (campus color, primary)
         svg += `<text class="bar-val" x="${cxBar}" y="${countY}" text-anchor="middle" style="fill:${color}">${count}</text>`;
 
-        // Spots-left UNDER each bar — compact format so Upper and Lower don't collide
+        // Spots-left UNDER each bar, compact format so Upper and Lower don't collide
         const s = spotsText(count, cap);
         if (s.txt) {
           let txt, sColor, fontWeight, fontStyle = 'normal';
@@ -1444,13 +1444,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
             sColor = '#2da375';
             fontWeight = '700';
           } else if (s.cls === 'over') {
-            // s.txt is "+N over" — use just "+N" so it fits the bar width
+            // s.txt is "+N over", use just "+N" so it fits the bar width
             const m = s.txt.match(/^\+(\d+)/);
             txt = `+${m ? m[1] : ''}`;
             sColor = '#d8453d';
             fontWeight = '700';
           } else {
-            // s.txt is "N left" — show just the number, italic to imply "remaining"
+            // s.txt is "N left", show just the number, italic to imply "remaining"
             const m = s.txt.match(/^(\d+)/);
             txt = m ? m[1] : s.txt;
             sColor = '#6b7490';
@@ -1474,7 +1474,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       svg += `<title>${w}\nUpper: ${upper}/${capUpper}${upperLeft != null ? ` (${upperLeft >= 0 ? upperLeft + ' left' : -upperLeft + ' over'})` : ''}\nLower: ${lower}/${capLower}${lowerLeft != null ? ` (${lowerLeft >= 0 ? lowerLeft + ' left' : -lowerLeft + ' over'})` : ''}${unk?`\nUnknown: ${unk}`:''}\nTotal: ${total}${dUpper!=null?`\nΔ Upper: ${dUpper>=0?'+':''}${dUpper}, Δ Lower: ${dLower>=0?'+':''}${dLower}`:''}</title>`;
       svg += `</g>`;
 
-      // X-axis label (week, rotated) — yBase+12 = spots-left row, yBase+28 = week label
+      // X-axis label (week, rotated), yBase+12 = spots-left row, yBase+28 = week label
       const short = shortenWeek(w);
       svg += `<text class="x-lbl" x="${cx}" y="${yBase + 28}" text-anchor="end" transform="rotate(-32 ${cx} ${yBase + 28})">${short}</text>`;
     });
@@ -1482,8 +1482,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     document.getElementById('bars').innerHTML = svg;
     const capUEl = document.getElementById('legend-cap-upper');
     const capLEl = document.getElementById('legend-cap-lower');
-    if (capUEl) capUEl.textContent = capUpper > 0 ? `— cap ${capUpper}` : '';
-    if (capLEl) capLEl.textContent = capLower > 0 ? `— cap ${capLower}` : '';
+    if (capUEl) capUEl.textContent = capUpper > 0 ? `, cap ${capUpper}` : '';
+    if (capLEl) capLEl.textContent = capLower > 0 ? `, cap ${capLower}` : '';
 
     // Hint about the expected-ghost overlay (only relevant in attendance mode)
     let attHint = document.getElementById('bars-attendance-hint');
@@ -1526,7 +1526,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const slotW = innerW / Math.max(1, programs.length);
     const barW  = Math.max(14, Math.min(60, slotW * 0.55));
 
-    // No "Unknown" campus split here — hide that legend chip if it's wired in.
+    // No "Unknown" campus split here, hide that legend chip if it's wired in.
     const unkLegend = document.getElementById('bars-unknown');
     if (unkLegend) unkLegend.style.display = 'none';
 
@@ -1574,7 +1574,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       svg += `<title>${p}\nEnrollments: ${count}${cmpCount != null ? `\nvs ${state.compareDate}: ${cmpCount}` : ''}</title>`;
       svg += `</g>`;
 
-      // X-axis label — wrap long program names onto two lines.
+      // X-axis label, wrap long program names onto two lines.
       const label = wrapProgramLabel(p);
       const labelY = yBase + 16;
       label.forEach((line, i) => {
@@ -1814,7 +1814,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           const view = getView();
           if (view) {
             renderBars(view);
-            // capacity-remaining KPI moves with caps — refresh it too.
+            // capacity-remaining KPI moves with caps, refresh it too.
             renderKpis(view);
           }
         };
@@ -2362,7 +2362,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     }).join('');
 
     const allTotal = totals.reduce((a,b) => a+b, 0);
-    const peakLabel = totals[peakIdx] > 0 ? `${dayLabels[peakIdx]} (${totals[peakIdx]})` : '—';
+    const peakLabel = totals[peakIdx] > 0 ? `${dayLabels[peakIdx]} (${totals[peakIdx]})` : ',';
     const filterLabel = state.filter === 'free' ? 'Free Camp only' : state.filter === 'summer' ? 'Paid Camp only' : 'All camps';
 
     document.getElementById('day-modal-title').textContent = week;
@@ -2431,7 +2431,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       opts = opts || {};
       if (value == null || value === '' || value === false) {
         if (!opts.always) return;
-        value = '—';
+        value = ',';
         opts.muted = true;
       }
       const ddCls = opts.muted ? ' class="muted"' : (opts.cls ? ` class="${opts.cls}"` : '');
@@ -2622,7 +2622,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       return `<li>
         <div class="ops-row" data-ops-toggle="alg-${i}">
           <span class="nm">${escapeHtml(r.name)}</span>
-          <span class="meta"><span class="pip ${pip}"></span>${escapeHtml(weeksTxt || '—')}</span>
+          <span class="meta"><span class="pip ${pip}"></span>${escapeHtml(weeksTxt || ',')}</span>
         </div>
         <div class="ops-text" data-ops-text="alg-${i}">${escapeHtml(r.allergy)}</div>
       </li>`;
@@ -2651,7 +2651,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       .concat(issues.incomplete.map(r => ({ ...r, _kind: 'incomplete' })));
 
     if (!allIssueRows.length) {
-      panel.innerHTML = `<div class="ops-empty">No data issues — every row is clean.</div>`;
+      panel.innerHTML = `<div class="ops-empty">No data issues, every row is clean.</div>`;
       return;
     }
 
@@ -2928,7 +2928,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   // ─── Render all ──────────────────────────────────────────────────────────
-  // Full re-render — only runs on first paint, snapshot version change, or
+  // Full re-render, only runs on first paint, snapshot version change, or
   // filter toggle. Live-updates use the per-card update path (which preserves
   // focused inputs).
   function render() {
@@ -2992,7 +2992,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // Tab switch re-renders everything so caps and roster reflect the active
   // tab. Cap inputs aren't focused during a click, so this never clobbers
   // an in-progress edit.
-  // Scope to the filter row only — `.filter` is also used by `.compare-pick`,
+  // Scope to the filter row only, `.filter` is also used by `.compare-pick`,
   // so a bare `.filter button` selector would attach this handler to compare
   // chips and silently clobber state.filter when a chip is clicked.
   document.querySelectorAll('.filter:not(.compare-pick) button').forEach(b => {
@@ -3085,7 +3085,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // Pre-populate the custom-date max so users can't pick today/future
   // (today's data == current snapshot, no comparison value).
   compareCustomInput.max = shiftDate(0);
-  // Also set the min to whatever the earliest history date is — populated
+  // Also set the min to whatever the earliest history date is, populated
   // after we fetch history/index.json
   fetch('./history/index.json?_=' + Date.now(), { cache: 'no-store' })
     .then(r => r.ok ? r.json() : null)
@@ -3125,7 +3125,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       refreshBtn.disabled = true;
       refreshBtn.textContent = 'Refreshing…';
     }
-    // Defer auto-refresh while the user is editing a cap input — never
+    // Defer auto-refresh while the user is editing a cap input, never
     // overwrite in-progress edits. Manual refresh button still works.
     if (!manual && state.editingKeys.size > 0) {
       if (manual) {
