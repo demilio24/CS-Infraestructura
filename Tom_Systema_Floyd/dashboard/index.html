@@ -2226,12 +2226,17 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         (wk[b] || []).forEach(r => {
           const isMissingName = !r.name || r.name === '(name missing)';
           const isUnknownCampus = r.campus === 'Unknown';
+          const fields = Array.isArray(r.missingFields) ? r.missingFields.slice() : [];
+          // Surface the structural issues (no name / unknown campus) as their
+          // own chips so every section shows specifics, not just the tag pill.
+          if (isMissingName && fields.indexOf('Student name') === -1) fields.unshift('Student name');
+          if (isUnknownCampus && fields.indexOf('Campus') === -1)     fields.unshift('Campus');
           const baseRow = {
             name: r.name || '(blank)',
             week: w,
             campus: r.campus,
             type: r.type,
-            missingFields: Array.isArray(r.missingFields) ? r.missingFields.slice() : [],
+            missingFields: fields,
             sourceSheetId: r.sourceSheetId || null,
             sourceTabName: r.sourceTabName || null,
             sourceRow: r.sourceRow || null,
@@ -2401,9 +2406,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <ul class="ops-list ops-list-issues">${list.map(r => renderRow(r, tag, alwaysShowTag)).join('')}</ul>
       </div>`);
     }
-    section('Missing name in roster row', issues.missingName, 'NO NAME', true);
-    section('Unknown campus assignment',   issues.missingCampus, 'NO CAMPUS', true);
-    section('Incomplete row (specific fields below)', issues.incomplete, 'INCOMPLETE', false);
+    section('Missing name in roster row',                issues.missingName,   'NO NAME',  false);
+    section('Unknown campus assignment',                 issues.missingCampus, 'NO CAMPUS', false);
+    section('Incomplete row — see missing fields below', issues.incomplete,    'INCOMPLETE', false);
 
     panel.innerHTML = sections.length
       ? sections.join('')
