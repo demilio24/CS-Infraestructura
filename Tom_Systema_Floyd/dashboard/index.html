@@ -196,6 +196,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .ops-detail .ops-where{display:inline-block;font-family:'Space Grotesk','Inter',sans-serif;font-size:10.5px;color:var(--sf-ink-40);letter-spacing:.02em}
 .ops-detail .ops-open{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);font-family:'Space Grotesk','Inter',sans-serif;font-size:10.5px;font-weight:700;text-decoration:none;border:1px solid #d4e3f3;transition:background .15s,color .15s,transform .15s}
 .ops-detail .ops-open:hover{background:var(--sf-blue-700);color:#fff;transform:translateY(-1px)}
+.ops-detail .ops-student-card{padding:10px 12px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:10px;margin-bottom:6px}
+.ops-detail .ops-student-card .ops-row-issue{background:transparent;border:0;padding:0 0 6px 0;margin:0}
+.ops-detail .ops-sources{display:flex;flex-direction:column;gap:4px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--sf-border)}
+.ops-detail .ops-source-line{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:var(--sf-ink-60)}
 
 /* Sparkline tucked inside the Unique Students KPI card */
 .kpi[data-kpi="total"]{position:relative}
@@ -205,6 +209,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .kpi-sparkline .spark-trend.up{color:#137333}
 .kpi-sparkline .spark-trend.down{color:#b54708}
 .kpi-sparkline.empty{display:none}
+
+/* Chart mode toggle (Registrations / Attendance) — sits in the chart card header */
+.card-h-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.card-h-row h3{margin:0}
+.chart-mode-toggle{display:inline-flex;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:999px;padding:3px;gap:2px}
+.cmode-btn{padding:6px 14px;border-radius:999px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;transition:all .18s;letter-spacing:.02em}
+.cmode-btn:hover{color:var(--sf-ink)}
+.cmode-btn.active{background:var(--sf-white);color:var(--sf-blue-700);box-shadow:0 1px 3px rgba(15,23,42,.08),0 0 0 1px var(--sf-border)}
+@media(max-width:520px){.card-h-row{flex-direction:column;align-items:flex-start;gap:8px}.chart-mode-toggle{width:100%}.cmode-btn{flex:1;text-align:center}}
 
 /* Week-bar click-to-open modal — daily attendance breakdown */
 .bar-group{cursor:pointer}
@@ -237,6 +250,29 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .day-card .split-row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--sf-ink)}
 .day-card.peak{background:linear-gradient(135deg,#fff7e0,#fff);border-color:var(--sf-yellow)}
 .day-card.peak .total{color:var(--sf-yellow-dark)}
+.att-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;color:var(--sf-ink-60)}
+.att-row .att-expected{font-weight:700;color:var(--sf-ink)}
+.att-row .att-marked{font-size:11px;color:#137333;font-weight:600}
+.att-inputs{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.att-inputs label{display:grid;grid-template-columns:18px 1fr 80px;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--sf-ink)}
+.att-inputs label .dot{width:10px;height:10px;border-radius:50%}
+.att-inputs label .dot.u{background:#1b2f6e}
+.att-inputs label .dot.l{background:#4aa3e0}
+.att-inputs label .dot.f{background:#f4b63a}
+.att-inputs input[type="number"]{width:100%;padding:8px 10px;border:1px solid var(--sf-border);border-radius:8px;font-family:'Space Grotesk','Inter',sans-serif;font-size:16px;font-weight:700;color:var(--sf-ink);text-align:center;-moz-appearance:textfield}
+.att-inputs input[type="number"]::-webkit-outer-spin-button,.att-inputs input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.att-inputs input[type="number"]:focus{outline:none;border-color:var(--sf-blue-700);box-shadow:0 0 0 3px rgba(47,130,196,.16)}
+.att-total{text-align:center;font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;letter-spacing:.06em;color:var(--sf-blue-700);padding:8px;background:var(--sf-cream);border-radius:8px;margin-bottom:14px}
+.att-actions{display:flex;gap:8px}
+.att-btn-primary,.att-btn-secondary{flex:1;padding:11px 16px;border-radius:8px;border:1px solid var(--sf-border);font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s,color .15s,transform .15s,box-shadow .15s}
+.att-btn-secondary{background:var(--sf-white);color:var(--sf-ink-60)}
+.att-btn-secondary:hover{background:var(--sf-cream);color:var(--sf-ink)}
+.att-btn-primary{background:var(--grad-blue);color:#fff;border-color:transparent;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
+.att-btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 14px -4px rgba(47,130,196,.5)}
+.att-btn-primary:disabled{opacity:.6;cursor:wait;transform:none}
+.att-feedback{margin-top:10px;text-align:center;font-size:12px;font-family:'Space Grotesk','Inter',sans-serif;color:var(--sf-ink-40);min-height:16px}
+.att-feedback.success{color:#137333;font-weight:600}
+.att-feedback.error{color:#b54708;font-weight:600}
 @media (max-width:520px){
   .day-grid{grid-template-columns:repeat(5,1fr);gap:5px}
   .day-card{padding:10px 4px 8px}
@@ -277,7 +313,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .ros-week{display:flex;flex-direction:column;gap:6px;padding:10px;background:var(--sf-cream);border-radius:8px}
 .ros-week-h{display:flex;align-items:baseline;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-ink);padding-bottom:4px;border-bottom:1px solid var(--sf-border)}
 .ros-day-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin:2px 0 4px}
-.ros-day-strip .d{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:5px;font-family:'Space Grotesk','Inter',sans-serif}
+.ros-day-strip .d{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 2px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:5px;font-family:'Space Grotesk','Inter',sans-serif;cursor:pointer;transition:transform .15s,border-color .15s,background .15s;position:relative}
+.ros-day-strip .d:hover{transform:translateY(-1px);border-color:var(--sf-blue-700);background:var(--sf-blue-50)}
+.ros-day-strip .d.has-attendance{border-color:#9bd1ac;background:#e6f4ea}
+.ros-day-strip .d.has-attendance::after{content:'✓';position:absolute;top:1px;right:3px;font-size:8px;color:#137333;font-weight:700;line-height:1}
+.ros-day-strip .d .dl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sf-ink-40)}
 .ros-day-strip .d .dl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sf-ink-40)}
 .ros-day-strip .d .dn{font-size:12px;font-weight:700;color:var(--sf-blue-700);font-variant-numeric:tabular-nums;line-height:1}
 .ros-day-strip .d.zero .dn{color:var(--sf-ink-40)}
@@ -592,7 +632,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
 
     <div class="card anim d6">
-      <h3 id="bars-heading">Registrations by Week <span class="sub" id="weeks-sub"></span></h3>
+      <div class="card-h-row">
+        <h3 id="bars-heading">Registrations by Week <span class="sub" id="weeks-sub"></span></h3>
+        <div class="chart-mode-toggle" id="chart-mode-toggle" role="tablist" aria-label="Chart mode">
+          <button type="button" class="cmode-btn active" data-mode="registrations" role="tab" aria-selected="true">Registrations</button>
+          <button type="button" class="cmode-btn" data-mode="attendance" role="tab" aria-selected="false">Attendance</button>
+        </div>
+      </div>
       <div class="bars-wrap">
         <svg class="bars-svg" viewBox="0 0 800 340" id="bars" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
@@ -696,6 +742,36 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       </div>
     </div>
   </section>
+
+  <!-- Single-day attendance popup — opened by clicking a Mon-Fri chip on a roster week card -->
+  <div class="day-modal-backdrop" id="att-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="att-modal-title" hidden>
+    <div class="day-modal" role="document" style="max-width:380px">
+      <div class="day-modal-h">
+        <div>
+          <h3 id="att-modal-title">Mark attendance</h3>
+          <div class="sub" id="att-modal-sub">—</div>
+        </div>
+        <button type="button" class="day-modal-close" id="att-modal-close" aria-label="Close">×</button>
+      </div>
+      <div class="day-modal-body">
+        <div class="att-row">
+          <div class="att-expected" id="att-expected">Expected: —</div>
+          <div class="att-marked" id="att-marked"></div>
+        </div>
+        <div class="att-inputs" id="att-inputs">
+          <label><span class="dot u"></span> Upper <input type="number" id="att-upper" min="0" inputmode="numeric"></label>
+          <label><span class="dot l"></span> Lower <input type="number" id="att-lower" min="0" inputmode="numeric"></label>
+          <label><span class="dot f"></span> Free  <input type="number" id="att-free"  min="0" inputmode="numeric"></label>
+        </div>
+        <div class="att-total" id="att-total">Total: 0</div>
+        <div class="att-actions">
+          <button type="button" class="att-btn-secondary" id="att-clear">Clear</button>
+          <button type="button" class="att-btn-primary"   id="att-save">Save</button>
+        </div>
+        <div class="att-feedback" id="att-feedback"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Daily attendance modal — opened by clicking a bar in the weekly chart -->
   <div class="day-modal-backdrop" id="day-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="day-modal-title" hidden>
@@ -1191,12 +1267,22 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }
 
   function renderWeekBars(view) {
+    wireChartModeToggle();
     const W = 800, H = 340;
     const padL = 36, padR = 14, padT = 22, padB = 68;
     const innerW = W - padL - padR;
     const innerH = H - padT - padB;
     const weeks = view.weekOrder;
-    const byWC = view.weekCampus;
+    // In attendance mode, replace each week's per-campus counts with summed
+    // actual attendance (Mon-Fri totals split by Upper / Lower / Free).
+    const isAttendance = state.chartMode === 'attendance';
+    const byWC = isAttendance
+      ? (() => {
+          const m = {};
+          weeks.forEach(w => { m[w] = attendanceTotalsForWeek(w); });
+          return m;
+        })()
+      : view.weekCampus;
 
     // Per-campus cap (same for every week — physical campus capacity)
     const capUpper = getCap(state.filter, 'upper');
@@ -1804,6 +1890,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
     wireRosterSearch();
     wireRosterRowClicks();
+    wireDayChipClicks();
+    // Kick off attendance load on first render so chips can show ✓ checks
+    if (!state.attendanceByWeek && !state.attendanceLoading) loadAttendance();
     const isAS = isAfterSchool(state.filter);
     if (isAS) renderRosterBodyAfterSchool(body);
     else      renderRosterBody(body, state.snapshot.roster || {});
@@ -1975,15 +2064,26 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
       // Daily attendance counts: sum the days[] flags across visible kids in
       // this week. Mon-Fri checkboxes come from the paid sheets; free camp
-      // assumes all 5 days. Hidden when nothing's visible to avoid clutter.
+      // assumes all 5 days. Each chip is clickable to mark actual attendance.
       const dayCounts = [0,0,0,0,0];
       all.forEach(r => {
         const d = Array.isArray(r.days) ? r.days : [true,true,true,true,true];
         for (let i = 0; i < 5; i++) if (d[i]) dayCounts[i]++;
       });
       const dayLabels = ['Mon','Tue','Wed','Thu','Fri'];
+      // Mark chips that already have attendance recorded so staff can see
+      // which days are still pending.
+      const attendanceForWeek = (state.attendanceByWeek && state.attendanceByWeek[w]) || {};
       const dayStrip = all.length === 0 ? '' : `<div class="ros-day-strip" aria-label="Daily attendance">${
-        dayCounts.map((n,i) => `<div class="d ${n===0?'zero':''}"><span class="dl">${dayLabels[i]}</span><span class="dn">${n}</span></div>`).join('')
+        dayCounts.map((n,i) => {
+          const dayKey = dayLabels[i];
+          const hasAtt = !!attendanceForWeek[dayKey];
+          const cls = `d ${n===0?'zero':''} ${hasAtt ? 'has-attendance' : ''}`;
+          const titleTxt = hasAtt
+            ? `Marked: ${(attendanceForWeek[dayKey].u||0)+(attendanceForWeek[dayKey].l||0)+(attendanceForWeek[dayKey].f||0)} present. Click to edit.`
+            : `Click to mark today's attendance for ${dayKey}`;
+          return `<div class="${cls.trim()}" data-att-week="${w.replace(/"/g,'&quot;')}" data-att-day="${dayKey}" title="${titleTxt.replace(/"/g,'&quot;')}"><span class="dl">${dayKey}</span><span class="dn">${n}</span></div>`;
+        }).join('')
       }</div>`;
 
       return `<div class="ros-week">
@@ -2003,6 +2103,146 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     }
   }
 
+
+  // ─── Day-chip click → mark-attendance popup ─────────────────────
+  // Each Mon-Fri chip on a roster week card is a button. Click it to
+  // open a small editable popup for that (week × day) cell. Saves to
+  // sf_daily_attendance via the public RPC.
+  function wireDayChipClicks() {
+    const body = document.getElementById('roster-body');
+    if (!body || body.dataset.attWired === '1') return;
+    body.dataset.attWired = '1';
+    body.addEventListener('click', e => {
+      const chip = e.target.closest('.ros-day-strip .d');
+      if (!chip) return;
+      const week = chip.getAttribute('data-att-week');
+      const day  = chip.getAttribute('data-att-day');
+      if (!week || !day) return;
+      openAttendanceModal(week, day);
+    });
+  }
+
+  function wireAttendanceModal() {
+    const backdrop = document.getElementById('att-modal-backdrop');
+    if (!backdrop || backdrop.dataset.wired === '1') return;
+    backdrop.dataset.wired = '1';
+    const closeBtn = document.getElementById('att-modal-close');
+    const saveBtn  = document.getElementById('att-save');
+    const clearBtn = document.getElementById('att-clear');
+    const inputs = ['att-upper','att-lower','att-free'].map(id => document.getElementById(id));
+    const totalEl = document.getElementById('att-total');
+
+    function updateTotal() {
+      const total = inputs.reduce((s, i) => s + (parseInt(i.value, 10) || 0), 0);
+      totalEl.textContent = `Total: ${total}`;
+    }
+    inputs.forEach(i => i.addEventListener('input', updateTotal));
+
+    function close() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('hidden', '');
+      backdrop.removeAttribute('data-week');
+      backdrop.removeAttribute('data-day');
+    }
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) close(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+    });
+
+    clearBtn.addEventListener('click', () => {
+      inputs.forEach(i => i.value = '');
+      updateTotal();
+    });
+
+    saveBtn.addEventListener('click', async () => {
+      const week = backdrop.getAttribute('data-week');
+      const day  = backdrop.getAttribute('data-day');
+      if (!week || !day) return;
+      const fb = document.getElementById('att-feedback');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving…';
+      fb.className = 'att-feedback';
+      fb.textContent = '';
+      try {
+        await saveAttendanceCell(week, day, inputs[0].value, inputs[1].value, inputs[2].value);
+        fb.className = 'att-feedback success';
+        fb.textContent = '✓ Saved';
+        // Re-render the roster panel so the chip shows a check mark
+        renderRosterPanel();
+        // If the chart is currently showing attendance mode, refresh it too
+        if (state.chartMode === 'attendance') {
+          const v = getView();
+          if (v) renderBars(v);
+        }
+        setTimeout(close, 700);
+      } catch (err) {
+        fb.className = 'att-feedback error';
+        fb.textContent = '✗ Save failed: ' + err.message;
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save';
+      }
+    });
+  }
+
+  function openAttendanceModal(week, day) {
+    const backdrop = document.getElementById('att-modal-backdrop');
+    if (!backdrop) return;
+    wireAttendanceModal();
+
+    // Compute the expected count for this (week × day) from the roster.
+    const wk = (state.snapshot && state.snapshot.roster && state.snapshot.roster[week]) || {};
+    const buckets = ['upper','lower','free'];
+    const dayIdx = ['Mon','Tue','Wed','Thu','Fri'].indexOf(day);
+    let expU = 0, expL = 0, expF = 0;
+    buckets.forEach(b => {
+      (wk[b] || []).forEach(r => {
+        const days = Array.isArray(r.days) ? r.days : [true,true,true,true,true];
+        if (!days[dayIdx]) return;
+        if (r.type === 'free') expF++;
+        else if (r.campus === 'Lower Campus') expL++;
+        else expU++;
+      });
+    });
+    const expectedTotal = expU + expL + expF;
+
+    // Prefill with the existing saved row if any, else with the expected.
+    const existing = (state.attendanceByWeek && state.attendanceByWeek[week] && state.attendanceByWeek[week][day]) || null;
+    document.getElementById('att-upper').value = existing ? existing.u : expU;
+    document.getElementById('att-lower').value = existing ? existing.l : expL;
+    document.getElementById('att-free').value  = existing ? existing.f : expF;
+    const total = (existing ? existing.u + existing.l + existing.f : expectedTotal);
+    document.getElementById('att-total').textContent = `Total: ${total}`;
+
+    document.getElementById('att-modal-title').textContent = `${day} attendance`;
+    document.getElementById('att-modal-sub').textContent   = shortenWeek(week);
+    document.getElementById('att-expected').textContent    = `Expected: ${expectedTotal} (U${expU} · L${expL} · F${expF})`;
+    document.getElementById('att-marked').textContent      = existing
+      ? `Last saved ${formatMarkedAt(existing.markedAt)}`
+      : '';
+    document.getElementById('att-feedback').textContent = '';
+    document.getElementById('att-feedback').className   = 'att-feedback';
+
+    backdrop.setAttribute('data-week', week);
+    backdrop.setAttribute('data-day',  day);
+    backdrop.removeAttribute('hidden');
+    backdrop.classList.add('open');
+
+    // Make sure attendance data is loaded so chip checkmarks are correct
+    if (!state.attendanceByWeek) loadAttendance();
+  }
+
+  function formatMarkedAt(iso) {
+    if (!iso) return '';
+    try {
+      const d = new Date(iso);
+      const now = new Date();
+      const sameDay = d.toDateString() === now.toDateString();
+      if (sameDay) return `today ${d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}`;
+      return d.toLocaleDateString([], {month:'short',day:'numeric'});
+    } catch (e) { return ''; }
+  }
 
   // ─── Bar click → daily attendance modal ─────────────────────────
   // Click any bar group in the weekly chart to open a modal showing
@@ -2357,55 +2597,91 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const panel = document.getElementById('ops-quality-detail');
     if (!panel) return;
 
-    function renderRow(r, tag, alwaysShowTag) {
-      const sheetLbl = sheetLabelForId(r.sourceSheetId);
-      const sheetUrl = sheetUrlForId(r.sourceSheetId);
-      const fields = Array.isArray(r.missingFields) ? r.missingFields : [];
-      // Top-level tag pill (only shown for the "incomplete" bucket so the
-      // missing-name and unknown-campus sections still get their single tag).
-      const tagPill = alwaysShowTag
-        ? `<span class="ops-issue-tag">${escapeHtml(tag)}</span>`
-        : '';
-      // Per-field chips — what's actually missing in this row.
-      const fieldChips = fields.length
-        ? `<span class="ops-field-chips">${fields.map(f => `<span class="ops-field-chip">${escapeHtml(f)}</span>`).join('')}</span>`
-        : '';
-      // Compact location strip + open-sheet link.
-      const where = (r.sourceTabName || r.sourceRow)
-        ? `<span class="ops-where">${escapeHtml(sheetLbl)} · tab “${escapeHtml(r.sourceTabName || '—')}” · row ${escapeHtml(String(r.sourceRow || '?'))}</span>`
-        : `<span class="ops-where">${escapeHtml(sheetLbl)}</span>`;
-      const openLink = sheetUrl
-        ? `<a class="ops-open" href="${sheetUrl}" target="_blank" rel="noopener" title="Open ${escapeHtml(sheetLbl)} in Google Sheets">Open ↗</a>`
-        : '';
-      return `<li>
-        <div class="ops-row ops-row-issue" tabindex="0">
-          ${tagPill}
-          <span class="nm">${escapeHtml(r.name || '(blank)')}</span>
-          <span class="meta">${escapeHtml(shortenWeek(r.week))}</span>
-        </div>
-        <div class="ops-issue-meta">
-          ${fieldChips}
-          ${where}
-          ${openLink}
-        </div>
-      </li>`;
+    // Group every issue row by student name. One card per kid summarizing
+    // all the weeks and the union of missing fields across those weeks.
+    // Each week stays clickable via the Open ↗ buttons (one per source sheet).
+    const allIssueRows = []
+      .concat(issues.missingName.map(r => ({ ...r, _kind: 'name'    })))
+      .concat(issues.missingCampus.map(r => ({ ...r, _kind: 'campus'  })))
+      .concat(issues.incomplete.map(r => ({ ...r, _kind: 'incomplete' })));
+
+    if (!allIssueRows.length) {
+      panel.innerHTML = `<div class="ops-empty">No data issues — every row is clean.</div>`;
+      return;
     }
 
-    const sections = [];
-    function section(title, list, tag, alwaysShowTag) {
-      if (!list.length) return;
-      sections.push(`<div class="ops-section">
-        <h4 class="ops-section-h">${escapeHtml(title)} (${list.length})</h4>
-        <ul class="ops-list ops-list-issues">${list.map(r => renderRow(r, tag, alwaysShowTag)).join('')}</ul>
-      </div>`);
-    }
-    section('Missing name in roster row',                issues.missingName,   'NO NAME',  false);
-    section('Unknown campus assignment',                 issues.missingCampus, 'NO CAMPUS', false);
-    section('Incomplete row — see missing fields below', issues.incomplete,    'INCOMPLETE', false);
+    const byStudent = new Map();
+    allIssueRows.forEach(r => {
+      const key = (r.name || '(blank)').toLowerCase().trim();
+      if (!byStudent.has(key)) byStudent.set(key, {
+        name: r.name || '(blank)',
+        kinds: new Set(),
+        fields: new Set(),
+        weeks: [],            // [{ week, sheetId, sheetLbl, tabName, row }]
+        sheetIds: new Set(),
+      });
+      const rec = byStudent.get(key);
+      rec.kinds.add(r._kind);
+      (Array.isArray(r.missingFields) ? r.missingFields : []).forEach(f => rec.fields.add(f));
+      rec.weeks.push({
+        week: r.week,
+        sheetId: r.sourceSheetId,
+        sheetLbl: sheetLabelForId(r.sourceSheetId),
+        sheetUrl: sheetUrlForId(r.sourceSheetId),
+        tabName: r.sourceTabName,
+        row: r.sourceRow,
+      });
+      if (r.sourceSheetId) rec.sheetIds.add(r.sourceSheetId);
+    });
 
-    panel.innerHTML = sections.length
-      ? sections.join('')
-      : `<div class="ops-empty">No data issues — every row is clean.</div>`;
+    const cards = Array.from(byStudent.values())
+      .sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+      .map(rec => {
+        const fieldsArr = Array.from(rec.fields);
+        const fieldChips = fieldsArr.length
+          ? `<span class="ops-field-chips">${fieldsArr.map(f => `<span class="ops-field-chip">${escapeHtml(f)}</span>`).join('')}</span>`
+          : '';
+        // Dedup weeks-per-source-sheet so a kid in 4 weeks of the same sheet
+        // gets one "PAID Upper · weeks: A, B, C, D · Open ↗" entry.
+        const bySheet = new Map();
+        rec.weeks.forEach(w => {
+          const k = w.sheetId || '__none__';
+          if (!bySheet.has(k)) bySheet.set(k, { sheetLbl: w.sheetLbl, sheetUrl: w.sheetUrl, weeks: [], rows: [], tabs: [] });
+          const e = bySheet.get(k);
+          if (e.weeks.indexOf(w.week) === -1) e.weeks.push(w.week);
+          if (w.row && e.rows.indexOf(w.row) === -1) e.rows.push(w.row);
+          if (w.tabName && e.tabs.indexOf(w.tabName) === -1) e.tabs.push(w.tabName);
+        });
+        const sources = Array.from(bySheet.values()).map(s => {
+          const weeksTxt = s.weeks.map(shortenWeek).join(', ');
+          const rowsTxt  = s.rows.length ? ` · row${s.rows.length>1?'s':''} ${s.rows.join(', ')}` : '';
+          const link = s.sheetUrl
+            ? `<a class="ops-open" href="${s.sheetUrl}" target="_blank" rel="noopener">Open ↗</a>`
+            : '';
+          return `<div class="ops-source-line">
+            <span class="ops-where"><strong>${escapeHtml(s.sheetLbl)}</strong> · ${escapeHtml(weeksTxt)}${escapeHtml(rowsTxt)}</span>
+            ${link}
+          </div>`;
+        }).join('');
+
+        const weekCount = rec.weeks.length;
+        const weekSummary = weekCount === 1 ? '1 week' : `${weekCount} weeks`;
+        return `<li class="ops-student-card">
+          <div class="ops-row ops-row-issue" tabindex="0">
+            <span class="nm">${escapeHtml(rec.name)}</span>
+            <span class="meta">${escapeHtml(weekSummary)} affected</span>
+          </div>
+          <div class="ops-issue-meta">${fieldChips}</div>
+          <div class="ops-sources">${sources}</div>
+        </li>`;
+      }).join('');
+
+    const total = byStudent.size;
+    const totalRows = allIssueRows.length;
+    panel.innerHTML = `<div class="ops-section">
+      <h4 class="ops-section-h">${total} student${total===1?'':'s'} with incomplete data (${totalRows} affected row${totalRows===1?'':'s'} across sheets)</h4>
+      <ul class="ops-list ops-list-issues">${cards}</ul>
+    </div>`;
   }
 
   // ─── Sparkline (14-day growth) ──────────────────────────────────
@@ -2414,6 +2690,121 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   const SUPABASE_URL  = 'https://nroeiabeirifurdaybyo.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yb2VpYWJlaXJpZnVyZGF5YnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE2MDc2MjgsImV4cCI6MjA2NzE4MzYyOH0.ic9QulLj2JmKepFg3WlA6ux2urUwQFoNDrfK5b5Fh-M';
   state.recentTotals = null;
+  state.chartMode = 'registrations';   // 'registrations' | 'attendance'
+  state.attendanceByWeek = null;       // { [weekLabel]: { Mon:{u,l,f,markedAt}, Tue:..., ... } }
+  state.attendanceLoading = false;
+
+  // ─── Attendance data (Supabase) ─────────────────────────────────
+  // Pulled on demand when the user flips the toggle. Cached in state so
+  // re-renders don't refetch; cache is invalidated when the user saves
+  // a new attendance row via saveAttendanceCell().
+  const ATTENDANCE_DAY_KEYS = ['Mon','Tue','Wed','Thu','Fri'];
+
+  async function loadAttendance(force) {
+    if (state.attendanceLoading) return;
+    if (state.attendanceByWeek && !force) return;
+    state.attendanceLoading = true;
+    try {
+      const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/sf_get_daily_attendance', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': 'Bearer ' + SUPABASE_ANON,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ p_week_label: null }),
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const rows = await resp.json();
+      const map = {};
+      rows.forEach(r => {
+        if (!map[r.week_label]) map[r.week_label] = {};
+        map[r.week_label][r.day_of_week] = {
+          u: r.count_upper || 0,
+          l: r.count_lower || 0,
+          f: r.count_free  || 0,
+          markedAt: r.marked_at,
+          markedBy: r.marked_by,
+        };
+      });
+      state.attendanceByWeek = map;
+    } catch (e) {
+      console.warn('[attendance] load failed:', e);
+      state.attendanceByWeek = {};
+    } finally {
+      state.attendanceLoading = false;
+      if (state.chartMode === 'attendance') {
+        const v = getView();
+        if (v) renderBars(v);
+      }
+    }
+  }
+
+  async function saveAttendanceCell(week, day, upper, lower, free) {
+    const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/sf_set_daily_attendance', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        claim_secret: 'Tkk5CiBZlWl97rBdP8e8Tg_bxvzw6d_LBrGWpSzShKkEiQEBtDzZHtm8Fp-hhIqq',
+        p_week_label: week,
+        p_day_of_week: day,
+        p_count_upper: Math.max(0, parseInt(upper, 10) || 0),
+        p_count_lower: Math.max(0, parseInt(lower, 10) || 0),
+        p_count_free:  Math.max(0, parseInt(free,  10) || 0),
+        p_marked_by: null,
+      }),
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status + ': ' + (await resp.text()));
+    const row = await resp.json();
+    if (!state.attendanceByWeek) state.attendanceByWeek = {};
+    if (!state.attendanceByWeek[week]) state.attendanceByWeek[week] = {};
+    state.attendanceByWeek[week][day] = {
+      u: row.count_upper || 0,
+      l: row.count_lower || 0,
+      f: row.count_free  || 0,
+      markedAt: row.marked_at,
+      markedBy: row.marked_by,
+    };
+    return row;
+  }
+
+  function attendanceTotalsForWeek(week) {
+    const wk = (state.attendanceByWeek && state.attendanceByWeek[week]) || {};
+    let upper = 0, lower = 0, free = 0;
+    ATTENDANCE_DAY_KEYS.forEach(d => {
+      const cell = wk[d];
+      if (!cell) return;
+      upper += cell.u || 0;
+      lower += cell.l || 0;
+      free  += cell.f || 0;
+    });
+    return { 'Upper Campus': upper, 'Lower Campus': lower, 'Unknown': 0, 'Free': free };
+  }
+
+  function wireChartModeToggle() {
+    const t = document.getElementById('chart-mode-toggle');
+    if (!t || t.dataset.wired === '1') return;
+    t.dataset.wired = '1';
+    t.addEventListener('click', e => {
+      const btn = e.target.closest('.cmode-btn');
+      if (!btn) return;
+      const mode = btn.dataset.mode;
+      if (state.chartMode === mode) return;
+      state.chartMode = mode;
+      t.querySelectorAll('.cmode-btn').forEach(b => {
+        const on = b.dataset.mode === mode;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      if (mode === 'attendance') loadAttendance();
+      const v = getView();
+      if (v) { renderBars(v); renderChromeForFilter(v); }
+    });
+  }
   state.recentTotalsLoading = false;
 
   async function loadRecentTotals() {
@@ -2519,10 +2910,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
     const heading = document.getElementById('bars-heading');
     if (heading) {
-      const title = isAfterSchool(state.filter) ? 'Enrollments by Program' : 'Registrations by Week';
-      // Preserve the trailing <span class="sub"> filter label so it can be updated.
+      const isAttendance = state.chartMode === 'attendance' && !isAfterSchool(state.filter);
+      const title = isAfterSchool(state.filter) ? 'Enrollments by Program'
+                  : isAttendance ? 'Attendance by Week'
+                  : 'Registrations by Week';
       heading.innerHTML = `${title} <span class="sub" id="weeks-sub">${labels[state.filter] || ''}</span>`;
     }
+    // Show the chart-mode toggle on camp tabs only (not after-school)
+    const toggleEl = document.getElementById('chart-mode-toggle');
+    if (toggleEl) toggleEl.style.display = isAfterSchool(state.filter) ? 'none' : '';
 
     const campLegend = document.getElementById('bars-legend-camp');
     const asLegend   = document.getElementById('bars-legend-afterschool');
