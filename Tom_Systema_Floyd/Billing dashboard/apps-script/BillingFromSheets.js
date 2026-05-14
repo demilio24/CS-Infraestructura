@@ -1207,7 +1207,11 @@ function nuclearResetBilling_() {
     fontColorMatrix.push(blankRow7('#FFFFFF'));
     fontWeightMatrix.push(blankRow7('bold'));
     fontSizeMatrix.push(blankRow7(12));
-    noteMatrix.push(blankRow7(''));
+    // Balance note on col G (index 6): per-customer breakdown of every
+    // owed/unpriced/ambiguous item. Hover the balance to see the math.
+    var customerNoteRow = blankRow7('');
+    customerNoteRow[6] = buildBalanceNote_(p.emailRaw, p.items);
+    noteMatrix.push(customerNoteRow);
     numFormatMatrix.push(['','','','','','','"$"#,##0.00']);
     currentRow++;
 
