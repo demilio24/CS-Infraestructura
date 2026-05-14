@@ -123,7 +123,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .bars-svg .goal-bar{fill:var(--sf-cream-2);opacity:.7;transition:opacity .2s}
 .bars-svg .bar-group:hover .goal-bar{opacity:.95}
 .bars-svg .goal-cap{stroke:var(--sf-ink-40);stroke-width:1.2;stroke-dasharray:3 3}
-.bars-svg .bar-val{font-size:10px;fill:var(--sf-blue-700);font-family:'Space Grotesk',sans-serif;font-weight:600;font-variant-numeric:tabular-nums}
+.bars-svg .bar-val{font-size:10px;fill:var(--sf-blue-700);font-family:'Space Grotesk',sans-serif;font-weight:600;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:#fff;stroke-width:3;stroke-linejoin:round}
+.bars-svg .cap-tick{paint-order:stroke;stroke:#fff;stroke-width:.5;stroke-linejoin:round}
 .bars-svg .bar-val.over{fill:var(--sf-green)}
 .bars-svg .bar-val.under{fill:var(--sf-amber-deep)}
 .bars-svg .bar-pct{font-size:9px;font-weight:500;fill:var(--sf-ink-50)}
@@ -195,6 +196,48 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .kpi-sparkline .spark-trend.up{color:#137333}
 .kpi-sparkline .spark-trend.down{color:#b54708}
 .kpi-sparkline.empty{display:none}
+
+/* Week-bar click-to-open modal — daily attendance breakdown */
+.bar-group{cursor:pointer}
+.bar-group:hover .bar-grp-bg{fill:var(--sf-yellow-soft);opacity:.6}
+.day-modal-backdrop{position:fixed;inset:0;background:rgba(13,21,52,.45);backdrop-filter:blur(2px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s var(--ease-out)}
+.day-modal-backdrop.open{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.day-modal{background:var(--sf-white);border-radius:16px;box-shadow:0 24px 60px -16px rgba(13,21,52,.4);max-width:520px;width:100%;max-height:80vh;overflow:auto;animation:slideDown .26s var(--ease-out);position:relative;border:1px solid var(--sf-border)}
+.day-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-blue);border-radius:16px 16px 0 0}
+.day-modal-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px 12px;border-bottom:1px solid var(--sf-border)}
+.day-modal-h h3{margin:0;font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--sf-ink)}
+.day-modal-h .sub{font-family:'Space Grotesk','Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-ink-40);margin-top:4px}
+.day-modal-close{background:transparent;border:0;color:var(--sf-ink-40);font-size:22px;cursor:pointer;padding:4px 8px;border-radius:8px;line-height:1;transition:background .15s,color .15s}
+.day-modal-close:hover{background:var(--sf-blue-50);color:var(--sf-ink)}
+.day-modal-body{padding:18px 20px 22px}
+.day-modal-summary{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px;padding:10px 14px;background:var(--sf-cream);border-radius:10px;font-family:'Space Grotesk','Inter',sans-serif;font-size:11.5px;color:var(--sf-ink-60)}
+.day-modal-summary strong{color:var(--sf-ink);font-size:14px;font-weight:700;display:block;margin-bottom:2px}
+.day-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.day-card{display:flex;flex-direction:column;align-items:center;padding:14px 8px 12px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:10px;transition:transform .15s,box-shadow .15s}
+.day-card:hover{transform:translateY(-2px);box-shadow:0 6px 14px -6px rgba(47,130,196,.3)}
+.day-card .dn{font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;color:var(--sf-ink-40);text-transform:uppercase}
+.day-card .total{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;line-height:1;color:var(--sf-blue-700);margin:6px 0 8px;font-variant-numeric:tabular-nums}
+.day-card .split{display:flex;flex-direction:column;gap:3px;width:100%;font-family:'Space Grotesk','Inter',sans-serif;font-size:10.5px;font-weight:600}
+.day-card .split-row{display:flex;justify-content:space-between;align-items:center;gap:6px;color:var(--sf-ink-60)}
+.day-card .split-row .lbl{display:flex;align-items:center;gap:5px}
+.day-card .split-row .dot{width:7px;height:7px;border-radius:50%}
+.day-card .split-row .dot.u{background:#1b2f6e}
+.day-card .split-row .dot.l{background:#4aa3e0}
+.day-card .split-row .dot.f{background:#f4b63a}
+.day-card .split-row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--sf-ink)}
+.day-card.peak{background:linear-gradient(135deg,#fff7e0,#fff);border-color:var(--sf-yellow)}
+.day-card.peak .total{color:var(--sf-yellow-dark)}
+@media (max-width:520px){
+  .day-grid{grid-template-columns:repeat(5,1fr);gap:5px}
+  .day-card{padding:10px 4px 8px}
+  .day-card .total{font-size:22px;margin:4px 0 6px}
+  .day-card .split{font-size:9.5px}
+  .day-modal{max-height:90vh}
+  .day-modal-h{padding:14px 16px 10px}
+  .day-modal-h h3{font-size:16px}
+  .day-modal-body{padding:14px 16px 18px}
+}
 
 /* Roster panel — always open, with live search filter */
 .roster-panel{margin-top:12px}
@@ -550,6 +593,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <span id="bars-unknown" style="display:none"><span class="swatch" style="background:#c6d1e4"></span> Unknown</span>
         <span><span class="swatch" style="background:transparent;border:1px dashed var(--sf-amber-deep)"></span> Per-campus weekly cap</span>
         <span style="color:var(--sf-ink-50);font-style:italic">↓ <em>italic number = spots left under each bar</em></span>
+        <span style="color:var(--sf-blue-700);font-weight:600">↑ click any week for daily attendance</span>
       </div>
       <div class="bars-legend" id="bars-legend-afterschool" hidden>
         <span><span class="swatch" style="background:#1b2f6e"></span> Enrollments per program</span>
@@ -643,6 +687,20 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       </div>
     </div>
   </section>
+
+  <!-- Daily attendance modal — opened by clicking a bar in the weekly chart -->
+  <div class="day-modal-backdrop" id="day-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="day-modal-title" hidden>
+    <div class="day-modal" role="document">
+      <div class="day-modal-h">
+        <div>
+          <h3 id="day-modal-title">—</h3>
+          <div class="sub" id="day-modal-sub">Daily attendance</div>
+        </div>
+        <button type="button" class="day-modal-close" id="day-modal-close" aria-label="Close">×</button>
+      </div>
+      <div class="day-modal-body" id="day-modal-body"></div>
+    </div>
+  </div>
 
 </main>
 
@@ -1177,14 +1235,23 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     if (capUpper > 0) {
       const y = capLineY(capUpper);
       svg += `<line class="cap-line" x1="${padL + 2}" x2="${W - padR - 2}" y1="${y}" y2="${y}" style="stroke:${CAMPUS_COLOR.upper};stroke-dasharray:5 4;opacity:.55"/>`;
-      svg += `<text class="cap-tick" x="${W - padR - 2}" y="${y - 3}" text-anchor="end" style="fill:${CAMPUS_COLOR.upper};opacity:.85">Upper cap ${capUpper}</text>`;
+      // Pill-style label with white background so it stays readable when a bar
+      // value sits right under the cap line.
+      const upLbl = `Upper cap ${capUpper}`;
+      const upLblW = upLbl.length * 5.5 + 10;
+      svg += `<rect x="${W - padR - 4 - upLblW}" y="${y - 11}" width="${upLblW}" height="13" rx="3" fill="#fff" opacity=".92"/>`;
+      svg += `<text class="cap-tick" x="${W - padR - 6}" y="${y - 2}" text-anchor="end" style="fill:${CAMPUS_COLOR.upper};font-weight:700">${upLbl}</text>`;
     }
     if (capLower > 0) {
       const y = capLineY(capLower);
       // If the two caps share a line, nudge the lower label down so they don't overlap
       const sameAsUpper = (capUpper === capLower);
       svg += `<line class="cap-line" x1="${padL + 2}" x2="${W - padR - 2}" y1="${y}" y2="${y}" style="stroke:${CAMPUS_COLOR.lower};stroke-dasharray:5 4;opacity:.55"/>`;
-      svg += `<text class="cap-tick" x="${padL + 4}" y="${y + (sameAsUpper ? 11 : -3)}" text-anchor="start" style="fill:${CAMPUS_COLOR.lower};opacity:.95">Lower cap ${capLower}</text>`;
+      const loLbl = `Lower cap ${capLower}`;
+      const loLblW = loLbl.length * 5.5 + 10;
+      const loY = y + (sameAsUpper ? 11 : -3);
+      svg += `<rect x="${padL + 2}" y="${loY - 9}" width="${loLblW}" height="13" rx="3" fill="#fff" opacity=".92"/>`;
+      svg += `<text class="cap-tick" x="${padL + 6}" y="${loY}" text-anchor="start" style="fill:${CAMPUS_COLOR.lower};font-weight:700">${loLbl}</text>`;
     }
 
     // Grouped bars per week
@@ -1209,7 +1276,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const cmpUpper = cmpC ? (cmpC['Upper Campus'] || 0) : null;
       const cmpLower = cmpC ? (cmpC['Lower Campus'] || 0) : null;
 
-      svg += `<g class="bar-group">`;
+      svg += `<g class="bar-group" data-week="${String(w).replace(/"/g,'&quot;')}">`;
 
       if (idx % 2 === 0) {
         svg += `<rect class="bar-grp-bg" x="${cx - slotW/2 + 2}" y="${padT}" width="${slotW - 4}" height="${innerH}" rx="3"/>`;
@@ -1311,6 +1378,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     });
 
     document.getElementById('bars').innerHTML = svg;
+    wireBarClicks();
   }
 
   // After-school: bars by program. No caps shown here (caps are per-day; see
@@ -1933,6 +2001,108 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     }
   }
 
+
+  // ─── Bar click → daily attendance modal ─────────────────────────
+  // Click any bar group in the weekly chart to open a modal showing
+  // Mon-Fri attendance for that week, split by campus + camp type.
+  function wireBarClicks() {
+    const bars = document.getElementById('bars');
+    if (!bars || bars.dataset.wired === '1') return;
+    bars.dataset.wired = '1';
+    bars.addEventListener('click', e => {
+      const grp = e.target.closest('.bar-group');
+      if (!grp) return;
+      const week = grp.getAttribute('data-week');
+      if (!week) return;
+      openDayModal(week);
+    });
+  }
+
+  function wireDayModalClose() {
+    const backdrop = document.getElementById('day-modal-backdrop');
+    if (!backdrop || backdrop.dataset.wired === '1') return;
+    backdrop.dataset.wired = '1';
+    const closeBtn = document.getElementById('day-modal-close');
+    function close() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('hidden', '');
+    }
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', e => {
+      if (e.target === backdrop) close();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
+    });
+  }
+
+  function computeDayCountsForWeek(week) {
+    // Counts honor the active main filter (summer/free), but ignore the
+    // roster quick-filter and search so users always see the true headcount
+    // for the day, regardless of what's currently on the roster grid.
+    const wk = (state.snapshot && state.snapshot.roster && state.snapshot.roster[week]) || {};
+    const buckets = state.filter === 'free'   ? ['free']
+                  : state.filter === 'summer' ? ['upper','lower']
+                  : ['upper','lower','free'];
+    // Result shape: [{ mon:n, tue:n, ... }, by Upper / Lower / Free]
+    const dayCounts = { upper: [0,0,0,0,0], lower: [0,0,0,0,0], free: [0,0,0,0,0] };
+    buckets.forEach(b => {
+      (wk[b] || []).forEach(r => {
+        const days = Array.isArray(r.days) ? r.days : [true,true,true,true,true];
+        for (let i = 0; i < 5; i++) {
+          if (!days[i]) continue;
+          if (r.type === 'free') dayCounts.free[i]++;
+          else if (r.campus === 'Lower Campus') dayCounts.lower[i]++;
+          else dayCounts.upper[i]++;
+        }
+      });
+    });
+    return dayCounts;
+  }
+
+  function openDayModal(week) {
+    const backdrop = document.getElementById('day-modal-backdrop');
+    if (!backdrop) return;
+    wireDayModalClose();
+
+    const counts = computeDayCountsForWeek(week);
+    const dayLabels = ['Mon','Tue','Wed','Thu','Fri'];
+    const totals = dayLabels.map((_, i) => counts.upper[i] + counts.lower[i] + counts.free[i]);
+    const peakIdx = totals.indexOf(Math.max.apply(null, totals));
+    const showUpper = state.filter !== 'free';
+    const showLower = state.filter !== 'free';
+    const showFree  = state.filter !== 'summer';
+
+    const cards = dayLabels.map((d, i) => {
+      const rows = [];
+      if (showUpper && counts.upper[i] > 0) rows.push(`<div class="split-row"><span class="lbl"><span class="dot u"></span>Upper</span><span class="n">${counts.upper[i]}</span></div>`);
+      if (showLower && counts.lower[i] > 0) rows.push(`<div class="split-row"><span class="lbl"><span class="dot l"></span>Lower</span><span class="n">${counts.lower[i]}</span></div>`);
+      if (showFree  && counts.free[i]  > 0) rows.push(`<div class="split-row"><span class="lbl"><span class="dot f"></span>Free</span><span class="n">${counts.free[i]}</span></div>`);
+      const peakCls = (totals[i] > 0 && i === peakIdx) ? ' peak' : '';
+      return `<div class="day-card${peakCls}">
+        <div class="dn">${d}</div>
+        <div class="total">${totals[i]}</div>
+        <div class="split">${rows.join('') || '<div class="split-row" style="color:var(--sf-ink-40);justify-content:center"><span class="lbl">No one</span></div>'}</div>
+      </div>`;
+    }).join('');
+
+    const allTotal = totals.reduce((a,b) => a+b, 0);
+    const peakLabel = totals[peakIdx] > 0 ? `${dayLabels[peakIdx]} (${totals[peakIdx]})` : '—';
+    const filterLabel = state.filter === 'free' ? 'Free Camp only' : state.filter === 'summer' ? 'Summer Camp only' : 'All camps';
+
+    document.getElementById('day-modal-title').textContent = week;
+    document.getElementById('day-modal-sub').textContent = `Daily attendance · ${filterLabel}`;
+    document.getElementById('day-modal-body').innerHTML = `
+      <div class="day-modal-summary">
+        <div><strong>${allTotal}</strong> student-days this week</div>
+        <div style="text-align:right"><strong>${peakLabel}</strong> peak day</div>
+      </div>
+      <div class="day-grid">${cards}</div>
+    `;
+
+    backdrop.removeAttribute('hidden');
+    backdrop.classList.add('open');
+  }
 
   // ─── Roster row click → inline detail ────────────────────────────
   // Wires once. Click on any roster row (name / lunch icon / allergy icon)
