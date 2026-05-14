@@ -8,6 +8,49 @@ in `.claude/scratch/sf_pricing_imgs/`). The Birthday Party section is fields-onl
 because Tom never sent prices for it. Vladimir Seminar is shape-only because the
 existing-page link he promised has not arrived.
 
+For a per-form punch list of outstanding work, see [forms_todos.md](./forms_todos.md).
+
+## Build status snapshot
+
+| Form | Spec'd | GHL fields created | GHL form built | Notes |
+|---|---|---|---|---|
+| Vladimir Seminar | ⏳ shape only | ❌ | ❌ | Waiting on Tom (date, page link, pricing, capacity, waiver) |
+| **Private Lessons** | ✅ | ✅ **2026-05-14** | 🟡 in progress via Chrome extension | Folder + 12 fields live in Systema Floyd FL — see IDs table below |
+| Birthday Parties | ✅ fields only | ❌ | ❌ | 17 prices still missing from Tom |
+| Rent-A-Sensei | ✅ | ❌ | ❌ | Ready to build — all pricing confirmed |
+| Balloons | ✅ | ❌ | ❌ | Ready to build — all pricing confirmed |
+| Teen & Adult Classes | ⏸ | ❌ | ❌ | Paused until next school year schedule lands |
+
+### Private Lessons — live GHL IDs (Systema Floyd FL, location `8IWtNFlmgJ8bif9DivHT`)
+
+Created 2026-05-14 via `.claude/scratch/ghl_create_private_lessons.py`.
+Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
+
+**Folder**: `Private Lessons` — id `X4a97HKQJdXVkGV6R4Vg`
+
+| # | Label | Type | Field ID | Field Key |
+|---|---|---|---|---|
+| 1 | State | `RADIO` | `5ehZTaXaNcXTELK0BIwD` | `contact.pl_state` |
+| 2 | Instructor | `SINGLE_OPTIONS` | `DSPT34R6tPLsrchxilTA` | `contact.pl_instructor` |
+| 3 | Lesson Length & Price | `SINGLE_OPTIONS` | `ZpcqYLIeI5vRC3vB4VaD` | `contact.pl_lesson_selection` |
+| 4 | Number of Students | `RADIO` | `mVy01I2pOfpSsBJ9K2TC` | `contact.pl_num_students` |
+| 5 | Training Type | `RADIO` | `JO25qx6HcrRRGoXkbZFz` | `contact.pl_training_type` |
+| 6 | Age Group | `RADIO` | `m3rgTNuU5DuXDkyIdoQO` | `contact.pl_age_group` |
+| 7 | Package | `RADIO` | `jxUbJ6t59K24i7VoWTur` | `contact.pl_package` |
+| 8 | Preferred Date | `DATE` | `5ISTUUKJOavRZc7vBJlx` | `contact.pl_preferred_date` |
+| 9 | Preferred Time | `TIME` | `gsZUjGj4bJGTjINhdyUE` | `contact.pl_preferred_time` |
+| 10 | Full Name | `TEXT` | `LCZiD1DmcFhRPPol1Xbc` | `contact.pl_contact_name` |
+| 11 | Phone Number | `PHONE` | `tsE8g8jrAmtjlooOHpcX` | `contact.pl_contact_phone` |
+| 12 | Email Address | `TEXT` | `do6jyYCs9EyGPhLPSmpN` | `contact.pl_contact_email` |
+
+### GHL API quirks worth remembering for the next form
+
+1. **Folders use `documentType: "folder"`** on the same `/locations/{loc}/customFields` endpoint as fields — there is NO separate folder endpoint for contact custom fields (the v2 `/custom-fields/folder` is for custom objects only)
+2. **Do NOT pass `objectKey`** on contact custom-field endpoints — that's the v2 custom-objects API and triggers `422 property objectKey should not exist`
+3. **`options` must be a plain string array** (`["Florida", "Virginia"]`), NOT objects like `{key, label}` — sending objects triggers the cryptic `v.trim is not a function` 400 error
+4. **Accepted `dataType` values:** `TEXT, LARGE_TEXT, NUMERICAL, PHONE, MONETORY, CHECKBOX, SINGLE_OPTIONS, MULTIPLE_OPTIONS, FLOAT, TIME, DATE, TEXTBOX_LIST, FILE_UPLOAD, SIGNATURE, RADIO` — note GHL **does** have `TIME` (use it for time-of-day fields instead of `TEXT`)
+5. **Folder listing**: folders don't appear in `GET /customFields` — to dedup by name, walk the unique `parentId`s of the existing fields and GET each one to check its name
+
 ---
 
 ## GHL `dataType` selection rules
