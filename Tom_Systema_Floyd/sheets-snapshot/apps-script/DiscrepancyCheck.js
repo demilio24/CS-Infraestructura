@@ -47,6 +47,17 @@ var DC_TOMBSTONE_TAB = '_dc_tombstones';
 // Form IDs
 var DC_FORM_FREE_CAMP   = '3Z4E9y7WlWgkZDxViBUW';
 var DC_FORM_SUMMER_CAMP = '61TiB5Zn1DJrGAsWiyTm';
+// TODO: After School Registration form (`TkioOL4IoByeHU3K2gTs`) is
+// currently NOT covered by the discrepancy bot. To wire it up:
+//   1. Add DC_FORM_AFTER_SCHOOL = 'TkioOL4IoByeHU3K2gTs'
+//   2. Add the After School roster spreadsheet ID(s) as constants
+//      (DC_AFTER_SCHOOL_UPPER_SS / _LOWER_SS, or a single sheet)
+//   3. Map the After School form's field IDs (sample a submission via
+//      GET /forms/submissions?formId=TkioOL4IoByeHU3K2gTs)
+//   4. Add _dcCheckAfterSchool() and _dcAppendAfterSchool() following
+//      the same pattern as Free Camp / Summer Camp
+//   5. Add the After School routing workflows to DC_GHL_WORKFLOW_BY_FORM_WEEK
+// Wire it from runDiscrepancyCheck() like the other two forms.
 
 // Spreadsheet IDs (mirror of SHEETS in Snapshot.js — duplicated so
 // this file can be deleted/re-pushed independently)
@@ -189,7 +200,6 @@ function runDiscrepancyCheck() {
     ' free errors=' + report.freeCamp.errors.length +
     ' summer added=' + report.summerCamp.added.length +
     ' summer linked=' + report.summerCamp.linkedManual.length +
-    ' summer wouldAdd=' + report.summerCamp.wouldAdd.length +
     ' summer errors=' + report.summerCamp.errors.length +
     ' dup_clusters=' + report.duplicates.clusters.length +
     ' dup_crossCampus=' + report.duplicates.crossCampus.length +
@@ -203,7 +213,6 @@ function runDiscrepancyCheck() {
     report.freeCamp.errors.length       > 0 ||
     report.summerCamp.added.length        > 0 ||
     report.summerCamp.linkedManual.length > 0 ||
-    report.summerCamp.wouldAdd.length     > 0 ||
     report.summerCamp.errors.length       > 0 ||
     report.duplicates.clusters.length     > 0 ||
     report.duplicates.crossCampus.length  > 0;
@@ -572,6 +581,16 @@ function _dcCheckFreeCamp(report) {
           contactId: s.contactId,
         });
         processed.free_camp[s.id + '|' + week] = true;
+        // Reflect the new row in existingByWeek so a SECOND submission
+        // from the same person for the same week (within this run)
+        // gets caught by the dedup branch instead of duplicating.
+        existingByWeek[week][key] = {
+          which: campus === 'lower' ? 'freeLower' : 'freeUpper',
+          sheet: SpreadsheetApp.openById(campus === 'lower' ? DC_FREE_LOWER_SS : DC_FREE_UPPER_SS).getSheetByName(DC_WEEK_TO_TAB[week]),
+          rowIndex: added.rowIndex,
+          trackingCol: _dcEnsureTrackingCol(SpreadsheetApp.openById(campus === 'lower' ? DC_FREE_LOWER_SS : DC_FREE_UPPER_SS).getSheetByName(DC_WEEK_TO_TAB[week])),
+          currentSubId: s.id,
+        };
         report.freeCamp.added.push({
           submissionId: s.id,
           contactId: s.contactId,
@@ -718,7 +737,9 @@ function _dcCheckSummerCamp(report) {
   report.summerCamp.linkedManual = report.summerCamp.linkedManual || [];
   report.summerCamp.wouldAdd     = report.summerCamp.wouldAdd     || [];
   report.summerCamp.skippedTombstone = 0;
-  var autoAddOn = PropertiesService.getScriptProperties().getProperty('DC_SUMMER_AUTOADD') === '1';
+  // Auto-add is always on for Summer Camp now. The Supabase tombstone
+  // (per submission+week) means the bot never re-adds a row the team
+  // has deleted, so we don't need a separate gate.
   var subs = _dcListSubmissions(DC_FORM_SUMMER_CAMP);
   var nowMs = Date.now();
 
@@ -819,16 +840,10 @@ function _dcCheckSummerCamp(report) {
         }
         return;
       }
-      // Genuinely missing — auto-add (if gate is on) or just preview.
+      // Genuinely missing — auto-add. The tombstone (Supabase per
+      // submission+week) prevents re-adding a row the team has
+      // already deleted, so blanket auto-add is safe.
       var campus = _dcDecideSummerCampus(s);
-      if (!autoAddOn) {
-        report.summerCamp.wouldAdd.push({
-          submissionId: s.id, contactId: s.contactId, student: name,
-          parent: s.name, email: s.email, week: week, campus: campus,
-          likelyFailedWorkflow: _dcWorkflowFor('summer_camp', week),
-        });
-        return;
-      }
       try {
         var added = _dcAppendSummerCamp(s, week, campus);
         _dcRecordProcessed(s.id, 'summer_camp', week, {
@@ -842,6 +857,15 @@ function _dcCheckSummerCamp(report) {
           contactId: s.contactId,
         });
         processed.summer_camp[s.id + '|' + week] = true;
+        // Reflect new row in existingByWeek so a second submission
+        // for same person+week (within this run) gets caught.
+        existingByWeek[week][key] = {
+          which: campus === 'lower' ? 'summerLower' : 'summerUpper',
+          sheet: SpreadsheetApp.openById(campus === 'lower' ? DC_SUMMER_LOWER_SS : DC_SUMMER_UPPER_SS).getSheetByName(DC_WEEK_TO_TAB[week]),
+          rowIndex: added.rowIndex,
+          trackingCol: _dcEnsureTrackingCol(SpreadsheetApp.openById(campus === 'lower' ? DC_SUMMER_LOWER_SS : DC_SUMMER_UPPER_SS).getSheetByName(DC_WEEK_TO_TAB[week])),
+          currentSubId: s.id,
+        };
         report.summerCamp.added.push({
           submissionId: s.id, contactId: s.contactId, student: name,
           parent: s.name, email: s.email, week: week, campus: campus,
@@ -854,13 +878,8 @@ function _dcCheckSummerCamp(report) {
     });
   });
 
-  // For backwards compatibility with prior reports, keep `missing`
-  // mirroring `wouldAdd` so the email body still reads naturally when
-  // auto-add is off. When auto-add is on, missing is the rows we
-  // SHOULD have been able to add but errored out.
-  report.summerCamp.missing = autoAddOn
-    ? report.summerCamp.errors.slice()
-    : report.summerCamp.wouldAdd.slice();
+  // missing is now just an alias for errors (since auto-add is always on)
+  report.summerCamp.missing = report.summerCamp.errors.slice();
 }
 
 // ─────────────────────── Duplicate resolution (destructive) ───────────────────────
@@ -1552,11 +1571,9 @@ function _dcEmailReport(report) {
   }
 
   lines.push('');
-  var autoAddOn = PropertiesService.getScriptProperties().getProperty('DC_SUMMER_AUTOADD') === '1';
-  lines.push('SUMMER CAMP' + (autoAddOn ? ' (auto-add ON)' : ' (auto-add OFF — set Script Property DC_SUMMER_AUTOADD=1 to enable)'));
+  lines.push('SUMMER CAMP');
   lines.push('  added (bot wrote new row)              : ' + sc.added.length);
   lines.push('  linked (manual row, ID stamped)        : ' + sc.linkedManual.length);
-  lines.push('  would-add (preview only)               : ' + sc.wouldAdd.length);
   lines.push('  skipped (tombstoned — staff deleted)   : ' + (sc.skippedTombstone || 0));
   lines.push('  errors                                  : ' + sc.errors.length);
   lines.push('  skipped<5m                              : ' + sc.skippedYoung);
@@ -1571,14 +1588,6 @@ function _dcEmailReport(report) {
   sc.linkedManual.forEach(function (l) {
     lines.push('  ~ [' + l.campus + '] ' + l.week + ' — ' + l.student +
       ' (matched manual row ' + l.row + ', sub ' + l.submissionId + ')');
-  });
-  sc.wouldAdd.forEach(function (m) {
-    lines.push('  ? [' + m.campus + '] ' + m.week + ' — ' + m.student +
-      ' (parent ' + (m.parent || '?') + ', ' + m.email + ', sub ' + m.submissionId + ')');
-    if (m.likelyFailedWorkflow) {
-      lines.push('      ⚠ Workflow that should have written this row: ' + m.likelyFailedWorkflow.name);
-      lines.push('         ' + m.likelyFailedWorkflow.url);
-    }
   });
   if (sc.errors.length) {
     lines.push('  Summer Camp errors:');
