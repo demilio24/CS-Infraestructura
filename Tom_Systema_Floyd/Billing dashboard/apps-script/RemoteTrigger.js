@@ -81,6 +81,7 @@ const REMOTE_TRIGGER_WHITELIST = {
   dumpRegRow:                      'Return the raw cells of one row from a registration sheet. Pass &sheetId=<id>&tabName=<short-tab>&row=<N>. Useful for verifying what\'s actually in the source. Use sync=1.',
   dashboardStats:                  'Count unique parents, unique students, tx rows, and status counts on the Billing Dashboard. Use sync=1.',
   registrationStats:               'Per-sheet count of enrollments, unique students, unique parents, and dayCount=0 phantom registrations from the source registration sheets. Use sync=1.',
+  sampleCanceledRows:              'Return the first N (default 10) canceled tx rows on the Dashboard, including each row\'s col B note source. Use sync=1, pass &n=<count>.',
 };
 
 function doGet(e) {
@@ -203,6 +204,7 @@ function _rtDispatch_(fn, params) {
     case 'dumpRegRow':                       return _rtDumpRegRow_(params);
     case 'dashboardStats':                   return _rtDashboardStats_();
     case 'registrationStats':                return _rtRegistrationStats_();
+    case 'sampleCanceledRows':               return _rtSampleCanceledRows_(params);
     default: throw new Error('Dispatcher missing for whitelisted fn: ' + fn);
   }
 }
@@ -585,6 +587,43 @@ function _rtRegistrationStats_() {
     globalUniqueParents:  Object.keys(globalParents).length,
     globalDayZeroEnrollments: globalDayZero
   };
+}
+
+/**
+ * Return the first N canceled tx rows on the Dashboard along with
+ * their col B note (source provenance + fingerprint) so the
+ * operator can spot-check why something flipped from owed to
+ * canceled.
+ */
+function _rtSampleCanceledRows_(params) {
+  var n = Math.max(1, Math.min(50, Number((params && params.n) || 10)));
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, count: 0, rows: [] };
+
+  var data = dash.getRange(2, 1, lastRow - 1, 7).getValues();
+  var notes = dash.getRange(2, 2, lastRow - 1, 1).getNotes();
+  var out = [];
+  var currentEmail = '';
+  for (var i = 0; i < data.length && out.length < n; i++) {
+    var colB = String(data[i][1] || '');
+    if (colB.indexOf('@') !== -1) { currentEmail = colB.toLowerCase().trim(); continue; }
+    if (String(data[i][0] || '').toUpperCase() === 'DATE') continue;
+    var status = String(data[i][6] || '').toLowerCase().trim();
+    if (status !== 'canceled') continue;
+    var note = String(notes[i][0] || '');
+    var sourceMatch = note.match(/Source:\s*([^\n]+)/i);
+    var fpMatch = note.match(/Internal ref:\s*([^)\s]+)/) || note.match(/Submission ID:\s*(\S+)/);
+    out.push({
+      sheetRow:      i + 2,
+      customerEmail: currentEmail,
+      item:          colB,
+      total:         data[i][5],
+      source:        sourceMatch ? sourceMatch[1].trim() : '',
+      fingerprint:   fpMatch ? fpMatch[1] : ''
+    });
+  }
+  return { ok: true, count: out.length, rows: out };
 }
 
 function _rtJson_(obj) {

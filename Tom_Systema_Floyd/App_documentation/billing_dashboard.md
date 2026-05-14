@@ -428,9 +428,27 @@ for the next 5-min trigger.
 5. Re-render balance Notes on every customer touched (status, price, or
    new-item changes). Notes list ONLY their items, no em-dashes.
 
-6. Run sanitizeDashboardCustomerHeaders + fixDashboardGroups (idempotent
+6. Source-note refresh sweep: walk every tx row, recompute the
+   bfsBuildItemNote_ output from the matched fresh item, and rewrite
+   the col B cell note if it differs. Runs in a single batch
+   setNotes call so cost is flat regardless of row count.
+   Fixes the staleness problem where "Source: <sheet>, row N"
+   references go wrong after a teammate inserts/deletes rows in
+   a reg sheet.
+
+7. Run sanitizeDashboardCustomerHeaders + fixDashboardGroups (idempotent
    post-reconcile cleanup).
 ```
+
+**Fingerprint format gotcha (fixed 2026-05-14):** fingerprints live in the
+col B cell note as `(Internal ref: <fp>)`, and the readDashboardState_ regex
+must capture them up to the closing paren, not stop at whitespace. An
+earlier `[^)\s]+` regex would truncate multi-word fingerprints (e.g.
+tuition `"...|tuition|3 days"` got read back as `"...|tuition|3"`),
+making the reconciler think those fingerprints were "missing from fresh"
+and mass-cancel them every tick. The current regex is `([^)]+)\)` plus
+a `.trim()`, and `priceEnrollment_` also slugs the tuitionKey now so the
+written fingerprints don't carry whitespace in the first place.
 
 The diff approach is way faster than rebuilding from scratch every 5 min, and
 it correctly produces the `paid → refund-needed` transition the team needs.

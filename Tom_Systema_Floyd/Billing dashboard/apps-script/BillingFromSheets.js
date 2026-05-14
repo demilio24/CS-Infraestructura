@@ -606,12 +606,18 @@ function readDashboardState_() {
     currentCustomer.txLast = sheetRow;
 
     // Extract fingerprint from col B note. New format uses "(Internal
-    // ref: <fp>)"; legacy uses "Submission ID: <fp>". Try both.
+    // ref: <fp>)"; legacy uses "Submission ID: <fp>". The (Internal
+    // ref: ...) form is multi-word-safe (we match everything up to
+    // the closing paren); the legacy form stops at whitespace which
+    // is fine since legacy fingerprints had no spaces. Bug 2026-05-14:
+    // earlier this regex was [^)\s]+ which truncated multi-word
+    // fingerprints like "...|tuition|3 days" at the space, causing
+    // every reconciler tick to mass-cancel all tuition rows.
     var note = String(notes[i][0] || '');
-    var fpMatch = note.match(/Internal ref:\s*([^)\s]+)/) ||
+    var fpMatch = note.match(/Internal ref:\s*([^)]+)\)/) ||
                   note.match(/Submission ID:\s*(\S+)/);
     if (!fpMatch) continue;  // row without fingerprint — skip from diff
-    var fp = fpMatch[1];
+    var fp = fpMatch[1].trim();
 
     items[fp] = {
       row:           sheetRow,
@@ -723,17 +729,55 @@ function reconcileDashboard_(freshItems) {
     newItemRows:    0,
     newCustomers:   0,
     refundNeeded:   statusUpdates.filter(function(u) { return u.newStatus === 'refund-needed'; }).length,
-    canceled:       statusUpdates.filter(function(u) { return u.newStatus === 'canceled'; }).length
+    canceled:       statusUpdates.filter(function(u) { return u.newStatus === 'canceled'; }).length,
+    notesRefreshed: 0
   };
 
-  // 4. No changes → exit fast
-  if (statusUpdates.length === 0 && priceUpdates.length === 0 && Object.keys(newItemsByCustomer).length === 0) {
-    summary.elapsedMs = Date.now() - startedAt.getTime();
-    Logger.log('[reconcileDashboard_] no changes (' + summary.elapsedMs + 'ms)');
-    return summary;
+  var dash = getDashboardSheet();
+
+  // 4a. Provenance-note sweep FIRST, before the no-changes early-return.
+  //     Source row numbers in cell notes go stale every time a teammate
+  //     reorders or deletes rows in a reg sheet, even when the
+  //     fingerprint-based diff shows no other changes. Compare the
+  //     freshly-computed note for each matched fingerprint against the
+  //     current note on the row and rewrite where they differ. Done in
+  //     ONE batch setNotes call so cost is flat regardless of how many
+  //     tx rows there are.
+  try {
+    var swDashLast = dash.getLastRow();
+    if (swDashLast >= 2) {
+      var swNotesRange = dash.getRange(2, 2, swDashLast - 1, 1);
+      var swCurrent = swNotesRange.getNotes();
+      var swRowToFp = {};
+      Object.keys(existingItems).forEach(function(fp) {
+        swRowToFp[existingItems[fp].row] = fp;
+      });
+      var swChanged = false;
+      for (var ni = 0; ni < swCurrent.length; ni++) {
+        var sheetRow = ni + 2;
+        var fp = swRowToFp[sheetRow];
+        if (fp && freshByFingerprint[fp]) {
+          var newNote = bfsBuildItemNote_(freshByFingerprint[fp]);
+          if (newNote !== swCurrent[ni][0]) {
+            swCurrent[ni][0] = newNote;
+            summary.notesRefreshed++;
+            swChanged = true;
+          }
+        }
+      }
+      if (swChanged) swNotesRange.setNotes(swCurrent);
+    }
+  } catch (sweepErr) {
+    Logger.log('[reconcileDashboard_] note sweep err: ' + sweepErr.message);
   }
 
-  var dash = getDashboardSheet();
+  // 4b. No other changes → exit fast (note sweep above still happened)
+  if (statusUpdates.length === 0 && priceUpdates.length === 0 && Object.keys(newItemsByCustomer).length === 0) {
+    summary.elapsedMs = Date.now() - startedAt.getTime();
+    Logger.log('[reconcileDashboard_] no diff changes (' + summary.elapsedMs + 'ms, ' +
+               summary.notesRefreshed + ' source notes refreshed)');
+    return summary;
+  }
 
   // 5. Apply legacy row deletions FIRST (descending row order so
   //    indices we still need don't shift). Touches:
@@ -864,7 +908,8 @@ function reconcileDashboard_(freshItems) {
              summary.statusUpdates + ' status changes (' + summary.refundNeeded + ' refund-needed, ' +
              summary.canceled + ' canceled), ' + summary.priceUpdates + ' price updates, ' +
              summary.newItemRows + ' new tx rows, ' + summary.newCustomers + ' new customer sections, ' +
-             Object.keys(touchedEmails).length + ' balance notes refreshed');
+             Object.keys(touchedEmails).length + ' balance notes refreshed, ' +
+             summary.notesRefreshed + ' source notes refreshed');
   return summary;
 }
 
@@ -2667,7 +2712,7 @@ function priceEnrollment_(e, catalog) {
       unpriced:   tuitionPrice == null,
       source:     tuitionSource || (UNPRICED_TAG + ' ' + tuitionKey),
       linkToSource: e.cellLinks ? e.cellLinks.row : '',
-      fingerprint: fpBase + '|tuition|' + tuitionKey
+      fingerprint: fpBase + '|tuition|' + bfsSlug_(tuitionKey)
     });
   }
 
