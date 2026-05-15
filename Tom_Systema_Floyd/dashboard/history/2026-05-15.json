@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T16:32:13Z",
+  "generatedAt": "2026-05-15T16:37:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -119,9 +119,9 @@
       "June 8th-12th": 23,
       "June 15th-19th": 29,
       "June 22nd-26th": 21,
-      "June 29th-July 3rd": 24,
-      "July 6th-10th": 31,
-      "July 13th-17th": 29,
+      "June 29th-July 3rd": 21,
+      "July 6th-10th": 30,
+      "July 13th-17th": 28,
       "July 20th-24th": 28,
       "July 27th-31st": 22,
       "August 3rd-7th": 27,
@@ -151,18 +151,18 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 8,
+        "Upper Campus": 5,
         "Lower Campus": 16,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 14,
-        "Lower Campus": 17,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 7,
-        "Lower Campus": 22,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -324,7 +324,7 @@
   },
   "combined": {
     "total": 148,
-    "enrollments": 487,
+    "enrollments": 482,
     "byCampus": {
       "Upper Campus": 63,
       "Lower Campus": 85,
@@ -335,9 +335,9 @@
       "June 8th-12th": 43,
       "June 15th-19th": 50,
       "June 22nd-26th": 41,
-      "June 29th-July 3rd": 44,
-      "July 6th-10th": 50,
-      "July 13th-17th": 49,
+      "June 29th-July 3rd": 41,
+      "July 6th-10th": 49,
+      "July 13th-17th": 48,
       "July 20th-24th": 48,
       "July 27th-31st": 42,
       "August 3rd-7th": 42,
@@ -367,18 +367,18 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 21,
+        "Upper Campus": 18,
         "Lower Campus": 23,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 27,
-        "Lower Campus": 23,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 20,
-        "Lower Campus": 29,
+        "Lower Campus": 28,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -2002,43 +2002,17 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 3,
-              "Tue": 3,
-              "Wed": 3,
-              "Thu": 3,
-              "Fri": 3
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
             },
-            "total": 15,
+            "total": 5,
             "students": [
-              {
-                "name": "Jacob Perna",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
               {
                 "name": "LJ Howe",
                 "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Wilder Scott",
-                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -2056,13 +2030,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 15,
-              "Wed": 16,
-              "Thu": 15,
-              "Fri": 16
+              "Mon": 15,
+              "Tue": 14,
+              "Wed": 15,
+              "Thu": 14,
+              "Fri": 15
             },
-            "total": 78,
+            "total": 73,
             "students": [
               {
                 "name": "Ace Godin",
@@ -2203,19 +2177,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Matias McCollum",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Nelson Gonzalez",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -2283,13 +2244,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 22,
-            "Wed": 22,
-            "Thu": 20,
-            "Fri": 21
+            "Mon": 19,
+            "Tue": 19,
+            "Wed": 19,
+            "Thu": 17,
+            "Fri": 18
           },
-          "all": 107
+          "all": 92
         }
       },
       "July 6th-10th": {
@@ -2460,13 +2421,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 19,
-              "Tue": 20,
-              "Wed": 21,
-              "Thu": 18,
-              "Fri": 18
+              "Mon": 18,
+              "Tue": 19,
+              "Wed": 20,
+              "Thu": 17,
+              "Fri": 17
             },
-            "total": 96,
+            "total": 91,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -2726,32 +2687,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
-              },
-              {
-                "name": "Wyld Torrealba",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 29,
-            "Wed": 30,
-            "Thu": 27,
-            "Fri": 27
+            "Mon": 26,
+            "Tue": 28,
+            "Wed": 29,
+            "Thu": 26,
+            "Fri": 26
           },
-          "all": 140
+          "all": 135
         }
       },
       "July 13th-17th": {
@@ -2962,13 +2910,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 16,
-              "Wed": 17,
-              "Thu": 16,
-              "Fri": 14
+              "Mon": 15,
+              "Tue": 15,
+              "Wed": 16,
+              "Thu": 15,
+              "Fri": 13
             },
-            "total": 79,
+            "total": 74,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3171,32 +3119,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
-              },
-              {
-                "name": "Wyld Torrealba",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 29,
-            "Thu": 28,
-            "Fri": 26
+            "Mon": 27,
+            "Tue": 27,
+            "Wed": 28,
+            "Thu": 27,
+            "Fri": 25
           },
-          "all": 139
+          "all": 134
         }
       },
       "July 20th-24th": {
@@ -12210,7 +12145,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 9,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -12233,63 +12168,13 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 8,
+          "sourceRow": 5,
           "days": [
             true,
             true,
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jacob Perna",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "jinglejudi@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 6,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Matias McCollum",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "jerlmccollum@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 5,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         },
@@ -12357,31 +12242,6 @@
             true,
             true,
             true,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Upper Campus requested",
-          "email": "farrahkscott@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 7,
-          "days": [
-            false,
-            false,
-            false,
             false,
             false
           ],
@@ -13612,7 +13472,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -13662,7 +13522,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             false,
             false,
@@ -13762,7 +13622,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             false,
             false,
@@ -13979,32 +13839,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 18,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wyld Torrealba",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Vegan family",
-          "email": "laurenmusselman84@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/6-7/10",
-          "sourceRow": 16,
+          "sourceRow": 17,
           "days": [
             false,
             false,
@@ -14704,7 +14539,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -14752,7 +14587,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             false,
             false,
@@ -14825,7 +14660,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             true,
             true,
@@ -14850,7 +14685,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             false,
             false,
@@ -14875,7 +14710,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 24,
+          "sourceRow": 23,
           "days": [
             false,
             false,
@@ -15067,7 +14902,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -15141,31 +14976,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
           "sourceRow": 2,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wyld Torrealba",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Vegan family",
-          "email": "laurenmusselman84@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 18,
           "days": [
             false,
             false,
