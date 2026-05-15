@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-15T20:02:12Z",
+  "generatedAt": "2026-05-15T20:07:25Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 122,
-    "free": 27,
+    "free": 28,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,9 +213,9 @@
     ]
   },
   "free": {
-    "total": 27,
+    "total": 28,
     "byCampus": {
-      "Upper Campus": 16,
+      "Upper Campus": 17,
       "Lower Campus": 11,
       "Unknown": 0
     },
@@ -229,7 +229,7 @@
       "July 13th-17th": 22,
       "July 20th-24th": 22,
       "July 27th-31st": 22,
-      "August 3rd-7th": 17,
+      "August 3rd-7th": 18,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -281,7 +281,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 11,
+        "Upper Campus": 12,
         "Lower Campus": 6,
         "Unknown": 0
       },
@@ -306,7 +306,7 @@
       "Northboro Elementary School": 50,
       "Roosevelt Elementary School": 29,
       "Pleasant City Elementary School": 24,
-      "U.B. Kinsey Educational and Community Center": 4
+      "U.B. Kinsey Educational and Community Center": 5
     },
     "weekOrder": [
       "June 1st-5th",
@@ -324,10 +324,10 @@
     ]
   },
   "combined": {
-    "total": 149,
-    "enrollments": 493,
+    "total": 150,
+    "enrollments": 494,
     "byCampus": {
-      "Upper Campus": 61,
+      "Upper Campus": 62,
       "Lower Campus": 88,
       "Unknown": 0
     },
@@ -341,7 +341,7 @@
       "July 13th-17th": 49,
       "July 20th-24th": 49,
       "July 27th-31st": 44,
-      "August 3rd-7th": 44,
+      "August 3rd-7th": 45,
       "August 10th-14th": 13,
       "August 17th-21st": 21,
       "August 24th-28th": 0
@@ -393,7 +393,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 17,
+        "Upper Campus": 18,
         "Lower Campus": 27,
         "Unknown": 0
       },
@@ -7705,13 +7705,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 17,
-              "Tue": 17,
-              "Wed": 17,
-              "Thu": 17,
-              "Fri": 17
+              "Mon": 18,
+              "Tue": 18,
+              "Wed": 18,
+              "Thu": 18,
+              "Fri": 18
             },
-            "total": 85,
+            "total": 90,
             "students": [
               {
                 "name": "Brendon Montgomery",
@@ -7909,6 +7909,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Tyja Walker",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -7939,13 +7952,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 17,
-            "Tue": 17,
-            "Wed": 17,
-            "Thu": 17,
-            "Fri": 17
+            "Mon": 18,
+            "Tue": 18,
+            "Wed": 18,
+            "Thu": 18,
+            "Fri": 18
           },
-          "all": 85
+          "all": 90
         }
       },
       "August 10th-14th": {
@@ -19090,6 +19103,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Tyja Walker",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "202queen.lw@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Zaire Clinton",
