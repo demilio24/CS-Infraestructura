@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T14:52:12Z",
+  "generatedAt": "2026-05-15T14:57:06Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,13 +110,13 @@
   "summer": {
     "total": 126,
     "byCampus": {
-      "Upper Campus": 54,
-      "Lower Campus": 72,
+      "Upper Campus": 53,
+      "Lower Campus": 73,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 26,
-      "June 8th-12th": 24,
+      "June 8th-12th": 22,
       "June 15th-19th": 42,
       "June 22nd-26th": 25,
       "June 29th-July 3rd": 26,
@@ -136,7 +136,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 15,
+        "Upper Campus": 13,
         "Lower Campus": 9,
         "Unknown": 0
       },
@@ -324,15 +324,15 @@
   },
   "combined": {
     "total": 151,
-    "enrollments": 526,
+    "enrollments": 524,
     "byCampus": {
-      "Upper Campus": 69,
-      "Lower Campus": 82,
+      "Upper Campus": 68,
+      "Lower Campus": 83,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 45,
-      "June 8th-12th": 44,
+      "June 8th-12th": 42,
       "June 15th-19th": 63,
       "June 22nd-26th": 45,
       "June 29th-July 3rd": 46,
@@ -352,7 +352,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 27,
+        "Upper Campus": 25,
         "Lower Campus": 17,
         "Unknown": 0
       },
@@ -868,30 +868,17 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 4,
+              "Tue": 4,
+              "Wed": 4,
+              "Thu": 4,
+              "Fri": 4
             },
-            "total": 25,
+            "total": 20,
             "students": [
               {
                 "name": "Bennett Carter",
                 "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Lotan Topor",
-                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -976,13 +963,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 14,
-              "Wed": 17,
-              "Thu": 17,
-              "Fri": 14
+              "Mon": 15,
+              "Tue": 13,
+              "Wed": 16,
+              "Thu": 16,
+              "Fri": 13
             },
-            "total": 78,
+            "total": 73,
             "students": [
               {
                 "name": "Anna McIntosh",
@@ -1051,19 +1038,6 @@
               },
               {
                 "name": "Cort Pond",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Dawson Denney",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -1203,13 +1177,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 23,
-            "Tue": 21,
-            "Wed": 24,
-            "Thu": 23,
-            "Fri": 20
+            "Mon": 21,
+            "Tue": 19,
+            "Wed": 22,
+            "Thu": 21,
+            "Fri": 18
           },
-          "all": 111
+          "all": 101
         }
       },
       "June 15th-19th": {
@@ -9554,7 +9528,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 18,
+          "sourceRow": 16,
           "days": [
             false,
             false,
@@ -9640,31 +9614,6 @@
           "type": "summer"
         },
         {
-          "name": "Dawson Denney",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "tdenney138@me.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Hawthorn Fennell",
           "campus": "Upper Campus",
           "lunch": false,
@@ -9677,7 +9626,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 19,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -9713,31 +9662,6 @@
           "type": "summer"
         },
         {
-          "name": "Lotan Topor",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "Daily ($10) with fruit (banana, strawberry, blueberry)",
-          "allergy": null,
-          "notes": "I wanted to know please if I can register my three children for the full first week of June, and then on the second week only for the 8-10th (because we are flying abroad on the 11th)",
-          "email": "kedem.shinar@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 7,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Maci Denney",
           "campus": "Upper Campus",
           "lunch": false,
@@ -9750,7 +9674,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 20,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -9773,7 +9697,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 7,
           "days": [
             true,
             false,
@@ -9796,7 +9720,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 8,
           "days": [
             true,
             false,
@@ -9819,7 +9743,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9842,7 +9766,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 17,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -9890,7 +9814,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             true,
             true,
