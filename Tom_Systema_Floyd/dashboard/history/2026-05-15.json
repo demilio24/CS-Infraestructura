@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T16:48:08Z",
+  "generatedAt": "2026-05-15T16:52:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -120,7 +120,7 @@
       "June 15th-19th": 29,
       "June 22nd-26th": 21,
       "June 29th-July 3rd": 21,
-      "July 6th-10th": 28,
+      "July 6th-10th": 27,
       "July 13th-17th": 28,
       "July 20th-24th": 28,
       "July 27th-31st": 22,
@@ -156,7 +156,7 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 10,
+        "Upper Campus": 9,
         "Lower Campus": 18,
         "Unknown": 0
       },
@@ -324,7 +324,7 @@
   },
   "combined": {
     "total": 148,
-    "enrollments": 478,
+    "enrollments": 477,
     "byCampus": {
       "Upper Campus": 61,
       "Lower Campus": 87,
@@ -336,7 +336,7 @@
       "June 15th-19th": 50,
       "June 22nd-26th": 41,
       "June 29th-July 3rd": 41,
-      "July 6th-10th": 47,
+      "July 6th-10th": 46,
       "July 13th-17th": 48,
       "July 20th-24th": 48,
       "July 27th-31st": 42,
@@ -372,7 +372,7 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 23,
+        "Upper Campus": 22,
         "Lower Campus": 24,
         "Unknown": 0
       },
@@ -2395,13 +2395,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 18,
-              "Tue": 19,
-              "Wed": 20,
+              "Mon": 17,
+              "Tue": 18,
+              "Wed": 19,
               "Thu": 17,
               "Fri": 17
             },
-            "total": 91,
+            "total": 88,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -2435,17 +2435,6 @@
                 "type": "summer",
                 "days": [
                   "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Emily Hunt",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed"
                 ],
                 "lunchRaw": "None"
               },
@@ -2667,13 +2656,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 24,
-            "Tue": 26,
-            "Wed": 27,
+            "Mon": 23,
+            "Tue": 25,
+            "Wed": 26,
             "Thu": 24,
             "Fri": 24
           },
-          "all": 125
+          "all": 122
         }
       },
       "July 13th-17th": {
@@ -13074,29 +13063,6 @@
     "July 6th-10th": {
       "upper": [
         {
-          "name": "Emily Hunt",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Adding additional weeks too",
-          "email": "lowery666@hotmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/6-7/10",
-          "sourceRow": 8,
-          "days": [
-            true,
-            true,
-            true,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Hawthorn Fennell",
           "campus": "Upper Campus",
           "lunch": false,
@@ -13109,7 +13075,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -13180,7 +13146,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -13226,7 +13192,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
