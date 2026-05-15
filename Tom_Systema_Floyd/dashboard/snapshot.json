@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-15T03:02:06Z",
+  "generatedAt": "2026-05-15T03:07:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 126,
+    "summer": 127,
     "free": 24,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,20 +108,20 @@
     "roster": []
   },
   "summer": {
-    "total": 126,
+    "total": 127,
     "byCampus": {
-      "Upper Campus": 55,
+      "Upper Campus": 56,
       "Lower Campus": 71,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 27,
-      "June 8th-12th": 24,
+      "June 1st-5th": 28,
+      "June 8th-12th": 25,
       "June 15th-19th": 42,
       "June 22nd-26th": 25,
       "June 29th-July 3rd": 26,
-      "July 6th-10th": 34,
-      "July 13th-17th": 32,
+      "July 6th-10th": 35,
+      "July 13th-17th": 33,
       "July 20th-24th": 32,
       "July 27th-31st": 25,
       "August 3rd-7th": 27,
@@ -131,12 +131,12 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 11,
+        "Upper Campus": 12,
         "Lower Campus": 16,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 15,
+        "Upper Campus": 16,
         "Lower Campus": 9,
         "Unknown": 0
       },
@@ -156,12 +156,12 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 17,
+        "Upper Campus": 18,
         "Lower Campus": 17,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 9,
+        "Upper Campus": 10,
         "Lower Campus": 23,
         "Unknown": 0
       },
@@ -323,21 +323,21 @@
     ]
   },
   "combined": {
-    "total": 150,
-    "enrollments": 515,
+    "total": 151,
+    "enrollments": 519,
     "byCampus": {
-      "Upper Campus": 70,
+      "Upper Campus": 71,
       "Lower Campus": 80,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 45,
-      "June 8th-12th": 43,
+      "June 1st-5th": 46,
+      "June 8th-12th": 44,
       "June 15th-19th": 62,
       "June 22nd-26th": 44,
       "June 29th-July 3rd": 45,
-      "July 6th-10th": 52,
-      "July 13th-17th": 51,
+      "July 6th-10th": 53,
+      "July 13th-17th": 52,
       "July 20th-24th": 51,
       "July 27th-31st": 44,
       "August 3rd-7th": 41,
@@ -347,12 +347,12 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 21,
+        "Upper Campus": 22,
         "Lower Campus": 24,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 27,
+        "Upper Campus": 28,
         "Lower Campus": 16,
         "Unknown": 0
       },
@@ -372,12 +372,12 @@
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 30,
+        "Upper Campus": 31,
         "Lower Campus": 22,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 29,
         "Unknown": 0
       },
@@ -661,13 +661,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 10,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 10
+              "Mon": 14,
+              "Tue": 11,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 11
             },
-            "total": 59,
+            "total": 64,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -759,6 +759,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Maci Denney",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Matias McCollum",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -837,13 +850,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 23,
-            "Wed": 27,
-            "Thu": 26,
-            "Fri": 23
+            "Mon": 28,
+            "Tue": 24,
+            "Wed": 28,
+            "Thu": 27,
+            "Fri": 24
           },
-          "all": 126
+          "all": 131
         }
       },
       "June 8th-12th": {
@@ -987,13 +1000,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 14,
-              "Wed": 17,
-              "Thu": 17,
-              "Fri": 14
+              "Mon": 17,
+              "Tue": 15,
+              "Wed": 18,
+              "Thu": 18,
+              "Fri": 15
             },
-            "total": 78,
+            "total": 83,
             "students": [
               {
                 "name": "Anna McIntosh",
@@ -1124,6 +1137,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Maci Denney",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Marsano Spinelli",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -1214,13 +1240,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 23,
-            "Tue": 21,
-            "Wed": 24,
-            "Thu": 23,
-            "Fri": 20
+            "Mon": 24,
+            "Tue": 22,
+            "Wed": 25,
+            "Thu": 24,
+            "Fri": 21
           },
-          "all": 111
+          "all": 116
         }
       },
       "June 15th-19th": {
@@ -2821,13 +2847,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 20,
-              "Tue": 21,
-              "Wed": 22,
-              "Thu": 19,
-              "Fri": 18
+              "Mon": 21,
+              "Tue": 22,
+              "Wed": 23,
+              "Thu": 20,
+              "Fri": 19
             },
-            "total": 100,
+            "total": 105,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -2933,6 +2959,19 @@
               },
               {
                 "name": "Lyla Falzond",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Maci Denney",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -3110,13 +3149,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 33,
-            "Wed": 33,
-            "Thu": 31,
-            "Fri": 29
+            "Mon": 31,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 32,
+            "Fri": 30
           },
-          "all": 156
+          "all": 161
         }
       },
       "July 13th-17th": {
@@ -3378,13 +3417,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 16,
-              "Wed": 17,
-              "Thu": 16,
-              "Fri": 14
+              "Mon": 17,
+              "Tue": 17,
+              "Wed": 18,
+              "Thu": 17,
+              "Fri": 15
             },
-            "total": 79,
+            "total": 84,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3488,6 +3527,19 @@
               },
               {
                 "name": "Lyla Falzond",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Maci Denney",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -3606,13 +3658,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 28
+            "Mon": 31,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 29
           },
-          "all": 151
+          "all": 156
         }
       },
       "July 20th-24th": {
@@ -8426,6 +8478,29 @@
           "type": "summer"
         },
         {
+          "name": "Maci Denney",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Counselor and training program",
+          "email": "tdenney138@me.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Matias McCollum",
           "campus": "Upper Campus",
           "lunch": false,
@@ -9609,6 +9684,29 @@
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
           "sourceRow": 20,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Maci Denney",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Counselor and training program",
+          "email": "tdenney138@me.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -14321,6 +14419,29 @@
           "type": "summer"
         },
         {
+          "name": "Maci Denney",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Counselor and training program",
+          "email": "tdenney138@me.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 19,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Matias McCollum",
           "campus": "Upper Campus",
           "lunch": false,
@@ -15502,6 +15623,29 @@
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/13-7/17",
           "sourceRow": 10,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Maci Denney",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Counselor and training program",
+          "email": "tdenney138@me.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 11,
           "days": [
             true,
             true,
