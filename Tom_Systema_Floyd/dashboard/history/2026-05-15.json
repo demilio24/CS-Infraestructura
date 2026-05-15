@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T16:22:47Z",
+  "generatedAt": "2026-05-15T16:27:07Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -10117,22 +10117,18 @@
           "breakfastRaw": "None",
           "allergy": null,
           "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email",
-            "Age",
-            "Days attending"
-          ],
+          "email": "daggerhart4@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
           "sourceRow": 4,
           "days": [
-            false,
-            false,
-            false,
-            false,
-            false
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         }
