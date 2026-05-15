@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T03:33:17Z",
+  "generatedAt": "2026-05-15T03:37:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -227,8 +227,8 @@
       "July 6th-10th": 19,
       "July 13th-17th": 20,
       "July 20th-24th": 20,
-      "July 27th-31st": 19,
-      "August 3rd-7th": 14,
+      "July 27th-31st": 20,
+      "August 3rd-7th": 15,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -276,12 +276,12 @@
       },
       "July 27th-31st": {
         "Upper Campus": 13,
-        "Lower Campus": 6,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "August 3rd-7th": {
         "Upper Campus": 10,
-        "Lower Campus": 4,
+        "Lower Campus": 5,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -302,7 +302,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 90,
-      "Northboro Elementary School": 48,
+      "Northboro Elementary School": 50,
       "Roosevelt Elementary School": 29,
       "Pleasant City Elementary School": 24,
       "U.B. Kinsey Educational and Community Center": 4
@@ -324,7 +324,7 @@
   },
   "combined": {
     "total": 152,
-    "enrollments": 527,
+    "enrollments": 529,
     "byCampus": {
       "Upper Campus": 71,
       "Lower Campus": 81,
@@ -339,8 +339,8 @@
       "July 6th-10th": 54,
       "July 13th-17th": 53,
       "July 20th-24th": 52,
-      "July 27th-31st": 44,
-      "August 3rd-7th": 41,
+      "July 27th-31st": 45,
+      "August 3rd-7th": 42,
       "August 10th-14th": 15,
       "August 17th-21st": 22,
       "August 24th-28th": 0
@@ -388,12 +388,12 @@
       },
       "July 27th-31st": {
         "Upper Campus": 23,
-        "Lower Campus": 21,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "August 3rd-7th": {
         "Upper Campus": 17,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -7934,13 +7934,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 19,
-              "Tue": 19,
-              "Wed": 19,
-              "Thu": 19,
-              "Fri": 19
+              "Mon": 20,
+              "Tue": 20,
+              "Wed": 20,
+              "Thu": 20,
+              "Fri": 20
             },
-            "total": 95,
+            "total": 100,
             "students": [
               {
                 "name": "Brendon Montgomery",
@@ -7971,6 +7971,19 @@
               {
                 "name": "Chance Sandy",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8194,13 +8207,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 19,
-            "Thu": 19,
-            "Fri": 19
+            "Mon": 20,
+            "Tue": 20,
+            "Wed": 20,
+            "Thu": 20,
+            "Fri": 20
           },
-          "all": 95
+          "all": 100
         }
       },
       "August 3rd-7th": {
@@ -8210,13 +8223,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 14,
-              "Tue": 14,
-              "Wed": 14,
-              "Thu": 14,
-              "Fri": 14
+              "Mon": 15,
+              "Tue": 15,
+              "Wed": 15,
+              "Thu": 15,
+              "Fri": 15
             },
-            "total": 70,
+            "total": 75,
             "students": [
               {
                 "name": "Brendon Montgomery",
@@ -8234,6 +8247,19 @@
               {
                 "name": "Chance Sandy",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8405,13 +8431,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 14,
-            "Tue": 14,
-            "Wed": 14,
-            "Thu": 14,
-            "Fri": 14
+            "Mon": 15,
+            "Tue": 15,
+            "Wed": 15,
+            "Thu": 15,
+            "Fri": 15
           },
-          "all": 70
+          "all": 75
         }
       },
       "August 10th-14th": {
@@ -18986,6 +19012,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Jayceon Cooley",
           "campus": "Lower Campus",
           "lunch": true,
@@ -20091,6 +20141,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 6,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Jayceon Cooley",
