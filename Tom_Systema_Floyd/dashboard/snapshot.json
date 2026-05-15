@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-15T21:57:12Z",
+  "generatedAt": "2026-05-15T22:02:03Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 124,
-    "free": 28,
+    "free": 29,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,15 +213,15 @@
     ]
   },
   "free": {
-    "total": 28,
+    "total": 29,
     "byCampus": {
       "Upper Campus": 17,
-      "Lower Campus": 11,
+      "Lower Campus": 12,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 19,
-      "June 8th-12th": 20,
+      "June 8th-12th": 21,
       "June 15th-19th": 23,
       "June 22nd-26th": 22,
       "June 29th-July 3rd": 22,
@@ -242,7 +242,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 12,
-        "Lower Campus": 8,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 106,
+      "Westward Elementary School": 107,
       "Northboro Elementary School": 50,
       "Roosevelt Elementary School": 29,
       "Pleasant City Elementary School": 24,
@@ -324,16 +324,16 @@
     ]
   },
   "combined": {
-    "total": 152,
-    "enrollments": 496,
+    "total": 153,
+    "enrollments": 497,
     "byCampus": {
       "Upper Campus": 63,
-      "Lower Campus": 89,
+      "Lower Campus": 90,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 42,
-      "June 8th-12th": 43,
+      "June 8th-12th": 44,
       "June 15th-19th": 52,
       "June 22nd-26th": 45,
       "June 29th-July 3rd": 41,
@@ -354,7 +354,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 23,
-        "Lower Campus": 20,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -5237,14 +5237,27 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 20,
-              "Tue": 20,
-              "Wed": 20,
-              "Thu": 20,
-              "Fri": 20
+              "Mon": 21,
+              "Tue": 21,
+              "Wed": 21,
+              "Thu": 21,
+              "Fri": 21
             },
-            "total": 100,
+            "total": 105,
             "students": [
+              {
+                "name": "Aisha Herlandjika Buteau",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
               {
                 "name": "Autumn Willow Richardson",
                 "campus": "Upper Campus",
@@ -5510,13 +5523,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 20,
-            "Tue": 20,
-            "Wed": 20,
-            "Thu": 20,
-            "Fri": 20
+            "Mon": 21,
+            "Tue": 21,
+            "Wed": 21,
+            "Thu": 21,
+            "Fri": 21
           },
-          "all": 100
+          "all": 105
         }
       },
       "June 15th-19th": {
@@ -9603,6 +9616,32 @@
         }
       ],
       "free": [
+        {
+          "name": "Aisha Herlandjika Buteau",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
         {
           "name": "Autumn Willow Richardson",
           "campus": "Upper Campus",
