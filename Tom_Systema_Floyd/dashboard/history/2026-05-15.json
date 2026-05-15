@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T15:17:35Z",
+  "generatedAt": "2026-05-15T15:22:08Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -117,7 +117,7 @@
     "byWeek": {
       "June 1st-5th": 24,
       "June 8th-12th": 21,
-      "June 15th-19th": 42,
+      "June 15th-19th": 41,
       "June 22nd-26th": 25,
       "June 29th-July 3rd": 26,
       "July 6th-10th": 35,
@@ -141,7 +141,7 @@
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 14,
+        "Upper Campus": 13,
         "Lower Campus": 28,
         "Unknown": 0
       },
@@ -324,7 +324,7 @@
   },
   "combined": {
     "total": 150,
-    "enrollments": 521,
+    "enrollments": 520,
     "byCampus": {
       "Upper Campus": 67,
       "Lower Campus": 83,
@@ -333,7 +333,7 @@
     "byWeek": {
       "June 1st-5th": 43,
       "June 8th-12th": 41,
-      "June 15th-19th": 63,
+      "June 15th-19th": 62,
       "June 22nd-26th": 45,
       "June 29th-July 3rd": 46,
       "July 6th-10th": 54,
@@ -357,7 +357,7 @@
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 26,
+        "Upper Campus": 25,
         "Lower Campus": 37,
         "Unknown": 0
       },
@@ -1154,13 +1154,13 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 6,
-              "Tue": 6,
-              "Wed": 4,
-              "Thu": 4,
-              "Fri": 4
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 24,
+            "total": 19,
             "students": [
               {
                 "name": "Cameron Hamilton",
@@ -1188,19 +1188,6 @@
               {
                 "name": "Iyar Topor",
                 "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              },
-              {
-                "name": "Ryder Tarantino",
-                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -1772,13 +1759,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 40,
-            "Tue": 40,
-            "Wed": 38,
-            "Thu": 38,
-            "Fri": 38
+            "Mon": 39,
+            "Tue": 39,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 194
+          "all": 189
         }
       },
       "June 22nd-26th": {
@@ -10448,7 +10435,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             false,
             false,
@@ -10471,7 +10458,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             false,
             false,
@@ -10496,7 +10483,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             false,
             false,
@@ -10519,7 +10506,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -10544,7 +10531,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -10569,7 +10556,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 3,
+          "sourceRow": 2,
           "days": [
             false,
             false,
@@ -10594,7 +10581,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -10619,7 +10606,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -10644,32 +10631,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 8,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Ryder Tarantino",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "If early drop off or later pick up is needed, can we add it later on?",
-          "email": "ryan.t76@icloud.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/15-6/19",
-          "sourceRow": 2,
+          "sourceRow": 7,
           "days": [
             false,
             false,
@@ -10694,7 +10656,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             false,
             false,
@@ -10719,7 +10681,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             false,
             false,
@@ -10744,7 +10706,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             false,
             false,
@@ -10769,7 +10731,7 @@
           ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             false,
             false,
