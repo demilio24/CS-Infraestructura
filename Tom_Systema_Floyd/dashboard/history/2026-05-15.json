@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-15T03:27:00Z",
+  "generatedAt": "2026-05-15T03:33:17Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 127,
-    "free": 24,
+    "free": 25,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -212,21 +212,21 @@
     ]
   },
   "free": {
-    "total": 24,
+    "total": 25,
     "byCampus": {
       "Upper Campus": 15,
-      "Lower Campus": 9,
+      "Lower Campus": 10,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 18,
-      "June 8th-12th": 19,
-      "June 15th-19th": 20,
-      "June 22nd-26th": 19,
-      "June 29th-July 3rd": 19,
-      "July 6th-10th": 18,
-      "July 13th-17th": 19,
-      "July 20th-24th": 19,
+      "June 1st-5th": 19,
+      "June 8th-12th": 20,
+      "June 15th-19th": 21,
+      "June 22nd-26th": 20,
+      "June 29th-July 3rd": 20,
+      "July 6th-10th": 19,
+      "July 13th-17th": 20,
+      "July 20th-24th": 20,
       "July 27th-31st": 19,
       "August 3rd-7th": 14,
       "August 10th-14th": 0,
@@ -236,42 +236,42 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 10,
-        "Lower Campus": 8,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 12,
-        "Lower Campus": 7,
+        "Lower Campus": 8,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 12,
-        "Lower Campus": 8,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 12,
-        "Lower Campus": 7,
+        "Lower Campus": 8,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 13,
-        "Lower Campus": 6,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 13,
-        "Lower Campus": 5,
+        "Lower Campus": 6,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 13,
-        "Lower Campus": 6,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "July 20th-24th": {
         "Upper Campus": 13,
-        "Lower Campus": 6,
+        "Lower Campus": 7,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -302,7 +302,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 90,
-      "Northboro Elementary School": 40,
+      "Northboro Elementary School": 48,
       "Roosevelt Elementary School": 29,
       "Pleasant City Elementary School": 24,
       "U.B. Kinsey Educational and Community Center": 4
@@ -323,22 +323,22 @@
     ]
   },
   "combined": {
-    "total": 151,
-    "enrollments": 519,
+    "total": 152,
+    "enrollments": 527,
     "byCampus": {
       "Upper Campus": 71,
-      "Lower Campus": 80,
+      "Lower Campus": 81,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 46,
-      "June 8th-12th": 44,
-      "June 15th-19th": 62,
-      "June 22nd-26th": 44,
-      "June 29th-July 3rd": 45,
-      "July 6th-10th": 53,
-      "July 13th-17th": 52,
-      "July 20th-24th": 51,
+      "June 1st-5th": 47,
+      "June 8th-12th": 45,
+      "June 15th-19th": 63,
+      "June 22nd-26th": 45,
+      "June 29th-July 3rd": 46,
+      "July 6th-10th": 54,
+      "July 13th-17th": 53,
+      "July 20th-24th": 52,
       "July 27th-31st": 44,
       "August 3rd-7th": 41,
       "August 10th-14th": 15,
@@ -348,42 +348,42 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 22,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 28,
-        "Lower Campus": 16,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 26,
-        "Lower Campus": 36,
+        "Lower Campus": 37,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 22,
-        "Lower Campus": 22,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 24,
-        "Lower Campus": 21,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 31,
-        "Lower Campus": 22,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 23,
-        "Lower Campus": 29,
+        "Lower Campus": 30,
         "Unknown": 0
       },
       "July 20th-24th": {
         "Upper Campus": 26,
-        "Lower Campus": 25,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -5648,13 +5648,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 17,
-              "Tue": 17,
-              "Wed": 17,
-              "Thu": 17,
-              "Fri": 17
+              "Mon": 18,
+              "Tue": 18,
+              "Wed": 18,
+              "Thu": 18,
+              "Fri": 18
             },
-            "total": 85,
+            "total": 90,
             "students": [
               {
                 "name": "Darren Dushawn Edwards Jr",
@@ -5670,271 +5670,8 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Jayceon Cooley",
+                "name": "Jace Johnson",
                 "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Josiah Walker",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Juan Pablo Lopez Sanchez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Kailand campbell",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Kali ridgeway",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Karter Jones",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Lamar Brown",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Luvvie’Love Johnson",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Rico Clark",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Riley King",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Serenity Canidate",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Taelynn Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Taylor Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Zaire Clinton",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ziona Antoine",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              }
-            ]
-          }
-        ],
-        "totals": {
-          "byDay": {
-            "Mon": 18,
-            "Tue": 18,
-            "Wed": 18,
-            "Thu": 18,
-            "Fri": 18
-          },
-          "all": 90
-        }
-      },
-      "June 8th-12th": {
-        "rows": [
-          {
-            "category": "other",
-            "subtypeKey": "other|yes",
-            "label": "Yes",
-            "byDay": {
-              "Mon": 19,
-              "Tue": 19,
-              "Wed": 19,
-              "Thu": 19,
-              "Fri": 19
-            },
-            "total": 95,
-            "students": [
-              {
-                "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Chance Sandy",
-                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -6167,7 +5904,7 @@
           "all": 95
         }
       },
-      "June 15th-19th": {
+      "June 8th-12th": {
         "rows": [
           {
             "category": "other",
@@ -6211,6 +5948,19 @@
               {
                 "name": "Chance Sandy",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -6315,6 +6065,873 @@
               {
                 "name": "Luvvie’Love Johnson",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Rico Clark",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Riley King",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Serenity Canidate",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Sunni Hall",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Taelynn Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Taylor Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Zaire Clinton",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Ziona Antoine",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 20,
+            "Tue": 20,
+            "Wed": 20,
+            "Thu": 20,
+            "Fri": 20
+          },
+          "all": 100
+        }
+      },
+      "June 15th-19th": {
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 21,
+              "Tue": 21,
+              "Wed": 21,
+              "Thu": 21,
+              "Fri": 21
+            },
+            "total": 105,
+            "students": [
+              {
+                "name": "Autumn Willow Richardson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Ce’Yanna Adams",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Chance Sandy",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jayceon Cooley",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Josiah Walker",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Kailand campbell",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Kali ridgeway",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Karter Jones",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Lamar Brown",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Luvvie’Love Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Nathaniel Martin",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Rico Clark",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Riley King",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Serenity Canidate",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Sunni Hall",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Taelynn Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Taylor Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Zaire Clinton",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Ziona Antoine",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 21,
+            "Tue": 21,
+            "Wed": 21,
+            "Thu": 21,
+            "Fri": 21
+          },
+          "all": 105
+        }
+      },
+      "June 22nd-26th": {
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 20,
+              "Tue": 20,
+              "Wed": 20,
+              "Thu": 20,
+              "Fri": 20
+            },
+            "total": 100,
+            "students": [
+              {
+                "name": "Autumn Willow Richardson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Ce’Yanna Adams",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Chance Sandy",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jayceon Cooley",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Josiah Walker",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Kailand campbell",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Kali ridgeway",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Karter Jones",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Lamar Brown",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Luvvie’Love Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Rico Clark",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Riley King",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Serenity Canidate",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Sunni Hall",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Taelynn Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Taylor Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Zaire Clinton",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Ziona Antoine",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              }
+            ]
+          }
+        ],
+        "totals": {
+          "byDay": {
+            "Mon": 20,
+            "Tue": 20,
+            "Wed": 20,
+            "Thu": 20,
+            "Fri": 20
+          },
+          "all": 100
+        }
+      },
+      "June 29th-July 3rd": {
+        "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|yes",
+            "label": "Yes",
+            "byDay": {
+              "Mon": 20,
+              "Tue": 20,
+              "Wed": 20,
+              "Thu": 20,
+              "Fri": 20
+            },
+            "total": 100,
+            "students": [
+              {
+                "name": "Autumn Willow Richardson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Ce’Yanna Adams",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Chance Sandy",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jayceon Cooley",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Josiah Walker",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Kailand campbell",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Karter Jones",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Lamar Brown",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Luvvie’Love Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Nathan Walsh",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -6456,558 +7073,6 @@
           "all": 100
         }
       },
-      "June 22nd-26th": {
-        "rows": [
-          {
-            "category": "other",
-            "subtypeKey": "other|yes",
-            "label": "Yes",
-            "byDay": {
-              "Mon": 19,
-              "Tue": 19,
-              "Wed": 19,
-              "Thu": 19,
-              "Fri": 19
-            },
-            "total": 95,
-            "students": [
-              {
-                "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Chance Sandy",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Jayceon Cooley",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Josiah Walker",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Juan Pablo Lopez Sanchez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Kailand campbell",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Kali ridgeway",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Karter Jones",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Lamar Brown",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Luvvie’Love Johnson",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Rico Clark",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Riley King",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Serenity Canidate",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Taelynn Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Taylor Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Zaire Clinton",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ziona Antoine",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              }
-            ]
-          }
-        ],
-        "totals": {
-          "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 19,
-            "Thu": 19,
-            "Fri": 19
-          },
-          "all": 95
-        }
-      },
-      "June 29th-July 3rd": {
-        "rows": [
-          {
-            "category": "other",
-            "subtypeKey": "other|yes",
-            "label": "Yes",
-            "byDay": {
-              "Mon": 19,
-              "Tue": 19,
-              "Wed": 19,
-              "Thu": 19,
-              "Fri": 19
-            },
-            "total": 95,
-            "students": [
-              {
-                "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Chance Sandy",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Jayceon Cooley",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Josiah Walker",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Kailand campbell",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Karter Jones",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Lamar Brown",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Luvvie’Love Johnson",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Nathan Walsh",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Nathaniel Martin",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Rico Clark",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Riley King",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Serenity Canidate",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Taelynn Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Taylor Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Zaire Clinton",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ziona Antoine",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              }
-            ]
-          }
-        ],
-        "totals": {
-          "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 19,
-            "Thu": 19,
-            "Fri": 19
-          },
-          "all": 95
-        }
-      },
       "July 6th-10th": {
         "rows": [
           {
@@ -7015,13 +7080,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 18,
-              "Tue": 18,
-              "Wed": 18,
-              "Thu": 18,
-              "Fri": 18
+              "Mon": 19,
+              "Tue": 19,
+              "Wed": 19,
+              "Thu": 19,
+              "Fri": 19
             },
-            "total": 90,
+            "total": 95,
             "students": [
               {
                 "name": "Autumn Willow Richardson",
@@ -7076,6 +7141,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Jayceon Cooley",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -7262,13 +7340,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 18,
-            "Tue": 18,
-            "Wed": 18,
-            "Thu": 18,
-            "Fri": 18
+            "Mon": 19,
+            "Tue": 19,
+            "Wed": 19,
+            "Thu": 19,
+            "Fri": 19
           },
-          "all": 90
+          "all": 95
         }
       },
       "July 13th-17th": {
@@ -7278,13 +7356,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 19,
-              "Tue": 19,
-              "Wed": 19,
-              "Thu": 19,
-              "Fri": 19
+              "Mon": 20,
+              "Tue": 20,
+              "Wed": 20,
+              "Thu": 20,
+              "Fri": 20
             },
-            "total": 95,
+            "total": 100,
             "students": [
               {
                 "name": "Brendon Montgomery",
@@ -7315,6 +7393,19 @@
               {
                 "name": "Chance Sandy",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -7538,13 +7629,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 19,
-            "Thu": 19,
-            "Fri": 19
+            "Mon": 20,
+            "Tue": 20,
+            "Wed": 20,
+            "Thu": 20,
+            "Fri": 20
           },
-          "all": 95
+          "all": 100
         }
       },
       "July 20th-24th": {
@@ -7554,13 +7645,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 19,
-              "Tue": 19,
-              "Wed": 19,
-              "Thu": 19,
-              "Fri": 19
+              "Mon": 20,
+              "Tue": 20,
+              "Wed": 20,
+              "Thu": 20,
+              "Fri": 20
             },
-            "total": 95,
+            "total": 100,
             "students": [
               {
                 "name": "Brendon Montgomery",
@@ -7591,6 +7682,19 @@
               {
                 "name": "Chance Sandy",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jace Johnson",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -7814,13 +7918,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 19,
-            "Thu": 19,
-            "Fri": 19
+            "Mon": 20,
+            "Tue": 20,
+            "Wed": 20,
+            "Thu": 20,
+            "Fri": 20
           },
-          "all": 95
+          "all": 100
         }
       },
       "July 27th-31st": {
@@ -9059,6 +9163,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 10,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Jayceon Cooley",
           "campus": "Lower Campus",
           "lunch": true,
@@ -10146,6 +10274,32 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Jayceon Cooley",
@@ -11650,6 +11804,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 10,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Jayceon Cooley",
           "campus": "Lower Campus",
           "lunch": true,
@@ -12745,6 +12923,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 9,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Jayceon Cooley",
           "campus": "Lower Campus",
           "lunch": true,
@@ -13837,6 +14039,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Jayceon Cooley",
@@ -15172,6 +15398,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 7,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Jayceon Cooley",
           "campus": "Lower Campus",
           "lunch": true,
@@ -16381,6 +16631,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Jayceon Cooley",
@@ -17613,6 +17887,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Jace Johnson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ronda0207@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Jayceon Cooley",
