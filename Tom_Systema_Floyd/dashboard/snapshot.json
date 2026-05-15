@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T16:07:04Z",
+  "generatedAt": "2026-05-15T16:12:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -124,7 +124,7 @@
       "July 13th-17th": 30,
       "July 20th-24th": 29,
       "July 27th-31st": 22,
-      "August 3rd-7th": 26,
+      "August 3rd-7th": 27,
       "August 10th-14th": 14,
       "August 17th-21st": 22,
       "August 24th-28th": 0
@@ -177,7 +177,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 6,
-        "Lower Campus": 20,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -324,7 +324,7 @@
   },
   "combined": {
     "total": 147,
-    "enrollments": 494,
+    "enrollments": 495,
     "byCampus": {
       "Upper Campus": 63,
       "Lower Campus": 84,
@@ -340,7 +340,7 @@
       "July 13th-17th": 50,
       "July 20th-24th": 49,
       "July 27th-31st": 42,
-      "August 3rd-7th": 41,
+      "August 3rd-7th": 42,
       "August 10th-14th": 14,
       "August 17th-21st": 22,
       "August 24th-28th": 0
@@ -393,7 +393,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 16,
-        "Lower Campus": 25,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -4336,13 +4336,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 12,
-              "Tue": 12,
-              "Wed": 12,
-              "Thu": 12,
-              "Fri": 12
+              "Mon": 13,
+              "Tue": 13,
+              "Wed": 13,
+              "Thu": 13,
+              "Fri": 13
             },
-            "total": 60,
+            "total": 65,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -4499,19 +4499,32 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Reagan Olowin",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 25,
-            "Tue": 26,
-            "Wed": 26,
-            "Thu": 26,
-            "Fri": 25
+            "Mon": 26,
+            "Tue": 27,
+            "Wed": 27,
+            "Thu": 27,
+            "Fri": 26
           },
-          "all": 128
+          "all": 133
         }
       },
       "August 10th-14th": {
@@ -18699,6 +18712,31 @@
             true,
             true,
             true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Reagan Olowin",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "amandaolowin@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Days attending"
+          ],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 27,
+          "days": [
+            false,
+            false,
+            false,
+            false,
+            false
           ],
           "type": "summer"
         },
