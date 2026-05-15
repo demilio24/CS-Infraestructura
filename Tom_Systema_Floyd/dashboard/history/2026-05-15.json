@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T16:52:09Z",
+  "generatedAt": "2026-05-15T16:57:08Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,8 +110,8 @@
   "summer": {
     "total": 123,
     "byCampus": {
-      "Upper Campus": 46,
-      "Lower Campus": 77,
+      "Upper Campus": 45,
+      "Lower Campus": 78,
       "Unknown": 0
     },
     "byWeek": {
@@ -121,7 +121,7 @@
       "June 22nd-26th": 21,
       "June 29th-July 3rd": 21,
       "July 6th-10th": 27,
-      "July 13th-17th": 28,
+      "July 13th-17th": 27,
       "July 20th-24th": 28,
       "July 27th-31st": 22,
       "August 3rd-7th": 27,
@@ -161,8 +161,8 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 7,
-        "Lower Campus": 21,
+        "Upper Campus": 5,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -324,10 +324,10 @@
   },
   "combined": {
     "total": 148,
-    "enrollments": 477,
+    "enrollments": 476,
     "byCampus": {
-      "Upper Campus": 61,
-      "Lower Campus": 87,
+      "Upper Campus": 60,
+      "Lower Campus": 88,
       "Unknown": 0
     },
     "byWeek": {
@@ -337,7 +337,7 @@
       "June 22nd-26th": 41,
       "June 29th-July 3rd": 41,
       "July 6th-10th": 46,
-      "July 13th-17th": 48,
+      "July 13th-17th": 47,
       "July 20th-24th": 48,
       "July 27th-31st": 42,
       "August 3rd-7th": 42,
@@ -377,8 +377,8 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 20,
-        "Lower Campus": 28,
+        "Upper Campus": 18,
+        "Lower Campus": 29,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -2672,40 +2672,14 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 7,
-              "Tue": 7,
-              "Wed": 7,
-              "Thu": 7,
-              "Fri": 7
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 5,
+              "Thu": 5,
+              "Fri": 5
             },
-            "total": 35,
+            "total": 25,
             "students": [
-              {
-                "name": "Jackson Sonderman",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Jacob Perna",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
               {
                 "name": "Lilly Heyes",
                 "campus": "Lower Campus",
@@ -2873,13 +2847,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 15,
-              "Tue": 15,
-              "Wed": 16,
-              "Thu": 15,
-              "Fri": 13
+              "Mon": 16,
+              "Tue": 16,
+              "Wed": 17,
+              "Thu": 16,
+              "Fri": 14
             },
-            "total": 74,
+            "total": 79,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -2967,6 +2941,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Jackson Sonderman",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": null
               },
               {
                 "name": "Jayden Vititoe",
@@ -3088,13 +3075,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 27,
-            "Wed": 28,
-            "Thu": 27,
-            "Fri": 25
+            "Mon": 26,
+            "Tue": 26,
+            "Wed": 27,
+            "Thu": 26,
+            "Fri": 24
           },
-          "all": 134
+          "all": 129
         }
       },
       "July 20th-24th": {
@@ -14192,59 +14179,11 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 7,
+          "sourceRow": 5,
           "days": [
             true,
             true,
             true,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jackson Sonderman",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "If possible, I’d appreciate at 50% scholarship",
-          "email": "kalurie@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 6,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jacob Perna",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "jinglejudi@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 4,
-          "days": [
-            false,
-            false,
-            false,
             false,
             false
           ],
@@ -14263,7 +14202,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 8,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -14309,7 +14248,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -14535,6 +14474,33 @@
             true,
             true,
             true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Jackson Sonderman",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": null,
+          "breakfastRaw": null,
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email",
+            "Lunch",
+            "Days attending"
+          ],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 24,
+          "days": [
+            false,
+            false,
+            false,
+            false,
+            false
           ],
           "type": "summer"
         },
