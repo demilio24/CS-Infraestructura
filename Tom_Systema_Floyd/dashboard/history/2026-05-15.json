@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T16:37:14Z",
+  "generatedAt": "2026-05-15T16:42:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -125,8 +125,8 @@
       "July 20th-24th": 28,
       "July 27th-31st": 22,
       "August 3rd-7th": 27,
-      "August 10th-14th": 14,
-      "August 17th-21st": 22,
+      "August 10th-14th": 13,
+      "August 17th-21st": 21,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
@@ -182,12 +182,12 @@
       },
       "August 10th-14th": {
         "Upper Campus": 4,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 17th-21st": {
         "Upper Campus": 12,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 24th-28th": {
@@ -324,7 +324,7 @@
   },
   "combined": {
     "total": 148,
-    "enrollments": 482,
+    "enrollments": 480,
     "byCampus": {
       "Upper Campus": 63,
       "Lower Campus": 85,
@@ -341,8 +341,8 @@
       "July 20th-24th": 48,
       "July 27th-31st": 42,
       "August 3rd-7th": 42,
-      "August 10th-14th": 14,
-      "August 17th-21st": 22,
+      "August 10th-14th": 13,
+      "August 17th-21st": 21,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
@@ -398,12 +398,12 @@
       },
       "August 10th-14th": {
         "Upper Campus": 4,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 17th-21st": {
         "Upper Campus": 12,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 24th-28th": {
@@ -1950,7 +1950,7 @@
             "total": 14,
             "students": [
               {
-                "name": "hayden finneran",
+                "name": "Hayden Finneran",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -4498,13 +4498,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 7,
-              "Tue": 7,
-              "Wed": 7,
-              "Thu": 7,
-              "Fri": 7
+              "Mon": 6,
+              "Tue": 6,
+              "Wed": 6,
+              "Thu": 6,
+              "Fri": 6
             },
-            "total": 35,
+            "total": 30,
             "students": [
               {
                 "name": "Hobie Grace",
@@ -4583,32 +4583,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
-              },
-              {
-                "name": "Wyld Torrealba",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 14,
-            "Tue": 14,
-            "Wed": 14,
-            "Thu": 14,
-            "Fri": 14
+            "Mon": 13,
+            "Tue": 13,
+            "Wed": 13,
+            "Thu": 13,
+            "Fri": 13
           },
-          "all": 70
+          "all": 65
         }
       },
       "August 17th-21st": {
@@ -4776,13 +4763,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 12,
-              "Fri": 11
+              "Mon": 12,
+              "Tue": 12,
+              "Wed": 12,
+              "Thu": 11,
+              "Fri": 10
             },
-            "total": 62,
+            "total": 57,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -4926,19 +4913,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Wyld Torrealba",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Zoey Zimmer",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -4955,13 +4929,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 22,
-            "Wed": 22,
-            "Thu": 21,
-            "Fri": 17
+            "Mon": 20,
+            "Tue": 21,
+            "Wed": 21,
+            "Thu": 20,
+            "Fri": 16
           },
-          "all": 103
+          "all": 98
         }
       },
       "August 24th-28th": {
@@ -12156,7 +12130,7 @@
           "type": "summer"
         },
         {
-          "name": "hayden finneran",
+          "name": "Hayden Finneran",
           "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Pizza ($7.75/day)",
@@ -18818,7 +18792,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -18937,7 +18911,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -18986,31 +18960,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
           "sourceRow": 2,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wyld Torrealba",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Vegan family",
-          "email": "laurenmusselman84@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/10-8/14",
-          "sourceRow": 14,
           "days": [
             false,
             false,
@@ -19320,7 +19269,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -19395,7 +19344,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -19495,7 +19444,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -19521,31 +19470,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
           "sourceRow": 3,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wyld Torrealba",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Vegan family",
-          "email": "laurenmusselman84@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/17-8/21",
-          "sourceRow": 11,
           "days": [
             false,
             false,
