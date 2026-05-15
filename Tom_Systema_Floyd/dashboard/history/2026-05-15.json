@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T17:07:25Z",
+  "generatedAt": "2026-05-15T17:12:03Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,8 +110,8 @@
   "summer": {
     "total": 123,
     "byCampus": {
-      "Upper Campus": 45,
-      "Lower Campus": 78,
+      "Upper Campus": 46,
+      "Lower Campus": 77,
       "Unknown": 0
     },
     "byWeek": {
@@ -161,8 +161,8 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 5,
-        "Lower Campus": 22,
+        "Upper Campus": 6,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -326,8 +326,8 @@
     "total": 148,
     "enrollments": 476,
     "byCampus": {
-      "Upper Campus": 60,
-      "Lower Campus": 88,
+      "Upper Campus": 61,
+      "Lower Campus": 87,
       "Unknown": 0
     },
     "byWeek": {
@@ -377,8 +377,8 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 18,
-        "Lower Campus": 29,
+        "Upper Campus": 19,
+        "Lower Campus": 28,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -2672,13 +2672,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 4,
+              "Tue": 4,
+              "Wed": 4,
+              "Thu": 4,
+              "Fri": 4
             },
-            "total": 25,
+            "total": 20,
             "students": [
               {
                 "name": "Lilly Heyes",
@@ -2722,19 +2722,6 @@
               {
                 "name": "Taavi Horn",
                 "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Wilder Scott",
-                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -2847,13 +2834,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
+              "Mon": 17,
               "Tue": 16,
               "Wed": 17,
               "Thu": 16,
               "Fri": 14
             },
-            "total": 79,
+            "total": 80,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3069,6 +3056,15 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Wilder Scott",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon"
+                ],
+                "lunchRaw": "None"
               }
             ]
           }
@@ -3076,12 +3072,12 @@
         "totals": {
           "byDay": {
             "Mon": 26,
-            "Tue": 26,
-            "Wed": 27,
-            "Thu": 26,
-            "Fri": 24
+            "Tue": 25,
+            "Wed": 26,
+            "Thu": 25,
+            "Fri": 23
           },
-          "all": 129
+          "all": 125
         }
       },
       "July 20th-24th": {
@@ -14282,6 +14278,29 @@
             false
           ],
           "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": "farrahkscott@gmail.com",
+          "email": "Small",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 7,
+          "days": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
         }
       ],
       "lower": [
@@ -14785,31 +14804,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
           "sourceRow": 11,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Upper Campus",
-          "email": "farrahkscott@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 2,
           "days": [
             false,
             false,
