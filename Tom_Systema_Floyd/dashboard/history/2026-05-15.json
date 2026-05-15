@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-15T20:41:59Z",
+  "generatedAt": "2026-05-15T20:47:01Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 122,
+    "summer": 124,
     "free": 28,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,10 +108,10 @@
     "roster": []
   },
   "summer": {
-    "total": 122,
+    "total": 124,
     "byCampus": {
-      "Upper Campus": 45,
-      "Lower Campus": 77,
+      "Upper Campus": 46,
+      "Lower Campus": 78,
       "Unknown": 0
     },
     "byWeek": {
@@ -125,7 +125,7 @@
       "July 20th-24th": 27,
       "July 27th-31st": 22,
       "August 3rd-7th": 27,
-      "August 10th-14th": 13,
+      "August 10th-14th": 15,
       "August 17th-21st": 21,
       "August 24th-28th": 0
     },
@@ -181,8 +181,8 @@
         "Unknown": 0
       },
       "August 10th-14th": {
-        "Upper Campus": 4,
-        "Lower Campus": 9,
+        "Upper Campus": 5,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -324,11 +324,11 @@
     ]
   },
   "combined": {
-    "total": 150,
-    "enrollments": 494,
+    "total": 152,
+    "enrollments": 496,
     "byCampus": {
-      "Upper Campus": 62,
-      "Lower Campus": 88,
+      "Upper Campus": 63,
+      "Lower Campus": 89,
       "Unknown": 0
     },
     "byWeek": {
@@ -342,7 +342,7 @@
       "July 20th-24th": 49,
       "July 27th-31st": 44,
       "August 3rd-7th": 45,
-      "August 10th-14th": 13,
+      "August 10th-14th": 15,
       "August 17th-21st": 21,
       "August 24th-28th": 0
     },
@@ -398,8 +398,8 @@
         "Unknown": 0
       },
       "August 10th-14th": {
-        "Upper Campus": 4,
-        "Lower Campus": 9,
+        "Upper Campus": 5,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -4350,17 +4350,30 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 7,
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 7
             },
-            "total": 25,
+            "total": 35,
             "students": [
               {
                 "name": "Cosmo Robinson",
                 "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Eloise Bergin",
+                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -4386,6 +4399,19 @@
               },
               {
                 "name": "Maciej Kozakowski",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Nellie Bergin",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -4549,13 +4575,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 13,
-            "Tue": 13,
-            "Wed": 13,
-            "Thu": 13,
-            "Fri": 13
+            "Mon": 15,
+            "Tue": 15,
+            "Wed": 15,
+            "Thu": 15,
+            "Fri": 15
           },
-          "all": 65
+          "all": 75
         }
       },
       "August 17th-21st": {
@@ -19181,6 +19207,29 @@
     "August 10th-14th": {
       "upper": [
         {
+          "name": "Eloise Bergin",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "helen@helenbergininteriors.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "8/10-8/14",
+          "sourceRow": 6,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Ira Skaletsky",
           "campus": "Upper Campus",
           "lunch": false,
@@ -19390,6 +19439,29 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Nellie Bergin",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Thx",
+          "email": "helen@helenbergininteriors.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "8/10-8/14",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
