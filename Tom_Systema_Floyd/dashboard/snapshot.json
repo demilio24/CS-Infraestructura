@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-15T17:22:31Z",
+  "generatedAt": "2026-05-15T17:27:18Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -118,9 +118,9 @@
       "June 1st-5th": 23,
       "June 8th-12th": 23,
       "June 15th-19th": 29,
-      "June 22nd-26th": 21,
-      "June 29th-July 3rd": 21,
-      "July 6th-10th": 27,
+      "June 22nd-26th": 23,
+      "June 29th-July 3rd": 19,
+      "July 6th-10th": 29,
       "July 13th-17th": 27,
       "July 20th-24th": 27,
       "July 27th-31st": 22,
@@ -147,17 +147,17 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 5,
-        "Lower Campus": 16,
+        "Lower Campus": 18,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 5,
-        "Lower Campus": 16,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 9,
-        "Lower Campus": 18,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 147,
-    "enrollments": 475,
+    "enrollments": 477,
     "byCampus": {
       "Upper Campus": 60,
       "Lower Campus": 87,
@@ -335,9 +335,9 @@
       "June 1st-5th": 42,
       "June 8th-12th": 43,
       "June 15th-19th": 50,
-      "June 22nd-26th": 41,
-      "June 29th-July 3rd": 41,
-      "July 6th-10th": 46,
+      "June 22nd-26th": 43,
+      "June 29th-July 3rd": 39,
+      "July 6th-10th": 48,
       "July 13th-17th": 47,
       "July 20th-24th": 47,
       "July 27th-31st": 42,
@@ -364,17 +364,17 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 17,
-        "Lower Campus": 24,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 18,
-        "Lower Campus": 23,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 22,
-        "Lower Campus": 24,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -1738,13 +1738,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 12,
-              "Thu": 12,
-              "Fri": 13
+              "Mon": 15,
+              "Tue": 15,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 15
             },
-            "total": 63,
+            "total": 73,
             "students": [
               {
                 "name": "Ace Godin",
@@ -1790,6 +1790,19 @@
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Eliana Loupis",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
                   "Fri"
                 ],
                 "lunchRaw": "None"
@@ -1896,6 +1909,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Sofia Loupis",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Teddy Thomason",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -1926,13 +1952,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 18,
-            "Wed": 18,
-            "Thu": 18,
-            "Fri": 19
+            "Mon": 21,
+            "Tue": 20,
+            "Wed": 20,
+            "Thu": 20,
+            "Fri": 21
           },
-          "all": 92
+          "all": 102
         }
       },
       "June 29th-July 3rd": {
@@ -2031,13 +2057,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 15,
-              "Tue": 14,
-              "Wed": 15,
-              "Thu": 14,
-              "Fri": 15
+              "Mon": 13,
+              "Tue": 12,
+              "Wed": 13,
+              "Thu": 12,
+              "Fri": 13
             },
-            "total": 73,
+            "total": 63,
             "students": [
               {
                 "name": "Ace Godin",
@@ -2083,19 +2109,6 @@
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Eliana Loupis",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
                   "Fri"
                 ],
                 "lunchRaw": "None"
@@ -2202,19 +2215,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Sofia Loupis",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Teddy Grace",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -2245,13 +2245,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 19,
-            "Thu": 17,
-            "Fri": 18
+            "Mon": 17,
+            "Tue": 17,
+            "Wed": 17,
+            "Thu": 15,
+            "Fri": 16
           },
-          "all": 92
+          "all": 82
         }
       },
       "July 6th-10th": {
@@ -2396,13 +2396,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 18,
-              "Wed": 19,
-              "Thu": 17,
-              "Fri": 17
+              "Mon": 19,
+              "Tue": 20,
+              "Wed": 21,
+              "Thu": 19,
+              "Fri": 19
             },
-            "total": 88,
+            "total": 98,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -2435,6 +2435,19 @@
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Eliana Loupis",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
                   "Fri"
                 ],
                 "lunchRaw": "None"
@@ -2627,6 +2640,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Sofia Loupis",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Vincent Molinari",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -2657,13 +2683,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 23,
-            "Tue": 25,
-            "Wed": 26,
-            "Thu": 24,
-            "Fri": 24
+            "Mon": 25,
+            "Tue": 27,
+            "Wed": 28,
+            "Thu": 26,
+            "Fri": 26
           },
-          "all": 122
+          "all": 132
         }
       },
       "July 13th-17th": {
@@ -11259,6 +11285,29 @@
           "type": "summer"
         },
         {
+          "name": "Eliana Loupis",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "May 11 form (Annie Loupis). Parent asked for BOTH sisters (Eliana 7, Sofia 5) in LOWER together. Existing Upper Wk5 row should be deleted by the team.",
+          "email": "loupisfamily@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 19,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Georgie Wright",
           "campus": "Lower Campus",
           "lunch": true,
@@ -11478,6 +11527,29 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Sofia Loupis",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Eliana and Sofia Loupis sisters",
+          "email": "loupisfamily@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 20,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
@@ -12170,7 +12242,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -12243,35 +12315,12 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 17,
+          "sourceRow": 15,
           "days": [
             false,
             false,
             false,
             false,
-            true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Eliana Loupis",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "May 11 form (Annie Loupis). Parent asked for BOTH sisters (Eliana 7, Sofia 5) in LOWER together. Existing Upper Wk5 row should be deleted by the team.",
-          "email": "loupisfamily@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 16,
-          "days": [
-            true,
-            true,
-            true,
-            true,
             true
           ],
           "type": "summer"
@@ -12364,7 +12413,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -12471,29 +12520,6 @@
             false,
             false,
             false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Sofia Loupis",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Eliana and Sofia Loupis sisters",
-          "email": "loupisfamily@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 13,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
           ],
           "type": "summer"
         },
@@ -13320,6 +13346,29 @@
           "type": "summer"
         },
         {
+          "name": "Eliana Loupis",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "May 11 form (Annie Loupis). Parent asked for BOTH sisters (Eliana 7, Sofia 5) in LOWER together. Existing Upper Wk5 row should be deleted by the team.",
+          "email": "loupisfamily@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Graham Olowin",
           "campus": "Lower Campus",
           "lunch": false,
@@ -13660,6 +13709,29 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Sofia Loupis",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Eliana and Sofia Loupis sisters",
+          "email": "loupisfamily@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 21,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
