@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-16T14:27:40Z",
+  "generatedAt": "2026-05-16T14:32:19Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 124,
+    "summer": 125,
     "free": 32,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,23 +108,23 @@
     "roster": []
   },
   "summer": {
-    "total": 124,
+    "total": 125,
     "byCampus": {
-      "Upper Campus": 46,
+      "Upper Campus": 47,
       "Lower Campus": 78,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 23,
-      "June 8th-12th": 23,
+      "June 8th-12th": 24,
       "June 15th-19th": 29,
       "June 22nd-26th": 23,
       "June 29th-July 3rd": 19,
       "July 6th-10th": 29,
       "July 13th-17th": 27,
-      "July 20th-24th": 27,
-      "July 27th-31st": 22,
-      "August 3rd-7th": 27,
+      "July 20th-24th": 28,
+      "July 27th-31st": 23,
+      "August 3rd-7th": 28,
       "August 10th-14th": 15,
       "August 17th-21st": 21,
       "August 24th-28th": 0
@@ -136,7 +136,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 11,
+        "Upper Campus": 12,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -166,17 +166,17 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 9,
+        "Upper Campus": 10,
         "Lower Campus": 18,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 7,
+        "Upper Campus": 8,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 6,
+        "Upper Campus": 7,
         "Lower Campus": 21,
         "Unknown": 0
       },
@@ -324,24 +324,24 @@
     ]
   },
   "combined": {
-    "total": 156,
-    "enrollments": 527,
+    "total": 157,
+    "enrollments": 531,
     "byCampus": {
-      "Upper Campus": 66,
+      "Upper Campus": 67,
       "Lower Campus": 90,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 45,
-      "June 8th-12th": 47,
+      "June 8th-12th": 48,
       "June 15th-19th": 55,
       "June 22nd-26th": 48,
       "June 29th-July 3rd": 44,
       "July 6th-10th": 53,
       "July 13th-17th": 52,
-      "July 20th-24th": 52,
-      "July 27th-31st": 47,
-      "August 3rd-7th": 48,
+      "July 20th-24th": 53,
+      "July 27th-31st": 48,
+      "August 3rd-7th": 49,
       "August 10th-14th": 15,
       "August 17th-21st": 21,
       "August 24th-28th": 0
@@ -353,7 +353,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 26,
+        "Upper Campus": 27,
         "Lower Campus": 21,
         "Unknown": 0
       },
@@ -383,17 +383,17 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 26,
+        "Upper Campus": 27,
         "Lower Campus": 26,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 24,
+        "Upper Campus": 25,
         "Lower Campus": 23,
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 21,
+        "Upper Campus": 22,
         "Lower Campus": 27,
         "Unknown": 0
       },
@@ -932,13 +932,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 14,
-              "Tue": 12,
-              "Wed": 15,
-              "Thu": 15,
-              "Fri": 13
+              "Mon": 15,
+              "Tue": 13,
+              "Wed": 16,
+              "Thu": 16,
+              "Fri": 14
             },
-            "total": 69,
+            "total": 74,
             "students": [
               {
                 "name": "Anna McIntosh",
@@ -1113,6 +1113,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Stella Clark",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Vladimir Aheyev",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -1142,13 +1155,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 19,
-            "Wed": 22,
-            "Thu": 21,
-            "Fri": 19
+            "Mon": 22,
+            "Tue": 20,
+            "Wed": 23,
+            "Thu": 22,
+            "Fri": 20
           },
-          "all": 102
+          "all": 107
         }
       },
       "June 15th-19th": {
@@ -3283,13 +3296,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 16,
-              "Wed": 17,
-              "Thu": 17,
-              "Fri": 13
+              "Mon": 17,
+              "Tue": 17,
+              "Wed": 18,
+              "Thu": 18,
+              "Fri": 14
             },
-            "total": 79,
+            "total": 84,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3468,6 +3481,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Stella Clark",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Teddy Thomason",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -3511,13 +3537,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 26,
-            "Tue": 25,
-            "Wed": 25,
-            "Thu": 26,
-            "Fri": 21
+            "Mon": 27,
+            "Tue": 26,
+            "Wed": 26,
+            "Thu": 27,
+            "Fri": 22
           },
-          "all": 123
+          "all": 128
         }
       },
       "July 27th-31st": {
@@ -3686,13 +3712,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 13
+              "Mon": 14,
+              "Tue": 14,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 14
             },
-            "total": 65,
+            "total": 70,
             "students": [
               {
                 "name": "Annabelle Dockus",
@@ -3838,6 +3864,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Stella Clark",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Truett Rogers",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -3868,13 +3907,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 20,
-            "Tue": 22,
-            "Wed": 22,
-            "Thu": 22,
-            "Fri": 21
+            "Mon": 21,
+            "Tue": 23,
+            "Wed": 23,
+            "Thu": 23,
+            "Fri": 22
           },
-          "all": 107
+          "all": 112
         }
       },
       "August 3rd-7th": {
@@ -4124,13 +4163,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 13
+              "Mon": 14,
+              "Tue": 14,
+              "Wed": 14,
+              "Thu": 14,
+              "Fri": 14
             },
-            "total": 65,
+            "total": 70,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -4300,19 +4339,32 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Stella Clark",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 26,
-            "Tue": 27,
-            "Wed": 27,
-            "Thu": 27,
-            "Fri": 26
+            "Mon": 27,
+            "Tue": 28,
+            "Wed": 28,
+            "Thu": 28,
+            "Fri": 27
           },
-          "all": 133
+          "all": 138
         }
       },
       "August 10th-14th": {
@@ -9727,6 +9779,29 @@
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "6/8-6/12",
           "sourceRow": 9,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Stella Clark",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "meganlaurendaniels@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -16945,6 +17020,29 @@
           "type": "summer"
         },
         {
+          "name": "Stella Clark",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "meganlaurendaniels@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 11,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Teddy Thomason",
           "campus": "Upper Campus",
           "lunch": false,
@@ -18179,6 +18277,29 @@
           "type": "summer"
         },
         {
+          "name": "Stella Clark",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "meganlaurendaniels@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 9,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Taavi Horn",
           "campus": "Upper Campus",
           "lunch": true,
@@ -19319,6 +19440,29 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Stella Clark",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "meganlaurendaniels@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         }
