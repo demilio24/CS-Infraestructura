@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-16T18:27:16Z",
+  "generatedAt": "2026-05-16T18:32:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 125,
-    "free": 35,
+    "free": 36,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,9 +213,9 @@
     ]
   },
   "free": {
-    "total": 35,
+    "total": 36,
     "byCampus": {
-      "Upper Campus": 23,
+      "Upper Campus": 24,
       "Lower Campus": 12,
       "Unknown": 0
     },
@@ -224,12 +224,12 @@
       "June 8th-12th": 27,
       "June 15th-19th": 28,
       "June 22nd-26th": 28,
-      "June 29th-July 3rd": 28,
-      "July 6th-10th": 27,
-      "July 13th-17th": 28,
-      "July 20th-24th": 28,
-      "July 27th-31st": 27,
-      "August 3rd-7th": 23,
+      "June 29th-July 3rd": 29,
+      "July 6th-10th": 28,
+      "July 13th-17th": 29,
+      "July 20th-24th": 29,
+      "July 27th-31st": 28,
+      "August 3rd-7th": 24,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -256,32 +256,32 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 20,
+        "Upper Campus": 21,
         "Lower Campus": 8,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 20,
+        "Upper Campus": 21,
         "Lower Campus": 7,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 20,
+        "Upper Campus": 21,
         "Lower Campus": 8,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 20,
+        "Upper Campus": 21,
         "Lower Campus": 8,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 19,
+        "Upper Campus": 20,
         "Lower Campus": 8,
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 17,
+        "Upper Campus": 18,
         "Lower Campus": 6,
         "Unknown": 0
       },
@@ -303,7 +303,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 107,
-      "Pleasant City Elementary School": 51,
+      "Pleasant City Elementary School": 57,
       "Northboro Elementary School": 50,
       "Roosevelt Elementary School": 39,
       "U.B. Kinsey Educational and Community Center": 25
@@ -324,10 +324,10 @@
     ]
   },
   "combined": {
-    "total": 160,
-    "enrollments": 558,
+    "total": 161,
+    "enrollments": 564,
     "byCampus": {
-      "Upper Campus": 70,
+      "Upper Campus": 71,
       "Lower Campus": 90,
       "Unknown": 0
     },
@@ -336,12 +336,12 @@
       "June 8th-12th": 51,
       "June 15th-19th": 57,
       "June 22nd-26th": 51,
-      "June 29th-July 3rd": 47,
-      "July 6th-10th": 56,
-      "July 13th-17th": 55,
-      "July 20th-24th": 56,
-      "July 27th-31st": 50,
-      "August 3rd-7th": 51,
+      "June 29th-July 3rd": 48,
+      "July 6th-10th": 57,
+      "July 13th-17th": 56,
+      "July 20th-24th": 57,
+      "July 27th-31st": 51,
+      "August 3rd-7th": 52,
       "August 10th-14th": 15,
       "August 17th-21st": 21,
       "August 24th-28th": 0
@@ -368,32 +368,32 @@
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 25,
+        "Upper Campus": 26,
         "Lower Campus": 22,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 29,
+        "Upper Campus": 30,
         "Lower Campus": 27,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 26,
+        "Upper Campus": 27,
         "Lower Campus": 29,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 30,
+        "Upper Campus": 31,
         "Lower Campus": 26,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 27,
+        "Upper Campus": 28,
         "Lower Campus": 23,
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 24,
+        "Upper Campus": 25,
         "Lower Campus": 27,
         "Unknown": 0
       },
@@ -6533,13 +6533,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 28,
-              "Tue": 28,
-              "Wed": 28,
-              "Thu": 28,
-              "Fri": 28
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 140,
+            "total": 145,
             "students": [
               {
                 "name": "Ashton Govan",
@@ -6635,6 +6635,19 @@
               {
                 "name": "Jace Johnson",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jah’Lil Jerome",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -6910,13 +6923,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 28,
-            "Thu": 28,
-            "Fri": 28
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 29,
+            "Thu": 29,
+            "Fri": 29
           },
-          "all": 140
+          "all": 145
         }
       },
       "July 6th-10th": {
@@ -6926,13 +6939,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 27,
-              "Tue": 27,
-              "Wed": 27,
-              "Thu": 27,
-              "Fri": 27
+              "Mon": 28,
+              "Tue": 28,
+              "Wed": 28,
+              "Thu": 28,
+              "Fri": 28
             },
-            "total": 135,
+            "total": 140,
             "students": [
               {
                 "name": "Ashton Govan",
@@ -7052,6 +7065,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Jah’Lil Jerome",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Jahziah Jerome",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -7290,13 +7316,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 27,
-            "Wed": 27,
-            "Thu": 27,
-            "Fri": 27
+            "Mon": 28,
+            "Tue": 28,
+            "Wed": 28,
+            "Thu": 28,
+            "Fri": 28
           },
-          "all": 135
+          "all": 140
         }
       },
       "July 13th-17th": {
@@ -7306,13 +7332,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 28,
-              "Tue": 28,
-              "Wed": 28,
-              "Thu": 28,
-              "Fri": 28
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 140,
+            "total": 145,
             "students": [
               {
                 "name": "Ashton Govan",
@@ -7408,6 +7434,19 @@
               {
                 "name": "Jace Johnson",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jah’Lil Jerome",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -7683,13 +7722,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 28,
-            "Thu": 28,
-            "Fri": 28
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 29,
+            "Thu": 29,
+            "Fri": 29
           },
-          "all": 140
+          "all": 145
         }
       },
       "July 20th-24th": {
@@ -7699,13 +7738,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 28,
-              "Tue": 28,
-              "Wed": 28,
-              "Thu": 28,
-              "Fri": 28
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 140,
+            "total": 145,
             "students": [
               {
                 "name": "Ashton Govan",
@@ -7801,6 +7840,19 @@
               {
                 "name": "Jace Johnson",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jah’Lil Jerome",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8076,13 +8128,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 28,
-            "Thu": 28,
-            "Fri": 28
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 29,
+            "Thu": 29,
+            "Fri": 29
           },
-          "all": 140
+          "all": 145
         }
       },
       "July 27th-31st": {
@@ -8092,13 +8144,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 27,
-              "Tue": 27,
-              "Wed": 27,
-              "Thu": 27,
-              "Fri": 27
+              "Mon": 28,
+              "Tue": 28,
+              "Wed": 28,
+              "Thu": 28,
+              "Fri": 28
             },
-            "total": 135,
+            "total": 140,
             "students": [
               {
                 "name": "Ashton Govan",
@@ -8194,6 +8246,19 @@
               {
                 "name": "Jace Johnson",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jah’Lil Jerome",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8456,13 +8521,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 27,
-            "Wed": 27,
-            "Thu": 27,
-            "Fri": 27
+            "Mon": 28,
+            "Tue": 28,
+            "Wed": 28,
+            "Thu": 28,
+            "Fri": 28
           },
-          "all": 135
+          "all": 140
         }
       },
       "August 3rd-7th": {
@@ -8472,13 +8537,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 23,
-              "Tue": 23,
-              "Wed": 23,
-              "Thu": 23,
-              "Fri": 23
+              "Mon": 24,
+              "Tue": 24,
+              "Wed": 24,
+              "Thu": 24,
+              "Fri": 24
             },
-            "total": 115,
+            "total": 120,
             "students": [
               {
                 "name": "Ashton Govan",
@@ -8561,6 +8626,19 @@
               {
                 "name": "Jace Johnson",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Jah’Lil Jerome",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8784,13 +8862,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 23,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 23
+            "Mon": 24,
+            "Tue": 24,
+            "Wed": 24,
+            "Thu": 24,
+            "Fri": 24
           },
-          "all": 115
+          "all": 120
         }
       },
       "August 10th-14th": {
@@ -14518,6 +14596,30 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Jah’Lil Jerome",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "freneashaesmith@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Pleasant City Elementary School"
+        },
+        {
           "name": "Jahziah Jerome",
           "campus": "Upper Campus",
           "lunch": true,
@@ -15921,6 +16023,30 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Jah’Lil Jerome",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "freneashaesmith@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Pleasant City Elementary School"
+        },
+        {
           "name": "Jahziah Jerome",
           "campus": "Upper Campus",
           "lunch": true,
@@ -17200,6 +17326,30 @@
           ],
           "type": "free",
           "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Jah’Lil Jerome",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "freneashaesmith@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Pleasant City Elementary School"
         },
         {
           "name": "Jahziah Jerome",
@@ -18552,6 +18702,30 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Jah’Lil Jerome",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "freneashaesmith@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Pleasant City Elementary School"
+        },
+        {
           "name": "Jahziah Jerome",
           "campus": "Upper Campus",
           "lunch": true,
@@ -19787,6 +19961,30 @@
           ],
           "type": "free",
           "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Jah’Lil Jerome",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "freneashaesmith@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 21,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Pleasant City Elementary School"
         },
         {
           "name": "Jahziah Jerome",
@@ -21109,6 +21307,30 @@
           ],
           "type": "free",
           "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Jah’Lil Jerome",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "freneashaesmith@yahoo.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 19,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Pleasant City Elementary School"
         },
         {
           "name": "Jahziah Jerome",
