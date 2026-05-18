@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T16:38:02Z",
+  "generatedAt": "2026-05-18T16:42:16Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,8 +110,8 @@
   "summer": {
     "total": 126,
     "byCampus": {
-      "Upper Campus": 47,
-      "Lower Campus": 79,
+      "Upper Campus": 46,
+      "Lower Campus": 80,
       "Unknown": 0
     },
     "byWeek": {
@@ -122,7 +122,7 @@
       "June 29th-July 3rd": 20,
       "July 6th-10th": 30,
       "July 13th-17th": 27,
-      "July 20th-24th": 28,
+      "July 20th-24th": 27,
       "July 27th-31st": 23,
       "August 3rd-7th": 28,
       "August 10th-14th": 14,
@@ -166,8 +166,8 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 11,
-        "Lower Campus": 17,
+        "Upper Campus": 9,
+        "Lower Campus": 18,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -325,10 +325,10 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 579,
+    "enrollments": 578,
     "byCampus": {
-      "Upper Campus": 72,
-      "Lower Campus": 92,
+      "Upper Campus": 71,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
@@ -339,7 +339,7 @@
       "June 29th-July 3rd": 51,
       "July 6th-10th": 60,
       "July 13th-17th": 58,
-      "July 20th-24th": 59,
+      "July 20th-24th": 58,
       "July 27th-31st": 53,
       "August 3rd-7th": 54,
       "August 10th-14th": 14,
@@ -383,8 +383,8 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 33,
-        "Lower Campus": 26,
+        "Upper Campus": 31,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -3110,13 +3110,13 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 3,
-              "Tue": 3,
+              "Mon": 2,
+              "Tue": 2,
               "Wed": 2,
-              "Thu": 3,
+              "Thu": 2,
               "Fri": 2
             },
-            "total": 13,
+            "total": 10,
             "students": [
               {
                 "name": "Avery McCauley",
@@ -3143,17 +3143,6 @@
                   "Fri"
                 ],
                 "lunchRaw": "Special (Celis $15/day): MON/WED/FRI 3x               Pizza lunch: TUES/THUR 2x"
-              },
-              {
-                "name": "Liam McPherson",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Thu"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
               }
             ]
           },
@@ -3162,27 +3151,14 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 4,
-              "Wed": 4,
-              "Thu": 4,
-              "Fri": 4
+              "Mon": 4,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 21,
+            "total": 16,
             "students": [
-              {
-                "name": "Jacob Perna",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
               {
                 "name": "Leo Hamric",
                 "campus": "Lower Campus",
@@ -3266,13 +3242,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 18,
-              "Tue": 17,
+              "Mon": 19,
+              "Tue": 18,
               "Wed": 18,
-              "Thu": 18,
+              "Thu": 19,
               "Fri": 14
             },
-            "total": 85,
+            "total": 88,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3347,6 +3323,17 @@
                   "Wed",
                   "Thu",
                   "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Liam McPherson",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Thu"
                 ],
                 "lunchRaw": "None"
               },
@@ -3516,13 +3503,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 25,
-            "Wed": 25,
-            "Thu": 26,
-            "Fri": 21
+            "Mon": 26,
+            "Tue": 24,
+            "Wed": 24,
+            "Thu": 25,
+            "Fri": 20
           },
-          "all": 124
+          "all": 119
         }
       },
       "July 27th-31st": {
@@ -18373,54 +18360,6 @@
           "type": "summer"
         },
         {
-          "name": "Jacob Perna",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "jinglejudi@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/20-7/24",
-          "sourceRow": 9,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Liam McPherson",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "allisonm.mcpherson@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/20-7/24",
-          "sourceRow": 7,
-          "days": [
-            true,
-            true,
-            false,
-            true,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Nelson Gonzalez",
           "campus": "Upper Campus",
           "lunch": false,
@@ -18456,7 +18395,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 10,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -18479,7 +18418,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -18502,7 +18441,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -18573,7 +18512,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             false,
@@ -18746,6 +18685,31 @@
             false,
             false,
             false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Liam McPherson",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "Pizza ($7.75/day)",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 19,
+          "days": [
+            true,
+            true,
+            false,
+            true,
             false
           ],
           "type": "summer"
