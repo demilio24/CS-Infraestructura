@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T16:18:08Z",
+  "generatedAt": "2026-05-18T16:22:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -125,7 +125,7 @@
       "July 20th-24th": 28,
       "July 27th-31st": 23,
       "August 3rd-7th": 28,
-      "August 10th-14th": 15,
+      "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
     },
@@ -166,13 +166,13 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 10,
-        "Lower Campus": 18,
+        "Upper Campus": 11,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 8,
-        "Lower Campus": 15,
+        "Upper Campus": 9,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -182,7 +182,7 @@
       },
       "August 10th-14th": {
         "Upper Campus": 5,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 580,
+    "enrollments": 579,
     "byCampus": {
       "Upper Campus": 72,
       "Lower Campus": 92,
@@ -342,7 +342,7 @@
       "July 20th-24th": 59,
       "July 27th-31st": 53,
       "August 3rd-7th": 54,
-      "August 10th-14th": 15,
+      "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
     },
@@ -383,13 +383,13 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 32,
-        "Lower Campus": 27,
+        "Upper Campus": 33,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 29,
-        "Lower Campus": 24,
+        "Upper Campus": 30,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -399,7 +399,7 @@
       },
       "August 10th-14th": {
         "Upper Campus": 5,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -3162,13 +3162,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 6,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 5,
+              "Tue": 4,
+              "Wed": 4,
+              "Thu": 4,
+              "Fri": 4
             },
-            "total": 26,
+            "total": 21,
             "students": [
               {
                 "name": "Jacob Perna",
@@ -3230,19 +3230,6 @@
                   "Fri"
                 ],
                 "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Wilder Scott",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
               }
             ]
           },
@@ -3279,13 +3266,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
+              "Mon": 18,
               "Tue": 17,
               "Wed": 18,
               "Thu": 18,
               "Fri": 14
             },
-            "total": 84,
+            "total": 85,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3514,6 +3501,15 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Wilder Scott",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon"
+                ],
+                "lunchRaw": "None"
               }
             ]
           }
@@ -3521,12 +3517,12 @@
         "totals": {
           "byDay": {
             "Mon": 27,
-            "Tue": 26,
-            "Wed": 26,
-            "Thu": 27,
-            "Fri": 22
+            "Tue": 25,
+            "Wed": 25,
+            "Thu": 26,
+            "Fri": 21
           },
-          "all": 128
+          "all": 124
         }
       },
       "July 27th-31st": {
@@ -3574,13 +3570,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 6,
-              "Tue": 6,
-              "Wed": 6,
-              "Thu": 6,
-              "Fri": 6
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 5,
+              "Thu": 5,
+              "Fri": 5
             },
-            "total": 30,
+            "total": 25,
             "students": [
               {
                 "name": "Jacob Perna",
@@ -3624,19 +3620,6 @@
               {
                 "name": "Taavi Horn",
                 "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Wilder Scott",
-                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -3695,13 +3678,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 14,
+              "Mon": 15,
               "Tue": 14,
               "Wed": 14,
               "Thu": 14,
               "Fri": 14
             },
-            "total": 70,
+            "total": 71,
             "students": [
               {
                 "name": "Annabelle Dockus",
@@ -3884,6 +3867,15 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Wilder Scott",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon"
+                ],
+                "lunchRaw": "None"
               }
             ]
           }
@@ -3891,12 +3883,12 @@
         "totals": {
           "byDay": {
             "Mon": 21,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 22
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 22,
+            "Fri": 21
           },
-          "all": 112
+          "all": 108
         }
       },
       "August 3rd-7th": {
@@ -4519,13 +4511,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 6,
-              "Tue": 6,
-              "Wed": 6,
-              "Thu": 6,
-              "Fri": 6
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 5,
+              "Thu": 5,
+              "Fri": 5
             },
-            "total": 30,
+            "total": 25,
             "students": [
               {
                 "name": "Hobie Grace",
@@ -4567,19 +4559,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Reagan Olowin",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Teddy Grace",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -4610,13 +4589,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 15,
-            "Tue": 15,
-            "Wed": 15,
-            "Thu": 15,
-            "Fri": 15
+            "Mon": 14,
+            "Tue": 14,
+            "Wed": 14,
+            "Thu": 14,
+            "Fri": 14
           },
-          "all": 75
+          "all": 70
         }
       },
       "August 17th-21st": {
@@ -18580,6 +18559,29 @@
             false
           ],
           "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": "farrahkscott@gmail.com",
+          "email": "Small",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 12,
+          "days": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
         }
       ],
       "lower": [
@@ -18983,31 +18985,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/20-7/24",
           "sourceRow": 16,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Upper Campus",
-          "email": "farrahkscott@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/20-7/24",
-          "sourceRow": 2,
           "days": [
             false,
             false,
@@ -19958,6 +19935,29 @@
             false
           ],
           "type": "summer"
+        },
+        {
+          "name": "Wilder Scott",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": "farrahkscott@gmail.com",
+          "email": "Small",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 10,
+          "days": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
         }
       ],
       "lower": [
@@ -20267,31 +20267,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
           "sourceRow": 11,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Upper Campus",
-          "email": "farrahkscott@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/27-7/31",
-          "sourceRow": 4,
           "days": [
             false,
             false,
@@ -22506,7 +22481,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -22529,7 +22504,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -22552,7 +22527,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -22575,7 +22550,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -22600,7 +22575,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             false,
             false,
@@ -22623,38 +22598,13 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Reagan Olowin",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "amandaolowin@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/10-8/14",
-          "sourceRow": 3,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         },
@@ -22671,7 +22621,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -22694,7 +22644,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
