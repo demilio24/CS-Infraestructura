@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-18T16:42:16Z",
+  "generatedAt": "2026-05-18T16:47:16Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 126,
-    "free": 38,
+    "free": 39,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -123,7 +123,7 @@
       "July 6th-10th": 30,
       "July 13th-17th": 27,
       "July 20th-24th": 27,
-      "July 27th-31st": 23,
+      "July 27th-31st": 22,
       "August 3rd-7th": 28,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
@@ -166,13 +166,13 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 9,
-        "Lower Campus": 18,
+        "Upper Campus": 8,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 9,
-        "Lower Campus": 14,
+        "Upper Campus": 7,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -213,14 +213,14 @@
     ]
   },
   "free": {
-    "total": 38,
+    "total": 39,
     "byCampus": {
       "Upper Campus": 25,
-      "Lower Campus": 13,
+      "Lower Campus": 14,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 27,
+      "June 1st-5th": 28,
       "June 8th-12th": 29,
       "June 15th-19th": 30,
       "June 22nd-26th": 30,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 17,
-        "Lower Campus": 10,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -305,7 +305,7 @@
       "Westward Elementary School": 107,
       "Northboro Elementary School": 60,
       "Pleasant City Elementary School": 57,
-      "Roosevelt Elementary School": 39,
+      "Roosevelt Elementary School": 40,
       "U.B. Kinsey Educational and Community Center": 35
     },
     "weekOrder": [
@@ -324,15 +324,15 @@
     ]
   },
   "combined": {
-    "total": 164,
+    "total": 165,
     "enrollments": 578,
     "byCampus": {
       "Upper Campus": 71,
-      "Lower Campus": 93,
+      "Lower Campus": 94,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 49,
+      "June 1st-5th": 50,
       "June 8th-12th": 52,
       "June 15th-19th": 59,
       "June 22nd-26th": 53,
@@ -340,7 +340,7 @@
       "July 6th-10th": 60,
       "July 13th-17th": 58,
       "July 20th-24th": 58,
-      "July 27th-31st": 53,
+      "July 27th-31st": 52,
       "August 3rd-7th": 54,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 26,
-        "Lower Campus": 23,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -383,13 +383,13 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 31,
-        "Lower Campus": 27,
+        "Upper Campus": 30,
+        "Lower Campus": 28,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 30,
-        "Lower Campus": 23,
+        "Upper Campus": 28,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -3246,9 +3246,9 @@
               "Tue": 18,
               "Wed": 18,
               "Thu": 19,
-              "Fri": 14
+              "Fri": 13
             },
-            "total": 88,
+            "total": 87,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -3439,14 +3439,13 @@
               },
               {
                 "name": "Stella Clark",
-                "campus": "Upper Campus",
+                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
                   "Tue",
                   "Wed",
-                  "Thu",
-                  "Fri"
+                  "Thu"
                 ],
                 "lunchRaw": "None"
               },
@@ -3507,9 +3506,9 @@
             "Tue": 24,
             "Wed": 24,
             "Thu": 25,
-            "Fri": 20
+            "Fri": 19
           },
-          "all": 119
+          "all": 118
         }
       },
       "July 27th-31st": {
@@ -3557,27 +3556,14 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 4,
+              "Tue": 4,
+              "Wed": 4,
+              "Thu": 4,
+              "Fri": 4
             },
-            "total": 25,
+            "total": 20,
             "students": [
-              {
-                "name": "Jacob Perna",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
               {
                 "name": "Lilly Heyes",
                 "campus": "Lower Campus",
@@ -3669,9 +3655,9 @@
               "Tue": 14,
               "Wed": 14,
               "Thu": 14,
-              "Fri": 14
+              "Fri": 13
             },
-            "total": 71,
+            "total": 70,
             "students": [
               {
                 "name": "Annabelle Dockus",
@@ -3818,14 +3804,13 @@
               },
               {
                 "name": "Stella Clark",
-                "campus": "Upper Campus",
+                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
                   "Tue",
                   "Wed",
-                  "Thu",
-                  "Fri"
+                  "Thu"
                 ],
                 "lunchRaw": "None"
               },
@@ -3869,13 +3854,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 22,
-            "Wed": 22,
-            "Thu": 22,
-            "Fri": 21
+            "Mon": 20,
+            "Tue": 21,
+            "Wed": 21,
+            "Thu": 21,
+            "Fri": 19
           },
-          "all": 108
+          "all": 102
         }
       },
       "August 3rd-7th": {
@@ -4904,13 +4889,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 26,
-              "Tue": 26,
-              "Wed": 26,
-              "Thu": 26,
-              "Fri": 26
+              "Mon": 27,
+              "Tue": 27,
+              "Wed": 27,
+              "Thu": 27,
+              "Fri": 27
             },
-            "total": 130,
+            "total": 135,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4954,6 +4939,19 @@
               {
                 "name": "Darren Dushawn Edwards Jr",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "DUVAL BEAUSEJOUR MIKE FRANTZLEY STARDENS",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -5255,13 +5253,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 27,
-            "Wed": 27,
-            "Thu": 27,
-            "Fri": 27
+            "Mon": 28,
+            "Tue": 28,
+            "Wed": 28,
+            "Thu": 28,
+            "Fri": 28
           },
-          "all": 135
+          "all": 140
         }
       },
       "June 8th-12th": {
@@ -9682,6 +9680,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "DUVAL BEAUSEJOUR MIKE FRANTZLEY STARDENS",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "francinabeausejour8@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Gabriella Schoneck",
@@ -18429,29 +18451,6 @@
           "type": "summer"
         },
         {
-          "name": "Stella Clark",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "meganlaurendaniels@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/20-7/24",
-          "sourceRow": 9,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Teddy Thomason",
           "campus": "Upper Campus",
           "lunch": false,
@@ -18512,7 +18511,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             false,
@@ -18929,6 +18928,31 @@
             false,
             false,
             false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Stella Clark",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 20,
+          "days": [
+            true,
+            true,
+            true,
+            true,
             false
           ],
           "type": "summer"
@@ -19746,7 +19770,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             false,
             true,
@@ -19776,31 +19800,6 @@
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jacob Perna",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "jinglejudi@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/27-7/31",
-          "sourceRow": 7,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         },
@@ -19853,29 +19852,6 @@
           "type": "summer"
         },
         {
-          "name": "Stella Clark",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "meganlaurendaniels@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "7/27-7/31",
-          "sourceRow": 9,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Taavi Horn",
           "campus": "Upper Campus",
           "lunch": true,
@@ -19913,7 +19889,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 10,
+          "sourceRow": 8,
           "days": [
             true,
             false,
@@ -20188,6 +20164,31 @@
             false,
             false,
             false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Stella Clark",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
             false
           ],
           "type": "summer"
