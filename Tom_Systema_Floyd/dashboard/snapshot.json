@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-18T23:47:05Z",
+  "generatedAt": "2026-05-18T23:52:15Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 122,
-    "free": 41,
+    "free": 40,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,14 +213,14 @@
     ]
   },
   "free": {
-    "total": 41,
+    "total": 40,
     "byCampus": {
       "Upper Campus": 25,
-      "Lower Campus": 16,
+      "Lower Campus": 15,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 30,
+      "June 1st-5th": 29,
       "June 8th-12th": 30,
       "June 15th-19th": 31,
       "June 22nd-26th": 31,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 17,
-        "Lower Campus": 13,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -304,7 +304,7 @@
     "bySchool": {
       "Westward Elementary School": 117,
       "Northboro Elementary School": 60,
-      "Pleasant City Elementary School": 57,
+      "Pleasant City Elementary School": 56,
       "Roosevelt Elementary School": 41,
       "U.B. Kinsey Educational and Community Center": 35
     },
@@ -324,15 +324,15 @@
     ]
   },
   "combined": {
-    "total": 163,
-    "enrollments": 582,
+    "total": 162,
+    "enrollments": 581,
     "byCampus": {
       "Upper Campus": 70,
-      "Lower Campus": 93,
+      "Lower Campus": 92,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 52,
+      "June 1st-5th": 51,
       "June 8th-12th": 53,
       "June 15th-19th": 60,
       "June 22nd-26th": 54,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 26,
-        "Lower Campus": 26,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -4787,34 +4787,6 @@
       "June 1st-5th": {
         "rows": [
           {
-            "category": "none",
-            "subtypeKey": "none",
-            "label": "No lunch",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Tom floyd",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "No"
-              }
-            ]
-          },
-          {
             "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
@@ -5209,13 +5181,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 29,
+            "Thu": 29,
+            "Fri": 29
           },
-          "all": 150
+          "all": 145
         }
       },
       "June 8th-12th": {
@@ -9767,7 +9739,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -9815,7 +9787,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -9887,7 +9859,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 3,
+          "sourceRow": 2,
           "days": [
             true,
             true,
@@ -9911,7 +9883,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9983,7 +9955,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -10031,7 +10003,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -10079,7 +10051,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -10103,7 +10075,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -10127,7 +10099,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -10175,7 +10147,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -10283,30 +10255,6 @@
           "school": "Westward Elementary School"
         },
         {
-          "name": "Tom floyd",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "No",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "floydkarateinstitute@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 2,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Pleasant City Elementary School"
-        },
-        {
           "name": "Zaire Clinton",
           "campus": "Lower Campus",
           "lunch": true,
@@ -10319,7 +10267,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -10343,7 +10291,7 @@
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
