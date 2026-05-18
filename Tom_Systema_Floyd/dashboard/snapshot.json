@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T15:02:13Z",
+  "generatedAt": "2026-05-18T15:07:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -115,8 +115,8 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 23,
-      "June 8th-12th": 24,
+      "June 1st-5th": 22,
+      "June 8th-12th": 23,
       "June 15th-19th": 29,
       "June 22nd-26th": 23,
       "June 29th-July 3rd": 20,
@@ -132,12 +132,12 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 9,
-        "Lower Campus": 14,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 12,
-        "Lower Campus": 12,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -325,15 +325,15 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 582,
+    "enrollments": 580,
     "byCampus": {
       "Upper Campus": 72,
       "Lower Campus": 92,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 50,
-      "June 8th-12th": 53,
+      "June 1st-5th": 49,
+      "June 8th-12th": 52,
       "June 15th-19th": 59,
       "June 22nd-26th": 53,
       "June 29th-July 3rd": 51,
@@ -349,12 +349,12 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 26,
-        "Lower Campus": 24,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 31,
-        "Lower Campus": 22,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -423,13 +423,13 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 4,
-              "Tue": 3,
-              "Wed": 4,
+              "Mon": 3,
+              "Tue": 2,
+              "Wed": 3,
               "Thu": 2,
               "Fri": 2
             },
-            "total": 15,
+            "total": 12,
             "students": [
               {
                 "name": "Georgie Wright",
@@ -441,17 +441,6 @@
                   "Wed",
                   "Thu",
                   "Fri"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              },
-              {
-                "name": "Iyar Topor",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed"
                 ],
                 "lunchRaw": "Pizza ($7.75/day)"
               },
@@ -782,43 +771,17 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 19,
-            "Wed": 22,
+            "Mon": 21,
+            "Tue": 18,
+            "Wed": 21,
             "Thu": 20,
             "Fri": 19
           },
-          "all": 102
+          "all": 99
         }
       },
       "June 8th-12th": {
         "rows": [
-          {
-            "category": "pizza",
-            "subtypeKey": "pizza-daily",
-            "label": "Pizza daily ($7.75/day)",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 0,
-              "Fri": 0
-            },
-            "total": 3,
-            "students": [
-              {
-                "name": "Iyar Topor",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              }
-            ]
-          },
           {
             "category": "pizza",
             "subtypeKey": "pizza-weekly",
@@ -1155,13 +1118,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 20,
-            "Wed": 23,
+            "Mon": 21,
+            "Tue": 19,
+            "Wed": 22,
             "Thu": 22,
             "Fri": 20
           },
-          "all": 107
+          "all": 104
         }
       },
       "June 15th-19th": {
@@ -9534,29 +9497,6 @@
           "type": "summer"
         },
         {
-          "name": "Iyar Topor",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "Daily ($10) with fruit (banana, strawberry, blueberry)",
-          "allergy": null,
-          "notes": "Just three days on June 8/9/10th as we’re leaving on the 11th",
-          "email": "kedem.shinar@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 16,
-          "days": [
-            true,
-            true,
-            true,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "John “LJ” Howe",
           "campus": "Lower Campus",
           "lunch": true,
@@ -10657,7 +10597,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -10705,7 +10645,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             false,
             false,
@@ -10730,36 +10670,13 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
             false,
             false,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Iyar Topor",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "Daily ($10) with fruit (banana, strawberry, blueberry)",
-          "allergy": null,
-          "notes": "Just three days on June 8/9/10th as we’re leaving on the 11th",
-          "email": "kedem.shinar@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
-          "days": [
-            true,
-            true,
-            true,
-            false,
-            false
           ],
           "type": "summer"
         },
@@ -10778,7 +10695,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -10851,7 +10768,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             false,
             false,
