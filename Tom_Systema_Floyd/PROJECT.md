@@ -72,6 +72,16 @@ Added clickable HYPERLINK chips at the top of the Dashboard tab pointing at the 
 - **Hooked into `buildAllBilling` tail** alongside `sanitizeDashboardCustomerHeaders` + `fixDashboardGroups`, so chips self-heal every 5 min if cleared, and a 5th form sheet added later appears on the next cron fire (as long as it matches one of the 4 existing category regexes — new types need a `FORM_SUBMISSION_SHEET_CATEGORIES` entry).
 - **RemoteTrigger whitelist** gained `installFormSheetQuickLinks` (sync=1) so the operator can refresh on demand without waiting for the cron.
 
+### 2026-05-18 — Add Item feature fully shipped + Dashboard healed
+End of the Add Item rollout cycle. Status of every piece:
+- **Sidebar dialog** — live, verified end-to-end (Chrome extension test, 7/7 passes 2026-05-17). Operator picks contact via autocomplete, fills item / amount / qty / fees / status, submits. Form resets but sidebar persists for batch entry.
+- **Hidden `Manual Items` source tab** — created on first dialog submit, hidden via `sh.hideSheet()`. Survives `nuclearResetBilling` because it's a source. Stable UUID fingerprint per row in col K.
+- **`#N/A` balance fallout from yesterday's audit-timeout** — resolved. `nuclearResetBilling` re-rendered the Dashboard from sources, rewrote SUMIFS ranges, recreated row groups, and orphan rows like Phoenix Small (col B = `"small"`) disappeared because they're not in any source sheet.
+- **Daily 3 AM self-heal trigger** — installed under `emilio@nilsdigital.com` (Workspace 100K UrlFetch quota). Audits Dashboard, runs nuclear reset only when needed, silent on healthy days.
+- **Menu state** — `Add Item → + New manual item`, `Audit Dashboard (report only)`, `Repair Dashboard (full rebuild)`. The `Install 3 AM auto-heal trigger` row auto-hides via `buildAddItemMenu_` once `hasDailySelfHealTrigger_` returns true; reappears for any teammate who opens the sheet without their own trigger.
+
+Nothing further required for the Add Item flow. Future operator-visible bugs in this area should be diagnosed first with `Add Item → Audit Dashboard (report only)`, then repaired with `Add Item → Repair Dashboard (full rebuild)` if anything is non-zero.
+
 ### 2026-05-18 — Menu: hide self-heal install option once trigger exists
 Extracted the Add Item menu builder into `buildAddItemMenu_()` and added `hasDailySelfHealTrigger_()` (scans `ScriptApp.getProjectTriggers()` for a handler matching `dailyDashboardSelfHeal`). The "Install 3 AM auto-heal trigger" row is added conditionally — only when the trigger is NOT yet installed for the current user. After a successful install via `menu_installDailySelfHeal`, the install handler calls `buildAddItemMenu_()` to repaint live (Apps Script's `addToUi()` replaces a menu with the same name), so the option disappears immediately without a sheet reload. The result alert was also updated to mention "the install option will now hide". Triggers are per-user, so a teammate opening the sheet who doesn't have their own trigger would still see the install option — matches the intended "install once per operator" mental model.
 
