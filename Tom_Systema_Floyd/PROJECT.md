@@ -65,6 +65,24 @@ Full file map + shipped features from 2026-05-07 in memory `project_systema_floy
 
 ## Changelog
 
+### 2026-05-18 — Billing: split audit from repair, run repair via background trigger
+Yesterday's combined `Audit & Repair Dashboard` menu item hit the **6-min menu-execution cap** on a sheet with many malformed customer headers — the synchronous delete loop plus the trailing `fixDashboardGroups` rebuild blew past the limit, leaving the Dashboard mid-state (partial row deletions invalidated SUMIFS ranges, producing `#N/A` in many Balance cells).
+
+Replaced the single entry with two:
+- **`Audit Dashboard (report only)`** — runs `findUngroupedCustomers_` + `findMalformedCustomerHeaders_`, shows a single UI alert with row numbers + names. Read-only, always completes in seconds.
+- **`Repair Dashboard (full rebuild)`** — confirms with Yes/No, then schedules `nuclearResetBilling` as a one-time trigger 10s in the future (via `ScriptApp.newTrigger('nuclearResetBilling').timeBased().after(10000).create()`) and returns immediately. The trigger gets the **30-min execution cap** instead of 6-min, so even a 600+ row Dashboard rebuilds cleanly. Apps Script auto-deletes one-time triggers after they fire.
+
+The repair path is also more correct than synchronous deletion: `nuclearResetBilling` rebuilds from source sheets (4 reg + Manual Items + 4 form-submission sheets), so orphan rows like Phoenix Small (col B = `"small"`, not in any source) disappear automatically without needing a targeted delete. Balance SUMIFS formulas are rewritten with correct ranges. Paid / refunded / refund-needed statuses are preserved by fingerprint via the existing prior-status snapshot.
+
+Old `menu_auditAndRepairDashboard` left in [Menu.js](Billing dashboard/apps-script/Menu.js) as orphan code (no menu wiring); can be removed in a later cleanup.
+
+### 2026-05-18 — Billing: one-click Audit & Repair Dashboard
+Replaced the standalone `Rebuild row groups` menu entry with a single comprehensive item: **`Add Item → Audit & Repair Dashboard`**. One click runs `fixDashboardGroups`, then two new audit helpers:
+- `findUngroupedCustomers_` — walks every customer detected by `readDashboardState_`, checks `getRowGroupDepth(subHeaderRow)`, surfaces anyone still at depth 0 after the rebuild (i.e., where the group-rebuild silently skipped them).
+- `findMalformedCustomerHeaders_` — scans for rows where col B is non-empty + non-email AND the next row matches the sub-header pattern (`A=DATE, G=STATUS`). Catches data-import corruption like the Phoenix Small row at 528 (col B was `"small"` — a t-shirt size pasted in place of an email).
+
+The menu hook (`menu_auditAndRepairDashboard`) builds a single combined UI alert. If malformed headers are found, a Yes/No prompt offers in-place deletion via `deleteMalformedCustomerSection_`, which walks down from each bad header, includes the sub-header + any tx rows until the next valid customer header (lookahead via `@` in col B OR next-row sub-header pattern), and deletes in descending row order so indices stay stable across multi-section cleanups. After delete, `fixDashboardGroups` runs once more for a final clean state. All four helpers live in [Menu.js](Billing dashboard/apps-script/Menu.js).
+
 ### 2026-05-17 — Billing: 4 new form-submission categories wired into the dashboard
 Extended `BillingFromSheets.js` so submissions from the 4 new GHL forms (Vladimir Seminar, Private Lessons, Rent-A-Sensei, Balloons) land on the Dashboard the same way camp enrollments do. Pipeline:
 

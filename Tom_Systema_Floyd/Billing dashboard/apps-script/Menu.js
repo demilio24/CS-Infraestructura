@@ -18,17 +18,98 @@
  * dropdown). Multi-select + Ctrl+Enter still works for bulk flips.
  */
 function onOpen() {
-  // Primary action plus a single audit-and-repair entry: rebuilds row
-  // groups, reports any customer sections still without a toggle, and
-  // surfaces malformed customer headers (rows that look like a header
-  // visually but have a non-email value in col B) with a Yes/No prompt
-  // to delete them. Whole flow is one click + one confirmation.
+  // Audit is read-only (fast). Repair is heavy (nuclear reset) and runs
+  // as a background trigger so it gets the 30-min execution cap instead
+  // of the 6-min menu cap that blew up the synchronous version.
   SpreadsheetApp.getUi()
     .createMenu('Add Item')
     .addItem('+ New manual item', 'showAddManualItemDialog')
     .addSeparator()
-    .addItem('Audit & Repair Dashboard', 'menu_auditAndRepairDashboard')
+    .addItem('Audit Dashboard (report only)', 'menu_auditDashboardReportOnly')
+    .addItem('Repair Dashboard (full rebuild)', 'menu_repairDashboardBackground')
     .addToUi();
+}
+
+/**
+ * Read-only audit: counts groups, detects malformed customer headers
+ * and ungrouped sections, shows one UI alert. No destructive action,
+ * always completes well under the 6-min menu cap.
+ */
+function menu_auditDashboardReportOnly() {
+  var ui = SpreadsheetApp.getUi();
+  var ungrouped, malformed;
+  try {
+    ungrouped = findUngroupedCustomers_();
+    malformed = findMalformedCustomerHeaders_();
+  } catch (e) {
+    ui.alert('Audit failed: ' + (e && e.message || e));
+    return;
+  }
+
+  var lines = [];
+  lines.push('Customer sections without row group: ' + ungrouped.length);
+  ungrouped.slice(0, 10).forEach(function(u) {
+    lines.push('  - Row ' + u.row + ': ' + (u.students || u.email || '(unknown)'));
+  });
+  if (ungrouped.length > 10) lines.push('  ... +' + (ungrouped.length - 10) + ' more');
+  lines.push('');
+  lines.push('Malformed customer headers (col B is not an email): ' + malformed.length);
+  malformed.slice(0, 10).forEach(function(m) {
+    lines.push('  - Row ' + m.row + ': "' + m.colA + '" | col B = "' + m.colB + '"');
+  });
+  if (malformed.length > 10) lines.push('  ... +' + (malformed.length - 10) + ' more');
+  lines.push('');
+  if (ungrouped.length === 0 && malformed.length === 0) {
+    lines.push('Dashboard looks healthy.');
+  } else {
+    lines.push('To clean up: click "Repair Dashboard (full rebuild)".');
+    lines.push('That schedules a background rebuild from source sheets — fixes');
+    lines.push('balance formulas, row groups, and removes orphan rows that');
+    lines.push('aren\'t in any source. Takes ~3-5 minutes.');
+  }
+  ui.alert('Dashboard audit', lines.join('\n'), ui.ButtonSet.OK);
+}
+
+/**
+ * Schedule nuclearResetBilling as a one-time trigger ~10s out so the
+ * rebuild runs with the 30-min trigger execution cap (vs 6 min for
+ * direct menu invocations). Returns immediately — no risk of the menu
+ * timing out. The Apps Script auto-deletes one-time triggers after
+ * they fire, so no inventory bloat.
+ */
+function menu_repairDashboardBackground() {
+  var ui = SpreadsheetApp.getUi();
+  var resp = ui.alert(
+    'Full Dashboard rebuild',
+    'This will rebuild the entire Dashboard from source sheets in the\n' +
+    'background (~3-5 minutes). Effects:\n' +
+    '\n' +
+    '  - All balance #N/A errors get fixed (SUMIFS ranges rewritten)\n' +
+    '  - All customer row groups rebuilt cleanly\n' +
+    '  - Orphan rows (not in any source sheet) are removed automatically\n' +
+    '  - Paid/refunded/refund-needed statuses are preserved by fingerprint\n' +
+    '\n' +
+    'You can keep working in other tabs while it runs. Proceed?',
+    ui.ButtonSet.YES_NO
+  );
+  if (resp !== ui.Button.YES) return;
+  try {
+    ScriptApp.newTrigger('nuclearResetBilling')
+      .timeBased()
+      .after(10 * 1000)
+      .create();
+  } catch (e) {
+    ui.alert('Could not schedule rebuild: ' + (e && e.message || e));
+    return;
+  }
+  ui.alert(
+    'Rebuild scheduled',
+    'Starts in ~10 seconds. Watch the Apps Script Executions tab for\n' +
+    'progress. Dashboard will look temporarily empty mid-rebuild — that\'s\n' +
+    'normal. Once it completes you can close this dialog and reload the\n' +
+    'sheet.',
+    ui.ButtonSet.OK
+  );
 }
 
 /**
