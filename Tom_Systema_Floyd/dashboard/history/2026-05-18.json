@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T14:37:43Z",
+  "generatedAt": "2026-05-18T14:42:15Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -126,7 +126,7 @@
       "July 27th-31st": 23,
       "August 3rd-7th": 28,
       "August 10th-14th": 15,
-      "August 17th-21st": 21,
+      "August 17th-21st": 18,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
@@ -187,7 +187,7 @@
       },
       "August 17th-21st": {
         "Upper Campus": 12,
-        "Lower Campus": 9,
+        "Lower Campus": 6,
         "Unknown": 0
       },
       "August 24th-28th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 586,
+    "enrollments": 583,
     "byCampus": {
       "Upper Campus": 72,
       "Lower Campus": 92,
@@ -343,7 +343,7 @@
       "July 27th-31st": 53,
       "August 3rd-7th": 54,
       "August 10th-14th": 15,
-      "August 17th-21st": 21,
+      "August 17th-21st": 18,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
@@ -404,7 +404,7 @@
       },
       "August 17th-21st": {
         "Upper Campus": 12,
-        "Lower Campus": 9,
+        "Lower Campus": 6,
         "Unknown": 0
       },
       "August 24th-28th": {
@@ -4821,27 +4821,14 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 12,
-              "Tue": 12,
-              "Wed": 12,
-              "Thu": 11,
-              "Fri": 10
+              "Mon": 9,
+              "Tue": 9,
+              "Wed": 9,
+              "Thu": 8,
+              "Fri": 7
             },
-            "total": 57,
+            "total": 42,
             "students": [
-              {
-                "name": "Aria Falzone",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
               {
                 "name": "August Johnson",
                 "campus": "Lower Campus",
@@ -4945,32 +4932,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Reagan Olowin",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Truett Rogers",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Zoey Zimmer",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -4987,13 +4948,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 20,
-            "Tue": 21,
-            "Wed": 21,
-            "Thu": 20,
-            "Fri": 16
+            "Mon": 17,
+            "Tue": 18,
+            "Wed": 18,
+            "Thu": 17,
+            "Fri": 13
           },
-          "all": 98
+          "all": 83
         }
       },
       "August 24th-28th": {
@@ -23171,29 +23132,6 @@
       ],
       "lower": [
         {
-          "name": "Aria Falzone",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": "Peanut, sesame seed, and green pea allergy; EpiPens required; Full Week",
-          "notes": "Peanut, sesame seed, and green pea allergy; EpiPens required; Full Week",
-          "email": "marilyn@thefalzones.net",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/17-8/21",
-          "sourceRow": 13,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
           "name": "August Johnson",
           "campus": "Lower Campus",
           "lunch": false,
@@ -23258,7 +23196,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 11,
+          "sourceRow": 7,
           "days": [
             false,
             false,
@@ -23309,56 +23247,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
           "sourceRow": 4,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Reagan Olowin",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "amandaolowin@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/17-8/21",
-          "sourceRow": 10,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Truett Rogers",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "jgwenberry@yahoo.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/17-8/21",
-          "sourceRow": 12,
           "days": [
             false,
             false,
