@@ -66,6 +66,11 @@ const REMOTE_TRIGGER_WHITELIST = {
   migratePricingSheetAddAliases:   'Add Aliases column to Pricing tab.',
   prettifyPricingSheet:            'Reformat Pricing tab into banded sections.',
 
+  // Manual Items tab (operator escape hatch for non-reg-sheet charges)
+  setupManualItemsTab:             'Bootstrap the Manual Items tab. Idempotent. Use sync=1.',
+  addManualItem:                   'Append a row to the Manual Items tab. Params: &email=&student=&label=&amount= (negative OK for credits) [&qty=N (default 1)][&applyProcessing=Yes|No (default Yes)][&applyTax=Yes (default No)][&period=][&status=owed|paid|canceled]. Use sync=1.',
+  testAddManualItemTemplate:       'Render the AddManualItem.html template with stub data; returns ok:true if the template parses cleanly. Use sync=1.',
+
   // Trigger management
   installBillingFromSheetsTrigger: '(Re)install 5-min buildAllBilling trigger.',
   installPollingTrigger:           '(Re)install 5-min pollFloridaSubmissions trigger.',
@@ -191,6 +196,9 @@ function _rtDispatch_(fn, params) {
     case 'setupPricingSheet':                return setupPricingSheet();
     case 'migratePricingSheetAddAliases':    return migratePricingSheetAddAliases();
     case 'prettifyPricingSheet':             return prettifyPricingSheet();
+    case 'setupManualItemsTab':              return setupManualItemsTab();
+    case 'addManualItem':                    return _rtAddManualItem_(params);
+    case 'testAddManualItemTemplate':        return testAddManualItemTemplate();
     case 'installBillingFromSheetsTrigger':  return installBillingFromSheetsTrigger();
     case 'installPollingTrigger':            return installPollingTrigger();
     case 'installDailyHealthCheckTrigger':   return installDailyHealthCheckTrigger();
@@ -584,6 +592,80 @@ function _rtRegistrationStats_() {
     globalUniqueStudents: Object.keys(globalStudents).length,
     globalUniqueParents:  Object.keys(globalParents).length,
     globalDayZeroEnrollments: globalDayZero
+  };
+}
+
+/**
+ * Append one row to the Manual Items tab. Convenience wrapper for
+ * adding a manual line item from the CLI without opening the sheet.
+ * Auto-bootstraps the tab if missing.
+ *
+ * Required: &email= &student= &label= &amount=
+ * Optional: &applyTax=Yes (default No), &period=<free text>
+ *
+ * The next 5-min buildAllBilling run will pick the row up, mint a
+ * UUID into col H, and write a priced row to the Dashboard.
+ */
+function _rtAddManualItem_(params) {
+  var p = params || {};
+  var email   = String(p.email   || '').trim();
+  var student = String(p.student || '').trim();
+  var label   = String(p.label   || '').trim();
+  var amount  = Number(p.amount);
+  var qty     = (p.qty === '' || p.qty === null || p.qty === undefined)
+                  ? 1 : Number(p.qty);
+  // Processing fee defaults to YES; explicit "No" disables. Sales tax
+  // defaults to NO; explicit "Yes" enables. Same semantics as the sheet
+  // column parsing in readManualItems_.
+  var procRaw = String(p.applyProcessing || '').trim().toLowerCase();
+  var applyProcessing = !(procRaw === 'no' || procRaw === 'n' || procRaw === 'false' || procRaw === '0');
+  var applyTax = /^(yes|y|true|1)$/i.test(String(p.applyTax || '').trim());
+  var period  = String(p.period  || '').trim();
+  var statusRaw = String(p.status || '').trim().toLowerCase();
+  var status = /^(owed|paid|canceled)$/.test(statusRaw) ? statusRaw : '';
+
+  if (!email || email.indexOf('@') === -1) {
+    return { ok: false, error: 'Missing or invalid &email=<addr>' };
+  }
+  if (!label) {
+    return { ok: false, error: 'Missing &label=<item description>' };
+  }
+  if (!isFinite(amount) || amount === 0) {
+    return { ok: false, error: 'Missing &amount=<non-zero number> (negative allowed for credits)' };
+  }
+  if (!isFinite(qty) || qty <= 0) {
+    return { ok: false, error: 'Invalid &qty=<positive number>' };
+  }
+  if (!student) student = '(no student)';
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  if (!sh) {
+    setupManualItemsTab();
+    sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  }
+
+  var rowNum = sh.getLastRow() + 1;
+  // ID (col K) left blank — readManualItems_ mints + writes it on first
+  // sight so the fingerprint is anchored to a stable UUID across runs.
+  sh.getRange(rowNum, 1, 1, 10).setValues([[
+    email, student, label, amount, qty,
+    applyProcessing ? 'Yes' : 'No',
+    applyTax ? 'Yes' : 'No',
+    period, new Date(), status
+  ]]);
+
+  return {
+    ok: true,
+    sheet: sh.getName(),
+    row: rowNum,
+    note: 'Row appended. Next 5-min buildAllBilling will price it and add it to the Dashboard.',
+    item: {
+      email: email, student: student, label: label, amount: amount, qty: qty,
+      applyProcessing: applyProcessing,
+      applyTax: applyTax, period: period,
+      initialStatus: status || 'owed'
+    }
   };
 }
 
