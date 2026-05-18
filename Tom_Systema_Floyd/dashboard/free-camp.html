@@ -481,11 +481,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   function collectFreeRoster(snap) {
     if (!snap || !snap.roster) return { weeks: [], byWeek: {} };
-    const weekOrder = (snap.free && snap.free.weekOrder) || snap.weekOrder || [];
-    const orderedWeeks = weekOrder.filter(w => snap.roster[w]);
-    Object.keys(snap.roster).forEach(w => {
-      if (!orderedWeeks.includes(w)) orderedWeeks.push(w);
-    });
+    // free.weekOrder is authoritative for which weeks free camp runs. The
+    // global weekOrder includes paid-camp-only weeks (eg Aug 24-28), and
+    // snap.roster sometimes carries empty buckets for those — never show
+    // them in the free dashboard.
+    const orderedWeeks = (snap.free && Array.isArray(snap.free.weekOrder))
+      ? snap.free.weekOrder.slice()
+      : (snap.weekOrder || []).slice();
     const byWeek = {};
     orderedWeeks.forEach(w => {
       const bucket = snap.roster[w] || {};
