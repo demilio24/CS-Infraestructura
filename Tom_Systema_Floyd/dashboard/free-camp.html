@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Camp Registrations · Systema Floyd</title>
+<title>Free Camp · Systema Floyd</title>
 <meta name="robots" content="noindex,nofollow" />
 <link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,6 +23,7 @@
   --sf-green:#2da375; --sf-red:#d8453d;
   --radius-sm:8px; --radius-md:16px; --radius-lg:24px;
   --grad-blue:linear-gradient(135deg,#2f82c4,#1b2f6e);
+  --grad-blue-deep:linear-gradient(135deg,#1b2f6e,#0a1028);
   --grad-gold:linear-gradient(135deg,#f4b63a,#c97a16);
   --ease-out:cubic-bezier(.16,1,.3,1);
   --shadow-sm:0 2px 8px rgba(15,27,61,.06),0 1px 3px rgba(15,27,61,.04);
@@ -40,57 +41,74 @@ input{font-family:inherit;color:inherit}
 h1,h2,h3,h4{font-family:'Oswald','Inter',sans-serif;font-weight:700;line-height:1.05;margin:0 0 .4em;letter-spacing:.01em;color:var(--sf-ink);text-transform:uppercase}
 p{margin:0 0 1em;color:var(--sf-ink-60)}
 
-/* ── Header ───────────────────────────────────────────── */
+/* ====== Dashboard header (same as index.html) ====== */
 .dash-header{display:flex;align-items:center;gap:18px;padding:14px 32px;background:var(--sf-white);border-bottom:1px solid var(--sf-border);flex-wrap:wrap}
 .dash-brand{display:flex;align-items:center;text-decoration:none}
 .dash-brand img{height:42px;width:auto;display:block}
 .dash-title{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--sf-ink-60);padding-left:16px;border-left:1.5px solid var(--sf-border-strong)}
-.dash-title .accent{color:var(--sf-amber-deep)}
 .dash-meta{margin-left:auto;display:flex;align-items:center;gap:12px;font-family:'Space Grotesk','Inter',monospace;font-size:12.5px;color:var(--sf-ink-50);font-weight:500}
 .dash-meta .dot{width:8px;height:8px;border-radius:50%;background:var(--sf-green);box-shadow:0 0 0 4px rgba(45,163,117,.16);animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(45,163,117,.16)}50%{box-shadow:0 0 0 7px rgba(45,163,117,.04)}}
 .dash-meta button{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);transition:background .2s,transform .2s}
 .dash-meta button:hover{background:var(--sf-blue-100);transform:translateY(-1px)}
-.dash-meta a.back-link{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;border-radius:6px;background:var(--sf-cream-2);color:var(--sf-ink-60);transition:background .2s,color .2s}
-.dash-meta a.back-link:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
 
-/* ── Page shell ───────────────────────────────────────── */
-.dash{max-width:1280px;margin:0 auto;padding:24px 32px 48px}
-.page-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:22px;flex-wrap:wrap}
-.page-intro h1{font-size:32px;letter-spacing:.04em;margin:0}
-.page-intro .sub{font-family:'Space Grotesk','Inter',sans-serif;font-size:12.5px;color:var(--sf-ink-50);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+/* ====== Page shell ====== */
+.dash{max-width:1280px;margin:0 auto;padding:8px 32px 60px}
+
+/* ====== Nav (same as index.html) ====== */
+.dash-nav{display:flex;align-items:center;gap:6px;margin:18px 0 24px;padding:8px 14px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:12px;box-shadow:var(--shadow-sm);overflow-x:auto;scrollbar-width:thin}
+.dash-nav::-webkit-scrollbar{height:6px}
+.dash-nav::-webkit-scrollbar-thumb{background:var(--sf-border-strong);border-radius:3px}
+.nav-group{display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-group-label{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--sf-ink-40);text-transform:uppercase;padding:0 8px 0 2px;white-space:nowrap}
+.nav-divider{width:1px;height:22px;background:var(--sf-border);margin:0 8px;flex-shrink:0}
+.nav-link{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:7px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--sf-ink-60);text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.nav-link:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);transform:translateY(-1px)}
+.nav-link.active{background:var(--grad-blue);color:#fff;font-weight:600;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
+.nav-link.active:hover{transform:none;color:#fff}
+.nav-link.sheet,.nav-link.billing{background:#f4f8fd;border-color:#d4e3f3;color:var(--sf-ink);font-weight:600;box-shadow:0 1px 0 rgba(15,23,42,.04),0 2px 6px -3px rgba(47,130,196,.18)}
+.nav-link.sheet:hover,.nav-link.billing:hover{transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(47,130,196,.35)}
+.nav-link.sheet::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;flex-shrink:0;background:#34a853}
+.nav-link.billing{background:#e6f4ea;border-color:#b8dfc3;color:#137333}
+.nav-link.billing:hover{background:#d4ecdc;color:#0d5723;border-color:#9bd1ac}
+.nav-link svg{flex-shrink:0;opacity:.85}
+.nav-link.active svg{opacity:1}
+
+/* ====== Page intro ====== */
+.page-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:6px 0 22px;flex-wrap:wrap}
+.page-intro h1{font-size:28px;letter-spacing:.04em;margin:0;font-family:'Oswald',sans-serif}
+.page-intro .sub{font-family:'Space Grotesk','Inter',sans-serif;font-size:12.5px;color:var(--sf-ink-50);letter-spacing:.04em;font-variant-numeric:tabular-nums;max-width:680px}
 .page-intro .sub strong{color:var(--sf-ink-60);font-weight:600}
 
-/* ── KPI strip ────────────────────────────────────────── */
+/* ====== KPI strip (same as index.html) ====== */
 .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:24px}
-@media (max-width:1080px){.kpi-row{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:640px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1280px){.kpi-row{grid-template-columns:repeat(3,1fr)}}
 .kpi{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:20px 22px 18px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;transition:transform .35s var(--ease-out),box-shadow .35s,border-color .35s}
-.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-gold);opacity:.9}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad-blue);opacity:.85}
 .kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--sf-border-strong)}
 .kpi h3{font-size:11px;letter-spacing:.18em;color:var(--sf-ink-50);margin-bottom:6px;font-weight:600}
-.kpi-num{font-family:'Oswald',sans-serif;font-size:46px;font-weight:700;line-height:1;color:var(--sf-blue-700);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.kpi-num{font-family:'Oswald',sans-serif;font-size:48px;font-weight:700;line-height:1;color:var(--sf-blue-700);margin-bottom:8px;font-variant-numeric:tabular-nums}
 .kpi-sub{font-size:12px;color:var(--sf-ink-50);letter-spacing:.04em;min-height:16px}
 .kpi-sub strong{color:var(--sf-ink-60);font-weight:600}
-.kpi.gold .kpi-num{color:var(--sf-amber-deep)}
 
-/* ── Card base ────────────────────────────────────────── */
+/* ====== Chart row (same layout as index.html) ====== */
+.chart-row{display:grid;grid-template-columns:380px 1fr;gap:18px;margin-bottom:24px}
 .card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:24px;box-shadow:var(--shadow-sm);transition:box-shadow .35s,border-color .35s}
 .card:hover{box-shadow:var(--shadow-md);border-color:var(--sf-border-strong)}
 .card h3{font-size:13px;letter-spacing:.16em;color:var(--sf-ink);margin-bottom:18px;font-weight:700}
 .card h3 .sub{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--sf-ink-50);text-transform:none;letter-spacing:.02em;margin-left:8px}
 
-.section-grid{display:grid;grid-template-columns:380px 1fr;gap:18px;margin-bottom:18px}
-@media (max-width:980px){.section-grid{grid-template-columns:1fr}}
-
-/* ── Donut (campus split) ─────────────────────────────── */
+/* Donut (matches index.html exactly) */
 .donut-wrap{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
-.donut{width:220px;height:220px;transform:rotate(-90deg)}
-.donut circle{fill:none;stroke-width:30;transition:stroke-dasharray .9s var(--ease-out)}
+.donut{width:240px;height:240px;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:32;transition:stroke-dasharray .9s var(--ease-out)}
 .donut .track{stroke:var(--sf-cream-2)}
 .donut-center{position:absolute;text-align:center;font-family:'Oswald',sans-serif}
-.donut-center .num{font-size:32px;font-weight:700;color:var(--sf-blue-700);line-height:1;font-variant-numeric:tabular-nums}
-.donut-center .lbl{font-size:9px;letter-spacing:.16em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:4px}
+.donut-center .num{font-size:34px;font-weight:700;color:var(--sf-blue-700);line-height:1;font-variant-numeric:tabular-nums}
+.donut-center .lbl{font-size:9px;letter-spacing:.16em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:3px}
+.donut-center .donut-divider{height:1px;width:46px;background:var(--sf-border);margin:7px auto}
+.donut-center .num-sm{font-size:22px;font-weight:700;color:var(--sf-ink);line-height:1;font-variant-numeric:tabular-nums}
+.donut-center .lbl-sm{font-size:8.5px;letter-spacing:.16em;color:var(--sf-ink-50);text-transform:uppercase;margin-top:2px}
 .legend{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
 .legend li{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sf-cream);border-radius:6px;font-size:13px;transition:background .2s}
 .legend li:hover{background:var(--sf-blue-50)}
@@ -99,7 +117,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .legend .v{margin-left:auto;font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--sf-ink-60);font-variant-numeric:tabular-nums}
 .legend .pct{font-size:11px;color:var(--sf-ink-50);margin-left:8px;font-variant-numeric:tabular-nums}
 
-/* ── Bars (registrations by week) ─────────────────────── */
+/* Bars (matches index.html) */
 .bars-wrap{position:relative}
 .bars-svg{width:100%;height:auto;display:block;font-family:'Inter',sans-serif}
 .bars-svg .grid{stroke:var(--sf-border);stroke-width:1;stroke-dasharray:2 4}
@@ -108,38 +126,36 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .bars-svg .x-lbl{font-size:10px;fill:var(--sf-ink-60);font-family:'Inter',sans-serif;font-weight:500}
 .bars-svg .bar{transition:opacity .2s}
 .bars-svg .bar-group:hover .bar{opacity:.85}
-.bars-svg .bar-val{font-size:10.5px;fill:var(--sf-blue-700);font-family:'Space Grotesk',sans-serif;font-weight:700;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:#fff;stroke-width:3;stroke-linejoin:round}
+.bars-svg .bar-val{font-size:11px;fill:var(--sf-blue-700);font-family:'Space Grotesk',sans-serif;font-weight:700;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:#fff;stroke-width:3;stroke-linejoin:round}
 .bars-legend{display:flex;align-items:center;gap:18px;margin-top:14px;font-size:12px;color:var(--sf-ink-60);flex-wrap:wrap}
 .bars-legend span{display:inline-flex;align-items:center;gap:6px}
 .bars-legend .swatch{width:10px;height:10px;border-radius:2px}
 
-/* ── Schools list ─────────────────────────────────────── */
+/* ====== Schools list + meals ====== */
 .schools-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
 .schools-list li{position:relative;display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:8px;overflow:hidden;transition:border-color .2s,background .2s}
 .schools-list li:hover{background:var(--sf-blue-50);border-color:var(--sf-border-strong)}
-.schools-list .school-bar{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(244,182,58,.22),rgba(244,182,58,.08));transition:width .8s var(--ease-out);z-index:0}
+.schools-list .school-bar{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(47,130,196,.18),rgba(47,130,196,.05));transition:width .8s var(--ease-out);z-index:0}
 .schools-list .school-name{position:relative;z-index:1;font-weight:600;color:var(--sf-ink);font-size:13.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.schools-list .school-count{position:relative;z-index:1;font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;color:var(--sf-amber-deep);font-variant-numeric:tabular-nums;font-size:14px}
+.schools-list .school-count{position:relative;z-index:1;font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;color:var(--sf-blue-700);font-variant-numeric:tabular-nums;font-size:14px}
 
-/* ── Lunch/breakfast summary ──────────────────────────── */
-.meals-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-@media (max-width:680px){.meals-row{grid-template-columns:1fr}}
-.meal-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:20px 22px;box-shadow:var(--shadow-sm)}
+.meals-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.meal-card{background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:12px;padding:16px 18px}
 .meal-card h4{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sf-ink-50);margin:0 0 12px;font-weight:600}
-.meal-bar{display:flex;height:30px;border-radius:8px;overflow:hidden;background:var(--sf-cream-2);margin-bottom:10px}
+.meal-bar{display:flex;height:28px;border-radius:8px;overflow:hidden;background:var(--sf-cream-2);margin-bottom:10px}
 .meal-bar > div{display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;font-variant-numeric:tabular-nums;transition:width .8s var(--ease-out);min-width:0}
-.meal-bar .yes{background:var(--grad-gold)}
+.meal-bar .yes{background:var(--grad-blue)}
 .meal-bar .no{background:linear-gradient(135deg,#c6d1e4,#8b95ad);color:var(--sf-ink-60)}
 .meal-legend{display:flex;justify-content:space-between;gap:10px;font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;color:var(--sf-ink-60)}
 .meal-legend strong{color:var(--sf-ink);font-weight:700}
 
-/* ── Roster ───────────────────────────────────────────── */
+/* ====== Roster header / search (same patterns as index.html) ====== */
 .roster-panel{margin-top:8px}
 .roster-header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;width:100%;padding:12px 16px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:12px;box-shadow:var(--shadow-sm)}
 .roster-header .label{display:flex;align-items:baseline;gap:10px;font-family:'Oswald',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--sf-ink-60);text-transform:uppercase}
-.roster-header .label .count{font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;letter-spacing:.04em;color:var(--sf-amber-deep);text-transform:none;font-size:13px}
+.roster-header .label .count{font-family:'Space Grotesk','Inter',sans-serif;font-weight:600;letter-spacing:.04em;color:var(--sf-blue-700);text-transform:none;font-size:13px}
 .roster-search{flex:1;min-width:240px;display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:8px;transition:border-color .2s,background .2s}
-.roster-search:focus-within{border-color:var(--sf-amber-deep);background:var(--sf-white);box-shadow:0 0 0 3px rgba(201,122,22,.12)}
+.roster-search:focus-within{border-color:var(--sf-blue-700);background:var(--sf-white);box-shadow:0 0 0 3px rgba(47,130,196,.12)}
 .roster-search .icon{color:var(--sf-ink-40);font-size:13px;flex-shrink:0}
 .roster-search input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:'Inter',sans-serif;font-size:13px;color:var(--sf-ink);font-weight:400}
 .roster-search input::placeholder{color:var(--sf-ink-40)}
@@ -149,15 +165,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .roster-quick{display:flex;align-items:center;gap:6px;flex-wrap:wrap;width:100%;margin-top:10px}
 .roster-quick .qf-label{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--sf-ink-40);text-transform:uppercase;margin-right:4px}
 .roster-quick .qf{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid var(--sf-border);background:var(--sf-white);color:var(--sf-ink-60);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;white-space:nowrap}
-.roster-quick .qf:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);border-color:var(--sf-border-strong);transform:translateY(-1px)}
-.roster-quick .qf.active{background:var(--grad-gold);color:#fff;border-color:transparent;box-shadow:0 4px 10px -4px rgba(201,122,22,.5)}
+.roster-quick .qf:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);border-color:var(--sf-blue-700);transform:translateY(-1px)}
+.roster-quick .qf.active{background:var(--grad-blue);color:#fff;border-color:transparent;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
 .roster-quick .qf .qf-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .roster-quick .qf-upper .qf-dot{background:#1b2f6e}
 .roster-quick .qf-lower .qf-dot{background:#4aa3e0}
 .roster-quick .qf.active .qf-dot{background:#fff}
 
+/* Per-week cards holding student lists */
 .weeks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
-@media (max-width:980px){.weeks-grid{grid-template-columns:1fr}}
+@media (max-width:1080px){.weeks-grid{grid-template-columns:1fr}}
 .week-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:12px;padding:14px 16px 12px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px;transition:border-color .2s,box-shadow .2s}
 .week-card:hover{border-color:var(--sf-border-strong);box-shadow:var(--shadow-md)}
 .week-card.empty{opacity:.55}
@@ -170,14 +187,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .week-head .wk-pip .dot{width:6px;height:6px;border-radius:50%}
 .week-head .wk-pip.upper .dot{background:#1b2f6e}
 .week-head .wk-pip.lower .dot{background:#2f82c4}
-.week-head .wk-total{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--sf-amber-deep);font-variant-numeric:tabular-nums;line-height:1}
+.week-head .wk-total{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--sf-blue-700);font-variant-numeric:tabular-nums;line-height:1}
 
-.student-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;max-height:380px;overflow:auto;padding-right:4px}
+.student-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;max-height:420px;overflow:auto;padding-right:4px}
 .student-list::-webkit-scrollbar{width:6px}
 .student-list::-webkit-scrollbar-thumb{background:var(--sf-border-strong);border-radius:3px}
 .student-list::-webkit-scrollbar-track{background:transparent}
-.stu{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;padding:8px 10px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:8px;align-items:center;transition:background .15s,border-color .15s,transform .15s}
-.stu:hover{background:var(--sf-gold-soft);border-color:var(--sf-gold);transform:translateX(2px)}
+.stu{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;padding:8px 10px;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:8px;align-items:center;transition:background .15s,border-color .15s,transform .15s;cursor:pointer}
+.stu:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-700);transform:translateX(2px)}
 .stu.incomplete{background:#fff7e6;border-color:#f3a847}
 .stu .stu-pip{width:9px;height:9px;border-radius:50%;flex-shrink:0;align-self:start;margin-top:6px}
 .stu .stu-pip.upper{background:#1b2f6e}
@@ -186,22 +203,22 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .stu .stu-name{font-weight:700;color:var(--sf-ink);font-size:13px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .stu .stu-school{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--sf-ink-50);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .stu .stu-meta{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
-.stu .stu-tag{font-family:'Space Grotesk','Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:999px;background:var(--sf-white);border:1px solid var(--sf-border);color:var(--sf-ink-60);text-transform:uppercase}
-.stu .stu-tag.lunch{background:#eef9f3;color:#137333;border-color:#bfe3cd}
-.stu .stu-tag.brk{background:#eef4fb;color:#234091;border-color:#cddcef}
-.stu .stu-tag.allergy{background:#fff1ec;color:#b54708;border-color:#fcb98a}
+.stu .stu-tag{font-family:'Space Grotesk','Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:999px;background:var(--sf-white);border:1px solid var(--sf-border);color:var(--sf-ink-60);text-transform:uppercase;white-space:nowrap}
+.stu .stu-tag.lunch{background:rgba(45,163,117,.12);color:var(--sf-green);border-color:rgba(45,163,117,.32)}
+.stu .stu-tag.brk{background:rgba(47,130,196,.12);color:var(--sf-blue-700);border-color:rgba(47,130,196,.28)}
+.stu .stu-tag.allergy{background:rgba(216,69,61,.14);color:var(--sf-red);border-color:rgba(216,69,61,.35)}
 .stu .stu-tag.notes{background:#f5f0fb;color:#5b3aa6;border-color:#dccaf1}
 .stu .stu-tag.incomplete{background:#fff7e6;color:#8a5a04;border-color:#f3d27a}
 .stu .stu-days{display:flex;align-items:center;gap:3px;align-self:start;margin-top:2px}
-.stu .stu-day{width:18px;height:18px;border-radius:5px;background:var(--sf-cream-2);color:var(--sf-ink-40);font-family:'Space Grotesk','Inter',sans-serif;font-size:9.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--sf-border)}
-.stu .stu-day.on{background:var(--grad-gold);color:#fff;border-color:transparent;box-shadow:0 2px 4px -2px rgba(201,122,22,.45)}
+.stu .stu-day{width:20px;height:20px;border-radius:5px;background:var(--sf-cream-2);color:var(--sf-ink-40);font-family:'Space Grotesk','Inter',sans-serif;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--sf-border)}
+.stu .stu-day.on{background:var(--grad-blue);color:#fff;border-color:transparent;box-shadow:0 2px 4px -2px rgba(47,130,196,.45)}
 .stu-detail{display:none;grid-column:1 / -1;margin-top:8px;padding:10px 12px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;color:var(--sf-ink-60);line-height:1.55}
 .stu.open .stu-detail{display:block;animation:slideDown .22s var(--ease-out)}
-.stu-detail .dt-row{display:flex;gap:10px;padding:4px 0;border-bottom:1px dashed var(--sf-border)}
+.stu-detail .dt-row{display:flex;gap:10px;padding:5px 0;border-bottom:1px dashed var(--sf-border)}
 .stu-detail .dt-row:last-child{border-bottom:0}
 .stu-detail .dt-key{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-ink-50);min-width:90px;font-weight:700;padding-top:2px}
 .stu-detail .dt-val{flex:1;color:var(--sf-ink);font-weight:500;word-break:break-word;white-space:pre-wrap}
-.stu-detail a.src-link{display:inline-block;margin-top:6px;padding:4px 10px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);font-family:'Space Grotesk','Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;border:1px solid #cddcef}
+.stu-detail a.src-link{display:inline-block;margin-top:8px;padding:5px 11px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);font-family:'Space Grotesk','Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.04em;border:1px solid #cddcef}
 .stu-detail a.src-link:hover{background:var(--sf-blue-700);color:#fff}
 
 @keyframes slideDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
@@ -209,29 +226,75 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .empty-state{padding:40px 20px;text-align:center;color:var(--sf-ink-40);font-size:13px;background:var(--sf-white);border:1px dashed var(--sf-border-strong);border-radius:12px;margin-top:14px}
 .empty-state strong{display:block;color:var(--sf-ink-60);font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
 
-@media (max-width:640px){
-  .dash{padding:16px 14px 40px}
-  .dash-header{padding:12px 14px}
+/* ====== Animations (same as index.html) ====== */
+.anim{transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.js-ready .anim{opacity:0;transform:translateY(18px)}
+.js-ready .anim.in{opacity:1;transform:translateY(0)}
+.anim.d1{transition-delay:.06s}.anim.d2{transition-delay:.12s}.anim.d3{transition-delay:.18s}.anim.d4{transition-delay:.24s}.anim.d5{transition-delay:.3s}.anim.d6{transition-delay:.36s}
+
+/* ====== Mobile / responsive (mirrors index.html breakpoints) ====== */
+@media (min-width:1600px){.dash{max-width:1600px}.kpi-num{font-size:56px}}
+@media (max-width:1080px){
+  .chart-row{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:repeat(3,1fr)}
+  .donut{width:220px;height:220px}
+}
+@media (max-width:980px){
+  .dash-header{padding:12px 18px;gap:12px}
+  .dash-meta{margin-left:0;width:100%;justify-content:flex-start;gap:10px}
+  .dash{padding:8px 18px 60px}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .card{padding:20px}
+  .donut{width:200px;height:200px}
+  .meals-row{grid-template-columns:1fr}
   .page-intro h1{font-size:24px}
-  .kpi{padding:16px 18px 14px}
-  .kpi-num{font-size:36px}
-  .card{padding:18px}
+}
+@media (max-width:700px){
+  .dash-nav{padding:8px 10px;gap:4px}
+  .nav-divider{margin:0 4px}
+  .nav-group-label{font-size:9.5px;padding:0 4px 0 0}
+  .nav-link{padding:6px 11px;font-size:12.5px}
+  .roster-header{padding:12px}
+  .roster-search{padding:10px 12px}
+  .roster-search input{min-height:24px;font-size:14px}
+  .roster-quick .qf{padding:7px 12px;font-size:12px;min-height:36px}
+  .dash-meta button{padding:9px 14px;font-size:11px;min-height:38px}
+}
+@media (max-width:520px){
+  .dash-header{padding:12px 14px;gap:10px}
+  .dash{padding:8px 14px 60px}
+  .kpi-row{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+  .kpi{padding:14px 14px 12px;border-radius:12px}
+  .kpi h3{font-size:10px;letter-spacing:.14em}
+  .kpi-num{font-size:30px;margin-bottom:4px}
+  .kpi-sub{font-size:11px;min-height:14px;line-height:1.3}
+  .dash-brand img{height:34px}
+  .dash-title{font-size:12px;letter-spacing:.2em;padding-left:10px}
+  .card{padding:16px;border-radius:14px}
+  .card h3{font-size:12px;letter-spacing:.12em;margin-bottom:14px}
+  .donut{width:180px;height:180px}
+  .donut-center .num{font-size:28px}
+  .donut-center .num-sm{font-size:18px}
+  .legend li{padding:8px 10px;font-size:12.5px;min-height:40px}
+  .page-intro h1{font-size:22px}
   .week-card{padding:12px 14px}
-  .stu{grid-template-columns:auto 1fr;padding:10px}
+  .week-head .wk-title{font-size:13px}
+  .stu{grid-template-columns:auto 1fr;padding:10px;gap:6px 10px}
   .stu .stu-days{grid-column:1 / -1;justify-content:flex-start;margin-top:4px}
+  .stu .stu-day{width:24px;height:24px;font-size:11px}
+  .bars-svg{min-width:0}
 }
 </style>
 </head>
-<body>
+<body class="js-ready">
 
 <header class="dash-header">
-  <a class="dash-brand" href="../">
-    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/d3a0fdc6-d7df-4ffe-906b-2c9c1c50e69d.png" alt="Systema Floyd" />
+  <a class="dash-brand" href="../funnel/home.html" title="Back to Systema Floyd home">
+    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
   </a>
-  <div class="dash-title">Free Camp <span class="accent">·</span> Registrations</div>
+  <span class="dash-title">Dashboard</span>
   <div class="dash-meta">
-    <a class="back-link" href="./index.html">← Full Dashboard</a>
-    <span class="dot" title="Live"></span>
+    <span class="dot" title="Live data via Google Sheets"></span>
     <span>Updated <span id="updated-at">—</span></span>
     <button id="refresh-btn" type="button">Refresh</button>
   </div>
@@ -239,68 +302,94 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
 <main class="dash">
 
-  <div class="page-intro">
+  <!-- Dashboard nav (same as index.html, Free Camp is the active page) -->
+  <nav class="dash-nav anim d1" aria-label="Dashboard navigation">
+    <div class="nav-group">
+      <span class="nav-group-label">Pages</span>
+      <a class="nav-link" href="./">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h18M9 21V10"/></svg>
+        Registrations
+      </a>
+      <a class="nav-link" href="./lunches.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0z"/><path d="M2 12h20M7 12V7M12 12V5M17 12V7"/></svg>
+        Lunches
+      </a>
+      <a class="nav-link active" href="./free-camp.html" aria-current="page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.4L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.6z"/></svg>
+        Free Camp
+      </a>
+    </div>
+    <span class="nav-divider"></span>
+    <div class="nav-group">
+      <span class="nav-group-label">Sheets</span>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ/edit" target="_blank" rel="noopener">FREE Upper</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY/edit" target="_blank" rel="noopener">FREE Lower</a>
+    </div>
+  </nav>
+
+  <div class="page-intro anim d1">
     <div>
       <h1>Free Summer Camp</h1>
-      <div class="sub">Sponsored / scholarship students, sourced from the <strong>Google Sheets free camp roster</strong>.</div>
+      <div class="sub">Sponsored / scholarship students, sourced directly from the <strong>Free Upper</strong> and <strong>Free Lower</strong> Google Sheets.</div>
     </div>
   </div>
 
   <!-- KPI strip -->
-  <div class="kpi-row">
-    <div class="kpi gold"><h3>Unique Students</h3><div class="kpi-num" id="kpi-unique">—</div><div class="kpi-sub" id="kpi-unique-sub">across all weeks</div></div>
-    <div class="kpi"><h3>Total Enrollments</h3><div class="kpi-num" id="kpi-enroll">—</div><div class="kpi-sub" id="kpi-enroll-sub">student-weeks booked</div></div>
-    <div class="kpi"><h3>Upper Campus</h3><div class="kpi-num" id="kpi-upper">—</div><div class="kpi-sub" id="kpi-upper-sub">unique students</div></div>
-    <div class="kpi"><h3>Lower Campus</h3><div class="kpi-num" id="kpi-lower">—</div><div class="kpi-sub" id="kpi-lower-sub">unique students</div></div>
-    <div class="kpi"><h3>Schools</h3><div class="kpi-num" id="kpi-schools">—</div><div class="kpi-sub" id="kpi-schools-sub">distinct feeder schools</div></div>
-  </div>
+  <section class="kpi-row">
+    <div class="kpi anim d2"><h3>Unique Students</h3><div class="kpi-num" id="kpi-unique">—</div><div class="kpi-sub" id="kpi-unique-sub">across all weeks</div></div>
+    <div class="kpi anim d3"><h3>Total Enrollments</h3><div class="kpi-num" id="kpi-enroll">—</div><div class="kpi-sub" id="kpi-enroll-sub">student-weeks booked</div></div>
+    <div class="kpi anim d4"><h3>Upper Campus</h3><div class="kpi-num" id="kpi-upper">—</div><div class="kpi-sub" id="kpi-upper-sub">unique students</div></div>
+    <div class="kpi anim d5"><h3>Lower Campus</h3><div class="kpi-num" id="kpi-lower">—</div><div class="kpi-sub" id="kpi-lower-sub">unique students</div></div>
+    <div class="kpi anim d6"><h3>Schools</h3><div class="kpi-num" id="kpi-schools">—</div><div class="kpi-sub" id="kpi-schools-sub">distinct feeder schools</div></div>
+  </section>
 
-  <!-- Charts: campus donut + weekly bars -->
-  <div class="section-grid">
-    <div class="card">
+  <!-- Donut + weekly bars -->
+  <section class="chart-row">
+    <div class="card anim d5">
       <h3>Campus Split <span class="sub">unique students</span></h3>
       <div class="donut-wrap">
-        <svg class="donut" viewBox="0 0 120 120" aria-hidden="true">
-          <circle class="track" cx="60" cy="60" r="48"></circle>
-          <circle id="donut-upper" cx="60" cy="60" r="48" stroke="#1b2f6e" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
-          <circle id="donut-lower" cx="60" cy="60" r="48" stroke="#4aa3e0" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
+        <svg class="donut" viewBox="0 0 240 240" aria-hidden="true">
+          <circle class="track" cx="120" cy="120" r="92"></circle>
+          <circle id="seg-upper" cx="120" cy="120" r="92" stroke="#1b2f6e" stroke-dasharray="0 999"></circle>
+          <circle id="seg-lower" cx="120" cy="120" r="92" stroke="#4aa3e0" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
         </svg>
         <div class="donut-center">
-          <div class="num" id="donut-num">—</div>
-          <div class="lbl">Free Campers</div>
+          <div class="num" id="donut-total">—</div>
+          <div class="lbl">Unique Students</div>
+          <div class="donut-divider"></div>
+          <div class="num-sm" id="donut-enrollments">—</div>
+          <div class="lbl-sm">Enrollments</div>
         </div>
       </div>
-      <ul class="legend">
-        <li><span class="swatch" style="background:#1b2f6e"></span><span class="name">Upper Campus</span><span class="v" id="leg-upper">—</span><span class="pct" id="leg-upper-pct"></span></li>
-        <li><span class="swatch" style="background:#4aa3e0"></span><span class="name">Lower Campus</span><span class="v" id="leg-lower">—</span><span class="pct" id="leg-lower-pct"></span></li>
-      </ul>
+      <ul class="legend" id="legend"></ul>
     </div>
 
-    <div class="card">
+    <div class="card anim d6">
       <h3>Registrations by Week <span class="sub">stacked Upper + Lower</span></h3>
       <div class="bars-wrap">
-        <svg class="bars-svg" id="bars-svg" viewBox="0 0 760 320" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
-        <div class="bars-legend">
-          <span><span class="swatch" style="background:#1b2f6e"></span>Upper Campus</span>
-          <span><span class="swatch" style="background:#4aa3e0"></span>Lower Campus</span>
-        </div>
+        <svg class="bars-svg" id="bars-svg" viewBox="0 0 800 340" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
+      </div>
+      <div class="bars-legend">
+        <span><span class="swatch" style="background:#1b2f6e"></span> Upper Campus</span>
+        <span><span class="swatch" style="background:#4aa3e0"></span> Lower Campus</span>
+        <span style="color:var(--sf-ink-50);font-style:italic">number above each bar = total free campers that week</span>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Schools + meals -->
-  <div class="section-grid">
-    <div class="card">
+  <section class="chart-row">
+    <div class="card anim d5">
       <h3>Feeder Schools <span class="sub">enrollments by school</span></h3>
       <ul class="schools-list" id="schools-list"></ul>
     </div>
 
-    <div class="card">
+    <div class="card anim d6">
       <h3>Meals Provided <span class="sub">unique-student counts</span></h3>
       <div class="meals-row">
         <div class="meal-card">
           <h4>Lunch</h4>
-          <div class="meal-bar" id="lunch-bar">
+          <div class="meal-bar">
             <div class="yes" id="lunch-yes" style="width:0%"></div>
             <div class="no" id="lunch-no" style="width:0%"></div>
           </div>
@@ -311,7 +400,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         </div>
         <div class="meal-card">
           <h4>Breakfast</h4>
-          <div class="meal-bar" id="brk-bar">
+          <div class="meal-bar">
             <div class="yes" id="brk-yes" style="width:0%"></div>
             <div class="no" id="brk-no" style="width:0%"></div>
           </div>
@@ -321,25 +410,25 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
         </div>
       </div>
-      <div style="margin-top:6px;font-family:'Space Grotesk','Inter',sans-serif;font-size:11.5px;color:var(--sf-ink-50);letter-spacing:.04em">
-        Counts reflect each student's most-recent free-camp registration. Allergies, notes &amp; incomplete sheets are flagged inline in the roster below.
+      <div style="margin-top:12px;font-family:'Space Grotesk','Inter',sans-serif;font-size:11.5px;color:var(--sf-ink-50);letter-spacing:.04em">
+        Allergies, notes &amp; incomplete sheet rows are flagged inline in the roster below.
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Roster -->
   <div class="roster-panel">
     <div class="roster-header">
       <div class="label">Free Camp Roster <span class="count" id="roster-count">—</span></div>
       <div class="roster-search" id="roster-search-wrap">
-        <span class="icon">🔍</span>
+        <span class="icon" aria-hidden="true">⌕</span>
         <input id="roster-search" type="search" autocomplete="off"
                placeholder="Search by student, school, allergy, email…"
                aria-label="Filter free camp roster" />
         <button type="button" class="clear-btn" id="roster-search-clear" aria-label="Clear search">×</button>
       </div>
       <div class="roster-quick" id="roster-quick" role="toolbar" aria-label="Quick roster filters">
-        <span class="qf-label">Filter</span>
+        <span class="qf-label">Quick filter</span>
         <button type="button" class="qf active" data-qf="all">All</button>
         <button type="button" class="qf qf-upper" data-qf="upper"><span class="qf-dot"></span>Upper</button>
         <button type="button" class="qf qf-lower" data-qf="lower"><span class="qf-dot"></span>Lower</button>
@@ -362,14 +451,14 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   const $ = (id) => document.getElementById(id);
   const SHEET_URL_BASE = 'https://docs.google.com/spreadsheets/d/';
+  const DAYS_SHORT = ['M','T','W','T','F'];
 
   const state = {
     snapshot: null,
     search: '',
-    quickFilter: 'all', // all | upper | lower | allergy | incomplete
+    quickFilter: 'all',
   };
 
-  // ── Utils ───────────────────────────────────────────
   const fmtTime = (iso) => {
     if (!iso) return '—';
     try {
@@ -383,12 +472,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   }[c]));
   const norm = (s) => safe(s).toLowerCase().trim();
 
-  function sheetRowLink(sheetId, tabName, row) {
-    if (!sheetId) return null;
-    return SHEET_URL_BASE + sheetId + '/edit#gid=0&range=A' + (row || 1);
+  const sheetRowLink = (sheetId, row) =>
+    sheetId ? SHEET_URL_BASE + sheetId + '/edit#gid=0&range=A' + (row || 1) : null;
+
+  function revealAnims() {
+    document.querySelectorAll('.anim').forEach(el => el.classList.add('in'));
   }
 
-  // ── Extract free-camp students from snapshot ───────
   function collectFreeRoster(snap) {
     if (!snap || !snap.roster) return { weeks: [], byWeek: {} };
     const weekOrder = (snap.free && snap.free.weekOrder) || snap.weekOrder || [];
@@ -417,7 +507,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     return Array.from(seen.values());
   }
 
-  // ── KPIs + charts ──────────────────────────────────
   function renderKpis(snap, roster, uniques) {
     const free = snap.free || {};
     const totalUnique = uniques.length;
@@ -438,32 +527,35 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     $('kpi-schools').textContent = schools.size;
     $('kpi-schools-sub').textContent = schools.size === 1 ? 'school represented' : 'schools represented';
 
-    // Donut
-    const C = 2 * Math.PI * 48;
+    // Donut, geometry matches index.html (r=92, viewBox 240x240)
+    const C = 2 * Math.PI * 92;
     const total = upper + lower;
-    $('donut-num').textContent = total;
+    $('donut-total').textContent = total;
+    $('donut-enrollments').textContent = totalEnroll;
     if (total > 0) {
       const upperLen = (upper / total) * C;
       const lowerLen = (lower / total) * C;
-      const dU = $('donut-upper'), dL = $('donut-lower');
-      dU.setAttribute('stroke-dasharray', `${upperLen} ${C - upperLen}`);
-      dU.setAttribute('stroke-dashoffset', '0');
-      dL.setAttribute('stroke-dasharray', `${lowerLen} ${C - lowerLen}`);
-      dL.setAttribute('stroke-dashoffset', `${-upperLen}`);
+      const segU = $('seg-upper'), segL = $('seg-lower');
+      segU.setAttribute('stroke-dasharray', `${upperLen} ${C - upperLen}`);
+      segU.setAttribute('stroke-dashoffset', '0');
+      segL.setAttribute('stroke-dasharray', `${lowerLen} ${C - lowerLen}`);
+      segL.setAttribute('stroke-dashoffset', `${-upperLen}`);
     } else {
-      $('donut-upper').setAttribute('stroke-dasharray', '0 999');
-      $('donut-lower').setAttribute('stroke-dasharray', '0 999');
+      $('seg-upper').setAttribute('stroke-dasharray', '0 999');
+      $('seg-lower').setAttribute('stroke-dasharray', '0 999');
     }
-    $('leg-upper').textContent = upper;
-    $('leg-lower').textContent = lower;
-    $('leg-upper-pct').textContent = total ? `${Math.round(upper / total * 100)}%` : '';
-    $('leg-lower-pct').textContent = total ? `${Math.round(lower / total * 100)}%` : '';
+
+    const legend = $('legend');
+    legend.innerHTML = `
+      <li><span class="swatch" style="background:#1b2f6e"></span><span class="name">Upper Campus</span><span class="v">${upper}</span><span class="pct">${total ? Math.round(upper / total * 100) + '%' : ''}</span></li>
+      <li><span class="swatch" style="background:#4aa3e0"></span><span class="name">Lower Campus</span><span class="v">${lower}</span><span class="pct">${total ? Math.round(lower / total * 100) + '%' : ''}</span></li>
+    `;
   }
 
   function renderBars(snap, roster) {
     const svg = $('bars-svg');
-    const W = 760, H = 320;
-    const M = { t: 20, r: 16, b: 70, l: 40 };
+    const W = 800, H = 340;
+    const M = { t: 22, r: 18, b: 78, l: 44 };
     const innerW = W - M.l - M.r;
     const innerH = H - M.t - M.b;
     const weeks = roster.weeks;
@@ -477,11 +569,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
     const maxVal = Math.max(1, ...series.map(s => s.total));
     const yMax = Math.ceil(maxVal / 5) * 5 || 5;
-    const barW = Math.max(12, (innerW / Math.max(weeks.length, 1)) * 0.66);
     const step = innerW / Math.max(weeks.length, 1);
+    const barW = Math.max(14, step * 0.62);
 
     let html = '';
-    // Y-axis grid
     const yTicks = 5;
     for (let i = 0; i <= yTicks; i++) {
       const v = Math.round(yMax * (i / yTicks));
@@ -489,7 +580,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       html += `<line class="grid" x1="${M.l}" y1="${y}" x2="${M.l + innerW}" y2="${y}"></line>`;
       html += `<text class="ax-lbl" x="${M.l - 6}" y="${y + 3}" text-anchor="end">${v}</text>`;
     }
-    // Axis line
     html += `<line class="axis" x1="${M.l}" y1="${M.t + innerH}" x2="${M.l + innerW}" y2="${M.t + innerH}"></line>`;
 
     series.forEach((s, i) => {
@@ -501,22 +591,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const yTopUpper = yTopLower - upperH;
 
       html += `<g class="bar-group">`;
-      if (s.lower > 0) {
-        html += `<rect class="bar" x="${x}" y="${yTopLower}" width="${barW}" height="${lowerH}" fill="#4aa3e0" rx="2"></rect>`;
-      }
-      if (s.upper > 0) {
-        html += `<rect class="bar" x="${x}" y="${yTopUpper}" width="${barW}" height="${upperH}" fill="#1b2f6e" rx="2"></rect>`;
-      }
-      if (s.total > 0) {
-        html += `<text class="bar-val" x="${cx}" y="${yTopUpper - 6}" text-anchor="middle">${s.total}</text>`;
-      }
-      // X label
-      const wkShort = s.week.replace(/(st|nd|rd|th)/g, '').replace(' ', ' ');
-      const lbl = wkShort.length > 16 ? wkShort.slice(0, 14) + '…' : wkShort;
+      if (s.lower > 0) html += `<rect class="bar" x="${x}" y="${yTopLower}" width="${barW}" height="${lowerH}" fill="#4aa3e0" rx="2"></rect>`;
+      if (s.upper > 0) html += `<rect class="bar" x="${x}" y="${yTopUpper}" width="${barW}" height="${upperH}" fill="#1b2f6e" rx="2"></rect>`;
+      if (s.total > 0) html += `<text class="bar-val" x="${cx}" y="${yTopUpper - 6}" text-anchor="middle">${s.total}</text>`;
+
+      const wkShort = s.week.replace(/(st|nd|rd|th)/g, '');
+      const lbl = wkShort.length > 18 ? wkShort.slice(0, 16) + '…' : wkShort;
       html += `<g transform="translate(${cx},${M.t + innerH + 14})">`;
       html += `<text class="x-lbl" x="0" y="0" text-anchor="end" transform="rotate(-35)">${escapeHtml(lbl)}</text>`;
-      html += `</g>`;
-      html += `</g>`;
+      html += `</g></g>`;
     });
 
     svg.innerHTML = html;
@@ -566,9 +649,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     $('brk-no-n').textContent    = brkNo;
   }
 
-  // ── Roster ──────────────────────────────────────────
-  const DAYS_SHORT = ['M','T','W','T','F'];
-
   function matchStudent(s) {
     if (state.quickFilter === 'upper' && s.campus !== 'Upper Campus') return false;
     if (state.quickFilter === 'lower' && s.campus !== 'Lower Campus') return false;
@@ -581,10 +661,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     return hay.includes(q);
   }
 
-  function studentHtml(s, idx) {
+  function studentHtml(s) {
     const campusClass = s.campus === 'Upper Campus' ? 'upper' : (s.campus === 'Lower Campus' ? 'lower' : '');
     const tags = [];
-    if (s.lunch || /^yes/i.test(safe(s.lunchRaw))) tags.push(`<span class="stu-tag lunch">🍱 Lunch</span>`);
+    if (s.lunch || /^yes/i.test(safe(s.lunchRaw))) tags.push(`<span class="stu-tag lunch">🥪 Lunch</span>`);
     if (/^yes/i.test(safe(s.breakfastRaw))) tags.push(`<span class="stu-tag brk">🥣 Breakfast</span>`);
     if (s.allergy) tags.push(`<span class="stu-tag allergy" title="${escapeHtml(s.allergy)}">⚠ Allergy</span>`);
     if (s.notes) tags.push(`<span class="stu-tag notes" title="${escapeHtml(s.notes)}">📝 Notes</span>`);
@@ -605,10 +685,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       s.incomplete && s.missingFields && s.missingFields.length ? ['Missing fields', escapeHtml(s.missingFields.join(', '))] : null,
     ].filter(Boolean);
 
-    const srcLink = sheetRowLink(s.sourceSheetId, s.sourceTabName, s.sourceRow);
+    const srcLink = sheetRowLink(s.sourceSheetId, s.sourceRow);
 
     return `
-      <li class="stu ${s.incomplete ? 'incomplete' : ''}" data-idx="${idx}">
+      <li class="stu ${s.incomplete ? 'incomplete' : ''}">
         <span class="stu-pip ${campusClass}"></span>
         <div class="stu-body">
           <div class="stu-name">${escapeHtml(s.name || 'Unnamed')}</div>
@@ -626,8 +706,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   function renderRoster(roster) {
     const host = $('weeks-host');
     const empty = $('empty-host');
-    let totalShown = 0;
-    let totalAll = 0;
+    let totalShown = 0, totalAll = 0;
     let html = '';
 
     roster.weeks.forEach(w => {
@@ -649,8 +728,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         </section>`;
         return;
       }
-
-      if (!filtered.length) return; // skip weeks with no matches when filtering
+      if (!filtered.length) return;
 
       html += `<section class="week-card">
         <header class="week-head">
@@ -662,7 +740,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
         </header>
         <ul class="student-list">
-          ${filtered.map((s, i) => studentHtml(s, `${w}-${i}`)).join('')}
+          ${filtered.map(studentHtml).join('')}
         </ul>
       </section>`;
     });
@@ -675,7 +753,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         : `${totalAll} total`;
   }
 
-  // ── Wire UI ────────────────────────────────────────
   function wireSearch() {
     const wrap = $('roster-search-wrap');
     const input = $('roster-search');
@@ -708,14 +785,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   function wireStudentToggle() {
     document.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, input, .src-link')) return;
       const stu = e.target.closest('.stu');
       if (!stu) return;
-      if (e.target.closest('a, button, input, .src-link')) return;
       stu.classList.toggle('open');
     });
   }
 
-  // ── Render orchestration ───────────────────────────
   function render() {
     const snap = state.snapshot;
     if (!snap) return;
@@ -726,9 +802,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     renderSchools(uniques);
     renderMeals(uniques);
     renderRoster(roster);
+    revealAnims();
   }
 
-  // ── Snapshot polling ───────────────────────────────
   const POLL_MS = 60_000;
   const refreshBtn = $('refresh-btn');
   const liveDot = document.querySelector('.dash-meta .dot');
@@ -753,7 +829,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     } catch (err) {
       if (!state.snapshot) {
         document.querySelector('main.dash').innerHTML = `
-          <div class="empty-state" style="margin-top:0">
+          <div class="empty-state" style="margin-top:20px">
             <strong>Snapshot not available</strong>
             The auto-refresh workflow hasn't published <code>snapshot.json</code> yet.
             <div style="margin-top:10px;font-family:'Space Grotesk','Inter',sans-serif;font-size:11px;color:var(--sf-ink-40)">${escapeHtml(err.message)}</div>
@@ -773,7 +849,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   });
   refreshBtn.addEventListener('click', () => pollSnapshot(true));
 
-  // boot
   wireSearch();
   wireQuickFilters();
   wireStudentToggle();
