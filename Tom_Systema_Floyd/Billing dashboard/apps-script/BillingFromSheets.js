@@ -50,6 +50,30 @@
 //       └── <one sheet per school program>
 const REGISTRATION_ROOT_FOLDER_ID = '1ybmFvKPQV9YHeoxUfdcDpTdpjbUYpL2w';
 
+// Second Drive root: form-submission sheets fed by the 4 new GHL forms
+// (Vladimir Seminar, Private Lessons, Rent-A-Sensei, Balloons). Each
+// sheet inside this folder has the shape "one row per form submission,
+// raw form fields as columns." Distinct from REGISTRATION_ROOT_FOLDER_ID
+// because classification is by file name (not folder path) and the
+// shape is item-per-row, not enrollment-per-row.
+const FORM_SUBMISSIONS_FOLDER_ID = '1YnCaA46sLC57w7A3vZf0tEGgZv9aoUxN';
+
+// Sheet-name → category mapping for form-submission sheets. The Form
+// Submissions folder has all four sheets as siblings, so classification
+// happens by file name. Add a new entry when another form-submission
+// sheet gets created.
+const FORM_SUBMISSION_SHEET_CATEGORIES = [
+  { pattern: /^Vladimir Vasiliev Seminar Registration/i, type: 'seminar' },
+  { pattern: /^Private Lesson Booking/i,                 type: 'private-lessons' },
+  { pattern: /^Rent-A-Sensei Booking/i,                  type: 'babysitting' },
+  { pattern: /^Balloons by Balloons on the Ave/i,        type: 'decor' },
+];
+
+// The 4 categories above. Used by buildAllBilling to choose between the
+// enrollment-pricing pipeline (camp / after-school) and the direct
+// item-emit pipeline (form submissions).
+const FORM_SUBMISSION_TYPES = ['seminar', 'private-lessons', 'babysitting', 'decor'];
+
 // Tax + fees applied inline to each line item's unit price. Edit these
 // constants when rates change; takes effect on the next 5-min trigger.
 //
@@ -98,6 +122,11 @@ const BFS_WEEK_ORDER = [
 const BILLING_TAB_NAME    = 'Billing';
 const UNPRICED_TAG        = '(unpriced)';
 
+// Manual Items tab: operator-entered line items (escape hatch for charges
+// that don't live on a registration sheet — late fees, private lessons,
+// one-off invoices, etc.). See setupManualItemsTab + readManualItems_.
+const MANUAL_ITEMS_SHEET_NAME = 'Manual Items';
+
 /* ═════════════════════════════════════════════════════════════════
    ENTRY POINTS
    ═════════════════════════════════════════════════════════════════ */
@@ -121,34 +150,43 @@ const UNPRICED_TAG        = '(unpriced)';
  * @returns {Array<{id, label, type, folderPath}>}
  */
 function discoverRegistrationSheets_() {
-  try {
-    var rootFolder = DriveApp.getFolderById(REGISTRATION_ROOT_FOLDER_ID);
-    var found = [];
-    bfsWalkFolder_(rootFolder, rootFolder.getName(), function(file, folderPath) {
-      if (file.getMimeType() !== MimeType.GOOGLE_SHEETS) return;
-      var type = bfsClassifySheet_(folderPath);
-      if (!type) return;
-      found.push({
-        id: file.getId(),
-        label: file.getName(),
-        type: type,
-        folderPath: folderPath
+  var found = [];
+
+  function walkRoot(folderId, rootLabel) {
+    if (!folderId || folderId.length < 5) return;
+    try {
+      var rootFolder = DriveApp.getFolderById(folderId);
+      bfsWalkFolder_(rootFolder, rootFolder.getName(), function(file, folderPath) {
+        if (file.getMimeType() !== MimeType.GOOGLE_SHEETS) return;
+        var fileName = file.getName();
+        var type = bfsClassifySheet_(folderPath, fileName);
+        if (!type) return;
+        found.push({
+          id: file.getId(),
+          label: fileName,
+          type: type,
+          folderPath: folderPath
+        });
       });
-    });
-    if (found.length === 0) {
-      Logger.log('[discoverRegistrationSheets_] WARN: zero sheets discovered in Drive folder ' +
-                 REGISTRATION_ROOT_FOLDER_ID + ' — using fallback list');
-      return FALLBACK_REGISTRATION_SHEETS;
+    } catch (e) {
+      Logger.log('[discoverRegistrationSheets_] ' + rootLabel +
+                 ' walk failed: ' + e.message);
     }
-    Logger.log('[discoverRegistrationSheets_] found ' + found.length + ' registration sheet(s):');
-    found.forEach(function(r) {
-      Logger.log('  - [' + r.type + '] ' + r.label + ' (' + r.folderPath + ')');
-    });
-    return found;
-  } catch (e) {
-    Logger.log('[discoverRegistrationSheets_] failed: ' + e.message + ' — using fallback list');
+  }
+
+  walkRoot(REGISTRATION_ROOT_FOLDER_ID, 'registration root');
+  walkRoot(FORM_SUBMISSIONS_FOLDER_ID, 'form-submissions root');
+
+  if (found.length === 0) {
+    Logger.log('[discoverRegistrationSheets_] WARN: zero sheets discovered — ' +
+               'using fallback list');
     return FALLBACK_REGISTRATION_SHEETS;
   }
+  Logger.log('[discoverRegistrationSheets_] found ' + found.length + ' sheet(s):');
+  found.forEach(function(r) {
+    Logger.log('  - [' + r.type + '] ' + r.label + ' (' + r.folderPath + ')');
+  });
+  return found;
 }
 
 function bfsWalkFolder_(folder, currentPath, callback) {
@@ -165,10 +203,18 @@ function bfsWalkFolder_(folder, currentPath, callback) {
   }
 }
 
-function bfsClassifySheet_(folderPath) {
+function bfsClassifySheet_(folderPath, fileName) {
   if (/Free\s+Summer\s+Camp/i.test(folderPath)) return 'summer-free';
   if (/Summer\s+Camp/i.test(folderPath))        return 'summer-paid';
   if (/After\s+School/i.test(folderPath))       return 'after-school';
+  // Form-submission sheets live as siblings inside a "Form Submissions"
+  // folder. Classification is by file name, not folder path.
+  if (fileName && /Form\s+Submissions/i.test(folderPath)) {
+    for (var i = 0; i < FORM_SUBMISSION_SHEET_CATEGORIES.length; i++) {
+      var rule = FORM_SUBMISSION_SHEET_CATEGORIES[i];
+      if (rule.pattern.test(fileName)) return rule.type;
+    }
+  }
   return null;
 }
 
@@ -241,7 +287,24 @@ function buildAllBilling() {
     registrationSheets.forEach(function(reg) {
       var sheetEnroll = 0, sheetItems = 0, sheetUnpriced = 0;
       try {
-        // Route to the right reader based on sheet type
+        // Form-submission sheets emit priced items directly (no enrollment-
+        // pricing two-step), because each row IS a priced submission and
+        // the prices live in the form option labels. Items already carry
+        // their enrollment + fingerprint when produced.
+        if (FORM_SUBMISSION_TYPES.indexOf(reg.type) !== -1) {
+          var formItems = bfsReadFormSubmissionSheet_(reg);
+          sheetEnroll = formItems.length;
+          formItems.forEach(function(it) {
+            allItems.push(it);
+            sheetItems++;
+            if (it.unpriced) sheetUnpriced++;
+          });
+          perSheet.push(reg.label + ': ' + sheetEnroll + ' submission(s), ' +
+                        sheetItems + ' tx rows, ' + sheetUnpriced + ' unpriced');
+          return;
+        }
+
+        // Camp / after-school: enrollments → priceEnrollment_ → items
         var enrollments = (reg.type === 'after-school')
           ? readAfterSchoolEnrollments_(reg)
           : readRegistrationEnrollments_(reg);
@@ -267,6 +330,19 @@ function buildAllBilling() {
                    '\n' + (e.stack || ''));
       }
     });
+
+    // Manual Items tab: operator-entered line items merged in alongside
+    // reg-sheet items so they share the same diff + lifecycle machinery
+    // downstream. See readManualItems_ for the data flow.
+    try {
+      var manualItems = readManualItems_();
+      manualItems.forEach(function(it) { allItems.push(it); });
+      perSheet.push('Manual Items: ' + manualItems.length + ' tx row(s)');
+    } catch (e) {
+      perSheet.push('Manual Items: ERROR ' + e.message);
+      Logger.log('[buildAllBilling] manual-items read failed: ' + e.message +
+                 '\n' + (e.stack || ''));
+    }
 
     // Sort: parent email → student → week → kind
     allItems.sort(function(a, b) {
@@ -298,6 +374,9 @@ function buildAllBilling() {
     catch (e) { Logger.log('[buildAllBilling] sanitize err: ' + e.message); }
     try { fixDashboardGroups(); }
     catch (e) { Logger.log('[buildAllBilling] group fix err: ' + e.message); }
+    // Form-sheet quick links on header row K-O. 5 cell writes, idempotent.
+    try { installFormSheetQuickLinks(); }
+    catch (e) { Logger.log('[buildAllBilling] quick-links err: ' + e.message); }
 
     var elapsedMs = Date.now() - startedAt.getTime();
     Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms — totals: ' +
@@ -577,7 +656,22 @@ function readDashboardState_() {
     var g = String(row[6] || '').trim().toLowerCase();
 
     var isSubHeader = (a.toUpperCase() === 'DATE' && String(row[6] || '').toUpperCase() === 'STATUS');
-    var isCustomerHeader = (!isSubHeader && b.indexOf('@') !== -1);
+    // Customer header detection:
+    //   primary: col B contains '@' (the normal case)
+    //   fallback: lookahead — if the very next row is a sub-header, this
+    //   row is a customer header even if col B got corrupted (e.g.
+    //   "small" pasted in place of an email by an earlier import bug).
+    //   Without this fallback, a malformed header silently extends the
+    //   previous customer's section across the bad row, which corrupts
+    //   row-group rebuilds for the customer ABOVE it.
+    var nextLooksLikeSubHeader = false;
+    if (!isSubHeader && i + 1 < values.length) {
+      var nextRow = values[i + 1];
+      nextLooksLikeSubHeader =
+        (String(nextRow[0] || '').toUpperCase() === 'DATE' &&
+         String(nextRow[6] || '').toUpperCase() === 'STATUS');
+    }
+    var isCustomerHeader = (!isSubHeader && (b.indexOf('@') !== -1 || nextLooksLikeSubHeader));
 
     if (isCustomerHeader) {
       currentCustomer = {
@@ -924,9 +1018,12 @@ function appendItemsToCustomerSection_(dash, customer, newItems) {
 
   var firstNew = insertPos + 1;
   var matrix = newItems.map(function(it) {
+    // initialStatus (from Manual Items col H) wins over 'owed' default
+    // on first render; unpriced/ambiguous always trump it because those
+    // flags signal the item can't be priced cleanly yet.
     var status = it.unpriced
       ? 'unpriced'
-      : (it.ambiguous ? 'ambiguous' : 'owed');
+      : (it.ambiguous ? 'ambiguous' : (it.initialStatus || 'owed'));
     var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
     var dc = (it.enrollment && Number(it.enrollment.dayCount)) || 0;
     var daysCell  = dc > 0 ? dc : '';
@@ -1003,7 +1100,7 @@ function appendNewCustomerSection_(dash, email, newItems) {
   newItems.forEach(function(it) {
     var status = it.unpriced
       ? 'unpriced'
-      : (it.ambiguous ? 'ambiguous' : 'owed');
+      : (it.ambiguous ? 'ambiguous' : (it.initialStatus || 'owed'));
     var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
     var dc = (it.enrollment && Number(it.enrollment.dayCount)) || 0;
     var daysCell  = dc > 0 ? dc : '';
@@ -1200,6 +1297,16 @@ function nuclearResetBilling_() {
     }
   });
 
+  // Manual Items tab merged in alongside reg-sheet items. Same dedup +
+  // status-preservation machinery handles them downstream.
+  try {
+    var manualItems = readManualItems_();
+    manualItems.forEach(function(it) { allItems.push(it); });
+    Logger.log('[nuclearResetBilling] manual-items: ' + manualItems.length);
+  } catch (e) {
+    Logger.log('[nuclearResetBilling] manual-items read failed: ' + e.message);
+  }
+
   // Dedup by fingerprint (registration data-entry duplicates)
   var byFp = {};
   allItems.forEach(function(it) {
@@ -1311,10 +1418,18 @@ function nuclearResetBilling_() {
         ? 'unpriced'
         : (it.ambiguous ? 'ambiguous' : 'owed');
       var prior = priorStatuses[it.fingerprint];
-      var defaultStatus =
-        (prior === 'paid' || prior === 'refunded' || prior === 'refund-needed')
-          ? prior
-          : freshStatus;
+      var defaultStatus;
+      if (prior === 'paid' || prior === 'refunded' || prior === 'refund-needed') {
+        // Operator-controlled state from a prior render: never overwrite.
+        defaultStatus = prior;
+      } else if (!prior && it.initialStatus && !it.unpriced && !it.ambiguous) {
+        // First-time render of a manual item carrying an Initial Status
+        // override (Manual Items col H). Once it's on the Dashboard, the
+        // prior-preserving branch above takes over.
+        defaultStatus = it.initialStatus;
+      } else {
+        defaultStatus = freshStatus;
+      }
 
       var label = bfsBuildItemCell_(it);  // HYPERLINK formula or plain text
       // Days: enrollment.dayCount when present (1+), else blank.
@@ -2866,16 +2981,39 @@ function applyInlineFees_(item) {
   var basePrice = Number(item.price) || 0;
   if (basePrice === 0) return item;
 
-  var rate, parts;
-  if (item.kind === 'shirt') {
-    rate = SHIRT_SALES_TAX_RATE + PAYMENT_PROCESSING_FEE;
-    parts = [
-      Math.round(SHIRT_SALES_TAX_RATE * 100) + '% sales tax',
-      Math.round(PAYMENT_PROCESSING_FEE * 100) + '% processing fee'
-    ];
-  } else {
-    rate = PAYMENT_PROCESSING_FEE;
-    parts = [Math.round(PAYMENT_PROCESSING_FEE * 100) + '% processing fee'];
+  // Which fees apply, per item:
+  //   - Reg-sheet items: 3% processing always; sales tax only for shirts.
+  //     (Caller doesn't set applyProcessing / applySalesTax flags, so
+  //     we fall through to the kind-based default.)
+  //   - Manual items: caller sets both flags explicitly from the
+  //     "Apply Processing Fee?" + "Apply Sales Tax?" columns. Either or
+  //     both may be false, giving 4 combinations including "no fees".
+  var includeProcessing = (item.applyProcessing === false) ? false : true;
+  var includeSalesTax;
+  if (item.applySalesTax === true)       includeSalesTax = true;
+  else if (item.applySalesTax === false) includeSalesTax = false;
+  else                                    includeSalesTax = (item.kind === 'shirt');
+
+  var rate = 0;
+  var parts = [];
+  if (includeSalesTax) {
+    rate += SHIRT_SALES_TAX_RATE;
+    parts.push(Math.round(SHIRT_SALES_TAX_RATE * 100) + '% sales tax');
+  }
+  if (includeProcessing) {
+    rate += PAYMENT_PROCESSING_FEE;
+    parts.push(Math.round(PAYMENT_PROCESSING_FEE * 100) + '% processing fee');
+  }
+
+  // No fees → keep base price, set a friendly feeNote so the cell hover
+  // still explains what the operator chose.
+  if (rate === 0) {
+    var qty0 = Number(item.qty) || 1;
+    item.basePrice = basePrice;
+    item.baseTotal = Math.round(basePrice * qty0 * 100) / 100;
+    item.feeNote   = 'No tax or processing fee applied. Charged at base $' +
+                     basePrice.toFixed(2) + ' per unit.';
+    return item;
   }
 
   var inflatedUnit = Math.round(basePrice * (1 + rate) * 100) / 100;
@@ -2903,6 +3041,437 @@ function applyInlineFees_(item) {
 function isBfsYesNoMarker_(v) {
   var t = String(v || '').trim();
   return /^(yes|y|no|n|true|false|✓|✔|x)$/i.test(t);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   MANUAL ITEMS — operator-entered line items
+   ═════════════════════════════════════════════════════════════════
+   The reg-sheet pipeline can't capture every billable thing: late
+   fees, private lessons, custom equipment, one-off invoice items.
+   The Manual Items tab is the escape hatch.
+
+   Operator types a row into the Manual Items tab. The 5-min
+   reconciler reads the tab, builds priced items in the same shape
+   as reg-sheet items, and feeds them into the same diff machinery
+   as everything else. Lifecycle is identical:
+     - New row              -> appears as 'owed' under the customer
+     - Row deleted          -> 'canceled' (or 'refund-needed' if paid)
+     - Edit Base Amount     -> Dashboard row updates in place
+     - Edit other columns   -> requires nuclearResetBilling to repaint
+
+   Fingerprint is anchored to a stable UUID in col H (auto-populated
+   on first sight, never edit by hand). That way price edits update
+   the existing row rather than cancelling + re-creating it.
+
+   Bootstrap with setupManualItemsTab(). The 5-min cron handles
+   everything else automatically. */
+
+/**
+ * Bootstrap the Manual Items tab. Idempotent: safe to run any time;
+ * if the tab already exists, only headers + validation get refreshed.
+ * Returns a summary object suitable for the RemoteTrigger response.
+ */
+function setupManualItemsTab() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  if (!sh) {
+    sh = ss.insertSheet(MANUAL_ITEMS_SHEET_NAME);
+  }
+
+  var headers = [
+    'Email', 'Student Name', 'Item Description',
+    'Base Amount', 'Qty',
+    'Apply Processing Fee?', 'Apply Sales Tax?', 'Period / Note',
+    'Date Added', 'Initial Status', 'ID'
+  ];
+  sh.getRange(1, 1, 1, headers.length)
+    .setValues([headers])
+    .setBackground('#143980')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setHorizontalAlignment('left');
+  sh.setFrozenRows(1);
+
+  // Column widths (px)
+  sh.setColumnWidth(1, 230);  // Email
+  sh.setColumnWidth(2, 170);  // Student
+  sh.setColumnWidth(3, 320);  // Description
+  sh.setColumnWidth(4, 110);  // Base Amount
+  sh.setColumnWidth(5, 70);   // Qty
+  sh.setColumnWidth(6, 150);  // Apply Processing Fee?
+  sh.setColumnWidth(7, 130);  // Apply Sales Tax?
+  sh.setColumnWidth(8, 170);  // Period / Note
+  sh.setColumnWidth(9, 110);  // Date Added
+  sh.setColumnWidth(10, 120); // Initial Status
+  sh.setColumnWidth(11, 260); // ID (UUID)
+
+  var bodyRows = Math.max(1, sh.getMaxRows() - 1);
+  sh.getRange(2, 4, bodyRows, 1).setNumberFormat('"$"#,##0.00');  // Base Amount
+  sh.getRange(2, 5, bodyRows, 1).setNumberFormat('0.##');         // Qty
+  sh.getRange(2, 9, bodyRows, 1).setNumberFormat('yyyy-mm-dd');   // Date Added
+  // Yes/No dropdowns for both fee columns
+  var yesNoRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(['Yes', 'No'], true)
+    .setAllowInvalid(false)
+    .build();
+  sh.getRange(2, 6, bodyRows, 1).setDataValidation(yesNoRule);  // Processing Fee
+  sh.getRange(2, 7, bodyRows, 1).setDataValidation(yesNoRule);  // Sales Tax
+  // Initial Status dropdown (only the values that make sense as a starting
+  // point; refund-needed/refunded/unpriced/ambiguous are reconciler-managed)
+  var statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(['owed', 'paid', 'canceled'], true)
+    .setAllowInvalid(false)
+    .build();
+  sh.getRange(2, 10, bodyRows, 1).setDataValidation(statusRule);
+  // ID column visually de-emphasized (operators should not touch it)
+  sh.getRange(2, 11, bodyRows, 1)
+    .setFontColor('#999999')
+    .setFontFamily('Roboto Mono');
+
+  // Hide the tab — operators interact via the dialog, not by editing
+  // rows directly. To see it again, right-click any tab in the sheet
+  // -> "Show all hidden sheets" -> tick "Manual Items".
+  try { sh.hideSheet(); } catch (e) { /* already hidden — fine */ }
+
+  // Instruction note on the Description header (hover to read)
+  sh.getRange(1, 3).setNote(
+    'Manual Items — operator-entered billable line items.\n\n' +
+    'Fields:\n' +
+    '  Email                  parent email (required, must contain @)\n' +
+    '  Student Name           student this charge is for (use "(none)" if N/A)\n' +
+    '  Item Description       shown on the Dashboard, e.g. "Private lesson Apr 12"\n' +
+    '  Base Amount            unit amount BEFORE fees; negative for credits/adjustments\n' +
+    '  Qty                    multiplier (blank = 1); total = Base Amount * Qty (+fees)\n' +
+    '  Apply Processing Fee?  blank or Yes adds 3% processing fee; No skips it\n' +
+    '  Apply Sales Tax?       Yes adds 7% sales tax on top; blank/No skips it\n' +
+    '  Period / Note          free-text period label, shown next to the item\n' +
+    '  Date Added             informational; not used by the billing pipeline\n' +
+    '  Initial Status         blank=owed, or paid/canceled — applied only on first render\n' +
+    '  ID                     auto-generated UUID on first sight — do not edit\n\n' +
+    'Lifecycle:\n' +
+    '  - New row picked up within 5 min, appears under the customer\n' +
+    '  - Delete the row to cancel (refund-needed if the charge was already paid)\n' +
+    '  - Edit Base Amount or Qty to update the dashboard row in place\n' +
+    '  - Initial Status applies ONLY at first render; later operator edits to\n' +
+    '    the Dashboard status pill take precedence and are preserved\n' +
+    '  - Editing Description / Period requires nuclearResetBilling to repaint\n\n' +
+    'Negative amounts: enter a negative Base Amount (e.g. -20.00) for a credit\n' +
+    'or adjustment. The line subtracts from the customer balance naturally.\n\n' +
+    'Tip: to add two identical charges for the same customer, vary the\n' +
+    'Description or Period so each row is clearly distinguishable.'
+  );
+
+  return {
+    ok: true,
+    sheet: sh.getName(),
+    headers: headers,
+    rows: sh.getLastRow()
+  };
+}
+
+/**
+ * Read every row from the Manual Items tab; return priced items in
+ * the same shape as priceEnrollment_'s output (already inflated by
+ * applyInlineFees_). Empty rows skipped silently; rows with obvious
+ * data problems (no email, no amount) skipped with a Logger warning.
+ *
+ * Side effect: rows missing a UUID in col H get one auto-generated
+ * and written back in a single batched setValues at the end.
+ */
+function readManualItems_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  if (!sh) {
+    Logger.log('[readManualItems_] no "' + MANUAL_ITEMS_SHEET_NAME +
+               '" tab — skipping. Run setupManualItemsTab() to bootstrap.');
+    return [];
+  }
+  var lastRow = sh.getLastRow();
+  if (lastRow < 2) return [];
+
+  var data = sh.getRange(2, 1, lastRow - 1, 11).getValues();
+  var spreadsheetId = ss.getId();
+  var gid = sh.getSheetId();
+  var idColumn = data.map(function(row) { return [row[10]]; });
+  var idsChanged = false;
+  var items = [];
+  var ALLOWED_INITIAL_STATUS = { 'owed': 1, 'paid': 1, 'canceled': 1 };
+
+  // Fee-flag parsing: explicit No disables; everything else (including blank)
+  // uses the column's documented default. Processing defaults to YES;
+  // sales tax defaults to NO.
+  function parseYesDefaultYes(v) {
+    var t = String(v || '').trim().toLowerCase();
+    return !(t === 'no' || t === 'n' || t === 'false' || t === '0');
+  }
+  function parseYesDefaultNo(v) {
+    var t = String(v || '').trim().toLowerCase();
+    return (t === 'yes' || t === 'y' || t === 'true' || t === '1' || t === '✓' || t === '✔');
+  }
+
+  for (var i = 0; i < data.length; i++) {
+    var row = data[i];
+    var rowNum = i + 2;
+    var emailRaw         = String(row[0] || '').trim();
+    var student          = String(row[1] || '').trim();
+    var label            = String(row[2] || '').trim();
+    var amount           = Number(row[3]);
+    var qtyRaw           = row[4];
+    var qty              = (qtyRaw === '' || qtyRaw === null || qtyRaw === undefined)
+                            ? 1 : Number(qtyRaw);
+    var applyProcessing  = parseYesDefaultYes(row[5]);
+    var applyTax         = parseYesDefaultNo(row[6]);
+    var period           = String(row[7] || '').trim();
+    var rawStatus        = String(row[9] || '').trim().toLowerCase();
+    var initialStatus    = ALLOWED_INITIAL_STATUS[rawStatus] ? rawStatus : '';
+    var existingId       = String(row[10] || '').trim();
+
+    // Wholly-blank row: skip silently (operator's working space).
+    if (!emailRaw && !label && !amount) continue;
+
+    // Partial / invalid rows: log + skip (don't pollute the dashboard).
+    if (!emailRaw || emailRaw.indexOf('@') === -1) {
+      Logger.log('[readManualItems_] row ' + rowNum + ': skipped — missing/invalid email');
+      continue;
+    }
+    if (!label) {
+      Logger.log('[readManualItems_] row ' + rowNum + ': skipped — missing description');
+      continue;
+    }
+    // Negative amounts allowed (for credits/adjustments); only reject 0 or NaN.
+    if (!isFinite(amount) || amount === 0) {
+      Logger.log('[readManualItems_] row ' + rowNum + ': skipped — base amount must be non-zero');
+      continue;
+    }
+    if (!isFinite(qty) || qty <= 0) {
+      Logger.log('[readManualItems_] row ' + rowNum + ': skipped — qty must be > 0');
+      continue;
+    }
+
+    // Stable fingerprint anchor: existing UUID, or freshly minted.
+    var id = existingId || Utilities.getUuid();
+    if (!existingId) {
+      idColumn[i] = [id];
+      idsChanged = true;
+    }
+
+    var email = emailRaw.toLowerCase();
+    var studentLabel = student || '(no student)';
+
+    items.push({
+      kind:         'manual',
+      label:        label,
+      price:        amount,         // pre-fee unit; applyInlineFees_ inflates below
+      multiplier:   '',
+      qty:          qty,
+      total:        amount * qty,   // pre-fee total
+      unpriced:     false,
+      source:       'Manual Items row ' + rowNum,
+      linkToSource: bfsCellUrl_(spreadsheetId, gid, rowNum, 3),
+      fingerprint:  'manual|' + id,
+      // Per-item fee flags; applyInlineFees_ consults these to skip or apply
+      // each fee independently. Both can be true (10%), one (3% or 7%), or
+      // neither (no inflation at all).
+      applyProcessing: applyProcessing,
+      applySalesTax:   applyTax,
+      // Honored only at first render — once the row exists on Dashboard,
+      // operator edits to the status pill take precedence (see new-row
+      // writers in appendItemsToCustomerSection_, appendNewCustomerSection_,
+      // and the nuclearReset matrix builder).
+      initialStatus: initialStatus,
+      enrollment: {
+        email:      email,
+        emailRaw:   emailRaw,
+        student:    studentLabel,
+        week:       period,
+        sheetLabel: 'Manual Items',
+        sourceRow:  rowNum,
+        type:       'manual'
+      }
+    });
+  }
+
+  // Batch-write any newly-minted IDs in one call (col K = 11).
+  if (idsChanged) {
+    sh.getRange(2, 11, idColumn.length, 1).setValues(idColumn);
+  }
+
+  // Inflate prices (3% processing; 10% if taxed). Same pipeline reg-sheet
+  // items go through, so the cell Note breakdown reads identically.
+  items.forEach(applyInlineFees_);
+  return items;
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   ADD-MANUAL-ITEM DIALOG — UI hooks
+   ═════════════════════════════════════════════════════════════════
+   Backend handlers for the "+ Add manual item" custom-menu dialog.
+   The dialog itself is AddManualItem.html, served via HtmlService.
+
+   Wiring:
+     1. Menu.js onOpen      -> "Billing" menu -> "+ Add manual item..."
+     2. menu item click     -> showAddManualItemDialog()
+     3. dialog opens        -> google.script.run.manualItemDialog_listContacts()
+                               fetches existing customer list for autocomplete
+     4. operator submits    -> google.script.run.manualItemDialog_submit(payload)
+                               writes Manual Items row + schedules buildAllBilling
+                               for ~10s later (avoids lock contention with cron)
+   The 5-min cron also picks the row up — the one-time trigger just
+   makes the new row appear faster than waiting up to 5 minutes. */
+
+/**
+ * Open the Add Manual Item modal dialog. Called from the Billing custom
+ * menu. Loads AddManualItem.html.
+ */
+function showAddManualItemDialog() {
+  // Pre-inject the contact list via HtmlTemplate so the sidebar opens
+  // with autocomplete data already in scope. ~108 contacts inlines fine.
+  var template = HtmlService.createTemplateFromFile('AddManualItem');
+  try {
+    template.contactsJson = JSON.stringify(manualItemDialog_listContacts());
+  } catch (e) {
+    Logger.log('[showAddManualItemDialog] contact pre-fetch failed: ' + e.message);
+    template.contactsJson = '[]';
+  }
+  var html = template.evaluate().setTitle('Add Manual Item');
+  SpreadsheetApp.getUi().showSidebar(html);
+}
+
+/**
+ * Sanity check the template parses and the contact-injection scriptlet
+ * works. Invoke via clasp run before claiming a UI change is ready.
+ * Returns a dump rather than logging so the result is visible.
+ */
+function testAddManualItemTemplate() {
+  var template = HtmlService.createTemplateFromFile('AddManualItem');
+  template.contactsJson = JSON.stringify([
+    { name: 'Alice Tester', email: 'alice@example.com', phone: '', students: 'Foo Bar', hasProfile: false }
+  ]);
+  var content = template.evaluate().getContent();
+  return {
+    ok: true,
+    length: content.length,
+    injectionWorks: content.indexOf('alice@example.com') !== -1,
+    head: content.substring(0, 220)
+  };
+}
+
+/**
+ * Return the existing customer list for autocomplete. Sources from the
+ * Dashboard's customer header rows (col B contains "@"). Fast — single
+ * range read, no API calls.
+ *
+ * Shape: [{name, email, phone, students, hasProfile}]
+ */
+function manualItemDialog_listContacts() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return [];
+  var rng = dash.getRange(2, 1, lastRow - 1, 5).getValues();
+  var profileFormulas = dash.getRange(2, 6, lastRow - 1, 1).getFormulas();
+
+  var contacts = [];
+  var seen = {};
+  for (var i = 0; i < rng.length; i++) {
+    var row = rng[i];
+    var emailCell = String(row[1] || '').trim();
+    if (emailCell.indexOf('@') === -1) continue;  // tx / sub-header rows
+    var key = emailCell.toLowerCase();
+    if (seen[key]) continue;
+    seen[key] = true;
+    contacts.push({
+      name:     String(row[0] || '').trim(),
+      email:    emailCell,
+      phone:    String(row[2] || '').trim(),
+      students: String(row[4] || '').trim(),
+      hasProfile: /HYPERLINK/i.test(profileFormulas[i][0] || '')
+    });
+  }
+  // Sort alphabetically by name (case-insensitive)
+  contacts.sort(function(a, b) {
+    return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+  });
+  return contacts;
+}
+
+/**
+ * Receive the submitted payload, append to the Manual Items tab, and
+ * schedule a one-time buildAllBilling trigger ~10s in the future so
+ * the new row appears on the Dashboard within seconds instead of up
+ * to 5 min. Returns immediately so the dialog stays snappy.
+ *
+ * Payload shape:
+ *   { email, student, label, amount, applyTax, period, status }
+ */
+function manualItemDialog_submit(payload) {
+  var p = payload || {};
+  var email   = String(p.email   || '').trim();
+  var student = String(p.student || '').trim() || '(no student)';
+  var label   = String(p.label   || '').trim();
+  var amount  = Number(p.amount);
+  var qty     = (p.qty === '' || p.qty === null || p.qty === undefined)
+                  ? 1 : Number(p.qty);
+  // Dialog sends explicit booleans; default processing=ON, tax=OFF if the
+  // caller didn't pass them at all (legacy / CLI usage).
+  var applyProcessing = (p.applyProcessing === false) ? false : true;
+  var applyTax        = !!p.applyTax;
+  var period  = String(p.period  || '').trim();
+  var statusRaw = String(p.status || '').trim().toLowerCase();
+  var status = /^(owed|paid|canceled)$/.test(statusRaw) ? statusRaw : '';
+
+  // Validation
+  if (!email || email.indexOf('@') === -1) {
+    return { ok: false, error: 'Please enter a valid email address.' };
+  }
+  if (!label) {
+    return { ok: false, error: 'Item description is required.' };
+  }
+  // Negative amounts allowed (credits/adjustments); only reject 0 or NaN.
+  if (!isFinite(amount) || amount === 0) {
+    return { ok: false, error: 'Amount must be non-zero (negative is OK for credits).' };
+  }
+  if (!isFinite(qty) || qty <= 0) {
+    return { ok: false, error: 'Quantity must be greater than 0.' };
+  }
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  if (!sh) {
+    setupManualItemsTab();
+    sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  }
+
+  var rowNum = sh.getLastRow() + 1;
+  // ID (col K) left blank — readManualItems_ mints the UUID on first sight.
+  sh.getRange(rowNum, 1, 1, 10).setValues([[
+    email, student, label, amount, qty,
+    applyProcessing ? 'Yes' : 'No',
+    applyTax ? 'Yes' : 'No',
+    period, new Date(), status
+  ]]);
+
+  // Schedule buildAllBilling ~10s in the future. Apps Script auto-deletes
+  // one-time triggers after firing, so no inventory bloat. If the 5-min
+  // cron beats us to the lock, the trigger waits and runs cleanly.
+  var triggerId = null;
+  try {
+    var trigger = ScriptApp.newTrigger('buildAllBilling')
+      .timeBased().after(10 * 1000).create();
+    triggerId = trigger.getUniqueId();
+  } catch (e) {
+    Logger.log('[manualItemDialog_submit] could not schedule buildAllBilling: ' +
+               e.message);
+  }
+
+  return {
+    ok: true,
+    sheet: sh.getName(),
+    row: rowNum,
+    triggerId: triggerId,
+    note: triggerId
+      ? 'Saved. Dashboard refreshes in ~10 seconds.'
+      : 'Saved. Dashboard refreshes within 5 minutes (couldn\'t schedule an immediate run).'
+  };
 }
 
 /* ═════════════════════════════════════════════════════════════════
@@ -3110,4 +3679,429 @@ function renderBillingTab_(billing, reg, items, existingStatus) {
   // it covers the banner, headers, and every data row uniformly.
   var totalRows = 2 + rows.length;
   billing.getRange(1, 1, totalRows, NUM_COLS).setFontFamily(BILLING_FONT);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   FORM-SUBMISSION SHEET READERS (Vladimir, Private Lessons,
+   Rent-A-Sensei, Balloons)
+   ═════════════════════════════════════════════════════════════════
+   Each of the 4 new form-submission sheets has the shape "one row per
+   submission, raw form fields as columns" — closer to the Manual Items
+   tab than to the camp registration sheets. Each reader walks its
+   sheet and emits priced items in the same shape readManualItems_ uses,
+   so the downstream diff/reconcile pipeline doesn't need to know about
+   them at all.
+
+   Fingerprint scheme:
+     - Single-priced forms (seminar, private-lessons, babysitting):
+         <kind>|<sheet_id>|<row_num>
+     - Multi-priced form (decor):
+         decor|<sheet_id>|<row_num>|<field_key>
+
+   Stability assumption: operators are told NOT to delete or reorder
+   submission rows once they exist. New submissions append to the
+   bottom (workflow-driven), so row_num is a stable identifier across
+   rebuilds for any given submission.
+
+   Customer routing: each row has Email + Full Name + Phone in the
+   first columns, written by the GHL "Add Row" workflow. The diff
+   pipeline already groups items by enrollment.email, so submissions
+   from the same parent (across forms) consolidate naturally under
+   one Dashboard customer block.
+
+   Status:
+     - seminar / private-lessons / decor: items start as 'owed'
+     - babysitting: no in-form pricing, items start as 'ambiguous'
+       with the (unpriced) tag. Tom edits the cell to set the actual
+       price + flips status when he sends the quote.
+   ─────────────────────────────────────────────────────────────── */
+
+/**
+ * Shared meta extractor. The 4 form-submission sheets all start with
+ * Contact ID (col A) | Full Name or Parent Name (col B) | Phone (col C)
+ * | Email (col D). Returns null when the row is wholly blank or has no
+ * usable email — caller continues to the next row.
+ */
+function bfsParseFormSubmissionMeta_(row) {
+  var email = String(row[3] || '').trim().toLowerCase();
+  if (!email || email.indexOf('@') === -1) return null;
+  return {
+    contactId: String(row[0] || '').trim(),
+    name:      String(row[1] || '').trim(),
+    phone:     String(row[2] || '').trim(),
+    emailRaw:  String(row[3] || '').trim(),
+    email:     email
+  };
+}
+
+/**
+ * Shared engine for forms with ONE priced column (Vladimir Seminar,
+ * Private Lesson Booking). Both have the same prefix shape and one
+ * column whose value is a priced option label like
+ * "Two Day Pass, Early Bird $275 (must pay before Aug 1)".
+ *
+ * spec: {
+ *   kind:       string,
+ *   pricedCol:  { idx: number (0-based), name: string }
+ * }
+ */
+function bfsReadSinglePricedColumnForm_(reg, spec) {
+  var ss = SpreadsheetApp.openById(reg.id);
+  var sh = ss.getSheets()[0];
+  var lastRow = sh.getLastRow();
+  if (lastRow < 2) return [];
+
+  var lastCol = sh.getLastColumn();
+  var data = sh.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  var spreadsheetId = reg.id;
+  var gid = sh.getSheetId();
+  var items = [];
+
+  for (var i = 0; i < data.length; i++) {
+    var row = data[i];
+    var rowNum = i + 2;
+    var meta = bfsParseFormSubmissionMeta_(row);
+    if (!meta) continue;
+
+    var raw = String(row[spec.pricedCol.idx] || '').trim();
+    if (!raw) continue;
+
+    var price = parsePrice(raw);
+    var hasPrice = (price !== null && price > 0);
+    var cleanLabel = stripPriceFromLabel(raw) || raw;
+
+    items.push({
+      kind:            spec.kind,
+      label:           spec.pricedCol.name + ': ' + cleanLabel,
+      price:           hasPrice ? price : 0,
+      multiplier:      '',
+      qty:             1,
+      total:           hasPrice ? price : 0,
+      unpriced:        !hasPrice,
+      source:          reg.label + ' row ' + rowNum,
+      linkToSource:    bfsCellUrl_(spreadsheetId, gid, rowNum, spec.pricedCol.idx + 1),
+      fingerprint:     spec.kind + '|' + spreadsheetId + '|' + rowNum,
+      applyProcessing: hasPrice,
+      applySalesTax:   false,
+      enrollment: {
+        email:      meta.email,
+        emailRaw:   meta.emailRaw,
+        student:    '',
+        week:       '',
+        sheetLabel: reg.label,
+        sourceRow:  rowNum,
+        type:       spec.kind
+      }
+    });
+  }
+  items.forEach(applyInlineFees_);
+  return items;
+}
+
+/**
+ * Vladimir Vasiliev Seminar reader. Single priced column: Pass Selection (E).
+ * Sheet columns:
+ *   A Contact ID | B Full Name | C Phone | D Email | E Pass Selection
+ *   | F Experience Level | G Emergency Contact Name | H Emergency Contact Phone
+ *   | I T-Shirt Size | J Dietary Restrictions or Allergies
+ *   | K How did you hear about the seminar?
+ */
+function readSeminarSubmissions_(reg) {
+  return bfsReadSinglePricedColumnForm_(reg, {
+    kind: 'seminar',
+    pricedCol: { idx: 4, name: 'Pass Selection' }
+  });
+}
+
+/**
+ * Private Lesson Booking reader. Single priced column: Lesson Length & Price (G).
+ * Sheet columns:
+ *   A Contact ID | B Full Name | C Phone | D Email | E State | F Instructor
+ *   | G Lesson Length & Price | H Number of Students | I Training Type
+ *   | J Age Group | K Package | L Preferred Date | M Preferred Time
+ */
+function readPrivateLessonSubmissions_(reg) {
+  return bfsReadSinglePricedColumnForm_(reg, {
+    kind: 'private-lessons',
+    pricedCol: { idx: 6, name: 'Lesson Length & Price' }
+  });
+}
+
+/**
+ * Rent-A-Sensei (babysitting) reader. NO in-form pricing — Tom quotes
+ * manually after speaking to the customer. Each submission yields one
+ * item with unpriced=true and initialStatus='ambiguous'. Tom edits the
+ * Dashboard cell to set the real price + flip the status when ready.
+ *
+ * Sheet columns:
+ *   A Contact ID | B Parent Name | C Phone | D Email | E Service Type
+ *   | F Number of Children | G Duration | H Full Address | I Date
+ *   | J Start Time | K End Time | L Confirm: not for parties or events
+ *   | M Special instructions / extra children info
+ */
+function readBabysittingSubmissions_(reg) {
+  var ss = SpreadsheetApp.openById(reg.id);
+  var sh = ss.getSheets()[0];
+  var lastRow = sh.getLastRow();
+  if (lastRow < 2) return [];
+
+  var lastCol = sh.getLastColumn();
+  var data = sh.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  var spreadsheetId = reg.id;
+  var gid = sh.getSheetId();
+  var items = [];
+
+  for (var i = 0; i < data.length; i++) {
+    var row = data[i];
+    var rowNum = i + 2;
+    var meta = bfsParseFormSubmissionMeta_(row);
+    if (!meta) continue;
+
+    var serviceType = String(row[4] || '').trim();
+    var duration    = String(row[6] || '').trim();
+    var date        = String(row[8] || '').trim();
+
+    var labelParts = ['Rent-A-Sensei booking'];
+    if (serviceType) labelParts.push(serviceType);
+    if (duration)    labelParts.push(duration);
+    if (date)        labelParts.push('on ' + date);
+    var label = labelParts.join(', ');
+
+    items.push({
+      kind:            'babysitting',
+      label:           label,
+      price:           0,
+      multiplier:      '',
+      qty:             1,
+      total:           0,
+      unpriced:        true,
+      source:          reg.label + ' row ' + rowNum,
+      linkToSource:    bfsCellUrl_(spreadsheetId, gid, rowNum, 5),
+      fingerprint:     'babysitting|' + spreadsheetId + '|' + rowNum,
+      applyProcessing: false,
+      applySalesTax:   false,
+      initialStatus:   'ambiguous',
+      enrollment: {
+        email:      meta.email,
+        emailRaw:   meta.emailRaw,
+        student:    '',
+        week:       '',
+        sheetLabel: reg.label,
+        sourceRow:  rowNum,
+        type:       'babysitting'
+      }
+    });
+  }
+  // No applyInlineFees_ pass — all items are unpriced ($0), and fee
+  // inflation skips $0 items anyway.
+  return items;
+}
+
+/**
+ * Balloons (decor) reader. Up to 9 priced columns per submission. Each
+ * non-blank priced field becomes its own tx row so the team and Emily
+ * can mark each line item paid/canceled independently.
+ *
+ * Sheet columns:
+ *   A Contact ID | B Full Name | C Phone | D Email | E Garland
+ *   | F Additional Feet of Garland | G Columns | H Arch
+ *   | I Balloon Wall / Backdrop | J Add-Ons (range-priced)
+ *   | K Delivery Fee | L Setup Complexity | M Optional Fees
+ *   | N Party Theme | O Primary Color | P Secondary Color
+ *   | Q Accent Color | R Notes for Emily
+ */
+function readDecorSubmissions_(reg) {
+  var ss = SpreadsheetApp.openById(reg.id);
+  var sh = ss.getSheets()[0];
+  var lastRow = sh.getLastRow();
+  if (lastRow < 2) return [];
+
+  var lastCol = sh.getLastColumn();
+  var data = sh.getRange(2, 1, lastRow - 1, lastCol).getValues();
+  var spreadsheetId = reg.id;
+  var gid = sh.getSheetId();
+  var items = [];
+
+  var pricedCols = [
+    { idx: 4,  name: 'Garland',                 key: 'garland' },
+    { idx: 5,  name: 'Additional Feet',         key: 'addl-feet' },
+    { idx: 6,  name: 'Columns',                 key: 'columns' },
+    { idx: 7,  name: 'Arch',                    key: 'arch' },
+    { idx: 8,  name: 'Balloon Wall / Backdrop', key: 'wall' },
+    { idx: 9,  name: 'Add-Ons',                 key: 'addons' },
+    { idx: 10, name: 'Delivery Fee',            key: 'delivery' },
+    { idx: 11, name: 'Setup Complexity',        key: 'setup' },
+    { idx: 12, name: 'Optional Fees',           key: 'optfees' }
+  ];
+
+  for (var i = 0; i < data.length; i++) {
+    var row = data[i];
+    var rowNum = i + 2;
+    var meta = bfsParseFormSubmissionMeta_(row);
+    if (!meta) continue;
+
+    pricedCols.forEach(function(pc) {
+      var raw = String(row[pc.idx] || '').trim();
+      if (!raw) return;
+      // Customer picked "None" or equivalent skip-marker — no tx row.
+      if (/^(none|n\/a|no)$/i.test(raw)) return;
+
+      var price = parsePrice(raw);
+      var hasPrice = (price !== null && price > 0);
+      var cleanLabel = stripPriceFromLabel(raw) || raw;
+
+      items.push({
+        kind:            'decor',
+        label:           pc.name + ': ' + cleanLabel,
+        price:           hasPrice ? price : 0,
+        multiplier:      '',
+        qty:             1,
+        total:           hasPrice ? price : 0,
+        unpriced:        !hasPrice,
+        source:          reg.label + ' row ' + rowNum + ', ' + pc.name,
+        linkToSource:    bfsCellUrl_(spreadsheetId, gid, rowNum, pc.idx + 1),
+        fingerprint:     'decor|' + spreadsheetId + '|' + rowNum + '|' + pc.key,
+        applyProcessing: hasPrice,
+        applySalesTax:   false,
+        enrollment: {
+          email:      meta.email,
+          emailRaw:   meta.emailRaw,
+          student:    meta.name || '(no name)',
+          week:       '',
+          sheetLabel: reg.label,
+          sourceRow:  rowNum,
+          type:       'decor'
+        }
+      });
+    });
+  }
+  items.forEach(applyInlineFees_);
+  return items;
+}
+
+/**
+ * Dispatcher used by buildAllBilling. Routes the discovered form-
+ * submission sheet to the right per-category reader. Returns priced
+ * items in the standard shape (enrollment already attached).
+ */
+function bfsReadFormSubmissionSheet_(reg) {
+  switch (reg.type) {
+    case 'seminar':         return readSeminarSubmissions_(reg);
+    case 'private-lessons': return readPrivateLessonSubmissions_(reg);
+    case 'babysitting':     return readBabysittingSubmissions_(reg);
+    case 'decor':           return readDecorSubmissions_(reg);
+    default:
+      Logger.log('[bfsReadFormSubmissionSheet_] unknown type ' + reg.type +
+                 ' for ' + reg.label);
+      return [];
+  }
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   FORM-SHEET QUICK LINKS (Dashboard header row, cols K-O)
+   ═════════════════════════════════════════════════════════════════
+   Discovers the 4 form-submission sheets in FORM_SUBMISSIONS_FOLDER_ID
+   and writes clickable HYPERLINK chips into Dashboard row 1 cols K-N,
+   with O holding a link to the folder itself. J1 stays untouched
+   because the existing one-shot actions dropdown lives there.
+
+   Idempotent: re-running rewrites the same cells. Picks up renamed
+   sheets automatically (matching by FORM_SUBMISSION_SHEET_CATEGORIES
+   patterns, same logic the discovery walker uses). Safe to call from
+   the buildAllBilling tail every 5 min — costs 5 cell writes when
+   things are stable, and self-heals if a chip gets cleared by
+   accident.
+   ─────────────────────────────────────────────────────────────── */
+
+function installFormSheetQuickLinks() {
+  var dash = getDashboardSheet();
+  if (!dash) {
+    Logger.log('[installFormSheetQuickLinks] Dashboard tab not found');
+    return { ok: false, error: 'Dashboard tab missing' };
+  }
+  if (!FORM_SUBMISSIONS_FOLDER_ID || FORM_SUBMISSIONS_FOLDER_ID.length < 5) {
+    Logger.log('[installFormSheetQuickLinks] FORM_SUBMISSIONS_FOLDER_ID not set');
+    return { ok: false, error: 'FORM_SUBMISSIONS_FOLDER_ID not configured' };
+  }
+
+  var folder;
+  try {
+    folder = DriveApp.getFolderById(FORM_SUBMISSIONS_FOLDER_ID);
+  } catch (e) {
+    Logger.log('[installFormSheetQuickLinks] folder open failed: ' + e.message);
+    return { ok: false, error: 'Cannot open folder: ' + e.message };
+  }
+
+  // Walk the folder, classify each Google Sheet against the same regex
+  // table buildAllBilling uses, so chip wiring stays in lockstep with
+  // the reader pipeline.
+  var byType = {};
+  var files = folder.getFiles();
+  while (files.hasNext()) {
+    var f = files.next();
+    if (f.getMimeType() !== MimeType.GOOGLE_SHEETS) continue;
+    var name = f.getName();
+    for (var i = 0; i < FORM_SUBMISSION_SHEET_CATEGORIES.length; i++) {
+      var rule = FORM_SUBMISSION_SHEET_CATEGORIES[i];
+      if (rule.pattern.test(name)) {
+        byType[rule.type] = { url: f.getUrl(), name: name };
+        break;
+      }
+    }
+  }
+
+  // Column layout (J1 reserved for the existing one-shot actions
+  // dropdown). Short labels keep the chip width manageable.
+  var chips = [
+    { col: 11, type: 'seminar',         label: 'Vladimir Seminar' },
+    { col: 12, type: 'private-lessons', label: 'Private Lessons'  },
+    { col: 13, type: 'babysitting',     label: 'Rent-A-Sensei'    },
+    { col: 14, type: 'decor',           label: 'Balloons'         }
+  ];
+
+  var written = 0, missing = [];
+  chips.forEach(function(chip) {
+    var entry = byType[chip.type];
+    var cell = dash.getRange(1, chip.col);
+    if (entry) {
+      cell.setFormula('=HYPERLINK("' + entry.url + '","' +
+                      bfsEscapeFormula_(chip.label) + '")');
+      written++;
+    } else {
+      cell.setValue(chip.label + ' (sheet not found)');
+      missing.push(chip.type);
+    }
+    cell
+      .setBackground('#143980')
+      .setFontColor('#FFFFFF')
+      .setFontWeight('bold')
+      .setFontSize(11)
+      .setHorizontalAlignment('center')
+      .setVerticalAlignment('middle');
+    dash.setColumnWidth(chip.col, 170);
+  });
+
+  // O1: link to the folder itself, darker chip so it visually reads as
+  // the parent-of-the-four.
+  var folderUrl = 'https://drive.google.com/drive/folders/' +
+                  FORM_SUBMISSIONS_FOLDER_ID;
+  dash.getRange(1, 15)
+    .setFormula('=HYPERLINK("' + folderUrl + '","All Form Sheets")')
+    .setBackground('#0F3634')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(11)
+    .setHorizontalAlignment('center')
+    .setVerticalAlignment('middle');
+  dash.setColumnWidth(15, 170);
+
+  Logger.log('[installFormSheetQuickLinks] wrote ' + written + ' chip(s); missing: ' +
+             (missing.length ? missing.join(', ') : '(none)'));
+
+  return {
+    ok: true,
+    written: written,
+    missing: missing,
+    columns: { K: 'seminar', L: 'private-lessons', M: 'babysitting', N: 'decor', O: 'folder' }
+  };
 }

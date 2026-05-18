@@ -60,16 +60,24 @@ const REMOTE_TRIGGER_WHITELIST = {
   fixDashboardStatusValidation:    'Re-scope status dropdown to tx rows only. ~5-10s.',
   sanitizeDashboardCustomerHeaders: 'Strip placeholder text + em-dashes from customer headers. ~5s.',
   removeItemUnderlines:            'Strip default underline from HYPERLINK cells (Item, Profile). ~3-5s.',
+  installFormSheetQuickLinks:      'Write the 4 form-sheet HYPERLINK chips (Vladimir, Private Lessons, Rent-A-Sensei, Balloons) + folder link into Dashboard cols K1-O1. Idempotent. ~3-5s. Use sync=1.',
 
   // Pricing tab maintenance
   setupPricingSheet:               'First-time bootstrap of Pricing tab from GHL form fields.',
   migratePricingSheetAddAliases:   'Add Aliases column to Pricing tab.',
   prettifyPricingSheet:            'Reformat Pricing tab into banded sections.',
 
+  // Manual Items tab (operator escape hatch for non-reg-sheet charges)
+  setupManualItemsTab:             'Bootstrap the Manual Items tab. Idempotent. Use sync=1.',
+  addManualItem:                   'Append a row to the Manual Items tab. Params: &email=&student=&label=&amount= (negative OK for credits) [&qty=N (default 1)][&applyProcessing=Yes|No (default Yes)][&applyTax=Yes (default No)][&period=][&status=owed|paid|canceled]. Use sync=1.',
+  testAddManualItemTemplate:       'Render the AddManualItem.html template with stub data; returns ok:true if the template parses cleanly. Use sync=1.',
+
   // Trigger management
-  installBillingFromSheetsTrigger: '(Re)install 5-min buildAllBilling trigger.',
-  installPollingTrigger:           '(Re)install 5-min pollFloridaSubmissions trigger.',
-  installDailyHealthCheckTrigger:  '(Re)install daily dailyHealthCheck trigger.',
+  installBillingFromSheetsTrigger:    '(Re)install 5-min buildAllBilling trigger.',
+  installPollingTrigger:              '(Re)install 5-min pollFloridaSubmissions trigger.',
+  installDailyHealthCheckTrigger:     '(Re)install daily dailyHealthCheck trigger (9 AM Central, polling watchdog).',
+  installDailyDashboardSelfHealTrigger: '(Re)install daily 3 AM dashboard self-heal trigger (audit + conditional nuclearResetBilling).',
+  dailyDashboardSelfHeal:             'Run the dashboard self-heal once: audit + nuclearResetBilling only if needed. Use sync=0 for long runs.',
 
   // Diagnostics (read-only)
   debugQuotaState:                 'Dump effective user, triggers, last-poll info. Read-only.',
@@ -189,12 +197,18 @@ function _rtDispatch_(fn, params) {
     case 'fixDashboardStatusValidation':     return fixDashboardStatusValidation();
     case 'sanitizeDashboardCustomerHeaders': return sanitizeDashboardCustomerHeaders();
     case 'removeItemUnderlines':             return removeItemUnderlines();
+    case 'installFormSheetQuickLinks':       return installFormSheetQuickLinks();
     case 'setupPricingSheet':                return setupPricingSheet();
     case 'migratePricingSheetAddAliases':    return migratePricingSheetAddAliases();
     case 'prettifyPricingSheet':             return prettifyPricingSheet();
+    case 'setupManualItemsTab':              return setupManualItemsTab();
+    case 'addManualItem':                    return _rtAddManualItem_(params);
+    case 'testAddManualItemTemplate':        return testAddManualItemTemplate();
     case 'installBillingFromSheetsTrigger':  return installBillingFromSheetsTrigger();
     case 'installPollingTrigger':            return installPollingTrigger();
     case 'installDailyHealthCheckTrigger':   return installDailyHealthCheckTrigger();
+    case 'installDailyDashboardSelfHealTrigger': return installDailyDashboardSelfHealTrigger();
+    case 'dailyDashboardSelfHeal':           return dailyDashboardSelfHeal();
     case 'debugQuotaState':                  return debugQuotaState();
     case 'tailLogs':                         return _rtTailLogs_(params);
     case 'remoteTriggerStatus':              return _rtStatus_();
@@ -590,6 +604,80 @@ function _rtRegistrationStats_() {
 }
 
 /**
+ * Append one row to the Manual Items tab. Convenience wrapper for
+ * adding a manual line item from the CLI without opening the sheet.
+ * Auto-bootstraps the tab if missing.
+ *
+ * Required: &email= &student= &label= &amount=
+ * Optional: &applyTax=Yes (default No), &period=<free text>
+ *
+ * The next 5-min buildAllBilling run will pick the row up, mint a
+ * UUID into col H, and write a priced row to the Dashboard.
+ */
+function _rtAddManualItem_(params) {
+  var p = params || {};
+  var email   = String(p.email   || '').trim();
+  var student = String(p.student || '').trim();
+  var label   = String(p.label   || '').trim();
+  var amount  = Number(p.amount);
+  var qty     = (p.qty === '' || p.qty === null || p.qty === undefined)
+                  ? 1 : Number(p.qty);
+  // Processing fee defaults to YES; explicit "No" disables. Sales tax
+  // defaults to NO; explicit "Yes" enables. Same semantics as the sheet
+  // column parsing in readManualItems_.
+  var procRaw = String(p.applyProcessing || '').trim().toLowerCase();
+  var applyProcessing = !(procRaw === 'no' || procRaw === 'n' || procRaw === 'false' || procRaw === '0');
+  var applyTax = /^(yes|y|true|1)$/i.test(String(p.applyTax || '').trim());
+  var period  = String(p.period  || '').trim();
+  var statusRaw = String(p.status || '').trim().toLowerCase();
+  var status = /^(owed|paid|canceled)$/.test(statusRaw) ? statusRaw : '';
+
+  if (!email || email.indexOf('@') === -1) {
+    return { ok: false, error: 'Missing or invalid &email=<addr>' };
+  }
+  if (!label) {
+    return { ok: false, error: 'Missing &label=<item description>' };
+  }
+  if (!isFinite(amount) || amount === 0) {
+    return { ok: false, error: 'Missing &amount=<non-zero number> (negative allowed for credits)' };
+  }
+  if (!isFinite(qty) || qty <= 0) {
+    return { ok: false, error: 'Invalid &qty=<positive number>' };
+  }
+  if (!student) student = '(no student)';
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  if (!sh) {
+    setupManualItemsTab();
+    sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  }
+
+  var rowNum = sh.getLastRow() + 1;
+  // ID (col K) left blank — readManualItems_ mints + writes it on first
+  // sight so the fingerprint is anchored to a stable UUID across runs.
+  sh.getRange(rowNum, 1, 1, 10).setValues([[
+    email, student, label, amount, qty,
+    applyProcessing ? 'Yes' : 'No',
+    applyTax ? 'Yes' : 'No',
+    period, new Date(), status
+  ]]);
+
+  return {
+    ok: true,
+    sheet: sh.getName(),
+    row: rowNum,
+    note: 'Row appended. Next 5-min buildAllBilling will price it and add it to the Dashboard.',
+    item: {
+      email: email, student: student, label: label, amount: amount, qty: qty,
+      applyProcessing: applyProcessing,
+      applyTax: applyTax, period: period,
+      initialStatus: status || 'owed'
+    }
+  };
+}
+
+/**
  * Return the first N canceled tx rows on the Dashboard along with
  * their col B note (source provenance + fingerprint) so the
  * operator can spot-check why something flipped from owed to
@@ -613,14 +701,16 @@ function _rtSampleCanceledRows_(params) {
     if (status !== 'canceled') continue;
     var note = String(notes[i][0] || '');
     var sourceMatch = note.match(/Source:\s*([^\n]+)/i);
-    var fpMatch = note.match(/Internal ref:\s*([^)\s]+)/) || note.match(/Submission ID:\s*(\S+)/);
+    // Match fingerprint up to closing paren so multi-word fingerprints
+    // aren't truncated at the first space (bug fix 2026-05-14).
+    var fpMatch = note.match(/Internal ref:\s*([^)]+)\)/) || note.match(/Submission ID:\s*(\S+)/);
     out.push({
       sheetRow:      i + 2,
       customerEmail: currentEmail,
       item:          colB,
       total:         data[i][5],
       source:        sourceMatch ? sourceMatch[1].trim() : '',
-      fingerprint:   fpMatch ? fpMatch[1] : ''
+      fingerprint:   fpMatch ? fpMatch[1].trim() : ''
     });
   }
   return { ok: true, count: out.length, rows: out };
