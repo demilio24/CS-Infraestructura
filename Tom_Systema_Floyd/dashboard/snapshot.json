@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-18T17:22:39Z",
+  "generatedAt": "2026-05-18T17:28:07Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 125,
+    "summer": 122,
     "free": 40,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,10 +108,10 @@
     "roster": []
   },
   "summer": {
-    "total": 125,
+    "total": 122,
     "byCampus": {
-      "Upper Campus": 46,
-      "Lower Campus": 79,
+      "Upper Campus": 45,
+      "Lower Campus": 77,
       "Unknown": 0
     },
     "byWeek": {
@@ -124,7 +124,7 @@
       "July 13th-17th": 27,
       "July 20th-24th": 27,
       "July 27th-31st": 21,
-      "August 3rd-7th": 26,
+      "August 3rd-7th": 23,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -177,12 +177,12 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 8,
-        "Lower Campus": 18,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "August 10th-14th": {
-        "Upper Campus": 6,
-        "Lower Campus": 8,
+        "Upper Campus": 5,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -324,11 +324,11 @@
     ]
   },
   "combined": {
-    "total": 165,
-    "enrollments": 576,
+    "total": 162,
+    "enrollments": 573,
     "byCampus": {
-      "Upper Campus": 71,
-      "Lower Campus": 94,
+      "Upper Campus": 70,
+      "Lower Campus": 92,
       "Unknown": 0
     },
     "byWeek": {
@@ -341,7 +341,7 @@
       "July 13th-17th": 58,
       "July 20th-24th": 58,
       "July 27th-31st": 51,
-      "August 3rd-7th": 52,
+      "August 3rd-7th": 49,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -394,12 +394,12 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 27,
-        "Lower Campus": 25,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "August 10th-14th": {
-        "Upper Campus": 6,
-        "Lower Campus": 8,
+        "Upper Campus": 5,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 17th-21st": {
@@ -4075,30 +4075,17 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 14,
-              "Tue": 14,
-              "Wed": 14,
-              "Thu": 14,
-              "Fri": 14
+              "Mon": 11,
+              "Tue": 11,
+              "Wed": 11,
+              "Thu": 11,
+              "Fri": 11
             },
-            "total": 70,
+            "total": 55,
             "students": [
               {
                 "name": "Carter Grant",
                 "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Collyn",
-                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -4162,34 +4149,8 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Hunter",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Ira Skaletsky",
                 "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Jack Morrison",
-                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -4270,13 +4231,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 25,
-            "Tue": 26,
-            "Wed": 26,
-            "Thu": 26,
-            "Fri": 25
+            "Mon": 22,
+            "Tue": 23,
+            "Wed": 23,
+            "Thu": 23,
+            "Fri": 22
           },
-          "all": 128
+          "all": 113
         }
       },
       "August 10th-14th": {
@@ -4315,12 +4276,12 @@
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
               "Mon": 7,
-              "Tue": 6,
-              "Wed": 6,
-              "Thu": 6,
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
               "Fri": 6
             },
-            "total": 31,
+            "total": 34,
             "students": [
               {
                 "name": "Cosmo Robinson",
@@ -4389,14 +4350,13 @@
               },
               {
                 "name": "Tilly Robinson",
-                "campus": "Upper Campus",
+                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
                   "Tue",
                   "Wed",
-                  "Thu",
-                  "Fri"
+                  "Thu"
                 ],
                 "lunchRaw": "Pizza ($30/week)"
               },
@@ -4405,7 +4365,11 @@
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
-                  "Mon"
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
                 ],
                 "lunchRaw": "Pizza ($30/week)"
               }
@@ -4523,12 +4487,12 @@
         "totals": {
           "byDay": {
             "Mon": 14,
-            "Tue": 13,
-            "Wed": 13,
-            "Thu": 13,
+            "Tue": 14,
+            "Wed": 14,
+            "Thu": 14,
             "Fri": 13
           },
-          "all": 66
+          "all": 69
         }
       },
       "August 17th-21st": {
@@ -21195,33 +21159,6 @@
           "type": "summer"
         },
         {
-          "name": "Collyn",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email",
-            "Age",
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/3-8/7",
-          "sourceRow": 16,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Graham Olowin",
           "campus": "Lower Campus",
           "lunch": false,
@@ -21259,7 +21196,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 19,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -21312,60 +21249,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
           "sourceRow": 14,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Hunter",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email",
-            "Age",
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/3-8/7",
-          "sourceRow": 17,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jack Morrison",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email",
-            "Age",
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/3-8/7",
-          "sourceRow": 15,
           "days": [
             false,
             false,
@@ -21536,7 +21419,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 18,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -21561,7 +21444,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 20,
+          "sourceRow": 17,
           "days": [
             false,
             false,
@@ -22262,7 +22145,7 @@
           "missingFields": [],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -22344,44 +22227,23 @@
           "type": "summer"
         },
         {
-          "name": "Tilly Robinson",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "ivorobinson@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "8/10-8/14",
-          "sourceRow": 5,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Wilder Scott",
           "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Pizza ($30/week)",
           "breakfastRaw": "None",
           "allergy": null,
-          "notes": "farrahkscott@gmail.com",
+          "notes": "Upper Campus",
           "email": "farrahkscott@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
+          "incomplete": true,
+          "missingFields": [
+            "Days attending"
+          ],
           "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
           "sourceTabName": "8/10-8/14",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
-            true,
+            false,
             false,
             false,
             false,
@@ -22551,6 +22413,29 @@
             true,
             true,
             true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Tilly Robinson",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "ivorobinson@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "8/10-8/14",
+          "sourceRow": 11,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            false
           ],
           "type": "summer"
         },
