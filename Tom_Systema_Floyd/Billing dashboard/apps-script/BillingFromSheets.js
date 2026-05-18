@@ -374,6 +374,9 @@ function buildAllBilling() {
     catch (e) { Logger.log('[buildAllBilling] sanitize err: ' + e.message); }
     try { fixDashboardGroups(); }
     catch (e) { Logger.log('[buildAllBilling] group fix err: ' + e.message); }
+    // Form-sheet quick links on header row K-O. 5 cell writes, idempotent.
+    try { installFormSheetQuickLinks(); }
+    catch (e) { Logger.log('[buildAllBilling] quick-links err: ' + e.message); }
 
     var elapsedMs = Date.now() - startedAt.getTime();
     Logger.log('[buildAllBilling] done in ' + elapsedMs + 'ms — totals: ' +
@@ -3947,4 +3950,113 @@ function bfsReadFormSubmissionSheet_(reg) {
                  ' for ' + reg.label);
       return [];
   }
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   FORM-SHEET QUICK LINKS (Dashboard header row, cols K-O)
+   ═════════════════════════════════════════════════════════════════
+   Discovers the 4 form-submission sheets in FORM_SUBMISSIONS_FOLDER_ID
+   and writes clickable HYPERLINK chips into Dashboard row 1 cols K-N,
+   with O holding a link to the folder itself. J1 stays untouched
+   because the existing one-shot actions dropdown lives there.
+
+   Idempotent: re-running rewrites the same cells. Picks up renamed
+   sheets automatically (matching by FORM_SUBMISSION_SHEET_CATEGORIES
+   patterns, same logic the discovery walker uses). Safe to call from
+   the buildAllBilling tail every 5 min — costs 5 cell writes when
+   things are stable, and self-heals if a chip gets cleared by
+   accident.
+   ─────────────────────────────────────────────────────────────── */
+
+function installFormSheetQuickLinks() {
+  var dash = getDashboardSheet();
+  if (!dash) {
+    Logger.log('[installFormSheetQuickLinks] Dashboard tab not found');
+    return { ok: false, error: 'Dashboard tab missing' };
+  }
+  if (!FORM_SUBMISSIONS_FOLDER_ID || FORM_SUBMISSIONS_FOLDER_ID.length < 5) {
+    Logger.log('[installFormSheetQuickLinks] FORM_SUBMISSIONS_FOLDER_ID not set');
+    return { ok: false, error: 'FORM_SUBMISSIONS_FOLDER_ID not configured' };
+  }
+
+  var folder;
+  try {
+    folder = DriveApp.getFolderById(FORM_SUBMISSIONS_FOLDER_ID);
+  } catch (e) {
+    Logger.log('[installFormSheetQuickLinks] folder open failed: ' + e.message);
+    return { ok: false, error: 'Cannot open folder: ' + e.message };
+  }
+
+  // Walk the folder, classify each Google Sheet against the same regex
+  // table buildAllBilling uses, so chip wiring stays in lockstep with
+  // the reader pipeline.
+  var byType = {};
+  var files = folder.getFiles();
+  while (files.hasNext()) {
+    var f = files.next();
+    if (f.getMimeType() !== MimeType.GOOGLE_SHEETS) continue;
+    var name = f.getName();
+    for (var i = 0; i < FORM_SUBMISSION_SHEET_CATEGORIES.length; i++) {
+      var rule = FORM_SUBMISSION_SHEET_CATEGORIES[i];
+      if (rule.pattern.test(name)) {
+        byType[rule.type] = { url: f.getUrl(), name: name };
+        break;
+      }
+    }
+  }
+
+  // Column layout (J1 reserved for the existing one-shot actions
+  // dropdown). Short labels keep the chip width manageable.
+  var chips = [
+    { col: 11, type: 'seminar',         label: 'Vladimir Seminar' },
+    { col: 12, type: 'private-lessons', label: 'Private Lessons'  },
+    { col: 13, type: 'babysitting',     label: 'Rent-A-Sensei'    },
+    { col: 14, type: 'decor',           label: 'Balloons'         }
+  ];
+
+  var written = 0, missing = [];
+  chips.forEach(function(chip) {
+    var entry = byType[chip.type];
+    var cell = dash.getRange(1, chip.col);
+    if (entry) {
+      cell.setFormula('=HYPERLINK("' + entry.url + '","' +
+                      bfsEscapeFormula_(chip.label) + '")');
+      written++;
+    } else {
+      cell.setValue(chip.label + ' (sheet not found)');
+      missing.push(chip.type);
+    }
+    cell
+      .setBackground('#143980')
+      .setFontColor('#FFFFFF')
+      .setFontWeight('bold')
+      .setFontSize(11)
+      .setHorizontalAlignment('center')
+      .setVerticalAlignment('middle');
+    dash.setColumnWidth(chip.col, 170);
+  });
+
+  // O1: link to the folder itself, darker chip so it visually reads as
+  // the parent-of-the-four.
+  var folderUrl = 'https://drive.google.com/drive/folders/' +
+                  FORM_SUBMISSIONS_FOLDER_ID;
+  dash.getRange(1, 15)
+    .setFormula('=HYPERLINK("' + folderUrl + '","All Form Sheets")')
+    .setBackground('#0F3634')
+    .setFontColor('#FFFFFF')
+    .setFontWeight('bold')
+    .setFontSize(11)
+    .setHorizontalAlignment('center')
+    .setVerticalAlignment('middle');
+  dash.setColumnWidth(15, 170);
+
+  Logger.log('[installFormSheetQuickLinks] wrote ' + written + ' chip(s); missing: ' +
+             (missing.length ? missing.join(', ') : '(none)'));
+
+  return {
+    ok: true,
+    written: written,
+    missing: missing,
+    columns: { K: 'seminar', L: 'private-lessons', M: 'babysitting', N: 'decor', O: 'folder' }
+  };
 }

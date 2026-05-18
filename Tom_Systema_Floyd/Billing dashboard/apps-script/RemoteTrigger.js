@@ -60,6 +60,7 @@ const REMOTE_TRIGGER_WHITELIST = {
   fixDashboardStatusValidation:    'Re-scope status dropdown to tx rows only. ~5-10s.',
   sanitizeDashboardCustomerHeaders: 'Strip placeholder text + em-dashes from customer headers. ~5s.',
   removeItemUnderlines:            'Strip default underline from HYPERLINK cells (Item, Profile). ~3-5s.',
+  installFormSheetQuickLinks:      'Write the 4 form-sheet HYPERLINK chips (Vladimir, Private Lessons, Rent-A-Sensei, Balloons) + folder link into Dashboard cols K1-O1. Idempotent. ~3-5s. Use sync=1.',
 
   // Pricing tab maintenance
   setupPricingSheet:               'First-time bootstrap of Pricing tab from GHL form fields.',
@@ -72,9 +73,11 @@ const REMOTE_TRIGGER_WHITELIST = {
   testAddManualItemTemplate:       'Render the AddManualItem.html template with stub data; returns ok:true if the template parses cleanly. Use sync=1.',
 
   // Trigger management
-  installBillingFromSheetsTrigger: '(Re)install 5-min buildAllBilling trigger.',
-  installPollingTrigger:           '(Re)install 5-min pollFloridaSubmissions trigger.',
-  installDailyHealthCheckTrigger:  '(Re)install daily dailyHealthCheck trigger.',
+  installBillingFromSheetsTrigger:    '(Re)install 5-min buildAllBilling trigger.',
+  installPollingTrigger:              '(Re)install 5-min pollFloridaSubmissions trigger.',
+  installDailyHealthCheckTrigger:     '(Re)install daily dailyHealthCheck trigger (9 AM Central, polling watchdog).',
+  installDailyDashboardSelfHealTrigger: '(Re)install daily 3 AM dashboard self-heal trigger (audit + conditional nuclearResetBilling).',
+  dailyDashboardSelfHeal:             'Run the dashboard self-heal once: audit + nuclearResetBilling only if needed. Use sync=0 for long runs.',
 
   // Diagnostics (read-only)
   debugQuotaState:                 'Dump effective user, triggers, last-poll info. Read-only.',
@@ -193,6 +196,7 @@ function _rtDispatch_(fn, params) {
     case 'fixDashboardStatusValidation':     return fixDashboardStatusValidation();
     case 'sanitizeDashboardCustomerHeaders': return sanitizeDashboardCustomerHeaders();
     case 'removeItemUnderlines':             return removeItemUnderlines();
+    case 'installFormSheetQuickLinks':       return installFormSheetQuickLinks();
     case 'setupPricingSheet':                return setupPricingSheet();
     case 'migratePricingSheetAddAliases':    return migratePricingSheetAddAliases();
     case 'prettifyPricingSheet':             return prettifyPricingSheet();
@@ -202,6 +206,8 @@ function _rtDispatch_(fn, params) {
     case 'installBillingFromSheetsTrigger':  return installBillingFromSheetsTrigger();
     case 'installPollingTrigger':            return installPollingTrigger();
     case 'installDailyHealthCheckTrigger':   return installDailyHealthCheckTrigger();
+    case 'installDailyDashboardSelfHealTrigger': return installDailyDashboardSelfHealTrigger();
+    case 'dailyDashboardSelfHeal':           return dailyDashboardSelfHeal();
     case 'debugQuotaState':                  return debugQuotaState();
     case 'tailLogs':                         return _rtTailLogs_(params);
     case 'remoteTriggerStatus':              return _rtStatus_();

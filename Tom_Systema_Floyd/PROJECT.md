@@ -65,6 +65,26 @@ Full file map + shipped features from 2026-05-07 in memory `project_systema_floy
 
 ## Changelog
 
+### 2026-05-18 — Billing: form-sheet quick-link chips on Dashboard cols K1-O1
+Added clickable HYPERLINK chips at the top of the Dashboard tab pointing at the 4 form-submission sheets (Vladimir Seminar, Private Lessons, Rent-A-Sensei, Balloons) + the parent Form Submissions folder. J1 stays free because the existing one-shot actions filter dropdown lives there.
+
+- **`installFormSheetQuickLinks()`** in [BillingFromSheets.js](Billing dashboard/apps-script/BillingFromSheets.js) — walks `FORM_SUBMISSIONS_FOLDER_ID` via `DriveApp`, classifies each Google Sheet against `FORM_SUBMISSION_SHEET_CATEGORIES` (same regex table the reader pipeline uses, so chip wiring stays in lockstep), and writes 5 HYPERLINK formulas. Cells K1-N1 use navy `#143980` chip styling; O1 (folder link) uses dark teal `#0F3634` to read as the parent. Idempotent — re-runs overwrite the same cells. Picks up renamed sheets automatically.
+- **Hooked into `buildAllBilling` tail** alongside `sanitizeDashboardCustomerHeaders` + `fixDashboardGroups`, so chips self-heal every 5 min if cleared, and a 5th form sheet added later appears on the next cron fire (as long as it matches one of the 4 existing category regexes — new types need a `FORM_SUBMISSION_SHEET_CATEGORIES` entry).
+- **RemoteTrigger whitelist** gained `installFormSheetQuickLinks` (sync=1) so the operator can refresh on demand without waiting for the cron.
+
+### 2026-05-18 — Menu: hide self-heal install option once trigger exists
+Extracted the Add Item menu builder into `buildAddItemMenu_()` and added `hasDailySelfHealTrigger_()` (scans `ScriptApp.getProjectTriggers()` for a handler matching `dailyDashboardSelfHeal`). The "Install 3 AM auto-heal trigger" row is added conditionally — only when the trigger is NOT yet installed for the current user. After a successful install via `menu_installDailySelfHeal`, the install handler calls `buildAddItemMenu_()` to repaint live (Apps Script's `addToUi()` replaces a menu with the same name), so the option disappears immediately without a sheet reload. The result alert was also updated to mention "the install option will now hide". Triggers are per-user, so a teammate opening the sheet who doesn't have their own trigger would still see the install option — matches the intended "install once per operator" mental model.
+
+### 2026-05-18 — Billing: daily 3 AM auto-heal trigger
+Added a daily self-healing trigger that audits the Dashboard at 3 AM Central and runs `nuclearResetBilling` only if something is actually broken — silent on healthy days, email notification when a repair fires.
+
+- **`dailyDashboardSelfHeal`** in [Notifications.js](Billing dashboard/apps-script/Notifications.js) — runs `findUngroupedCustomers_` + `findMalformedCustomerHeaders_` + scans col G for `#N/A` / `#REF` / `#ERROR` / `#VALUE` display values. If any of those three counts is non-zero, calls `nuclearResetBilling`. Logs every run; emails only when (a) a repair happened (info-level) or (b) the function crashed (critical).
+- **`installDailyDashboardSelfHealTrigger`** — idempotent installer: wipes any existing trigger on this handler, creates one fresh via `ScriptApp.newTrigger(...).timeBased().everyDays(1).atHour(3).create()`. Run as `emilio@nilsdigital.com` to inherit the Workspace 100K UrlFetch quota.
+- **Menu entry** in [Menu.js](Billing dashboard/apps-script/Menu.js): `Add Item → Install 3 AM auto-heal trigger`. One click + a UI alert that echoes the trigger ID + timezone so the operator can confirm it landed.
+- **RemoteTrigger whitelist** gained `installDailyDashboardSelfHealTrigger` and `dailyDashboardSelfHeal` (for ad-hoc one-off invocations via curl).
+
+The trigger gets the 30-min execution cap (vs 6-min for menu/UI invocations), so the worst-case nuclear-reset-during-cron lock contention still fits. Bullet behavior: if the 5-min `buildAllBilling` cron holds the lock when 3 AM fires, the self-heal waits up to 2 min (existing `tryLock(120000)` in nuclearResetBilling), then bails with a log line. Next-day attempt will pick up where this one left off. Persistent failure surfaces via the operator-visible `#N/A` balances and the audit menu item.
+
 ### 2026-05-18 — Billing: split audit from repair, run repair via background trigger
 Yesterday's combined `Audit & Repair Dashboard` menu item hit the **6-min menu-execution cap** on a sheet with many malformed customer headers — the synchronous delete loop plus the trailing `fixDashboardGroups` rebuild blew past the limit, leaving the Dashboard mid-state (partial row deletions invalidated SUMIFS ranges, producing `#N/A` in many Balance cells).
 

@@ -115,6 +115,110 @@ function installDailyHealthCheckTrigger() {
 }
 
 // ------------------------------------------------------------------
+/**
+ * Daily self-heal at 3 AM (script timezone = America/Chicago).
+ *
+ * 1. Audit the Dashboard: ungrouped customers, malformed headers,
+ *    #N/A / #REF / #ERROR / #VALUE in the Balance column.
+ * 2. If any of the above is non-zero, run nuclearResetBilling — which
+ *    re-renders the entire Dashboard from sources (reg sheets + Manual
+ *    Items + form-submission sheets), rewrites SUMIFS ranges, and
+ *    rebuilds row groups. Paid / refunded statuses preserved by
+ *    fingerprint.
+ * 3. If everything is healthy, return without touching anything.
+ *
+ * Fires email via notifyError() only when a repair was performed or
+ * when the function itself crashed — silent in the healthy case so it
+ * doesn't become noise.
+ */
+function dailyDashboardSelfHeal() {
+  var startedAt = new Date();
+  Logger.log('[dailyDashboardSelfHeal] start at ' + startedAt.toISOString());
+
+  try {
+    var ungrouped = findUngroupedCustomers_();
+    var malformed = findMalformedCustomerHeaders_();
+
+    // Balance error scan: #N/A, #REF, #ERROR, #VALUE in col G across
+    // the data area. Strong indicator of busted SUMIFS ranges, which
+    // is exactly what nuclearResetBilling rewrites.
+    var dash = getDashboardSheet();
+    var lastRow = dash.getLastRow();
+    var balanceErrors = 0;
+    if (lastRow >= 2) {
+      var balDisplay = dash.getRange(2, 7, lastRow - 1, 1).getDisplayValues();
+      balDisplay.forEach(function(r) {
+        var v = String(r[0] || '');
+        if (v.indexOf('#N/A')   !== -1 || v.indexOf('#REF')   !== -1 ||
+            v.indexOf('#ERROR') !== -1 || v.indexOf('#VALUE') !== -1) {
+          balanceErrors++;
+        }
+      });
+    }
+
+    var summary = 'ungrouped=' + ungrouped.length +
+                  ', malformed=' + malformed.length +
+                  ', balanceErrors=' + balanceErrors;
+    Logger.log('[dailyDashboardSelfHeal] audit: ' + summary);
+
+    var needsRepair = (ungrouped.length > 0 || malformed.length > 0 || balanceErrors > 0);
+    if (!needsRepair) {
+      Logger.log('[dailyDashboardSelfHeal] dashboard healthy — no action');
+      return { ok: true, didRepair: false, summary: summary };
+    }
+
+    Logger.log('[dailyDashboardSelfHeal] issues detected — running nuclearResetBilling');
+    nuclearResetBilling();
+    Logger.log('[dailyDashboardSelfHeal] nuclear reset complete');
+
+    // Inform the operator that the self-heal ran. notifyError throttles
+    // on (severity, subject) so daily repairs won't spam.
+    try {
+      notifyError('info', 'Dashboard self-heal: nuclear reset ran',
+        'Audit found: ' + summary + '. Nuclear reset completed cleanly.',
+        { rawPayload: JSON.stringify({
+            ungrouped: ungrouped, malformed: malformed, balanceErrors: balanceErrors
+          })
+        });
+    } catch (e) {
+      Logger.log('[dailyDashboardSelfHeal] notify failed: ' + e.message);
+    }
+
+    return { ok: true, didRepair: true, summary: summary };
+  } catch (e) {
+    Logger.log('[dailyDashboardSelfHeal] FAILED: ' + e.message + '\n' + (e.stack || ''));
+    try {
+      notifyError('critical', 'Dashboard self-heal CRASHED',
+        e.message + '\n' + (e.stack || ''), {});
+    } catch (e2) { /* swallow notifier-of-notifier failure */ }
+    return { ok: false, error: e.message };
+  }
+}
+
+// ------------------------------------------------------------------
+/**
+ * (Re)install the 3 AM daily self-heal trigger. Idempotent — wipes any
+ * existing trigger on dailyDashboardSelfHeal first, then installs one
+ * fresh. Run as `emilio@nilsdigital.com` so it inherits the Workspace
+ * 100K UrlFetch quota instead of the free 20K.
+ */
+function installDailyDashboardSelfHealTrigger() {
+  ScriptApp.getProjectTriggers().forEach(function(t) {
+    if (t.getHandlerFunction() === 'dailyDashboardSelfHeal') ScriptApp.deleteTrigger(t);
+  });
+  var t = ScriptApp.newTrigger('dailyDashboardSelfHeal')
+    .timeBased().everyDays(1).atHour(3).create();
+  Logger.log('[installDailyDashboardSelfHealTrigger] installed: ' + t.getUniqueId());
+  return {
+    ok: true,
+    handler: 'dailyDashboardSelfHeal',
+    uniqueId: t.getUniqueId(),
+    hourOfDay: 3,
+    timezone: Session.getScriptTimeZone()
+  };
+}
+
+// ------------------------------------------------------------------
 function testNotificationEmail() {
   var subject = 'Test - system operational';
   var key = 'ntfy_' + ('info_' + subject).replace(/[^A-Za-z0-9_]/g, '_').substring(0, 64);

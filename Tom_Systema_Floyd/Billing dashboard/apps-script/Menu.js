@@ -18,16 +18,76 @@
  * dropdown). Multi-select + Ctrl+Enter still works for bulk flips.
  */
 function onOpen() {
-  // Audit is read-only (fast). Repair is heavy (nuclear reset) and runs
-  // as a background trigger so it gets the 30-min execution cap instead
-  // of the 6-min menu cap that blew up the synchronous version.
-  SpreadsheetApp.getUi()
+  buildAddItemMenu_();
+}
+
+/**
+ * Build (or rebuild) the Add Item menu. The "Install 3 AM auto-heal"
+ * row is omitted when the trigger on `dailyDashboardSelfHeal` already
+ * exists for the current user — keeps the menu single-purpose after
+ * setup. Calling .addToUi() with the same menu name replaces the
+ * previous version, so this is safe to call mid-session (e.g. right
+ * after the install succeeds).
+ */
+function buildAddItemMenu_() {
+  var menu = SpreadsheetApp.getUi()
     .createMenu('Add Item')
     .addItem('+ New manual item', 'showAddManualItemDialog')
     .addSeparator()
     .addItem('Audit Dashboard (report only)', 'menu_auditDashboardReportOnly')
-    .addItem('Repair Dashboard (full rebuild)', 'menu_repairDashboardBackground')
-    .addToUi();
+    .addItem('Repair Dashboard (full rebuild)', 'menu_repairDashboardBackground');
+  if (!hasDailySelfHealTrigger_()) {
+    menu.addSeparator()
+        .addItem('Install 3 AM auto-heal trigger', 'menu_installDailySelfHeal');
+  }
+  menu.addToUi();
+}
+
+function hasDailySelfHealTrigger_() {
+  try {
+    var triggers = ScriptApp.getProjectTriggers();
+    for (var i = 0; i < triggers.length; i++) {
+      if (triggers[i].getHandlerFunction() === 'dailyDashboardSelfHeal') return true;
+    }
+  } catch (e) {
+    // Permission issue — assume not installed so the option stays visible.
+  }
+  return false;
+}
+
+/**
+ * Install (or re-install) the daily 3 AM self-heal trigger. One click.
+ * Shows a UI alert with the resulting trigger ID + timezone so the
+ * operator can confirm it landed in their account.
+ */
+function menu_installDailySelfHeal() {
+  var ui = SpreadsheetApp.getUi();
+  var result;
+  try { result = installDailyDashboardSelfHealTrigger(); }
+  catch (e) {
+    ui.alert('Install failed: ' + (e && e.message || e));
+    return;
+  }
+  // Rebuild the menu so the install entry disappears now that the
+  // trigger is in place. No sheet reload needed.
+  try { buildAddItemMenu_(); } catch (e) { /* not fatal — onOpen rebuilds next reload */ }
+  ui.alert(
+    'Daily self-heal installed',
+    'Trigger handler: ' + result.handler + '\n' +
+    'Fires daily at hour ' + result.hourOfDay + ' (' + result.timezone + ')\n' +
+    'Trigger ID: ' + result.uniqueId + '\n' +
+    '\n' +
+    'Behavior at 3 AM:\n' +
+    '  1. Audit: count ungrouped customers, malformed headers, balance errors.\n' +
+    '  2. If any are non-zero, run nuclearResetBilling automatically.\n' +
+    '  3. If everything is healthy, do nothing (silent).\n' +
+    '\n' +
+    'You will receive an email notification only when a repair was performed\n' +
+    'or if the function crashes. Healthy days are silent.\n' +
+    '\n' +
+    'The install option will now hide from the Add Item menu.',
+    ui.ButtonSet.OK
+  );
 }
 
 /**
