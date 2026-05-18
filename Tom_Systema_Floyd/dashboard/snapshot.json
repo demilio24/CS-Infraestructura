@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-18T14:42:15Z",
+  "generatedAt": "2026-05-18T14:47:16Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -126,7 +126,7 @@
       "July 27th-31st": 23,
       "August 3rd-7th": 28,
       "August 10th-14th": 15,
-      "August 17th-21st": 18,
+      "August 17th-21st": 17,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
@@ -186,8 +186,8 @@
         "Unknown": 0
       },
       "August 17th-21st": {
-        "Upper Campus": 12,
-        "Lower Campus": 6,
+        "Upper Campus": 13,
+        "Lower Campus": 4,
         "Unknown": 0
       },
       "August 24th-28th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 583,
+    "enrollments": 582,
     "byCampus": {
       "Upper Campus": 72,
       "Lower Campus": 92,
@@ -343,7 +343,7 @@
       "July 27th-31st": 53,
       "August 3rd-7th": 54,
       "August 10th-14th": 15,
-      "August 17th-21st": 18,
+      "August 17th-21st": 17,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
@@ -403,8 +403,8 @@
         "Unknown": 0
       },
       "August 17th-21st": {
-        "Upper Campus": 12,
-        "Lower Campus": 6,
+        "Upper Campus": 13,
+        "Lower Campus": 4,
         "Unknown": 0
       },
       "August 24th-28th": {
@@ -4663,13 +4663,13 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 6,
-              "Tue": 7,
-              "Wed": 7,
-              "Thu": 7,
-              "Fri": 4
+              "Mon": 5,
+              "Tue": 6,
+              "Wed": 6,
+              "Thu": 6,
+              "Fri": 3
             },
-            "total": 31,
+            "total": 26,
             "students": [
               {
                 "name": "Alex Nodland",
@@ -4689,19 +4689,6 @@
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              },
-              {
-                "name": "Leo Hamric",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
                   "Tue",
                   "Wed",
                   "Thu",
@@ -4761,34 +4748,6 @@
             ]
           },
           {
-            "category": "pizza",
-            "subtypeKey": "pizza-weekly",
-            "label": "Pizza weekly ($30/wk)",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Wilder Scott",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              }
-            ]
-          },
-          {
             "category": "celis",
             "subtypeKey": "celis-other||",
             "label": "Celis: specialty (unspecified)",
@@ -4821,13 +4780,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 9,
+              "Mon": 10,
               "Tue": 9,
               "Wed": 9,
               "Thu": 8,
               "Fri": 7
             },
-            "total": 42,
+            "total": 43,
             "students": [
               {
                 "name": "August Johnson",
@@ -4932,6 +4891,15 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Wilder Scott",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Zoey Zimmer",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -4948,13 +4916,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 17,
-            "Tue": 18,
-            "Wed": 18,
-            "Thu": 17,
-            "Fri": 13
+            "Mon": 16,
+            "Tue": 16,
+            "Wed": 16,
+            "Thu": 15,
+            "Fri": 11
           },
-          "all": 83
+          "all": 74
         }
       },
       "August 24th-28th": {
@@ -23107,6 +23075,29 @@
           "type": "summer"
         },
         {
+          "name": "Wilder Scott",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": "farrahkscott@gmail.com",
+          "email": "Small",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "8/17-8/21",
+          "sourceRow": 14,
+          "days": [
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Zoey Zimmer",
           "campus": "Upper Campus",
           "lunch": false,
@@ -23182,31 +23173,6 @@
           "type": "summer"
         },
         {
-          "name": "Leo Hamric",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "email.mlafuente@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/17-8/21",
-          "sourceRow": 7,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Lily Johnson",
           "campus": "Lower Campus",
           "lunch": false,
@@ -23247,31 +23213,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
           "sourceRow": 4,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Wilder Scott",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Upper Campus",
-          "email": "farrahkscott@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/17-8/21",
-          "sourceRow": 3,
           "days": [
             false,
             false,
