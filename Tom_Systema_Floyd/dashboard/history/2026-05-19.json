@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T16:12:16Z",
+  "generatedAt": "2026-05-19T16:17:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -119,7 +119,7 @@
       "June 8th-12th": 23,
       "June 15th-19th": 29,
       "June 22nd-26th": 25,
-      "June 29th-July 3rd": 16,
+      "June 29th-July 3rd": 14,
       "July 6th-10th": 20,
       "July 13th-17th": 16,
       "July 20th-24th": 19,
@@ -152,7 +152,7 @@
       },
       "June 29th-July 3rd": {
         "Upper Campus": 5,
-        "Lower Campus": 11,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 162,
-    "enrollments": 553,
+    "enrollments": 551,
     "byCampus": {
       "Upper Campus": 72,
       "Lower Campus": 90,
@@ -336,7 +336,7 @@
       "June 8th-12th": 54,
       "June 15th-19th": 61,
       "June 22nd-26th": 58,
-      "June 29th-July 3rd": 49,
+      "June 29th-July 3rd": 47,
       "July 6th-10th": 52,
       "July 13th-17th": 49,
       "July 20th-24th": 52,
@@ -369,7 +369,7 @@
       },
       "June 29th-July 3rd": {
         "Upper Campus": 28,
-        "Lower Campus": 21,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -2036,29 +2036,16 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 10,
-              "Tue": 9,
-              "Wed": 10,
-              "Thu": 9,
-              "Fri": 10
+              "Mon": 8,
+              "Tue": 7,
+              "Wed": 8,
+              "Thu": 7,
+              "Fri": 8
             },
-            "total": 48,
+            "total": 38,
             "students": [
               {
                 "name": "Ace Godin",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Aria Falzone",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -2166,32 +2153,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
-              },
-              {
-                "name": "Vincent Molinari",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 14,
-            "Tue": 13,
-            "Wed": 13,
-            "Thu": 11,
-            "Fri": 12
+            "Mon": 12,
+            "Tue": 11,
+            "Wed": 11,
+            "Thu": 9,
+            "Fri": 10
           },
-          "all": 63
+          "all": 53
         }
       },
       "July 6th-10th": {
@@ -14291,29 +14265,6 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 10,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Aria Falzone",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": "Peanut/sesame/green pea allergy",
-          "notes": "Peanut/sesame/green pea allergy",
-          "email": "marilyn@thefalzones.net",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/29-7/3",
           "sourceRow": 8,
           "days": [
             true,
@@ -14364,7 +14315,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             false,
             false,
@@ -14412,7 +14363,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 9,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -14460,7 +14411,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             false,
@@ -14511,31 +14462,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/29-7/3",
           "sourceRow": 2,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Vincent Molinari",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "l.molinari5588@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 7,
           "days": [
             false,
             false,
