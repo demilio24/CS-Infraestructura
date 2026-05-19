@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T15:57:59Z",
+  "generatedAt": "2026-05-19T16:02:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -120,7 +120,7 @@
       "June 15th-19th": 29,
       "June 22nd-26th": 25,
       "June 29th-July 3rd": 20,
-      "July 6th-10th": 23,
+      "July 6th-10th": 22,
       "July 13th-17th": 16,
       "July 20th-24th": 19,
       "July 27th-31st": 13,
@@ -157,7 +157,7 @@
       },
       "July 6th-10th": {
         "Upper Campus": 9,
-        "Lower Campus": 14,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 162,
-    "enrollments": 559,
+    "enrollments": 558,
     "byCampus": {
       "Upper Campus": 72,
       "Lower Campus": 90,
@@ -337,7 +337,7 @@
       "June 15th-19th": 61,
       "June 22nd-26th": 57,
       "June 29th-July 3rd": 53,
-      "July 6th-10th": 55,
+      "July 6th-10th": 54,
       "July 13th-17th": 49,
       "July 20th-24th": 52,
       "July 27th-31st": 45,
@@ -374,7 +374,7 @@
       },
       "July 6th-10th": {
         "Upper Campus": 32,
-        "Lower Campus": 23,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -2387,13 +2387,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 14,
-              "Tue": 15,
-              "Wed": 16,
-              "Thu": 14,
-              "Fri": 14
+              "Mon": 13,
+              "Tue": 14,
+              "Wed": 15,
+              "Thu": 13,
+              "Fri": 13
             },
-            "total": 73,
+            "total": 68,
             "students": [
               {
                 "name": "Austin Shue",
@@ -2579,19 +2579,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Vincent Molinari",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Vincent Vallier",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -2609,13 +2596,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 20,
-            "Wed": 22,
-            "Thu": 19,
-            "Fri": 19
+            "Mon": 18,
+            "Tue": 19,
+            "Wed": 21,
+            "Thu": 18,
+            "Fri": 18
           },
-          "all": 99
+          "all": 94
         }
       },
       "July 13th-17th": {
@@ -15765,7 +15752,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -15788,7 +15775,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -15815,7 +15802,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -15888,7 +15875,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             false,
@@ -16028,38 +16015,13 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Vincent Molinari",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Potty trained",
-          "email": "l.molinari5588@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/6-7/10",
-          "sourceRow": 11,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         }
