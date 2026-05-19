@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-19T13:27:10Z",
+  "generatedAt": "2026-05-19T13:32:24Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 122,
-    "free": 40,
+    "free": 41,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -123,7 +123,7 @@
       "July 6th-10th": 30,
       "July 13th-17th": 26,
       "July 20th-24th": 27,
-      "July 27th-31st": 21,
+      "July 27th-31st": 20,
       "August 3rd-7th": 23,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
@@ -172,7 +172,7 @@
       },
       "July 27th-31st": {
         "Upper Campus": 7,
-        "Lower Campus": 14,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -213,22 +213,22 @@
     ]
   },
   "free": {
-    "total": 40,
+    "total": 41,
     "byCampus": {
-      "Upper Campus": 25,
+      "Upper Campus": 26,
       "Lower Campus": 15,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 29,
-      "June 8th-12th": 30,
-      "June 15th-19th": 31,
-      "June 22nd-26th": 31,
-      "June 29th-July 3rd": 32,
-      "July 6th-10th": 31,
-      "July 13th-17th": 32,
-      "July 20th-24th": 32,
-      "July 27th-31st": 31,
+      "June 1st-5th": 30,
+      "June 8th-12th": 31,
+      "June 15th-19th": 32,
+      "June 22nd-26th": 32,
+      "June 29th-July 3rd": 33,
+      "July 6th-10th": 32,
+      "July 13th-17th": 33,
+      "July 20th-24th": 33,
+      "July 27th-31st": 32,
       "August 3rd-7th": 27,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
@@ -236,47 +236,47 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 17,
+        "Upper Campus": 18,
         "Lower Campus": 12,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 19,
-        "Lower Campus": 11,
-        "Unknown": 0
-      },
-      "June 15th-19th": {
-        "Upper Campus": 19,
-        "Lower Campus": 12,
-        "Unknown": 0
-      },
-      "June 22nd-26th": {
         "Upper Campus": 20,
         "Lower Campus": 11,
         "Unknown": 0
       },
+      "June 15th-19th": {
+        "Upper Campus": 20,
+        "Lower Campus": 12,
+        "Unknown": 0
+      },
+      "June 22nd-26th": {
+        "Upper Campus": 21,
+        "Lower Campus": 11,
+        "Unknown": 0
+      },
       "June 29th-July 3rd": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 10,
         "Unknown": 0
       },
       "July 6th-10th": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 9,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 10,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 10,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 21,
+        "Upper Campus": 22,
         "Lower Campus": 10,
         "Unknown": 0
       },
@@ -305,8 +305,8 @@
       "Westward Elementary School": 117,
       "Northboro Elementary School": 60,
       "Pleasant City Elementary School": 56,
-      "Roosevelt Elementary School": 41,
-      "U.B. Kinsey Educational and Community Center": 35
+      "U.B. Kinsey Educational and Community Center": 44,
+      "Roosevelt Elementary School": 41
     },
     "weekOrder": [
       "June 1st-5th",
@@ -324,22 +324,22 @@
     ]
   },
   "combined": {
-    "total": 162,
-    "enrollments": 581,
+    "total": 163,
+    "enrollments": 589,
     "byCampus": {
-      "Upper Campus": 70,
+      "Upper Campus": 71,
       "Lower Campus": 92,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 51,
-      "June 8th-12th": 53,
-      "June 15th-19th": 60,
-      "June 22nd-26th": 54,
-      "June 29th-July 3rd": 52,
-      "July 6th-10th": 61,
-      "July 13th-17th": 58,
-      "July 20th-24th": 59,
+      "June 1st-5th": 52,
+      "June 8th-12th": 54,
+      "June 15th-19th": 61,
+      "June 22nd-26th": 55,
+      "June 29th-July 3rd": 53,
+      "July 6th-10th": 62,
+      "July 13th-17th": 59,
+      "July 20th-24th": 60,
       "July 27th-31st": 52,
       "August 3rd-7th": 50,
       "August 10th-14th": 14,
@@ -348,48 +348,48 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 26,
-        "Lower Campus": 25,
-        "Unknown": 0
-      },
-      "June 8th-12th": {
-        "Upper Campus": 31,
-        "Lower Campus": 22,
-        "Unknown": 0
-      },
-      "June 15th-19th": {
-        "Upper Campus": 22,
-        "Lower Campus": 38,
-        "Unknown": 0
-      },
-      "June 22nd-26th": {
-        "Upper Campus": 25,
-        "Lower Campus": 29,
-        "Unknown": 0
-      },
-      "June 29th-July 3rd": {
         "Upper Campus": 27,
         "Lower Campus": 25,
         "Unknown": 0
       },
+      "June 8th-12th": {
+        "Upper Campus": 32,
+        "Lower Campus": 22,
+        "Unknown": 0
+      },
+      "June 15th-19th": {
+        "Upper Campus": 23,
+        "Lower Campus": 38,
+        "Unknown": 0
+      },
+      "June 22nd-26th": {
+        "Upper Campus": 26,
+        "Lower Campus": 29,
+        "Unknown": 0
+      },
+      "June 29th-July 3rd": {
+        "Upper Campus": 28,
+        "Lower Campus": 25,
+        "Unknown": 0
+      },
       "July 6th-10th": {
-        "Upper Campus": 31,
+        "Upper Campus": 32,
         "Lower Campus": 30,
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 28,
+        "Upper Campus": 29,
         "Lower Campus": 30,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 30,
+        "Upper Campus": 31,
         "Lower Campus": 29,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 28,
-        "Lower Campus": 24,
+        "Upper Campus": 29,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -3641,13 +3641,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 14,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 13,
-              "Fri": 12
+              "Mon": 13,
+              "Tue": 12,
+              "Wed": 12,
+              "Thu": 12,
+              "Fri": 11
             },
-            "total": 65,
+            "total": 60,
             "students": [
               {
                 "name": "Annabelle Dockus",
@@ -3741,19 +3741,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Max Lopez Valencia",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Olive White",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -3831,13 +3818,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 20,
-            "Wed": 20,
-            "Thu": 20,
-            "Fri": 18
+            "Mon": 18,
+            "Tue": 19,
+            "Wed": 19,
+            "Thu": 19,
+            "Fri": 17
           },
-          "all": 97
+          "all": 92
         }
       },
       "August 3rd-7th": {
@@ -4791,13 +4778,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 29,
-              "Tue": 29,
-              "Wed": 29,
-              "Thu": 29,
-              "Fri": 29
+              "Mon": 30,
+              "Tue": 30,
+              "Wed": 30,
+              "Thu": 30,
+              "Fri": 30
             },
-            "total": 145,
+            "total": 150,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5060,6 +5047,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -5181,13 +5181,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 29,
-            "Tue": 29,
-            "Wed": 29,
-            "Thu": 29,
-            "Fri": 29
+            "Mon": 30,
+            "Tue": 30,
+            "Wed": 30,
+            "Thu": 30,
+            "Fri": 30
           },
-          "all": 145
+          "all": 150
         }
       },
       "June 8th-12th": {
@@ -5197,13 +5197,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 30,
-              "Tue": 30,
-              "Wed": 30,
-              "Thu": 30,
-              "Fri": 30
+              "Mon": 31,
+              "Tue": 31,
+              "Wed": 31,
+              "Thu": 31,
+              "Fri": 31
             },
-            "total": 150,
+            "total": 155,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5479,6 +5479,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -5600,13 +5613,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 31,
+            "Tue": 31,
+            "Wed": 31,
+            "Thu": 31,
+            "Fri": 31
           },
-          "all": 150
+          "all": 155
         }
       },
       "June 15th-19th": {
@@ -5616,13 +5629,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 155,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5911,6 +5924,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6032,13 +6058,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 155
+          "all": 160
         }
       },
       "June 22nd-26th": {
@@ -6048,13 +6074,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 155,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6343,6 +6369,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6464,13 +6503,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 155
+          "all": 160
         }
       },
       "June 29th-July 3rd": {
@@ -6480,13 +6519,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 160,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6788,6 +6827,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6909,13 +6961,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 32,
-            "Tue": 32,
-            "Wed": 32,
-            "Thu": 32,
-            "Fri": 32
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 160
+          "all": 165
         }
       },
       "July 6th-10th": {
@@ -6925,13 +6977,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 155,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -7233,6 +7285,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -7341,13 +7406,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 155
+          "all": 160
         }
       },
       "July 13th-17th": {
@@ -7357,13 +7422,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 160,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -7665,6 +7730,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -7786,13 +7864,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 32,
-            "Tue": 32,
-            "Wed": 32,
-            "Thu": 32,
-            "Fri": 32
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 160
+          "all": 165
         }
       },
       "July 20th-24th": {
@@ -7802,13 +7880,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 160,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8110,6 +8188,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -8231,13 +8322,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 32,
-            "Tue": 32,
-            "Wed": 32,
-            "Thu": 32,
-            "Fri": 32
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 160
+          "all": 165
         }
       },
       "July 27th-31st": {
@@ -8247,13 +8338,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 155,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8542,6 +8633,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Qy'Aayla Johnson",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -8663,13 +8767,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 155
+          "all": 160
         }
       },
       "August 3rd-7th": {
@@ -10111,6 +10215,30 @@
           "school": "Roosevelt Elementary School"
         },
         {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 19,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Rico Clark",
           "campus": "Upper Campus",
           "lunch": true,
@@ -11404,6 +11532,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 21,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Rico Clark",
@@ -12867,6 +13019,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 21,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Rico Clark",
           "campus": "Upper Campus",
           "lunch": true,
@@ -14174,6 +14350,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Rico Clark",
           "campus": "Upper Campus",
           "lunch": true,
@@ -15430,6 +15630,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 24,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Rico Clark",
@@ -16930,6 +17154,30 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 24,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Rico Clark",
           "campus": "Upper Campus",
           "lunch": true,
@@ -18306,6 +18554,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 24,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Rico Clark",
@@ -19733,6 +20005,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 24,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Rico Clark",
           "campus": "Upper Campus",
           "lunch": true,
@@ -20159,7 +20455,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -20184,7 +20480,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             false,
             false,
@@ -20209,7 +20505,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             false,
             false,
@@ -20234,7 +20530,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -20268,31 +20564,6 @@
           "type": "summer"
         },
         {
-          "name": "Max Lopez Valencia",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "vavagife@hotmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/27-7/31",
-          "sourceRow": 7,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Olive White",
           "campus": "Lower Campus",
           "lunch": false,
@@ -20307,7 +20578,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             false,
             false,
@@ -20355,7 +20626,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             false,
             false,
@@ -20380,7 +20651,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -20403,7 +20674,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -20428,7 +20699,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             false,
             false,
@@ -20992,6 +21263,30 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Qy'Aayla Johnson",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "ltribble2020@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 23,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Rico Clark",
