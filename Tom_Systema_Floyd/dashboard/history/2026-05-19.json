@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-19T17:13:39Z",
+  "generatedAt": "2026-05-19T17:17:31Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 121,
-    "free": 44,
+    "free": 45,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,20 +213,20 @@
     ]
   },
   "free": {
-    "total": 44,
+    "total": 45,
     "byCampus": {
       "Upper Campus": 29,
-      "Lower Campus": 15,
+      "Lower Campus": 16,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 33,
-      "June 8th-12th": 34,
-      "June 15th-19th": 35,
-      "June 22nd-26th": 36,
-      "June 29th-July 3rd": 36,
-      "July 6th-10th": 35,
-      "July 13th-17th": 36,
+      "June 1st-5th": 34,
+      "June 8th-12th": 35,
+      "June 15th-19th": 36,
+      "June 22nd-26th": 37,
+      "June 29th-July 3rd": 37,
+      "July 6th-10th": 36,
+      "July 13th-17th": 37,
       "July 20th-24th": 36,
       "July 27th-31st": 35,
       "August 3rd-7th": 30,
@@ -237,37 +237,37 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 21,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 23,
-        "Lower Campus": 11,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 23,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 25,
-        "Lower Campus": 11,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 26,
-        "Lower Campus": 10,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 26,
-        "Lower Campus": 9,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 26,
-        "Lower Campus": 10,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -303,7 +303,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 147,
-      "Northboro Elementary School": 60,
+      "Northboro Elementary School": 67,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 44,
       "Roosevelt Elementary School": 41
@@ -324,21 +324,21 @@
     ]
   },
   "combined": {
-    "total": 165,
-    "enrollments": 581,
+    "total": 166,
+    "enrollments": 588,
     "byCampus": {
       "Upper Campus": 75,
-      "Lower Campus": 90,
+      "Lower Campus": 91,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 55,
-      "June 8th-12th": 57,
-      "June 15th-19th": 64,
-      "June 22nd-26th": 61,
-      "June 29th-July 3rd": 50,
-      "July 6th-10th": 55,
-      "July 13th-17th": 52,
+      "June 1st-5th": 56,
+      "June 8th-12th": 58,
+      "June 15th-19th": 65,
+      "June 22nd-26th": 62,
+      "June 29th-July 3rd": 51,
+      "July 6th-10th": 56,
+      "July 13th-17th": 53,
       "July 20th-24th": 55,
       "July 27th-31st": 48,
       "August 3rd-7th": 53,
@@ -349,37 +349,37 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 30,
-        "Lower Campus": 25,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 35,
-        "Lower Campus": 22,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 26,
-        "Lower Campus": 38,
+        "Lower Campus": 39,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 31,
-        "Lower Campus": 30,
+        "Lower Campus": 31,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 31,
-        "Lower Campus": 19,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 35,
-        "Lower Campus": 20,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 32,
-        "Lower Campus": 20,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -4237,13 +4237,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 33,
-              "Tue": 33,
-              "Wed": 33,
-              "Thu": 33,
-              "Fri": 33
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 165,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4455,6 +4455,19 @@
               },
               {
                 "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juno Katherine Santos Pacheco",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -4679,13 +4692,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 33,
-            "Tue": 33,
-            "Wed": 33,
-            "Thu": 33,
-            "Fri": 33
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 165
+          "all": 170
         }
       },
       "June 8th-12th": {
@@ -4695,13 +4708,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 170,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4951,6 +4964,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juno Katherine Santos Pacheco",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Kailand campbell",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -5150,13 +5176,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 170
+          "all": 175
         }
       },
       "June 15th-19th": {
@@ -5166,13 +5192,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 175,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5397,6 +5423,19 @@
               },
               {
                 "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juno Katherine Santos Pacheco",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -5634,13 +5673,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 175
+          "all": 180
         }
       },
       "June 22nd-26th": {
@@ -5650,13 +5689,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 180,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5906,6 +5945,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juno Katherine Santos Pacheco",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Kailand campbell",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6131,13 +6183,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 180
+          "all": 185
         }
       },
       "June 29th-July 3rd": {
@@ -6147,13 +6199,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 180,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6403,6 +6455,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juno Katherine Santos Pacheco",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Kailand campbell",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6628,13 +6693,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 180
+          "all": 185
         }
       },
       "July 6th-10th": {
@@ -6644,13 +6709,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 175,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6913,6 +6978,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juno Katherine Santos Pacheco",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Kailand campbell",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -7112,13 +7190,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 175
+          "all": 180
         }
       },
       "July 13th-17th": {
@@ -7128,13 +7206,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 180,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -7384,6 +7462,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juno Katherine Santos Pacheco",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Kailand campbell",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -7609,13 +7700,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 180
+          "all": 185
         }
       },
       "July 20th-24th": {
@@ -10005,6 +10096,30 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "kat.diseno@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Kailand campbell",
           "campus": "Upper Campus",
           "lunch": true,
@@ -11403,6 +11518,32 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/8-6/12",
           "sourceRow": 10,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -12929,6 +13070,30 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "kat.diseno@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Kailand campbell",
           "campus": "Upper Campus",
           "lunch": true,
@@ -14402,6 +14567,30 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "kat.diseno@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Kailand campbell",
           "campus": "Upper Campus",
           "lunch": true,
@@ -15606,6 +15795,30 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
+        },
+        {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "kat.diseno@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Kailand campbell",
@@ -16982,6 +17195,30 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "kat.diseno@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 11,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Kailand campbell",
           "campus": "Upper Campus",
           "lunch": true,
@@ -18180,6 +18417,30 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
+        },
+        {
+          "name": "Juno Katherine Santos Pacheco",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "kat.diseno@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Kailand campbell",
