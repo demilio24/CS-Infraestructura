@@ -107,6 +107,92 @@ var DC_AS_FIELD_CLASS   = 'UluqGJoN855415yTyiXd';   // Select Class (school + da
 var DC_AS_FIELD_NKS     = '9kWksqJLFmmGoxfFDsay';   // Neighborhood Kids Schools
 var DC_AS_FIELD_NOTES   = '40KOxhzNEKTjyhvi20fb';   // Notes (not currently written to Main Table)
 
+// ─── New booking forms (Private Lessons / Rent-A-Sensei / Balloons /
+// Vladimir Vasiliev Seminar) ───────────────────────────────────────
+// Spec: Tom_Systema_Floyd/App_documentation/new_forms_spec.md
+// Status: form IDs from Amina 2026-05-18 (PL + RAS still pending).
+// All helpers early-return on empty form ID so this scaffolding is
+// safe to ship before all 4 forms publish.
+//
+// Supabase migration needed before these can write:
+//   ALTER TABLE public.sf_form_submissions
+//     DROP CONSTRAINT sf_form_submissions_form_check,
+//     ADD CONSTRAINT sf_form_submissions_form_check
+//       CHECK (form IN ('free_camp','summer_camp','after_school',
+//                       'private_lessons','rent_a_sensei','balloons',
+//                       'vasiliev_seminar'));
+
+// Form IDs (paste in as Amina publishes each one)
+var DC_FORM_PRIVATE_LESSONS  = '';                       // TODO: Amina
+var DC_FORM_RENT_A_SENSEI    = '';                       // TODO: Amina
+var DC_FORM_BALLOONS         = 'SvXq0KmUb1Ct2AR2t8Yl';   // published 2026-05-18 by Amina
+var DC_FORM_VASILIEV_SEMINAR = 'Zu7nHwEILIJnkKyvtnbB';   // published 2026-05-18 by Amina
+
+// Destination spreadsheets (live, owned by systemafloydsheets@gmail.com,
+// shared 'Form Submissions' Drive folder 1YnCaA46sLC57w7A3vZf0tEGgZv9aoUxN)
+var DC_PL_SS  = '1XVh9pBOwddr-wCZ4eIxA39htmEdGGGx_WRgDun1C_mU';  // Private Lesson Booking
+var DC_RAS_SS = '1zHDDtoHrjM8uoBsBoVffT09BqOZKRKPFfCDQEpi2CgE';  // Rent-A-Sensei Booking
+var DC_BAL_SS = '1OZbb_0lmCCSRKZHn0X_UgDkY_Sckbw2qyt2H3gIRDJ8';  // Balloons by Balloons on the Ave
+var DC_VS_SS  = '1BvGvrZ05oJolMGwyOm7BO0hZyZlMxv6D_UZviIOdH2Y';  // Vladimir Vasiliev Seminar Registration
+var DC_BOOKING_TAB = 'Sheet1';  // all 4 sheets use the default Sheet1 tab
+
+// Supabase form CHECK constraint values
+var DC_FORM_NAME_PRIVATE_LESSONS  = 'private_lessons';
+var DC_FORM_NAME_RENT_A_SENSEI    = 'rent_a_sensei';
+var DC_FORM_NAME_BALLOONS         = 'balloons';
+var DC_FORM_NAME_VASILIEV_SEMINAR = 'vasiliev_seminar';
+
+// Private Lessons custom-field IDs (folder X4a97HKQJdXVkGV6R4Vg, 2026-05-14)
+var DC_PL_FIELD_STATE         = '5ehZTaXaNcXTELK0BIwD';
+var DC_PL_FIELD_INSTRUCTOR    = 'DSPT34R6tPLsrchxilTA';
+var DC_PL_FIELD_LESSON        = 'ZpcqYLIeI5vRC3vB4VaD';
+var DC_PL_FIELD_NUM_STUDENTS  = 'mVy01I2pOfpSsBJ9K2TC';
+var DC_PL_FIELD_TRAINING      = 'JO25qx6HcrRRGoXkbZFz';
+var DC_PL_FIELD_AGE_GROUP     = 'm3rgTNuU5DuXDkyIdoQO';
+var DC_PL_FIELD_PACKAGE       = 'jxUbJ6t59K24i7VoWTur';
+var DC_PL_FIELD_PREF_DATE     = '5ISTUUKJOavRZc7vBJlx';
+var DC_PL_FIELD_PREF_TIME     = 'gsZUjGj4bJGTjINhdyUE';
+
+// Rent-A-Sensei custom-field IDs (folder RbjiHT0moCfDgm5OEnHW, 2026-05-14)
+var DC_RAS_FIELD_SERVICE_TYPE = 'tVvxHXE0BTzsfxYl4MKG';
+var DC_RAS_FIELD_NUM_CHILDREN = 'Uj9ks7LGvM8ktbwBOwV2';
+var DC_RAS_FIELD_DURATION     = 'ARSwE9pJ06KJYX0LnaOT';
+var DC_RAS_FIELD_ADDRESS      = 'O6GFJ6sNFoUagmdd8ZO2';
+var DC_RAS_FIELD_DATE         = 'K5Pc8pQFCeBemDEkeH5a';
+var DC_RAS_FIELD_START_TIME   = 'jzBUh8W0TOZmAViareOt';
+var DC_RAS_FIELD_END_TIME     = 'TtP6R6L2UkghX4HQAsrb';
+var DC_RAS_FIELD_ACK          = 'QPLML2pF756ANddSifu9';
+var DC_RAS_FIELD_INSTRUCTIONS = 'jGkL6wJBjtKHMsNSbB9n';
+
+// Balloons custom-field IDs (folder Snj5a0BsE8Y6ehLgXwl8, 2026-05-14)
+var DC_BAL_FIELD_GARLAND       = 'NgH8RGRgtisBtbWyEqiP';
+var DC_BAL_FIELD_GARLAND_EXTRA = '7eKUJW88eiyN2yeXNFT6';
+var DC_BAL_FIELD_COLUMNS       = 'RO0xzR1IU1WRWEOmXpNg';
+var DC_BAL_FIELD_ARCH          = 'qrWRc6GRCWQsinxgvkaj';
+var DC_BAL_FIELD_WALL          = 'zin97S10jzsx5OG820Vl';
+var DC_BAL_FIELD_ADDONS        = 'QrwTL3UiBXtZCfqaX0I8';
+var DC_BAL_FIELD_DELIVERY      = 'lVlCygHaoeF8Eo9q22jn';
+var DC_BAL_FIELD_SETUP         = 'OQj4Vy8csQlNX6SlHJRA';
+var DC_BAL_FIELD_OPT_FEES      = 'TLf16K3hfjE5K0CFbOja';
+var DC_BAL_FIELD_THEME         = 'Q8YWJQlSiOOShOrszL1K';
+var DC_BAL_FIELD_PRIMARY_COLOR = 'qVrRHhQ58cUXPkvdTUyr';
+var DC_BAL_FIELD_SECONDARY     = 'nILU7wT94JtKjtdShgib';
+var DC_BAL_FIELD_ACCENT        = 'ewqqWviYBsUTf1KvJzDk';
+var DC_BAL_FIELD_NOTES         = 'JqBcKlhr1886D5nrgp1J';
+
+// Vladimir Vasiliev Seminar custom-field IDs (folder RTmnCYg8pRee35YYFhyp)
+// TBD — Amina created these inline when building the form on 2026-05-18.
+// Pull a sample submission once the GHL token is refreshed, then paste
+// the field IDs here. Until they're set, _dcCheckVasilievSeminar() is a
+// no-op even if DC_FORM_VASILIEV_SEMINAR is filled.
+var DC_VS_FIELD_PASS_SELECTION  = '';
+var DC_VS_FIELD_EXPERIENCE      = '';
+var DC_VS_FIELD_EMERGENCY_NAME  = '';
+var DC_VS_FIELD_EMERGENCY_PHONE = '';
+var DC_VS_FIELD_SHIRT           = '';
+var DC_VS_FIELD_DIETARY         = '';
+var DC_VS_FIELD_HOW_HEARD       = '';
+
 // Map (form, week) → the GHL routing workflow that's supposed to
 // write the corresponding sheet row. When the bot has to add a row
 // itself, the email points at this workflow as "the one that failed
@@ -199,10 +285,14 @@ function runDiscrepancyCheck() {
   var startedAt = new Date();
   var report = {
     startedAt: startedAt.toISOString(),
-    freeCamp:    { added: [], linkedManual: [], orphans: [], errors: [], skippedYoung: 0 },
-    summerCamp:  { added: [], linkedManual: [], wouldAdd: [], missing: [], orphans: [], errors: [], skippedYoung: 0 },
-    afterSchool: { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0 },
-    duplicates:  { clusters: [], crossCampus: [], errors: [] },
+    freeCamp:        { added: [], linkedManual: [], orphans: [], errors: [], skippedYoung: 0 },
+    summerCamp:      { added: [], linkedManual: [], wouldAdd: [], missing: [], orphans: [], errors: [], skippedYoung: 0 },
+    afterSchool:     { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0 },
+    privateLessons:  { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0, skipped: 0 },
+    rentASensei:     { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0, skipped: 0 },
+    balloons:        { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0, skipped: 0 },
+    vasilievSeminar: { added: [], linkedManual: [], errors: [], skippedYoung: 0, skippedTombstone: 0, skipped: 0 },
+    duplicates:      { clusters: [], crossCampus: [], errors: [] },
   };
   try {
     _dcCheckFreeCamp(report);
@@ -218,6 +308,26 @@ function runDiscrepancyCheck() {
     _dcCheckAfterSchool(report);
   } catch (err) {
     report.afterSchool.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckPrivateLessons(report);
+  } catch (err) {
+    report.privateLessons.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckRentASensei(report);
+  } catch (err) {
+    report.rentASensei.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckBalloons(report);
+  } catch (err) {
+    report.balloons.errors.push(_dcErr(err));
+  }
+  try {
+    _dcCheckVasilievSeminar(report);
+  } catch (err) {
+    report.vasilievSeminar.errors.push(_dcErr(err));
   }
   try {
     _dcCheckDuplicates(report);
@@ -239,8 +349,15 @@ function runDiscrepancyCheck() {
     free_added: report.freeCamp.added.length,
     summer_added: report.summerCamp.added.length,
     afterschool_added: report.afterSchool.added.length,
+    privatelessons_added: report.privateLessons.added.length,
+    rentasensei_added: report.rentASensei.added.length,
+    balloons_added: report.balloons.added.length,
+    vasiliev_added: report.vasilievSeminar.added.length,
     duplicates_in_tab: report.duplicates.clusters.length,
-    errors: report.freeCamp.errors.length + report.summerCamp.errors.length + report.afterSchool.errors.length,
+    errors: report.freeCamp.errors.length + report.summerCamp.errors.length +
+            report.afterSchool.errors.length + report.privateLessons.errors.length +
+            report.rentASensei.errors.length + report.balloons.errors.length +
+            report.vasilievSeminar.errors.length,
     token_age_hours: report.tokenAgeHours,
     token_stale: report.tokenStaleWarning,
   });
@@ -255,6 +372,10 @@ function runDiscrepancyCheck() {
     ' afterschool added=' + report.afterSchool.added.length +
     ' afterschool linked=' + report.afterSchool.linkedManual.length +
     ' afterschool errors=' + report.afterSchool.errors.length +
+    ' pl added=' + report.privateLessons.added.length +
+    ' ras added=' + report.rentASensei.added.length +
+    ' balloons added=' + report.balloons.added.length +
+    ' vasiliev added=' + report.vasilievSeminar.added.length +
     ' dup_clusters=' + report.duplicates.clusters.length +
     ' dup_crossCampus=' + report.duplicates.crossCampus.length +
     ' duration=' + report.durationMs + 'ms'
@@ -271,6 +392,14 @@ function runDiscrepancyCheck() {
     report.afterSchool.added.length       > 0 ||
     report.afterSchool.linkedManual.length > 0 ||
     report.afterSchool.errors.length       > 0 ||
+    report.privateLessons.added.length    > 0 ||
+    report.privateLessons.errors.length   > 0 ||
+    report.rentASensei.added.length       > 0 ||
+    report.rentASensei.errors.length      > 0 ||
+    report.balloons.added.length          > 0 ||
+    report.balloons.errors.length         > 0 ||
+    report.vasilievSeminar.added.length   > 0 ||
+    report.vasilievSeminar.errors.length  > 0 ||
     report.duplicates.clusters.length     > 0 ||
     report.duplicates.crossCampus.length  > 0 ||
     report.tokenStaleWarning              === true;
@@ -1932,7 +2061,10 @@ function _dcLoadProcessedFromSupabase() {
     throw new Error('Supabase sf_list_processed HTTP ' + resp.getResponseCode() + ': ' + resp.getContentText().substring(0, 200));
   }
   var rows = JSON.parse(resp.getContentText());
-  var out = { free_camp: {}, summer_camp: {}, after_school: {} };
+  var out = {
+    free_camp: {}, summer_camp: {}, after_school: {},
+    private_lessons: {}, rent_a_sensei: {}, balloons: {}, vasiliev_seminar: {},
+  };
   rows.forEach(function (r) {
     var bucket = out[r.form];
     if (bucket) bucket[r.submission_id + '|' + r.week] = true;
@@ -2515,4 +2647,320 @@ function _dcErr(err, extra) {
   };
   if (extra) for (var k in extra) o[k] = extra[k];
   return o;
+}
+
+// ─────────────────────── New booking-form checkers ───────────────────────
+//
+// One-shot booking forms (Private Lessons, Rent-A-Sensei, Balloons,
+// Vasiliev Seminar) follow the After School "single intake" pattern,
+// not the camps' per-week pattern. Each submission becomes one sheet
+// row. We use the literal string 'booking' as the synthetic "week"
+// key in Supabase so each submission gets exactly one tombstone entry.
+//
+// Re-submissions (same person books twice) generate a new GHL
+// submission ID, so they get their own tombstone + sheet row.
+//
+// Every helper here is dormant if its form ID or required field IDs
+// are blank — safe to ship before all 4 forms publish.
+
+/**
+ * Generic booking-form checker. Iterates submissions, skips young /
+ * tombstoned / already-tracked ones, and calls config.append() for
+ * genuinely-missing ones.
+ *
+ * config = {
+ *   form: 'balloons',                // Supabase CHECK constraint value
+ *   formName: 'Balloons',            // human-readable
+ *   formId: DC_FORM_BALLOONS,        // GHL form ID (may be '')
+ *   ssId: DC_BAL_SS,                 // destination spreadsheet
+ *   tabName: 'Sheet1',
+ *   nameCol: 2,                      // 1-based col for the cell-note anchor
+ *   reportKey: 'balloons',           // bucket key on `report`
+ *   append: function (sub, sheet, trackingCol) -> { rowIndex }
+ * }
+ */
+function _dcCheckBookingForm(report, config) {
+  var bucket = report[config.reportKey] = report[config.reportKey] || {
+    added: [], linkedManual: [], errors: [], skippedYoung: 0,
+    skippedTombstone: 0, skipped: 0,
+  };
+  if (!config.formId) {
+    bucket.skipped++;          // form not published yet, nothing to do
+    return;
+  }
+
+  var subs;
+  try {
+    subs = _dcListSubmissions(config.formId);
+  } catch (err) {
+    bucket.errors.push(_dcErr(err, { phase: 'list-submissions' }));
+    return;
+  }
+
+  var nowMs = Date.now();
+  var processed = _dcLoadProcessedFromSupabase();
+  var processedBucket = processed[config.form] || {};
+
+  var ss = SpreadsheetApp.openById(config.ssId);
+  var sheet = ss.getSheetByName(config.tabName) || ss.getSheets()[0];
+  if (!sheet) {
+    bucket.errors.push({ message: 'No tab "' + config.tabName + '" in ' + config.formName + ' sheet' });
+    return;
+  }
+  var trackingCol = _dcEnsureTrackingCol(sheet);
+
+  var trackedById = {};
+  var lastRow = sheet.getLastRow();
+  if (lastRow >= 2) {
+    var grid = sheet.getRange(2, 1, lastRow - 1, sheet.getLastColumn()).getValues();
+    grid.forEach(function (row, i) {
+      var subId = String(row[trackingCol - 1] || '').trim();
+      if (subId) trackedById[subId] = i + 2;
+    });
+  }
+
+  subs.forEach(function (s) {
+    if (nowMs - new Date(s.createdAt).getTime() < DC_GRACE_WINDOW_MS) {
+      bucket.skippedYoung++;
+      return;
+    }
+    var name = String(s.name || '').trim();
+    if (_dcIsTestSubmission(s, name)) return;
+
+    if (trackedById[s.id]) return;
+    if (processedBucket[s.id + '|booking']) {
+      bucket.skippedTombstone++;
+      return;
+    }
+
+    try {
+      var added = config.append(s, sheet, trackingCol);
+      _dcRecordProcessed(s.id, config.form, 'booking', {
+        status: 'processed',
+        spreadsheetId: config.ssId,
+        tabName: sheet.getName(),
+        rowIndex: added.rowIndex,
+        studentName: name,
+        parentEmail: s.email || null,
+        contactId: s.contactId,
+        metadata: { formName: config.formName },
+      });
+      processedBucket[s.id + '|booking'] = true;
+      trackedById[s.id] = added.rowIndex;
+      _dcSetBookingNote(sheet, added.rowIndex, config.nameCol, 'auto-added', s, config.formName);
+      bucket.added.push({
+        submissionId: s.id, contactId: s.contactId, name: name,
+        email: s.email, rowIndex: added.rowIndex, formName: config.formName,
+      });
+    } catch (err) {
+      bucket.errors.push(_dcErr(err, { submissionId: s.id, phase: 'append' }));
+    }
+  });
+}
+
+/** Cell note for booking-form rows. Lighter than the camp note since
+ *  there's no "week selected" or campus context. */
+function _dcSetBookingNote(sheet, rowIndex, nameCol, mode, submission, formName) {
+  try {
+    var contactUrl = submission.contactId
+      ? 'https://app.nilsdigital.com/v2/location/' + DC_LOCATION_ID + '/contacts/detail/' + submission.contactId
+      : '';
+    var modeBlurb = ({
+      'auto-added':    'Auto-added by DiscrepancyCheck — the ' + formName + ' routing workflow did not write this row, so the bot did from the GHL submission below.',
+      'linked-manual': 'Linked by DiscrepancyCheck — this row was already here; bot stamped the GHL submission ID on it.',
+    })[mode] || ('DiscrepancyCheck (' + mode + ')');
+    var lines = [];
+    lines.push(modeBlurb);
+    lines.push('Stamped: ' + new Date().toISOString());
+    lines.push('');
+    lines.push('Form: ' + formName);
+    lines.push('Submission ID: ' + submission.id);
+    lines.push('Submitted: ' + (submission.createdAt || ''));
+    lines.push('Submitter: ' + (submission.name || ''));
+    lines.push('Email: ' + (submission.email || ''));
+    lines.push('Contact ID: ' + (submission.contactId || ''));
+    if (contactUrl) lines.push('Contact: ' + contactUrl);
+    sheet.getRange(rowIndex, nameCol).setNote(lines.join('\n'));
+  } catch (e) {
+    Logger.log('booking setNote failed: ' + e);
+  }
+}
+
+// ─── Private Lessons ──────────────────────────────────────────────
+function _dcCheckPrivateLessons(report) {
+  _dcCheckBookingForm(report, {
+    form: DC_FORM_NAME_PRIVATE_LESSONS,
+    formName: 'Private Lesson Booking',
+    formId: DC_FORM_PRIVATE_LESSONS,
+    ssId: DC_PL_SS,
+    tabName: DC_BOOKING_TAB,
+    nameCol: 2,                // Full Name
+    reportKey: 'privateLessons',
+    append: _dcAppendPrivateLessons,
+  });
+}
+function _dcAppendPrivateLessons(submission, sheet, trackingCol) {
+  // Sheet col order: Contact ID | Full Name | Phone | Email | State |
+  //   Instructor | Lesson Length & Price | Number of Students |
+  //   Training Type | Age Group | Package | Preferred Date | Preferred Time
+  var o = submission.others || {};
+  var row = [
+    submission.contactId || '',
+    submission.name || '',
+    _dcFormatPhone(o.phone || ''),
+    submission.email || '',
+    o[DC_PL_FIELD_STATE] || '',
+    o[DC_PL_FIELD_INSTRUCTOR] || '',
+    o[DC_PL_FIELD_LESSON] || '',
+    o[DC_PL_FIELD_NUM_STUDENTS] || '',
+    o[DC_PL_FIELD_TRAINING] || '',
+    o[DC_PL_FIELD_AGE_GROUP] || '',
+    o[DC_PL_FIELD_PACKAGE] || '',
+    o[DC_PL_FIELD_PREF_DATE] || '',
+    o[DC_PL_FIELD_PREF_TIME] || '',
+  ];
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  return { rowIndex: sheet.getLastRow() };
+}
+
+// ─── Rent-A-Sensei ────────────────────────────────────────────────
+function _dcCheckRentASensei(report) {
+  _dcCheckBookingForm(report, {
+    form: DC_FORM_NAME_RENT_A_SENSEI,
+    formName: 'Rent-A-Sensei',
+    formId: DC_FORM_RENT_A_SENSEI,
+    ssId: DC_RAS_SS,
+    tabName: DC_BOOKING_TAB,
+    nameCol: 2,                // Parent Name
+    reportKey: 'rentASensei',
+    append: _dcAppendRentASensei,
+  });
+}
+function _dcAppendRentASensei(submission, sheet, trackingCol) {
+  // Sheet col order: Contact ID | Parent Name | Phone | Email |
+  //   Service Type | Number of Children | Duration | Full Address |
+  //   Date | Start Time | End Time | Confirm (acknowledgment) |
+  //   Special instructions
+  var o = submission.others || {};
+  var row = [
+    submission.contactId || '',
+    submission.name || '',
+    _dcFormatPhone(o.phone || ''),
+    submission.email || '',
+    o[DC_RAS_FIELD_SERVICE_TYPE] || '',
+    o[DC_RAS_FIELD_NUM_CHILDREN] || '',
+    o[DC_RAS_FIELD_DURATION] || '',
+    o[DC_RAS_FIELD_ADDRESS] || '',
+    o[DC_RAS_FIELD_DATE] || '',
+    o[DC_RAS_FIELD_START_TIME] || '',
+    o[DC_RAS_FIELD_END_TIME] || '',
+    o[DC_RAS_FIELD_ACK] || '',
+    o[DC_RAS_FIELD_INSTRUCTIONS] || '',
+  ];
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  return { rowIndex: sheet.getLastRow() };
+}
+
+// ─── Balloons ─────────────────────────────────────────────────────
+function _dcCheckBalloons(report) {
+  _dcCheckBookingForm(report, {
+    form: DC_FORM_NAME_BALLOONS,
+    formName: 'Balloons by Balloons on the Ave',
+    formId: DC_FORM_BALLOONS,
+    ssId: DC_BAL_SS,
+    tabName: DC_BOOKING_TAB,
+    nameCol: 2,                // Full Name
+    reportKey: 'balloons',
+    append: _dcAppendBalloons,
+  });
+}
+function _dcAppendBalloons(submission, sheet, trackingCol) {
+  // Sheet col order: Contact ID | Full Name | Phone | Email | Garland |
+  //   Additional Feet of Garland | Columns | Arch | Balloon Wall/Backdrop |
+  //   Add-Ons (range-priced) | Delivery Fee | Setup Complexity |
+  //   Optional Fees | Party Theme | Primary | Secondary | Accent |
+  //   Notes for Emily
+  // Columns, Add-Ons, Optional Fees are MULTIPLE_OPTIONS arrays.
+  var o = submission.others || {};
+  var join = function (v) { return Array.isArray(v) ? v.join(', ') : (v || ''); };
+  var row = [
+    submission.contactId || '',
+    submission.name || '',
+    _dcFormatPhone(o.phone || ''),
+    submission.email || '',
+    o[DC_BAL_FIELD_GARLAND] || '',
+    o[DC_BAL_FIELD_GARLAND_EXTRA] || '',
+    join(o[DC_BAL_FIELD_COLUMNS]),
+    o[DC_BAL_FIELD_ARCH] || '',
+    o[DC_BAL_FIELD_WALL] || '',
+    join(o[DC_BAL_FIELD_ADDONS]),
+    o[DC_BAL_FIELD_DELIVERY] || '',
+    o[DC_BAL_FIELD_SETUP] || '',
+    join(o[DC_BAL_FIELD_OPT_FEES]),
+    o[DC_BAL_FIELD_THEME] || '',
+    o[DC_BAL_FIELD_PRIMARY_COLOR] || '',
+    o[DC_BAL_FIELD_SECONDARY] || '',
+    o[DC_BAL_FIELD_ACCENT] || '',
+    o[DC_BAL_FIELD_NOTES] || '',
+  ];
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  return { rowIndex: sheet.getLastRow() };
+}
+
+// ─── Vladimir Vasiliev Seminar ────────────────────────────────────
+// Stays dormant even with form ID present until field IDs are filled
+// in above (need a sample submission to map Amina's inline-created
+// fields). Once filled, behaves like the other 3.
+function _dcCheckVasilievSeminar(report) {
+  var bucket = report.vasilievSeminar = report.vasilievSeminar || {
+    added: [], linkedManual: [], errors: [], skippedYoung: 0,
+    skippedTombstone: 0, skipped: 0,
+  };
+  if (!DC_FORM_VASILIEV_SEMINAR) { bucket.skipped++; return; }
+  if (!DC_VS_FIELD_PASS_SELECTION) {
+    // Field IDs not yet mapped — pull a sample submission and paste IDs
+    // into the constants block, then this'll start writing.
+    bucket.skipped++;
+    return;
+  }
+  _dcCheckBookingForm(report, {
+    form: DC_FORM_NAME_VASILIEV_SEMINAR,
+    formName: 'Vladimir Vasiliev Seminar Registration',
+    formId: DC_FORM_VASILIEV_SEMINAR,
+    ssId: DC_VS_SS,
+    tabName: DC_BOOKING_TAB,
+    nameCol: 2,                // Full Name
+    reportKey: 'vasilievSeminar',
+    append: _dcAppendVasilievSeminar,
+  });
+}
+function _dcAppendVasilievSeminar(submission, sheet, trackingCol) {
+  // Sheet col order: Contact ID | Full Name | Phone | Email |
+  //   Pass Selection | Experience Level | Emergency Contact Name |
+  //   Emergency Contact Phone | T-Shirt Size | Dietary Restrictions |
+  //   How did you hear
+  var o = submission.others || {};
+  var row = [
+    submission.contactId || '',
+    submission.name || '',
+    _dcFormatPhone(o.phone || ''),
+    submission.email || '',
+    o[DC_VS_FIELD_PASS_SELECTION] || '',
+    o[DC_VS_FIELD_EXPERIENCE] || '',
+    o[DC_VS_FIELD_EMERGENCY_NAME] || '',
+    _dcFormatPhone(o[DC_VS_FIELD_EMERGENCY_PHONE] || ''),
+    o[DC_VS_FIELD_SHIRT] || '',
+    o[DC_VS_FIELD_DIETARY] || '',
+    o[DC_VS_FIELD_HOW_HEARD] || '',
+  ];
+  while (row.length < trackingCol - 1) row.push('');
+  row.push(submission.id);
+  sheet.appendRow(row);
+  return { rowIndex: sheet.getLastRow() };
 }
