@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T14:17:28Z",
+  "generatedAt": "2026-05-19T14:22:22Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -122,7 +122,7 @@
       "June 29th-July 3rd": 20,
       "July 6th-10th": 30,
       "July 13th-17th": 26,
-      "July 20th-24th": 26,
+      "July 20th-24th": 25,
       "July 27th-31st": 13,
       "August 3rd-7th": 23,
       "August 10th-14th": 14,
@@ -167,7 +167,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 8,
-        "Lower Campus": 18,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 163,
-    "enrollments": 581,
+    "enrollments": 580,
     "byCampus": {
       "Upper Campus": 71,
       "Lower Campus": 92,
@@ -339,7 +339,7 @@
       "June 29th-July 3rd": 53,
       "July 6th-10th": 62,
       "July 13th-17th": 59,
-      "July 20th-24th": 59,
+      "July 20th-24th": 58,
       "July 27th-31st": 45,
       "August 3rd-7th": 50,
       "August 10th-14th": 14,
@@ -384,7 +384,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 31,
-        "Lower Campus": 28,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -3137,13 +3137,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 4,
-              "Wed": 4,
-              "Thu": 4,
-              "Fri": 4
+              "Mon": 4,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 21,
+            "total": 16,
             "students": [
               {
                 "name": "Leo Hamric",
@@ -3151,19 +3151,6 @@
                 "type": "summer",
                 "days": [
                   "Mon"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
-              {
-                "name": "Lilly Heyes",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
                 ],
                 "lunchRaw": "Pizza ($30/week)"
               },
@@ -3479,13 +3466,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 25,
-            "Tue": 24,
-            "Wed": 24,
-            "Thu": 25,
-            "Fri": 19
+            "Mon": 24,
+            "Tue": 23,
+            "Wed": 23,
+            "Thu": 24,
+            "Fri": 18
           },
-          "all": 117
+          "all": 112
         }
       },
       "July 27th-31st": {
@@ -19067,37 +19054,12 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 18,
-          "days": [
-            true,
-            true,
-            false,
-            true,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Lilly Heyes",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "With fruit ($10/day)",
-          "allergy": null,
-          "notes": "Reinstated 2026-05-11 per Tom email (was previously SKIP/cancelled, now active again); 2 days only per week",
-          "email": "priscilla-ten@hotmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/20-7/24",
           "sourceRow": 17,
           "days": [
+            true,
+            true,
             false,
-            false,
-            false,
-            false,
+            true,
             false
           ],
           "type": "summer"
@@ -19286,7 +19248,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
