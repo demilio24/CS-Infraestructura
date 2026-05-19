@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T15:22:54Z",
+  "generatedAt": "2026-05-19T15:27:29Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -121,7 +121,7 @@
       "June 22nd-26th": 23,
       "June 29th-July 3rd": 20,
       "July 6th-10th": 30,
-      "July 13th-17th": 26,
+      "July 13th-17th": 25,
       "July 20th-24th": 19,
       "July 27th-31st": 13,
       "August 3rd-7th": 23,
@@ -162,7 +162,7 @@
       },
       "July 13th-17th": {
         "Upper Campus": 6,
-        "Lower Campus": 20,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 574,
+    "enrollments": 573,
     "byCampus": {
       "Upper Campus": 71,
       "Lower Campus": 93,
@@ -338,7 +338,7 @@
       "June 22nd-26th": 55,
       "June 29th-July 3rd": 53,
       "July 6th-10th": 62,
-      "July 13th-17th": 59,
+      "July 13th-17th": 58,
       "July 20th-24th": 52,
       "July 27th-31st": 45,
       "August 3rd-7th": 50,
@@ -379,7 +379,7 @@
       },
       "July 13th-17th": {
         "Upper Campus": 29,
-        "Lower Campus": 30,
+        "Lower Campus": 29,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -2856,13 +2856,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 16,
-              "Tue": 15,
-              "Wed": 16,
-              "Thu": 15,
-              "Fri": 13
+              "Mon": 15,
+              "Tue": 14,
+              "Wed": 15,
+              "Thu": 14,
+              "Fri": 12
             },
-            "total": 75,
+            "total": 70,
             "students": [
               {
                 "name": "Beckham Fox",
@@ -2978,19 +2978,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Max Lopez Valencia",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Nelson Gonzalez",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -3080,13 +3067,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 25,
-            "Tue": 24,
-            "Wed": 25,
-            "Thu": 24,
-            "Fri": 22
+            "Mon": 24,
+            "Tue": 23,
+            "Wed": 24,
+            "Thu": 23,
+            "Fri": 21
           },
-          "all": 120
+          "all": 115
         }
       },
       "July 20th-24th": {
@@ -17320,7 +17307,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -17343,7 +17330,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -17366,7 +17353,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             false,
             true,
@@ -17391,7 +17378,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             false,
             false,
@@ -17416,7 +17403,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             false,
             false,
@@ -17441,7 +17428,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             false,
             false,
@@ -17464,7 +17451,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -17491,7 +17478,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             false,
             false,
@@ -17516,7 +17503,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             false,
             false,
@@ -17541,7 +17528,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             false,
             false,
@@ -17566,7 +17553,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             false,
             false,
@@ -17602,31 +17589,6 @@
           "type": "summer"
         },
         {
-          "name": "Max Lopez Valencia",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "vavagife@hotmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 4,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Olive White",
           "campus": "Lower Campus",
           "lunch": false,
@@ -17639,7 +17601,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -17662,7 +17624,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -17685,7 +17647,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -17710,7 +17672,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             false,
             false,
@@ -17733,7 +17695,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -17756,7 +17718,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -17781,7 +17743,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             false,
             false,
