@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-19T15:47:08Z",
+  "generatedAt": "2026-05-19T15:52:06Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 125,
+    "summer": 122,
     "free": 41,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,10 +108,10 @@
     "roster": []
   },
   "summer": {
-    "total": 125,
+    "total": 122,
     "byCampus": {
       "Upper Campus": 46,
-      "Lower Campus": 79,
+      "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
@@ -120,8 +120,8 @@
       "June 15th-19th": 29,
       "June 22nd-26th": 25,
       "June 29th-July 3rd": 20,
-      "July 6th-10th": 30,
-      "July 13th-17th": 18,
+      "July 6th-10th": 29,
+      "July 13th-17th": 16,
       "July 20th-24th": 19,
       "July 27th-31st": 13,
       "August 3rd-7th": 23,
@@ -157,12 +157,12 @@
       },
       "July 6th-10th": {
         "Upper Campus": 9,
-        "Lower Campus": 21,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 6,
-        "Lower Campus": 12,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -324,11 +324,11 @@
     ]
   },
   "combined": {
-    "total": 166,
-    "enrollments": 568,
+    "total": 163,
+    "enrollments": 565,
     "byCampus": {
       "Upper Campus": 72,
-      "Lower Campus": 94,
+      "Lower Campus": 91,
       "Unknown": 0
     },
     "byWeek": {
@@ -337,8 +337,8 @@
       "June 15th-19th": 61,
       "June 22nd-26th": 57,
       "June 29th-July 3rd": 53,
-      "July 6th-10th": 62,
-      "July 13th-17th": 51,
+      "July 6th-10th": 61,
+      "July 13th-17th": 49,
       "July 20th-24th": 52,
       "July 27th-31st": 45,
       "August 3rd-7th": 50,
@@ -374,12 +374,12 @@
       },
       "July 6th-10th": {
         "Upper Campus": 32,
-        "Lower Campus": 30,
+        "Lower Campus": 29,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 29,
-        "Lower Campus": 22,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -2413,13 +2413,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 19,
-              "Tue": 20,
-              "Wed": 21,
-              "Thu": 19,
-              "Fri": 19
+              "Mon": 18,
+              "Tue": 19,
+              "Wed": 20,
+              "Thu": 18,
+              "Fri": 18
             },
-            "total": 98,
+            "total": 93,
             "students": [
               {
                 "name": "Aria Falzone",
@@ -2537,19 +2537,6 @@
               {
                 "name": "Maci Denney",
                 "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Max Lopez Valencia",
-                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -2700,13 +2687,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 26,
-            "Tue": 27,
-            "Wed": 29,
-            "Thu": 26,
-            "Fri": 26
+            "Mon": 25,
+            "Tue": 26,
+            "Wed": 28,
+            "Thu": 25,
+            "Fri": 25
           },
-          "all": 134
+          "all": 129
         }
       },
       "July 13th-17th": {
@@ -2785,27 +2772,14 @@
             "subtypeKey": "celis-other||",
             "label": "Celis: specialty (unspecified)",
             "byDay": {
-              "Mon": 4,
-              "Tue": 4,
-              "Wed": 4,
-              "Thu": 4,
-              "Fri": 4
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
             },
-            "total": 20,
+            "total": 10,
             "students": [
-              {
-                "name": "Ainslee Sheridan",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Celis Lunch"
-              },
               {
                 "name": "Archer Sheridan",
                 "campus": "Lower Campus",
@@ -2831,19 +2805,6 @@
                   "Fri"
                 ],
                 "lunchRaw": "Special (Celis $15/day)"
-              },
-              {
-                "name": "Theo Trochet Stewart",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Celis Lunch"
               }
             ]
           },
@@ -2998,13 +2959,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 17,
-            "Tue": 16,
-            "Wed": 17,
-            "Thu": 16,
-            "Fri": 14
+            "Mon": 15,
+            "Tue": 14,
+            "Wed": 15,
+            "Thu": 14,
+            "Fri": 12
           },
-          "all": 80
+          "all": 70
         }
       },
       "July 20th-24th": {
@@ -15855,7 +15816,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -15880,7 +15841,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             false,
             false,
@@ -15905,7 +15866,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             false,
             false,
@@ -15928,7 +15889,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -15953,7 +15914,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             false,
             false,
@@ -15978,7 +15939,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             false,
             false,
@@ -16005,7 +15966,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             false,
             false,
@@ -16055,7 +16016,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             false,
             false,
@@ -16080,7 +16041,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -16128,36 +16089,11 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             true,
             false,
             true,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Max Lopez Valencia",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "vavagife@hotmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/6-7/10",
-          "sourceRow": 6,
-          "days": [
-            false,
-            false,
-            false,
             false,
             false
           ],
@@ -16199,7 +16135,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             false,
             true,
@@ -16222,7 +16158,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -16245,7 +16181,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             false,
             true,
@@ -16270,7 +16206,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -16295,7 +16231,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             false,
             false,
@@ -16318,7 +16254,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -16343,7 +16279,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             false,
             false,
@@ -17270,31 +17206,6 @@
       ],
       "lower": [
         {
-          "name": "Ainslee Sheridan",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Celis Lunch",
-          "breakfastRaw": "Breakfast Daily",
-          "allergy": null,
-          "notes": "Potty trained",
-          "email": "susan.trochez@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 10,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Archer Sheridan",
           "campus": "Lower Campus",
           "lunch": true,
@@ -17353,7 +17264,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -17380,7 +17291,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 13,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -17497,7 +17408,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -17527,31 +17438,6 @@
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Theo Trochet Stewart",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Celis Lunch",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "susan.trochez@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 9,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         }
