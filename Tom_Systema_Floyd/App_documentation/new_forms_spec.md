@@ -28,6 +28,8 @@ Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 
 **Folder**: `Private Lessons`, id `X4a97HKQJdXVkGV6R4Vg`
 
+**Destination Google Sheet**: `Private Lesson Booking`, id `1XVh9pBOwddr-wCZ4eIxA39htmEdGGGx_WRgDun1C_mU` (owned by `systemafloydsheets@gmail.com`, lives in the shared `Form Submissions` Drive folder `1YnCaA46sLC57w7A3vZf0tEGgZv9aoUxN`). Column order on `Sheet1`: `Contact ID | Full Name | Phone | Email | State | Instructor | Lesson Length & Price | Number of Students | Training Type | Age Group | Package | Preferred Date | Preferred Time` (13 cols).
+
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
 | 1 | State | `RADIO` | `5ehZTaXaNcXTELK0BIwD` | `contact.pl_state` |
@@ -49,6 +51,8 @@ Created 2026-05-14 via `.claude/scratch/ghl_create_form_fields.py`.
 Map written to `.claude/scratch/ghl_rent_a_sensei_ids.json`.
 
 **Folder**: `Rent-A-Sensei`, id `RbjiHT0moCfDgm5OEnHW`
+
+**Destination Google Sheet**: `Rent-A-Sensei Booking`, id `1zHDDtoHrjM8uoBsBoVffT09BqOZKRKPFfCDQEpi2CgE`. Column order on `Sheet1`: `Contact ID | Parent Name | Phone | Email | Service Type | Number of Children | Duration | Full Address | Date | Start Time | End Time | Confirm: not for parties or events | Special instructions / extra children info` (13 cols).
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
@@ -72,6 +76,15 @@ Map written to `.claude/scratch/ghl_balloons_ids.json`.
 
 **Folder**: `Balloons`, id `Snj5a0BsE8Y6ehLgXwl8`
 
+**Destination Google Sheet**: `Balloons by Balloons on the Ave`, id `1OZbb_0lmCCSRKZHn0X_UgDkY_Sckbw2qyt2H3gIRDJ8`. Column order on `Sheet1`: `Contact ID | Full Name | Phone | Email | Garland | Additional Feet of Garland | Columns | Arch | Balloon Wall / Backdrop | Add-Ons (range-priced) | Delivery Fee | Setup Complexity | Optional Fees | Party Theme | Primary Color | Secondary Color | Accent Color | Notes for Emily` (18 cols).
+
+**GHL form (PUBLISHED 2026-05-18 by Amina)**: form id `SvXq0KmUb1Ct2AR2t8Yl`
+- Form builder: `https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/form-builder-v2/SvXq0KmUb1Ct2AR2t8Yl`
+- Routing workflow: `daef2d02-ca0f-4fdf-994c-a7757ff2de12` (`https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/workflow/daef2d02-ca0f-4fdf-994c-a7757ff2de12`)
+- Customer auto-responder email: `https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/emails/create/6a08dd232e0cb0d9fd298941/builder?folderId=69e7b6c0f243c4d4a38bcec7&pageNumber=1`
+- Internal notification email: `https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/emails/create/6a09baa3b7836876f2bcd64c/builder?folderId=69e7b6462922186f24cb3b7a&pageNumber=1`
+- **Verification pending**: cannot pull a sample submission until the GHL token is refreshed (see [forms_todos.md](./forms_todos.md) §2026-05-19). Field IDs in the table above were created via API on 2026-05-14, but Amina may have added Rule A duplicate fields or restructured options when she built the form. Confirm field IDs match a real submission before the bot writes to the sheet.
+
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
 | 1 | Garland | `RADIO` | `NgH8RGRgtisBtbWyEqiP` | `contact.bal_garland` |
@@ -88,6 +101,22 @@ Map written to `.claude/scratch/ghl_balloons_ids.json`.
 | 12 | Secondary Color | `TEXT` | `nILU7wT94JtKjtdShgib` | `contact.bal_secondary_color` |
 | 13 | Accent Color | `TEXT` | `ewqqWviYBsUTf1KvJzDk` | `contact.bal_accent_color` |
 | 14 | Notes for Emily | `LARGE_TEXT` | `JqBcKlhr1886D5nrgp1J` | `contact.bal_notes` |
+
+### Vladimir Seminar, PUBLISHED 2026-05-18 (field IDs still TBD)
+
+Despite the prior status of "blocked on Tom", Amina shipped the form
+on 2026-05-18 with a working custom-field folder. Tom's blockers
+(dates, pricing, waiver) appear to have been resolved out-of-band
+or the form was built with placeholder copy.
+
+**Destination Google Sheet**: `Vladimir Vasiliev Seminar Registration`, id `1BvGvrZ05oJolMGwyOm7BO0hZyZlMxv6D_UZviIOdH2Y`. Column order on `Sheet1`: `Contact ID | Full Name | Phone | Email | Pass Selection | Experience Level | Emergency Contact Name | Emergency Contact Phone | T-Shirt Size | Dietary Restrictions or Allergies | How did you hear about the seminar?` (11 cols).
+
+**GHL form (PUBLISHED 2026-05-18 by Amina)**: form id `Zu7nHwEILIJnkKyvtnbB`
+- Form builder: `https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/form-builder-v2/Zu7nHwEILIJnkKyvtnbB`
+- Custom field folder (parent id): `RTmnCYg8pRee35YYFhyp` (visible at `https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/settings/fields?tab=field&page=1&parentId=RTmnCYg8pRee35YYFhyp&query=&object=contact`)
+- Routing workflow: `fc38613d-42ad-408c-80f5-0a18bb75c6d4` (`https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/workflow/fc38613d-42ad-408c-80f5-0a18bb75c6d4`)
+- Email: `https://app.nilsdigital.com/location/8IWtNFlmgJ8bif9DivHT/emails/create/6a08be8edad26e8300b9b55b/builder?folderId=69e7b6462922186f24cb3b7a&pageNumber=1&folderPageNumber=1`
+- **Field IDs TBD**: the custom fields were not pre-created by our `ghl_create_form_fields.py` script. They were created inline by Amina when she built the form (parent `RTmnCYg8pRee35YYFhyp`). The PIT in Supabase currently lacks the active scope to GET `/locations/{loc}/customFields`, and even submissions endpoints 401 right now (token stale, see [forms_todos.md](./forms_todos.md) §2026-05-19). Once the token is refreshed, pull a sample submission and map `others.<fieldId>` → sheet column. Until then, the dormant `_dcCheckVasilievSeminar()` stub in DiscrepancyCheck.js stays a no-op.
 
 ### GHL API quirks worth remembering for the next form
 

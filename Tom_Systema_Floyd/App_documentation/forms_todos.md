@@ -1,8 +1,50 @@
 # Systema Floyd, Forms Build TODOs
 
-Per-form punch list. Status as of **2026-05-14**.
+Per-form punch list. Status as of **2026-05-19**.
 Spec lives in [new_forms_spec.md](./new_forms_spec.md). Build order per
 Tom's May 13 call: Vladimir Seminar, Private Lessons, Birthday Parties.
+
+## 2026-05-18 update
+
+- **Destination sheets exist.** Tom (via `systemafloydsheets@gmail.com`)
+  created 4 empty Google Sheets on 2026-05-17 inside the shared
+  `Form Submissions` Drive folder
+  (`1YnCaA46sLC57w7A3vZf0tEGgZv9aoUxN`), one per form. IDs are now
+  captured in [new_forms_spec.md](./new_forms_spec.md) under each form.
+- **All 3 Amina-assigned forms still `to do` in ClickUp**, 2 days past
+  their 2026-05-16 due date. Status-check comments posted on each
+  (see comment IDs below). Waiting on her to publish + share form IDs.
+- **Failsafe wiring is scaffolded but dormant** in
+  `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js`.
+  Each of the 3 new forms has a `_dcCheck<Form>()` /
+  `_dcAppend<Form>()` helper pre-wired against the documented field
+  IDs + sheet column orders, but the `DC_FORM_*` constants are blank
+  with a `TODO` comment. The moment Amina publishes a form ID, paste
+  it into the matching constant, push via clasp, and the 15-min
+  failsafe activates on the next run.
+- **Vasiliev still blocked on Tom.** Field creation, ClickUp task, and
+  failsafe wiring all wait for the info he owes (see §1 below).
+
+### Status-check comments posted 2026-05-18
+- Private Lessons → [ClickUp 86ahfhfj3](https://app.clickup.com/t/86ahfhfj3), comment `90130267804642`
+- Rent-A-Sensei → [ClickUp 86ahfhfjh](https://app.clickup.com/t/86ahfhfjh), comment `90130267804657`
+- Balloons → [ClickUp 86ahfhfjp](https://app.clickup.com/t/86ahfhfjp), comment `90130267804670`
+
+## 2026-05-19 update
+
+### Amina shipped 2 of 4 forms overnight
+- **Balloons**: form id `SvXq0KmUb1Ct2AR2t8Yl`, routing workflow `daef2d02-ca0f-4fdf-994c-a7757ff2de12`, customer + internal emails built. Details in [new_forms_spec.md](./new_forms_spec.md) §Balloons.
+- **Vladimir Vasiliev Seminar**: form id `Zu7nHwEILIJnkKyvtnbB`, routing workflow `fc38613d-42ad-408c-80f5-0a18bb75c6d4`, custom-field folder `RTmnCYg8pRee35YYFhyp`. Field IDs were created inline by Amina (not pre-created by our script), so they need to be fetched from a sample submission before the bot can be wired.
+- **Private Lessons + Rent-A-Sensei**: still pending from Amina, no follow-up reply on the May 18 status-check comments.
+
+### Ops blocker: GHL token expired, discrepancy bot dead since May 14
+- `discrepancy_check.last_ok_at` in `public.sf_bot_health` = `2026-05-14 06:00:16 UTC` (~5 days stale).
+- Heartbeat guard fired its silence-broken alert 2026-05-18 12:37 UTC.
+- Root cause: the `i9ovjPw1ZDhGB86A` n8n workflow ("GHL Token Manager") that refreshes the Supabase `ghl_tokens.acces_token` every ~12h has stopped firing. Token is now 35+ hours stale (24h TTL).
+- Every bot run since 2026-05-14 06:15 has died on its first GHL call (`401 Invalid JWT`) before reaching the heartbeat write or the email-digest branch, so failures have been silent.
+- **Until the token is refreshed**: every TODO in this doc that depends on the failsafe bot is paused. New-form wiring is scaffolded in DiscrepancyCheck.js but dormant; new field-ID verification via GHL is blocked.
+
+Revival runbook: [bot_revival_runbook.md](./bot_revival_runbook.md).
 
 ---
 
@@ -32,6 +74,7 @@ and lives in Gmail Drafts.
 - [ ] Wire redirect to `https://systemafloyd.com/waiver?email=...&name=...&phone=...`
 - [ ] Add Florida tax and 3% transaction fee at checkout
 - [ ] Add "Featured Event" banner to the Systema Floyd homepage with form embed
+- [ ] After publish, paste the form ID into `DC_FORM_VASILIEV_SEMINAR` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1BvGvrZ05oJolMGwyOm7BO0hZyZlMxv6D_UZviIOdH2Y` (Vladimir Vasiliev Seminar Registration). NOTE: field-ID constants for this form still need to be added once fields are created.
 
 ### Open questions
 
@@ -60,6 +103,10 @@ and lives in Gmail Drafts.
 - [ ] Add form embed to a public-facing page on systemafloyd.com
 - [ ] Wire confirmation email template (auto-responder) matching existing Systema Floyd branding
 - [ ] Add internal notification branch to the master workflow
+
+### After Amina ships
+- [ ] Paste the published form ID into `DC_FORM_PRIVATE_LESSONS` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1XVh9pBOwddr-wCZ4eIxA39htmEdGGGx_WRgDun1C_mU` (Private Lesson Booking)
+- [ ] Run `discrepancyBackfillTracking()` once after the first auto-add so existing rows in the sheet (if any) get linked
 
 ### Open questions for Tom (in the draft email)
 
@@ -118,6 +165,9 @@ and lives in Gmail Drafts.
 - [ ] Add the required banner above the form (in-home babysitting only, 3-hour minimum)
 - [ ] Add the tipping footer below the submit button
 
+### After Amina ships
+- [ ] Paste the published form ID into `DC_FORM_RENT_A_SENSEI` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1zHDDtoHrjM8uoBsBoVffT09BqOZKRKPFfCDQEpi2CgE` (Rent-A-Sensei Booking)
+
 ### Open questions for Tom (in the draft email)
 
 - Travel-fee table: should we publish a rough range up front, or keep fully manual?
@@ -148,6 +198,9 @@ in the Special Add-Ons. Tom's wife Emily runs the work
 - [ ] Implement $300 minimum booking floor validation
 - [ ] Auto-forward order detail to `Balloonsontheave@gmail.com` after submission
 - [ ] Wire waiver redirect with email / name / phone query params
+
+### After Amina ships
+- [ ] Paste the published form ID into `DC_FORM_BALLOONS` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1OZbb_0lmCCSRKZHn0X_UgDkY_Sckbw2qyt2H3gIRDJ8` (Balloons by Balloons on the Ave)
 
 ### Decision pending
 
@@ -222,6 +275,8 @@ These apply to ALL the forms above and should not be done per-form.
 
 - [x] `new_forms_spec.md` updated with live GHL folder + field IDs for Private Lessons, Rent-A-Sensei, and Balloons
 - [x] `forms_todos.md` updated to reflect ClickUp task assignments and email draft to Tom
+- [x] **2026-05-18**: Destination Google Sheet IDs added to each form's section in `new_forms_spec.md`
+- [x] **2026-05-18**: Failsafe wiring scaffolded (dormant) in `DiscrepancyCheck.js` for Private Lessons, Rent-A-Sensei, and Balloons
 - [ ] Once each form goes live, capture the form ID + public URL in `new_forms_spec.md`
 
 ---
