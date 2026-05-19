@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-19T22:32:29Z",
+  "generatedAt": "2026-05-19T22:37:04Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 122,
-    "free": 45,
+    "free": 46,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,10 +213,10 @@
     ]
   },
   "free": {
-    "total": 45,
+    "total": 46,
     "byCampus": {
       "Upper Campus": 29,
-      "Lower Campus": 16,
+      "Lower Campus": 17,
       "Unknown": 0
     },
     "byWeek": {
@@ -229,7 +229,7 @@
       "July 13th-17th": 37,
       "July 20th-24th": 36,
       "July 27th-31st": 35,
-      "August 3rd-7th": 30,
+      "August 3rd-7th": 31,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -282,7 +282,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 22,
-        "Lower Campus": 8,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -306,7 +306,7 @@
       "Northboro Elementary School": 67,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 44,
-      "Roosevelt Elementary School": 41
+      "Roosevelt Elementary School": 42
     },
     "weekOrder": [
       "June 1st-5th",
@@ -324,11 +324,11 @@
     ]
   },
   "combined": {
-    "total": 167,
-    "enrollments": 591,
+    "total": 168,
+    "enrollments": 592,
     "byCampus": {
       "Upper Campus": 75,
-      "Lower Campus": 92,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
@@ -341,7 +341,7 @@
       "July 13th-17th": 53,
       "July 20th-24th": 56,
       "July 27th-31st": 48,
-      "August 3rd-7th": 53,
+      "August 3rd-7th": 54,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -394,7 +394,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 30,
-        "Lower Campus": 23,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -8736,13 +8736,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 30,
-              "Tue": 30,
-              "Wed": 30,
-              "Thu": 30,
-              "Fri": 30
+              "Mon": 31,
+              "Tue": 31,
+              "Wed": 31,
+              "Thu": 31,
+              "Fri": 31
             },
-            "total": 150,
+            "total": 155,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8760,6 +8760,19 @@
               {
                 "name": "Ashton Govan",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Aubree L. Pannell",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -9139,13 +9152,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 31,
+            "Tue": 31,
+            "Wed": 31,
+            "Thu": 31,
+            "Fri": 31
           },
-          "all": 150
+          "all": 155
         }
       },
       "August 10th-14th": {
@@ -22048,6 +22061,30 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "8/3-8/7",
           "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Roosevelt Elementary School"
+        },
+        {
+          "name": "Aubree L. Pannell",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "precious.pannell93@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 10,
           "days": [
             true,
             true,
