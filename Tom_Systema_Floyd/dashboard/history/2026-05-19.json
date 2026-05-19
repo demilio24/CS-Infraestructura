@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-19T22:07:29Z",
+  "generatedAt": "2026-05-19T22:12:38Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 121,
+    "summer": 122,
     "free": 45,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,17 +108,17 @@
     "roster": []
   },
   "summer": {
-    "total": 121,
+    "total": 122,
     "byCampus": {
       "Upper Campus": 46,
-      "Lower Campus": 75,
+      "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 22,
-      "June 8th-12th": 23,
+      "June 8th-12th": 24,
       "June 15th-19th": 29,
-      "June 22nd-26th": 25,
+      "June 22nd-26th": 26,
       "June 29th-July 3rd": 14,
       "July 6th-10th": 20,
       "July 13th-17th": 16,
@@ -137,7 +137,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 12,
-        "Lower Campus": 11,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -147,7 +147,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 6,
-        "Lower Campus": 19,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -324,18 +324,18 @@
     ]
   },
   "combined": {
-    "total": 166,
-    "enrollments": 589,
+    "total": 167,
+    "enrollments": 591,
     "byCampus": {
       "Upper Campus": 75,
-      "Lower Campus": 91,
+      "Lower Campus": 92,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 56,
-      "June 8th-12th": 58,
+      "June 8th-12th": 59,
       "June 15th-19th": 65,
-      "June 22nd-26th": 62,
+      "June 22nd-26th": 63,
       "June 29th-July 3rd": 51,
       "July 6th-10th": 56,
       "July 13th-17th": 53,
@@ -354,7 +354,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 35,
-        "Lower Campus": 23,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -364,7 +364,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 31,
-        "Lower Campus": 31,
+        "Lower Campus": 32,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -895,13 +895,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 15,
-              "Tue": 13,
-              "Wed": 16,
-              "Thu": 16,
-              "Fri": 14
+              "Mon": 16,
+              "Tue": 14,
+              "Wed": 17,
+              "Thu": 17,
+              "Fri": 15
             },
-            "total": 74,
+            "total": 79,
             "students": [
               {
                 "name": "Anna McIntosh",
@@ -918,6 +918,19 @@
               },
               {
                 "name": "Austin Shue",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Camila Retes",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -1118,13 +1131,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 19,
-            "Wed": 22,
-            "Thu": 22,
-            "Fri": 20
+            "Mon": 22,
+            "Tue": 20,
+            "Wed": 23,
+            "Thu": 23,
+            "Fri": 21
           },
-          "all": 104
+          "all": 109
         }
       },
       "June 15th-19th": {
@@ -1714,13 +1727,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 15,
-              "Tue": 17,
-              "Wed": 16,
-              "Thu": 16,
-              "Fri": 15
+              "Mon": 16,
+              "Tue": 18,
+              "Wed": 17,
+              "Thu": 17,
+              "Fri": 16
             },
-            "total": 79,
+            "total": 84,
             "students": [
               {
                 "name": "Ace Godin",
@@ -1769,6 +1782,19 @@
                   "Tue",
                   "Wed",
                   "Thu"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Camila Retes",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
                 ],
                 "lunchRaw": "None"
               },
@@ -1950,13 +1976,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 22,
-            "Wed": 22,
-            "Thu": 22,
-            "Fri": 21
+            "Mon": 22,
+            "Tue": 23,
+            "Wed": 23,
+            "Thu": 23,
+            "Fri": 22
           },
-          "all": 108
+          "all": 113
         }
       },
       "June 29th-July 3rd": {
@@ -10855,6 +10881,29 @@
           "type": "summer"
         },
         {
+          "name": "Camila Retes",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "gonzc91@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Campbell Rathlev",
           "campus": "Lower Campus",
           "lunch": false,
@@ -13751,6 +13800,29 @@
             true,
             true,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Camila Retes",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "gonzc91@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
