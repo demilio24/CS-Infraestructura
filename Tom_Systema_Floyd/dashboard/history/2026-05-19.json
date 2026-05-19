@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-19T15:32:45Z",
+  "generatedAt": "2026-05-19T15:37:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 124,
+    "summer": 125,
     "free": 41,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,20 +108,20 @@
     "roster": []
   },
   "summer": {
-    "total": 124,
+    "total": 125,
     "byCampus": {
       "Upper Campus": 46,
-      "Lower Campus": 78,
+      "Lower Campus": 79,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 22,
       "June 8th-12th": 23,
       "June 15th-19th": 29,
-      "June 22nd-26th": 24,
+      "June 22nd-26th": 25,
       "June 29th-July 3rd": 20,
       "July 6th-10th": 30,
-      "July 13th-17th": 20,
+      "July 13th-17th": 18,
       "July 20th-24th": 19,
       "July 27th-31st": 13,
       "August 3rd-7th": 23,
@@ -147,7 +147,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 6,
-        "Lower Campus": 18,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -162,7 +162,7 @@
       },
       "July 13th-17th": {
         "Upper Campus": 6,
-        "Lower Campus": 14,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -324,21 +324,21 @@
     ]
   },
   "combined": {
-    "total": 165,
-    "enrollments": 569,
+    "total": 166,
+    "enrollments": 568,
     "byCampus": {
       "Upper Campus": 72,
-      "Lower Campus": 93,
+      "Lower Campus": 94,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 52,
       "June 8th-12th": 54,
       "June 15th-19th": 61,
-      "June 22nd-26th": 56,
+      "June 22nd-26th": 57,
       "June 29th-July 3rd": 53,
       "July 6th-10th": 62,
-      "July 13th-17th": 53,
+      "July 13th-17th": 51,
       "July 20th-24th": 52,
       "July 27th-31st": 45,
       "August 3rd-7th": 50,
@@ -364,7 +364,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 27,
-        "Lower Campus": 29,
+        "Lower Campus": 30,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -379,7 +379,7 @@
       },
       "July 13th-17th": {
         "Upper Campus": 29,
-        "Lower Campus": 24,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 20th-24th": {
@@ -1715,12 +1715,12 @@
             "label": "No lunch",
             "byDay": {
               "Mon": 15,
-              "Tue": 16,
-              "Wed": 15,
-              "Thu": 15,
+              "Tue": 17,
+              "Wed": 16,
+              "Thu": 16,
               "Fri": 15
             },
-            "total": 76,
+            "total": 79,
             "students": [
               {
                 "name": "Ace Godin",
@@ -1758,6 +1758,17 @@
                   "Wed",
                   "Thu",
                   "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Beckett Swift",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Tue",
+                  "Wed",
+                  "Thu"
                 ],
                 "lunchRaw": "None"
               },
@@ -1940,12 +1951,12 @@
         "totals": {
           "byDay": {
             "Mon": 21,
-            "Tue": 21,
-            "Wed": 21,
-            "Thu": 21,
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 22,
             "Fri": 21
           },
-          "all": 105
+          "all": 108
         }
       },
       "June 29th-July 3rd": {
@@ -2705,27 +2716,14 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 3,
-              "Tue": 3,
-              "Wed": 3,
-              "Thu": 3,
-              "Fri": 3
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
             },
-            "total": 15,
+            "total": 10,
             "students": [
-              {
-                "name": "Lilly Heyes",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($30/week)"
-              },
               {
                 "name": "Sydney Sonderman",
                 "campus": "Upper Campus",
@@ -2835,7 +2833,7 @@
                 "lunchRaw": "Special (Celis $15/day)"
               },
               {
-                "name": "Theo Trochet",
+                "name": "Theo Trochet Stewart",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -2854,13 +2852,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 11,
-              "Tue": 10,
-              "Wed": 11,
-              "Thu": 10,
-              "Fri": 8
+              "Mon": 10,
+              "Tue": 9,
+              "Wed": 10,
+              "Thu": 9,
+              "Fri": 7
             },
-            "total": 50,
+            "total": 45,
             "students": [
               {
                 "name": "Beckham Fox",
@@ -2909,19 +2907,6 @@
                   "Fri"
                 ],
                 "lunchRaw": null
-              },
-              {
-                "name": "Jayden Vititoe",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
               },
               {
                 "name": "Maci Denney",
@@ -3013,13 +2998,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 18,
-            "Wed": 19,
-            "Thu": 18,
-            "Fri": 16
+            "Mon": 17,
+            "Tue": 16,
+            "Wed": 17,
+            "Thu": 16,
+            "Fri": 14
           },
-          "all": 90
+          "all": 80
         }
       },
       "July 20th-24th": {
@@ -13199,6 +13184,29 @@
           "type": "summer"
         },
         {
+          "name": "Beckett Swift",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Danielle (DeeDee) James is also authorized to pick them up. Out nanny.",
+          "email": "jessicaswift202@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 21,
+          "days": [
+            false,
+            true,
+            true,
+            true,
+            false
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Dawson Denney",
           "campus": "Lower Campus",
           "lunch": false,
@@ -17345,7 +17353,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 15,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -17372,57 +17380,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 17,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jayden Vititoe",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "sherylmendez22@yahoo.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 13,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Lilly Heyes",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($30/week)",
-          "breakfastRaw": "With fruit ($10/day)",
-          "allergy": null,
-          "notes": "Reinstated 2026-05-11 per Tom email (was previously SKIP/cancelled, now active again); 2 days only per week",
-          "email": "priscilla-ten@hotmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "7/13-7/17",
-          "sourceRow": 16,
+          "sourceRow": 14,
           "days": [
             false,
             false,
@@ -17539,7 +17497,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "7/13-7/17",
-          "sourceRow": 14,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -17573,7 +17531,7 @@
           "type": "summer"
         },
         {
-          "name": "Theo Trochet",
+          "name": "Theo Trochet Stewart",
           "campus": "Lower Campus",
           "lunch": true,
           "lunchRaw": "Celis Lunch",
