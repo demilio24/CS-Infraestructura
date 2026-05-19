@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-19T18:19:49Z",
+  "generatedAt": "2026-05-19T18:22:50Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -122,7 +122,7 @@
       "June 29th-July 3rd": 14,
       "July 6th-10th": 20,
       "July 13th-17th": 16,
-      "July 20th-24th": 19,
+      "July 20th-24th": 20,
       "July 27th-31st": 13,
       "August 3rd-7th": 23,
       "August 10th-14th": 14,
@@ -167,7 +167,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 8,
-        "Lower Campus": 11,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 166,
-    "enrollments": 588,
+    "enrollments": 589,
     "byCampus": {
       "Upper Campus": 75,
       "Lower Campus": 91,
@@ -339,7 +339,7 @@
       "June 29th-July 3rd": 51,
       "July 6th-10th": 56,
       "July 13th-17th": 53,
-      "July 20th-24th": 55,
+      "July 20th-24th": 56,
       "July 27th-31st": 48,
       "August 3rd-7th": 53,
       "August 10th-14th": 14,
@@ -384,7 +384,7 @@
       },
       "July 20th-24th": {
         "Upper Campus": 34,
-        "Lower Campus": 21,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 27th-31st": {
@@ -2856,14 +2856,27 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 13,
-              "Tue": 13,
-              "Wed": 13,
-              "Thu": 14,
-              "Fri": 8
+              "Mon": 14,
+              "Tue": 14,
+              "Wed": 14,
+              "Thu": 15,
+              "Fri": 9
             },
-            "total": 61,
+            "total": 66,
             "students": [
+              {
+                "name": "Annabelle Dockus",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
               {
                 "name": "Beckham Fox",
                 "campus": "Lower Campus",
@@ -3042,13 +3055,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 18,
-            "Tue": 17,
-            "Wed": 17,
-            "Thu": 18,
-            "Fri": 12
+            "Mon": 19,
+            "Tue": 18,
+            "Wed": 18,
+            "Thu": 19,
+            "Fri": 13
           },
-          "all": 82
+          "all": 87
         }
       },
       "July 27th-31st": {
@@ -19046,6 +19059,29 @@
         }
       ],
       "lower": [
+        {
+          "name": "Annabelle Dockus",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "jessica.dockus@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
         {
           "name": "Avery McCauley",
           "campus": "Lower Campus",
