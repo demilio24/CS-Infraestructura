@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T17:12:57Z",
+  "generatedAt": "2026-05-20T17:17:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -115,7 +115,7 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 22,
+      "June 1st-5th": 19,
       "June 8th-12th": 24,
       "June 15th-19th": 29,
       "June 22nd-26th": 25,
@@ -132,7 +132,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 9,
-        "Lower Campus": 13,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -325,14 +325,14 @@
   },
   "combined": {
     "total": 169,
-    "enrollments": 592,
+    "enrollments": 589,
     "byCampus": {
       "Upper Campus": 76,
       "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 55,
+      "June 1st-5th": 52,
       "June 8th-12th": 59,
       "June 15th-19th": 65,
       "June 22nd-26th": 62,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 29,
-        "Lower Campus": 26,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -423,27 +423,14 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 3,
-              "Tue": 2,
-              "Wed": 3,
-              "Thu": 2,
-              "Fri": 2
+              "Mon": 1,
+              "Tue": 0,
+              "Wed": 1,
+              "Thu": 0,
+              "Fri": 0
             },
-            "total": 12,
+            "total": 2,
             "students": [
-              {
-                "name": "Georgie Wright",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              },
               {
                 "name": "Taavi Horn",
                 "campus": "Upper Campus",
@@ -451,19 +438,6 @@
                 "days": [
                   "Mon",
                   "Wed"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              },
-              {
-                "name": "Theo Wright",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
                 ],
                 "lunchRaw": "Pizza ($7.75/day)"
               }
@@ -636,29 +610,16 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 9,
-              "Tue": 7,
-              "Wed": 9,
-              "Thu": 9,
-              "Fri": 8
+              "Mon": 8,
+              "Tue": 6,
+              "Wed": 8,
+              "Thu": 8,
+              "Fri": 7
             },
-            "total": 42,
+            "total": 37,
             "students": [
               {
                 "name": "Austin Shue",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Campbell Rathlev",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -771,13 +732,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 18,
-            "Wed": 21,
-            "Thu": 20,
-            "Fri": 19
+            "Mon": 18,
+            "Tue": 15,
+            "Wed": 18,
+            "Thu": 17,
+            "Fri": 16
           },
-          "all": 99
+          "all": 84
         }
       },
       "June 8th-12th": {
@@ -9458,38 +9419,13 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 9,
           "days": [
             true,
             true,
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Campbell Rathlev",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Already has shirts; no shirt charge",
-          "email": "lrathlev@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 6,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         },
@@ -9508,7 +9444,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 15,
+          "sourceRow": 12,
           "days": [
             false,
             false,
@@ -9531,38 +9467,13 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 10,
           "days": [
             true,
             true,
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Georgie Wright",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Only attending June 15-16",
-          "email": "lmw340@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 7,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         },
@@ -9604,7 +9515,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 14,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -9652,7 +9563,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
+          "sourceRow": 6,
           "days": [
             false,
             false,
@@ -9677,7 +9588,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 8,
           "days": [
             false,
             false,
@@ -9702,32 +9613,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Theo Wright",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Only attending June 15-16",
-          "email": "lmw340@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 7,
           "days": [
             false,
             false,
