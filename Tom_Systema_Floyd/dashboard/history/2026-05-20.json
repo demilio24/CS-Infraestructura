@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T16:47:10Z",
+  "generatedAt": "2026-05-20T16:52:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,8 +110,8 @@
   "summer": {
     "total": 121,
     "byCampus": {
-      "Upper Campus": 46,
-      "Lower Campus": 75,
+      "Upper Campus": 45,
+      "Lower Campus": 76,
       "Unknown": 0
     },
     "byWeek": {
@@ -146,8 +146,8 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 6,
-        "Lower Campus": 19,
+        "Upper Campus": 5,
+        "Lower Campus": 20,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -327,8 +327,8 @@
     "total": 169,
     "enrollments": 592,
     "byCampus": {
-      "Upper Campus": 77,
-      "Lower Campus": 92,
+      "Upper Campus": 76,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
@@ -363,8 +363,8 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 31,
-        "Lower Campus": 31,
+        "Upper Campus": 30,
+        "Lower Campus": 32,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -1936,7 +1936,7 @@
               },
               {
                 "name": "Trent Swift",
-                "campus": "Upper Campus",
+                "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
                   "Tue",
@@ -13672,29 +13672,6 @@
             true
           ],
           "type": "summer"
-        },
-        {
-          "name": "Trent Swift",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Danielle (DeeDee) James is also authorized to pick them up. Out nanny.",
-          "email": "jessicaswift202@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceTabName": "6/22-6/26",
-          "sourceRow": 7,
-          "days": [
-            false,
-            true,
-            true,
-            true,
-            false
-          ],
-          "type": "summer"
         }
       ],
       "lower": [
@@ -14107,6 +14084,29 @@
             false,
             false,
             false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Trent Swift",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Danielle (DeeDee) James is also authorized to pick them up. Out nanny.",
+          "email": "jessicaswift202@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 22,
+          "days": [
+            false,
+            true,
+            true,
+            true,
             false
           ],
           "type": "summer"
