@@ -245,7 +245,17 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .bp-balloon{padding:24px}
   .bp-balloon-grid{grid-template-columns:1fr;gap:20px}
   .bp-balloon-policy ul{grid-template-columns:1fr}
+  .bp-balloon-form{margin-top:24px;padding-top:24px}
+  .bp-balloon-form-head h4{font-size:16px}
 }
+
+/* Quote request form, sub-section of the balloon card */
+.bp-balloon-form{margin-top:32px;padding-top:32px;border-top:1px solid var(--sf-border)}
+.bp-balloon-form-head{margin-bottom:20px}
+.bp-balloon-form-head h4{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sf-ink);margin:0 0 8px}
+.bp-balloon-form-head p{color:var(--sf-ink-60);font-size:14px;line-height:1.55;margin:0;max-width:640px}
+.bp-balloon-form-frame{background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:12px;padding:8px;overflow:hidden}
+.bp-balloon-form-frame iframe{width:100%;min-height:2000px;border:none;display:block;border-radius:6px;background:#fff}
 
 /* Disclosures */
 .bp-disclosures{max-width:760px;margin:24px auto 0;padding:18px 20px;background:#fff;border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-400);border-radius:var(--radius-sm);font-size:13px;color:var(--sf-ink-50);line-height:1.6}
@@ -632,6 +642,32 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <li><span>Minimum booking</span><span class="price">$300</span></li>
         </ul>
       </div>
+
+      <!-- Quote request form (live, ships directly to Emily) -->
+      <div class="bp-balloon-form anim">
+        <div class="bp-balloon-form-head">
+          <h4>Request a Quote</h4>
+          <p>Pick your pieces below and Emily will reach back within 48 hours to confirm your design and final pricing. Minimum booking is $300.</p>
+        </div>
+        <div class="bp-balloon-form-frame">
+          <iframe
+            src="https://link.nilsdigital.com/widget/form/SvXq0KmUb1Ct2AR2t8Yl"
+            id="inline-SvXq0KmUb1Ct2AR2t8Yl"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="Balloons by Balloons on the Ave"
+            data-height="1999"
+            data-layout-iframe-id="inline-SvXq0KmUb1Ct2AR2t8Yl"
+            data-form-id="SvXq0KmUb1Ct2AR2t8Yl"
+            title="Balloons by Balloons on the Ave"
+          ></iframe>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -835,5 +871,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   document.getElementById('yr').textContent = new Date().getFullYear();
 })();
 </script>
+
+<!-- GHL form embed runtime (powers the Balloons quote-request iframe in #balloons) -->
+<script src="https://link.nilsdigital.com/js/form_embed.js"></script>
 </body>
 </html>
