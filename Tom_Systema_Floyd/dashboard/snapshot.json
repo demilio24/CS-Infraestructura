@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T17:17:05Z",
+  "generatedAt": "2026-05-20T17:22:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -115,7 +115,7 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 19,
+      "June 1st-5th": 18,
       "June 8th-12th": 24,
       "June 15th-19th": 29,
       "June 22nd-26th": 25,
@@ -132,7 +132,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 9,
-        "Lower Campus": 10,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -325,14 +325,14 @@
   },
   "combined": {
     "total": 169,
-    "enrollments": 589,
+    "enrollments": 588,
     "byCampus": {
       "Upper Campus": 76,
       "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 52,
+      "June 1st-5th": 51,
       "June 8th-12th": 59,
       "June 15th-19th": 65,
       "June 22nd-26th": 62,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 29,
-        "Lower Campus": 23,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -578,34 +578,6 @@
             ]
           },
           {
-            "category": "celis",
-            "subtypeKey": "celis-other||",
-            "label": "Celis: specialty (unspecified)",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Luka DeAraujo",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Celis Lunch"
-              }
-            ]
-          },
-          {
             "category": "none",
             "subtypeKey": "none",
             "label": "No lunch",
@@ -732,13 +704,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 18,
-            "Tue": 15,
-            "Wed": 18,
-            "Thu": 17,
-            "Fri": 16
+            "Mon": 17,
+            "Tue": 14,
+            "Wed": 17,
+            "Thu": 16,
+            "Fri": 15
           },
-          "all": 84
+          "all": 79
         }
       },
       "June 8th-12th": {
@@ -9419,7 +9391,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -9444,7 +9416,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             false,
             false,
@@ -9467,7 +9439,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -9515,7 +9487,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9564,31 +9536,6 @@
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/1-6/5",
           "sourceRow": 6,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Luka DeAraujo",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Celis Lunch",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Potty trained",
-          "email": "till.amanda@yahoo.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
           "days": [
             false,
             false,
