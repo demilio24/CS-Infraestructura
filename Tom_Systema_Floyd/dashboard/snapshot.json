@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T17:32:14Z",
+  "generatedAt": "2026-05-20T17:37:15Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -117,7 +117,7 @@
     "byWeek": {
       "June 1st-5th": 18,
       "June 8th-12th": 24,
-      "June 15th-19th": 21,
+      "June 15th-19th": 20,
       "June 22nd-26th": 25,
       "June 29th-July 3rd": 14,
       "July 6th-10th": 20,
@@ -142,7 +142,7 @@
       },
       "June 15th-19th": {
         "Upper Campus": 3,
-        "Lower Campus": 18,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "June 22nd-26th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 166,
-    "enrollments": 580,
+    "enrollments": 579,
     "byCampus": {
       "Upper Campus": 76,
       "Lower Campus": 90,
@@ -334,7 +334,7 @@
     "byWeek": {
       "June 1st-5th": 51,
       "June 8th-12th": 59,
-      "June 15th-19th": 57,
+      "June 15th-19th": 56,
       "June 22nd-26th": 62,
       "June 29th-July 3rd": 51,
       "July 6th-10th": 56,
@@ -359,7 +359,7 @@
       },
       "June 15th-19th": {
         "Upper Campus": 26,
-        "Lower Campus": 31,
+        "Lower Campus": 30,
         "Unknown": 0
       },
       "June 22nd-26th": {
@@ -1238,13 +1238,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 11,
-              "Tue": 11,
-              "Wed": 11,
-              "Thu": 11,
-              "Fri": 11
+              "Mon": 10,
+              "Tue": 10,
+              "Wed": 10,
+              "Thu": 10,
+              "Fri": 10
             },
-            "total": 55,
+            "total": 50,
             "students": [
               {
                 "name": "Austin Shue",
@@ -1346,19 +1346,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Owen Grant",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Ozzie White",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -1410,13 +1397,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 19,
-            "Wed": 17,
-            "Thu": 17,
-            "Fri": 17
+            "Mon": 18,
+            "Tue": 18,
+            "Wed": 16,
+            "Thu": 16,
+            "Fri": 16
           },
-          "all": 89
+          "all": 84
         }
       },
       "June 22nd-26th": {
@@ -12057,31 +12044,6 @@
             true,
             true,
             true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Owen Grant",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "ggrant0508@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "6/15-6/19",
-          "sourceRow": 19,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
           ],
           "type": "summer"
         },
