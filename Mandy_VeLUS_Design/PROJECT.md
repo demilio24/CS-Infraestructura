@@ -5,7 +5,8 @@ This folder holds the website for VELUS Interiors, Mandy Velus's luxury interior
 
 ## Architecture
 - **Canonical file:** `v5.html` (single-page, in-page section routing via `[data-page]` + `.page.active`)
-- **Version history:** `v1.html` (early multi-section), `v2.html`, `v3.html`, `v4.html` (statement-led), `v5.html` (current — page-router pattern with Collections viewer)
+- **Google Ads landing pages:** `v1.html` (control) and `v2.html` (split-test variant). Both share identical visual branding; only the conversion mechanics differ — see "Split-test variants" below. Both are `noindex` and used for paid traffic only, redirecting on submit to `https://velusinteriors.com/thank-you`.
+- **Version history:** `v1.html` (early multi-section, now repurposed as A/B control), `v2.html` (A/B variant built 2026-05-20), `v5.html` (current organic canonical, page-router pattern with Collections viewer). The previous v2/v3/v4 drafts were deleted 2026-05-20; the new `v2.html` is a different artifact built for split testing.
 - **Other pages:** `thankyou.html` (post-form confirmation)
 - **Assets:**
   - `Fonts/` — Canela family (serif display) + Neue Haas Grotesk family (body/UI), self-hosted `.otf` trials, plus Google `Inter` + `Playfair Display` fallbacks
@@ -38,9 +39,46 @@ Non-negotiable rules, established through repeat feedback. Read before editing.
 - **`.fu` phantom layout gaps.** When spacing looks asymmetric but measurements say equal, suspect a `.fu` element sitting at `opacity:0` while still consuming layout space. Universal fix: keep `.fu { opacity:1 }` as the default so layout is stable regardless of observer timing (`.in` becomes a no-op).
 - **GHL embed:** When returning a public link, always wrap the GitHub Pages URL in the iframe embed template from the project CLAUDE.md — never a bare URL.
 
+## Form submission contract (v1 + future split-test variants)
+These pages are **Google Ads landing pages only** — every contact created from a form here must be attributable to that source.
+
+- **GHL contact tags:** every upsert MUST include `'google-ads'` plus a per-variant tag (`'site-v1'`, `'site-v2'`, …). Tag array lives in the upsert payload, e.g. `tags: ['site-v1', 'google-ads']`.
+- **Post-submit redirect:** on final-slide success, redirect to `https://velusinteriors.com/thank-you` via `window.location.href`. Do NOT show an inline thank-you note. The legacy inline "Thank you for sharing your project with us…" message has been removed from v1 and must not be reintroduced.
+- **Error handling stays inline:** on upsert/update failure, keep the existing inline error note + mailto fallback (`mandy@velusinteriors.com`). Don't redirect on error.
+- **GHL credentials (v1 + v2):** `LOCATION_ID = dYpRMKt41LMBrYEUoeLG`, PIT `pit-def64e41-d4d8-4838-b956-c7fd30031cd2`, API version `2021-07-28`. Both variants reuse the same location/token; differentiation is by tag only.
+
+## Split-test variants (v1 vs v2)
+Both files share identical typography, palette, sections, copy, and animation system. Only the conversion mechanics differ.
+
+**v1 (control):** 3-slide hero inquiry form with 11 fields total (`firstName`, `email`, `phone`, `location`, `project_type`, `project_stage`, `design_intent`, `design_direction`, `lifestyle`, `prior_designer`, `estimated_budget` required on slide 3). Six section CTAs across the page all scroll back to the hero form. No mobile sticky CTA. No proof above the form. Tag: `['site-v1', 'google-ads']`.
+
+**v2 (variant, built 2026-05-20):** 1-slide hero form with 4 fields (`firstName`, `email`, `project_type`, `design_intent`) — all required, no phone/location/budget. Editorial italic pull-quote (Nicole / Lincoln Park) sits above the form lede inside `.hero-form-card`, separated by a hairline rule. Reassurance microcopy "No obligation. We reply within two business days." sits under the submit. A duplicated slim form (same 4 fields, brand-styled for the taupe `.cta-section` background) replaces the final `Start Your Project` button. Hairline mobile sticky CTA `.v2-mobile-sticky` (Begin a Project →, hairline top border, safe-area-aware bottom padding) reveals on `max-width: 768px`. Page is `noindex,nofollow`. Tag: `['site-v2', 'google-ads']`. Submission handler `v2SubmitForm(form)` works for both `#v2InquiryForm` and `#v2CtaForm` and posts to the same GHL `/contacts/upsert` endpoint.
+
+**Hypothesis being tested:** the leak is form length + form coldness, not the visual page. The 4-field form, the proof-above-form, the duplicated bottom form, and the always-reachable mobile CTA together should lift contact submissions without changing the dainty editorial brand.
+
 ## Open threads
-(none — v5 is current; no TODO/FIXME markers in v5.html)
+- **A/B traffic routing not yet wired.** v2.html is built and live-ready but Google Ads still needs to be configured to split traffic 50/50 between v1.html and v2.html (or whatever ratio Mandy wants). Until then v2 sees zero traffic.
+- **Microsoft Clarity data not yet reviewed.** v2's hypothesis was built on conversion-mechanics intuition, not behavioral data. Once both variants accumulate sessions, pull Clarity heatmaps for each and compare scroll depth, form-field abandonment, and rage clicks. Next iteration of v2 should be data-driven.
+- **No analytics differentiation between v1 and v2.** The only thing distinguishing submissions is the GHL contact tag (`site-v1` vs `site-v2`). Confirm Mandy can pull a tag-segmented report in GHL to compare conversion rates, or wire a lightweight pageview ping (GA4 / Clarity custom event) so impressions are countable per variant — without impressions, conversion *rate* can't be computed, only raw counts.
 
 ## Changelog
+## 2026-05-20 — v2 CTA-section form: card-styled, reassurance removed
+Tightened the v2 CTA-section form per Mandy's feedback. (a) Removed the "We reply within two business days." microcopy under the submit button so the form is just the form. (b) Restyled the form so it unmistakably reads as a fillable form on the taupe `.cta-section` background: wrapped in a warm-off-white card (`background: var(--bg)`, hairline border, soft shadow, 28px padding), and replaced the editorial bottom-border-only inputs with white-filled boxed inputs (1px hairline border, 12×14px padding, non-italic placeholders, focus ring). The hero form remains untouched — its editorial bottom-border input style still belongs in the `.hero-form-card` context. Brand language preserved: same warm-off-white, same choc-tinted borders, hairline weight, no color buttons.
+
+## 2026-05-20 — Built v2.html (A/B variant)
+Created `v2.html` as the split-test variant against `v1.html`. Cloned from v1 to preserve every brand token (Canela display, Neue Haas body, warm off-white/ink/choc palette, hairline CTAs, editorial restraint), then made four surgical changes targeting conversion mechanics:
+1. **Hero form: 3 slides → 1 slide, 11 fields → 4 fields.** Kept Name, Email, Project type, and a "Tell us about your project" textarea. Dropped Phone, Location, Project stage, Design direction, Lifestyle, Prior designer, and Budget. Submit copy is "Begin Your Project" with a centered reassurance line "No obligation. We reply within two business days." underneath.
+2. **Editorial pull-quote above the form.** Nicole / Lincoln Park testimonial styled as an italic Canela pull-quote inside the same `.hero-form-card`, separated by a hairline rule. Gives a cold form a trust anchor before any field is touched.
+3. **Slim form embedded in the final CTA section.** Replaced the lone "Start Your Project" gold button with the same 4-field form, styled for the taupe `.cta-section` background (choc-tinted borders/placeholders). Users who scroll to the bottom can convert without travelling back to the hero.
+4. **Mobile sticky CTA.** Hairline `.v2-mobile-sticky` link bar at viewport-bottom on `max-width: 768px`, with `safe-area-inset-bottom` padding and a 56px body padding-bottom reservation so it never overlaps content. Says "Begin a Project →" in the same letter-spaced caps as every other CTA.
+
+Submission JS rewritten as `v2SubmitForm(form)` — a single upsert (no multi-slide state), tags `['site-v2', 'google-ads']`, redirects to `https://velusinteriors.com/thank-you` on success, inline error + mailto fallback on failure. Same GHL location/PIT as v1. Page is `noindex,nofollow` since it's paid-traffic only. Visual QA passed on desktop (1440) and mobile (390) — pull-quote, CTA-section form, and mobile sticky all render as intended.
+
+## 2026-05-20 — Google Ads form contract + v2 split-test plan
+v1.html form now (a) tags every GHL contact with both `site-v1` and `google-ads`, and (b) redirects to `https://velusinteriors.com/thank-you` on final-slide success instead of showing the inline thank-you note. These pages are Google Ads landing pages only, so the tag is unconditional. Documented the contract under a new "Form submission contract" section. Added v2 split-test plan (4-field form, hero pull-quote, duplicate form in final CTA, mobile sticky CTA, brand unchanged) to Open threads — not yet built.
+
+## 2026-05-20 — Deleted v2/v3/v4 historical drafts
+Removed `v2.html`, `v3.html`, `v4.html` at user request. v1.html kept as the only pre-v5 reference; v5.html remains canonical. Updated Architecture/Version history to reflect the trimmed set.
+
 ## 2026-05-17 — PROJECT.md seeded
 Initial seed from existing folder state. v5.html confirmed as canonical (last touched 2026-05-17). Captured token system, collections viewer pattern, and the seven non-negotiable conventions accumulated through Mandy revision feedback.

@@ -1859,7 +1859,7 @@
         const firstName = parts[0], lastName = parts.slice(1).join(' ') || '';
         const customFields = [];
         if (location) customFields.push({ key: V1_GHL_FIELD_MAP.location, field_value: location });
-        const payload = { locationId: V1_GHL_LOCATION_ID, firstName, lastName, email, ...(phone ? { phone } : {}), customFields, tags: ['site-v1'] };
+        const payload = { locationId: V1_GHL_LOCATION_ID, firstName, lastName, email, ...(phone ? { phone } : {}), customFields, tags: ['site-v1', 'google-ads'] };
         const res = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
           method: 'POST',
           headers: { 'Authorization': 'Bearer ' + V1_GHL_TOKEN, 'Version': V1_GHL_VERSION, 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1923,11 +1923,7 @@
         btn.disabled = true; btn.textContent = 'Sending...';
         try {
           await v1UpdateContact(fd, V1_SLIDE_KEYS[2]);
-          note.textContent = 'Thank you for sharing your project with us. Your inquiry has been received. We will review and respond with clarity and direction.';
-          note.classList.remove('error');
-          activeSlide.style.display = 'none';
-          document.querySelector('.v1-inq-progress').style.display = 'none';
-          btn.textContent = 'Sent';
+          window.location.href = 'https://velusinteriors.com/thank-you';
         } catch (err) {
           console.error(err);
           note.textContent = 'Something went wrong. Please email mandy@velusinteriors.com directly.';
