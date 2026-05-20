@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-20T18:52:13Z",
+  "generatedAt": "2026-05-20T18:57:19Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 116,
-    "free": 48,
+    "free": 49,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,10 +213,10 @@
     ]
   },
   "free": {
-    "total": 48,
+    "total": 49,
     "byCampus": {
       "Upper Campus": 31,
-      "Lower Campus": 17,
+      "Lower Campus": 18,
       "Unknown": 0
     },
     "byWeek": {
@@ -229,7 +229,7 @@
       "July 13th-17th": 37,
       "July 20th-24th": 36,
       "July 27th-31st": 35,
-      "August 3rd-7th": 33,
+      "August 3rd-7th": 34,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -282,7 +282,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 24,
-        "Lower Campus": 9,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 146,
+      "Westward Elementary School": 147,
       "Northboro Elementary School": 67,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
@@ -324,11 +324,11 @@
     ]
   },
   "combined": {
-    "total": 164,
-    "enrollments": 573,
+    "total": 165,
+    "enrollments": 574,
     "byCampus": {
       "Upper Campus": 76,
-      "Lower Campus": 88,
+      "Lower Campus": 89,
       "Unknown": 0
     },
     "byWeek": {
@@ -341,7 +341,7 @@
       "July 13th-17th": 53,
       "July 20th-24th": 56,
       "July 27th-31st": 48,
-      "August 3rd-7th": 56,
+      "August 3rd-7th": 57,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -394,7 +394,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 32,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -8418,17 +8418,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 33,
-              "Tue": 33,
-              "Wed": 33,
-              "Thu": 33,
-              "Fri": 33
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 165,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8860,13 +8873,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 33,
-            "Tue": 33,
-            "Wed": 33,
-            "Thu": 33,
-            "Fri": 33
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 165
+          "all": 170
         }
       },
       "August 10th-14th": {
@@ -21234,6 +21247,30 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 11,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Ashton Govan",
