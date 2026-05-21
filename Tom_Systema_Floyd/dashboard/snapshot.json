@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-21T14:07:15Z",
+  "generatedAt": "2026-05-21T14:12:51Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 118,
+    "summer": 119,
     "free": 49,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,15 +108,15 @@
     "roster": []
   },
   "summer": {
-    "total": 118,
+    "total": 119,
     "byCampus": {
-      "Upper Campus": 45,
+      "Upper Campus": 46,
       "Lower Campus": 73,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 20,
-      "June 8th-12th": 24,
+      "June 8th-12th": 25,
       "June 15th-19th": 20,
       "June 22nd-26th": 19,
       "June 29th-July 3rd": 14,
@@ -136,7 +136,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -324,16 +324,16 @@
     ]
   },
   "combined": {
-    "total": 167,
-    "enrollments": 575,
+    "total": 168,
+    "enrollments": 576,
     "byCampus": {
-      "Upper Campus": 76,
+      "Upper Campus": 77,
       "Lower Campus": 91,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 53,
-      "June 8th-12th": 59,
+      "June 8th-12th": 60,
       "June 15th-19th": 56,
       "June 22nd-26th": 56,
       "June 29th-July 3rd": 51,
@@ -353,7 +353,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 35,
+        "Upper Campus": 36,
         "Lower Campus": 24,
         "Unknown": 0
       },
@@ -746,17 +746,30 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 5,
-              "Tue": 5,
-              "Wed": 5,
-              "Thu": 5,
-              "Fri": 5
+              "Mon": 6,
+              "Tue": 6,
+              "Wed": 6,
+              "Thu": 6,
+              "Fri": 6
             },
-            "total": 25,
+            "total": 30,
             "students": [
               {
                 "name": "Bennett Carter",
                 "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Cyrus bar-or",
+                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -1090,13 +1103,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 20,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 21
+            "Mon": 23,
+            "Tue": 21,
+            "Wed": 24,
+            "Thu": 24,
+            "Fri": 22
           },
-          "all": 109
+          "all": 114
         }
       },
       "June 15th-19th": {
@@ -10262,6 +10275,29 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Cyrus bar-or",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Week of the 15th please",
+          "email": "alexandra.berkley@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
