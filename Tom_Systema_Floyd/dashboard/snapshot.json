@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T02:37:02Z",
+  "generatedAt": "2026-05-21T02:42:06Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -124,7 +124,7 @@
       "July 13th-17th": 16,
       "July 20th-24th": 20,
       "July 27th-31st": 13,
-      "August 3rd-7th": 23,
+      "August 3rd-7th": 22,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -177,7 +177,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 8,
-        "Lower Campus": 15,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 167,
-    "enrollments": 576,
+    "enrollments": 575,
     "byCampus": {
       "Upper Campus": 76,
       "Lower Campus": 91,
@@ -341,7 +341,7 @@
       "July 13th-17th": 53,
       "July 20th-24th": 56,
       "July 27th-31st": 48,
-      "August 3rd-7th": 57,
+      "August 3rd-7th": 56,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -394,7 +394,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 32,
-        "Lower Campus": 25,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -3267,13 +3267,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 11,
-              "Tue": 11,
-              "Wed": 11,
-              "Thu": 11,
-              "Fri": 11
+              "Mon": 10,
+              "Tue": 10,
+              "Wed": 10,
+              "Thu": 10,
+              "Fri": 10
             },
-            "total": 55,
+            "total": 50,
             "students": [
               {
                 "name": "Carter Grant",
@@ -3367,19 +3367,6 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Owen Grant",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Parker Faulkner",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -3423,13 +3410,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 22
+            "Mon": 21,
+            "Tue": 22,
+            "Wed": 22,
+            "Thu": 22,
+            "Fri": 21
           },
-          "all": 113
+          "all": 108
         }
       },
       "August 10th-14th": {
@@ -20992,7 +20979,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -21040,7 +21027,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -21174,31 +21161,6 @@
           "type": "summer"
         },
         {
-          "name": "Owen Grant",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": null,
-          "email": "ggrant0508@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceTabName": "8/3-8/7",
-          "sourceRow": 12,
-          "days": [
-            false,
-            false,
-            false,
-            false,
-            false
-          ],
-          "type": "summer"
-        },
-        {
           "name": "Parker Faulkner",
           "campus": "Lower Campus",
           "lunch": false,
@@ -21211,7 +21173,7 @@
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -21236,7 +21198,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             false,
             false,
@@ -22773,7 +22735,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             false,
             false,
@@ -22823,7 +22785,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             false,
             false,
@@ -22848,7 +22810,7 @@
           ],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "8/17-8/21",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             false,
             false,
