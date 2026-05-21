@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T19:37:07Z",
+  "generatedAt": "2026-05-21T19:42:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -221,10 +221,10 @@
     },
     "byWeek": {
       "June 1st-5th": 34,
-      "June 8th-12th": 36,
-      "June 15th-19th": 37,
-      "June 22nd-26th": 38,
-      "June 29th-July 3rd": 38,
+      "June 8th-12th": 35,
+      "June 15th-19th": 36,
+      "June 22nd-26th": 36,
+      "June 29th-July 3rd": 37,
       "July 6th-10th": 37,
       "July 13th-17th": 38,
       "July 20th-24th": 37,
@@ -241,22 +241,22 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 23,
+        "Upper Campus": 22,
         "Lower Campus": 13,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 23,
+        "Upper Campus": 22,
         "Lower Campus": 14,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 25,
+        "Upper Campus": 23,
         "Lower Campus": 13,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 26,
+        "Upper Campus": 25,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -302,11 +302,11 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 156,
+      "Westward Elementary School": 155,
       "Northboro Elementary School": 67,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
-      "Roosevelt Elementary School": 43
+      "Roosevelt Elementary School": 39
     },
     "weekOrder": [
       "June 1st-5th",
@@ -325,7 +325,7 @@
   },
   "combined": {
     "total": 168,
-    "enrollments": 585,
+    "enrollments": 580,
     "byCampus": {
       "Upper Campus": 77,
       "Lower Campus": 91,
@@ -333,10 +333,10 @@
     },
     "byWeek": {
       "June 1st-5th": 54,
-      "June 8th-12th": 60,
-      "June 15th-19th": 58,
-      "June 22nd-26th": 57,
-      "June 29th-July 3rd": 52,
+      "June 8th-12th": 59,
+      "June 15th-19th": 57,
+      "June 22nd-26th": 55,
+      "June 29th-July 3rd": 51,
       "July 6th-10th": 57,
       "July 13th-17th": 54,
       "July 20th-24th": 57,
@@ -353,22 +353,22 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 35,
+        "Upper Campus": 34,
         "Lower Campus": 25,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 27,
+        "Upper Campus": 26,
         "Lower Campus": 31,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 30,
+        "Upper Campus": 28,
         "Lower Campus": 27,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 31,
+        "Upper Campus": 30,
         "Lower Campus": 21,
         "Unknown": 0
       },
@@ -4467,13 +4467,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4529,19 +4529,6 @@
               },
               {
                 "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -4948,13 +4935,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "June 15th-19th": {
@@ -4964,13 +4951,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 37,
-              "Tue": 37,
-              "Wed": 37,
-              "Thu": 37,
-              "Fri": 37
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 185,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5013,19 +5000,6 @@
               },
               {
                 "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -5458,13 +5432,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 37,
-            "Tue": 37,
-            "Wed": 37,
-            "Thu": 37,
-            "Fri": 37
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 185
+          "all": 180
         }
       },
       "June 22nd-26th": {
@@ -5474,13 +5448,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 38,
-              "Tue": 38,
-              "Wed": 38,
-              "Thu": 38,
-              "Fri": 38
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 190,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5523,19 +5497,6 @@
               },
               {
                 "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -5962,32 +5923,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ziona Antoine",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 38,
-            "Tue": 38,
-            "Wed": 38,
-            "Thu": 38,
-            "Fri": 38
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 190
+          "all": 180
         }
       },
       "June 29th-July 3rd": {
@@ -5997,13 +5945,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 38,
-              "Tue": 38,
-              "Wed": 38,
-              "Thu": 38,
-              "Fri": 38
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 190,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6046,19 +5994,6 @@
               },
               {
                 "name": "Autumn Willow Richardson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ce’Yanna Adams",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -6504,13 +6439,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 38,
-            "Tue": 38,
-            "Wed": 38,
-            "Thu": 38,
-            "Fri": 38
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 190
+          "all": 185
         }
       },
       "July 6th-10th": {
@@ -10959,7 +10894,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -11033,7 +10968,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -11069,30 +11004,6 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Ce’Yanna Adams",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "alexanderm2005@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 6,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
           "name": "Chance Sandy",
           "campus": "Upper Campus",
           "lunch": true,
@@ -11105,7 +11016,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -11129,7 +11040,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -11153,7 +11064,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             true,
             true,
@@ -11177,7 +11088,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -11201,7 +11112,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -11225,7 +11136,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -11275,7 +11186,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -11299,7 +11210,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -11375,7 +11286,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -11399,7 +11310,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -11475,7 +11386,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -11525,7 +11436,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -11601,7 +11512,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -11625,7 +11536,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -11675,7 +11586,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -11823,7 +11734,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 31,
+          "sourceRow": 30,
           "days": [
             true,
             true,
@@ -12356,7 +12267,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -12404,7 +12315,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -12440,30 +12351,6 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Ce’Yanna Adams",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "alexanderm2005@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceTabName": "6/15-6/19",
-          "sourceRow": 6,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
           "name": "Chance Sandy",
           "campus": "Upper Campus",
           "lunch": true,
@@ -12476,7 +12363,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -12500,7 +12387,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -12524,7 +12411,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             true,
             true,
@@ -12548,7 +12435,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -12572,7 +12459,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -12596,7 +12483,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -12620,7 +12507,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -12668,7 +12555,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -12740,7 +12627,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -12764,7 +12651,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -12836,7 +12723,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -12884,7 +12771,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -13004,7 +12891,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -13028,7 +12915,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -13076,7 +12963,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -13220,7 +13107,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 34,
+          "sourceRow": 33,
           "days": [
             true,
             true,
@@ -13703,7 +13590,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -13751,7 +13638,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -13787,30 +13674,6 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Ce’Yanna Adams",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "alexanderm2005@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceTabName": "6/22-6/26",
-          "sourceRow": 6,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
           "name": "Chance Sandy",
           "campus": "Upper Campus",
           "lunch": true,
@@ -13823,7 +13686,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -13847,7 +13710,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 24,
+          "sourceRow": 23,
           "days": [
             true,
             true,
@@ -13871,7 +13734,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 25,
+          "sourceRow": 24,
           "days": [
             true,
             true,
@@ -13895,7 +13758,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -13919,7 +13782,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -13943,7 +13806,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             true,
             true,
@@ -13967,7 +13830,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -14015,7 +13878,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -14039,7 +13902,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -14111,7 +13974,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -14135,7 +13998,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -14207,7 +14070,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -14255,7 +14118,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -14351,7 +14214,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -14375,7 +14238,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -14399,7 +14262,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -14447,7 +14310,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -14568,30 +14431,6 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/22-6/26",
           "sourceRow": 12,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Westward Elementary School"
-        },
-        {
-          "name": "Ziona Antoine",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "antoineophelia@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceTabName": "6/22-6/26",
-          "sourceRow": 31,
           "days": [
             true,
             true,
@@ -14957,7 +14796,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 22,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -15005,7 +14844,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -15041,30 +14880,6 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Ce’Yanna Adams",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "alexanderm2005@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 6,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
           "name": "Chance Sandy",
           "campus": "Upper Campus",
           "lunch": true,
@@ -15077,7 +14892,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -15101,7 +14916,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 25,
+          "sourceRow": 24,
           "days": [
             true,
             true,
@@ -15125,7 +14940,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 26,
+          "sourceRow": 25,
           "days": [
             true,
             true,
@@ -15149,7 +14964,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -15173,7 +14988,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -15197,7 +15012,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 24,
+          "sourceRow": 23,
           "days": [
             true,
             true,
@@ -15221,7 +15036,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -15269,7 +15084,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -15293,7 +15108,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -15317,7 +15132,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -15389,7 +15204,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -15413,7 +15228,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -15461,7 +15276,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -15485,7 +15300,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -15581,7 +15396,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -15629,7 +15444,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 23,
+          "sourceRow": 22,
           "days": [
             true,
             true,
@@ -15653,7 +15468,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -15701,7 +15516,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -15845,7 +15660,7 @@
           "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 32,
+          "sourceRow": 31,
           "days": [
             true,
             true,
