@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T18:52:10Z",
+  "generatedAt": "2026-05-21T18:57:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -1221,20 +1221,19 @@
             "subtypeKey": "celis-melt-belt|Chips (Deep River)|Smooth Moves: Very Berry",
             "label": "Celis: Melt Belt grilled cheese + Chips (Deep River) + Smooth Moves: Very Berry",
             "byDay": {
-              "Mon": 1,
+              "Mon": 0,
               "Tue": 1,
               "Wed": 1,
               "Thu": 1,
               "Fri": 1
             },
-            "total": 5,
+            "total": 4,
             "students": [
               {
                 "name": "Wells Corbat",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
-                  "Mon",
                   "Tue",
                   "Wed",
                   "Thu",
@@ -1436,13 +1435,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
+            "Mon": 18,
             "Tue": 19,
             "Wed": 17,
             "Thu": 17,
             "Fri": 17
           },
-          "all": 89
+          "all": 88
         }
       },
       "June 22nd-26th": {
@@ -12326,21 +12325,19 @@
           "lunchRaw": "Special (Celis $15/day) Sandwich: Melt Belt- Grilled Cheese Sides: Chips (Deep River) Smoothie: Smooth Moves - Very Berry Berry",
           "breakfastRaw": "None",
           "allergy": null,
-          "notes": "Tues, Wed, Thurs for each week we have registered. Please alternate the lunch from Celis so he gets both options for the sandwich, side, and smoothies and not the same for all 6-days. Thank you!",
+          "notes": "Tues, Wed, Thurs and Friday",
           "email": "epompea@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Days attending"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
           "sourceTabName": "6/15-6/19",
           "sourceRow": 11,
           "days": [
             false,
-            false,
-            false,
-            false,
-            false
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         }
