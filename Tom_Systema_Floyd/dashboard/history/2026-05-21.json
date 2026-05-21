@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T17:22:27Z",
+  "generatedAt": "2026-05-21T17:27:20Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -220,15 +220,15 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 33,
-      "June 8th-12th": 35,
-      "June 15th-19th": 36,
-      "June 22nd-26th": 37,
-      "June 29th-July 3rd": 37,
-      "July 6th-10th": 36,
-      "July 13th-17th": 37,
-      "July 20th-24th": 36,
-      "July 27th-31st": 35,
+      "June 1st-5th": 34,
+      "June 8th-12th": 36,
+      "June 15th-19th": 37,
+      "June 22nd-26th": 38,
+      "June 29th-July 3rd": 38,
+      "July 6th-10th": 37,
+      "July 13th-17th": 38,
+      "July 20th-24th": 37,
+      "July 27th-31st": 36,
       "August 3rd-7th": 34,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
@@ -237,47 +237,47 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 20,
-        "Lower Campus": 13,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 23,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 23,
-        "Lower Campus": 13,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 25,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 26,
-        "Lower Campus": 11,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 26,
-        "Lower Campus": 10,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 26,
-        "Lower Campus": 11,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "July 20th-24th": {
         "Upper Campus": 26,
-        "Lower Campus": 10,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "July 27th-31st": {
         "Upper Campus": 25,
-        "Lower Campus": 10,
+        "Lower Campus": 11,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 147,
+      "Westward Elementary School": 156,
       "Northboro Elementary School": 67,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
@@ -325,22 +325,22 @@
   },
   "combined": {
     "total": 168,
-    "enrollments": 576,
+    "enrollments": 585,
     "byCampus": {
       "Upper Campus": 77,
       "Lower Campus": 91,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 53,
-      "June 8th-12th": 59,
-      "June 15th-19th": 57,
-      "June 22nd-26th": 56,
-      "June 29th-July 3rd": 51,
-      "July 6th-10th": 56,
-      "July 13th-17th": 53,
-      "July 20th-24th": 56,
-      "July 27th-31st": 48,
+      "June 1st-5th": 54,
+      "June 8th-12th": 60,
+      "June 15th-19th": 58,
+      "June 22nd-26th": 57,
+      "June 29th-July 3rd": 52,
+      "July 6th-10th": 57,
+      "July 13th-17th": 54,
+      "July 20th-24th": 57,
+      "July 27th-31st": 49,
       "August 3rd-7th": 56,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
@@ -349,47 +349,47 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 29,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 35,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 27,
-        "Lower Campus": 30,
+        "Lower Campus": 31,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 30,
-        "Lower Campus": 26,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 31,
-        "Lower Campus": 20,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 35,
-        "Lower Campus": 21,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 13th-17th": {
         "Upper Campus": 32,
-        "Lower Campus": 21,
+        "Lower Campus": 22,
         "Unknown": 0
       },
       "July 20th-24th": {
         "Upper Campus": 34,
-        "Lower Campus": 22,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "July 27th-31st": {
         "Upper Campus": 32,
-        "Lower Campus": 16,
+        "Lower Campus": 17,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -3997,17 +3997,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 33,
-              "Tue": 33,
-              "Wed": 33,
-              "Thu": 33,
-              "Fri": 33
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 165,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4439,13 +4452,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 33,
-            "Tue": 33,
-            "Wed": 33,
-            "Thu": 33,
-            "Fri": 33
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 165
+          "all": 170
         }
       },
       "June 8th-12th": {
@@ -4455,13 +4468,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 175,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4490,6 +4503,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Ashton Govan",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -4923,13 +4949,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 175
+          "all": 180
         }
       },
       "June 15th-19th": {
@@ -4939,17 +4965,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 180,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -5420,13 +5459,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 180
+          "all": 185
         }
       },
       "June 22nd-26th": {
@@ -5436,17 +5475,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 37,
-              "Tue": 37,
-              "Wed": 37,
-              "Thu": 37,
-              "Fri": 37
+              "Mon": 38,
+              "Tue": 38,
+              "Wed": 38,
+              "Thu": 38,
+              "Fri": 38
             },
-            "total": 185,
+            "total": 190,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -5930,13 +5982,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 37,
-            "Tue": 37,
-            "Wed": 37,
-            "Thu": 37,
-            "Fri": 37
+            "Mon": 38,
+            "Tue": 38,
+            "Wed": 38,
+            "Thu": 38,
+            "Fri": 38
           },
-          "all": 185
+          "all": 190
         }
       },
       "June 29th-July 3rd": {
@@ -5946,17 +5998,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 37,
-              "Tue": 37,
-              "Wed": 37,
-              "Thu": 37,
-              "Fri": 37
+              "Mon": 38,
+              "Tue": 38,
+              "Wed": 38,
+              "Thu": 38,
+              "Fri": 38
             },
-            "total": 185,
+            "total": 190,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -6440,13 +6505,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 37,
-            "Tue": 37,
-            "Wed": 37,
-            "Thu": 37,
-            "Fri": 37
+            "Mon": 38,
+            "Tue": 38,
+            "Wed": 38,
+            "Thu": 38,
+            "Fri": 38
           },
-          "all": 185
+          "all": 190
         }
       },
       "July 6th-10th": {
@@ -6456,17 +6521,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 180,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -6937,13 +7015,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 180
+          "all": 185
         }
       },
       "July 13th-17th": {
@@ -6953,17 +7031,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 37,
-              "Tue": 37,
-              "Wed": 37,
-              "Thu": 37,
-              "Fri": 37
+              "Mon": 38,
+              "Tue": 38,
+              "Wed": 38,
+              "Thu": 38,
+              "Fri": 38
             },
-            "total": 185,
+            "total": 190,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -7447,13 +7538,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 37,
-            "Tue": 37,
-            "Wed": 37,
-            "Thu": 37,
-            "Fri": 37
+            "Mon": 38,
+            "Tue": 38,
+            "Wed": 38,
+            "Thu": 38,
+            "Fri": 38
           },
-          "all": 185
+          "all": 190
         }
       },
       "July 20th-24th": {
@@ -7463,17 +7554,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 180,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -7944,13 +8048,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 180
+          "all": 185
         }
       },
       "July 27th-31st": {
@@ -7960,17 +8064,30 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 175,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Anderson Sanchez Melendez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8428,13 +8545,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 175
+          "all": 180
         }
       },
       "August 3rd-7th": {
@@ -9455,6 +9572,30 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 15,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Ashton Govan",
@@ -10857,6 +10998,30 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
           "name": "Ashton Govan",
           "campus": "Upper Campus",
           "lunch": true,
@@ -12206,6 +12371,30 @@
           "school": "U.B. Kinsey Educational and Community Center"
         },
         {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 15,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
           "name": "Ashton Govan",
           "campus": "Upper Campus",
           "lunch": true,
@@ -13529,6 +13718,30 @@
           "school": "U.B. Kinsey Educational and Community Center"
         },
         {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
           "name": "Ashton Govan",
           "campus": "Upper Campus",
           "lunch": true,
@@ -14757,6 +14970,30 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Ashton Govan",
@@ -16133,6 +16370,30 @@
           "school": "U.B. Kinsey Educational and Community Center"
         },
         {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
           "name": "Ashton Govan",
           "campus": "Upper Campus",
           "lunch": true,
@@ -17379,6 +17640,30 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 13,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Ashton Govan",
@@ -18754,6 +19039,30 @@
           "school": "U.B. Kinsey Educational and Community Center"
         },
         {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
+        },
+        {
           "name": "Ashton Govan",
           "campus": "Upper Campus",
           "lunch": true,
@@ -19933,6 +20242,30 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Anderson Sanchez Melendez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "leyanete1990@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceTabName": "7/27-7/31",
+          "sourceRow": 12,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Ashton Govan",
