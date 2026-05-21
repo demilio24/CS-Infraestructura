@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-21T20:07:08Z",
+  "generatedAt": "2026-05-21T20:12:15Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 119,
+    "summer": 120,
     "free": 48,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,15 +108,15 @@
     "roster": []
   },
   "summer": {
-    "total": 119,
+    "total": 120,
     "byCampus": {
-      "Upper Campus": 46,
+      "Upper Campus": 47,
       "Lower Campus": 73,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 20,
-      "June 8th-12th": 24,
+      "June 8th-12th": 25,
       "June 15th-19th": 21,
       "June 22nd-26th": 19,
       "June 29th-July 3rd": 14,
@@ -136,7 +136,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 12,
+        "Upper Campus": 13,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -324,16 +324,16 @@
     ]
   },
   "combined": {
-    "total": 167,
-    "enrollments": 570,
+    "total": 168,
+    "enrollments": 571,
     "byCampus": {
-      "Upper Campus": 76,
+      "Upper Campus": 77,
       "Lower Campus": 91,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 54,
-      "June 8th-12th": 59,
+      "June 8th-12th": 60,
       "June 15th-19th": 57,
       "June 22nd-26th": 55,
       "June 29th-July 3rd": 50,
@@ -353,7 +353,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 34,
+        "Upper Campus": 35,
         "Lower Campus": 25,
         "Unknown": 0
       },
@@ -850,6 +850,32 @@
             ]
           },
           {
+            "category": "celis",
+            "subtypeKey": "celis-other||",
+            "label": "Celis: specialty (unspecified)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 0,
+              "Fri": 0
+            },
+            "total": 3,
+            "students": [
+              {
+                "name": "luna randall",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed"
+                ],
+                "lunchRaw": "Special (Celis $15/day)"
+              }
+            ]
+          },
+          {
             "category": "none",
             "subtypeKey": "none",
             "label": "No lunch",
@@ -1090,13 +1116,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 20,
-            "Wed": 23,
+            "Mon": 23,
+            "Tue": 21,
+            "Wed": 24,
             "Thu": 23,
             "Fri": 21
           },
-          "all": 109
+          "all": 112
         }
       },
       "June 15th-19th": {
@@ -10267,6 +10293,29 @@
             false,
             true,
             true,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "luna randall",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Special (Celis $15/day)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "srandall02@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            false,
             false
           ],
           "type": "summer"
