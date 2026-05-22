@@ -84,5 +84,8 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-18 — Synced local working tree with remote main
+Pulled ~3,300 remote commits. No file-level conflicts in this folder; the merge incorporated remote changes cleanly. No structural decisions made here — no code or copy edits this session.
+
 ### 2026-05-17 — PROJECT.md seeded
 Initial seed from existing folder state. Folder currently contains: 11 top-level HTML pages (team, presentation, urgency, nextchapter, nils-proof, revision-request, onboarding-form-widget, three onboarding-completed variants, Website-onboarding-form-completed) + `offer.pdf`; `funnel/` with 8 active HTML pages, 5 hero variations, images, screenshots, survey log; `Calendars/` with 3 booking pages; `GHL/` agency-lockdown script + config; `Posts/results.html` carousel slide variations; `Prompts/` saved prompt files; `docs/superpowers/` with a quiz-funnel design spec and plan.

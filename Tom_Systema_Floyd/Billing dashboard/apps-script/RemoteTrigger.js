@@ -69,7 +69,7 @@ const REMOTE_TRIGGER_WHITELIST = {
 
   // Manual Items tab (operator escape hatch for non-reg-sheet charges)
   setupManualItemsTab:             'Bootstrap the Manual Items tab. Idempotent. Use sync=1.',
-  addManualItem:                   'Append a row to the Manual Items tab. Params: &email=&student=&label=&amount= (negative OK for credits) [&qty=N (default 1)][&applyProcessing=Yes|No (default Yes)][&applyTax=Yes (default No)][&period=][&status=owed|paid|canceled]. Use sync=1.',
+  addManualItem:                   'Append a row to the Manual Items tab. Params: &email=&student=&label=&amount= (negative OK for credits) [&qty=N (default 1)][&applyProcessing=Yes|No (default Yes)][&applyTax=Yes (default No)][&period=][&status=owed|paid|canceled][&refresh=1 schedules a 10s buildAllBilling trigger]. Use sync=1.',
   testAddManualItemTemplate:       'Render the AddManualItem.html template with stub data; returns ok:true if the template parses cleanly. Use sync=1.',
 
   // Trigger management
@@ -663,11 +663,30 @@ function _rtAddManualItem_(params) {
     period, new Date(), status
   ]]);
 
+  // Opt-in dashboard refresh. The dialog passes &refresh=1 so the
+  // operator sees the new row within ~10s instead of waiting up to
+  // 5 min for the cron. CLI batch usage omits the flag.
+  var refresh = /^(1|true|yes)$/i.test(String(p.refresh || ''));
+  var refreshTriggerId = null;
+  if (refresh) {
+    try {
+      var trigger = ScriptApp.newTrigger('buildAllBilling')
+        .timeBased().after(10 * 1000).create();
+      refreshTriggerId = trigger.getUniqueId();
+    } catch (e) {
+      Logger.log('[_rtAddManualItem_] refresh trigger failed: ' +
+                 (e && e.message || e));
+    }
+  }
+
   return {
     ok: true,
     sheet: sh.getName(),
     row: rowNum,
-    note: 'Row appended. Next 5-min buildAllBilling will price it and add it to the Dashboard.',
+    refreshTriggerId: refreshTriggerId,
+    note: refreshTriggerId
+      ? 'Row appended. Dashboard refreshes in ~10 seconds.'
+      : 'Row appended. Next 5-min buildAllBilling will price it and add it to the Dashboard.',
     item: {
       email: email, student: student, label: label, amount: amount, qty: qty,
       applyProcessing: applyProcessing,

@@ -18,5 +18,9 @@ Kristina ("Miss Kris") runs Splash Swim School of Auburn, offering private swim 
 (none clear)
 
 ## Changelog
+
+## 2026-05-18 — Synced local working tree with remote main
+Pulled ~3,300 remote commits. No file-level conflicts in this folder; the merge incorporated remote changes cleanly. No structural decisions made here — no code or copy edits this session.
+
 ## 2026-05-17 PROJECT.md seeded
 Initial seed from existing folder state.

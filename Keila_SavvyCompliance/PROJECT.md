@@ -20,5 +20,9 @@ Savvy Compliance is an AML (anti-money-laundering) consultancy run by Keila Mule
 - After any n8n SDK update, AML logger credentials must be re-attached manually in the UI (README §6).
 
 ## Changelog
+
+## 2026-05-18 — Synced local working tree with remote main
+Pulled ~3,300 remote commits. No file-level conflicts in this folder; the merge incorporated remote changes cleanly. No structural decisions made here — no code or copy edits this session.
+
 ## 2026-05-17 PROJECT.md seeded
 Initial seed from existing folder state. Full pipeline docs already live in README.md.

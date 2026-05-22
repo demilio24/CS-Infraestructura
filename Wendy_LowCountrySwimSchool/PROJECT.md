@@ -33,6 +33,9 @@ Added Sarah C. (17 yrs coaching, 11 yrs NVSL) and Becca S. (swim + aqua fitness,
 - Sarah C: `https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/f52049ef-fbc6-483c-bbb9-ea62ae2d2670.jpeg`
 Note: n8n workflow `0L1NeAQaAoK4wref` (Gmail→Drive+GHL pipeline) successfully fetched the photos to Drive but its GHL upload step failed with `400 Unexpected non-whitespace character after JSON at position 1677` — had to upload to GHL directly via PowerShell + `medias/upload-file`. Worth fixing the workflow's GHL multipart encoding.
 
+## 2026-05-18 — Synced local working tree with remote main
+Pulled ~3,300 remote commits. No file-level conflicts in this folder; the merge incorporated remote changes cleanly. No structural decisions made here — no code or copy edits this session.
+
 ## 2026-05-17 — PROJECT.md seeded
 Initial seed from existing folder state.
 

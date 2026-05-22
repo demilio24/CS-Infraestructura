@@ -3395,13 +3395,33 @@ function manualItemDialog_listContacts() {
 }
 
 /**
- * Receive the submitted payload, append to the Manual Items tab, and
- * schedule a one-time buildAllBilling trigger ~10s in the future so
- * the new row appears on the Dashboard within seconds instead of up
- * to 5 min. Returns immediately so the dialog stays snappy.
+ * Webapp /exec URL for the dialog -> RemoteTrigger delegation. This is
+ * the deployment that runs as the owner (USER_DEPLOYING). Not secret —
+ * the REMOTE_TRIGGER_TOKEN Script Property is the gate. Update this
+ * constant when a new webapp deployment is created (rare).
+ */
+var MANUAL_ITEM_DIALOG_WEBAPP_URL =
+  'https://script.google.com/macros/s/AKfycbxBFLqn4a4gKV5n6LjStI18fn0KnSO7kLdlkEMBXhYCXWjoaBolobKZsbpSaD7IUEgIag/exec';
+
+/**
+ * Receive the submitted payload from the dialog and delegate the actual
+ * write to the deployed RemoteTrigger webapp. The webapp runs as the
+ * owner (USER_DEPLOYING = emilio@nilsdigital.com), so any editor invited
+ * to the spreadsheet can submit items without needing their own write
+ * grants on the sheet or trigger inventory.
+ *
+ * This indirection sidesteps the per-user authorization landmines that
+ * the old "write directly + ScriptApp.newTrigger" path tripped on for
+ * invited editors:
+ *   - per-user script.scriptapp grant for trigger creation
+ *   - per-user trigger quota (max 20)
+ *   - per-user "this app isn't verified" friction on the sensitive
+ *     scopes (script.send_mail, drive.readonly) that other functions
+ *     in this project use
  *
  * Payload shape:
- *   { email, student, label, amount, applyTax, period, status }
+ *   { email, student, label, amount, qty, applyProcessing, applyTax,
+ *     period, status }
  */
 function manualItemDialog_submit(payload) {
   var p = payload || {};
@@ -3419,7 +3439,7 @@ function manualItemDialog_submit(payload) {
   var statusRaw = String(p.status || '').trim().toLowerCase();
   var status = /^(owed|paid|canceled)$/.test(statusRaw) ? statusRaw : '';
 
-  // Validation
+  // Validation (cheap, do client-side too — but trust nothing on submit).
   if (!email || email.indexOf('@') === -1) {
     return { ok: false, error: 'Please enter a valid email address.' };
   }
@@ -3434,43 +3454,79 @@ function manualItemDialog_submit(payload) {
     return { ok: false, error: 'Quantity must be greater than 0.' };
   }
 
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
-  if (!sh) {
-    setupManualItemsTab();
-    sh = ss.getSheetByName(MANUAL_ITEMS_SHEET_NAME);
+  var token = PropertiesService.getScriptProperties()
+    .getProperty('REMOTE_TRIGGER_TOKEN');
+  if (!token) {
+    return {
+      ok: false,
+      error: 'Remote trigger token not configured. An admin needs to set ' +
+             'REMOTE_TRIGGER_TOKEN in Project Settings -> Script Properties.'
+    };
   }
+  var webappUrl = MANUAL_ITEM_DIALOG_WEBAPP_URL;
 
-  var rowNum = sh.getLastRow() + 1;
-  // ID (col K) left blank — readManualItems_ mints the UUID on first sight.
-  sh.getRange(rowNum, 1, 1, 10).setValues([[
-    email, student, label, amount, qty,
-    applyProcessing ? 'Yes' : 'No',
-    applyTax ? 'Yes' : 'No',
-    period, new Date(), status
-  ]]);
+  // Build the GET query for the webapp's addManualItem endpoint.
+  // sync=1 -> runs inside the webapp request and returns the result.
+  // refresh=1 -> webapp schedules a buildAllBilling trigger ~10s out so
+  //              the Dashboard reflects the new row within seconds.
+  var params = {
+    fn:              'addManualItem',
+    token:           token,
+    sync:            '1',
+    refresh:         '1',
+    email:           email,
+    student:         student,
+    label:           label,
+    amount:          String(amount),
+    qty:             String(qty),
+    applyProcessing: applyProcessing ? 'Yes' : 'No',
+    applyTax:        applyTax ? 'Yes' : 'No',
+    period:          period,
+    status:          status
+  };
+  var qs = Object.keys(params).map(function(k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
 
-  // Schedule buildAllBilling ~10s in the future. Apps Script auto-deletes
-  // one-time triggers after firing, so no inventory bloat. If the 5-min
-  // cron beats us to the lock, the trigger waits and runs cleanly.
-  var triggerId = null;
+  var parsed;
   try {
-    var trigger = ScriptApp.newTrigger('buildAllBilling')
-      .timeBased().after(10 * 1000).create();
-    triggerId = trigger.getUniqueId();
+    var res = UrlFetchApp.fetch(webappUrl + '?' + qs, {
+      method:              'get',
+      muteHttpExceptions:  true,
+      followRedirects:     true
+    });
+    var code = res.getResponseCode();
+    var body = res.getContentText();
+    try { parsed = JSON.parse(body); }
+    catch (parseErr) {
+      return {
+        ok: false,
+        error: 'Webapp returned non-JSON (HTTP ' + code + '): ' +
+               body.substring(0, 200)
+      };
+    }
+    if (code !== 200 || !parsed || parsed.ok !== true) {
+      return {
+        ok: false,
+        error: (parsed && (parsed.error ||
+                           (parsed.result && parsed.result.error))) ||
+               ('Webapp returned HTTP ' + code)
+      };
+    }
   } catch (e) {
-    Logger.log('[manualItemDialog_submit] could not schedule buildAllBilling: ' +
-               e.message);
+    return { ok: false, error: 'Webapp call failed: ' + (e && e.message || e) };
   }
 
+  // sync=1 wraps the dispatched function's return value under .result.
+  var result = parsed.result || {};
   return {
     ok: true,
-    sheet: sh.getName(),
-    row: rowNum,
-    triggerId: triggerId,
-    note: triggerId
+    sheet: result.sheet || MANUAL_ITEMS_SHEET_NAME,
+    row: result.row || null,
+    triggerId: result.refreshTriggerId || null,
+    note: result.refreshTriggerId
       ? 'Saved. Dashboard refreshes in ~10 seconds.'
-      : 'Saved. Dashboard refreshes within 5 minutes (couldn\'t schedule an immediate run).'
+      : 'Saved. Dashboard refreshes within 5 minutes.'
   };
 }
 

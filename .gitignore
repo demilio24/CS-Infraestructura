@@ -32,7 +32,14 @@ uploads/*
 
 # Claude scratch + session files (local-only)
 .claude/tmp/
+.claude/scratch/
+.claude/.claude/
+.claude/.puppeteer-userdata/
+.claude/.puppeteer-deeplink-tmp/
 **/scheduled_tasks.lock
+
+# Per-project .claude/ folders (local agent state — settings.local.json, etc.)
+*/.claude/
 
 # Raw GHL form-submission exports (PII, not project code)
 Tom_Systema_Floyd/Form Submission.csv
