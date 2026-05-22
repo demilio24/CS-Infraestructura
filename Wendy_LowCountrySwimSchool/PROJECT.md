@@ -10,7 +10,7 @@ Client = Wendy (owner) + Jessica + Erin (operates GHL platform day-to-day). LCSS
 - `thankyou.html` — post-registration confirmation; uses GHL full-width container reset.
 - `Contacts/` — `contacts.csv` (88KB roster) + `import-contacts.js` (one-time GHL contact import script). `.work/` has run artifacts (`report.csv`, `report.json`, `errors.csv`) from the 2026-04-30 migration. **Emergency re-alignment only — do not re-run routinely.**
 - `Registration Page/` — archived scrape of the previous third-party registration page (HTML + assets) used as reference when building `registration.html`.
-- `uploads/` — local image staging before GHL upload (currently empty).
+- `uploads/` — local image staging before GHL upload (gitignored). Currently holds the two new-instructor photos (`becca-s.jpeg`, `sarah-clark.jpeg`) that have already been pushed to GHL; safe to delete locally.
 
 Tech stack: static HTML + embedded CSS/JS, GitHub Pages hosted, served into GHL via iframe embed.
 
