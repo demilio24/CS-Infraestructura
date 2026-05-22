@@ -24,6 +24,12 @@ Tech stack: static HTML + embedded CSS/JS, GitHub Pages hosted, served into GHL 
 (none clear)
 
 ## Changelog
+## 2026-05-21 — Added 2 new instructors to home page
+Added Sarah C. (17 yrs coaching, 11 yrs NVSL) and Becca S. (swim + aqua fitness, Wisconsin/Hawai'i) to the team grid in `home.html` based on bios Wendy forwarded from each instructor. Photos uploaded to GHL media library (locationId `LHyUDIth9k9Kk9qv4BzQ`):
+- Becca S: `https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/4e0d7581-a627-435f-97a0-5e21d68ce8d4.jpeg`
+- Sarah C: `https://assets.cdn.filesafe.space/LHyUDIth9k9Kk9qv4BzQ/media/f52049ef-fbc6-483c-bbb9-ea62ae2d2670.jpeg`
+Note: n8n workflow `0L1NeAQaAoK4wref` (Gmail→Drive+GHL pipeline) successfully fetched the photos to Drive but its GHL upload step failed with `400 Unexpected non-whitespace character after JSON at position 1677` — had to upload to GHL directly via PowerShell + `medias/upload-file`. Worth fixing the workflow's GHL multipart encoding.
+
 ## 2026-05-17 — PROJECT.md seeded
 Initial seed from existing folder state.
 
