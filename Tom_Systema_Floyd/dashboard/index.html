@@ -198,8 +198,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .ops-detail .ops-open:hover{background:var(--sf-blue-700);color:#fff;transform:translateY(-1px)}
 .ops-detail .ops-student-card{padding:10px 12px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:10px;margin-bottom:6px}
 .ops-detail .ops-student-card .ops-row-issue{background:transparent;border:0;padding:0 0 6px 0;margin:0}
-.ops-detail .ops-sources{display:flex;flex-direction:column;gap:4px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--sf-border)}
+.ops-detail .ops-sources{display:flex;flex-direction:column;gap:6px;margin-top:6px;padding-top:6px;border-top:1px dashed var(--sf-border)}
 .ops-detail .ops-source-line{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:var(--sf-ink-60)}
+/* One block per bad row: bold field label + Open ↗ on top, plain-English
+   explanation below, and the precise sheet · week · row location underneath.
+   Amber left border so staff scan the list of issues at a glance. */
+.ops-detail .ops-issue-row{display:flex;flex-direction:column;gap:3px;padding:8px 10px 8px 12px;background:#fffaf2;border:1px solid #f4d8a3;border-left:3px solid #f4b63a;border-radius:6px}
+.ops-detail .ops-issue-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ops-detail .ops-issue-fields{font-family:'Space Grotesk','Inter',sans-serif;font-size:12px;font-weight:700;color:#b54708;letter-spacing:.02em}
+.ops-detail .ops-issue-why{font-family:'Inter',sans-serif;font-size:11.5px;color:var(--sf-ink);line-height:1.4}
+.ops-detail .ops-issue-where{font-family:'Space Grotesk','Inter',sans-serif;font-size:10.5px;color:var(--sf-ink-40);letter-spacing:.02em}
 
 /* Sparkline tucked inside the Unique Students KPI card */
 .kpi[data-kpi="total"]{position:relative}
@@ -2968,65 +2976,92 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       if (!byStudent.has(key)) byStudent.set(key, {
         name: r.name || '(blank)',
         kinds: new Set(),
-        fields: new Set(),
-        weeks: [],            // [{ week, sheetId, sheetLbl, tabName, row }]
+        fields: new Set(),     // union across all bad rows, kept for chip + analytics
+        rows: [],              // [{ week, sheetId, sheetLbl, sheetUrl, gid, tabName, row, missingFields, kind }]
         sheetIds: new Set(),
       });
       const rec = byStudent.get(key);
       rec.kinds.add(r._kind);
       (Array.isArray(r.missingFields) ? r.missingFields : []).forEach(f => rec.fields.add(f));
-      rec.weeks.push({
+      rec.rows.push({
         week: r.week,
         sheetId: r.sourceSheetId,
         sheetLbl: sheetLabelForId(r.sourceSheetId),
-        // sheetUrl deep-links to the specific tab + row when sourceGid is
-        // known. Falls back to the spreadsheet root on older snapshots.
+        // Deep-link to the specific tab + row when sourceGid is known.
+        // Falls back to the spreadsheet root on older snapshots.
         sheetUrl: sheetUrlForId(r.sourceSheetId, r.sourceGid, r.sourceRow),
         gid: r.sourceGid,
         tabName: r.sourceTabName,
         row: r.sourceRow,
+        missingFields: Array.isArray(r.missingFields) ? r.missingFields.slice() : [],
+        kind: r._kind,                       // 'name' | 'campus' | 'incomplete'
       });
       if (r.sourceSheetId) rec.sheetIds.add(r.sourceSheetId);
     });
 
+    // Plain-English explanations per field. Used as the "why" line under
+    // each issue row so staff don't have to interpret a bare column name.
+    const FIELD_EXPLAIN = {
+      'Days attending':       'Mon-Fri checkboxes are all empty for this week',
+      'Email':                'parent email column is blank',
+      'Age':                  'Age column is blank',
+      'Lunch':                'Lunch column is blank',
+      'School':               'School column is blank',
+      'Parent/Guardian name': 'Parent/Guardian Name column is blank',
+      'Grade':                'Grade column is blank',
+    };
+    function describeIssue(w) {
+      if (w.kind === 'name')   return 'Student Name column is blank — row exists but has no name';
+      if (w.kind === 'campus') return 'Campus could not be determined — check the tab name or campus field';
+      if (Array.isArray(w.missingFields) && w.missingFields.length) {
+        return w.missingFields.map(f => FIELD_EXPLAIN[f] || `${f} is missing`).join(' · ');
+      }
+      return 'Row flagged as incomplete';
+    }
+    function issueFieldsLabel(w) {
+      if (w.kind === 'name')   return 'Student name';
+      if (w.kind === 'campus') return 'Campus';
+      const fs = Array.isArray(w.missingFields) ? w.missingFields : [];
+      return fs.length ? fs.join(', ') : 'Row';
+    }
+
     const cards = Array.from(byStudent.values())
       .sort((a,b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
       .map(rec => {
-        const fieldsArr = Array.from(rec.fields);
-        const fieldChips = fieldsArr.length
-          ? `<span class="ops-field-chips">${fieldsArr.map(f => `<span class="ops-field-chip">${escapeHtml(f)}</span>`).join('')}</span>`
-          : '';
-        // Dedup weeks-per-source-sheet so a kid in 4 weeks of the same sheet
-        // gets one "PAID Upper · weeks: A, B, C, D · Open ↗" entry.
-        const bySheet = new Map();
-        rec.weeks.forEach(w => {
-          const k = w.sheetId || '__none__';
-          if (!bySheet.has(k)) bySheet.set(k, { sheetLbl: w.sheetLbl, sheetUrl: w.sheetUrl, weeks: [], rows: [], tabs: [] });
-          const e = bySheet.get(k);
-          if (e.weeks.indexOf(w.week) === -1) e.weeks.push(w.week);
-          if (w.row && e.rows.indexOf(w.row) === -1) e.rows.push(w.row);
-          if (w.tabName && e.tabs.indexOf(w.tabName) === -1) e.tabs.push(w.tabName);
+        // One explicit line per bad row: a plain-English why + the precise
+        // location + its own deep-link button. No more hunting through a
+        // "rows 7, 4, 12, 9" list — every row gets its own [Open ↗].
+        const sortedRows = rec.rows.slice().sort((a, b) => {
+          // Sort by sheet label, then by source row number, so the list
+          // reads sheet-by-sheet predictably even when the input order is mixed.
+          const sa = (a.sheetLbl || '').localeCompare(b.sheetLbl || '');
+          if (sa !== 0) return sa;
+          return (a.row || 0) - (b.row || 0);
         });
-        const sources = Array.from(bySheet.values()).map(s => {
-          const weeksTxt = s.weeks.map(shortenWeek).join(', ');
-          const rowsTxt  = s.rows.length ? ` · row${s.rows.length>1?'s':''} ${s.rows.join(', ')}` : '';
-          const link = s.sheetUrl
-            ? `<a class="ops-open" href="${s.sheetUrl}" target="_blank" rel="noopener">Open ↗</a>`
+        const sources = sortedRows.map(w => {
+          const fieldsLbl  = issueFieldsLabel(w);
+          const explanation = describeIssue(w);
+          const link = w.sheetUrl
+            ? `<a class="ops-open" href="${w.sheetUrl}" target="_blank" rel="noopener">Open ↗</a>`
             : '';
-          return `<div class="ops-source-line">
-            <span class="ops-where"><strong>${escapeHtml(s.sheetLbl)}</strong> · ${escapeHtml(weeksTxt)}${escapeHtml(rowsTxt)}</span>
-            ${link}
+          const where = `${escapeHtml(w.sheetLbl || 'Source sheet')} · ${escapeHtml(shortenWeek(w.week))}${w.row ? ' · row ' + escapeHtml(String(w.row)) : ''}`;
+          return `<div class="ops-issue-row">
+            <div class="ops-issue-head">
+              <span class="ops-issue-fields">${escapeHtml(fieldsLbl)}</span>
+              ${link}
+            </div>
+            <div class="ops-issue-why">${escapeHtml(explanation)}</div>
+            <div class="ops-issue-where">${where}</div>
           </div>`;
         }).join('');
 
-        const weekCount = rec.weeks.length;
-        const weekSummary = weekCount === 1 ? '1 week' : `${weekCount} weeks`;
+        const rowCount = rec.rows.length;
+        const rowSummary = rowCount === 1 ? '1 issue' : `${rowCount} issues`;
         return `<li class="ops-student-card">
           <div class="ops-row ops-row-issue" tabindex="0">
             <span class="nm">${escapeHtml(rec.name)}</span>
-            <span class="meta">${escapeHtml(weekSummary)} affected</span>
+            <span class="meta">${escapeHtml(rowSummary)}</span>
           </div>
-          <div class="ops-issue-meta">${fieldChips}</div>
           <div class="ops-sources">${sources}</div>
         </li>`;
       }).join('');

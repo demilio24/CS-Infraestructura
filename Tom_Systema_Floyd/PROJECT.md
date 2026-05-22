@@ -65,6 +65,20 @@ Full file map + shipped features from 2026-05-07 in memory `project_systema_floy
 
 ## Changelog
 
+### 2026-05-22 — Data Issues card: one explicit, labeled, deep-linkable row per bad row
+Replaced the per-sheet aggregation in the Data Issues panel ([dashboard/index.html](dashboard/index.html), `renderOpsQuality`) with one explicit `.ops-issue-row` per bad enrollment row. Each row now shows: bold amber field label (e.g. **Days attending**), plain-English why-line ("Mon-Fri checkboxes are all empty for this week"), the precise `SHEET · week · row N` location, and its **own** `Open ↗` button that deep-links straight to that row. No more cramming `rows 4, 6, 6, 9` into one prose line where the button only worked for the first row.
+
+- `byStudent` map renamed `weeks → rows` to match the new semantics (one entry per bad row, not per week). Each entry carries `missingFields` + `kind` so the card can describe each issue individually.
+- `FIELD_EXPLAIN` lookup table maps each column name to a plain-English sentence. Unknown fields fall back to `"X is missing"`.
+- `describeIssue(w)` handles the three issue kinds: `'name'` ("Student Name column is blank — row exists but has no name"), `'campus'` ("Campus could not be determined…"), `'incomplete'` (joins the per-field explanations with `·`).
+- The redundant top-of-card chip strip (the union-of-fields aggregation) was removed — every row now carries its own field label, so the chip strip duplicated information that could mislead (a chip says "Days attending" but staff might not realize it only applies to one of the kid's weeks).
+- Card header shows `N issues` (not `N weeks`) since multi-field rows count as one issue each, matching the rendered list.
+- New `.ops-issue-row` CSS: amber-tinted background (`#fffaf2`), amber left border (3px `#f4b63a`), bold-amber field label, dark-ink why-line, muted-ink location. Visually scannable like a stack of cards.
+- Stress-tested with Austin Shue (6 bad rows, all in Lower sheet, all "Days attending"): each row gets its own clearly-labeled Open ↗ button. Verified end-to-end with Puppeteer against the live dashboard served from `localhost:8765`, screenshots at `.claude/screenshots/data-issues-{new-layout,austin-stress}.png`.
+
+### 2026-05-22 — Pushed dashboard changes to main (commit `30933a16`)
+Committed and pushed the three concurrent dashboard changes from today (attendance modal "By person" mode, Supabase sync of per-person picks, Data Issues deep-link with `sourceGid`). Files: `dashboard/index.html`, `sheets-snapshot/apps-script/Snapshot.js`, `App_documentation/dashboard.md`, `PROJECT.md`. GitHub Pages picks up within ~1 min. Other dirty files in the working tree (Billing dashboard JS, untracked Form/ + Summer-2026-rosters/) were intentionally not staged — those are separate in-progress work.
+
 ### 2026-05-22 — Dashboard: Data Issues "Open ↗" now deep-links to the offending tab + row
 The Data Issues panel groups issues by student name and emits one card per kid, with one "Open ↗" link per source sheet. Before today, that link was `https://docs.google.com/spreadsheets/d/{ID}/edit` — no tab, no row — so clicking it dropped staff on whatever tab Google's default-tab logic picked (usually the first tab). When the offending row was on a later tab, staff would land on the wrong tab, see the data was fine there, and conclude the dashboard was wrong. Akasha Smith's 7/27-7/31 row 2 was the user's reported example (row had empty Mon-Fri checkboxes; staff opened the link, landed on 6/1-6/5 where Akasha did have checkmarks, called the dashboard buggy).
 
