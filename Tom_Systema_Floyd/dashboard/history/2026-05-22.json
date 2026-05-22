@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-22T17:32:10Z",
+  "generatedAt": "2026-05-22T17:37:04Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 120,
-    "free": 46,
+    "free": 45,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,16 +213,16 @@
     ]
   },
   "free": {
-    "total": 46,
+    "total": 45,
     "byCampus": {
-      "Upper Campus": 30,
+      "Upper Campus": 29,
       "Lower Campus": 16,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 32,
       "June 8th-12th": 32,
-      "June 15th-19th": 34,
+      "June 15th-19th": 33,
       "June 22nd-26th": 34,
       "June 29th-July 3rd": 34,
       "July 6th-10th": 33,
@@ -246,7 +246,7 @@
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 22,
+        "Upper Campus": 21,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 138,
+      "Westward Elementary School": 137,
       "Pleasant City Elementary School": 57,
       "Northboro Elementary School": 56,
       "U.B. Kinsey Educational and Community Center": 45,
@@ -324,17 +324,17 @@
     ]
   },
   "combined": {
-    "total": 166,
-    "enrollments": 550,
+    "total": 165,
+    "enrollments": 549,
     "byCampus": {
-      "Upper Campus": 77,
+      "Upper Campus": 76,
       "Lower Campus": 89,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 52,
       "June 8th-12th": 57,
-      "June 15th-19th": 55,
+      "June 15th-19th": 54,
       "June 22nd-26th": 53,
       "June 29th-July 3rd": 48,
       "July 6th-10th": 53,
@@ -358,7 +358,7 @@
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 26,
+        "Upper Campus": 25,
         "Lower Campus": 29,
         "Unknown": 0
       },
@@ -4912,13 +4912,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 170,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5348,32 +5348,19 @@
                   "Fri"
                 ],
                 "lunchRaw": "Yes"
-              },
-              {
-                "name": "Ziona Antoine",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 170
+          "all": 165
         }
       },
       "June 22nd-26th": {
@@ -12558,30 +12545,6 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceTabName": "6/15-6/19",
           "sourceRow": 11,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Westward Elementary School"
-        },
-        {
-          "name": "Ziona Antoine",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "antoineophelia@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceTabName": "6/15-6/19",
-          "sourceRow": 33,
           "days": [
             true,
             true,
