@@ -226,6 +226,24 @@ queries) can query enrollments without re-parsing snapshot.json.
 Unique on `(week_label, day_of_week)`, so re-saving the same day just
 overwrites the prior value. Indexed on `week_label`.
 
+**`public.sf_daily_attendance_people`**, the per-kid sibling table that
+backs the modal's **By person** mode. One row per student per day. Row
+absence means "unmarked, not yet decided" — the table only stores
+explicit ✓/✗ decisions.
+
+| Column | Meaning |
+|---|---|
+| `week_label` | Matches `WEEK_ORDER`, same convention as totals table |
+| `day_of_week` | `'Mon'..'Fri'` |
+| `person_key` | `${name}|${email}`.toLowerCase() — derived client-side from the snapshot roster entry. Stable across snapshot refreshes as long as name + email don't change. |
+| `person_name` | Denormalized display name (so analytics can read the table without joining the snapshot) |
+| `bucket` | `'u' | 'l' | 'f'` — campus + free flag for the kid. CHECKed. The dashboard derives totals from these buckets to keep `sf_daily_attendance` in sync. |
+| `status` | `'present' | 'absent'` — CHECKed. Toggle-off in the modal deletes the row instead of writing a third state. |
+| `marked_by`, `marked_at` | Same semantics as the totals table |
+
+Unique on `(week_label, day_of_week, person_key)`. Indexed on
+`(week_label, day_of_week)` for the modal's per-day fetch.
+
 ### RPCs
 
 All `SECURITY DEFINER` and gated by `claim_secret` (matching `SUPABASE_TOKEN_SECRET`) **except** the public read-only ones used by client-side fetches.
@@ -234,9 +252,26 @@ All `SECURITY DEFINER` and gated by `claim_secret` (matching `SUPABASE_TOKEN_SEC
 |---|---|---|
 | `sf_upsert_camp_enrollments(claim_secret, rows jsonb)` | Bulk upsert into `sf_camp_enrollments`. Returns `(inserted, updated, total)`. Called from Apps Script in batches of 500. | `claim_secret` |
 | `sf_insert_camp_snapshot(claim_secret, payload, summer_total, free_total, generated_at_override)` | Single insert into `sf_camp_snapshots`. `generated_at_override` lets the historical backfill set the real timestamp; live runs leave it null and use `now()`. | `claim_secret` |
-| `sf_set_daily_attendance(claim_secret, p_week_label, p_day_of_week, p_count_upper, p_count_lower, p_count_free, p_marked_by)` | Upserts one row into `sf_daily_attendance`. Returns the saved row. Called from the chip popup on Save. | `claim_secret` |
+| `sf_set_daily_attendance(claim_secret, p_week_label, p_day_of_week, p_count_upper, p_count_lower, p_count_free, p_marked_by)` | Upserts one row into `sf_daily_attendance`. Returns the saved row. Called from the chip popup on Save (both modes — Totals writes the inputs verbatim; By person derives U/L/F from the ticks). | `claim_secret` |
 | `sf_get_daily_attendance(p_week_label text default null)` | Returns rows from `sf_daily_attendance`. Filterable by week or returns everything. Called once on first dashboard render and re-called whenever a save happens. | **public** (anon) |
+| `sf_get_daily_attendance_people(p_week_label text default null)` | Returns rows from `sf_daily_attendance_people`. Same filter shape as the totals fetcher. Called on first roster render and when the attendance modal first opens, so per-person ticks restore across devices. | **public** (anon) |
+| `sf_set_daily_attendance_person(claim_secret, p_week_label, p_day_of_week, p_person_key, p_person_name, p_bucket, p_status, p_marked_by)` | Single-row upsert into `sf_daily_attendance_people`. **null/empty `p_status` deletes the row** — used when the operator clicks the same ✓/✗ a second time to clear a pick. Called per-click in by-person mode. Validates `bucket ∈ {u,l,f}` and `status ∈ {present, absent, null}`. | `claim_secret` |
+| `sf_bulk_set_daily_attendance_people(claim_secret, p_week_label, p_day_of_week, p_status, p_persons jsonb, p_marked_by)` | Bulk upsert/clear for the **All ✓ present / All ✗ absent / Clear marks** buttons + the modal's Clear button in by-person mode. `p_persons` is `[{key, name, bucket}, …]`. `null/empty p_status` deletes every passed row; otherwise upserts each with that status. Returns the row count touched. One round-trip instead of N. | `claim_secret` |
 | `sf_recent_camp_totals(days_back int default 60)` | Returns `(snapshot_date, summer_total, free_total)` aggregated to one row per UTC date (latest snapshot of that day). Used by the dashboard sparkline. | **public** (anon) |
+
+### Source-row deep-linking from Data Issues
+
+Each enrollment row in `snapshot.json` carries a `sourceGid` field (the
+numeric `SpreadsheetApp.getSheetId()` of the tab the row came from)
+alongside `sourceSheetId`, `sourceTabName`, and `sourceRow`. The dashboard's
+Data Issues panel uses these to build a deep-link URL of the form
+`https://docs.google.com/spreadsheets/d/{ID}/edit?gid={gid}#gid={gid}&range=A{row}`
+when the operator clicks **Open ↗**. Both `?gid=` and `#gid=` are set
+because Google's spreadsheet router needs the query while the in-app
+deep-linker reads the fragment — only setting one drops you on the
+default tab in practice. `sheetUrlForId(id, gid, row)` in the dashboard
+falls back to the bare `/edit` URL when `gid` is null/undefined, so older
+snapshots (or any field that ever goes missing) don't break the button.
 
 ⚠ **Security note**: The dashboard JS embeds the `claim_secret` directly
 for the attendance save RPC, so anyone who views the page source can write
@@ -269,9 +304,17 @@ collaborators:
 | `renderSparkline()` | Reads `state.recentTotals` (lazy-loaded from `sf_recent_camp_totals` RPC) and draws a 120×34 SVG path inside the Unique Students KPI card. |
 | `loadRecentTotals()` | Fetches from Supabase via the anon key. Result is cached for the session. |
 | `loadAttendance(force?)` | Lazy-loads `state.attendanceByWeek` via `sf_get_daily_attendance`. Called on first roster render and whenever `state.chartMode` flips to `'attendance'`. `force=true` bypasses the cache. |
-| `saveAttendanceCell(week, day, upper, lower, free)` | POSTs to `sf_set_daily_attendance`, updates `state.attendanceByWeek` in place, returns the saved row. Triggered by the Save button in the chip popup. |
-| `openAttendanceModal(week, day)` | Opens the focused per-day attendance popup. Prefills inputs from existing row or expected counts. |
-| `wireChartModeToggle()` / `wireDayChipClicks()` / `wireAttendanceModal()` | One-shot event wiring helpers that guard against double-binding via a `data-wired="1"` attribute. |
+| `saveAttendanceCell(week, day, upper, lower, free)` | POSTs to `sf_set_daily_attendance`, updates `state.attendanceByWeek` in place, returns the saved row. Triggered by the Save button in the chip popup (both modes). |
+| `loadPeopleAttendance(force?)` | Lazy-loads `state.peopleByWeek` via `sf_get_daily_attendance_people`. Called on first roster render alongside `loadAttendance()` and again on first modal open. The fetch's `finally` block re-renders the people list if the modal is currently open in by-person mode. `force=true` bypasses the cache. |
+| `setPersonPickRpc(week, day, person, status)` | POSTs to `sf_set_daily_attendance_person`. `status === null` deletes the row (toggle-off). Called from the per-row ✓/✗ click handler. |
+| `bulkSetPeoplePicksRpc(week, day, status, people)` | POSTs to `sf_bulk_set_daily_attendance_people`. Used by All present / All absent / Clear marks buttons + the modal's Clear button in by-person mode. One round-trip. |
+| `renderPeopleList(week, day)` | Renders the by-person list inside `#att-people` from `state.peopleByWeek[week][day]`. Stateless — safe to re-run at any point to re-sync DOM with state. |
+| `expectedPeopleFor(week, day)` | Walks `state.snapshot.roster[week]` and returns `[{name, email, bucket: 'u'|'l'|'f'}, …]` for kids whose `days[dayIdx]` is true. Single source of truth for "who should be marked today" — shared by the Expected count line, the people list, and the bulk RPC payload. |
+| `personKey(r)` | Returns `${name}|${email}`.toLowerCase()` — the stable per-kid identifier used everywhere ticks are stored or rendered. |
+| `setPersonLocal(week, day, person, status)` / `setBulkLocal(week, day, people, status)` | Mutate `state.peopleByWeek` in place. Used by the optimistic-update path so the UI reflects the new pick before the RPC roundtrips. |
+| `loadPeoplePicks(week, day)` | Sync read accessor — flattens `state.peopleByWeek[week][day]` into the `{ [personKey]: 'present' | 'absent' }` shape `renderPeopleList`/`countPicks` consume. |
+| `openAttendanceModal(week, day)` | Opens the focused per-day attendance popup. Prefills totals inputs from existing row or expected counts; renders the people list from state; restores the last-used mode from `sf-att-mode`; kicks off `loadPeopleAttendance()` if it hasn't loaded yet (which will trigger a re-render on completion). |
+| `wireChartModeToggle()` / `wireDayChipClicks()` / `wireAttendanceModal()` | One-shot event wiring helpers that guard against double-binding via a `data-wired="1"` attribute. The attendance-modal wiring covers the mode toggle, the per-row + bulk click delegation on `#att-people`, the Save/Clear buttons, and Escape/backdrop close. |
 
 ### Persisted state (`localStorage`)
 
@@ -279,6 +322,7 @@ collaborators:
 |---|---|
 | `sf-caps-v1-summer`, `sf-caps-v1-free`, `sf-caps-v1-afterschool` | Per-tab campus + per-day caps used for occupancy math |
 | `sf-filter` | Last-active filter so the page reopens on the same tab |
+| `sf-att-mode` | Last-used attendance-modal mode (`'totals'` or `'byperson'`). Per-device UX preference only — actual ticks live in Supabase, not here. |
 
 ### Auto-refresh
 
@@ -356,11 +400,17 @@ lives in the Supabase table `sf_daily_attendance` (one row per
 
 Inside each week card on the Student Rosters panel, every Mon-Fri chip in
 the daily-attendance strip is a clickable button. Clicking it opens a
-focused popup for that specific (week × day) cell:
+focused popup for that specific (week × day) cell.
+
+The modal supports **two entry modes** via a pill toggle at the top, so
+staff can use whichever matches their counting style for that group:
+
+**Totals mode** (default on first open, and remembered per-device via
+the `sf-att-mode` localStorage key):
 
 - **Header**: `Mon attendance · Jun 1–5`
 - **Expected row**: `Expected: 30 (U13 · L17 · F0)`, derived from the
-  current registered roster honoring each kid's days[5] flags
+  current registered roster honoring each kid's `days[5]` flags
 - **Three editable inputs** (Upper / Lower / Free), prefilled with either
   the previously saved actual counts or the expected counts if none recorded
 - **Live total** display below the inputs
@@ -368,10 +418,38 @@ focused popup for that specific (week × day) cell:
 - **Last-saved hint**: `Last saved today 14:32` if the row was already in
   Supabase
 
-Chips that already have an attendance row recorded get a green tint + a `✓`
-check in the corner so staff can scan a week at a glance and see which days
-are still pending. The tooltip on the chip shows the saved count + when it
-was marked.
+**By person mode** (synced across devices via `sf_daily_attendance_people`):
+
+- **Bulk buttons** at the top of the list — `All ✓ present`, `All ✗ absent`,
+  `Clear marks` — each fires one bulk RPC instead of N per-row roundtrips
+- **One row per expected student** that day (filtered by `days[]` so kids
+  who aren't attending Monday don't show up in Monday's modal), each with
+  a colored campus dot + name + a pair of ✓/✗ buttons
+- **Clicking ✓ or ✗** marks that student present or absent and persists
+  immediately to Supabase. The click is **optimistic**: the UI updates
+  instantly, the RPC fires in the background, and the local change is
+  rolled back with an error message if the RPC fails.
+- **Clicking the same mark twice toggles it off** (writes a null status,
+  which deletes the row server-side). The row reverts to neutral styling.
+- **Live total** shows the derived `Total: 5 (U3 · L2 · F0)` so staff
+  see at a glance what their ticks add up to
+- **Save** writes the derived U/L/F counts to `sf_daily_attendance` (the
+  totals table), so the chart's Attendance-mode bars + the roster chip ✓
+  markers stay consistent no matter which mode entered the data
+
+Chips that already have an attendance row recorded (in the totals table)
+get a green tint + a `✓` check in the corner so staff can scan a week at
+a glance and see which days are still pending. The tooltip on the chip
+shows the saved count + when it was marked. Per-person ticks alone don't
+light the chip — only a Save (in either mode) does.
+
+**Person key**: the modal uses `${name}|${email}`.toLowerCase() as the
+stable per-kid identifier when writing to `sf_daily_attendance_people`.
+It's stable across snapshot refreshes provided the name + email in the
+source sheet don't change. A kid whose row in the sheet gets renamed
+(typo fix, name correction) will appear as a new person and lose any
+prior ticks — that's the trade-off for not joining against a separate
+identity table.
 
 ### Chart-mode toggle (Registrations vs Attendance)
 

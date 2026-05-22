@@ -210,6 +210,7 @@ function readCampSheet_(spreadsheetId, campusLabel, weeksSeen) {
         incomplete: missingFields.length > 0,
         missingFields: missingFields,
         sourceSheetId: spreadsheetId,
+        sourceGid: sheet.getSheetId(),
         sourceTabName: sheet.getName(),
         sourceRow: r + 1,
       });
@@ -270,6 +271,7 @@ function readFreeSheet_(spreadsheetId, campusLabel, weeksSeen) {
         incomplete: missingFields.length > 0,
         missingFields: missingFields,
         sourceSheetId: spreadsheetId,
+        sourceGid: sheet.getSheetId(),
         sourceTabName: sheet.getName(),
         sourceRow: r + 1,
       });
@@ -402,6 +404,7 @@ function buildRoster_(allSummer, allFree) {
       incomplete: e.incomplete,
       missingFields: e.missingFields || [],
       sourceSheetId: e.sourceSheetId || null,
+      sourceGid: (e.sourceGid != null ? e.sourceGid : null),
       sourceTabName: e.sourceTabName || null,
       sourceRow: e.sourceRow || null,
       days: e.days || [true,true,true,true,true],
@@ -427,6 +430,7 @@ function buildRoster_(allSummer, allFree) {
       incomplete: e.incomplete,
       missingFields: e.missingFields || [],
       sourceSheetId: e.sourceSheetId || null,
+      sourceGid: (e.sourceGid != null ? e.sourceGid : null),
       sourceTabName: e.sourceTabName || null,
       sourceRow: e.sourceRow || null,
       days: [true,true,true,true,true],

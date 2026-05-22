@@ -273,6 +273,28 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .att-feedback{margin-top:10px;text-align:center;font-size:12px;font-family:'Space Grotesk','Inter',sans-serif;color:var(--sf-ink-40);min-height:16px}
 .att-feedback.success{color:#137333;font-weight:600}
 .att-feedback.error{color:#b54708;font-weight:600}
+.att-mode-toggle{display:flex;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:999px;padding:3px;gap:2px;margin-bottom:12px;width:100%}
+.att-mode-btn{flex:1;padding:7px 14px;border-radius:999px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;transition:all .18s;letter-spacing:.02em}
+.att-mode-btn:hover{color:var(--sf-ink)}
+.att-mode-btn.active{background:var(--sf-white);color:var(--sf-blue-700);box-shadow:0 1px 3px rgba(15,23,42,.08),0 0 0 1px var(--sf-border)}
+.att-people{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;max-height:300px;overflow-y:auto;padding:6px;border:1px solid var(--sf-border);border-radius:8px;background:var(--sf-cream)}
+.att-people .att-empty{padding:14px;text-align:center;font-size:12px;color:var(--sf-ink-40);font-style:italic}
+.att-people .att-bulk{display:flex;gap:6px;margin-bottom:4px}
+.att-people .att-bulk button{flex:1;padding:6px 10px;border-radius:6px;border:1px solid var(--sf-border);background:var(--sf-white);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;letter-spacing:.04em;transition:background .15s,color .15s}
+.att-people .att-bulk button:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
+.att-person{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:6px;transition:background .15s,border-color .15s}
+.att-person .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.att-person .dot.u{background:#1b2f6e}
+.att-person .dot.l{background:#4aa3e0}
+.att-person .dot.f{background:#f4b63a}
+.att-person .nm{flex:1;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--sf-ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.att-person .att-marks{display:inline-flex;gap:4px;flex-shrink:0}
+.att-person .att-mark{width:28px;height:28px;border-radius:6px;border:1px solid var(--sf-border);background:var(--sf-white);font-size:14px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;color:var(--sf-ink-40);font-family:'Space Grotesk','Inter',sans-serif;line-height:1}
+.att-person .att-mark:hover{background:var(--sf-blue-50);color:var(--sf-ink)}
+.att-person.present{border-color:#9bd1ac;background:#e6f4ea}
+.att-person.present .att-mark.yes{background:#137333;color:#fff;border-color:#137333}
+.att-person.absent{border-color:#e8b4ad;background:#fbe9e7}
+.att-person.absent .att-mark.no{background:#b54708;color:#fff;border-color:#b54708}
 @media (max-width:520px){
   .day-grid{grid-template-columns:repeat(5,1fr);gap:5px}
   .day-card{padding:10px 4px 8px}
@@ -758,11 +780,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <div class="att-expected" id="att-expected">Expected: ,</div>
           <div class="att-marked" id="att-marked"></div>
         </div>
+        <div class="att-mode-toggle" id="att-mode-toggle" role="tablist" aria-label="Attendance entry mode">
+          <button type="button" class="att-mode-btn active" data-att-mode="totals" role="tab" aria-selected="true">Totals</button>
+          <button type="button" class="att-mode-btn" data-att-mode="byperson" role="tab" aria-selected="false">By person</button>
+        </div>
         <div class="att-inputs" id="att-inputs">
           <label><span class="dot u"></span> Upper <input type="number" id="att-upper" min="0" inputmode="numeric"></label>
           <label><span class="dot l"></span> Lower <input type="number" id="att-lower" min="0" inputmode="numeric"></label>
           <label><span class="dot f"></span> Free  <input type="number" id="att-free"  min="0" inputmode="numeric"></label>
         </div>
+        <div class="att-people" id="att-people" hidden></div>
         <div class="att-total" id="att-total">Total: 0</div>
         <div class="att-actions">
           <button type="button" class="att-btn-secondary" id="att-clear">Clear</button>
@@ -1926,6 +1953,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     wireDayChipClicks();
     // Kick off attendance load on first render so chips can show ✓ checks
     if (!state.attendanceByWeek && !state.attendanceLoading) loadAttendance();
+    // Kick off per-person attendance load so the by-person modal restores
+    // picks across devices, not just on the device that entered them.
+    if (!state.peopleByWeek && !state.peopleLoading) loadPeopleAttendance();
     const isAS = isAfterSchool(state.filter);
     if (isAS) renderRosterBodyAfterSchool(body);
     else      renderRosterBody(body, state.snapshot.roster || {});
@@ -2155,6 +2185,164 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     });
   }
 
+  // ─── Attendance modal helpers ───────────────────────────────────
+  // The modal supports two entry modes: "totals" (3 number inputs) and
+  // "byperson" (a list of expected students with ✓/✗ marks). Both modes
+  // save to Supabase — byperson derives the campus counts from the
+  // ticks for the totals row, and also writes one row per (week, day,
+  // person) to sf_daily_attendance_people so the picks sync across
+  // devices. The last-used mode is still local-only (sf-att-mode in
+  // localStorage) because mode preference is a per-device UX choice.
+  const ATT_MODE_KEY = 'sf-att-mode';                       // last mode used
+  function personKey(r) { return `${r.name || ''}|${r.email || ''}`.toLowerCase(); }
+
+  // Read-only accessor — flattens state.peopleByWeek[week][day] into the
+  // legacy { [personKey]: 'present'|'absent' } shape that renderPeopleList
+  // and countPicks already speak. Returns {} when nothing is loaded yet.
+  function loadPeoplePicks(week, day) {
+    const cell = (state.peopleByWeek && state.peopleByWeek[week] && state.peopleByWeek[week][day]) || {};
+    const out = {};
+    Object.keys(cell).forEach(k => {
+      if (cell[k] && cell[k].status) out[k] = cell[k].status;
+    });
+    return out;
+  }
+  function ensurePeopleCell(week, day) {
+    if (!state.peopleByWeek) state.peopleByWeek = {};
+    if (!state.peopleByWeek[week]) state.peopleByWeek[week] = {};
+    if (!state.peopleByWeek[week][day]) state.peopleByWeek[week][day] = {};
+    return state.peopleByWeek[week][day];
+  }
+  function setPersonLocal(week, day, person, status) {
+    const cell = ensurePeopleCell(week, day);
+    const k = personKey(person);
+    if (!status) delete cell[k];
+    else cell[k] = { status, name: person.name, bucket: person.bucket, markedAt: new Date().toISOString() };
+  }
+  function setBulkLocal(week, day, people, status) {
+    const cell = ensurePeopleCell(week, day);
+    if (!status) {
+      people.forEach(p => { delete cell[personKey(p)]; });
+    } else {
+      const now = new Date().toISOString();
+      people.forEach(p => {
+        cell[personKey(p)] = { status, name: p.name, bucket: p.bucket, markedAt: now };
+      });
+    }
+  }
+
+  // Pull the expected students for one (week × day) from the snapshot roster.
+  function expectedPeopleFor(week, day) {
+    const wk = (state.snapshot && state.snapshot.roster && state.snapshot.roster[week]) || {};
+    const dayIdx = ['Mon','Tue','Wed','Thu','Fri'].indexOf(day);
+    const all = [];
+    ['upper','lower','free'].forEach(b => {
+      (wk[b] || []).forEach(r => {
+        const days = Array.isArray(r.days) ? r.days : [true,true,true,true,true];
+        if (!days[dayIdx]) return;
+        const bucket = r.type === 'free' ? 'f'
+                     : r.campus === 'Lower Campus' ? 'l'
+                     : 'u';
+        all.push({ name: r.name || '(name missing)', email: r.email || null, bucket });
+      });
+    });
+    all.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    return all;
+  }
+
+  function countPicks(picks, people) {
+    let u = 0, l = 0, f = 0;
+    people.forEach(p => {
+      if (picks[personKey(p)] !== 'present') return;
+      if (p.bucket === 'u') u++;
+      else if (p.bucket === 'l') l++;
+      else if (p.bucket === 'f') f++;
+    });
+    return { u, l, f };
+  }
+
+  function renderPeopleList(week, day) {
+    const container = document.getElementById('att-people');
+    if (!container) return;
+    const people = expectedPeopleFor(week, day);
+    const picks  = loadPeoplePicks(week, day);
+
+    if (people.length === 0) {
+      container.innerHTML = `<div class="att-empty">No expected students for this day.</div>`;
+      return;
+    }
+
+    const bulk = `<div class="att-bulk">
+        <button type="button" data-att-bulk="all-present">All ✓ present</button>
+        <button type="button" data-att-bulk="all-absent">All ✗ absent</button>
+        <button type="button" data-att-bulk="clear">Clear marks</button>
+      </div>`;
+
+    const rows = people.map(p => {
+      const key   = personKey(p);
+      const state = picks[key] || '';
+      const cls   = state === 'present' ? 'present' : state === 'absent' ? 'absent' : '';
+      const dotCls = p.bucket === 'u' ? 'u' : p.bucket === 'l' ? 'l' : 'f';
+      const safeName = String(p.name).replace(/</g, '&lt;');
+      const safeKey  = key.replace(/"/g, '&quot;');
+      return `<div class="att-person ${cls}" data-pk="${safeKey}">
+          <span class="dot ${dotCls}" title="${p.bucket==='u'?'Upper':p.bucket==='l'?'Lower':'Free'}"></span>
+          <span class="nm">${safeName}</span>
+          <span class="att-marks">
+            <button type="button" class="att-mark yes" data-att-pick="present" aria-label="Mark present">✓</button>
+            <button type="button" class="att-mark no"  data-att-pick="absent"  aria-label="Mark absent">✗</button>
+          </span>
+        </div>`;
+    }).join('');
+
+    container.innerHTML = bulk + rows;
+  }
+
+  function setAttMode(mode) {
+    const toggle  = document.getElementById('att-mode-toggle');
+    const inputs  = document.getElementById('att-inputs');
+    const people  = document.getElementById('att-people');
+    if (!toggle || !inputs || !people) return;
+    toggle.querySelectorAll('.att-mode-btn').forEach(b => {
+      const on = b.dataset.attMode === mode;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    if (mode === 'byperson') {
+      inputs.setAttribute('hidden', '');
+      people.removeAttribute('hidden');
+    } else {
+      people.setAttribute('hidden', '');
+      inputs.removeAttribute('hidden');
+    }
+    try { localStorage.setItem(ATT_MODE_KEY, mode); } catch (e) {}
+  }
+
+  function currentAttMode() {
+    const active = document.querySelector('#att-mode-toggle .att-mode-btn.active');
+    return active ? active.dataset.attMode : 'totals';
+  }
+
+  function recomputeAttTotal() {
+    const backdrop = document.getElementById('att-modal-backdrop');
+    const totalEl  = document.getElementById('att-total');
+    if (!backdrop || !totalEl) return;
+    if (currentAttMode() === 'byperson') {
+      const week = backdrop.getAttribute('data-week');
+      const day  = backdrop.getAttribute('data-day');
+      if (!week || !day) return;
+      const people = expectedPeopleFor(week, day);
+      const picks  = loadPeoplePicks(week, day);
+      const c = countPicks(picks, people);
+      const total = c.u + c.l + c.f;
+      totalEl.textContent = `Total: ${total} (U${c.u} · L${c.l} · F${c.f})`;
+    } else {
+      const inputs = ['att-upper','att-lower','att-free'].map(id => document.getElementById(id));
+      const total = inputs.reduce((s, i) => s + (parseInt(i.value, 10) || 0), 0);
+      totalEl.textContent = `Total: ${total}`;
+    }
+  }
+
   function wireAttendanceModal() {
     const backdrop = document.getElementById('att-modal-backdrop');
     if (!backdrop || backdrop.dataset.wired === '1') return;
@@ -2162,14 +2350,76 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const closeBtn = document.getElementById('att-modal-close');
     const saveBtn  = document.getElementById('att-save');
     const clearBtn = document.getElementById('att-clear');
-    const inputs = ['att-upper','att-lower','att-free'].map(id => document.getElementById(id));
-    const totalEl = document.getElementById('att-total');
+    const inputs   = ['att-upper','att-lower','att-free'].map(id => document.getElementById(id));
+    const toggle   = document.getElementById('att-mode-toggle');
+    const peopleEl = document.getElementById('att-people');
 
-    function updateTotal() {
-      const total = inputs.reduce((s, i) => s + (parseInt(i.value, 10) || 0), 0);
-      totalEl.textContent = `Total: ${total}`;
-    }
-    inputs.forEach(i => i.addEventListener('input', updateTotal));
+    inputs.forEach(i => i.addEventListener('input', recomputeAttTotal));
+
+    // Mode toggle: flip between totals + by-person views.
+    toggle.addEventListener('click', e => {
+      const btn = e.target.closest('.att-mode-btn');
+      if (!btn) return;
+      setAttMode(btn.dataset.attMode);
+      recomputeAttTotal();
+    });
+
+    // Per-person clicks: ✓/✗ marks + bulk buttons. Optimistic UI: update
+    // local state + DOM first, send the RPC in the background, roll back
+    // and surface an error if the RPC fails.
+    peopleEl.addEventListener('click', async e => {
+      const week = backdrop.getAttribute('data-week');
+      const day  = backdrop.getAttribute('data-day');
+      if (!week || !day) return;
+      const bulk = e.target.closest('[data-att-bulk]');
+      if (bulk) {
+        const mode = bulk.dataset.attBulk;
+        const people = expectedPeopleFor(week, day);
+        const status = mode === 'all-present' ? 'present'
+                     : mode === 'all-absent'  ? 'absent'
+                     : null; // clear
+        // Snapshot current state for rollback, then apply optimistically.
+        const before = JSON.parse(JSON.stringify(ensurePeopleCell(week, day)));
+        setBulkLocal(week, day, people, status);
+        renderPeopleList(week, day);
+        recomputeAttTotal();
+        try {
+          await bulkSetPeoplePicksRpc(week, day, status, people);
+        } catch (err) {
+          state.peopleByWeek[week][day] = before;
+          renderPeopleList(week, day);
+          recomputeAttTotal();
+          showAttFeedback('✗ Save failed: ' + err.message, 'error');
+        }
+        return;
+      }
+      const mark = e.target.closest('[data-att-pick]');
+      if (!mark) return;
+      const row = mark.closest('.att-person');
+      if (!row) return;
+      const pk = row.getAttribute('data-pk');
+      const want = mark.dataset.attPick;     // 'present' | 'absent'
+      const people = expectedPeopleFor(week, day);
+      const person = people.find(p => personKey(p) === pk);
+      if (!person) return;
+      const picks = loadPeoplePicks(week, day);
+      // Clicking the same mark again clears it (toggle off).
+      const next = picks[pk] === want ? null : want;
+      const prev = picks[pk] || null;
+      setPersonLocal(week, day, person, next);
+      row.classList.remove('present', 'absent');
+      if (next) row.classList.add(next);
+      recomputeAttTotal();
+      try {
+        await setPersonPickRpc(week, day, person, next);
+      } catch (err) {
+        setPersonLocal(week, day, person, prev);
+        row.classList.remove('present', 'absent');
+        if (prev) row.classList.add(prev);
+        recomputeAttTotal();
+        showAttFeedback('✗ Save failed: ' + err.message, 'error');
+      }
+    });
 
     function close() {
       backdrop.classList.remove('open');
@@ -2183,22 +2433,56 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       if (e.key === 'Escape' && backdrop.classList.contains('open')) close();
     });
 
-    clearBtn.addEventListener('click', () => {
-      inputs.forEach(i => i.value = '');
-      updateTotal();
+    clearBtn.addEventListener('click', async () => {
+      const week = backdrop.getAttribute('data-week');
+      const day  = backdrop.getAttribute('data-day');
+      if (currentAttMode() === 'byperson' && week && day) {
+        const people = expectedPeopleFor(week, day);
+        const before = JSON.parse(JSON.stringify(ensurePeopleCell(week, day)));
+        setBulkLocal(week, day, people, null);
+        renderPeopleList(week, day);
+        recomputeAttTotal();
+        try {
+          await bulkSetPeoplePicksRpc(week, day, null, people);
+        } catch (err) {
+          state.peopleByWeek[week][day] = before;
+          renderPeopleList(week, day);
+          recomputeAttTotal();
+          showAttFeedback('✗ Clear failed: ' + err.message, 'error');
+        }
+      } else {
+        inputs.forEach(i => i.value = '');
+        recomputeAttTotal();
+      }
     });
+
+    function showAttFeedback(text, kind) {
+      const fb = document.getElementById('att-feedback');
+      if (!fb) return;
+      fb.className = 'att-feedback' + (kind ? ' ' + kind : '');
+      fb.textContent = text;
+    }
 
     saveBtn.addEventListener('click', async () => {
       const week = backdrop.getAttribute('data-week');
       const day  = backdrop.getAttribute('data-day');
       if (!week || !day) return;
       const fb = document.getElementById('att-feedback');
+      let u, l, f;
+      if (currentAttMode() === 'byperson') {
+        const people = expectedPeopleFor(week, day);
+        const picks  = loadPeoplePicks(week, day);
+        const c = countPicks(picks, people);
+        u = c.u; l = c.l; f = c.f;
+      } else {
+        u = inputs[0].value; l = inputs[1].value; f = inputs[2].value;
+      }
       saveBtn.disabled = true;
       saveBtn.textContent = 'Saving…';
       fb.className = 'att-feedback';
       fb.textContent = '';
       try {
-        await saveAttendanceCell(week, day, inputs[0].value, inputs[1].value, inputs[2].value);
+        await saveAttendanceCell(week, day, u, l, f);
         fb.className = 'att-feedback success';
         fb.textContent = '✓ Saved';
         // Re-render the roster panel so the chip shows a check mark
@@ -2240,13 +2524,24 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     });
     const expectedTotal = expU + expL + expF;
 
-    // Prefill with the existing saved row if any, else with the expected.
+    // Prefill totals with the existing saved row if any, else with the expected.
     const existing = (state.attendanceByWeek && state.attendanceByWeek[week] && state.attendanceByWeek[week][day]) || null;
     document.getElementById('att-upper').value = existing ? existing.u : expU;
     document.getElementById('att-lower').value = existing ? existing.l : expL;
     document.getElementById('att-free').value  = existing ? existing.f : expF;
-    const total = (existing ? existing.u + existing.l + existing.f : expectedTotal);
-    document.getElementById('att-total').textContent = `Total: ${total}`;
+
+    backdrop.setAttribute('data-week', week);
+    backdrop.setAttribute('data-day',  day);
+
+    // Render the by-person list (needs data-week/day set first).
+    renderPeopleList(week, day);
+
+    // Restore the last-used mode (defaults to totals on first open).
+    let mode = 'totals';
+    try { mode = localStorage.getItem(ATT_MODE_KEY) || 'totals'; } catch (e) {}
+    if (mode !== 'totals' && mode !== 'byperson') mode = 'totals';
+    setAttMode(mode);
+    recomputeAttTotal();
 
     document.getElementById('att-modal-title').textContent = `${day} attendance`;
     document.getElementById('att-modal-sub').textContent   = shortenWeek(week);
@@ -2257,13 +2552,15 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     document.getElementById('att-feedback').textContent = '';
     document.getElementById('att-feedback').className   = 'att-feedback';
 
-    backdrop.setAttribute('data-week', week);
-    backdrop.setAttribute('data-day',  day);
     backdrop.removeAttribute('hidden');
     backdrop.classList.add('open');
 
     // Make sure attendance data is loaded so chip checkmarks are correct
     if (!state.attendanceByWeek) loadAttendance();
+    // Make sure per-person picks are loaded so the by-person list restores
+    // marks across devices (load triggers a re-render via loadPeopleAttendance's
+    // finally block when this modal is open).
+    if (!state.peopleByWeek) loadPeopleAttendance();
   }
 
   function formatMarkedAt(iso) {
@@ -2525,7 +2822,17 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     '1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY': 'FREE Lower',
   };
   function sheetLabelForId(id) { return SHEET_LABELS[id] || 'Source sheet'; }
-  function sheetUrlForId(id)   { return id ? `https://docs.google.com/spreadsheets/d/${id}/edit` : null; }
+  // Deep-link to a specific tab + row when gid/row are known. Falls back to
+  // the bare /edit URL (which opens whatever tab Google considers default)
+  // for older snapshots that pre-date the sourceGid field.
+  function sheetUrlForId(id, gid, row) {
+    if (!id) return null;
+    const base = `https://docs.google.com/spreadsheets/d/${id}/edit`;
+    if (gid == null) return base;
+    let url = base + `?gid=${encodeURIComponent(String(gid))}#gid=${encodeURIComponent(String(gid))}`;
+    if (row && Number.isFinite(+row)) url += `&range=A${row}`;
+    return url;
+  }
 
   function pipForType(type, campus) {
     if (type === 'free') return 'free';
@@ -2672,7 +2979,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         week: r.week,
         sheetId: r.sourceSheetId,
         sheetLbl: sheetLabelForId(r.sourceSheetId),
-        sheetUrl: sheetUrlForId(r.sourceSheetId),
+        // sheetUrl deep-links to the specific tab + row when sourceGid is
+        // known. Falls back to the spreadsheet root on older snapshots.
+        sheetUrl: sheetUrlForId(r.sourceSheetId, r.sourceGid, r.sourceRow),
+        gid: r.sourceGid,
         tabName: r.sourceTabName,
         row: r.sourceRow,
       });
@@ -2738,6 +3048,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   state.chartMode = 'registrations';   // 'registrations' | 'attendance'
   state.attendanceByWeek = null;       // { [weekLabel]: { Mon:{u,l,f,markedAt}, Tue:..., ... } }
   state.attendanceLoading = false;
+  state.peopleByWeek = null;           // { [weekLabel]: { Mon:{ [personKey]:{ status, name, bucket, markedAt } } } }
+  state.peopleLoading = false;
 
   // ─── Attendance data (Supabase) ─────────────────────────────────
   // Pulled on demand when the user flips the toggle. Cached in state so
@@ -2815,6 +3127,105 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       markedBy: row.marked_by,
     };
     return row;
+  }
+
+  // ─── Per-person attendance (Supabase) ───────────────────────────
+  // Sibling of loadAttendance/saveAttendanceCell, but for the by-person
+  // mode in the attendance modal. Reads/writes sf_daily_attendance_people
+  // through three RPCs:
+  //   sf_get_daily_attendance_people         — bulk fetch
+  //   sf_set_daily_attendance_person         — one upsert (or delete on null status)
+  //   sf_bulk_set_daily_attendance_people    — bulk upsert/clear for the
+  //                                            All present / All absent / Clear buttons
+  async function loadPeopleAttendance(force) {
+    if (state.peopleLoading) return;
+    if (state.peopleByWeek && !force) return;
+    state.peopleLoading = true;
+    try {
+      const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/sf_get_daily_attendance_people', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': 'Bearer ' + SUPABASE_ANON,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ p_week_label: null }),
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const rows = await resp.json();
+      const map = {};
+      rows.forEach(r => {
+        if (!map[r.week_label]) map[r.week_label] = {};
+        if (!map[r.week_label][r.day_of_week]) map[r.week_label][r.day_of_week] = {};
+        map[r.week_label][r.day_of_week][r.person_key] = {
+          status:   r.status,
+          name:     r.person_name,
+          bucket:   r.bucket,
+          markedAt: r.marked_at,
+          markedBy: r.marked_by,
+        };
+      });
+      state.peopleByWeek = map;
+    } catch (e) {
+      console.warn('[people-attendance] load failed:', e);
+      state.peopleByWeek = state.peopleByWeek || {};
+    } finally {
+      state.peopleLoading = false;
+      // If the modal is open and in by-person mode, re-render with the
+      // freshly loaded picks. Defensive: also runs when the modal isn't
+      // open, but renderPeopleList no-ops when its container doesn't exist.
+      const backdrop = document.getElementById('att-modal-backdrop');
+      if (backdrop && backdrop.classList.contains('open')) {
+        const wk = backdrop.getAttribute('data-week');
+        const dy = backdrop.getAttribute('data-day');
+        if (wk && dy) {
+          renderPeopleList(wk, dy);
+          recomputeAttTotal();
+        }
+      }
+    }
+  }
+
+  async function setPersonPickRpc(week, day, person, status) {
+    const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/sf_set_daily_attendance_person', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        claim_secret:  'Tkk5CiBZlWl97rBdP8e8Tg_bxvzw6d_LBrGWpSzShKkEiQEBtDzZHtm8Fp-hhIqq',
+        p_week_label:  week,
+        p_day_of_week: day,
+        p_person_key:  personKey(person),
+        p_person_name: person.name,
+        p_bucket:      person.bucket,
+        p_status:      status,            // null/'' deletes the row
+        p_marked_by:   null,
+      }),
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status + ': ' + (await resp.text()));
+  }
+
+  async function bulkSetPeoplePicksRpc(week, day, status, people) {
+    const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/sf_bulk_set_daily_attendance_people', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        claim_secret:  'Tkk5CiBZlWl97rBdP8e8Tg_bxvzw6d_LBrGWpSzShKkEiQEBtDzZHtm8Fp-hhIqq',
+        p_week_label:  week,
+        p_day_of_week: day,
+        p_status:      status,            // null/'' clears all passed people for this (week, day)
+        p_persons:     people.map(p => ({ key: personKey(p), name: p.name, bucket: p.bucket })),
+        p_marked_by:   null,
+      }),
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status + ': ' + (await resp.text()));
   }
 
   function attendanceTotalsForWeek(week) {
