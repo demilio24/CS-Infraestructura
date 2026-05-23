@@ -93,6 +93,7 @@ const REMOTE_TRIGGER_WHITELIST = {
   sampleCanceledRows:              'Return the first N (default 10) canceled tx rows on the Dashboard, including each row\'s col B note source. Use sync=1, pass &n=<count>.',
   testUpsertPreservation:          'Test that the Name/Phone preservation patch in upsertCustomerRow is working. Pass &email=<existing customer> and optionally &newName=/&newPhone=. Returns pre/post state + assertions. Use sync=1.',
   cleanupDoubleShirtSuffix:        'Walk the Dashboard for col-B labels containing a duplicated (+$X) suffix (e.g. "Small (+$30) (+$30)") and strip the extra. Idempotent. Pass &dryRun=1 to just count. Use sync=1.',
+  cleanupExtraNuclearTriggers:     'Delete duplicate nuclearResetBilling time-based triggers, keeping exactly one. Idempotent — re-running on an already-clean project deletes 0. Use sync=1.',
 };
 
 function doGet(e) {
@@ -225,6 +226,7 @@ function _rtDispatch_(fn, params) {
     case 'sampleCanceledRows':               return _rtSampleCanceledRows_(params);
     case 'testUpsertPreservation':           return _rtTestUpsertPreservation_(params);
     case 'cleanupDoubleShirtSuffix':         return _rtCleanupDoubleShirtSuffix_(params);
+    case 'cleanupExtraNuclearTriggers':      return _rtCleanupExtraNuclearTriggers_();
     default: throw new Error('Dispatcher missing for whitelisted fn: ' + fn);
   }
 }
@@ -739,6 +741,52 @@ function _rtSampleCanceledRows_(params) {
     });
   }
   return { ok: true, count: out.length, rows: out };
+}
+
+/**
+ * Delete duplicate nuclearResetBilling time-based triggers, keeping
+ * exactly one. As of the 2026-05-23 audit there were 6 separate
+ * nuclear triggers accumulated (probably from manual "install"
+ * clicks in the editor over time — there is no
+ * installNuclearResetBillingTrigger function in the codebase, so
+ * nuclear was never intended as a standalone cron; the proper
+ * scheduled-nuclear path is dailyDashboardSelfHeal which calls it
+ * conditionally). 6x runs burn 6x the GHL UrlFetch quota for the
+ * same work.
+ *
+ * Conservative behavior: keep ONE nuclear trigger (the first one
+ * iteration order returns) so any intentional schedule survives.
+ * Delete the rest. If the team wants zero scheduled nuclear runs,
+ * they can delete the remaining one manually — daily self-heal at
+ * 3 AM still handles the conditional rebuild case.
+ *
+ * Doesn't touch any other handler's triggers.
+ */
+function _rtCleanupExtraNuclearTriggers_() {
+  var triggers = ScriptApp.getProjectTriggers();
+  var nuclear = triggers.filter(function(t) {
+    return t.getHandlerFunction() === 'nuclearResetBilling';
+  });
+  var others = triggers.filter(function(t) {
+    return t.getHandlerFunction() !== 'nuclearResetBilling';
+  });
+  var deleted = [];
+  var kept = [];
+  for (var i = 0; i < nuclear.length; i++) {
+    if (i === 0) {
+      kept.push({ uniqueId: nuclear[i].getUniqueId(), handler: 'nuclearResetBilling' });
+    } else {
+      var uid = nuclear[i].getUniqueId();
+      ScriptApp.deleteTrigger(nuclear[i]);
+      deleted.push(uid);
+    }
+  }
+  others.forEach(function(t) {
+    kept.push({ uniqueId: t.getUniqueId(), handler: t.getHandlerFunction() });
+  });
+  Logger.log('[cleanupExtraNuclearTriggers] deleted ' + deleted.length +
+             ' duplicate nuclear trigger(s); kept ' + kept.length + ' total');
+  return { ok: true, deleted: deleted, kept: kept, deletedCount: deleted.length, totalRemaining: kept.length };
 }
 
 /**
