@@ -18,5 +18,8 @@ Veteran-owned mobile notary service operating across Miami-Dade and Broward Coun
 (none clear)
 
 ## Changelog
+## 2026-05-23 Pain-section SVG swapped for closed-storefront photo
+Charles emailed that the Pain-section illustration "looks like a large empty space with a notepad and a clock." Replaced the inline 400x400 SVG (white-on-white documents + clock + tiny X marks) with a real photograph: Imagen-generated, mid-30s professional standing outside a closed Miami notary office at golden hour, holding a folder of documents, checking phone. Photo hosted in Mobile Notary Miami Florida GHL media library (`YUxVPDw3FnvQ2ne2mIu8`, file `ca6c82b3-f1eb-4777-ad52-ec78b47f3841.png`). Removed `.pain-illustration` wrapper CSS, added `.pain-photo` class that absolute-positions the image to fill the `.pain-image-col` rounded frame edge-to-edge. Four variation candidates (A bank-line, B overhead-desk, C counter-closeup, D closed-storefront) live in the GHL bucket for reference if Charles ever asks for a different angle.
+
 ## 2026-05-17 PROJECT.md seeded
 Initial seed from existing folder state.
