@@ -41,7 +41,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .btn-secondary:hover{background:var(--sf-blue-50);border-color:var(--sf-blue-500)}
 .btn-lg{padding:18px 36px;font-size:17px;min-height:56px}
 
-/* NAV + MOBILE MENU + SPONSORS + LIGHTBOX + CTA + FOOTER — synced with home.html */
+/* NAV + MOBILE MENU + SPONSORS + LIGHTBOX + CTA + FOOTER, synced with home.html */
 .sf-nav-wrap{position:fixed;top:0;left:0;right:0;z-index:100}
 .sf-nav{background:transparent;padding:14px 32px 22px;position:relative;isolation:isolate;transition:padding .3s}
 .sf-nav::before{content:'';position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,var(--sf-blue-700) 0%,var(--sf-blue-500) 50%,var(--sf-blue-700) 100%);clip-path:polygon(0 0,100% 0,100% calc(100% - 16px),calc(100% - 120px) 100%,120px calc(100% - 4px),0 calc(100% - 20px));filter:drop-shadow(0 10px 30px rgba(15,27,61,.14));transition:filter .3s}
@@ -71,7 +71,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .sf-nav-dropdown-menu::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sf-blue-500) 0%,var(--sf-blue-700) 60%,var(--sf-blue-800) 100%)}
 .sf-nav-dropdown-menu::after{content:'';position:absolute;top:-28px;left:0;right:0;height:28px;background:transparent}
 .sf-nav-dropdown:hover .sf-nav-dropdown-menu,.sf-nav-dropdown:focus-within .sf-nav-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
 .sf-nav-dropdown-thumb-split{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;height:100%;background:#0a1028;position:relative}
 .sf-nav-dropdown-thumb-split img{width:100%;height:100%;object-fit:cover;display:block}
 .sf-nav-dropdown-thumb-split .tag{position:absolute;top:8px;padding:3px 8px;background:rgba(255,255,255,.92);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:3px;backdrop-filter:blur(6px);z-index:2}
@@ -138,7 +138,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .lightbox-close:hover{background:rgba(255,255,255,.22);transform:scale(1.06)}
 .lightbox-close svg{width:20px;height:20px}
 
-/* HERO — white with blue accents, form on right (after-school pattern) */
+/* HERO, white with blue accents, form on right (after-school pattern) */
 .page-hero{position:relative;padding:200px 32px 110px;background:linear-gradient(135deg,#ffffff 0%,#eaf2fb 55%,#d6e6f7 100%);color:var(--sf-ink);overflow:hidden;isolation:isolate}
 .page-hero::before{content:"";position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(47,130,196,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(47,130,196,.08) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:radial-gradient(ellipse at center,#000 45%,transparent 90%);mask-image:radial-gradient(ellipse at center,#000 45%,transparent 90%);pointer-events:none}
 .page-hero::after{content:"";position:absolute;top:-120px;right:-120px;width:520px;height:520px;z-index:0;background:radial-gradient(circle,rgba(47,130,196,.22),transparent 65%);pointer-events:none}
@@ -397,13 +397,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
                   <p class="sf-nav-dropdown-sub">Full-day · summer + school breaks</p>
                 </div>
               </a>
-              <a class="sf-nav-dropdown-item" href="https://www.systemafloyd.com/spirit-dance" target="_top" role="menuitem">
-                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/94da7fa3-a8ff-4183-a2fa-5599edd69172.jpg" alt="" /></div>
-                <div class="sf-nav-dropdown-body">
-                  <div class="sf-nav-dropdown-title">Spirit Dance</div>
-                  <p class="sf-nav-dropdown-sub">Faith-based dance for kids</p>
-                </div>
-              </a>
               <a class="sf-nav-dropdown-item" href="https://www.systemafloyd.com/rent-a-sensei" target="_top" role="menuitem">
                 <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/206e78be-a4ab-4bb1-9ccb-a8b7558adf43.jpg" alt="" /></div>
                 <div class="sf-nav-dropdown-body">
@@ -468,7 +461,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <li><span class="sf-mobile-menu-label">Programs</span></li>
     <li><a href="https://www.systemafloyd.com/after-school-class-registration" target="_top">After School Systema</a></li>
     <li><a href="https://www.systemafloyd.com/camp-registration" target="_top">Summer Camps</a></li>
-    <li><a href="https://www.systemafloyd.com/spirit-dance" target="_top">Spirit Dance</a></li>
     <li><a href="https://www.systemafloyd.com/rent-a-sensei" target="_top">Rent A Sensei</a></li>
     <li><span class="sf-mobile-menu-label">Seminars &amp; Events</span></li>
     <li><a href="https://www.systemafloyd.com/vlad-seminar" target="_top">Vladimir Vasiliev Seminar</a></li>
@@ -520,23 +512,30 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
     </div>
 
-    <!-- Form placeholder — will be replaced by GHL embed later -->
+    <!-- Form placeholder, will be replaced by GHL embed later -->
     <div class="page-hero-form anim d3" id="register">
       <div class="page-hero-form-head">
         <span class="kicker">Book A Lesson</span>
         <h2>Reserve Your Private Session</h2>
       </div>
-      <div class="form-placeholder" role="region" aria-label="Booking form coming soon">
-        <div class="form-placeholder-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M9 16l2 2 4-4"/></svg>
-        </div>
-        <h3 class="form-placeholder-title">Booking Form Coming Soon</h3>
-        <p class="form-placeholder-sub">The booking form will live here. Until it's ready, give us a call and we'll set up your first private lesson by phone.</p>
-        <a class="form-placeholder-cta" href="tel:+15617858480">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.8a2 2 0 01-.45 2.11L8.09 9.9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.9.34 1.84.57 2.8.7a2 2 0 011.72 2.04z"/></svg>
-          Call (561) 785-8480
-        </a>
-      </div>
+      <iframe
+        src="https://link.nilsdigital.com/widget/form/Cpk2gmz9dcumDiz2KFun"
+        id="inline-Cpk2gmz9dcumDiz2KFun"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Private Lesson Booking"
+        data-height="1934"
+        data-layout-iframe-id="inline-Cpk2gmz9dcumDiz2KFun"
+        data-form-id="Cpk2gmz9dcumDiz2KFun"
+        title="Private Lesson Booking"
+        style="width:100%;min-height:1934px;border:none;border-radius:8px;background:#fff;display:block;"
+      ></iframe>
+      <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
     </div>
   </div>
 </section>
@@ -591,7 +590,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       </div>
       <div class="instructor-grid">
 
-        <!-- Mr. Floyd / Tom — Premium tier -->
+        <!-- Mr. Floyd / Tom, Premium tier -->
         <div class="instructor-card is-premium anim">
           <div class="instructor-photo">
             <img src="https://assets.cdn.filesafe.space/2RNdy2siRA6d4r1tWL09/media/8068f482-cc80-4feb-ad74-b1cb693e2c6d.png" alt="Mr. Floyd, founder and lead sensei at Systema Floyd" loading="lazy" decoding="async" />
@@ -647,7 +646,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
         </div>
 
-        <!-- Evenson — Boxing only — placeholder photo -->
+        <!-- Evenson, Boxing only, placeholder photo -->
         <div class="instructor-card anim">
           <div class="instructor-photo placeholder" aria-hidden="true"><span>EV</span></div>
           <div class="instructor-body">
@@ -657,7 +656,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
         </div>
 
-        <!-- Jessica — Dance — placeholder photo -->
+        <!-- Jessica, Dance, placeholder photo -->
         <div class="instructor-card anim d1">
           <div class="instructor-photo placeholder" aria-hidden="true"><span>JE</span></div>
           <div class="instructor-body">
@@ -667,7 +666,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
         </div>
 
-        <!-- Bianca — Dance — placeholder photo -->
+        <!-- Bianca, Dance, placeholder photo -->
         <div class="instructor-card anim d2">
           <div class="instructor-photo placeholder" aria-hidden="true"><span>BI</span></div>
           <div class="instructor-body">
@@ -677,7 +676,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
         </div>
 
-        <!-- Carolina — Dance — placeholder photo -->
+        <!-- Carolina, Dance, placeholder photo -->
         <div class="instructor-card anim d3">
           <div class="instructor-photo placeholder" aria-hidden="true"><span>CA</span></div>
           <div class="instructor-body">
@@ -702,7 +701,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       </div>
       <div class="instructor-grid">
 
-        <!-- Ryan — Virginia — placeholder photo -->
+        <!-- Ryan, Virginia, placeholder photo -->
         <div class="instructor-card anim">
           <div class="instructor-photo placeholder" aria-hidden="true"><span>RY</span></div>
           <div class="instructor-body">

@@ -290,6 +290,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .att-people .att-bulk{display:flex;gap:6px;margin-bottom:4px}
 .att-people .att-bulk button{flex:1;padding:6px 10px;border-radius:6px;border:1px solid var(--sf-border);background:var(--sf-white);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;letter-spacing:.04em;transition:background .15s,color .15s}
 .att-people .att-bulk button:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
+.att-people .att-filter{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.att-people .att-filter button{padding:5px 9px;border-radius:999px;border:1px solid var(--sf-border);background:var(--sf-white);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;letter-spacing:.02em;transition:background .15s,color .15s,border-color .15s}
+.att-people .att-filter button:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
+.att-people .att-filter button.active{background:var(--sf-blue-700);color:var(--sf-white);border-color:var(--sf-blue-700)}
 .att-person{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:6px;transition:background .15s,border-color .15s}
 .att-person .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .att-person .dot.u{background:#1b2f6e}
@@ -2196,15 +2200,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // ─── Attendance modal helpers ───────────────────────────────────
   // The modal supports two entry modes: "totals" (3 number inputs) and
   // "byperson" (a list of expected students with ✓/✗ marks). Both modes
-  // save to Supabase — byperson derives the campus counts from the
+  // save to Supabase, byperson derives the campus counts from the
   // ticks for the totals row, and also writes one row per (week, day,
   // person) to sf_daily_attendance_people so the picks sync across
   // devices. The last-used mode is still local-only (sf-att-mode in
   // localStorage) because mode preference is a per-device UX choice.
   const ATT_MODE_KEY = 'sf-att-mode';                       // last mode used
+  let currentPeopleFilter = 'all';                          // session-only, persists across modal opens until page reload
   function personKey(r) { return `${r.name || ''}|${r.email || ''}`.toLowerCase(); }
 
-  // Read-only accessor — flattens state.peopleByWeek[week][day] into the
+  // Read-only accessor, flattens state.peopleByWeek[week][day] into the
   // legacy { [personKey]: 'present'|'absent' } shape that renderPeopleList
   // and countPicks already speak. Returns {} when nothing is loaded yet.
   function loadPeoplePicks(week, day) {
@@ -2251,7 +2256,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         const bucket = r.type === 'free' ? 'f'
                      : r.campus === 'Lower Campus' ? 'l'
                      : 'u';
-        all.push({ name: r.name || '(name missing)', email: r.email || null, bucket });
+        const isLower = r.campus === 'Lower Campus';
+        const filterKey = r.type === 'free'
+          ? (isLower ? 'lf' : 'uf')
+          : (isLower ? 'lp' : 'up');
+        all.push({ name: r.name || '(name missing)', email: r.email || null, bucket, filterKey });
       });
     });
     all.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
@@ -2269,14 +2278,34 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     return { u, l, f };
   }
 
+  function visiblePeopleFor(week, day) {
+    const all = expectedPeopleFor(week, day);
+    return currentPeopleFilter === 'all'
+      ? all
+      : all.filter(p => p.filterKey === currentPeopleFilter);
+  }
+
   function renderPeopleList(week, day) {
     const container = document.getElementById('att-people');
     if (!container) return;
-    const people = expectedPeopleFor(week, day);
+    const all    = expectedPeopleFor(week, day);
+    const people = currentPeopleFilter === 'all' ? all : all.filter(p => p.filterKey === currentPeopleFilter);
     const picks  = loadPeoplePicks(week, day);
 
-    if (people.length === 0) {
-      container.innerHTML = `<div class="att-empty">No expected students for this day.</div>`;
+    const counts = { up:0, lp:0, uf:0, lf:0 };
+    all.forEach(p => { counts[p.filterKey] = (counts[p.filterKey] || 0) + 1; });
+    const chip = (key, label, n) =>
+      `<button type="button" data-att-filter="${key}" class="${currentPeopleFilter === key ? 'active' : ''}">${label} (${n})</button>`;
+    const filters = `<div class="att-filter">
+        ${chip('all','All', all.length)}
+        ${chip('up','Upper Paid', counts.up)}
+        ${chip('lp','Lower Paid', counts.lp)}
+        ${chip('uf','Upper Free', counts.uf)}
+        ${chip('lf','Lower Free', counts.lf)}
+      </div>`;
+
+    if (all.length === 0) {
+      container.innerHTML = filters + `<div class="att-empty">No expected students for this day.</div>`;
       return;
     }
 
@@ -2285,6 +2314,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <button type="button" data-att-bulk="all-absent">All ✗ absent</button>
         <button type="button" data-att-bulk="clear">Clear marks</button>
       </div>`;
+
+    if (people.length === 0) {
+      container.innerHTML = filters + bulk + `<div class="att-empty">No students in this filter.</div>`;
+      return;
+    }
 
     const rows = people.map(p => {
       const key   = personKey(p);
@@ -2303,7 +2337,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         </div>`;
     }).join('');
 
-    container.innerHTML = bulk + rows;
+    container.innerHTML = filters + bulk + rows;
   }
 
   function setAttMode(mode) {
@@ -2379,10 +2413,19 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const week = backdrop.getAttribute('data-week');
       const day  = backdrop.getAttribute('data-day');
       if (!week || !day) return;
+      const filterBtn = e.target.closest('[data-att-filter]');
+      if (filterBtn) {
+        currentPeopleFilter = filterBtn.dataset.attFilter;
+        renderPeopleList(week, day);
+        return;
+      }
       const bulk = e.target.closest('[data-att-bulk]');
       if (bulk) {
         const mode = bulk.dataset.attBulk;
-        const people = expectedPeopleFor(week, day);
+        // Bulk acts on the currently-visible (filtered) subset, so staff can
+        // "mark all Upper Paid present" without touching the other camps.
+        const people = visiblePeopleFor(week, day);
+        if (people.length === 0) return;
         const status = mode === 'all-present' ? 'present'
                      : mode === 'all-absent'  ? 'absent'
                      : null; // clear
@@ -3011,8 +3054,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       'Grade':                'Grade column is blank',
     };
     function describeIssue(w) {
-      if (w.kind === 'name')   return 'Student Name column is blank — row exists but has no name';
-      if (w.kind === 'campus') return 'Campus could not be determined — check the tab name or campus field';
+      if (w.kind === 'name')   return 'Student Name column is blank, row exists but has no name';
+      if (w.kind === 'campus') return 'Campus could not be determined, check the tab name or campus field';
       if (Array.isArray(w.missingFields) && w.missingFields.length) {
         return w.missingFields.map(f => FIELD_EXPLAIN[f] || `${f} is missing`).join(' · ');
       }
@@ -3030,7 +3073,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       .map(rec => {
         // One explicit line per bad row: a plain-English why + the precise
         // location + its own deep-link button. No more hunting through a
-        // "rows 7, 4, 12, 9" list — every row gets its own [Open ↗].
+        // "rows 7, 4, 12, 9" list, every row gets its own [Open ↗].
         const sortedRows = rec.rows.slice().sort((a, b) => {
           // Sort by sheet label, then by source row number, so the list
           // reads sheet-by-sheet predictably even when the input order is mixed.
@@ -3168,9 +3211,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // Sibling of loadAttendance/saveAttendanceCell, but for the by-person
   // mode in the attendance modal. Reads/writes sf_daily_attendance_people
   // through three RPCs:
-  //   sf_get_daily_attendance_people         — bulk fetch
-  //   sf_set_daily_attendance_person         — one upsert (or delete on null status)
-  //   sf_bulk_set_daily_attendance_people    — bulk upsert/clear for the
+  //   sf_get_daily_attendance_people        , bulk fetch
+  //   sf_set_daily_attendance_person        , one upsert (or delete on null status)
+  //   sf_bulk_set_daily_attendance_people   , bulk upsert/clear for the
   //                                            All present / All absent / Clear buttons
   async function loadPeopleAttendance(force) {
     if (state.peopleLoading) return;

@@ -295,7 +295,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <span class="dash-title">Dashboard</span>
   <div class="dash-meta">
     <span class="dot" title="Live data via Google Sheets"></span>
-    <span>Updated <span id="updated-at">—</span></span>
+    <span>Updated <span id="updated-at">–</span></span>
     <button id="refresh-btn" type="button">Refresh</button>
   </div>
 </header>
@@ -328,11 +328,11 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   <!-- KPI strip -->
   <section class="kpi-row">
-    <div class="kpi anim d2"><h3>Unique Students</h3><div class="kpi-num" id="kpi-unique">—</div><div class="kpi-sub" id="kpi-unique-sub">across all weeks</div></div>
-    <div class="kpi anim d3"><h3>Total Enrollments</h3><div class="kpi-num" id="kpi-enroll">—</div><div class="kpi-sub" id="kpi-enroll-sub">student-weeks booked</div></div>
-    <div class="kpi anim d4"><h3>Upper Campus</h3><div class="kpi-num" id="kpi-upper">—</div><div class="kpi-sub" id="kpi-upper-sub">unique students</div></div>
-    <div class="kpi anim d5"><h3>Lower Campus</h3><div class="kpi-num" id="kpi-lower">—</div><div class="kpi-sub" id="kpi-lower-sub">unique students</div></div>
-    <div class="kpi anim d6"><h3>Schools</h3><div class="kpi-num" id="kpi-schools">—</div><div class="kpi-sub" id="kpi-schools-sub">distinct feeder schools</div></div>
+    <div class="kpi anim d2"><h3>Unique Students</h3><div class="kpi-num" id="kpi-unique">–</div><div class="kpi-sub" id="kpi-unique-sub">across all weeks</div></div>
+    <div class="kpi anim d3"><h3>Total Enrollments</h3><div class="kpi-num" id="kpi-enroll">–</div><div class="kpi-sub" id="kpi-enroll-sub">student-weeks booked</div></div>
+    <div class="kpi anim d4"><h3>Upper Campus</h3><div class="kpi-num" id="kpi-upper">–</div><div class="kpi-sub" id="kpi-upper-sub">unique students</div></div>
+    <div class="kpi anim d5"><h3>Lower Campus</h3><div class="kpi-num" id="kpi-lower">–</div><div class="kpi-sub" id="kpi-lower-sub">unique students</div></div>
+    <div class="kpi anim d6"><h3>Schools</h3><div class="kpi-num" id="kpi-schools">–</div><div class="kpi-sub" id="kpi-schools-sub">distinct feeder schools</div></div>
   </section>
 
   <!-- Donut + weekly bars -->
@@ -346,10 +346,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <circle id="seg-lower" cx="120" cy="120" r="92" stroke="#4aa3e0" stroke-dasharray="0 999" stroke-dashoffset="0"></circle>
         </svg>
         <div class="donut-center">
-          <div class="num" id="donut-total">—</div>
+          <div class="num" id="donut-total">–</div>
           <div class="lbl">Unique Students</div>
           <div class="donut-divider"></div>
-          <div class="num-sm" id="donut-enrollments">—</div>
+          <div class="num-sm" id="donut-enrollments">–</div>
           <div class="lbl-sm">Enrollments</div>
         </div>
       </div>
@@ -411,7 +411,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <!-- Roster -->
   <div class="roster-panel">
     <div class="roster-header">
-      <div class="label">Free Camp Roster <span class="count" id="roster-count">—</span></div>
+      <div class="label">Free Camp Roster <span class="count" id="roster-count">–</span></div>
       <div class="roster-search" id="roster-search-wrap">
         <span class="icon" aria-hidden="true">⌕</span>
         <input id="roster-search" type="search" autocomplete="off"
@@ -452,7 +452,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   };
 
   const fmtTime = (iso) => {
-    if (!iso) return '—';
+    if (!iso) return '–';
     try {
       const d = new Date(iso);
       return d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' });
@@ -475,7 +475,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     if (!snap || !snap.roster) return { weeks: [], byWeek: {} };
     // free.weekOrder is authoritative for which weeks free camp runs. The
     // global weekOrder includes paid-camp-only weeks (eg Aug 24-28), and
-    // snap.roster sometimes carries empty buckets for those — never show
+    // snap.roster sometimes carries empty buckets for those, never show
     // them in the free dashboard.
     const orderedWeeks = (snap.free && Array.isArray(snap.free.weekOrder))
       ? snap.free.weekOrder.slice()
@@ -671,7 +671,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     const detailRows = [
       s.email ? ['Email', `<a href="mailto:${escapeHtml(s.email)}">${escapeHtml(s.email)}</a>`] : null,
       s.school ? ['School', escapeHtml(s.school)] : null,
-      ['Campus', escapeHtml(s.campus || '—')],
+      ['Campus', escapeHtml(s.campus || '–')],
       s.lunchRaw && s.lunchRaw !== 'None' ? ['Lunch', escapeHtml(s.lunchRaw)] : null,
       s.breakfastRaw && s.breakfastRaw !== 'None' ? ['Breakfast', escapeHtml(s.breakfastRaw)] : null,
       s.allergy ? ['Allergy', escapeHtml(s.allergy)] : null,

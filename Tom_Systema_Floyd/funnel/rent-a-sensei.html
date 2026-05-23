@@ -71,7 +71,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .sf-nav-dropdown-menu::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sf-blue-500) 0%,var(--sf-blue-700) 60%,var(--sf-blue-800) 100%)}
 .sf-nav-dropdown-menu::after{content:'';position:absolute;top:-28px;left:0;right:0;height:28px;background:transparent}
 .sf-nav-dropdown:hover .sf-nav-dropdown-menu,.sf-nav-dropdown:focus-within .sf-nav-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
-.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.sf-nav-dropdown-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
 .sf-nav-dropdown-thumb-split{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;height:100%;background:#0a1028;position:relative}
 .sf-nav-dropdown-thumb-split img{width:100%;height:100%;object-fit:cover;display:block}
 .sf-nav-dropdown-thumb-split .tag{position:absolute;top:8px;padding:3px 8px;background:rgba(255,255,255,.92);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:3px;backdrop-filter:blur(6px);z-index:2}
@@ -375,13 +375,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
                   <p class="sf-nav-dropdown-sub">Full-day · summer + school breaks</p>
                 </div>
               </a>
-              <a class="sf-nav-dropdown-item" href="https://www.systemafloyd.com/spirit-dance" target="_top" role="menuitem">
-                <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/94da7fa3-a8ff-4183-a2fa-5599edd69172.jpg" alt="" /></div>
-                <div class="sf-nav-dropdown-body">
-                  <div class="sf-nav-dropdown-title">Spirit Dance</div>
-                  <p class="sf-nav-dropdown-sub">Faith-based dance for kids</p>
-                </div>
-              </a>
               <a class="sf-nav-dropdown-item" href="https://www.systemafloyd.com/rent-a-sensei" target="_top" role="menuitem">
                 <div class="sf-nav-dropdown-thumb"><img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/206e78be-a4ab-4bb1-9ccb-a8b7558adf43.jpg" alt="" /></div>
                 <div class="sf-nav-dropdown-body">
@@ -446,7 +439,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     <li><span class="sf-mobile-menu-label">Programs</span></li>
     <li><a href="https://www.systemafloyd.com/after-school-class-registration" target="_top">After School Systema</a></li>
     <li><a href="https://www.systemafloyd.com/camp-registration" target="_top">Summer Camps</a></li>
-    <li><a href="https://www.systemafloyd.com/spirit-dance" target="_top">Spirit Dance</a></li>
     <li><a href="https://www.systemafloyd.com/rent-a-sensei" target="_top">Rent A Sensei</a></li>
     <li><span class="sf-mobile-menu-label">Seminars &amp; Events</span></li>
     <li><a href="https://www.systemafloyd.com/vlad-seminar" target="_top">Vladimir Vasiliev Seminar</a></li>
@@ -554,8 +546,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
             <span>Not a martial arts class replacement (book After School for that).</span>
           </li>
         </ul>
-        <a class="ras-link" href="https://www.systemafloyd.com/#contact" target="_top">
-          Looking for a party? Contact us
+        <a class="ras-link" href="https://www.systemafloyd.com/birthday-parties" target="_top">
+          Looking for a party? Book one here
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
@@ -724,14 +716,31 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     </div>
   </div>
 
-  <!-- FINAL CTA -->
-  <div class="ras-block">
-    <div class="ras-final-cta anim">
+  <!-- BOOK FORM -->
+  <div class="ras-block" id="register">
+    <div class="ras-block-head anim">
       <span class="kicker">Ready When You Are</span>
-      <h2>Get Your Time Back. <span class="accent">Get Their Energy Out.</span></h2>
-      <p>Tell us when, where, and how many. We'll match the right Sensei and lock in your booking.</p>
-      <a class="btn btn-lg" href="https://www.systemafloyd.com/#contact" target="_top">Contact Us to Book</a>
+      <h2>Book Your Rent A Sensei Session</h2>
+      <p>Tell us when, where, and how many kids. We'll match the right Sensei and lock in your booking.</p>
     </div>
+    <iframe
+      src="https://link.nilsdigital.com/widget/form/myEoOLL1SKGv0IvSF4ur"
+      id="inline-myEoOLL1SKGv0IvSF4ur"
+      data-layout="{'id':'INLINE'}"
+      data-trigger-type="alwaysShow"
+      data-trigger-value=""
+      data-activation-type="alwaysActivated"
+      data-activation-value=""
+      data-deactivation-type="neverDeactivate"
+      data-deactivation-value=""
+      data-form-name="Rent-A-Sensei"
+      data-height="1814"
+      data-layout-iframe-id="inline-myEoOLL1SKGv0IvSF4ur"
+      data-form-id="myEoOLL1SKGv0IvSF4ur"
+      title="Rent-A-Sensei"
+      style="width:100%;min-height:1814px;border:none;border-radius:8px;background:#fff;display:block;"
+    ></iframe>
+    <script src="https://link.nilsdigital.com/js/form_embed.js"></script>
   </div>
 </section>
 
