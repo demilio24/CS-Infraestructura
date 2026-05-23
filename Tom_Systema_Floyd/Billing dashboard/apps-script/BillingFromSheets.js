@@ -119,6 +119,34 @@ const BFS_WEEK_ORDER = [
   'August 10th-14th', 'August 17th-21st'
 ];
 
+// Name-based tab → week resolution. Mirrors Snapshot.js weekKey_/resolveWeek_.
+// Reason this exists: Tom's registration sheets have non-week tabs (Notes /
+// Lookup / etc.) mixed in with the weekly tabs, so iterating by position
+// silently mis-labels every week after the first non-week tab. See
+// ACTIVE_INVESTIGATION.md (Cyrus bar-or +1 week shift) for the bug history.
+function bfsWeekKey_(label) {
+  if (!label) return null;
+  var months = { jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12 };
+  var s = String(label).toLowerCase().replace(/(\d+)(st|nd|rd|th)/g, '$1');
+  var m = s.match(/(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s*(\d{1,2})/);
+  if (m) return months[m[1]] + '-' + parseInt(m[2], 10);
+  m = s.match(/(\d{1,2})\/(\d{1,2})/);
+  if (m) return parseInt(m[1], 10) + '-' + parseInt(m[2], 10);
+  return null;
+}
+var BFS_WEEK_KEY_MAP = (function() {
+  var m = {};
+  BFS_WEEK_ORDER.forEach(function(w) {
+    var k = bfsWeekKey_(w);
+    if (k) m[k] = w;
+  });
+  return m;
+})();
+function bfsResolveWeek_(tabName) {
+  var k = bfsWeekKey_(tabName);
+  return (k && BFS_WEEK_KEY_MAP[k]) || null;
+}
+
 const BILLING_TAB_NAME    = 'Billing';
 const UNPRICED_TAG        = '(unpriced)';
 
@@ -1147,7 +1175,10 @@ function appendNewCustomerSection_(dash, email, newItems) {
     dash.getRange(subHeaderRow, 1, lastTx - subHeaderRow + 1, 1).shiftRowGroupDepth(1);
     var grp = dash.getRowGroup(subHeaderRow, 1);
     if (grp) grp.collapse();
-  } catch (e) { /* group API quirk — skip */ }
+  } catch (e) {
+    Logger.log('[appendNewCustomerSection_] group create err for ' + email +
+               ' (subHeaderRow=' + subHeaderRow + ', lastTx=' + lastTx + '): ' + e.message);
+  }
 
   // DM Sans + no-underline (HYPERLINK cells would otherwise show underlined)
   dash.getRange(customerRow, 1, matrix.length, 7)
@@ -1456,7 +1487,7 @@ function nuclearResetBilling_() {
       currentRow++;
     });
 
-    customerGroups.push({ subHeaderRow: subHeaderIdx, txLast: txLast });
+    customerGroups.push({ subHeaderRow: subHeaderIdx, txLast: txLast, email: p.emailRaw });
   });
 
   Logger.log('[nuclearResetBilling] matrices built: ' + dataMatrix.length + ' rows for ' +
@@ -1547,15 +1578,24 @@ function nuclearResetBilling_() {
 
   // 8. Row groups — per-customer (collapse). This is the only step we
   //    can't fully batch via a 2D array. ~108 calls but each is cheap.
+  var groupErrors = 0;
   customerGroups.forEach(function(g) {
     if (g.txLast >= g.subHeaderRow) {
       try {
         dash.getRange(g.subHeaderRow, 1, g.txLast - g.subHeaderRow + 1, 1).shiftRowGroupDepth(1);
         var grp = dash.getRowGroup(g.subHeaderRow, 1);
         if (grp) grp.collapse();
-      } catch (e) { /* group quirk */ }
+      } catch (e) {
+        groupErrors++;
+        Logger.log('[nuclearResetBilling] group create err for ' + g.email +
+                   ' (subHeaderRow=' + g.subHeaderRow + ', txLast=' + g.txLast + '): ' + e.message);
+      }
     }
   });
+  if (groupErrors > 0) {
+    Logger.log('[nuclearResetBilling] WARNING: ' + groupErrors + '/' +
+               customerGroups.length + ' customer row groups failed to create');
+  }
 
   var elapsedMs = Date.now() - startedAt.getTime();
   Logger.log('[nuclearResetBilling] done in ' + elapsedMs + 'ms — ' +
@@ -2396,9 +2436,14 @@ function readRegistrationEnrollments_(reg) {
   var tabs = ss.getSheets();
   var enrollments = [];
 
-  for (var t = 0; t < tabs.length && t < BFS_WEEK_ORDER.length; t++) {
-    var week = BFS_WEEK_ORDER[t];
+  for (var t = 0; t < tabs.length; t++) {
     var sheet = tabs[t];
+    // Resolve week by tab NAME, not position. Tabs that don't look like a
+    // week (Notes / Lookup / etc.) return null and are skipped entirely —
+    // no positional fallback, since billing under the wrong week is worse
+    // than billing nothing.
+    var week = bfsResolveWeek_(sheet.getName());
+    if (!week) continue;
     var range = sheet.getDataRange();
     if (!range || range.getNumRows() < 2) continue;
 
