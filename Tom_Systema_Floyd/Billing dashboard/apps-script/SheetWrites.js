@@ -88,6 +88,28 @@ function findCustomerTxRange(customerRow) {
   return { firstTx: firstTx, lastTx: lastTx, lastInGroup: lastInGroup };
 }
 
+// ─── _isEmailDerivedNamePlaceholder_ ─────────────────────────────────
+/**
+ * True when the customer's Name cell currently holds what the legacy
+ * importer set as a fallback: the email's local part (segment before
+ * the @). Case-insensitive. Used by upsertCustomerRow to decide
+ * whether overwriting Name is safe (placeholder → replace with real
+ * name from GHL) or destructive (real human-entered name → preserve).
+ *
+ * Examples:
+ *   ("marilyn", "marilyn@gmail.com")    → true  (placeholder, OK to overwrite)
+ *   ("Marilyn Smith", "marilyn@...")    → false (real name, preserve)
+ *   ("1Nemayynyr", "1nemayynyr@...")    → true  (placeholder)
+ *   ("",         anything)               → false (caller handles empty separately)
+ */
+function _isEmailDerivedNamePlaceholder_(name, email) {
+  if (!name || !email) return false;
+  const at = String(email).indexOf('@');
+  if (at < 1) return false;
+  const local = String(email).substring(0, at).toLowerCase();
+  return String(name).toLowerCase().trim() === local;
+}
+
 // ─── upsertCustomerRow ──────────────────────────────────────────────
 /**
  * Insert or update a customer row.
@@ -114,9 +136,26 @@ function upsertCustomerRow(payload) {
   }
 
   // Col A–D: basic contact info
-  sh.getRange(row, COL.NAME_OR_DATE).setValue(name || '');
+  //
+  // Preservation rule (added 2026-05-23): Name + Phone used to be
+  // unconditionally overwritten on every call. Manual cleanup (typo
+  // fix, formatted phone number, etc.) reverted on the next poll
+  // within 5 minutes. Now: only overwrite Name if the existing cell
+  // is empty OR is a recognized email-derived placeholder (legacy
+  // importer sometimes set Name = email's local part as a fallback
+  // — e.g. "marilyn" from "marilyn@gmail.com"). Only overwrite Phone
+  // if empty. Email + WaiverOrigin always sync from GHL: email is
+  // the lookup key, waiverOrigin is the routing field.
+  const existingName = String(sh.getRange(row, COL.NAME_OR_DATE).getValue() || '').trim();
+  const incomingName = String(name || '').trim();
+  if (!existingName || _isEmailDerivedNamePlaceholder_(existingName, email)) {
+    sh.getRange(row, COL.NAME_OR_DATE).setValue(incomingName);
+  }
   sh.getRange(row, COL.EMAIL_OR_ITEM).setValue(email || '');
-  sh.getRange(row, COL.PHONE_OR_UNIT_PRICE).setValue(phone || '');
+  const existingPhone = String(sh.getRange(row, COL.PHONE_OR_UNIT_PRICE).getValue() || '').trim();
+  if (!existingPhone) {
+    sh.getRange(row, COL.PHONE_OR_UNIT_PRICE).setValue(phone || '');
+  }
   sh.getRange(row, COL.WAIVER_OR_DAYS).setValue(waiverOrigin || '');
 
   // Col E: Student names — APPEND new names that aren't already present
@@ -137,12 +176,25 @@ function upsertCustomerRow(payload) {
   }
 
   // Col F: Contact Profile hyperlink
+  //
+  // Preservation rule (added 2026-05-23): when profileUrl is null we used
+  // to unconditionally overwrite col F with "(not found in <state>)" plain
+  // text — which destroyed any existing =HYPERLINK(...) formula written
+  // by a prior poll that DID find the contact. Now: only overwrite if
+  // col F is empty OR already shows the same "(not found in...)" sentinel.
+  // If a real HYPERLINK is already there, leave it alone.
   if (profileUrl) {
     const profileFormula = '=HYPERLINK("' + profileUrl + '","Contact Profile Link")';
     sh.getRange(row, COL.CONTACT_OR_TOTAL).setFormula(profileFormula);
   } else {
-    const state = waiverOrigin || 'unknown';
-    sh.getRange(row, COL.CONTACT_OR_TOTAL).setValue('(not found in ' + state + ')');
+    const cell = sh.getRange(row, COL.CONTACT_OR_TOTAL);
+    const existingFormula = String(cell.getFormula() || '');
+    if (existingFormula.toUpperCase().indexOf('HYPERLINK') !== -1) {
+      // Already has a HYPERLINK — preserve it.
+    } else {
+      const state = waiverOrigin || 'unknown';
+      cell.setValue('(not found in ' + state + ')');
+    }
   }
 
   // Col G: Balance formula — set by updateBalanceFormula; skip here on first write
@@ -160,6 +212,93 @@ function upsertCustomerRow(payload) {
   sh.getRange(row, COL.CONTACT_OR_TOTAL).setFontLine('underline');
 
   return row;
+}
+
+// ─── restoreLostProfileLinks ─────────────────────────────────────────
+/**
+ * One-shot repair: walk every customer header row on the Dashboard,
+ * find ones whose col F (Contact Profile) is empty or shows the
+ * "(not found in <state>)" plain-text sentinel, re-search GHL by email
+ * (always Florida, since contacts canonically live there per
+ * PROJECT.md), and write a fresh =HYPERLINK formula if a contact is
+ * found.
+ *
+ * Idempotent: customers whose col F is already a HYPERLINK are skipped
+ * entirely. Customers truly absent from GHL stay as-is.
+ *
+ * Logs a per-customer trace line for restored rows + a final summary.
+ * Safe to call from a menu, remote-trigger webapp, or another script.
+ */
+function restoreLostProfileLinks() {
+  const dash = getDashboardSheet();
+  const lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, customersScanned: 0, restored: 0, stillMissing: 0, alreadyHadLink: 0, stillMissingDetails: [] };
+
+  const values = dash.getRange(2, 1, lastRow - 1, 7).getValues();
+  const formulas = dash.getRange(2, 1, lastRow - 1, 7).getFormulas();
+  let scanned = 0, restored = 0, stillMissing = 0, alreadyHadLink = 0;
+  const stillMissingDetails = [];
+
+  for (let i = 0; i < values.length; i++) {
+    const row = values[i];
+    const sheetRow = i + 2;
+    const email = String(row[1] || '').trim();
+    const colBFormula = String(formulas[i][1] || '');
+    const colFValue = String(row[5] || '').trim();
+    const colFFormula = String(formulas[i][5] || '').trim();
+
+    // Customer-header detection: col B contains '@' AND is NOT a
+    // HYPERLINK formula. Tx rows have col B as a HYPERLINK whose
+    // visible label may embed an email (e.g. "Henry Reynolds, T-Shirt:
+    // someone@gmail.com (...)") — getValue() returns the rendered text
+    // including the embedded email, which would false-positive without
+    // the formula check.
+    if (email.indexOf('@') === -1) continue;
+    if (colBFormula.toUpperCase().indexOf('HYPERLINK') !== -1) continue;
+
+    // Skip if col F already has a HYPERLINK formula — nothing to repair.
+    if (colFFormula.toUpperCase().indexOf('HYPERLINK') !== -1) {
+      alreadyHadLink++;
+      continue;
+    }
+
+    scanned++;
+
+    let contactId = null;
+    try {
+      contactId = ghlSearchContactByEmail('Florida', email);
+    } catch (e) {
+      Logger.log('[restoreLostProfileLinks] ghl search failed for ' + email + ' row ' + sheetRow + ': ' + e.message);
+      stillMissing++;
+      stillMissingDetails.push({ email: email, row: sheetRow, reason: 'api_error', message: e.message });
+      continue;
+    }
+
+    if (!contactId) {
+      stillMissing++;
+      stillMissingDetails.push({ email: email, row: sheetRow, reason: 'not_in_ghl', priorValue: colFValue || '(empty)' });
+      continue;
+    }
+
+    const profileUrl = buildProfileUrl(SUBACCOUNTS.Florida.locationId, contactId);
+    const formula = '=HYPERLINK("' + profileUrl + '","View profile")';
+    dash.getRange(sheetRow, COL.CONTACT_OR_TOTAL).setFormula(formula);
+    dash.getRange(sheetRow, COL.CONTACT_OR_TOTAL).setFontLine('underline');
+    restored++;
+    Logger.log('[restoreLostProfileLinks] restored ' + email + ' (row ' + sheetRow + ') -> ' + contactId);
+  }
+
+  Logger.log('[restoreLostProfileLinks] done: scanned=' + scanned +
+             ' restored=' + restored + ' stillMissing=' + stillMissing +
+             ' alreadyHadLink=' + alreadyHadLink);
+  return {
+    ok: true,
+    customersScanned: scanned,
+    restored: restored,
+    stillMissing: stillMissing,
+    alreadyHadLink: alreadyHadLink,
+    stillMissingDetails: stillMissingDetails
+  };
 }
 
 // ─── appendSubHeaderRow ──────────────────────────────────────────────

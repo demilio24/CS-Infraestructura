@@ -56,6 +56,7 @@ const REMOTE_TRIGGER_WHITELIST = {
   pollFloridaSubmissions:          'GHL fee-only poll for $1 CC verification. ~10-30s.',
 
   // Surgical fixes
+  restoreLostProfileLinks:         'Re-search GHL for any customer header whose col F is empty or shows "(not found in <state>)" plain text, write fresh HYPERLINK if found. Idempotent. Use sync=1.',
   fixDashboardGroups:              'Rebuild +/- row groups per customer. ~5-10s.',
   fixDashboardStatusValidation:    'Re-scope status dropdown to tx rows only. ~5-10s.',
   sanitizeDashboardCustomerHeaders: 'Strip placeholder text + em-dashes from customer headers. ~5s.',
@@ -90,6 +91,8 @@ const REMOTE_TRIGGER_WHITELIST = {
   dashboardStats:                  'Count unique parents, unique students, tx rows, and status counts on the Billing Dashboard. Use sync=1.',
   registrationStats:               'Per-sheet count of enrollments, unique students, unique parents, and dayCount=0 phantom registrations from the source registration sheets. Use sync=1.',
   sampleCanceledRows:              'Return the first N (default 10) canceled tx rows on the Dashboard, including each row\'s col B note source. Use sync=1, pass &n=<count>.',
+  testUpsertPreservation:          'Test that the Name/Phone preservation patch in upsertCustomerRow is working. Pass &email=<existing customer> and optionally &newName=/&newPhone=. Returns pre/post state + assertions. Use sync=1.',
+  cleanupDoubleShirtSuffix:        'Walk the Dashboard for col-B labels containing a duplicated (+$X) suffix (e.g. "Small (+$30) (+$30)") and strip the extra. Idempotent. Pass &dryRun=1 to just count. Use sync=1.',
 };
 
 function doGet(e) {
@@ -193,6 +196,7 @@ function _rtDispatch_(fn, params) {
     case 'nuclearResetBilling':              return nuclearResetBilling();
     case 'buildAllBilling':                  return buildAllBilling();
     case 'pollFloridaSubmissions':           return pollFloridaSubmissions();
+    case 'restoreLostProfileLinks':          return restoreLostProfileLinks();
     case 'fixDashboardGroups':               return fixDashboardGroups();
     case 'fixDashboardStatusValidation':     return fixDashboardStatusValidation();
     case 'sanitizeDashboardCustomerHeaders': return sanitizeDashboardCustomerHeaders();
@@ -219,6 +223,8 @@ function _rtDispatch_(fn, params) {
     case 'dashboardStats':                   return _rtDashboardStats_();
     case 'registrationStats':                return _rtRegistrationStats_();
     case 'sampleCanceledRows':               return _rtSampleCanceledRows_(params);
+    case 'testUpsertPreservation':           return _rtTestUpsertPreservation_(params);
+    case 'cleanupDoubleShirtSuffix':         return _rtCleanupDoubleShirtSuffix_(params);
     default: throw new Error('Dispatcher missing for whitelisted fn: ' + fn);
   }
 }
@@ -733,6 +739,138 @@ function _rtSampleCanceledRows_(params) {
     });
   }
   return { ok: true, count: out.length, rows: out };
+}
+
+/**
+ * Scan + clean up legacy "Small (+$30) (+$30)" double-suffix shirt
+ * labels. Walks the Dashboard data area looking for col B values
+ * matching /\(\+\$\d+\)\s*\(\+\$\d+\)/, strips the trailing duplicate
+ * suffix on each match. Idempotent — re-running on a clean dashboard
+ * fixes 0 rows.
+ *
+ * The current shirt-label generator (BillingFromSheets.js around line
+ * 2760: `'T-Shirt (' + shirt.item + ')'`) does NOT produce these — the
+ * double suffix came from the now-removed legacy importer
+ * (importLegacyRegistrations, gone in commit b3bc458b). Any rows that
+ * still show double suffix are stale from before that importer was
+ * removed AND haven't been overwritten by a subsequent
+ * nuclearResetBilling.
+ *
+ * Pass &dryRun=1 to just count without modifying. Returns the count
+ * fixed (or would-fix in dry mode), plus a sample of the first 10
+ * affected rows for spot-checking.
+ */
+function _rtCleanupDoubleShirtSuffix_(params) {
+  var dryRun = String((params && params.dryRun) || '0') === '1';
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, scanned: 0, matched: 0, fixed: 0, dryRun: dryRun, sample: [] };
+
+  var data = dash.getRange(2, 2, lastRow - 1, 1).getValues(); // col B only
+  var formulas = dash.getRange(2, 2, lastRow - 1, 1).getFormulas();
+  var doublePattern = /(\(\+\$\d+(?:\.\d+)?\))\s*\1/;  // back-reference: same suffix twice in a row
+  var matched = 0, fixed = 0;
+  var sample = [];
+
+  for (var i = 0; i < data.length; i++) {
+    var sheetRow = i + 2;
+    var raw = String(data[i][0] || '');
+    var formula = String(formulas[i][0] || '');
+    // Item col can be a plain string OR a HYPERLINK formula. Match
+    // against both forms — the doubled suffix could appear in either.
+    var target = formula || raw;
+    if (!doublePattern.test(target)) continue;
+    matched++;
+    if (sample.length < 10) sample.push({ row: sheetRow, before: target.substring(0, 200) });
+
+    if (dryRun) continue;
+
+    // Strip the duplicate. Match the FIRST occurrence of the duplicate
+    // pattern only; if a label somehow had triple (rare), one cleanup
+    // pass reduces to double, second pass reduces to single — idempotent
+    // by virtue of being called from a cron, but typically one pass
+    // suffices.
+    var cleaned = target.replace(doublePattern, '$1');
+    if (formula) {
+      dash.getRange(sheetRow, 2).setFormula(cleaned);
+    } else {
+      dash.getRange(sheetRow, 2).setValue(cleaned);
+    }
+    fixed++;
+  }
+
+  Logger.log('[cleanupDoubleShirtSuffix] scanned=' + data.length +
+             ' matched=' + matched + ' fixed=' + fixed + ' dryRun=' + dryRun);
+  return {
+    ok: true,
+    scanned: data.length,
+    matched: matched,
+    fixed: fixed,
+    dryRun: dryRun,
+    sample: sample
+  };
+}
+
+/**
+ * Test the upsertCustomerRow preservation patch: call upsertCustomerRow
+ * with a known "would-be-incoming-from-GHL" payload and report whether
+ * the existing Name/Phone were preserved or overwritten. Read-modify-read
+ * pattern. The function under test is supposed to:
+ *
+ *   - Preserve Name if existing is non-empty AND not an email-derived
+ *     placeholder (e.g. existing="Allie Bar-or", email="alexandra@...").
+ *   - Replace Name if existing is empty OR matches the email's local
+ *     part (e.g. existing="marilyn", email="marilyn@...").
+ *   - Preserve Phone if existing is non-empty.
+ *
+ * Pass &email=<customer email> and (optionally) &newName= / &newPhone=
+ * to control the "fresh" values. Defaults are unlikely sentinels so it's
+ * obvious if they got written by accident.
+ */
+function _rtTestUpsertPreservation_(params) {
+  var email = String((params && params.email) || '').toLowerCase().trim();
+  if (!email) return { ok: false, error: 'Missing &email=' };
+  var newName  = String((params && params.newName)  || 'GHL_TEST_NAME_DO_NOT_PERSIST');
+  var newPhone = String((params && params.newPhone) || '+15555550199');
+
+  var sh = getDashboardSheet();
+  var row = findCustomerRowByEmail(email);
+  if (!row) return { ok: false, error: 'Customer not found: ' + email };
+
+  var preName  = String(sh.getRange(row, COL.NAME_OR_DATE).getValue() || '');
+  var prePhone = String(sh.getRange(row, COL.PHONE_OR_UNIT_PRICE).getValue() || '');
+  var preIsPlaceholder = _isEmailDerivedNamePlaceholder_(preName, email);
+
+  upsertCustomerRow({
+    email: email,
+    name: newName,
+    phone: newPhone,
+    waiverOrigin: '',
+    studentNames: '',
+    profileUrl: null,
+    contactId: null
+  });
+
+  var postName  = String(sh.getRange(row, COL.NAME_OR_DATE).getValue() || '');
+  var postPhone = String(sh.getRange(row, COL.PHONE_OR_UNIT_PRICE).getValue() || '');
+
+  // Expected behavior under the patch:
+  //   - If preName empty OR preName was email-derived placeholder → postName === newName
+  //   - Else → postName === preName (preserved)
+  var expectedName = (!preName || preIsPlaceholder) ? newName : preName;
+  var expectedPhone = !prePhone ? newPhone : prePhone;
+
+  return {
+    ok: true,
+    email: email,
+    row: row,
+    pre: { name: preName, phone: prePhone, nameIsEmailDerivedPlaceholder: preIsPlaceholder },
+    incomingFromGhl: { name: newName, phone: newPhone },
+    post: { name: postName, phone: postPhone },
+    expected: { name: expectedName, phone: expectedPhone },
+    namePatchWorking: postName === expectedName,
+    phonePatchWorking: postPhone === expectedPhone
+  };
 }
 
 function _rtJson_(obj) {
