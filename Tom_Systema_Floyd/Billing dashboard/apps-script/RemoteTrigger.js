@@ -94,6 +94,7 @@ const REMOTE_TRIGGER_WHITELIST = {
   testUpsertPreservation:          'Test that the Name/Phone preservation patch in upsertCustomerRow is working. Pass &email=<existing customer> and optionally &newName=/&newPhone=. Returns pre/post state + assertions. Use sync=1.',
   cleanupDoubleShirtSuffix:        'Walk the Dashboard for col-B labels containing a duplicated (+$X) suffix (e.g. "Small (+$30) (+$30)") and strip the extra. Idempotent. Pass &dryRun=1 to just count. Use sync=1.',
   cleanupExtraNuclearTriggers:     'Delete duplicate nuclearResetBilling time-based triggers, keeping exactly one. Idempotent — re-running on an already-clean project deletes 0. Use sync=1.',
+  listAllCustomerEmails:           'Return the sorted list of every unique parent email currently rendered on the Dashboard tab (one entry per customer header row). Use sync=1.',
 };
 
 function doGet(e) {
@@ -227,6 +228,7 @@ function _rtDispatch_(fn, params) {
     case 'testUpsertPreservation':           return _rtTestUpsertPreservation_(params);
     case 'cleanupDoubleShirtSuffix':         return _rtCleanupDoubleShirtSuffix_(params);
     case 'cleanupExtraNuclearTriggers':      return _rtCleanupExtraNuclearTriggers_();
+    case 'listAllCustomerEmails':            return _rtListAllCustomerEmails_();
     default: throw new Error('Dispatcher missing for whitelisted fn: ' + fn);
   }
 }
@@ -919,6 +921,31 @@ function _rtTestUpsertPreservation_(params) {
     namePatchWorking: postName === expectedName,
     phonePatchWorking: postPhone === expectedPhone
   };
+}
+
+/**
+ * Return the sorted list of every unique parent email on the Dashboard
+ * tab (one per customer header row). Customer-header detection: col B
+ * contains '@' AND col B is NOT a HYPERLINK formula (tx rows are
+ * HYPERLINK-with-embedded-email; headers are plain text). Used to diff
+ * against the registration snapshot for "who's not getting billed."
+ */
+function _rtListAllCustomerEmails_() {
+  var dash = getDashboardSheet();
+  var lastRow = dash.getLastRow();
+  if (lastRow < 2) return { ok: true, count: 0, emails: [] };
+  var values = dash.getRange(2, 2, lastRow - 1, 1).getValues();
+  var formulas = dash.getRange(2, 2, lastRow - 1, 1).getFormulas();
+  var emails = {};
+  for (var i = 0; i < values.length; i++) {
+    var v = String(values[i][0] || '').trim();
+    var f = String(formulas[i][0] || '');
+    if (v.indexOf('@') === -1) continue;
+    if (f.toUpperCase().indexOf('HYPERLINK') !== -1) continue;
+    emails[v.toLowerCase()] = true;
+  }
+  var list = Object.keys(emails).sort();
+  return { ok: true, count: list.length, emails: list };
 }
 
 function _rtJson_(obj) {

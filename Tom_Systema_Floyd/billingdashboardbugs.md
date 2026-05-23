@@ -4,6 +4,29 @@ A running log of bugs found in the Systema Floyd billing dashboard. Each entry c
 
 ---
 
+## Who appears on the billing dashboard (read this before claiming someone's "missing")
+
+**Last verified 2026-05-23 with a full snapshot-vs-billing diff.** 121 unique parents across all 4 registration source sheets. 61 customer rows on billing. The 60 not on billing are intentional exclusions, not bugs:
+
+| Group | Count | Status |
+|---|---|---|
+| Paid-camp parent with ≥1 day picked on at least one enrollment | 59 | **On billing** (the only group that gets billed) |
+| Paid-camp parent with all enrollments at dayCount=0 (no Mon-Fri days checked) | 25 | Phantom-skipped at `BillingFromSheets.js:2845` — no days = no bill until they pick days |
+| FREE camp parent (`type === 'summer-free'`) | 33 | Excluded at `BillingFromSheets.js:254` — "those kids registered for the no-cost program and shouldn't appear with priced line items" |
+| Manual-items-only customer | 2 | On billing via the Manual Items tab path |
+
+**Rule of thumb when triaging a "missing customer" report:** open the registration sheet for that parent, check whether any of their rows have at least one day checked. If yes and they're not on billing → there's a real bug; investigate. If no → expected behavior, send the team to chase the parent for day selection.
+
+**Optional future feature (not a bug):** surface the 25 day-zero parents on the billing dashboard so Tom can see who needs nudging without digging into the registration sheets.
+
+Diagnostic RPCs for re-running this audit:
+- `registrationStats` — per-sheet count of enrollments + unique parents + dayZeroEnrollments
+- `dashboardStats` — billing-side unique-customer count
+- `listAllCustomerEmails` (added 2026-05-23 in `e64beb67`+, picked up by next webapp deploy) — emails for diffing against snapshot
+- `traceCustomer&email=<x>` — per-customer detail; returns `found: false` if the parent isn't on billing
+
+---
+
 ## +1 week shift in registration billing — **RESOLVED 2026-05-23**
 
 **Status:** Code fixed in commit `e2a395e9`, deployed at webapp version 23, flushed via `nuclearResetBilling`. Verified live: Cyrus now under June 15th-19th; Akasha under June 1st-5th + August 3rd-7th; Grant under June 1st-5th + August 3rd-7th. Total dashboard balance unchanged ($52,822.42 across 61 customers / 81 students / 268 tx rows — variance from the pre-fix $48,326.90 audit is new registrations landing between scans, not the reshuffle).
