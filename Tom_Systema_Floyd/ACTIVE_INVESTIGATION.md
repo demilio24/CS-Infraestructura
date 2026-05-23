@@ -1,5 +1,19 @@
 # Active investigation — Systema Floyd billing dashboard
 
+> **SUPERSEDED 2026-05-23.** Fix A (name-based tab resolution in
+> `readRegistrationEnrollments_`) was applied and committed in
+> `5c354637`. Pre-deploy live audit confirmed 0 paid / 0
+> refund-needed / 0 canceled rows in the Dashboard at the time of
+> commit (247 tx rows total, $48,326.90 balance), so the
+> wrong-week → correct-week reshuffle has zero status-preservation
+> risk noted in `## Blast radius` below. Open questions 1 & 3 are
+> resolved by the audit + the fix itself. Question 2 (Fix B,
+> legacy fingerprint canonicalizer) remains optional. Deploy step
+> (`clasp push -f` + one-shot `nuclearResetBilling`) NOT yet done
+> — see the commit message of `5c354637` for the deploy recipe.
+> Kept around for historical context; do not act on the "Open
+> questions for the user" section without reading the above first.
+
 **Snapshot of where we are at the end of session 2026-05-22.** Read this first, then `Tom_Systema_Floyd/PROJECT.md` (the changelog from the bottom up is the most recent), then dig into the files referenced below. Everything in this doc is verified unless explicitly flagged as a hypothesis.
 
 ## The bug Tom reported

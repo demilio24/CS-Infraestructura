@@ -1,6 +1,8 @@
-# Systema Floyd Billing — Invited Editor Auth Fix (in progress)
+# Systema Floyd Billing — Invited Editor Auth Fix (RESOLVED 2026-05-23)
 
-Continuation doc. Read this first, then resume from "Where we are now."
+Continuation doc. The GCP-side block has been resolved — see
+"Resolution (2026-05-23)" below. Remaining work is local cleanup
+(smoke-test row delete + commit) plus an end-to-end verification.
 
 ## The problem
 
@@ -53,38 +55,119 @@ Smoke-test residue to clean up:
 Nothing has been committed to git yet. The changes are on `main`,
 unstaged.
 
-## Where we are now (in-progress, GCP side)
+## Resolution (2026-05-23)
 
-We are using Claude Chrome to add invited editor emails as Test users
-in the linked GCP project's OAuth consent screen. Once they are added,
-those editors stop hitting Error 403 and can use the dialog normally.
+GCP project `systema-floyd-billing` (`469572225768`) OAuth consent
+screen is now **In Production**. 2SV was enabled on
+`systemafloydsheets@gmail.com` (Authenticator app added + final
+"Turn on 2-Step Verification" button clicked — both steps are
+required, adding the authenticator alone doesn't activate 2SV).
+Claude Chrome then ran the publish flow cleanly: confirmed correct
+project (NOT "Nils Digital"), clicked "Publish app", clicked
+"Confirm" in the dialog (NOT "Submit for verification"), final
+state shows Publishing status: In Production with a "Back to
+testing" button visible.
 
-Key facts Claude Chrome already discovered:
-- Linked GCP project number: **469572225768**
+What's left:
+- Verify the fix end-to-end via incognito sign-in (see "Verifying
+  the fix works" section below).
+- Delete the smoke-test row at Manual Items row 2
+  (`dialog-test@example.com`).
+- Commit the two Apps Script files (`BillingFromSheets.js`,
+  `RemoteTrigger.js`) — still uncommitted on `main`.
+- Update `App_documentation/billing_dashboard.md` if it covers the
+  dialog flow.
+
+## Historical: Where we were (now resolved)
+
+**Blocked on 2SV/MFA enrollment for `systemafloydsheets@gmail.com`
+(2026-05-23).** Claude Chrome was already signed in as that account
+and confirmed: project shown is `systema-floyd-billing` / project
+number `469572225768` (correct project, NOT "Nils Digital"); on the
+one page that loaded, Publishing status was **Testing** with a
+"Publish app" button visible. But every subsequent navigation
+redirects to https://console.cloud.google.com/enable-mfa with the
+banner:
+
+> Google Cloud access blocked. Effective May 20, 2026, Google Cloud
+> has begun to enforce 2-step verification (2SV), also called
+> multi-factor authentication (MFA). Go to your security settings
+> to turn on 2-step verification.
+
+`systemafloydsheets@gmail.com` does not yet have 2SV enabled, so no
+console actions can be taken from it. Until 2SV is on, the publish
+step cannot proceed. The PUBLISH button itself was NOT clicked.
+Nothing was changed in either project.
+
+Key facts (still valid):
+- Linked GCP project number: **469572225768** (`systema-floyd-billing`)
 - Linked GCP project owner account: **systemafloydsheets@gmail.com**
 - OAuth consent screen URL:
   https://console.cloud.google.com/apis/credentials/consent?project=469572225768
-- Publishing status on that project: **Testing** (this is what causes
-  Error 403 for non-test-user accounts).
+- Publishing status on that project: **Testing** (confirmed by Claude
+  Chrome before MFA wall blocked further navigation).
 
 A different GCP project, "Nils Digital" (`gen-lang-client-0258434629`),
-came up first by accident. It is **in Production** and unrelated. Do
-NOT touch its publishing status or test users.
+came up first by accident in the prior session. It is **in Production**
+and unrelated. Do NOT touch its publishing status or test users.
 
 Account state in the GCP console:
 - `emilio@nilsdigital.com` lacks IAM on project 469572225768
   (missing `oauthconfig.testusers.get`, `oauthconfig.verification.get`,
-  `resourcemanager.projects.get`).
-- The path forward is to sign into the GCP console as
-  `systemafloydsheets@gmail.com` instead (Option A). That account owns
-  the project so it has full access.
+  `resourcemanager.projects.get`). Adding IAM is itself a console
+  action subject to the same MFA wall, so this is not a viable
+  workaround.
+- The path forward is to enable 2SV on `systemafloydsheets@gmail.com`
+  and resume the publish from that account.
 
 ## Next step (resume here)
+
+**Blocker (2026-05-23):** before running the Claude Chrome prompt
+below, enable 2-Step Verification on `systemafloydsheets@gmail.com`:
+
+1. Sign into https://myaccount.google.com/security as
+   `systemafloydsheets@gmail.com` (an ordinary browser session — not
+   the GCP console).
+2. Under "How you sign in to Google" → "2-Step Verification", click
+   "Get started" and complete the flow. Phone-number SMS is the
+   simplest factor; an authenticator app is fine too. Save the
+   backup codes somewhere durable (1Password, etc.).
+3. Wait ~60s, then refresh the GCP console. The
+   `console.cloud.google.com/enable-mfa` redirect should stop firing.
+
+Caveats:
+- `systemafloydsheets@gmail.com` is the file-owner/permission anchor
+  for the Floyd Sheets + Drive folders + Apps Script projects. It is
+  not actively logged into by a human in normal operation. Already-
+  issued OAuth tokens (n8n refresh cron, the deployed webapps) are
+  not revoked by enabling 2SV — only future password logins to that
+  account will require the second factor.
+- Recovery options: confirm the phone number / recovery email on
+  that account before enabling 2SV. If recovery is uncertain, set
+  up the Authenticator app + print backup codes first.
+
+Once 2SV is on, fire the Claude Chrome prompt below.
+
+**Decision update (2026-05-22):** The Billing Dashboard
+(`1VKwy29-ah7AznrcKs5aGqVKdIuOkCWO6JMUfonas2bM`) is shared as
+**`anyone` with `writer` role** — link-based access. There is no
+discrete editor list to harvest for the Test users field, so adding
+individual test users does not solve the problem (we don't know which
+Google accounts the Floyd team is signed in as when they open the
+dialog).
+
+New path: **publish the OAuth consent screen to Production.** App
+keeps the "Google hasn't verified this app" warning, but any signed-in
+Google user hitting the dialog can self-bypass via Advanced → Go to
+app (unsafe). That scales to unknown users, unlike the test-user
+approach.
 
 Tell Claude Chrome:
 
 ```
-Switch GCP console accounts to systemafloydsheets@gmail.com:
+Switch GCP console accounts to systemafloydsheets@gmail.com, then
+publish the OAuth consent screen for project 469572225768 from
+Testing to Production.
 
 1. Click the avatar in the top-right of the GCP console.
 2. If systemafloydsheets@gmail.com is in the account list, pick it.
@@ -92,27 +175,35 @@ Switch GCP console accounts to systemafloydsheets@gmail.com:
    if you prompt me.
 3. Once switched, open:
    https://console.cloud.google.com/apis/credentials/consent?project=469572225768
-4. Confirm the page loads without an "additional access" error and
-   shows Publishing status: Testing.
-5. Scroll to the "Test users" section, click "+ ADD USERS".
-6. Get the editor list first:
-   - Open the "Systema Floyd Billing Dashboard" spreadsheet in Google
-     Drive.
-   - Click the green Share button.
-   - Read every row in "People with access" and collect every email
-     whose role is Editor or Owner.
-   - Skip emilio@nilsdigital.com and systemafloydsheets@gmail.com
-     (both already have access as project members).
-7. Paste the collected emails into the "+ ADD USERS" textarea, one per
-   line. Click SAVE.
-8. Screenshot the final Test users list. Report the count.
+4. CRITICAL SAFETY CHECK before doing anything: confirm the page
+   header shows project number 469572225768 and the app name is
+   "Systema Floyd Billing CLI" (or similar — NOT "Nils Digital").
+   If the project shown is "Nils Digital" or
+   gen-lang-client-0258434629, STOP and report. Do not click any
+   buttons on the wrong project.
+5. Confirm Publishing status currently shows: Testing.
+6. Click the "PUBLISH APP" button. A confirmation dialog will appear
+   warning that the app will be available to all users and that
+   sensitive scopes may require verification.
+7. Click "CONFIRM" in that dialog. Do NOT click any "Submit for
+   verification" / "Prepare for verification" button — we only want
+   to move to Production, not start the verification flow.
+8. Verify the page now shows Publishing status: In Production.
+9. Screenshot the final state of the OAuth consent screen page
+   showing the new Publishing status.
 
-Do not change Publishing status. Do not modify IAM. Do not touch the
-"Nils Digital" project. If anything is ambiguous, stop and ask.
+If publishing fails, requires verification before completing, or
+shows any unexpected error, STOP and report the exact error text and
+a screenshot. Do not retry. Do not touch IAM. Do not touch the "Nils
+Digital" project.
 ```
 
-Testing mode has a hard cap of 100 test users. Unlikely to be a
-concern here, but flag it if it comes up.
+Notes:
+- Publishing to Production does NOT auto-submit for verification.
+  Until verified by Google, end users still see the "unverified app"
+  warning and self-bypass via Advanced → "Go to ... (unsafe)". That
+  warning is acceptable for an internal tool.
+- The 100-test-user cap no longer applies once published.
 
 ## Verifying the fix works after Claude Chrome adds users
 
