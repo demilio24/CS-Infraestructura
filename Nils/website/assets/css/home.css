@@ -90,15 +90,11 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-.testimonial .quote {
-  font-family: var(--font-serif);
-  font-size: clamp(20px, 2.5vw, 28px);
-  font-weight: var(--fw-serif-regular);
-  line-height: var(--lh-snug);
-  letter-spacing: -0.015em;
-  color: var(--ink);
-  margin: 0;
-}
+.testimonial.marketing  { border-top: 3px solid var(--marketing); }
+.testimonial.marketing  .cat { color: var(--marketing); }
+.testimonial.automation { border-top: 3px solid var(--automation); }
+.testimonial.automation .cat { color: var(--automation-dark); }
+
 .testimonial .sub {
   font-family: var(--font-body);
   font-size: var(--fs-meta);
@@ -115,8 +111,8 @@
   border-top: 1px solid var(--ink-line-soft);
 }
 .testimonial .attribution .portrait {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--ink-line) 0%, var(--ink-line-soft) 100%);
   border: 1px solid var(--ink-line);
@@ -127,30 +123,90 @@
   font-size: var(--fs-meta);
   font-weight: var(--fw-display-bold);
   color: var(--ink);
-  display: block;
-}
-.testimonial .attribution .business {
-  font-family: var(--font-body);
-  font-size: 12px;
-  color: var(--ink-soft);
-  display: block;
 }
 
-/* Stars — color-encoded per category */
-.testimonial .stars {
-  display: inline-flex;
+/* Video card */
+.testimonial.video .video-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--ink);
+  aspect-ratio: 16 / 9;
+}
+.testimonial.video video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Trustpilot-style review card (Keila) */
+.testimonial.review-card .review-screenshot {
+  position: relative;
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-height: 200px;
+}
+.testimonial.review-card .review-screenshot img {
+  width: 100%;
+  display: block;
+}
+.testimonial.review-card .review-mock {
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+.testimonial.review-card .tp-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: var(--fw-display-bold);
+  font-size: 13px;
+  color: var(--ink);
+}
+.testimonial.review-card .review-mock .stars {
+  display: flex;
   gap: 2px;
 }
-.testimonial .stars svg { width: 14px; height: 14px; }
-.testimonial.marketing  .stars svg { fill: var(--marketing); }
-.testimonial.automation .stars svg { fill: var(--automation); }
+/* #00b67a is the Trustpilot brand color, not a Nils token. Intentional brand reference. */
+.testimonial.review-card .review-mock .stars svg {
+  width: 18px;
+  height: 18px;
+  fill: #00b67a;
+}
+.testimonial.review-card .review-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: var(--fw-display-bold);
+  color: var(--ink);
+}
+.testimonial.review-card .review-body {
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  color: var(--ink-soft);
+  line-height: var(--lh-relaxed);
+  margin: 0;
+}
+.testimonial.review-card .review-body code {
+  font-family: monospace;
+  font-size: 11px;
+  background: var(--ink-line-soft);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.testimonial.review-card .review-author {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: var(--fw-display-bold);
+  color: var(--ink-soft);
+}
 
-.testimonial.marketing  { border-top: 3px solid var(--marketing); }
-.testimonial.marketing  .cat { color: var(--marketing); }
-.testimonial.automation { border-top: 3px solid var(--automation); }
-.testimonial.automation .cat { color: var(--automation-dark); }
-
-/* V1 — Three cards in a row */
+/* V1 — Three cards row (video / video / review) */
 .home-proof.v1 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -160,31 +216,24 @@
   .home-proof.v1 .testimonials-grid { grid-template-columns: 1fr; }
 }
 
-/* V2 — Featured + stacked pair */
+/* V2 — Featured video + 2 stacked smaller cards */
 .home-proof.v2 .layout {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   gap: var(--space-5);
   align-items: stretch;
 }
-.home-proof.v2 .testimonial.hero {
-  padding: var(--space-6) var(--space-6) var(--space-6);
-}
-.home-proof.v2 .testimonial.hero .quote {
-  font-size: clamp(28px, 3.5vw, 44px);
-}
+.home-proof.v2 .testimonial.hero { padding: var(--space-5); }
 .home-proof.v2 .panel {
   display: grid;
   grid-template-rows: 1fr 1fr;
   gap: var(--space-4);
 }
-.home-proof.v2 .panel .testimonial { padding: var(--space-4); }
-.home-proof.v2 .panel .testimonial .quote { font-size: clamp(17px, 2vw, 22px); }
 @media (max-width: 720px) {
   .home-proof.v2 .layout { grid-template-columns: 1fr; }
 }
 
-/* V3 — Editorial stack, left vertical stripe */
+/* V3 — Editorial vertical stack */
 .home-proof.v3 { text-align: left; }
 .home-proof.v3 .testimonials-stack {
   display: flex;
@@ -193,16 +242,8 @@
   max-width: 760px;
   margin: 0 auto;
 }
-.home-proof.v3 .testimonial {
-  border-top: 1px solid var(--ink-line);
-  border-left: 4px solid var(--ink-line);
-  padding-left: var(--space-6);
-}
-.home-proof.v3 .testimonial.marketing  { border-top-color: var(--ink-line); border-left-color: var(--marketing); }
-.home-proof.v3 .testimonial.automation { border-top-color: var(--ink-line); border-left-color: var(--automation); }
-.home-proof.v3 .testimonial .quote { font-size: clamp(26px, 3.2vw, 38px); }
 
-/* V4 — Trustpilot-style with stars header */
+/* V4 — Trustpilot header + 3-card grid */
 .home-proof.v4 .tp-header {
   text-align: center;
   margin-bottom: var(--space-6);
@@ -212,10 +253,11 @@
   gap: 4px;
   margin-bottom: var(--space-3);
 }
+/* #00b67a is the Trustpilot brand color, not a Nils token. Intentional brand reference. */
 .home-proof.v4 .tp-stars-row svg {
   width: 22px;
   height: 22px;
-  fill: var(--automation);
+  fill: #00b67a;
 }
 .home-proof.v4 .tp-headline {
   font-family: var(--font-display);
