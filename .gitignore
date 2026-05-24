@@ -41,6 +41,9 @@ uploads/*
 # Per-project .claude/ folders (local agent state — settings.local.json, etc.)
 */.claude/
 
+# Brainstorming companion state (superpowers:brainstorming visual companion)
+.superpowers/
+
 # Raw GHL form-submission exports (PII, not project code)
 Tom_Systema_Floyd/Form Submission.csv
 

@@ -80,9 +80,22 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Open threads
 - The 2026-04-24 memory file references the automation funnel as `NILS-FUNNELS/Automation/automation-vsl-direct-bg-matrix.html`; current canonical location is `Nils/funnel/automation-vsl-funnel-direct.html`. Memory note is stale, file content matches the green-theme + matrix-hero direction described.
-- `funnel/screenshots/` accumulates dozens of build-iteration PNGs — candidate for `.gitignore` cleanup.
+- `funnel/screenshots/` accumulates dozens of build-iteration PNGs, candidate for `.gitignore` cleanup.
+- **New: `Nils/website/` implementation pending.** Design spec approved on 2026-05-24 (see `docs/superpowers/specs/2026-05-24-organic-website-design.md`). Next step is `superpowers:writing-plans` to produce the implementation plan. Four open questions inside the spec to resolve in plan phase: custom domain status, what to do with existing top-level `team.html`/`nils-proof.html` (migrate vs keep), contact form backend, new Clarity ID.
 
 ## Changelog
+
+### 2026-05-24 — Approved design spec for new organic-traffic website
+Full brainstorming session with Emilio (via `superpowers:brainstorming` visual companion) produced a complete design spec for a new Nils Digital website at `Nils/website/`. The site is a SEO front door + warm-up + routing layer for the two existing VSL funnels (Marketing + Automation), NOT a new sales funnel. Key decisions locked in:
+- **Positioning:** one brand, "Growth & Systems Partner" for $1M+ local service business owners (single avatar, both pains)
+- **Conversion goal:** warm-up hub that routes organic traffic to existing VSLs; site never sells directly (paid traffic continues to bypass and go straight to VSLs)
+- **Pages (5):** Home, About, Proof, Blog, Contact
+- **Home hero pattern:** Netflix-style full-bleed dual route halves (blue Marketing card + green Automation card) under an Instrument Serif headline on white
+- **Hero copy (V1):** eyebrow "For local service businesses" / H1 "If you want to get more clients and automate your busywork, you're in the right place." / H2 "We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it."
+- **Visual identity:** white bg, Instrument Serif headlines, Instrument Sans for CTAs/labels, Google Sans + DM Sans for body. Marketing accent `#046BD2` with dot-grid texture (signature from Marketing VSL); Automation accent `#0FBF7A` with binary code-rain texture (echo of Matrix hero in Automation VSL)
+- **Blog:** single feed at `/blog` with tag filters + compact inline search bar in the tag toolbar. **Pagefind** as the search backend (static, zero backend, generates index from HTML at build time). BabyLoveGrowth pumps posts into `/blog`; per-post inline CTA at end routes to matching VSL by tag
+- **Build rule:** every section on every page must be produced as 2-4 variations for Emilio to pick from, NOT a single attempt. Saved as `feedback_section_variations.md` memory
+- Spec is at `Nils/docs/superpowers/specs/2026-05-24-organic-website-design.md` (uncommitted, pending Emilio's review)
 
 ### 2026-05-18 — Synced local working tree with remote main
 Pulled ~3,300 remote commits. No file-level conflicts in this folder; the merge incorporated remote changes cleanly. No structural decisions made here — no code or copy edits this session.
