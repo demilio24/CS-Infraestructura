@@ -13,6 +13,7 @@ Veteran-owned mobile notary service operating across Miami-Dade and Broward Coun
 - Fonts: Instrument Serif + Playfair Display (headings) with Inter (body)
 - Container max 1200px / narrow 800px, full shadow + glow system including gold-tinted glow
 - Phone number `305-613-3300` and veteran-owned positioning surface throughout
+- **Phone-first CTA strategy** (as of 2026-05-24): every primary button on `charles.html` points to `tel:+13056133300`, not to the `#hero-form` anchor. The hero form still exists and is reachable by direct anchor, but no CTA scrolls to it. If you add a new CTA, default it to `tel:` — only link to the form if Charles explicitly asks.
 
 ## Open threads
 (none clear)
