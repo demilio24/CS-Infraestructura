@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aquanauts Swim Academy | Private + Adaptive Swim Lessons on Vancouver Island</title>
+  <meta name="description" content="Private and adaptive swim lessons across Vancouver Island. 1:1 instruction for babies, kids, teens, and adults. 7 pool locations + mobile-to-your-pool service from Victoria to Campbell River." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://static.wixstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://static.wixstatic.com/media/07f34f_b3895c695d9c4ef782c44b57ae4aded6~mv2.jpg" fetchpriority="high">
+  <style>
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; padding: 0; font-family: 'Manrope', sans-serif; font-weight: 500; background: #ffffff; color: #0a1e3a; overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 800; margin: 0; line-height: 1.15; letter-spacing: -0.02em; color: #0a1e3a; }
+p { margin: 0 0 1em; }
+
+/* ═══════════════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════════════ */
+:root {
+  --navy: #0a1e3a;
+  --navy-2: #112952;
+  --blue: #1e4d92;
+  --teal: #3ad8d4;
+  --teal-2: #2bc4c0;
+  --coral: #faa56b;
+  --coral-2: #f5904a;
+  --gold: #ffd56b;
+  --bg-soft: #f5f8fc;
+  --bg-band: #eaf1fa;
+  --line: #d8e3f2;
+  --muted: #4a6585;
+}
+
+/* ═══════════════════════════════════════════════════════
+   UTILITY
+═══════════════════════════════════════════════════════ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase; padding: 8px 18px; border-radius: 50px; background: rgba(58,216,212,0.15); color: var(--blue); margin-bottom: 18px; }
+.eyebrow.on-dark { background: rgba(255,255,255,0.12); color: #fff; backdrop-filter: blur(8px); }
+.section-title { font-size: clamp(2rem, 4.6vw, 3rem); font-weight: 800; color: var(--navy); margin: 0 0 14px; }
+.section-title .accent { color: var(--blue); font-style: italic; }
+.section-sub { font-size: 1.06rem; color: var(--muted); max-width: 640px; margin: 0 0 32px; }
+.section-head { text-align: center; max-width: 760px; margin: 0 auto 44px; }
+.section-head .section-sub { margin-left: auto; margin-right: auto; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 12px; padding: 15px 30px; cursor: pointer; transition: all 0.25s ease; text-decoration: none; line-height: 1; }
+.btn-primary { background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%); color: var(--navy); box-shadow: 0 8px 24px rgba(250,165,107,0.45); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(250,165,107,0.55); }
+.btn-secondary { background: #fff; color: var(--navy); border: 2px solid var(--line); }
+.btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+.btn-ghost { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+.btn-ghost:hover { background: var(--blue); color: #fff; }
+.btn-white { background: #fff; color: var(--navy); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.btn-white:hover { transform: translateY(-2px); }
+.cta-subtext { display: block; font-family: 'Manrope', sans-serif; font-size: 0.85rem; color: var(--muted); margin-top: 10px; font-weight: 500; }
+
+.anim { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.anim.visible { opacity: 1; transform: translateY(0); }
+
+/* ═══════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════ */
+.nav { position: sticky; top: 0; z-index: 90; background: rgba(255,255,255,0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(216,227,242,0.6); transition: box-shadow 0.3s; }
+.nav.scrolled { box-shadow: 0 4px 24px rgba(10,30,58,0.08); }
+.nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--navy); }
+.nav-logo img { height: 42px; width: auto; }
+.nav-links { list-style: none; padding: 0; margin: 0; display: flex; gap: 28px; }
+.nav-links a { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--navy); position: relative; padding: 6px 0; transition: color 0.2s; }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--teal); transform: scaleX(0); transition: transform 0.3s; transform-origin: center; }
+.nav-links a:hover { color: var(--blue); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.btn-nav-cta { background: var(--coral); color: var(--navy); padding: 11px 22px; border-radius: 10px; font-weight: 700; font-size: 0.92rem; box-shadow: 0 6px 18px rgba(250,165,107,0.42); animation: navPulse 2.6s ease-in-out infinite; }
+.btn-nav-cta:hover { background: var(--coral-2); transform: translateY(-2px); }
+@keyframes navPulse { 0%,100% { box-shadow: 0 6px 18px rgba(250,165,107,0.42); } 50% { box-shadow: 0 6px 28px rgba(250,165,107,0.65); } }
+.btn-nav-portal { background: #fff; color: var(--navy); border: 1.5px solid var(--line); padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 0.88rem; }
+.btn-nav-portal:hover { border-color: var(--blue); color: var(--blue); }
+.hamburger { display: none; background: none; border: none; padding: 6px; cursor: pointer; }
+.hamburger span { display: block; width: 26px; height: 2.5px; margin: 5px 0; background: var(--navy); border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #fff; z-index: 80; transform: translateY(-110%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); padding: 90px 24px 32px; overflow-y: auto; }
+.mobile-menu.open { transform: translateY(0); }
+.mobile-nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; margin-bottom: 20px; }
+.mobile-nav-grid a { padding: 14px 0; border-bottom: 1px solid var(--line); font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.05rem; color: var(--navy); }
+.mobile-menu-cta { margin-top: 24px; }
+.mobile-menu-cta a { display: block; background: var(--coral); color: var(--navy); padding: 16px; border-radius: 12px; text-align: center; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; }
+.mobile-menu-contact { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.92rem; color: var(--muted); }
+.mobile-menu-contact strong { color: var(--navy); display: block; margin-top: 8px; font-family: 'Outfit', sans-serif; font-size: 1.05rem; }
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero { position: relative; overflow: hidden; padding: 56px 0 80px; background:
+  linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.65) 45%, rgba(255,255,255,0.2) 100%),
+  url('https://static.wixstatic.com/media/07f34f_b3895c695d9c4ef782c44b57ae4aded6~mv2.jpg') center/cover no-repeat;
+}
+.hero::before { content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 10% 0%, rgba(30,77,146,0.20) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 50% at 95% 100%, rgba(58,216,212,0.18) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+.hero .container { position: relative; z-index: 1; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.82rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--blue); margin-bottom: 22px; padding: 8px 18px; background: rgba(58,216,212,0.18); border-radius: 50px; }
+.hero h1 { font-size: clamp(2.4rem, 5.4vw, 4rem); font-weight: 900; color: var(--navy); margin-bottom: 22px; }
+.hero h1 .accent { color: var(--blue); font-style: italic; display: block; }
+.hero-sub { font-size: 1.16rem; color: var(--muted); max-width: 540px; margin-bottom: 32px; font-weight: 500; line-height: 1.5; }
+.hero-cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 28px; }
+.hero-cta-subtext { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; font-weight: 500; }
+.hero-pills { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; background: #fff; border: 1.5px solid var(--line); border-radius: 50px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--navy); box-shadow: 0 4px 14px rgba(10,30,58,0.05); }
+.hero-pill svg { width: 16px; height: 16px; flex-shrink: 0; }
+.hero-pill .star-row { color: var(--gold); letter-spacing: -1px; }
+
+/* Form card */
+.hero-form-card { position: relative; background: #fff; border-radius: 24px; padding: 32px 28px; box-shadow: 0 20px 60px rgba(10,30,58,0.18), 0 4px 14px rgba(10,30,58,0.08); border: 1px solid var(--line); }
+.hero-form-card::before { content: ''; position: absolute; inset: -2px; border-radius: 26px; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); z-index: -1; opacity: 0.25; filter: blur(20px); }
+.hero-form-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.42rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; text-align: center; }
+.hero-form-card .form-sub { font-size: 0.94rem; color: var(--muted); margin-bottom: 22px; text-align: center; }
+.hero-form-card .form-field { display: block; margin-bottom: 12px; }
+.hero-form-card .form-field label { display: block; font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.8px; }
+.hero-form-card .form-field input,
+.hero-form-card .form-field select { width: 100%; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; font-family: 'Manrope', sans-serif; font-size: 0.96rem; color: var(--navy); background: #fff; transition: border 0.2s; }
+.hero-form-card .form-field input:focus,
+.hero-form-card .form-field select:focus { outline: none; border-color: var(--teal); }
+.hero-form-card .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hero-form-card .form-submit { width: 100%; padding: 15px; margin-top: 8px; background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%); color: var(--navy); border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.02rem; cursor: pointer; box-shadow: 0 8px 22px rgba(250,165,107,0.45); transition: transform 0.2s, box-shadow 0.2s; }
+.hero-form-card .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(250,165,107,0.55); }
+.hero-form-card .form-foot { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 12px; }
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT / WHY FAMILIES CHOOSE US
+═══════════════════════════════════════════════════════ */
+.about { padding: 100px 0; background: #fff; }
+.about-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 70px; align-items: center; }
+.about-img { position: relative; }
+.about-img img { border-radius: 24px; box-shadow: 0 20px 60px rgba(10,30,58,0.18); aspect-ratio: 4/5; object-fit: cover; }
+.about-img-badge { position: absolute; bottom: -22px; right: -22px; background: var(--coral); padding: 18px 24px; border-radius: 18px; box-shadow: 0 14px 36px rgba(250,165,107,0.4); }
+.about-img-badge strong { font-family: 'Outfit', sans-serif; font-size: 1.55rem; font-weight: 900; color: var(--navy); display: block; line-height: 1; }
+.about-img-badge span { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; }
+.about-points { list-style: none; padding: 0; margin: 28px 0 32px; display: flex; flex-direction: column; gap: 18px; }
+.about-points li { display: flex; gap: 16px; align-items: flex-start; }
+.about-point-num { flex-shrink: 0; width: 38px; height: 38px; border-radius: 12px; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; }
+.about-point-num.heart { background: linear-gradient(135deg, #5b8def 0%, #2e5cb5 100%); font-size: 1.1rem; }
+.about-point-text { font-size: 1.02rem; color: var(--navy); font-weight: 500; line-height: 1.55; padding-top: 6px; }
+.about-point-text strong { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); }
+
+/* ═══════════════════════════════════════════════════════
+   PROGRAMS
+═══════════════════════════════════════════════════════ */
+.programs { padding: 100px 0; background: var(--bg-soft); position: relative; }
+.programs::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 200px; background: radial-gradient(ellipse 60% 100% at 50% 0%, rgba(58,216,212,0.10) 0%, transparent 70%); pointer-events: none; }
+.filter-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; }
+.filter-btn { padding: 11px 22px; border-radius: 50px; border: 1.5px solid var(--line); background: #fff; color: var(--navy); font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: all 0.22s ease; }
+.filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+.filter-btn.active { background: var(--navy); color: #fff; border-color: var(--navy); box-shadow: 0 6px 18px rgba(10,30,58,0.25); }
+
+.programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; }
+.program-card { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 28px rgba(10,30,58,0.08); transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--line); position: relative; display: flex; flex-direction: column; }
+.program-card.hidden { display: none; }
+.program-card:hover { transform: translateY(-6px); box-shadow: 0 18px 48px rgba(10,30,58,0.16); }
+.program-card-img { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--bg-band); }
+.program-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.program-card:hover .program-card-img img { transform: scale(1.06); }
+.program-card-tag { position: absolute; top: 14px; left: 14px; background: var(--navy); color: #fff; padding: 5px 12px; border-radius: 50px; font-family: 'Outfit', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
+.program-card-tag.popular { background: var(--coral); color: var(--navy); }
+.program-card-body { padding: 22px 22px 26px; flex: 1; display: flex; flex-direction: column; }
+.program-card-body h3 { font-family: 'Outfit', sans-serif; font-size: 1.32rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.program-card-body p { font-size: 0.96rem; color: var(--muted); line-height: 1.55; margin-bottom: 16px; flex: 1; }
+.program-card-prices { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.program-card-price { display: flex; justify-content: space-between; align-items: center; font-family: 'Outfit', sans-serif; font-size: 0.94rem; }
+.program-card-price .price-label { color: var(--muted); font-weight: 500; }
+.program-card-price .price-value { color: var(--navy); font-weight: 700; }
+.program-card-price .price-value.popular { color: var(--coral-2); }
+
+.programs-cta-row { text-align: center; margin-top: 44px; }
+
+/* ═══════════════════════════════════════════════════════
+   EVENTS
+═══════════════════════════════════════════════════════ */
+.events { padding: 100px 0; background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%); color: #fff; position: relative; overflow: hidden; }
+.events::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 36px 36px; pointer-events: none; opacity: 0.5; }
+.events::after { content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(58,216,212,0.20) 0%, transparent 70%); pointer-events: none; }
+.events .container { position: relative; z-index: 1; }
+.events .section-title { color: #fff; }
+.events .section-title .accent { color: var(--teal); }
+.events .section-sub { color: rgba(255,255,255,0.72); }
+.events-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.event-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; padding: 26px 22px; transition: all 0.3s; }
+.event-card:hover { background: rgba(255,255,255,0.10); border-color: rgba(58,216,212,0.4); transform: translateY(-4px); }
+.event-card-icon { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 1.5rem; }
+.event-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.18rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+.event-card p { font-size: 0.92rem; color: rgba(255,255,255,0.72); line-height: 1.55; margin: 0; }
+
+/* ═══════════════════════════════════════════════════════
+   LOCATIONS
+═══════════════════════════════════════════════════════ */
+.locations { padding: 100px 0; background: #fff; }
+.locations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.loc-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; }
+.loc-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); }
+.loc-card-img { aspect-ratio: 4/3; overflow: hidden; background: var(--bg-band); }
+.loc-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.loc-card:hover .loc-card-img img { transform: scale(1.06); }
+.loc-card-body { padding: 18px 20px 22px; }
+.loc-card-body h3 { font-family: 'Outfit', sans-serif; font-size: 1.04rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; line-height: 1.25; }
+.loc-card-body p { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin: 0 0 10px; }
+.loc-card-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 700; color: var(--blue); }
+.loc-card-link:hover { color: var(--coral-2); }
+.loc-cta-row { text-align: center; margin-top: 44px; }
+
+/* ═══════════════════════════════════════════════════════
+   STEPS
+═══════════════════════════════════════════════════════ */
+.steps { padding: 100px 0; background: var(--bg-soft); }
+.steps-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; position: relative; }
+.steps-list::before { content: ''; position: absolute; top: 38px; left: 8%; right: 8%; height: 2px; background: linear-gradient(90deg, var(--teal) 0%, var(--blue) 50%, var(--coral) 100%); opacity: 0.5; z-index: 0; }
+.step-item { position: relative; z-index: 1; background: #fff; padding: 28px 24px; border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); text-align: left; }
+.step-num { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%); color: var(--navy); font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; box-shadow: 0 8px 22px rgba(250,165,107,0.4); }
+.step-item h3 { font-family: 'Outfit', sans-serif; font-size: 1.12rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.25; }
+.step-item p { font-size: 0.94rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.steps-cta-row { text-align: center; margin-top: 44px; }
+
+/* ═══════════════════════════════════════════════════════
+   REVIEWS
+═══════════════════════════════════════════════════════ */
+.reviews { padding: 100px 0; background: #fff; }
+.reviews-stat { display: inline-flex; align-items: center; gap: 14px; padding: 14px 24px; background: linear-gradient(135deg, rgba(58,216,212,0.12) 0%, rgba(30,77,146,0.08) 100%); border: 1.5px solid rgba(58,216,212,0.3); border-radius: 50px; margin: 0 auto 36px; }
+.reviews-stat .stars { color: var(--gold); font-size: 1.2rem; letter-spacing: -1px; }
+.reviews-stat .rating { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--navy); }
+.reviews-stat .count { font-size: 0.92rem; color: var(--muted); }
+.reviews-head { text-align: center; }
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.review-card { background: #fff; border-radius: 20px; padding: 28px 26px; border: 1px solid var(--line); box-shadow: 0 8px 26px rgba(10,30,58,0.08); display: flex; flex-direction: column; position: relative; }
+.review-card::before { content: '"'; position: absolute; top: 18px; right: 24px; font-family: 'Outfit', sans-serif; font-size: 4.5rem; font-weight: 900; color: var(--teal); opacity: 0.18; line-height: 1; }
+.review-stars { color: var(--gold); font-size: 1.06rem; letter-spacing: -1px; margin-bottom: 14px; }
+.review-quote { font-size: 1rem; color: var(--navy); line-height: 1.65; margin-bottom: 22px; flex: 1; }
+.review-quote .hl { background: linear-gradient(180deg, transparent 60%, rgba(255,213,107,0.5) 60%); padding: 0 2px; font-weight: 600; }
+.review-author { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.review-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1rem; display: flex; align-items: center; justify-content: center; }
+.review-author-name { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--navy); font-size: 0.96rem; }
+.review-author-source { font-size: 0.82rem; color: var(--muted); }
+.reviews-cta-row { text-align: center; margin-top: 40px; }
+
+/* ═══════════════════════════════════════════════════════
+   GALLERY
+═══════════════════════════════════════════════════════ */
+.gallery { padding: 100px 0; background: var(--bg-soft); }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery-item { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 16px; cursor: pointer; background: var(--bg-band); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.gallery-item:hover img { transform: scale(1.07); }
+.gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(10,30,58,0.4) 100%); opacity: 0; transition: opacity 0.3s; }
+.gallery-item:hover::after { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════
+   TEAM
+═══════════════════════════════════════════════════════ */
+.team { padding: 100px 0; background: #fff; }
+.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.team-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; }
+.team-card.hidden { display: none; }
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); }
+.team-card-img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--bg-band); }
+.team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.team-card:hover .team-card-img img { transform: scale(1.05); }
+.team-card-body { padding: 20px 18px 22px; }
+.team-card-body h3 { font-family: 'Outfit', sans-serif; font-size: 1.06rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+.team-card-role { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.team-card-bio { font-size: 0.9rem; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+.team-card-serves { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); padding-top: 12px; border-top: 1px dashed var(--line); }
+.team-card-serves span { color: var(--muted); font-weight: 500; }
+.team-card-link { display: inline-flex; align-items: center; gap: 4px; font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 700; color: var(--coral-2); margin-top: 10px; }
+.team-cta-row { text-align: center; margin-top: 44px; }
+
+/* ═══════════════════════════════════════════════════════
+   WHY / VALUES
+═══════════════════════════════════════════════════════ */
+.why { padding: 100px 0; background: linear-gradient(180deg, var(--bg-soft) 0%, #fff 100%); }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.why-card { background: #fff; border-radius: 18px; padding: 28px 24px; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; }
+.why-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); border-color: rgba(58,216,212,0.5); }
+.why-card-icon { width: 56px; height: 56px; border-radius: 14px; background: linear-gradient(135deg, rgba(58,216,212,0.18) 0%, rgba(30,77,146,0.12) 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; color: var(--blue); }
+.why-card-icon svg { width: 28px; height: 28px; }
+.why-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.14rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.why-card p { font-size: 0.94rem; color: var(--muted); line-height: 1.55; margin: 0; }
+
+/* ═══════════════════════════════════════════════════════
+   FAQ
+═══════════════════════════════════════════════════════ */
+.faq { padding: 100px 0; background: #fff; }
+.faq-filter-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 36px; }
+.faq-list { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item { background: #fff; border: 1.5px solid var(--line); border-radius: 14px; overflow: hidden; transition: all 0.25s ease; }
+.faq-item.hidden { display: none; }
+.faq-item.open { border-color: var(--blue); box-shadow: 0 8px 28px rgba(30,77,146,0.14); }
+.faq-q { width: 100%; padding: 20px 22px; background: none; border: none; text-align: left; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); cursor: pointer; display: flex; align-items: center; gap: 14px; }
+.faq-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 10px; background: var(--bg-band); color: var(--blue); font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; transition: all 0.25s; }
+.faq-item.open .faq-num { background: var(--blue); color: #fff; }
+.faq-q-text { flex: 1; }
+.faq-icon { flex-shrink: 0; width: 24px; height: 24px; transition: transform 0.3s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; padding: 0 22px; }
+.faq-item.open .faq-a { max-height: 400px; padding: 0 22px 22px 68px; }
+.faq-a p { font-size: 0.98rem; color: var(--muted); line-height: 1.65; margin: 0; }
+.faq-cta-row { text-align: center; margin-top: 36px; }
+
+/* ═══════════════════════════════════════════════════════
+   FINAL CTA
+═══════════════════════════════════════════════════════ */
+.final-cta { padding: 110px 0; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 50%, var(--blue) 100%); color: #fff; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 36px 36px; pointer-events: none; opacity: 0.7; }
+.final-cta::after { content: ''; position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%); width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(58,216,212,0.16) 0%, transparent 60%); pointer-events: none; }
+.final-cta .container { position: relative; z-index: 1; text-align: center; }
+.final-cta h2 { font-size: clamp(2.4rem, 5.4vw, 3.8rem); color: #fff; margin-bottom: 18px; }
+.final-cta h2 .accent { color: var(--teal); font-style: italic; }
+.final-cta p { font-size: 1.18rem; color: rgba(255,255,255,0.82); max-width: 640px; margin: 0 auto 36px; line-height: 1.5; }
+.final-cta .btn { padding: 18px 38px; font-size: 1.08rem; }
+.final-cta .cta-subtext { color: rgba(255,255,255,0.7); }
+.final-cta-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 44px; }
+.final-cta-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); border-radius: 50px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.88rem; color: #fff; }
+.final-cta-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 30px; font-size: 0.94rem; }
+.final-cta-contact a { color: rgba(255,255,255,0.85); display: inline-flex; align-items: center; gap: 6px; }
+.final-cta-contact a:hover { color: var(--teal); }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+.footer { padding: 60px 0 30px; background: #061427; color: rgba(255,255,255,0.75); font-size: 0.92rem; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 50px; margin-bottom: 40px; }
+.footer-brand { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.5rem; color: #fff; margin-bottom: 12px; }
+.footer-tag { color: rgba(255,255,255,0.6); margin-bottom: 18px; line-height: 1.6; max-width: 320px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; transition: all 0.2s; color: #fff; }
+.footer-social a:hover { background: var(--teal); color: var(--navy); }
+.footer-col h4 { font-family: 'Outfit', sans-serif; font-size: 0.96rem; font-weight: 800; color: #fff; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col li { margin-bottom: 10px; }
+.footer-col a:hover { color: var(--teal); }
+.footer-bottom { padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 0.84rem; color: rgba(255,255,255,0.5); }
+.footer-bottom a:hover { color: var(--teal); }
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .nav-links { display: none; }
+  .nav-right .btn-nav-portal { display: none; }
+  .hamburger { display: block; }
+  .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+  .about-grid { grid-template-columns: 1fr; gap: 44px; }
+  .programs-grid { grid-template-columns: repeat(2, 1fr); }
+  .events-grid { grid-template-columns: repeat(2, 1fr); }
+  .locations-grid { grid-template-columns: repeat(2, 1fr); }
+  .steps-list { grid-template-columns: repeat(2, 1fr); }
+  .steps-list::before { display: none; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .programs-grid, .events-grid, .locations-grid, .steps-list, .gallery-grid, .team-grid, .why-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+  .hero { padding: 36px 0 56px; }
+  .about, .programs, .events, .locations, .steps, .reviews, .gallery, .team, .why, .faq { padding: 70px 0; }
+  .final-cta { padding: 80px 0; }
+  .hero h1 { font-size: 2.2rem; }
+  .section-title { font-size: 1.75rem; }
+  .hero-cta-row { flex-direction: column; }
+  .hero-cta-row .btn { width: 100%; }
+  .hero-form-card { padding: 24px 20px; }
+  .about-img-badge { right: 16px; bottom: -18px; padding: 14px 18px; }
+  .step-num { width: 52px; height: 52px; font-size: 1.3rem; }
+  .nav-inner { padding: 12px 20px; }
+  .nav-logo img { height: 36px; }
+}
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://static.wixstatic.com/media/07f34f_208a0bfbc06745dc857826467acde2f9~mv2.png" alt="Aquanauts Swim Academy" loading="eager">
+      <span>Aquanauts</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#locations">Locations</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://aquanautsacademy.janeapp.com/" target="_blank" class="btn btn-nav-portal">Client Login</a>
+      <a href="#hero-form" class="btn btn-nav-cta">🚀 Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-nav-grid">
+    <a href="#about">About</a>
+    <a href="#programs">Programs</a>
+    <a href="#events">Events</a>
+    <a href="#locations">Locations</a>
+    <a href="#team">Team</a>
+    <a href="#why">Why Us</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="mobile-menu-cta">
+    <a href="#hero-form">🚀 Book Your First Lesson</a>
+  </div>
+  <div class="mobile-menu-contact">
+    <span>Call or text us</span>
+    <strong>250-327-3212</strong>
+    <span style="display:block;margin-top:6px;">info@aquanautsacademy.ca</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="anim">
+        <div class="hero-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg>
+          Vancouver Island · Babies, Kids, Teens, and Adults
+        </div>
+        <h1>
+          Float, Swim, and
+          <span class="accent">Soar With Confidence</span>
+        </h1>
+        <p class="hero-sub">1:1 private lessons that turn anxious first-timers into kids who jump in. Zero crowded rec-centre chaos, full instructor attention on your swimmer.</p>
+        <div class="hero-cta-row">
+          <a href="#hero-form" class="btn btn-primary">Book Your First Lesson
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#programs" class="btn btn-secondary">Try a Free Assessment</a>
+        </div>
+        <p class="hero-cta-subtext">No commitment. See if we are the right fit before you book a package.</p>
+        <div class="hero-pills">
+          <span class="hero-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1e4d92" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            500+ Island Families Served
+          </span>
+          <span class="hero-pill">
+            <span class="star-row">★★★★★</span>
+            5.0 (129+ Google reviews)
+          </span>
+          <span class="hero-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1e4d92" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            7 Locations + Mobile to Your Pool
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-form-card anim" id="hero-form" style="transition-delay:0.15s">
+        <h3>Talk to Our Swim Team 😊</h3>
+        <p class="form-sub">We will help you find the right program.</p>
+        <div id="ghl-form-placeholder">
+          <form onsubmit="event.preventDefault(); alert('Form placeholder. GHL embed goes here.');">
+            <div class="form-row-2">
+              <div class="form-field">
+                <label>First name</label>
+                <input type="text" name="first_name" placeholder="Jamie" required>
+              </div>
+              <div class="form-field">
+                <label>Last name</label>
+                <input type="text" name="last_name" placeholder="Smith" required>
+              </div>
+            </div>
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-field">
+              <label>Phone</label>
+              <input type="tel" name="phone" placeholder="250-555-0123" required>
+            </div>
+            <div class="form-field">
+              <label>Program of interest</label>
+              <select name="program_interest" required>
+                <option value="">Select a program</option>
+                <option value="private">Private 1:1 lessons</option>
+                <option value="family">Family or semi-private</option>
+                <option value="mobile">Mobile lessons (we come to you)</option>
+                <option value="adaptive">Adaptive aquatics</option>
+                <option value="adult">Adult lessons</option>
+                <option value="lifeguard">Lifeguarding services</option>
+                <option value="other">Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Closest location</label>
+              <select name="location" required>
+                <option value="">Pick your area</option>
+                <option value="nanaimo">Nanaimo</option>
+                <option value="nanoose">Nanoose Bay</option>
+                <option value="parksville">Parksville</option>
+                <option value="victoria">Victoria</option>
+                <option value="campbell-river">Campbell River</option>
+                <option value="shawnigan">Shawnigan Lake</option>
+                <option value="port-alberni">Port Alberni</option>
+                <option value="mobile">Mobile to my pool</option>
+              </select>
+            </div>
+            <button class="form-submit" type="submit">Get Matched to an Instructor 🚀</button>
+            <p class="form-foot">Reply within one business day. Free first call.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ABOUT
+═══════════════════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img anim">
+        <img src="https://static.wixstatic.com/media/07f34f_424ef856fa0d4007a4d55d6480b78af4~mv2.jpg" alt="Aquanauts swim instructor in the pool with a child" loading="lazy">
+        <div class="about-img-badge">
+          <strong>3,000+</strong>
+          <span>Lessons Delivered</span>
+        </div>
+      </div>
+      <div class="anim">
+        <div class="eyebrow">Why Choose Us</div>
+        <h2 class="section-title">Why Families Across Vancouver Island <span class="accent">Choose Aquanauts</span></h2>
+        <ul class="about-points">
+          <li>
+            <div class="about-point-num">1</div>
+            <div class="about-point-text"><strong>Lessons designed to fit your goals,</strong> whether you are mastering water safety or building advanced skills.</div>
+          </li>
+          <li>
+            <div class="about-point-num">2</div>
+            <div class="about-point-text"><strong>Flexible Scheduling.</strong> Convenient times for busy families, homeschoolers, and working adults.</div>
+          </li>
+          <li>
+            <div class="about-point-num">3</div>
+            <div class="about-point-text"><strong>Small Class Sizes.</strong> Focused attention to ensure safety and faster progress.</div>
+          </li>
+          <li>
+            <div class="about-point-num">4</div>
+            <div class="about-point-text"><strong>Our unique swim and space theme</strong> makes learning fun and adventurous.</div>
+          </li>
+          <li>
+            <div class="about-point-num heart">💙</div>
+            <div class="about-point-text"><strong>Adaptive Aquatics Expertise.</strong> Inclusive instruction for autism, ADHD, and sensory needs.</div>
+          </li>
+        </ul>
+        <a href="#team" class="btn btn-ghost">Meet the Team
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     PROGRAMS
+═══════════════════════════════════════════════════════ -->
+<section class="programs" id="programs">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">Our Programs</div>
+      <h2 class="section-title">Lessons for Every Swimmer <span class="accent">No Matter the Stage</span></h2>
+      <p class="section-sub">Six ways to learn with us. Pick the format that fits your swimmer and your week.</p>
+    </div>
+
+    <div class="filter-row anim">
+      <button class="filter-btn active" data-filter="all">All Programs</button>
+      <button class="filter-btn" data-filter="kids">For Kids</button>
+      <button class="filter-btn" data-filter="adults">For Adults</button>
+      <button class="filter-btn" data-filter="mobile">Mobile / In-Home</button>
+      <button class="filter-btn" data-filter="adaptive">Adaptive</button>
+      <button class="filter-btn" data-filter="lifeguard">Lifeguarding</button>
+    </div>
+
+    <div class="programs-grid">
+      <div class="program-card anim" data-tags="kids adults">
+        <div class="program-card-img">
+          <img src="https://static.wixstatic.com/media/07f34f_c1037d7145ec44ad8ac2b24f699d8000~mv2.jpg" alt="Private 1:1 swim lesson" loading="lazy">
+          <span class="program-card-tag popular">Most Popular</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Private 1:1 Lessons</h3>
+          <p>One instructor, one swimmer. Full hour or focused 30 minutes. Fastest path to progress.</p>
+          <div class="program-card-prices">
+            <div class="program-card-price"><span class="price-label">30 min</span><span class="price-value">$60</span></div>
+            <div class="program-card-price"><span class="price-label">60 min</span><span class="price-value popular">$110</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-card anim" data-tags="kids">
+        <div class="program-card-img">
+          <img src="https://static.wixstatic.com/media/07f34f_f2367b4d09cc4f52ab7cf398a3119883~mv2.jpg" alt="Kids learning together in a semi-private lesson" loading="lazy">
+          <span class="program-card-tag">Siblings + Friends</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Family + Semi-Private</h3>
+          <p>Siblings or two families together. Same patience, lower per-swimmer price.</p>
+          <div class="program-card-prices">
+            <div class="program-card-price"><span class="price-label">Family 30 min</span><span class="price-value">$60</span></div>
+            <div class="program-card-price"><span class="price-label">Family 60 min</span><span class="price-value">$120</span></div>
+            <div class="program-card-price"><span class="price-label">Semi-private</span><span class="price-value">from $35</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-card anim" data-tags="mobile kids adults">
+        <div class="program-card-img">
+          <img src="https://static.wixstatic.com/media/07f34f_88072abf95e0446f98cf51943c66e9eb~mv2.jpg" alt="Mobile swim instructor at a backyard pool" loading="lazy">
+          <span class="program-card-tag">We Come to You</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Mobile Lessons</h3>
+          <p>Certified instructor at your private pool. No drive, no parking, no rec-centre crowds.</p>
+          <div class="program-card-prices">
+            <div class="program-card-price"><span class="price-label">60 min session</span><span class="price-value">$120</span></div>
+            <div class="program-card-price"><span class="price-label">Coverage</span><span class="price-value">Island-wide</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-card anim" data-tags="adaptive kids adults">
+        <div class="program-card-img">
+          <img src="https://static.wixstatic.com/media/07f34f_dbc8ebca4da4442fb95bcce4f8a6a914~mv2.jpg" alt="Adaptive aquatics lesson for a neurodiverse swimmer" loading="lazy">
+          <span class="program-card-tag">Free Assessment</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Adaptive Aquatics 💙</h3>
+          <p>1:1 lessons for swimmers with autism, ADHD, sensory sensitivities, and diverse abilities. Patient, predictable, built around your child's pace.</p>
+          <div class="program-card-prices">
+            <div class="program-card-price"><span class="price-label">30-min assessment</span><span class="price-value">Free</span></div>
+            <div class="program-card-price"><span class="price-label">BC AFU funding</span><span class="price-value">Pathway available</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-card anim" data-tags="adults">
+        <div class="program-card-img">
+          <img src="https://static.wixstatic.com/media/11062b_45009d9ba00a4d4894a25f95857c9803~mv2.jpg" alt="Adult learning to swim" loading="lazy">
+          <span class="program-card-tag">No Judgment</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Adult Lessons</h3>
+          <p>For beginners, anxious returners, triathletes, prenatal swimmers, and anyone who wants a proper front crawl.</p>
+          <div class="program-card-prices">
+            <div class="program-card-price"><span class="price-label">Format</span><span class="price-value">Private or semi-private</span></div>
+            <div class="program-card-price"><span class="price-label">Length</span><span class="price-value">30 or 60 min</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="program-card anim" data-tags="lifeguard">
+        <div class="program-card-img">
+          <img src="https://static.wixstatic.com/media/07f34f_46e8e57aef1b4eb68b4d34eec983a63f~mv2.jpg" alt="Certified lifeguard at a private event" loading="lazy">
+          <span class="program-card-tag">For Events + Facilities</span>
+        </div>
+        <div class="program-card-body">
+          <h3>Lifeguarding Services</h3>
+          <p>Certified lifeguards for private events, resort pools, schools, and camps. CPR-C, AED, and first aid trained.</p>
+          <div class="program-card-prices">
+            <div class="program-card-price"><span class="price-label">Events</span><span class="price-value">Birthdays + parties</span></div>
+            <div class="program-card-price"><span class="price-label">Coverage</span><span class="price-value">Facility + camp staffing</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="programs-cta-row anim">
+      <a href="#hero-form" class="btn btn-primary">See All Programs
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <span class="cta-subtext">Call 250-327-3212 if you are not sure which fits.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     EVENTS
+═══════════════════════════════════════════════════════ -->
+<section class="events" id="events">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow on-dark">Beyond Lessons</div>
+      <h2 class="section-title">More Than a <span class="accent">Swim School</span></h2>
+      <p class="section-sub">Lifeguards for your event. Aquayoga for your week. Partnerships for your community.</p>
+    </div>
+    <div class="events-grid">
+      <div class="event-card anim">
+        <div class="event-card-icon">🛟</div>
+        <h3>Lifeguarding for Events</h3>
+        <p>Certified lifeguards for birthday parties, resort pools, schools, and camps. CPR-C, AED, first aid trained.</p>
+      </div>
+      <div class="event-card anim" style="transition-delay:.08s">
+        <div class="event-card-icon">🧘</div>
+        <h3>Aquayoga</h3>
+        <p>Gentle in-water yoga for adults. Builds breath control, calm, and mobility.</p>
+      </div>
+      <div class="event-card anim" style="transition-delay:.16s">
+        <div class="event-card-icon">🤝</div>
+        <h3>Partnerships</h3>
+        <p>Swim programs for childcare, school districts, alternative learning platforms, and physiotherapy clinics.</p>
+      </div>
+      <div class="event-card anim" style="transition-delay:.24s">
+        <div class="event-card-icon">🏕️</div>
+        <h3>Sponsorship + Camps</h3>
+        <p>Seasonal camps and sponsored sessions for community partners. Contact us for current openings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     LOCATIONS
+═══════════════════════════════════════════════════════ -->
+<section class="locations" id="locations">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">Locations</div>
+      <h2 class="section-title">7 Pools Across <span class="accent">Vancouver Island</span></h2>
+      <p class="section-sub">From Victoria up to Campbell River. Find the location closest to you.</p>
+    </div>
+    <div class="locations-grid">
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_529ab4a4553a447db9aac3fa3212e50e~mv2.png" alt="Nanaimo location" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Nanaimo (Central)</h3>
+          <p>Primary location, year-round. Contact us for pool details.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/86088a_662cc43382004c23a128a823437d381c~mv2.jpg" alt="Pacific Shores Resort pool, Nanoose Bay" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Nanoose Bay</h3>
+          <p>Pacific Shores Resort pool.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_420f5426d3a744009368d58b078b2686~mv2.jpg" alt="Parksville Oceanside Manor pool" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Parksville</h3>
+          <p>Oceanside Manor.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_0e3042e97aa147248397eec21ddaf035~mv2.jpg" alt="Victoria pool location" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Victoria</h3>
+          <p>Near Hillside Mall.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_c5683bf866c2445da9bf9b4cf77f7e61~mv2.jpg" alt="Ramada by Wyndham Campbell River pool" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Campbell River, Ramada</h3>
+          <p>462 S Island Hwy. Heated indoor, 28-30°C, 15m, 3.5 to 6 ft.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_bd064a36c3394ee39f89aed3ec85aa49~mv2.jpg" alt="Naturally Pacific Resort pool, Campbell River" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Campbell River, Naturally Pacific</h3>
+          <p>700 Petersen Rd. Heated indoor, 28-30°C, 15 to 20m, 3.5 to 8 ft.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_bc03eb5724764f5a80c4f8e8557028d3~mv2.jpg" alt="Shawnigan Lake summer location" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Shawnigan Lake (summer)</h3>
+          <p>June through mid-September. Serves Cobble Hill, Mill Bay, Maple Bay, Duncan.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+      <div class="loc-card anim">
+        <div class="loc-card-img"><img src="https://static.wixstatic.com/media/07f34f_88072abf95e0446f98cf51943c66e9eb~mv2.jpg" alt="Mobile swim lessons at private pools" loading="lazy"></div>
+        <div class="loc-card-body">
+          <h3>Mobile / In-Home Pools</h3>
+          <p>We bring the lesson to your private pool, Island-wide.</p>
+          <a href="#hero-form" class="loc-card-link">Book here →</a>
+        </div>
+      </div>
+    </div>
+    <div class="loc-cta-row anim">
+      <a href="#hero-form" class="btn btn-primary">Find My Closest Pool
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <span class="cta-subtext">Not sure which works for you? We will help you pick.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     STEPS
+═══════════════════════════════════════════════════════ -->
+<section class="steps" id="steps">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">How It Works</div>
+      <h2 class="section-title">From First Inquiry to First Splash in <span class="accent">4 Simple Steps</span></h2>
+      <p class="section-sub">No phone tag. No 8-week waitlist. Online booking, direct messaging, fast start.</p>
+    </div>
+    <div class="steps-list">
+      <div class="step-item anim">
+        <div class="step-num">01</div>
+        <h3>Tell Us About Your Swimmer</h3>
+        <p>Quick form. Age, current skill, what you want to achieve, any sensory or medical notes we should know.</p>
+      </div>
+      <div class="step-item anim" style="transition-delay:.08s">
+        <div class="step-num">02</div>
+        <h3>We Match You to the Right Instructor and Pool</h3>
+        <p>Based on location, age, and goals. You get a name, photo, and short bio before you book.</p>
+      </div>
+      <div class="step-item anim" style="transition-delay:.16s">
+        <div class="step-num">03</div>
+        <h3>Book Online With Jane App</h3>
+        <p>Pick your time, your instructor, your pool. Reschedule yourself any time. No phone tag.</p>
+      </div>
+      <div class="step-item anim" style="transition-delay:.24s">
+        <div class="step-num">04</div>
+        <h3>Show Up and Dive In</h3>
+        <p>Bring a swimsuit, a towel, and goggles if you have them. We bring everything else.</p>
+      </div>
+    </div>
+    <div class="steps-cta-row anim">
+      <a href="#hero-form" class="btn btn-primary">Get Started
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <span class="cta-subtext">Takes less than a minute.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     REVIEWS
+═══════════════════════════════════════════════════════ -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="reviews-head anim">
+      <div class="reviews-stat">
+        <span class="stars">★★★★★</span>
+        <span class="rating">5.0</span>
+        <span class="count">over 129 Google reviews</span>
+      </div>
+      <div class="eyebrow">Real Families, Real Words</div>
+      <h2 class="section-title">Trusted by Hundreds of <span class="accent">Island Families</span></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card anim">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote"><span class="hl">Tristan was amazing with my boys who are on the autism spectrum.</span> He showed patience and was able to be flexible with their needs during their lessons. We look forward to working with him again in the future. Highly recommend!</p>
+        <div class="review-author">
+          <div class="review-avatar">E</div>
+          <div>
+            <div class="review-author-name">Erin M.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.08s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">Drake is one of the best instructors to have ever taught my children to swim. He is patient, kind, and caring! <span class="hl">Aquanauts is by far the best swim school on the entire island.</span> Highly, highly recommend them to anyone looking to get their kiddos into the water and developing crucial water skills!</p>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div>
+            <div class="review-author-name">Andrew B.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.16s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">At 62, I never thought I would be taking swim lessons. I can swim but have always wanted to do a 'proper' front crawl. Thank you so much to Sage for <span class="hl">making a front crawler out of me in just two lessons</span>...well enough to start strong at least :)</p>
+        <div class="review-author">
+          <div class="review-avatar">M</div>
+          <div>
+            <div class="review-author-name">Melissa S.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-cta-row anim">
+      <a href="https://www.google.com/search?q=Aquanauts+Swim+Academy+Nanaimo+reviews" target="_blank" class="btn btn-secondary">Read More Reviews on Google
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
+      <span class="cta-subtext">We never edit, filter, or pay for reviews.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     GALLERY
+═══════════════════════════════════════════════════════ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">Inside the Pool</div>
+      <h2 class="section-title">Real Lessons, <span class="accent">Real Smiles</span></h2>
+      <p class="section-sub">Hover to pause. Tap any photo to enlarge.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item anim"><img src="https://static.wixstatic.com/media/07f34f_b3895c695d9c4ef782c44b57ae4aded6~mv2.jpg" alt="Instructor with child in water" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.06s"><img src="https://static.wixstatic.com/media/07f34f_424ef856fa0d4007a4d55d6480b78af4~mv2.jpg" alt="Swim lesson in progress" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.12s"><img src="https://static.wixstatic.com/media/11062b_45009d9ba00a4d4894a25f95857c9803~mv2.jpg" alt="Adult swimmers" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.18s"><img src="https://static.wixstatic.com/media/07f34f_f2367b4d09cc4f52ab7cf398a3119883~mv2.jpg" alt="Kids learning together" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.24s"><img src="https://static.wixstatic.com/media/07f34f_46e8e57aef1b4eb68b4d34eec983a63f~mv2.jpg" alt="Personalized one-on-one instruction" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.30s"><img src="https://static.wixstatic.com/media/07f34f_dbc8ebca4da4442fb95bcce4f8a6a914~mv2.jpg" alt="Adaptive aquatics moment" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     TEAM
+═══════════════════════════════════════════════════════ -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">Meet the Team</div>
+      <h2 class="section-title">Eight Instructors. <span class="accent">110+ Years</span> on Deck.</h2>
+      <p class="section-sub">From a 40-year master instructor trainer to a behaviour interventionist, every coach here is here for a reason.</p>
+    </div>
+
+    <div class="filter-row anim">
+      <button class="filter-btn active" data-team-filter="all">All Locations</button>
+      <button class="filter-btn" data-team-filter="nanaimo">Nanaimo</button>
+      <button class="filter-btn" data-team-filter="parksville">Parksville / Nanoose</button>
+      <button class="filter-btn" data-team-filter="victoria">Victoria / Shawnigan</button>
+      <button class="filter-btn" data-team-filter="campbell">Campbell River</button>
+      <button class="filter-btn" data-team-filter="alberni">Port Alberni</button>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-card anim" data-team-tags="nanaimo parksville victoria">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_f491e836a537401ea83ca2719295f06a~mv2.jpeg" alt="Tristan Tolley" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Tristan Tolley</h3>
+          <div class="team-card-role">Founder · Lifeguard · Instructor</div>
+          <p class="team-card-bio">10+ years on deck. Started coaching with the Special Olympics swim program. Specializes in infant survival rescue paired with learn-to-swim foundations.</p>
+          <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose Bay, Parksville, Shawnigan Lake</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Tristan →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="parksville nanaimo" style="transition-delay:.05s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_43b6c2a80b8d4d55b08528c4f32de84e~mv2.jpeg" alt="Erica" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Erica</h3>
+          <div class="team-card-role">Former Synchro Coach</div>
+          <p class="team-card-bio">20+ years on deck. Coached the Jamaican National Synchronized Swimming Team. 15+ years as a rec-centre lifeguard. Mother of four.</p>
+          <div class="team-card-serves">Serves: <span>Parksville, Nanoose, North Nanaimo</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Erica →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="campbell" style="transition-delay:.10s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_a92492e85d854480a085726eb198161a~mv2.jpg" alt="Catherine May" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Catherine May</h3>
+          <div class="team-card-role">Lifesaving Instructor Trainer</div>
+          <p class="team-card-bio">30+ years on deck. Has certified hundreds of instructors. Specializes in 1:1 instruction, including autistic and neurodiverse swimmers.</p>
+          <div class="team-card-serves">Serves: <span>Campbell River, Comox Valley</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Catherine →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="nanaimo parksville" style="transition-delay:.15s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_fb5111e620d343e1a6cb91ef8947c617~mv2.jpg" alt="Brandon Tolley" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Brandon Tolley</h3>
+          <div class="team-card-role">Behaviour Interventionist</div>
+          <p class="team-card-bio">Bronze Medallion, Bronze Cross, Lifesaving Society Swim Instructor. Day-job behaviour interventionist at Coast Karma, so neurodiverse families are home turf.</p>
+          <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose, Parksville</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Brandon →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="nanaimo parksville" style="transition-delay:.20s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_35b754c7c5c144fabaa0bb2fac441a46~mv2.jpg" alt="Sage Gibson" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Sage Gibson</h3>
+          <div class="team-card-role">National Lifeguard · Instructor</div>
+          <p class="team-card-bio">National Lifeguard and Lifesaving Society Instructor. BTM student at Vancouver Island University. DEI-forward teaching style.</p>
+          <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose, Parksville</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Sage →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="victoria" style="transition-delay:.25s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_b5a6e5a699244b1a8950ea77bef7c8c2~mv2.jpeg" alt="Drake McKay" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Drake McKay</h3>
+          <div class="team-card-role">Masters Swimmer · Head Coach</div>
+          <p class="team-card-bio">10+ years on deck. Endurance-sport background, former head coach of multiple swim teams. Best fit for swimmers refining technique or eyeing competition.</p>
+          <div class="team-card-serves">Serves: <span>Victoria, Shawnigan Lake</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Drake →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="nanaimo" style="transition-delay:.30s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_f5b1acb8d59e4ea5815dcf1d0f8226ee~mv2.jpeg" alt="Donna" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Donna</h3>
+          <div class="team-card-role">Masters Coach</div>
+          <p class="team-card-bio">Competitive swimmer background. Warm, patient, adaptive. Meets every swimmer at their level.</p>
+          <div class="team-card-serves">Serves: <span>Nanaimo (Central)</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Donna →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="alberni parksville" style="transition-delay:.35s">
+        <div class="team-card-img"><img src="https://static.wixstatic.com/media/07f34f_92148d3f05994078add5298aac2a6000~mv2.jpeg" alt="Maurya" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Maurya</h3>
+          <div class="team-card-role">Master Instructor Trainer</div>
+          <p class="team-card-bio">40+ years on deck. Red Cross Master Instructor Trainer and Certified Water Fitness Instructor. Specializes in water safety, stroke development, and adaptive swim.</p>
+          <div class="team-card-serves">Serves: <span>Port Alberni (summer), Parksville (fall, winter)</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Maurya →</a>
+        </div>
+      </div>
+    </div>
+    <div class="team-cta-row anim">
+      <a href="#hero-form" class="btn btn-primary">Find My Instructor
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <span class="cta-subtext">Tell us your location and we will introduce you.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     WHY / VALUES
+═══════════════════════════════════════════════════════ -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">What Sets Us Apart</div>
+      <h2 class="section-title">Safety First. <span class="accent">Everything Else Follows.</span></h2>
+      <p class="section-sub">The non-negotiables we will not compromise on, no matter the swimmer.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card anim">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4-8-12V5l8-3 8 3v5c0 8-8 12-8 12z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Water Safety First</h3>
+        <p>Every lesson includes survival fundamentals before stroke work.</p>
+      </div>
+      <div class="why-card anim" style="transition-delay:.06s">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg></div>
+        <h3>Real 1:1 Attention</h3>
+        <p>No 1:6 ratios. You get the full instructor for the full session.</p>
+      </div>
+      <div class="why-card anim" style="transition-delay:.12s">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3>Inclusion Without Compromise</h3>
+        <p>Adaptive aquatics is core to the school, not an add-on.</p>
+      </div>
+      <div class="why-card anim" style="transition-delay:.18s">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Decades on Deck</h3>
+        <p>Combined 110+ years of teaching across the team.</p>
+      </div>
+      <div class="why-card anim" style="transition-delay:.24s">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V8a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Mobile to Your Pool</h3>
+        <p>Island-wide service so rural families don't drive an hour each way.</p>
+      </div>
+      <div class="why-card anim" style="transition-delay:.30s">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M8 4v4M16 4v4"/></svg></div>
+        <h3>Honest, Transparent Pricing</h3>
+        <p>Every rate is published. No mystery packages, no upsells.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FAQ
+═══════════════════════════════════════════════════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="section-head anim">
+      <div class="eyebrow">Questions?</div>
+      <h2 class="section-title">Honest <span class="accent">Answers</span></h2>
+      <p class="section-sub">If you don't see yours, text us at 250-327-3212.</p>
+    </div>
+    <div class="faq-filter-row anim">
+      <button class="filter-btn active" data-faq-filter="all">All</button>
+      <button class="filter-btn" data-faq-filter="booking">Booking + Pricing</button>
+      <button class="filter-btn" data-faq-filter="lessons">Lessons</button>
+      <button class="filter-btn" data-faq-filter="locations">Locations</button>
+      <button class="filter-btn" data-faq-filter="policies">Policies</button>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item anim" data-faq-tags="lessons">
+        <button class="faq-q">
+          <span class="faq-num">1</span>
+          <span class="faq-q-text">What lesson formats do you offer?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Private 1:1, semi-private (1:2 or 1:3 for siblings or friends), and adaptive lessons for neurodiverse swimmers. All formats focus on water safety first.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="lessons">
+        <button class="faq-q">
+          <span class="faq-num">2</span>
+          <span class="faq-q-text">What ages do you teach?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Six months to adult. We adjust pace, format, and progression to fit every age group.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="locations">
+        <button class="faq-q">
+          <span class="faq-num">3</span>
+          <span class="faq-q-text">Where are your lessons located?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Six fixed locations across Vancouver Island plus mobile-to-your-pool service from Victoria to Campbell River. See the Locations section above for the full list.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="booking">
+        <button class="faq-q">
+          <span class="faq-num">4</span>
+          <span class="faq-q-text">How do I book?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Online at aquanautsacademy.janeapp.com, by email at info@aquanautsacademy.ca, or call or text 250-327-3212.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="lessons">
+        <button class="faq-q">
+          <span class="faq-num">5</span>
+          <span class="faq-q-text">How often should my child take lessons?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Once a week is the minimum we recommend for steady progress. Twice or three times a week is available for accelerated learning when scheduling allows.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="lessons">
+        <button class="faq-q">
+          <span class="faq-num">6</span>
+          <span class="faq-q-text">How long is each lesson?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>30 minutes for most swimmers under 5. 60 minutes for older kids, adults, and anyone who wants more time for skill work.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="lessons">
+        <button class="faq-q">
+          <span class="faq-num">7</span>
+          <span class="faq-q-text">My child is afraid of the water. Can you still help?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Yes. Fear of water is one of the most common reasons families come to us. Our instructors use gentle, patient techniques and never force a step before your child is ready.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="booking">
+        <button class="faq-q">
+          <span class="faq-num">8</span>
+          <span class="faq-q-text">Can siblings or friends take lessons together?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>Yes. Family lessons (siblings) and semi-private lessons (two families together) are available at lower per-swimmer rates.</p></div>
+      </div>
+      <div class="faq-item anim" data-faq-tags="policies">
+        <button class="faq-q">
+          <span class="faq-num">9</span>
+          <span class="faq-q-text">What is your cancellation policy?</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a"><p>One free make-up lesson per month with 24-hour notice. Cancellations under 2 hours may carry a small fee so we can pay our instructor for the booked time.</p></div>
+      </div>
+    </div>
+    <div class="faq-cta-row anim">
+      <a href="#hero-form" class="btn btn-secondary">Have a Different Question? Ask Us
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <span class="cta-subtext">We answer every message within one business day.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FINAL CTA
+═══════════════════════════════════════════════════════ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="anim">
+      <h2>Come Swim <span class="accent">With Us</span></h2>
+      <p>From a baby's first float to an adult's first front crawl. Whatever brought you here, we will take it from here.</p>
+      <a href="#hero-form" class="btn btn-primary">Start Today
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <span class="cta-subtext">Match to an instructor and pool in under 24 hours.</span>
+      <div class="final-cta-badges">
+        <span class="final-cta-badge">🚀 3,000+ Lessons</span>
+        <span class="final-cta-badge">👥 8 Instructors</span>
+        <span class="final-cta-badge">📍 7 Locations</span>
+        <span class="final-cta-badge">🏊 Mobile to Your Pool</span>
+      </div>
+      <div class="final-cta-contact">
+        <a href="tel:2503273212">📞 250-327-3212</a>
+        <a href="mailto:info@aquanautsacademy.ca">✉️ info@aquanautsacademy.ca</a>
+        <a href="https://aquanautsacademy.janeapp.com/" target="_blank">📅 Book online</a>
+        <a href="https://www.instagram.com/aquanautsacademy" target="_blank">📷 @aquanautsacademy</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🚀 Aquanauts Swim Academy</div>
+        <p class="footer-tag">Private and adaptive swim lessons across Vancouver Island. Where every swimmer learns to float, swim, and soar.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/aquanautsacademy" target="_blank" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="https://www.facebook.com/people/AquaNauts-Swim-Academy/61567634016832/" target="_blank" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H8v-2.9h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2.1.2 2.1.2v2.3h-1.2c-1.2 0-1.5.7-1.5 1.5v1.8h2.6l-.4 2.9h-2.2v7A10 10 0 0 0 22 12z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#locations">Locations</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:2503273212">250-327-3212</a></li>
+          <li><a href="mailto:info@aquanautsacademy.ca">info@aquanautsacademy.ca</a></li>
+          <li><a href="https://aquanautsacademy.janeapp.com/" target="_blank">Book online</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Aquanauts Swim Academy Inc.</span>
+      <span>Website and marketing systems developed by <a href="https://nilsdigital.com" target="_blank">Nilsdigital.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// Nav + mobile menu
+// ═══════════════════════════════════════════════════════
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 12);
+});
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+// ═══════════════════════════════════════════════════════
+// Reveal on scroll
+// ═══════════════════════════════════════════════════════
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.anim').forEach(el => io.observe(el));
+
+// ═══════════════════════════════════════════════════════
+// Programs filter
+// ═══════════════════════════════════════════════════════
+const programFilters = document.querySelectorAll('.filter-btn[data-filter]');
+const programCards = document.querySelectorAll('.programs-grid .program-card');
+programFilters.forEach(btn => btn.addEventListener('click', () => {
+  programFilters.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.filter;
+  programCards.forEach(card => {
+    if (f === 'all') { card.classList.remove('hidden'); return; }
+    const tags = (card.dataset.tags || '').split(' ');
+    card.classList.toggle('hidden', !tags.includes(f));
+  });
+}));
+
+// ═══════════════════════════════════════════════════════
+// Team filter
+// ═══════════════════════════════════════════════════════
+const teamFilters = document.querySelectorAll('.filter-btn[data-team-filter]');
+const teamCards = document.querySelectorAll('.team-grid .team-card');
+teamFilters.forEach(btn => btn.addEventListener('click', () => {
+  teamFilters.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.teamFilter;
+  teamCards.forEach(card => {
+    if (f === 'all') { card.classList.remove('hidden'); return; }
+    const tags = (card.dataset.teamTags || '').split(' ');
+    card.classList.toggle('hidden', !tags.includes(f));
+  });
+}));
+
+// ═══════════════════════════════════════════════════════
+// FAQ filter + accordion
+// ═══════════════════════════════════════════════════════
+const faqFilters = document.querySelectorAll('.filter-btn[data-faq-filter]');
+const faqItems = document.querySelectorAll('.faq-item');
+faqFilters.forEach(btn => btn.addEventListener('click', () => {
+  faqFilters.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.faqFilter;
+  faqItems.forEach(item => {
+    if (f === 'all') { item.classList.remove('hidden'); return; }
+    const tags = (item.dataset.faqTags || '').split(' ');
+    item.classList.toggle('hidden', !tags.includes(f));
+  });
+}));
+document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () => {
+  const item = q.parentElement;
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!open) item.classList.add('open');
+}));
+
+// ═══════════════════════════════════════════════════════
+// Smooth scroll offset for sticky nav
+// ═══════════════════════════════════════════════════════
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+  const id = a.getAttribute('href');
+  if (id.length < 2) return;
+  const t = document.querySelector(id);
+  if (!t) return;
+  e.preventDefault();
+  const y = t.getBoundingClientRect().top + window.scrollY - 70;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}));
+</script>
+
+</body>
+</html>
