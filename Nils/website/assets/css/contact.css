@@ -1,0 +1,25 @@
+/* ─── CONTACT HERO ─── */
+.contact-hero { padding: var(--space-8) 0 var(--space-6); text-align: center; }
+.contact-hero h1 { max-width: 720px; margin: 0 auto var(--space-4); }
+.contact-hero p.lead { max-width: 580px; margin: 0 auto; color: var(--ink-soft); }
+
+/* ─── CONTACT MAILTO FOOTNOTE ─── */
+.contact-mailto {
+  text-align: center;
+  padding: var(--space-6) 0 var(--space-8);
+  color: var(--ink-mute);
+  font-size: var(--fs-meta);
+  font-family: var(--font-body);
+}
+.contact-mailto a {
+  color: var(--marketing);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+.contact-mailto a:hover { color: var(--marketing-dark); }
+
+/* ─── CONTACT ROUTES wrapper (uses .route-halves from components.css) ─── */
+.contact-routes {
+  /* Section padding inherited from globals.css `section { padding: ... }` */
+  /* No additional styles needed; route halves already styled in components.css */
+}
