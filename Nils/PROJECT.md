@@ -81,7 +81,7 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 ## Open threads
 - The 2026-04-24 memory file references the automation funnel as `NILS-FUNNELS/Automation/automation-vsl-direct-bg-matrix.html`; current canonical location is `Nils/funnel/automation-vsl-funnel-direct.html`. Memory note is stale, file content matches the green-theme + matrix-hero direction described.
 - `funnel/screenshots/` accumulates dozens of build-iteration PNGs, candidate for `.gitignore` cleanup.
-- **New: `Nils/website/` implementation pending.** Design spec approved 2026-05-24 (`docs/superpowers/specs/2026-05-24-organic-website-design.md`); implementation plan written same day (`docs/superpowers/plans/2026-05-24-organic-website.md`, 32 tasks across 7 phases). **Task 0** must run first to resolve four open questions with Emilio before later tasks can proceed: custom domain status, what to do with existing top-level `team.html`/`nils-proof.html` (migrate vs keep), contact form backend (mailto / Formspree / GHL webhook), new Microsoft Clarity project ID.
+- **New: `Nils/website/` implementation in progress.** Design spec approved 2026-05-24 (`docs/superpowers/specs/2026-05-24-organic-website-design.md`); implementation plan with 32 tasks (`docs/superpowers/plans/2026-05-24-organic-website.md`). Task 0 resolutions baked in: (a) `nilsdigital.com` already pointed at GitHub Pages, (b) old top-level pages stay untouched and their content gets migrated into new About/Proof, (c) no contact form or calendar embed — bookings happen inside the VSL funnels, Contact page is a minimal router back to the two VSLs, (d) Microsoft Clarity deferred to post-launch. Execution mode: subagent-driven, one task per agent with variation picks in between.
 
 ## Changelog
 

@@ -14,6 +14,18 @@
 
 ---
 
+## Resolved decisions (Task 0 — confirmed 2026-05-24)
+
+1. **Custom domain: `nilsdigital.com` is already pointed at GitHub Pages.** Use `https://nilsdigital.com/Nils/website/` as the canonical base URL for all `<link rel="canonical">`, OpenGraph URLs, and `sitemap.xml` entries. (Note: confirm whether the site is served at `/Nils/website/` or at the root `/` of `nilsdigital.com` before Task 28 — if the domain points only at the Nils subfolder it may serve at root, in which case paths in the sitemap and `head-meta.html` `<link>` URLs simplify to `/`. Verify with one curl during launch.)
+
+2. **Existing top-level pages (`Nils/team.html`, `Nils/nils-proof.html`, `Nils/urgency.html`, `Nils/presentation.html`, `Nils/nextchapter.html`): migrate content, leave originals alone.** Use their content as source material for the new About + Proof pages. Do NOT delete or modify the originals — they may be linked from GHL or external surfaces. If a copy block from any of them is migrated verbatim, note it inline in the new page with an HTML comment for future reference.
+
+3. **No contact form, no calendar embed on the website.** Calendar bookings happen inside the VSL funnels (each funnel ends with its own calendar booking step). The Contact page becomes a minimal routing page only: a hero (eyebrow / H1 / H2) + the dual route halves component pointing back to the two VSLs, with a small `mailto:emilio@nilsdigital.com` footer for "other questions." No form to maintain, no separate calendar widget. **Task 27 is simplified accordingly** — see Task 27 below for the revised variation set.
+
+4. **Microsoft Clarity: skip at launch.** Do not register a Clarity project or add the tracking snippet on initial launch. The stub in `assets/partials/head-meta.html` stays commented out. **Task 29 is deferred** — moved to "Post-launch (out of scope)" at the bottom of this plan. Revisit when Emilio has a Clarity ID to wire in.
+
+---
+
 ## File Structure
 
 ```
@@ -1592,7 +1604,9 @@ git commit -m "Nils website: assembled blog/index.html (chosen variation from Ta
 
 ---
 
-## Phase 6: Contact page (`contact.html`)
+## Phase 6: Contact page (`contact.html`) — simplified per Task 0
+
+Per Task 0 decision #3: **no contact form, no calendar embed**. Bookings happen inside the VSL funnels. The Contact page exists only so the nav `Contact` link goes somewhere coherent. It's a minimal routing page: hero + dual route halves + `mailto:` footnote.
 
 ### Task 27: Contact page variations + consolidation
 
@@ -1601,43 +1615,39 @@ git commit -m "Nils website: assembled blog/index.html (chosen variation from Ta
 - Create: `Nils/website/contact.html`
 - Create: `Nils/website/assets/css/contact.css`
 
-- [ ] **Step 1:** Create 3 contact-page variations in a single draft file. Each variation is a full page mock:
+- [ ] **Step 1:** Create 3 hero copy/layout variations for the contact page. All three use the **dual route halves component** below the hero (reuse `.route-halves` from `components.css`, no new CSS needed for the halves themselves). The hero is the only thing that varies.
 
-- **V1 — Calendar-first:** Hero (eyebrow / H1 / H2) + large GHL calendar iframe (use `/Nils/Calendars/strategy.html` or `/Nils/Calendars/emilio.html` embed) + small fallback contact link below.
-- **V2 — Form-first:** Hero + email contact form (name, email, "what are you interested in" dropdown: Marketing / Automation / Both / Not sure, message textarea) + small "Or book a call →" link to calendar.
-- **V3 — Split:** Hero on top, then a 50/50 split: calendar iframe left, contact form right.
+- **V1 — "Pick a system" direct routing:** Eyebrow `Get started`, H1 "Ready when you are.", H2 "Both systems start with a call. Pick the one that fits, watch the breakdown, and book directly inside."
+- **V2 — "Two doors, one outcome":** Eyebrow `Talk to us`, H1 "Two doors. Same result: a calmer, more profitable business.", H2 "Each system pitch ends with a calendar. Pick yours below and book the call inside."
+- **V3 — "Plain-talk router":** Eyebrow `Book a call`, H1 "Bookings happen inside the system pages.", H2 "Click the one that's right for you and the calendar lives at the bottom of the page."
 
-Backend for the form: depends on Task 0 answer. If GHL webhook, use the URL Emilio provides. If Formspree, embed the Formspree action URL. If `mailto:`, use `mailto:emilio@nilsdigital.com?subject=...`.
+Each variation's body is the same: `<section>` with the dual route halves component (reuse the chosen variation from Task 10), then a small `<p>` at the very bottom: `Other questions? <a href="mailto:emilio@nilsdigital.com">emilio@nilsdigital.com</a>`.
 
-- [ ] **Step 2:** Add `contact.css`:
+- [ ] **Step 2:** Add minimal `contact.css`. No form styles, no calendar iframe styles needed.
 
 ```css
 .contact-hero { padding: var(--space-8) 0 var(--space-6); text-align: center; }
 .contact-hero h1 { max-width: 720px; margin: 0 auto var(--space-4); }
-.contact-body { padding: var(--space-5) 0 var(--space-8); }
-.contact-body.v3 .split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
-.calendar-frame { width: 100%; min-height: 600px; border: 1px solid var(--ink-line); border-radius: var(--radius-lg); }
-.contact-form { display: flex; flex-direction: column; gap: var(--space-4); max-width: 520px; margin: 0 auto; }
-.contact-form label { font-family: var(--font-display); font-size: var(--fs-meta); font-weight: var(--fw-display-bold); color: var(--ink-soft); }
-.contact-form input, .contact-form select, .contact-form textarea { font: inherit; padding: var(--space-3) var(--space-4); border: 1px solid var(--ink-line); border-radius: var(--radius-md); background: var(--bg); }
-.contact-form button { align-self: flex-start; }
-@media (max-width: 720px) { .contact-body.v3 .split { grid-template-columns: 1fr; } }
+.contact-hero p.lead { max-width: 580px; margin: 0 auto; color: var(--ink-soft); }
+.contact-mailto { text-align: center; padding: var(--space-6) 0 var(--space-8); color: var(--ink-mute); font-size: var(--fs-meta); }
+.contact-mailto a { color: var(--marketing); border-bottom: 1px solid currentColor; }
 ```
 
-- [ ] **Step 3:** Present, pick.
+- [ ] **Step 3:** Open all three hero variations in browser, screenshot, present, get pick.
 
 - [ ] **Step 4:** Create `contact.html`:
   - Standard head + `<link rel="stylesheet" href="/Nils/website/assets/css/contact.css">`
   - Title: "Contact — Nils Digital"
-  - Body: nav → contact hero → contact body (chosen variation) → footer
+  - Meta description: "Two systems. Same goal. Pick yours and book the call inside."
+  - Body: nav → contact hero (chosen variation) → dual route halves section → `mailto:` footnote → footer
 
-- [ ] **Step 5:** Test the form submission end-to-end (whichever backend was chosen in Task 0).
+- [ ] **Step 5:** Verify all three route-half CTAs link to the correct VSL URLs (same as home page). Verify the `mailto:` opens the user's mail client.
 
 - [ ] **Step 6:** Commit.
 
 ```bash
 git add Nils/website/_drafts/contact-page.html Nils/website/contact.html Nils/website/assets/css/contact.css
-git commit -m "Nils website: contact page variations + assembled contact.html"
+git commit -m "Nils website: contact page (hero variations + routing back to VSLs, no form)"
 ```
 
 ---
@@ -1687,24 +1697,9 @@ git commit -m "Nils website: robots.txt + sitemap.xml (5 pages + blog index)"
 
 ---
 
-### Task 29: Wire up Clarity tracking
+### Task 29: ~~Wire up Clarity tracking~~ (DEFERRED — see Task 0 decision #4)
 
-**Files:**
-- Modify: `Nils/website/assets/partials/head-meta.html`
-- Modify: each `index.html`, `about.html`, `proof.html`, `blog/index.html`, `contact.html` (re-paste the updated head)
-
-- [ ] **Step 1:** In `assets/partials/head-meta.html`, uncomment the Clarity script block and replace `CLARITY_ID` with the value from Task 0.
-
-- [ ] **Step 2:** Each existing page has the head pasted in. Update each one with the new Clarity-included version.
-
-- [ ] **Step 3:** Update the memory file `~/.claude/projects/.../memory/reference_clarity_tracking_ids.md` adding the new Clarity ID and mapping it to the Nils website pages.
-
-- [ ] **Step 4:** Commit.
-
-```bash
-git add Nils/website/
-git commit -m "Nils website: wire up Microsoft Clarity tracking across all pages"
-```
+Skipped at launch per Emilio's Task 0 answer. The Clarity stub stays commented in `assets/partials/head-meta.html`. When Emilio has a Clarity ID later, uncomment the snippet, replace `CLARITY_ID`, re-paste the updated head into each page, and update `reference_clarity_tracking_ids.md` memory.
 
 ---
 
@@ -1813,6 +1808,7 @@ git commit -m "Nils website: qa-master + live-test fixes"
 - Email capture + nurture sequence (was explicitly out of scope at launch per spec)
 - Additional pillar pages if specific topics start ranking (graduating from blog tag → dedicated `/resources/<topic>` page per the Option C blog architecture in the spec)
 - Migrate content from old top-level pages (`Nils/team.html`, etc.) per Task 0 decision
+- **Microsoft Clarity tracking (was Task 29):** when Emilio registers a Clarity project, uncomment the snippet in `assets/partials/head-meta.html`, replace `CLARITY_ID` with the real value, re-paste the head into all 5 pages, and record the ID in `reference_clarity_tracking_ids.md`.
 
 ---
 
