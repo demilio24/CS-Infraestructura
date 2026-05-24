@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Index Variations: Nils Digital</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Shared site CSS (absolute-from-repo-root paths so they resolve when served from f:/GitHub/Websites) -->
+  <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/blog.css">
+
+  <style>
+    /* Variation review chrome (NOT part of production styles). */
+    .variation-label {
+      background: #0a0a0a;
+      color: white;
+      padding: 12px 24px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+    }
+    .variation-label small { display: block; opacity: 0.55; font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; font-weight: 400; }
+    .variation-spacer { height: 48px; }
+  </style>
+</head>
+<body>
+
+  <!-- ───────────────────────────────────────────────────────────
+       VARIATION 1: Card Grid (3 columns)
+       3-column grid of post cards. Each card: gradient thumb +
+       tag pill + serif title + read time. Standard catalogue feel.
+       ─────────────────────────────────────────────────────────── -->
+  <div class="variation-label">Variation 1: Card Grid (3 columns)<small>Standard catalogue: thumb + tag + serif title + read time, 3 across</small></div>
+
+  <section class="blog-index v1">
+    <div class="container">
+      <header class="blog-header">
+        <span class="crumb">Insights</span>
+        <h1>Growth and systems insights for $1M+ local service business owners.</h1>
+        <p class="lead">New posts every week on what's actually working for owners of $1M-$10M service businesses.</p>
+      </header>
+
+      <div class="blog-toolbar">
+        <div class="blog-tags">
+          <button class="blog-tag active">All</button>
+          <button class="blog-tag marketing">Marketing</button>
+          <button class="blog-tag automation">Automation</button>
+          <button class="blog-tag">Local SEO</button>
+          <button class="blog-tag">Google Ads</button>
+          <button class="blog-tag">AI tools</button>
+          <button class="blog-tag">Reviews</button>
+        </div>
+        <div class="blog-search">
+          <span class="icon" aria-hidden="true"></span>
+          <span>Search articles...</span>
+          <span class="kbd">⌘K</span>
+          <div id="search-ui" hidden></div>
+        </div>
+      </div>
+
+      <div class="blog-feed v1">
+        <a class="post-card marketing" href="/Nils/website/blog/posts/local-plumbers-google-ads-leads.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+            <div class="meta">4 min read</div>
+          </div>
+        </a>
+        <a class="post-card automation" href="/Nils/website/blog/posts/hvac-automation-this-week.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Automation</span>
+            <h4>5 jobs a $2M HVAC company can automate this week</h4>
+            <div class="meta">6 min read</div>
+          </div>
+        </a>
+        <a class="post-card marketing" href="/Nils/website/blog/posts/5-star-review-filter-system.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>The 5-star review system that filters bad reviews</h4>
+            <div class="meta">3 min read</div>
+          </div>
+        </a>
+        <a class="post-card marketing" href="/Nils/website/blog/posts/local-seo-3-pack-playbook.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>Local SEO playbook: how we rank our clients in the 3-pack</h4>
+            <div class="meta">7 min read</div>
+          </div>
+        </a>
+        <a class="post-card automation" href="/Nils/website/blog/posts/ai-tools-for-owners-2026.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Automation</span>
+            <h4>AI tools every owner should be using in 2026 (and the 3 you should skip)</h4>
+            <div class="meta">5 min read</div>
+          </div>
+        </a>
+        <a class="post-card marketing" href="/Nils/website/blog/posts/google-ads-roas-drop-fix.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>Why your Google Ads ROAS is dropping (and the fix nobody talks about)</h4>
+            <div class="meta">4 min read</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="blog-feed-footer">
+        <a class="see-all" href="#">See all posts →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="variation-spacer"></div>
+
+  <!-- ───────────────────────────────────────────────────────────
+       VARIATION 2: Featured + Grid
+       Top: one large featured post with excerpt.
+       Below: 5-post 3-column grid (3+2).
+       ─────────────────────────────────────────────────────────── -->
+  <div class="variation-label">Variation 2: Featured + Grid<small>Lead featured post (post #1) with excerpt, 5-card grid below</small></div>
+
+  <section class="blog-index v2">
+    <div class="container">
+      <header class="blog-header">
+        <span class="crumb">Insights</span>
+        <h1>Growth and systems insights for $1M+ local service business owners.</h1>
+        <p class="lead">New posts every week on what's actually working for owners of $1M-$10M service businesses.</p>
+      </header>
+
+      <div class="blog-toolbar">
+        <div class="blog-tags">
+          <button class="blog-tag active">All</button>
+          <button class="blog-tag marketing">Marketing</button>
+          <button class="blog-tag automation">Automation</button>
+          <button class="blog-tag">Local SEO</button>
+          <button class="blog-tag">Google Ads</button>
+          <button class="blog-tag">AI tools</button>
+          <button class="blog-tag">Reviews</button>
+        </div>
+        <div class="blog-search">
+          <span class="icon" aria-hidden="true"></span>
+          <span>Search articles...</span>
+          <span class="kbd">⌘K</span>
+          <div id="search-ui" hidden></div>
+        </div>
+      </div>
+
+      <div class="blog-feed v2">
+        <div class="featured-row">
+          <a class="featured marketing" href="/Nils/website/blog/posts/local-plumbers-google-ads-leads.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Marketing</span>
+              <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+              <p class="excerpt">The exact campaign structure, keyword themes, and landing-page setup we use to drive booked appointments for plumbing companies in the $1M-$5M range. Includes the bid strategy that flipped our worst account into our best.</p>
+              <div class="meta">4 min read</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="post-grid">
+          <a class="post-card automation" href="/Nils/website/blog/posts/hvac-automation-this-week.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Automation</span>
+              <h4>5 jobs a $2M HVAC company can automate this week</h4>
+              <div class="meta">6 min read</div>
+            </div>
+          </a>
+          <a class="post-card marketing" href="/Nils/website/blog/posts/5-star-review-filter-system.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Marketing</span>
+              <h4>The 5-star review system that filters bad reviews</h4>
+              <div class="meta">3 min read</div>
+            </div>
+          </a>
+          <a class="post-card marketing" href="/Nils/website/blog/posts/local-seo-3-pack-playbook.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Marketing</span>
+              <h4>Local SEO playbook: how we rank our clients in the 3-pack</h4>
+              <div class="meta">7 min read</div>
+            </div>
+          </a>
+          <a class="post-card automation" href="/Nils/website/blog/posts/ai-tools-for-owners-2026.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Automation</span>
+              <h4>AI tools every owner should be using in 2026 (and the 3 you should skip)</h4>
+              <div class="meta">5 min read</div>
+            </div>
+          </a>
+          <a class="post-card marketing" href="/Nils/website/blog/posts/google-ads-roas-drop-fix.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Marketing</span>
+              <h4>Why your Google Ads ROAS is dropping (and the fix nobody talks about)</h4>
+              <div class="meta">4 min read</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="blog-feed-footer">
+        <a class="see-all" href="#">See all posts →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="variation-spacer"></div>
+
+  <!-- ───────────────────────────────────────────────────────────
+       VARIATION 3: Editorial List (no thumbnails)
+       Single-column, max 760px. Tag left, big serif title center,
+       read time right. Border-bottom dividers. Magazine TOC feel.
+       ─────────────────────────────────────────────────────────── -->
+  <div class="variation-label">Variation 3: Editorial List (No Thumbnails)<small>Single-column magazine TOC: tag left, big serif title middle, read time right</small></div>
+
+  <section class="blog-index v3">
+    <div class="container">
+      <header class="blog-header">
+        <span class="crumb">Insights</span>
+        <h1>Growth and systems insights for $1M+ local service business owners.</h1>
+        <p class="lead">New posts every week on what's actually working for owners of $1M-$10M service businesses.</p>
+      </header>
+
+      <div class="blog-toolbar">
+        <div class="blog-tags">
+          <button class="blog-tag active">All</button>
+          <button class="blog-tag marketing">Marketing</button>
+          <button class="blog-tag automation">Automation</button>
+          <button class="blog-tag">Local SEO</button>
+          <button class="blog-tag">Google Ads</button>
+          <button class="blog-tag">AI tools</button>
+          <button class="blog-tag">Reviews</button>
+        </div>
+        <div class="blog-search">
+          <span class="icon" aria-hidden="true"></span>
+          <span>Search articles...</span>
+          <span class="kbd">⌘K</span>
+          <div id="search-ui" hidden></div>
+        </div>
+      </div>
+
+      <div class="blog-feed v3">
+        <a class="post-row marketing" href="/Nils/website/blog/posts/local-plumbers-google-ads-leads.html">
+          <span class="tag">Marketing</span>
+          <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+          <div class="meta">4 min read</div>
+        </a>
+        <a class="post-row automation" href="/Nils/website/blog/posts/hvac-automation-this-week.html">
+          <span class="tag">Automation</span>
+          <h4>5 jobs a $2M HVAC company can automate this week</h4>
+          <div class="meta">6 min read</div>
+        </a>
+        <a class="post-row marketing" href="/Nils/website/blog/posts/5-star-review-filter-system.html">
+          <span class="tag">Marketing</span>
+          <h4>The 5-star review system that filters bad reviews</h4>
+          <div class="meta">3 min read</div>
+        </a>
+        <a class="post-row marketing" href="/Nils/website/blog/posts/local-seo-3-pack-playbook.html">
+          <span class="tag">Marketing</span>
+          <h4>Local SEO playbook: how we rank our clients in the 3-pack</h4>
+          <div class="meta">7 min read</div>
+        </a>
+        <a class="post-row automation" href="/Nils/website/blog/posts/ai-tools-for-owners-2026.html">
+          <span class="tag">Automation</span>
+          <h4>AI tools every owner should be using in 2026 (and the 3 you should skip)</h4>
+          <div class="meta">5 min read</div>
+        </a>
+        <a class="post-row marketing" href="/Nils/website/blog/posts/google-ads-roas-drop-fix.html">
+          <span class="tag">Marketing</span>
+          <h4>Why your Google Ads ROAS is dropping (and the fix nobody talks about)</h4>
+          <div class="meta">4 min read</div>
+        </a>
+      </div>
+
+      <div class="blog-feed-footer">
+        <a class="see-all" href="#">See all posts →</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
