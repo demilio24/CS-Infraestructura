@@ -81,7 +81,7 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 ## Open threads
 - The 2026-04-24 memory file references the automation funnel as `NILS-FUNNELS/Automation/automation-vsl-direct-bg-matrix.html`; current canonical location is `Nils/funnel/automation-vsl-funnel-direct.html`. Memory note is stale, file content matches the green-theme + matrix-hero direction described.
 - `funnel/screenshots/` accumulates dozens of build-iteration PNGs, candidate for `.gitignore` cleanup.
-- **New: `Nils/website/` implementation pending.** Design spec approved on 2026-05-24 (see `docs/superpowers/specs/2026-05-24-organic-website-design.md`). Next step is `superpowers:writing-plans` to produce the implementation plan. Four open questions inside the spec to resolve in plan phase: custom domain status, what to do with existing top-level `team.html`/`nils-proof.html` (migrate vs keep), contact form backend, new Clarity ID.
+- **New: `Nils/website/` implementation pending.** Design spec approved 2026-05-24 (`docs/superpowers/specs/2026-05-24-organic-website-design.md`); implementation plan written same day (`docs/superpowers/plans/2026-05-24-organic-website.md`, 32 tasks across 7 phases). **Task 0** must run first to resolve four open questions with Emilio before later tasks can proceed: custom domain status, what to do with existing top-level `team.html`/`nils-proof.html` (migrate vs keep), contact form backend (mailto / Formspree / GHL webhook), new Microsoft Clarity project ID.
 
 ## Changelog
 
