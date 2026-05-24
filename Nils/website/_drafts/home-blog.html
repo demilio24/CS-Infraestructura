@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Blog Teaser Variations: Nils Digital</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Shared site CSS (absolute-from-repo-root paths so they resolve when served from f:/GitHub/Websites) -->
+  <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/home.css">
+
+  <style>
+    /* Variation review chrome (NOT part of production styles). */
+    .variation-label {
+      background: #0a0a0a;
+      color: white;
+      padding: 12px 24px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+    }
+    .variation-label small { display: block; opacity: 0.55; font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <div class="variation-label">Variation 1: Three Equal Cards<small>Three-column grid, gradient thumb + tag + serif title + read time</small></div>
+  <section class="home-blog v1">
+    <div class="container">
+      <span class="label">From the blog</span>
+      <div class="post-grid">
+        <a class="post-card marketing" href="/blog/posts/local-plumbers-google-ads-leads.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+            <div class="meta">4 min read</div>
+          </div>
+        </a>
+        <a class="post-card automation" href="/blog/posts/hvac-automation-this-week.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Automation</span>
+            <h4>5 jobs a $2M HVAC company can automate this week</h4>
+            <div class="meta">6 min read</div>
+          </div>
+        </a>
+        <a class="post-card marketing" href="/blog/posts/5-star-review-filter-system.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>The 5-star review system that filters bad reviews</h4>
+            <div class="meta">3 min read</div>
+          </div>
+        </a>
+      </div>
+      <a class="see-all" href="/blog/">All posts →</a>
+    </div>
+  </section>
+
+  <div class="variation-label">Variation 2: Featured + Two Stacked<small>One big featured post left with excerpt, two compact horizontal cards stacked right</small></div>
+  <section class="home-blog v2">
+    <div class="container">
+      <span class="label">From the blog</span>
+      <div class="post-layout">
+        <a class="post-card featured marketing" href="/blog/posts/local-plumbers-google-ads-leads.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+            <p class="excerpt">The exact campaign structure, keyword themes, and landing-page setup we use to drive booked appointments for plumbing companies in the $1M-$5M range. Includes the bid strategy that flipped our worst account into our best.</p>
+            <div class="meta">4 min read</div>
+          </div>
+        </a>
+        <div class="stacked">
+          <a class="post-card automation" href="/blog/posts/hvac-automation-this-week.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Automation</span>
+              <h4>5 jobs a $2M HVAC company can automate this week</h4>
+              <div class="meta">6 min read</div>
+            </div>
+          </a>
+          <a class="post-card marketing" href="/blog/posts/5-star-review-filter-system.html">
+            <div class="thumb"></div>
+            <div class="body">
+              <span class="tag">Marketing</span>
+              <h4>The 5-star review system that filters bad reviews</h4>
+              <div class="meta">3 min read</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <a class="see-all" href="/blog/">All posts →</a>
+    </div>
+  </section>
+
+  <div class="variation-label">Variation 3: Editorial List (No Thumbnails)<small>Single-column magazine-style table of contents, tag + serif title + read time per row</small></div>
+  <section class="home-blog v3">
+    <div class="container">
+      <span class="label">From the blog</span>
+      <div class="post-list">
+        <a class="post-row marketing" href="/blog/posts/local-plumbers-google-ads-leads.html">
+          <span class="tag">Marketing</span>
+          <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+          <div class="meta">4 min read</div>
+        </a>
+        <a class="post-row automation" href="/blog/posts/hvac-automation-this-week.html">
+          <span class="tag">Automation</span>
+          <h4>5 jobs a $2M HVAC company can automate this week</h4>
+          <div class="meta">6 min read</div>
+        </a>
+        <a class="post-row marketing" href="/blog/posts/5-star-review-filter-system.html">
+          <span class="tag">Marketing</span>
+          <h4>The 5-star review system that filters bad reviews</h4>
+          <div class="meta">3 min read</div>
+        </a>
+      </div>
+      <a class="see-all" href="/blog/">All posts →</a>
+    </div>
+  </section>
+
+  <div class="variation-label">Variation 4: Wide Featured + Two Narrow<small>Featured post spans full width (thumb left, copy right), two cards in a 2-column grid beneath</small></div>
+  <section class="home-blog v4">
+    <div class="container">
+      <span class="label">From the blog</span>
+      <a class="featured-wide marketing" href="/blog/posts/local-plumbers-google-ads-leads.html">
+        <div class="thumb"></div>
+        <div class="body">
+          <span class="tag">Marketing</span>
+          <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+          <p class="excerpt">The exact campaign structure, keyword themes, and landing-page setup we use to drive booked appointments for plumbing companies in the $1M-$5M range.</p>
+          <div class="meta">4 min read</div>
+        </div>
+      </a>
+      <div class="post-grid">
+        <a class="post-card automation" href="/blog/posts/hvac-automation-this-week.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Automation</span>
+            <h4>5 jobs a $2M HVAC company can automate this week</h4>
+            <div class="meta">6 min read</div>
+          </div>
+        </a>
+        <a class="post-card marketing" href="/blog/posts/5-star-review-filter-system.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>The 5-star review system that filters bad reviews</h4>
+            <div class="meta">3 min read</div>
+          </div>
+        </a>
+      </div>
+      <a class="see-all" href="/blog/">All posts →</a>
+    </div>
+  </section>
+
+</body>
+</html>
