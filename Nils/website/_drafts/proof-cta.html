@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proof CTA Variations: Nils Digital</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/proof.css">
+
+  <style>
+    /* Variation review chrome */
+    .variation-label { background: #0a0a0a; color: white; padding: 12px 24px; font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; text-align: center; }
+    .variation-label small { display: block; opacity: 0.55; font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────────
+       VARIATION 1 - Dual route halves
+       Reuses .route-halves component from components.css.
+       Marketing half (blue) + Automation half (green).
+       ───────────────────────────────────────────── -->
+  <div class="variation-label">Variation 1: Dual route halves<small>Reuses the home .route-halves component. Marketing + automation, side by side.</small></div>
+  <section class="proof-cta v1 home-route-halves">
+    <div class="route-halves">
+      <a class="route-half marketing" href="/Nils/funnel/vsl.html">
+        <div class="ico">📈</div>
+        <h3>Want results like these?</h3>
+        <p>Start with the marketing system. Website + Google Ads + reviews, end to end.</p>
+        <span class="btn">See the marketing system →</span>
+      </a>
+      <a class="route-half automation" href="/Nils/funnel/automation-vsl-funnel-direct.html">
+        <div class="ico">⚙️</div>
+        <h3>Or save the hours back.</h3>
+        <p>Start with the automation audit. Department by department, personally done by Emilio.</p>
+        <span class="btn">See the audit →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       VARIATION 2 - Single "talk to us" panel
+       One centered card. Marketing-blue button to /contact.
+       For visitors who aren't sure which track yet.
+       ───────────────────────────────────────────── -->
+  <div class="variation-label">Variation 2: Single "talk to us" panel<small>One centered bordered card. For people who aren't sure which track yet, lower-pressure entry.</small></div>
+  <section class="proof-cta v2">
+    <div class="container">
+      <div class="panel">
+        <span class="eyebrow">Ready?</span>
+        <h3>Get on a 30-minute call.</h3>
+        <p>We'll look at your current site and ops, tell you which system fits, and you'll leave the call with a real plan whether you work with us or not.</p>
+        <a class="btn-call" href="/contact.html">Book a call →</a>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
