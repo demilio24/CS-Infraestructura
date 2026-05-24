@@ -585,7 +585,10 @@ because of the `paid → refund-needed` no-op rule.
 | `[discoverRegistrationSheets_] failed: You do not have permission to call DriveApp.getFolderById` | The running account lacks `drive.readonly` scope (script never re-authorized after the scope was added) | Run any function manually from the editor as that account to trigger re-auth; or just let the fallback list take over (the 4 hardcoded summer-camp sheets cover 99% of volume) |
 | Dashboard shows duplicate customers or duplicate tx rows | Fingerprint drift after a code change to the fingerprint format | Run `nuclearResetBilling` to wipe and rebuild with the current fingerprint format |
 | Dashboard shows `(unpriced)` rows the team can't clear | Reg cell text doesn't match any Pricing row's Item or Source; no Alias added | Click the cell Note's Link, see what the reg sheet actually says, then either fix the typo there or add an alias in the Pricing tab |
-| `+/-` toggle next to customer doesn't work | Row groups went nested across multiple reconciler runs | Run `fixDashboardGroups` (or `nuclearResetBilling` for a full reset) |
+| `+/-` toggle next to customer doesn't work | Row groups went nested across multiple reconciler runs | Run `fixDashboardGroups` (or `nuclearResetBilling` for a full reset). If `fixDashboardGroups` itself silently fails on certain customers (the API throws on some adjacent-group invariants), the catch blocks log to the Logs sheet as of `e2a395e9` (2026-05-23) — check there for `[fixDashboardGroups_] err for <email>: ...`. |
+| Some kids labeled under the wrong week (e.g. Cyrus registered for 6/15-6/19 but billed under June 22nd-26th) | (Fixed `e2a395e9` 2026-05-23.) `readRegistrationEnrollments_` used to iterate source-sheet tabs by POSITION, so a non-week tab anywhere before the weekly tabs shifted every downstream week label by +1. | Pull latest; `bfsResolveWeek_` now matches tabs by NAME. Run `nuclearResetBilling` once to flush stale wrong-week rows. |
+| Customer's Name or Phone keeps reverting to the GHL value after I manually fix it | (Fixed `04bb2d02` 2026-05-23.) `upsertCustomerRow` used to overwrite Name + Phone unconditionally on every poll. | Pull latest; Name only overwrites if existing is empty OR matches email's local part (placeholder); Phone only overwrites if empty. To force a re-pull from GHL, run `nuclearResetBilling` (its `bfsCustomerHeaderTuple_` path always uses fresh enrichment). |
+| Customer's "View profile" link disappeared, now shows "(not found in Florida)" plain text | (Fixed `04bb2d02` 2026-05-23.) `upsertCustomerRow` used to clobber existing HYPERLINK formulas when called with `profileUrl: null`. | Pull latest; the patch checks col F's existing formula before overwriting. To repair already-damaged rows, call `restoreLostProfileLinks` via the remote-trigger webapp (see §9.5). |
 | Total balance at top of dashboard is wrong by a lot | Stale customer balance formulas pointing to wrong row ranges (usually after a manual row insert/delete) | Run `nuclearResetBilling` |
 | Two concurrent `nuclearResetBilling` runs corrupt the sheet | (Fixed 2026-05-14.) Older versions didn't hold the script lock. | Pull latest from `clasp push`; current version logs "could not acquire lock after 2 min, Skipping" instead of stomping. |
 | `$1` rows missing or duplicated | GHL token expired, or dedup state lost | Check `GHL_TOKEN_FLORIDA`; run `replayAllSubmissions` to re-scan a window |
@@ -606,6 +609,85 @@ Reg sheets use **short-form** tab names (`6/1-6/5`), not `WEEK_ORDER` long
 form. This is also true for the discrepancy bot; see
 [Registration System §4.3](./registration_system.md#43-google-sheets--the-rosters).
 
+### 9.5 Remote-trigger webapp + RPCs
+
+The billing Apps Script project deploys a single web app (`doGet` in
+[RemoteTrigger.js](../Billing%20dashboard/apps-script/RemoteTrigger.js))
+that lets you invoke whitelisted functions from outside the editor — your
+laptop, a cron job, another script — without needing to be signed in as
+the script owner. Useful for ad-hoc maintenance and audits.
+
+**Auth model:** every request must pass `?token=<value>` matching the
+`REMOTE_TRIGGER_TOKEN` Script Property. The webapp itself runs as the
+script owner (`systemafloydsheets@gmail.com`) so it has all the right
+permissions to read/write the bound sheet + the 4 source registration
+sheets + GHL via the cached OAuth tokens.
+
+**Invocation modes:**
+- `&sync=1` — runs the function inside the request, returns the result. Subject to Apps Script's 6-minute web-request cap. Use for fast functions or anything where you need the result immediately.
+- `&sync=0` (default) — schedules a one-time trigger ~10s in the future. Returns immediately. Trigger auto-deletes after firing. Use for long-running functions (`nuclearResetBilling`, etc).
+- `?list=1` — return the whitelist + descriptions, no `fn=` needed.
+
+**Example:**
+```bash
+. .env  # provides SF_BILLING_REMOTE_TRIGGER_URL + _TOKEN
+curl -sL "${SF_BILLING_REMOTE_TRIGGER_URL}?token=${SF_BILLING_REMOTE_TRIGGER_TOKEN}&fn=remoteTriggerStatus&sync=1"
+```
+
+Adding a new RPC requires three edits to RemoteTrigger.js:
+1. Add the function to `REMOTE_TRIGGER_WHITELIST` with a short description.
+2. Add a `case 'fnName': return fnName(params);` to `_rtDispatch_`.
+3. The function itself can live in any source file (it's resolved by name at dispatch time).
+
+**Whitelisted RPCs as of `bc835b61` (2026-05-23):**
+
+| RPC | Description | Typical use |
+|---|---|---|
+| `nuclearResetBilling` | Full Dashboard wipe + rebuild from registration sheets. ~3 min. | After a structural code change (fingerprint format, week resolution, etc) to flush stale rows in one clean pass instead of waiting for incremental reconciler. Use `&sync=0`. |
+| `buildAllBilling` | 5-min reconciler entry point. Diff-based. | Trigger an early reconcile after manually editing the Manual Items tab. |
+| `pollFloridaSubmissions` | $1 CC verification fee poll (legacy path). | Manual one-off after a token rotation. |
+| `fixDashboardGroups` | Rebuild +/- row groups per customer. | When customers' collapsible outlines vanish on the Dashboard. |
+| `restoreLostProfileLinks` | Walk customer headers, re-search GHL Florida for any with empty col F or `(not found in...)` plain text, write fresh HYPERLINK. Idempotent. | After any event that wipes profile links (e.g. an old `upsertCustomerRow` poll cycle pre-`04bb2d02`). |
+| `testUpsertPreservation` | Regression check: call `upsertCustomerRow` against a known customer with stub GHL-style payload, verify Name/Phone are preserved per the `04bb2d02` patch. Pass `&email=<addr>`. | Before/after modifying anything in `upsertCustomerRow`. |
+| `cleanupDoubleShirtSuffix` | Strip duplicated `(+$X)` suffixes from any col-B label (`Small (+$30) (+$30)` → `Small (+$30)`). Idempotent. Pass `&dryRun=1` to scan only. | If a future legacy importer ever reintroduces the bug; tested cleanly returns 0 on a healthy dashboard. |
+| `cleanupExtraNuclearTriggers` | Delete duplicate `nuclearResetBilling` time-based triggers, keeping one. Idempotent. | When `remoteTriggerStatus` shows the same handler scheduled multiple times (typical cause: manual "install" clicks in the editor without first deleting). |
+| `listAllCustomerEmails` | Return the sorted list of every unique parent email rendered on the Dashboard tab (customer-header rows only — tx rows excluded via HYPERLINK-formula detection). Use `&sync=1`. | Diffing snapshot.json vs billing to triage "missing customer" reports — see triage rule at the top of [billingdashboardbugs.md](../billingdashboardbugs.md). |
+| `traceCustomer` | Return one customer's tx rows + col B Notes with source provenance. Pass `&email=<addr>`. | Investigating a specific customer (wrong week label, missing rows, etc). |
+| `dashboardStats` | Aggregate counts: unique customers, students, tx rows, by status. | Quick health check. |
+| `registrationStats` | Per-source-sheet counts: enrollments, unique students/parents, `dayZeroEnrollments` (phantom-skipped). | Diagnosing why parents are or aren't showing up on billing. |
+| `remoteTriggerStatus` | Trigger inventory + last-poll timestamp + last-poll summary. | Health check; spot duplicate triggers; confirm last successful poll. |
+| `tailLogs` | Last N rows of the Logs sheet. Pass `&n=<rows>` (default 20). | Investigate after an error report. |
+| `sanitizeDashboardCustomerHeaders` | Strip `(not found in unknown)` placeholders + em-dashes from customer header cells. Idempotent. | Cleanup pass. |
+| `addManualItem` | Append a row to the hidden Manual Items source tab. Same shape as the AddManualItem.html dialog. | Programmatic charges (refunds, credits, late fees). See whitelist comment for param shape. |
+| `setupManualItemsTab` | Bootstrap the hidden Manual Items source tab. Idempotent. | First-time setup or after accidental deletion. |
+| `setupPricingSheet` / `migratePricingSheetAddAliases` / `prettifyPricingSheet` | Pricing tab bootstrap + structure migrations. | First-time setup; column-add migration. |
+| `installBillingFromSheetsTrigger` / `installPollingTrigger` / `installDailyHealthCheckTrigger` / `installDailyDashboardSelfHealTrigger` | (Re)install scheduled triggers. Each deletes prior triggers on the same handler first (idempotent). | Trigger restoration after editor mishaps. |
+| `dailyDashboardSelfHeal` | The 3 AM self-heal: audit for ungrouped customers / malformed headers / `#REF!` balance errors → conditionally fire `nuclearResetBilling`. | Manual invocation if you suspect drift between cron windows. |
+| `installFormSheetQuickLinks` | Idempotent: write Dashboard header row K-O HYPERLINK chips for the 4 form-sheet quick links. | Cosmetic restoration. |
+| `removeItemUnderlines` | Strip default blue underline from Item / Profile HYPERLINK cells. Cosmetic. | Cosmetic restoration. |
+| `dumpRegRow` | Return one row's raw cells from a registration sheet. Pass `&sheetId=<id>&tabName=<short-tab>&row=<N>`. | Verify what's actually in the source for a debugging session. |
+| `traceAllFreeCampSources` | Scan every tx row's col B Note, return ones mentioning FREE Upper / FREE Lower. | Used during the FREE camp exclusion audit. |
+| `listShirtOnlyCustomers` | Return every customer whose ONLY tx items are shirts (no tuition/lunch/breakfast/care). | Triage edge case. |
+| `sampleCanceledRows` | First N (default 10) canceled tx rows with their col B source Notes. Pass `&n=<count>`. | Investigate why rows ended up canceled. |
+| `fixDashboardStatusValidation` | Re-scope the status dropdown to tx rows only. ~5-10s. | After upgrading from an older `nuclearResetBilling` that applied the rule too broadly. |
+| `debugQuotaState` | Dump effective user + visible triggers + last-poll info. | Diagnose UrlFetch quota issues. |
+
+Token + URL live in `.env` at the repo root (gitignored). To rotate: regenerate
+the `REMOTE_TRIGGER_TOKEN` Script Property in the editor and update `.env`; the
+URL only changes if someone creates a NEW deployment instead of bumping the
+existing one in-place (so use the pencil-icon "edit" flow in Deploy → Manage
+Deployments, never the "New deployment" button).
+
+**Deployment versioning:** the webapp is pinned to a specific code version,
+not HEAD. `clasp push -f` updates HEAD, but the webapp continues running the
+old version until you bump the deployment. To pick up a code change in the
+webapp: clasp push, then in the editor (signed in as
+`systemafloydsheets@gmail.com`) → Deploy → Manage Deployments → pencil-edit
+the production deployment → Version: "New version" → Deploy. URL stays the
+same; version increments. Triggers (time-based crons) DO pick up @HEAD code
+automatically without a deployment bump — only the webapp invocation needs
+the bump.
+
 ---
 
 ## 10. Recovery
@@ -619,6 +701,7 @@ form. This is also true for the discrepancy bot; see
 | GHL token rotated and not updated in Script Properties | Polls error out with HTTP 401. Update `GHL_TOKEN_FLORIDA` (or GA/VA) in Project Settings → Script Properties. |
 | Drive folder restructured / sheet moved out | Auto-discovery may miss the moved sheet. Either re-share with `emilio@nilsdigital.com` under the right parent folder, or add a fresh entry to `FALLBACK_REGISTRATION_SHEETS` for the new location. |
 | Reg sheet column reordered or renamed | Billing's `readRegistrationEnrollments_` reads by header name (not position), but its set of recognized headers is fixed. If you add a "Lunch v2" column, billing won't know to look there. Add the header to the `bfsCol_(...)` candidate list in `readRegistrationEnrollments_`. |
+| Reg sheet tab reordered or non-week tab added | Since `e2a395e9` (2026-05-23) tabs are resolved by NAME via `bfsResolveWeek_` (`6/15-6/19` → "June 15th-19th"), so reordering is safe. Tabs whose names don't parse as a week (Notes, Lookup, blank) are skipped. If you add a NEW weekly tab name format (e.g. `Week 1` instead of `6/1-6/5`), extend `bfsWeekKey_` to recognize it. |
 
 ---
 
@@ -705,6 +788,8 @@ enable them in polling:
 - `STATUS_VALUES = ['owed', 'paid', 'canceled', 'refund-needed', 'refunded', 'unpriced', 'ambiguous']`, the col G dropdown
 - `FALLBACK_REGISTRATION_SHEETS`, 4 hardcoded summer-camp sheet IDs used when Drive discovery fails
 - `BFS_WEEK_ORDER`, 12-week summer camp chronological order
+- `BFS_WEEK_KEY_MAP`, derived lookup `(month-day key) → canonical week label`, populated at script-load from `BFS_WEEK_ORDER` via `bfsWeekKey_`
+- `BFS_NON_BILLABLE_TYPES = ['summer-free']`, sheet types filtered out of billing — FREE camp parents register but aren't billed (no priced line items even if their reg sheet has opt-in fields)
 - `BILLING_TAB_NAME = 'Billing'`, name of the (deprecated) per-sheet billing tab
 - `UNPRICED_TAG = '(unpriced)'`, prefix on unpriced item labels
 - `AFTER_SCHOOL_MONTH_COLUMNS`, Jan..Dec month names used by after-school readers
