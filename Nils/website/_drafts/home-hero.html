@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Hero Variations: Nils Digital</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Shared site CSS (absolute-from-repo-root paths so they resolve when served from f:/GitHub/Websites) -->
+  <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/home.css">
+
+  <style>
+    /* Variation review chrome (NOT part of production styles). */
+    .variation-label {
+      background: #0a0a0a;
+      color: white;
+      padding: 12px 24px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+    }
+    .variation-label small { display: block; opacity: 0.55; font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; font-weight: 400; }
+  </style>
+</head>
+<body>
+
+  <div class="variation-label">Variation 1 (Centered Editorial)<small>Centered text, no imagery, dot-grid background</small></div>
+  <section class="home-hero v1 bg-dotgrid">
+    <div class="container">
+      <span class="eyebrow">For local service businesses</span>
+      <h1>If you want to get <em class="accent-marketing">more clients</em> and <em class="accent-automation">automate your busywork</em>, you're in the right place.</h1>
+      <p class="lead">We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.</p>
+    </div>
+  </section>
+
+  <div class="variation-label">Variation 2 (Asymmetric with Portrait)<small>Left-aligned text, portrait placeholder right, dot-grid background</small></div>
+  <section class="home-hero v2 bg-dotgrid">
+    <div class="container">
+      <div class="inner">
+        <div class="text">
+          <span class="eyebrow">For local service businesses</span>
+          <h1>If you want to get <em class="accent-marketing">more clients</em> and <em class="accent-automation">automate your busywork</em>, you're in the right place.</h1>
+          <p class="lead">We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.</p>
+        </div>
+        <div class="portrait" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="variation-label">Variation 3 (Centered with Logo Strip)<small>Centered text, credibility row of placeholder client logos above the eyebrow</small></div>
+  <section class="home-hero v3 bg-dotgrid">
+    <div class="container">
+      <div class="logo-strip">
+        <span>CLIENT A</span>
+        <span>CLIENT B</span>
+        <span>CLIENT C</span>
+        <span>CLIENT D</span>
+        <span>CLIENT E</span>
+      </div>
+      <span class="eyebrow">For local service businesses</span>
+      <h1>If you want to get <em class="accent-marketing">more clients</em> and <em class="accent-automation">automate your busywork</em>, you're in the right place.</h1>
+      <p class="lead">We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.</p>
+    </div>
+  </section>
+
+</body>
+</html>
