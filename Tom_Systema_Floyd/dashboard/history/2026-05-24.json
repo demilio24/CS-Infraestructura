@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-24T19:33:38Z",
+  "generatedAt": "2026-05-24T19:37:02Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 120,
-    "free": 45,
+    "free": 46,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,9 +213,9 @@
     ]
   },
   "free": {
-    "total": 45,
+    "total": 46,
     "byCampus": {
-      "Upper Campus": 29,
+      "Upper Campus": 30,
       "Lower Campus": 16,
       "Unknown": 0
     },
@@ -229,7 +229,7 @@
       "July 13th-17th": 34,
       "July 20th-24th": 33,
       "July 27th-31st": 32,
-      "August 3rd-7th": 31,
+      "August 3rd-7th": 32,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -281,7 +281,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 23,
+        "Upper Campus": 24,
         "Lower Campus": 8,
         "Unknown": 0
       },
@@ -303,8 +303,8 @@
     },
     "bySchool": {
       "Westward Elementary School": 137,
+      "Northboro Elementary School": 57,
       "Pleasant City Elementary School": 57,
-      "Northboro Elementary School": 56,
       "U.B. Kinsey Educational and Community Center": 45,
       "Roosevelt Elementary School": 35
     },
@@ -324,10 +324,10 @@
     ]
   },
   "combined": {
-    "total": 165,
-    "enrollments": 549,
+    "total": 166,
+    "enrollments": 550,
     "byCampus": {
-      "Upper Campus": 76,
+      "Upper Campus": 77,
       "Lower Campus": 89,
       "Unknown": 0
     },
@@ -341,7 +341,7 @@
       "July 13th-17th": 50,
       "July 20th-24th": 53,
       "July 27th-31st": 45,
-      "August 3rd-7th": 53,
+      "August 3rd-7th": 54,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -393,7 +393,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 31,
+        "Upper Campus": 32,
         "Lower Campus": 22,
         "Unknown": 0
       },
@@ -8144,13 +8144,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 155,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8284,6 +8284,19 @@
               },
               {
                 "name": "Damion Short",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Elian Lucas Gaspard Dominguez",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -8560,13 +8573,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 155
+          "all": 160
         }
       },
       "August 10th-14th": {
@@ -21133,6 +21146,31 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Elian Lucas Gaspard Dominguez",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "pg32@att.net",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 470608811,
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 25,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Everette Machnik",
