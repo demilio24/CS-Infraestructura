@@ -3,57 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Route Halves Variations: Nils Digital</title>
+  <title>Home Route Halves — Button Variations (V2 copy locked)</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
-  <!-- Shared site CSS (absolute-from-repo-root paths so they resolve when served from f:/GitHub/Websites) -->
   <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
   <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
   <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
   <link rel="stylesheet" href="/Nils/website/assets/css/home.css">
 
   <style>
-    /* Variation review chrome (NOT part of production styles). */
-    .variation-label {
-      background: #0a0a0a;
-      color: white;
-      padding: 12px 24px;
-      font-family: 'Instrument Sans', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      font-weight: 600;
-      text-align: center;
-    }
+    /* Variation review chrome */
+    .variation-label { background: #0a0a0a; color: white; padding: 12px 24px; font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; text-align: center; }
     .variation-label small { display: block; opacity: 0.55; font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; font-weight: 400; }
+
+    /* ── BUTTON VARIATION B1: Solid white pill + colored arrow chip ── */
+    .home-route-halves.btn-b1 .route-half .btn {
+      background: white;
+      border: 0;
+      padding: 10px 6px 10px 18px;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 100px;
+      transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+    }
+    .home-route-halves.btn-b1 .route-half.marketing .btn { color: var(--marketing); }
+    .home-route-halves.btn-b1 .route-half.automation .btn { color: var(--automation-dark); }
+    .home-route-halves.btn-b1 .route-half .btn .arrow {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      color: white; font-size: 14px; line-height: 1;
+    }
+    .home-route-halves.btn-b1 .route-half.marketing .btn .arrow { background: var(--marketing); }
+    .home-route-halves.btn-b1 .route-half.automation .btn .arrow { background: var(--automation); }
+    .home-route-halves.btn-b1 .route-half:hover .btn {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* ── BUTTON VARIATION B2: Bold outline pill, invert-on-hover ── */
+    .home-route-halves.btn-b2 .route-half .btn {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 12px 22px;
+      border-radius: 100px;
+      transition: background var(--dur-fast), color var(--dur-fast);
+    }
+    .home-route-halves.btn-b2 .route-half.marketing:hover .btn { background: white; color: var(--marketing); }
+    .home-route-halves.btn-b2 .route-half.automation:hover .btn { background: white; color: var(--automation-dark); }
+
+    /* ── BUTTON VARIATION B3: Brutalist square + hard shadow ── */
+    .home-route-halves.btn-b3 .route-half .btn {
+      background: white;
+      border: 0;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+      transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+    }
+    .home-route-halves.btn-b3 .route-half.marketing .btn { color: var(--marketing); }
+    .home-route-halves.btn-b3 .route-half.automation .btn { color: var(--automation-dark); }
+    .home-route-halves.btn-b3 .route-half:hover .btn {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+    }
+
+    /* ── BUTTON VARIATION B4: Frosted glass + animated arrow ── */
+    .home-route-halves.btn-b4 .route-half .btn {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: white;
+      font-family: 'Instrument Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 11px 20px;
+      border-radius: 100px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background var(--dur-fast);
+    }
+    .home-route-halves.btn-b4 .route-half .btn .arrow { transition: transform var(--dur-fast); display: inline-block; }
+    .home-route-halves.btn-b4 .route-half:hover .btn { background: rgba(255,255,255,0.28); }
+    .home-route-halves.btn-b4 .route-half:hover .btn .arrow { transform: translateX(4px); }
   </style>
 </head>
 <body>
 
-  <div class="variation-label">Variation 1: Two-line Outcome + CTA<small>Clean, plain-spoken. Each card states the outcome and the system in two lines.</small></div>
-  <section class="home-route-halves">
+  <div class="variation-label">Button B1 — Solid White Pill + Colored Arrow Chip<small>White button, brand-colored text, filled circular arrow chip. Apple-tier polish.</small></div>
+  <section class="home-route-halves btn-b1">
     <div class="route-halves">
       <a class="route-half marketing" href="/Nils/funnel/vsl.html">
         <div class="ico">📈</div>
-        <h3>Get more clients</h3>
-        <p>Website + Google Ads + reviews. Built and managed for you.</p>
-        <span class="btn">See the marketing system →</span>
+        <h3>Need more clients?</h3>
+        <p>We build sites that convert at 10-20%, plus the ads that fill them.</p>
+        <span class="btn">See how <span class="arrow">→</span></span>
       </a>
       <a class="route-half automation" href="/Nils/funnel/automation-vsl-funnel-direct.html">
         <div class="ico">⚙️</div>
-        <h3>Save time on ops</h3>
-        <p>AI + automation audit. Department by department.</p>
-        <span class="btn">See the audit →</span>
+        <h3>Drowning in manual work?</h3>
+        <p>Department-by-department blueprint of every job AI can do for you.</p>
+        <span class="btn">See the audit <span class="arrow">→</span></span>
       </a>
     </div>
   </section>
 
-  <div class="variation-label">Variation 2: Pain Question + Outcome + CTA<small>Each card opens with the visitor's pain as a question, then promises the fix.</small></div>
-  <section class="home-route-halves">
+  <div class="variation-label">Button B2 — Bold Outline Pill (Invert on Hover)<small>Transparent fill, 2px white border, all-caps text. Heavy/confident.</small></div>
+  <section class="home-route-halves btn-b2">
     <div class="route-halves">
       <a class="route-half marketing" href="/Nils/funnel/vsl.html">
         <div class="ico">📈</div>
@@ -70,20 +143,38 @@
     </div>
   </section>
 
-  <div class="variation-label">Variation 3: Stat-Led + CTA<small>Numbers-forward. Title is the specific guarantee, closest to your existing VSL voice.</small></div>
-  <section class="home-route-halves">
+  <div class="variation-label">Button B3 — Brutalist Square + Hard Shadow<small>Sharp corners, hard offset shadow, button "presses" on hover.</small></div>
+  <section class="home-route-halves btn-b3">
     <div class="route-halves">
       <a class="route-half marketing" href="/Nils/funnel/vsl.html">
         <div class="ico">📈</div>
-        <h3>2x more clients in 60 days, or you don't pay.</h3>
-        <p>Website + Google Ads + 5-star review automation.</p>
-        <span class="btn">See the system →</span>
+        <h3>Need more clients?</h3>
+        <p>We build sites that convert at 10-20%, plus the ads that fill them.</p>
+        <span class="btn">See how →</span>
       </a>
       <a class="route-half automation" href="/Nils/funnel/automation-vsl-funnel-direct.html">
         <div class="ico">⚙️</div>
-        <h3>Up to 40 hours/week back, every week.</h3>
-        <p>AI + automation audit, personally done by Emilio.</p>
+        <h3>Drowning in manual work?</h3>
+        <p>Department-by-department blueprint of every job AI can do for you.</p>
         <span class="btn">See the audit →</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="variation-label">Button B4 — Frosted Glass + Animated Arrow<small>Polished version of current button. Real backdrop-filter blur, arrow translates right on hover.</small></div>
+  <section class="home-route-halves btn-b4">
+    <div class="route-halves">
+      <a class="route-half marketing" href="/Nils/funnel/vsl.html">
+        <div class="ico">📈</div>
+        <h3>Need more clients?</h3>
+        <p>We build sites that convert at 10-20%, plus the ads that fill them.</p>
+        <span class="btn">See how <span class="arrow">→</span></span>
+      </a>
+      <a class="route-half automation" href="/Nils/funnel/automation-vsl-funnel-direct.html">
+        <div class="ico">⚙️</div>
+        <h3>Drowning in manual work?</h3>
+        <p>Department-by-department blueprint of every job AI can do for you.</p>
+        <span class="btn">See the audit <span class="arrow">→</span></span>
       </a>
     </div>
   </section>
