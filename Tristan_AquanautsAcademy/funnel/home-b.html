@@ -16,7 +16,8 @@
 ═══════════════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
-body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; font-weight: 400; background: #040f24; color: #e6ecf5; overflow-x: hidden; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+html { background: #040f24; }
+body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; font-weight: 400; background: transparent; color: #e6ecf5; overflow-x: hidden; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; display: block; }
 a { text-decoration: none; color: inherit; }
 h1, h2, h3, h4 { font-family: 'Fraunces', serif; font-weight: 700; margin: 0; line-height: 1.1; letter-spacing: -0.02em; color: #ffffff; font-variation-settings: "opsz" 144, "SOFT" 50; }
@@ -67,17 +68,20 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
     linear-gradient(180deg, transparent 0%, transparent 55%, rgba(8,26,73,0.45) 80%, rgba(4,15,55,0.65) 100%),
     var(--space);
 }
-/* Floating water bubbles drifting upward across the whole page */
-body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.55;
+/* Floating water bubbles drifting upward across the whole page — visible */
+body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.85;
   background-image:
-    radial-gradient(circle 3px at 8% 110%, rgba(91,231,255,0.5), transparent 60%),
-    radial-gradient(circle 4px at 28% 110%, rgba(91,231,255,0.45), transparent 60%),
-    radial-gradient(circle 2px at 48% 110%, rgba(58,216,212,0.5), transparent 60%),
-    radial-gradient(circle 5px at 68% 110%, rgba(91,231,255,0.4), transparent 60%),
-    radial-gradient(circle 3px at 88% 110%, rgba(58,216,212,0.5), transparent 60%);
+    radial-gradient(circle 8px at 6% 110%,  rgba(91,231,255,0.9), rgba(91,231,255,0.3) 50%, transparent 70%),
+    radial-gradient(circle 12px at 22% 110%, rgba(91,231,255,0.85), rgba(91,231,255,0.25) 50%, transparent 70%),
+    radial-gradient(circle 6px at 38% 110%,  rgba(58,216,212,0.95), rgba(58,216,212,0.3) 50%, transparent 70%),
+    radial-gradient(circle 14px at 56% 110%, rgba(91,231,255,0.8), rgba(91,231,255,0.25) 50%, transparent 70%),
+    radial-gradient(circle 9px at 72% 110%,  rgba(58,216,212,0.9), rgba(58,216,212,0.3) 50%, transparent 70%),
+    radial-gradient(circle 11px at 88% 110%, rgba(91,231,255,0.85), rgba(91,231,255,0.25) 50%, transparent 70%);
   background-size: 100% 200%;
-  animation: bubblesRise 22s linear infinite;
+  animation: bubblesRise 14s linear infinite;
 }
+/* Sections must sit ABOVE the body::after bubble layer */
+.nav, .hero, .about, .programs, .events, .locations, .steps, .reviews, .gallery, .team, .why, .faq, .final-cta, .footer { position: relative; z-index: 1; }
 @keyframes bubblesRise {
   0%   { background-position: 0% 0%; }
   100% { background-position: 0% -200%; }
@@ -112,7 +116,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
 .nav.scrolled { background: rgba(4,15,36,0.88); box-shadow: 0 4px 24px rgba(0,0,0,0.25); }
 .nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.2rem; color: #fff; font-variation-settings: "opsz" 144, "SOFT" 100; }
-.nav-logo img { height: 42px; width: auto; filter: brightness(0) invert(1); opacity: 0.92; }
+.nav-logo img { height: 42px; width: auto; filter: drop-shadow(0 0 8px rgba(91,231,255,0.4)); }
 .nav-links { list-style: none; padding: 0; margin: 0; display: flex; gap: 30px; }
 .nav-links a { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.92rem; color: var(--text-mute); position: relative; padding: 6px 0; transition: color 0.2s; }
 .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1.5px; background: var(--cyan); transform: scaleX(0); transition: transform 0.3s; transform-origin: center; }
@@ -159,8 +163,8 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
 .hero-bubbles { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
 .hero-bubble {
   position: absolute; bottom: -40px; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(91,231,255,0.25) 40%, rgba(91,231,255,0.05) 70%);
-  box-shadow: inset 0 0 8px rgba(255,255,255,0.25), 0 0 16px rgba(91,231,255,0.18);
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.85), rgba(91,231,255,0.5) 40%, rgba(91,231,255,0.1) 70%);
+  box-shadow: inset 0 0 12px rgba(255,255,255,0.5), 0 0 24px rgba(91,231,255,0.45);
   animation: bubbleFloat linear infinite;
   opacity: 0;
 }
@@ -171,9 +175,38 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
   100% { transform: translateY(-110vh) translateX(20px) scale(1); opacity: 0; }
 }
 /* Ocean wave divider — sits at the bottom of the hero, transitioning to the about section */
-.wave-divider { position: absolute; bottom: -1px; left: 0; right: 0; height: 72px; pointer-events: none; z-index: 2; line-height: 0; }
+.wave-divider { position: absolute; bottom: -1px; left: 0; right: 0; height: 110px; pointer-events: none; z-index: 3; line-height: 0; }
 .wave-divider svg { width: 100%; height: 100%; display: block; }
 .wave-divider-flip svg { transform: rotateX(180deg); }
+/* Hero Saturn-style planet — visible in top right corner */
+.hero-planet { position: absolute; top: -60px; right: -80px; width: 360px; height: 360px; z-index: 1; pointer-events: none; }
+.hero-planet-body {
+  position: absolute; inset: 60px; border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(91,231,255,0.95) 0%, rgba(58,216,212,0.55) 35%, rgba(30,77,146,0.65) 65%, rgba(8,26,73,0.85) 100%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,0.18), transparent 50%);
+  box-shadow:
+    0 0 80px rgba(91,231,255,0.5),
+    inset -30px -40px 60px rgba(0,0,0,0.5),
+    inset 20px 30px 50px rgba(91,231,255,0.3);
+}
+.hero-planet-ring {
+  position: absolute; top: 50%; left: 50%;
+  width: 100%; height: 50px;
+  transform: translate(-50%, -50%) rotate(-18deg);
+  border-radius: 50%;
+  border: 2px solid rgba(91,231,255,0.7);
+  box-shadow:
+    0 0 24px rgba(91,231,255,0.45),
+    inset 0 0 20px rgba(91,231,255,0.25);
+}
+@media (max-width: 1024px) {
+  .hero-planet { top: 20px; right: -120px; width: 260px; height: 260px; }
+  .hero-planet-ring { height: 36px; }
+}
+@media (max-width: 640px) {
+  .hero-planet { display: none; }
+}
 .hero .container { position: relative; z-index: 1; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.76rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 26px; padding: 8px 18px; background: rgba(91,231,255,0.10); border: 1px solid rgba(91,231,255,0.22); border-radius: 50px; }
@@ -368,6 +401,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
 .faq-list { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 .faq-item { background: var(--glass); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; transition: all 0.25s ease; backdrop-filter: blur(10px); }
 .faq-item.hidden { display: none; }
+.review-card.hidden { display: none; }
 .faq-item.open { border-color: rgba(91,231,255,0.5); background: var(--glass-2); box-shadow: 0 12px 36px rgba(91,231,255,0.15); }
 .faq-q { width: 100%; padding: 20px 22px; background: none; border: none; text-align: left; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.04rem; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 14px; }
 .faq-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: var(--space-3); color: var(--cyan); font-family: 'Fraunces', serif; font-weight: 600; font-size: 0.92rem; display: flex; align-items: center; justify-content: center; transition: all 0.25s; }
@@ -532,6 +566,10 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-planet" aria-hidden="true">
+    <div class="hero-planet-ring"></div>
+    <div class="hero-planet-body"></div>
+  </div>
   <div class="hero-bubbles" aria-hidden="true">
     <span class="hero-bubble" style="left:6%;  width:14px; height:14px; animation-duration:18s; animation-delay:0s;"></span>
     <span class="hero-bubble" style="left:16%; width:8px;  height:8px;  animation-duration:14s; animation-delay:2s;"></span>
@@ -636,10 +674,11 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
     </div>
   </div>
   <div class="wave-divider" aria-hidden="true">
-    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,40 C240,72 480,8 720,32 C960,56 1200,16 1440,40 L1440,72 L0,72 Z" fill="rgba(91,231,255,0.06)"/>
-      <path d="M0,52 C240,28 480,68 720,44 C960,20 1200,60 1440,52 L1440,72 L0,72 Z" fill="rgba(58,216,212,0.08)"/>
-      <path d="M0,60 C240,76 480,40 720,60 C960,80 1200,44 1440,60 L1440,72 L0,72 Z" fill="rgba(8,26,73,0.45)"/>
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,110 480,10 720,50 C960,90 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.25)"/>
+      <path d="M0,80 C240,40 480,100 720,68 C960,28 1200,90 1440,80 L1440,120 L0,120 Z" fill="rgba(58,216,212,0.40)"/>
+      <path d="M0,95 C240,115 480,60 720,90 C960,118 1200,68 1440,95 L1440,120 L0,120 Z" fill="rgba(45,200,232,0.65)"/>
+      <path d="M0,108 C240,124 480,90 720,108 C960,124 1200,92 1440,108 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.55)"/>
     </svg>
   </div>
 </section>
