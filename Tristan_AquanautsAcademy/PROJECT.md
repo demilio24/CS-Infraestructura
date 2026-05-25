@@ -58,7 +58,7 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 ## Open threads
 
 1. **GHL sub-account confirmed** — Tristan's locationId is `xBWIIj9IjYQL2XdtjJ1A`, `account_name = "Tristan Tolley's Account"` in `public.ghl_tokens`. Token is rotated by n8n; re-pull on long runs.
-2. **Funnel HTML rewrite** — swap Wix URLs to GHL CDN URLs in `funnel/home.html` and `funnel/home-b.html` using `image_url_map.json` (64 mappings). Pending — done in a separate Claude conversation per the hand-off plan.
+2. ~~**Funnel HTML rewrite** — swap Wix URLs to GHL CDN URLs in `funnel/home.html` and `funnel/home-b.html`.~~ **Done 2026-05-25 (night)** — all 24 referenced Wix images uploaded to GHL and swapped in both files. See changelog.
 3. **Verify all `/partnerships` claims** with Tristan before reusing on a funnel: SELF DESIGN, NIDES, HCOS, Island ConnectEd, Superhero Swim University, inSpace Childcare, Katies Korner, Balance Physio, Long Lake Physio, Splash About, Autism Support BC, Special Olympics BC.
 4. **Google Business Profile** — claimed? Total reviews + stars? Currently only 3 named testimonials exist anywhere online; a review-collection workflow is priority #1 for social proof.
 5. **AFU registration** — is Aquanauts a registered AFU provider, or are clients paying-and-claiming? Affects how we phrase pricing on the adaptive page.
@@ -66,6 +66,9 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 7. **Video assets** — none exist. A 60-90s founder story video is the highest-ROI single asset he could produce.
 
 ## Changelog
+
+### 2026-05-25 (night) — Wix → GHL image URL swap complete on both funnel variations
+Picked up the pending HANDOFF section 3a task after the prior parallel scrape conversation never persisted its output (`image_url_map.json` was missing and both funnel files still pointed at `static.wixstatic.com`). Did a tighter, funnel-only pass instead of re-running the full-site crawl: collected the 24 distinct Wix URLs actually referenced across `funnel/home.html` (38 refs) and `funnel/home-b.html` (37 refs), downloaded each with a real browser UA + `Referer: https://aquanautsacademy.ca/` (no 403s, sizes ranged 14 KB → 17 MB), and POSTed each to `services.leadconnectorhq.com/medias/upload-file` with `hosted=false&locationId=xBWIIj9IjYQL2XdtjJ1A`. All 24 returned `HTTP 201` with `https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/<uuid>.<ext>` URLs. GHL token pulled fresh from Supabase (`public.ghl_tokens.acces_token`, 5879 chars) right before the run. Ran `rewrite-aquanauts-html.py` to swap each URL; the only post-swap `static.wixstatic.com` reference was a stale `<link rel="preconnect">` in the head of each file, which I retargeted to `assets.cdn.filesafe.space`. Final `grep -c "static.wixstatic.com" funnel/*.html` returns 0/0; GHL references at 38/37 (matching pre-swap Wix counts). Spot-checked 4 random GHL URLs via `curl -I` with a browser UA, all returned `HTTP 200` with matching `Content-Type` and `Content-Length` to the uploaded source. New artifacts: `image_url_map.json` (24 entries), `image_inventory.md` (table of size/type/status per image), and `.claude/swap-aquanauts-wix-to-ghl.py` + `.claude/rewrite-aquanauts-html.py` (idempotent, safe to re-run if the funnels ever pull more Wix assets).
 
 ### 2026-05-25 (late) — UX polish, B retheme to "space swim school", handoff doc
 - Wrote [HANDOFF.md](HANDOFF.md) — complete next-session brief covering live URLs, what's done, what's pending, file map, GHL access, gotchas, and quick-start instructions.
