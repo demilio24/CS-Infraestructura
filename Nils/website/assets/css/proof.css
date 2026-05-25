@@ -268,3 +268,20 @@
   transition: background var(--dur-fast), transform var(--dur-fast);
 }
 .proof-cta.v2 .panel .btn-call:hover { background: var(--marketing-dark); transform: translateY(-1px); }
+
+/* ─── Compact tweaks for proof-cases V1 on the production proof page ─── */
+.proof-cases.v1 {
+  padding-top: var(--space-5);
+  padding-bottom: var(--space-5);
+}
+.proof-cases.v1 .columns { gap: var(--space-4); }
+.proof-cases.v1 .col { gap: var(--space-3); }
+.proof-cases.v1 .col-head { margin-bottom: var(--space-1); font-size: 10px; }
+.proof-cases.v1 .case { padding: var(--space-4); gap: var(--space-2); }
+.proof-cases.v1 .case h3 { font-size: clamp(18px, 2.2vw, 24px); }
+.proof-cases.v1 .case .body p { font-size: var(--fs-meta); }
+.proof-cases.v1 .case.video video { max-height: 360px; }
+.proof-cases.v1 .stats-row { padding: var(--space-3); font-size: 12px; gap: var(--space-3); }
+.proof-cases.v1 .case .attribution { padding-top: var(--space-2); }
+.proof-cases.v1 .case .attribution .portrait { width: 28px; height: 28px; }
+.proof-cases.v1 .case .attribution .name { font-size: 12px; }
