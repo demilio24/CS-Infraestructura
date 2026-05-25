@@ -87,6 +87,25 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
   100% { background-position: 0% -200%; }
 }
 
+/* Caustic-light shimmer — slow underwater sunlight refraction overlay */
+.caustic-shimmer {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.55;
+  background:
+    radial-gradient(ellipse 320px 180px at 20% 30%, rgba(91,231,255,0.18), transparent 60%),
+    radial-gradient(ellipse 280px 160px at 70% 60%, rgba(58,216,212,0.16), transparent 60%),
+    radial-gradient(ellipse 220px 140px at 40% 80%, rgba(91,231,255,0.14), transparent 60%),
+    radial-gradient(ellipse 260px 150px at 85% 20%, rgba(45,200,232,0.13), transparent 60%);
+  background-size: 100% 200%;
+  animation: causticDrift 20s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+@keyframes causticDrift {
+  0%   { background-position: 0%   0%,  100% 30%, 30% 100%, 70%  10%; transform: translate3d(0, 0, 0); }
+  50%  { background-position: 30%  40%, 60% 70%,  80% 50%,  20%  60%; transform: translate3d(-8px, 6px, 0); }
+  100% { background-position: 60%  20%, 20% 50%,  50% 80%,  90%  40%; transform: translate3d(6px, -4px, 0); }
+}
+
+
 /* ═══════════════════════════════════════════════════════
    UTILITY
 ═══════════════════════════════════════════════════════ */
@@ -200,6 +219,21 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
     0 0 24px rgba(91,231,255,0.45),
     inset 0 0 20px rgba(91,231,255,0.25);
 }
+
+/* Concentric water-ripple rings emanating outward from the planet */
+.hero-planet-body::before,
+.hero-planet-body::after {
+  content: ''; position: absolute; inset: -20px; border-radius: 50%;
+  border: 2px solid rgba(91,231,255,0.5);
+  animation: planetRipple 4s ease-out infinite;
+  pointer-events: none;
+}
+.hero-planet-body::after { animation-delay: 2s; }
+@keyframes planetRipple {
+  0%   { transform: scale(1);   opacity: 0.6; border-width: 2px; }
+  100% { transform: scale(1.55); opacity: 0;   border-width: 0.5px; }
+}
+
 @media (max-width: 1024px) {
   .hero-planet { top: 20px; right: -120px; width: 260px; height: 260px; }
   .hero-planet-ring { height: 36px; }
@@ -259,7 +293,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
 /* ═══════════════════════════════════════════════════════
    PROGRAMS
 ═══════════════════════════════════════════════════════ */
-.programs { padding: 110px 0; position: relative; }
+.programs { padding: 110px 0; position: relative; overflow: hidden; }
 .filter-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 44px; }
 .filter-btn { padding: 11px 22px; border-radius: 100px; border: 1px solid var(--line-2); background: var(--glass); color: var(--text-mute); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.9rem; cursor: pointer; transition: all 0.25s ease; backdrop-filter: blur(8px); }
 .filter-btn:hover { border-color: var(--cyan); color: #fff; }
@@ -300,7 +334,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
 /* ═══════════════════════════════════════════════════════
    LOCATIONS
 ═══════════════════════════════════════════════════════ */
-.locations { padding: 110px 0; position: relative; }
+.locations { padding: 110px 0; position: relative; overflow: hidden; }
 .locations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .loc-card { background: var(--glass-2); border-radius: 18px; overflow: hidden; border: 1px solid var(--line); transition: all 0.3s; backdrop-filter: blur(10px); }
 .loc-card:hover { transform: translateY(-4px); border-color: rgba(91,231,255,0.35); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
@@ -363,7 +397,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
 /* ═══════════════════════════════════════════════════════
    TEAM
 ═══════════════════════════════════════════════════════ */
-.team { padding: 110px 0; position: relative; }
+.team { padding: 110px 0; position: relative; overflow: hidden; }
 .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .team-card { background: var(--glass-2); border-radius: 20px; overflow: hidden; border: 1px solid var(--line); transition: all 0.3s; backdrop-filter: blur(10px); display: flex; flex-direction: column; }
 .team-card.hidden { display: none; }
@@ -518,6 +552,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
   </style>
 </head>
 <body>
+<div class="caustic-shimmer" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -852,6 +887,14 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
       <span class="cta-subtext">Call 250-327-3212 if you are not sure which fits.</span>
     </div>
   </div>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,110 480,10 720,50 C960,90 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.18)"/>
+      <path d="M0,80 C240,40 480,100 720,68 C960,28 1200,90 1440,80 L1440,120 L0,120 Z" fill="rgba(58,216,212,0.30)"/>
+      <path d="M0,95 C240,115 480,60 720,90 C960,118 1200,68 1440,95 L1440,120 L0,120 Z" fill="rgba(45,200,232,0.48)"/>
+      <path d="M0,108 C240,124 480,90 720,108 C960,124 1200,92 1440,108 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.42)"/>
+    </svg>
+  </div>
 </section>
 
 <!-- EVENTS -->
@@ -935,6 +978,14 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
       </a>
       <span class="cta-subtext">Not sure which works for you? We will help you pick.</span>
     </div>
+  </div>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,110 480,10 720,50 C960,90 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.18)"/>
+      <path d="M0,80 C240,40 480,100 720,68 C960,28 1200,90 1440,80 L1440,120 L0,120 Z" fill="rgba(58,216,212,0.30)"/>
+      <path d="M0,95 C240,115 480,60 720,90 C960,118 1200,68 1440,95 L1440,120 L0,120 Z" fill="rgba(45,200,232,0.48)"/>
+      <path d="M0,108 C240,124 480,90 720,108 C960,124 1200,92 1440,108 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.42)"/>
+    </svg>
   </div>
 </section>
 
@@ -1180,6 +1231,14 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
       </a>
       <span class="cta-subtext">Tell us your location and we will introduce you.</span>
     </div>
+  </div>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,110 480,10 720,50 C960,90 1200,20 1440,60 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.18)"/>
+      <path d="M0,80 C240,40 480,100 720,68 C960,28 1200,90 1440,80 L1440,120 L0,120 Z" fill="rgba(58,216,212,0.30)"/>
+      <path d="M0,95 C240,115 480,60 720,90 C960,118 1200,68 1440,95 L1440,120 L0,120 Z" fill="rgba(45,200,232,0.48)"/>
+      <path d="M0,108 C240,124 480,90 720,108 C960,124 1200,92 1440,108 L1440,120 L0,120 Z" fill="rgba(91,231,255,0.42)"/>
+    </svg>
   </div>
 </section>
 

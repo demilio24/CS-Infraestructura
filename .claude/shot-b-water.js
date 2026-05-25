@@ -1,0 +1,22 @@
+const puppeteer = require('puppeteer');
+(async () => {
+  const b = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
+  const p = await b.newPage();
+  await p.setViewport({ width: 1440, height: 900 });
+  await p.goto('file:///F:/GitHub/Websites/Tristan_AquanautsAcademy/funnel/home-b.html', { waitUntil: 'networkidle2', timeout: 45000 });
+  await new Promise(r => setTimeout(r, 1800));
+  await p.evaluate(() => document.querySelectorAll('.anim').forEach(el => el.classList.add('visible')));
+  await new Promise(r => setTimeout(r, 1500));
+  await p.screenshot({ path: 'F:/GitHub/Websites/.claude/screenshots/aquanauts/B-water-hero.png' });
+  await p.evaluate(() => { const ev = document.querySelector('#events'); if (ev) window.scrollTo(0, ev.offsetTop - 200); });
+  await new Promise(r => setTimeout(r, 700));
+  await p.screenshot({ path: 'F:/GitHub/Websites/.claude/screenshots/aquanauts/B-water-prog-to-events.png' });
+  await p.evaluate(() => { const s = document.querySelector('#steps'); if (s) window.scrollTo(0, s.offsetTop - 200); });
+  await new Promise(r => setTimeout(r, 700));
+  await p.screenshot({ path: 'F:/GitHub/Websites/.claude/screenshots/aquanauts/B-water-loc-to-steps.png' });
+  await p.evaluate(() => { const w = document.querySelector('#why'); if (w) window.scrollTo(0, w.offsetTop - 200); });
+  await new Promise(r => setTimeout(r, 700));
+  await p.screenshot({ path: 'F:/GitHub/Websites/.claude/screenshots/aquanauts/B-water-team-to-why.png' });
+  await b.close();
+  console.log('done');
+})().catch(e => { console.error(e); process.exit(1); });
