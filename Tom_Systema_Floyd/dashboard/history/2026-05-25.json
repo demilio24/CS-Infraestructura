@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T23:07:02Z",
+  "generatedAt": "2026-05-25T23:12:27Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -4020,45 +4020,17 @@
       "June 1st-5th": {
         "rows": [
           {
-            "category": "none",
-            "subtypeKey": "none",
-            "label": "No lunch",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Zecahri Barney",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": null
-              }
-            ]
-          },
-          {
             "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 28,
-              "Tue": 28,
-              "Wed": 28,
-              "Thu": 28,
-              "Fri": 28
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 140,
+            "total": 145,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4414,6 +4386,19 @@
               {
                 "name": "Sunni Hall",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Zecahri Barney",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -9302,17 +9287,16 @@
         {
           "name": "Zecahri Barney",
           "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": null,
-          "breakfastRaw": null,
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
           "email": null,
           "incomplete": true,
           "missingFields": [
             "Email",
-            "Parent/Guardian name",
-            "Age"
+            "Parent/Guardian name"
           ],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
