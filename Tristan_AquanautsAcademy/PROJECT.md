@@ -67,6 +67,16 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-25 (afternoon) — Lead Form fields finalized + Amina handoff
+- Updated all 3 GHL custom contact fields to match the canonical `lead_form_routing.md` spec (renamed with `Lead Form *` prefix to match the form name Amina is building):
+  - `Lead Form Intent` (id `6JTnsxZJBRqmgcDKDNnc`, fieldKey `contact.program_of_interest` - fieldKey unchanged on rename) - now **10 options**
+  - `Lead Form Location` (id `uv5pZioA9EuxVABXNpxy`, fieldKey `contact.closest_location`) - now **10 options** (added "Not sure yet")
+  - `Lead Form Swimmer Age` (id `DZFtnzJksaTkgxGUJuNs`, fieldKey `contact.lead_form_swimmer_age`) - **new field, 7 options, optional**
+- Confirmed PUT updates use the same `options: ["string","string"]` array shape as POST (not `picklistOptions`, even though GET returns `picklistOptions`).
+- Created ClickUp list `Tristan Tolley: Aquanauts Academy` (id `901327327838`) inside the `GoHighLevel Work` space - first per-client list for this account.
+- Created ClickUp task for Amina Shah: [Build Lead Form + internal lead notifications (email and SMS)](https://app.clickup.com/t/86ahnyugh) - priority high, deliverable is the form embed link. Brief includes: 3 custom field IDs + standard contact fields, per-answer redirect workflow, URL parameter passthrough test (so contacts don't retype name/email on Jane App), internal email + SMS notifications modelled on Blake Friis's account.
+- Added comment on the task pointing to `booking_flow_map.md` section 4 as the canonical Program × Location matrix (richer than `lead_form_routing.md` - uses Jane App location deep links to skip the marketing page).
+
 ### 2026-05-25 — Two funnel variations live + GHL form setup + verified booking redirect map
 - Wrote locked-in home page copy at `copy/home-final.md` (mirrors Center Lane Swim's 12-section structure exactly).
 - Built **Variation A** (`funnel/home.html`, light/coral approachable) and **Variation B** (`funnel/home-b.html`, dark cosmic editorial). Same structure + copy, distinct visual styles. Both have filter bubbles on Programs (6 categories) and Team (5 locations), category filter on FAQ (4 categories), and 30+ real Wix CDN images. Puppeteer QA: 48 desktop + mobile screenshots, zero em-dashes in either file.

@@ -39,29 +39,34 @@ Non-negotiable rules, established through repeat feedback. Read before editing.
 - **`.fu` phantom layout gaps.** When spacing looks asymmetric but measurements say equal, suspect a `.fu` element sitting at `opacity:0` while still consuming layout space. Universal fix: keep `.fu { opacity:1 }` as the default so layout is stable regardless of observer timing (`.in` becomes a no-op).
 - **GHL embed:** When returning a public link, always wrap the GitHub Pages URL in the iframe embed template from the project CLAUDE.md — never a bare URL.
 
-## Form submission contract (v1 + future split-test variants)
-These pages are **Google Ads landing pages only** — every contact created from a form here must be attributable to that source.
+## Form submission contract
+GHL credentials are shared across every version of the site: `LOCATION_ID = dYpRMKt41LMBrYEUoeLG`, PIT `pit-def64e41-d4d8-4838-b956-c7fd30031cd2`, API version `2021-07-28`. Per-version differentiation is by GHL contact tag only.
 
-- **GHL contact tags:** every upsert MUST include `'google-ads'` plus a per-variant tag (`'site-v1'`, `'site-v2'`, …). Tag array lives in the upsert payload, e.g. `tags: ['site-v1', 'google-ads']`.
-- **Post-submit redirect:** on final-slide success, redirect to `https://velusinteriors.com/thank-you` via `window.location.href`. Do NOT show an inline thank-you note. The legacy inline "Thank you for sharing your project with us…" message has been removed from v1 and must not be reintroduced.
-- **Error handling stays inline:** on upsert/update failure, keep the existing inline error note + mailto fallback (`mandy@velusinteriors.com`). Don't redirect on error.
-- **GHL credentials (v1 + v2):** `LOCATION_ID = dYpRMKt41LMBrYEUoeLG`, PIT `pit-def64e41-d4d8-4838-b956-c7fd30031cd2`, API version `2021-07-28`. Both variants reuse the same location/token; differentiation is by tag only.
+**Per-version tags:**
+- `v6.html` (current canonical, primary site + Google Ads destination): `tags: ['site-v6']`. Inline confirmation on success (the editorial "Thank you for sharing your project with us…" message renders inside `#sentNote`); inline error + `mandy@velusinteriors.com` mailto fallback on failure. No redirect — this is the brand site, not a paid landing page.
+- `v1.html` / `v2.html` (deprecated landing pages, kept for reference only): `tags: ['site-v1', 'google-ads']` / `['site-v2', 'google-ads']`. These pages redirected to `https://velusinteriors.com/thank-you` on success. No longer receive ad traffic as of 2026-05-23.
 
-## Split-test variants (v1 vs v2)
-Both files share identical typography, palette, sections, copy, and animation system. Only the conversion mechanics differ.
+If a new variant of v6 is ever built (e.g. for a focused A/B test on a single CTA), inherit the v6 inline-confirm pattern and assign it a fresh `site-vN` tag so GHL segmentation stays clean.
 
-**v1 (control):** 3-slide hero inquiry form with 11 fields total (`firstName`, `email`, `phone`, `location`, `project_type`, `project_stage`, `design_intent`, `design_direction`, `lifestyle`, `prior_designer`, `estimated_budget` required on slide 3). Six section CTAs across the page all scroll back to the hero form. No mobile sticky CTA. No proof above the form. Tag: `['site-v1', 'google-ads']`.
+## Deprecated landing pages (v1, v2)
+Kept for historical reference only. Both are `noindex,nofollow`, both deprecated as of 2026-05-23 when Mandy chose to point Google Ads at the primary site (`v6.html`) instead of a separate landing page.
 
-**v2 (variant, built 2026-05-20):** 1-slide hero form with 4 fields (`firstName`, `email`, `project_type`, `design_intent`) — all required, no phone/location/budget. Editorial italic pull-quote (Nicole / Lincoln Park) sits above the form lede inside `.hero-form-card`, separated by a hairline rule. Reassurance microcopy "No obligation. We reply within two business days." sits under the submit. A duplicated slim form (same 4 fields, brand-styled for the taupe `.cta-section` background) replaces the final `Start Your Project` button. Hairline mobile sticky CTA `.v2-mobile-sticky` (Begin a Project →, hairline top border, safe-area-aware bottom padding) reveals on `max-width: 768px`. Page is `noindex,nofollow`. Tag: `['site-v2', 'google-ads']`. Submission handler `v2SubmitForm(form)` works for both `#v2InquiryForm` and `#v2CtaForm` and posts to the same GHL `/contacts/upsert` endpoint.
+**v1 (deprecated):** 3-slide hero inquiry form with 11 fields total. Six section CTAs scroll back to the hero form. No mobile sticky CTA, no proof above the form. Redirected to `velusinteriors.com/thank-you` on success.
 
-**Hypothesis being tested:** the leak is form length + form coldness, not the visual page. The 4-field form, the proof-above-form, the duplicated bottom form, and the always-reachable mobile CTA together should lift contact submissions without changing the dainty editorial brand.
+**v2 (deprecated, built 2026-05-20):** 1-slide hero form with 4 fields (`firstName`, `email`, `project_type`, `design_intent`). Editorial italic pull-quote (Nicole / Lincoln Park) above the form lede. Duplicated slim form replaces the final `Start Your Project` button. Hairline mobile sticky CTA `.v2-mobile-sticky` on `max-width: 768px`. Submission handler `v2SubmitForm(form)` posted to GHL `/contacts/upsert` and redirected to thank-you.
+
+**Why deprecated:** Mandy reviewed both versions and concluded that a separate landing page broke the cohesive luxury brand experience she wanted from the first click. Her exact phrasing: "the original website better reflects the level of brand identity, emotional tone, and luxury positioning I want potential clients to experience from the very first interaction." The conversion-mechanics hypothesis behind v2 (form length is the leak) was never actually tested because no ad traffic was routed there before the decision.
 
 ## Open threads
-- **A/B traffic routing not yet wired.** v2.html is built and live-ready but Google Ads still needs to be configured to split traffic 50/50 between v1.html and v2.html (or whatever ratio Mandy wants). Until then v2 sees zero traffic.
-- **Microsoft Clarity data not yet reviewed.** v2's hypothesis was built on conversion-mechanics intuition, not behavioral data. Once both variants accumulate sessions, pull Clarity heatmaps for each and compare scroll depth, form-field abandonment, and rage clicks. Next iteration of v2 should be data-driven.
-- **No analytics differentiation between v1 and v2.** The only thing distinguishing submissions is the GHL contact tag (`site-v1` vs `site-v2`). Confirm Mandy can pull a tag-segmented report in GHL to compare conversion rates, or wire a lightweight pageview ping (GA4 / Clarity custom event) so impressions are countable per variant — without impressions, conversion *rate* can't be computed, only raw counts.
+- **Awaiting Mandy's sign-off to launch v6.** Draft email sent 2026-05-23 (Gmail draft, threaded under "Re: Google Ads Campaign Update") with the v6 link and two literal yes/no questions: launch v6 as the Google Ads destination? anything to adjust before routing traffic? Once she replies "yes", switch the live Google Ads campaigns to point at `https://velusinteriors.com/` (or whatever final URL she lands on) instead of `Mandy_VeLUS_Design/v1.html`.
+- **Mandy bullet 4 — Google ad targeting refinement.** Not a site change; lives in the Google Ads UI. When v6 routing goes live, tighten: negative keywords for low-intent and DIY queries, geo-radius around Chicago + North Shore, household-income layering toward HHI ≥ $250k, ad-schedule weighting on weekday business hours. Measure combined effect after the destination switch.
+- **Microsoft Clarity / GA4 segmentation per future variant.** Today the only thing distinguishing v6 submissions from a future variant is the GHL contact tag (`site-v6`). If Mandy ever wants a real A/B test on the primary site (e.g. v6 vs v6b with an even more compact form), wire a Clarity custom event or GA4 pageview ping per variant first — without per-variant impressions, conversion *rate* can't be computed, only raw counts.
+- **v1.html / v2.html cleanup decision.** Both deprecated but kept on disk for reference. If Mandy never wants to revisit the landing-page concept, we can delete them in a future commit; if she wants them archived as historical references, leave them. Default: leave until she explicitly says otherwise (matches the conservative posture used when v2/v3/v4 drafts were deleted on 2026-05-20 — only delete on explicit user request).
 
 ## Changelog
+## 2026-05-23 — Docs refresh: v6 is canonical, v1/v2 marked deprecated
+Updated PROJECT.md to reflect the post-v6 state of the project. The "Form submission contract" section was rewritten as a single per-version tag table; the "Split-test variants (v1 vs v2)" section was renamed to "Deprecated landing pages (v1, v2)" with Mandy's exact rationale quoted from her 2026-05-20 email; "Open threads" now tracks the launch-sign-off ask, Mandy's ad-targeting bullet, future-variant analytics wiring, and the cleanup-vs-keep decision on the deprecated landing files. Memory `feedback_typography_tokens_only.md` updated to reference v6.html as the canonical file (was v5). No code changes.
+
 ## 2026-05-23 — v6.html: Mandy's 2026-05-20 revisions applied to the primary site
 Copied `v5.html` → `v6.html` and applied Mandy's email-bulleted revisions directly to the canonical site (her stated preference was no separate landing page — ads point at the main site). Four surgical changes:
 

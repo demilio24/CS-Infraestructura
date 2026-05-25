@@ -1,8 +1,21 @@
 # Systema Floyd, Forms Build TODOs
 
-Per-form punch list. Status as of **2026-05-19**.
+Per-form punch list. Status as of **2026-05-23**.
 Spec lives in [new_forms_spec.md](./new_forms_spec.md). Build order per
 Tom's May 13 call: Vladimir Seminar, Private Lessons, Birthday Parties.
+
+## 2026-05-23 update
+
+All 4 form builds + the workflows task were closed by Amina today.
+ClickUp now has a single open verification task:
+
+- **[Verify Form Functionality (86ahnq2z2)](https://app.clickup.com/t/86ahnq2z2)** — assigned Amina, urgent, due 2026-05-25. Three sign-offs needed per form: (1) sheet row lands in the correct Google Sheet, (2) per-form notification email template renders correctly (Amina copy/pasted the actions but did not edit the templates yet), (3) form submission → `/waiver` redirect carries all 3 query params. Test with `test@nilsllc.com` + NILS LLC phone.
+
+### Outstanding follow-ups Emilio still owns
+- Walk Amina through using code nodes for the Private Lessons Rule B conditional (Instructor → Training Type lock). She admitted in [thread `90130268726557`](https://app.clickup.com/t/86ahfhfj3) the lock partially misbehaves. Plan: record a video.
+- Pull a sample Vladimir Seminar submission once a real registration lands (or via a test), map the 7 `others.<fieldId>` values to the sheet columns, paste field IDs into `DC_VS_FIELD_*` constants in [DiscrepancyCheck.js](../sheets-snapshot/apps-script/DiscrepancyCheck.js), `clasp push`, and the dormant `_dcCheckVasilievSeminar()` lights up.
+- Re-confirm bot health after the bot revival work this week (see [bot_revival_runbook.md](./bot_revival_runbook.md)). The 2026-05-19 token-stale incident may or may not still be active; check `public.sf_bot_health.discrepancy_check.last_ok_at`.
+- Birthday Parties remains blocked on Tom's pricing (see §3 below) — no movement since 2026-05-14. Tom's "Party page" message on 2026-05-22 reiterated the need but did not include the prices. The `birthday-parties.html` page currently embeds Balloons as a placeholder; swap once the real Birthday Parties form is built.
 
 ## 2026-05-18 update
 
@@ -48,33 +61,28 @@ Revival runbook: [bot_revival_runbook.md](./bot_revival_runbook.md).
 
 ---
 
-## 1. Vladimir Seminar, Priority #1, BLOCKED
+## 1. Vladimir Seminar, Priority #1, LIVE (field IDs still TBD)
 
 Tom said this is his **#1 build priority**. Annual flagship weekend
-event in September or October. We cannot move until Tom unblocks.
+event in Palm Beach, **October 10-11, 2026**. The form was originally
+blocked on Tom (date, pricing, waiver), but Amina shipped a working
+form on 2026-05-18 — Tom's blockers got resolved out-of-band or the
+form was built with placeholder copy.
 
-### Needed from Tom
+### Done
 
-- [ ] Exact date(s) of the seminar weekend
-- [ ] Link to the existing registration page (Tom said April 24 *"she'll send it to you"*, never arrived)
-- [ ] Pricing: Full Weekend Pass, Saturday Only, Sunday Only, Early Bird Full Weekend
-- [ ] T-shirt pricing (event tee, separate from camp tees)
-- [ ] Capacity cap (for sold-out logic)
-- [ ] Existing waiver PDF or link, they reuse it every year
-- [ ] Photo / video release wording (or confirm reuse of camp release)
+- [x] **Form composed, published, and shipped 2026-05-18 by Amina**: form id `Zu7nHwEILIJnkKyvtnbB`
+- [x] Custom-field folder created inline by Amina (parent `RTmnCYg8pRee35YYFhyp`)
+- [x] Routing workflow `fc38613d-42ad-408c-80f5-0a18bb75c6d4` wired up
+- [x] **Google Sheets workflow built and live** ([ClickUp 86ahhe0gj](https://app.clickup.com/t/86ahhe0gj))
+- [x] **Embedded on [funnel/vlad-seminar.html](../funnel/vlad-seminar.html)** — verify the iframe `src` matches `Zu7nHwEILIJnkKyvtnbB` (the page originally embedded the After School form as a placeholder, see PROJECT.md "Vlad Seminar follow-ups (open)" — make sure that swap actually happened or do it now)
 
-A draft email to Tom requesting all this info was created on 2026-05-14
-and lives in Gmail Drafts.
+### Remaining
 
-### Our work once unblocked
-
-- [ ] Build GHL custom field folder `Vladimir Seminar` via script
-- [ ] Create 18 fields per spec
-- [ ] Build GHL Form via Chrome extension or by Amina
-- [ ] Wire redirect to `https://systemafloyd.com/waiver?email=...&name=...&phone=...`
-- [ ] Add Florida tax and 3% transaction fee at checkout
-- [ ] Add "Featured Event" banner to the Systema Floyd homepage with form embed
-- [ ] After publish, paste the form ID into `DC_FORM_VASILIEV_SEMINAR` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1BvGvrZ05oJolMGwyOm7BO0hZyZlMxv6D_UZviIOdH2Y` (Vladimir Vasiliev Seminar Registration). NOTE: field-ID constants for this form still need to be added once fields are created.
+- [ ] Pull a sample submission once a real registrant comes through (or trigger one). Map each `others.<fieldId>` to its sheet column. Paste field IDs into `DC_VS_FIELD_*` constants in [DiscrepancyCheck.js](../sheets-snapshot/apps-script/DiscrepancyCheck.js) lines 188-194, `clasp push`. The dormant `_dcCheckVasilievSeminar()` stub lights up only after the field IDs are in.
+- [ ] Confirm with Tom (post-launch) that he doesn't still owe us: capacity cap (for sold-out logic), photo/video release wording, the existing waiver PDF or link they reuse every year. These were on the original blocker list — if Amina built the form without them, decide whether to retrofit or leave for next year.
+- [ ] Add Florida tax + 3% transaction fee at checkout if not already wired.
+- [ ] Decide whether to add a "Featured Event" banner to the Systema Floyd homepage that links/embeds the seminar form.
 
 ### Open questions
 
@@ -84,7 +92,7 @@ and lives in Gmail Drafts.
 
 ---
 
-## 2. Private Lessons, Priority #2, FIELDS LIVE, FORM ASSIGNED TO AMINA
+## 2. Private Lessons, Priority #2, LIVE (with 1 known bug)
 
 ### Done
 
@@ -92,21 +100,19 @@ and lives in Gmail Drafts.
 - [x] Spec'd all 12 fields plus conditional logic
 - [x] GHL folder `Private Lessons` (id `X4a97HKQJdXVkGV6R4Vg`) and 12 fields created via API on 2026-05-14
 - [x] Field IDs saved to `.claude/scratch/ghl_private_lessons_ids.json`
-- [x] ClickUp task created and assigned to Amina, due Saturday 2026-05-16 ([ClickUp 86ahfhfj3](https://app.clickup.com/t/86ahfhfj3))
+- [x] ClickUp task created, assigned to Amina, due 2026-05-16 ([ClickUp 86ahfhfj3](https://app.clickup.com/t/86ahfhfj3))
 - [x] Subtask for the internal notification workflow assigned ([ClickUp 86ahfhfpn](https://app.clickup.com/t/86ahfhfpn))
+- [x] **Form composed, published, and shipped 2026-05-22 by Amina**: form id `Cpk2gmz9dcumDiz2KFun`
+- [x] **Embedded on [funnel/private-lessons.html](../funnel/private-lessons.html)** 2026-05-23 (`.page-hero-form#register`)
+- [x] **Google Sheets workflow built and live** ([ClickUp 86ahhe0gj](https://app.clickup.com/t/86ahhe0gj))
 
-### Remaining (Amina)
+### Known issue (carried over)
 
-- [ ] Compose form in GHL, use standard contact fields for Name / Phone / Email (not the custom ones)
-- [ ] Verify conditional logic works in GHL (Rule A state filter, Rule B training-type lock, Rule C lesson tier swap)
-- [ ] Publish form and capture form ID, public URL, iframe embed
-- [ ] Add form embed to a public-facing page on systemafloyd.com
-- [ ] Wire confirmation email template (auto-responder) matching existing Systema Floyd branding
-- [ ] Add internal notification branch to the master workflow
+- [ ] **Rule B conditional logic partially broken** — Amina admitted in [ClickUp thread `90130268726557`](https://app.clickup.com/t/86ahfhfj3) that the Instructor → Training Type lock (Evenson=Boxing only, Jessica/Bianca/Carolina=Dance only) is not fully working. Plan: walk Amina through using code nodes for the conditional via a recorded video.
 
-### After Amina ships
-- [ ] Paste the published form ID into `DC_FORM_PRIVATE_LESSONS` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1XVh9pBOwddr-wCZ4eIxA39htmEdGGGx_WRgDun1C_mU` (Private Lesson Booking)
-- [ ] Run `discrepancyBackfillTracking()` once after the first auto-add so existing rows in the sheet (if any) get linked
+### After verification passes
+- [ ] Paste form id `Cpk2gmz9dcumDiz2KFun` into `DC_FORM_PRIVATE_LESSONS` in [sheets-snapshot/apps-script/DiscrepancyCheck.js](../sheets-snapshot/apps-script/DiscrepancyCheck.js) line 126, `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1XVh9pBOwddr-wCZ4eIxA39htmEdGGGx_WRgDun1C_mU` (Private Lesson Booking). Hold this step until [ClickUp 86ahnq2z2](https://app.clickup.com/t/86ahnq2z2) confirms the GHL → sheet workflow actually writes; otherwise the failsafe and the workflow may race or double-write.
+- [ ] Run `discrepancyBackfillTracking()` once after the first auto-add so existing rows in the sheet (if any) get linked.
 
 ### Open questions for Tom (in the draft email)
 
@@ -145,7 +151,7 @@ and lives in Gmail Drafts.
 
 ---
 
-## 4. Rent-A-Sensei (Babysitting), FIELDS LIVE, FORM ASSIGNED TO AMINA
+## 4. Rent-A-Sensei (Babysitting), LIVE
 
 ### Done
 
@@ -154,19 +160,14 @@ and lives in Gmail Drafts.
 - [x] Confirmed this is **babysitting only** (not parties / events), explicit acknowledgment checkbox required
 - [x] GHL folder `Rent-A-Sensei` (id `RbjiHT0moCfDgm5OEnHW`) plus all 12 fields created via API on 2026-05-14
 - [x] Field IDs saved to `.claude/scratch/ghl_rent_a_sensei_ids.json`
-- [x] ClickUp task created and assigned to Amina, due Saturday 2026-05-16 ([ClickUp 86ahfhfjh](https://app.clickup.com/t/86ahfhfjh))
+- [x] ClickUp task created, assigned to Amina, due 2026-05-16 ([ClickUp 86ahfhfjh](https://app.clickup.com/t/86ahfhfjh))
 - [x] Subtask for the internal notification workflow assigned ([ClickUp 86ahfhfpt](https://app.clickup.com/t/86ahfhfpt))
+- [x] **Form composed, published, and shipped 2026-05-22 by Amina**: form id `myEoOLL1SKGv0IvSF4ur`
+- [x] **Embedded on [funnel/rent-a-sensei.html](../funnel/rent-a-sensei.html)** 2026-05-23 (new `.ras-block#register` section replacing the old "Contact Us to Book" CTA). The "Looking for a party?" link now points at `/birthday-parties` instead of the generic contact anchor.
+- [x] **Google Sheets workflow built and live** ([ClickUp 86ahhe0gj](https://app.clickup.com/t/86ahhe0gj))
 
-### Remaining (Amina)
-
-- [ ] Compose form in GHL, use standard contact fields for Parent Name / Phone / Email
-- [ ] Wire age-based Female-Sensei-only filter as a server-side workflow (not a form field, age check happens during sensei assignment)
-- [ ] Wire waiver redirect with email / name / phone query params
-- [ ] Add the required banner above the form (in-home babysitting only, 3-hour minimum)
-- [ ] Add the tipping footer below the submit button
-
-### After Amina ships
-- [ ] Paste the published form ID into `DC_FORM_RENT_A_SENSEI` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1zHDDtoHrjM8uoBsBoVffT09BqOZKRKPFfCDQEpi2CgE` (Rent-A-Sensei Booking)
+### After verification passes
+- [ ] Paste form id `myEoOLL1SKGv0IvSF4ur` into `DC_FORM_RENT_A_SENSEI` in [sheets-snapshot/apps-script/DiscrepancyCheck.js](../sheets-snapshot/apps-script/DiscrepancyCheck.js) line 127, `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1zHDDtoHrjM8uoBsBoVffT09BqOZKRKPFfCDQEpi2CgE` (Rent-A-Sensei Booking). Hold this step until [ClickUp 86ahnq2z2](https://app.clickup.com/t/86ahnq2z2) confirms the GHL → sheet workflow actually writes; otherwise the failsafe and the workflow may race or double-write.
 
 ### Open questions for Tom (in the draft email)
 
@@ -176,11 +177,11 @@ and lives in Gmail Drafts.
 
 ---
 
-## 5. Balloons add-on, FIELDS LIVE, FORM ASSIGNED TO AMINA (sub-form of Birthday Parties)
+## 5. Balloons add-on, LIVE (sub-form of Birthday Parties)
 
-Triggered when a Birthday Party customer selects "Custom Balloon Decor"
-in the Special Add-Ons. Tom's wife Emily runs the work
-(`Balloonsontheave@gmail.com`).
+Designed to be triggered when a Birthday Party customer selects
+"Custom Balloon Decor" in the Special Add-Ons. Tom's wife Emily runs
+the work (`Balloonsontheave@gmail.com`).
 
 ### Done
 
@@ -188,26 +189,24 @@ in the Special Add-Ons. Tom's wife Emily runs the work
 - [x] Spec'd all 14 fields with prices
 - [x] GHL folder `Balloons` (id `Snj5a0BsE8Y6ehLgXwl8`) plus all 14 fields created via API on 2026-05-14
 - [x] Field IDs saved to `.claude/scratch/ghl_balloons_ids.json`
-- [x] ClickUp task created and assigned to Amina, due Saturday 2026-05-16 ([ClickUp 86ahfhfjp](https://app.clickup.com/t/86ahfhfjp))
+- [x] ClickUp task created, assigned to Amina, due 2026-05-16 ([ClickUp 86ahfhfjp](https://app.clickup.com/t/86ahfhfjp))
 - [x] Subtask for the internal notification workflow assigned ([ClickUp 86ahfhfpz](https://app.clickup.com/t/86ahfhfpz))
+- [x] **Form composed, published, and shipped 2026-05-18 by Amina**: form id `SvXq0KmUb1Ct2AR2t8Yl`
+- [x] **Failsafe bot wired up** — `DC_FORM_BALLOONS` constant in [DiscrepancyCheck.js](../sheets-snapshot/apps-script/DiscrepancyCheck.js) line 128 is populated; `_dcCheckBalloons()` is called from `runDiscrepancyCheck()` at line 323 and writes to sheet `1OZbb_0lmCCSRKZHn0X_UgDkY_Sckbw2qyt2H3gIRDJ8` (Balloons by Balloons on the Ave)
+- [x] **Google Sheets workflow built and live** ([ClickUp 86ahhe0gj](https://app.clickup.com/t/86ahhe0gj))
+- [x] **Embedded as a placeholder on [funnel/birthday-parties.html](../funnel/birthday-parties.html)** (line 693) — this is the *current state*, not the *desired state*. Once the real Birthday Parties form is built (§3 above), this embed should be swapped out and Balloons should only appear as a conditional sub-form inside it.
 
-### Remaining (Amina)
+### Verification still pending
 
-- [ ] Compose form in GHL, use standard contact fields for the customer's Name / Phone / Email
-- [ ] Wire conditional logic on the Additional Feet of Garland field (show only when Custom length is picked)
-- [ ] Implement $300 minimum booking floor validation
-- [ ] Auto-forward order detail to `Balloonsontheave@gmail.com` after submission
-- [ ] Wire waiver redirect with email / name / phone query params
-
-### After Amina ships
-- [ ] Paste the published form ID into `DC_FORM_BALLOONS` in `Tom_Systema_Floyd/sheets-snapshot/apps-script/DiscrepancyCheck.js` and `clasp push`. Failsafe activates on the next 15-min run, writes to sheet `1OZbb_0lmCCSRKZHn0X_UgDkY_Sckbw2qyt2H3gIRDJ8` (Balloons by Balloons on the Ave)
+- [ ] Run a real test submission and confirm it lands in the destination sheet AND triggers Emily's notification at `Balloonsontheave@gmail.com`. Track via [ClickUp 86ahnq2z2](https://app.clickup.com/t/86ahnq2z2). For the test, either use a clearly-test name ("AMINA TEST – DO NOT FULFILL") or temporarily remove Emily from notifications during the test and re-add immediately after.
 
 ### Decision pending
 
 The form will eventually be triggered as a conditional sub-form from
-inside Birthday Parties. For now Amina is building it as a **standalone
-form** so it can be referenced directly. We will wire the Birthday Party
-trigger once that form is built.
+inside Birthday Parties. For now it lives as a **standalone form** that
+both (a) is referenceable directly and (b) is acting as the placeholder
+embed on `birthday-parties.html`. Once Birthday Parties is built we
+wire the trigger and remove the standalone embed.
 
 ### Open questions for Emily (in the draft email via Tom)
 

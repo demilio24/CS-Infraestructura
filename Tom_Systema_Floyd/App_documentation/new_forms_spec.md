@@ -10,16 +10,18 @@ existing-page link he promised has not arrived.
 
 For a per-form punch list of outstanding work, see [forms_todos.md](./forms_todos.md).
 
-## Build status snapshot
+## Build status snapshot (updated 2026-05-23)
 
 | Form | Spec'd | GHL fields created | GHL form built | Notes |
 |---|---|---|---|---|
-| Vladimir Seminar | ⏳ shape only | ❌ | ❌ | Waiting on Tom (date, page link, pricing, capacity, waiver) |
-| **Private Lessons** | ✅ | ✅ **2026-05-14** | 🟡 in progress via Chrome extension | Folder + 12 fields live, see IDs below |
-| Birthday Parties | ✅ fields only | ❌ | ❌ | 17 prices still missing from Tom |
-| **Rent-A-Sensei** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 12 fields live, see IDs below |
-| **Balloons** | ✅ | ✅ **2026-05-14** | ❌ | Folder + 14 fields live, see IDs below |
+| **Vladimir Seminar** | ⏳ shape only | ✅ **2026-05-18** (inline by Amina) | ✅ **PUBLISHED 2026-05-18** `Zu7nHwEILIJnkKyvtnbB` | Custom-field IDs still TBD, see §Vladimir Seminar |
+| **Private Lessons** | ✅ | ✅ **2026-05-14** | ✅ **PUBLISHED 2026-05-22** `Cpk2gmz9dcumDiz2KFun` | Rule B conditional-logic bug admitted by Amina in [ClickUp thread `90130268726557`](https://app.clickup.com/t/86ahfhfj3). Embedded on [funnel/private-lessons.html](../funnel/private-lessons.html) 2026-05-23. |
+| Birthday Parties | ✅ fields only | ❌ | ❌ | 17 prices still missing from Tom. NOT YET A SEPARATE GHL FORM, see §Birthday Parties. `birthday-parties.html` currently embeds the Balloons form as a placeholder. |
+| **Rent-A-Sensei** | ✅ | ✅ **2026-05-14** | ✅ **PUBLISHED 2026-05-22** `myEoOLL1SKGv0IvSF4ur` | Embedded on [funnel/rent-a-sensei.html](../funnel/rent-a-sensei.html) 2026-05-23. |
+| **Balloons** | ✅ | ✅ **2026-05-14** | ✅ **PUBLISHED 2026-05-18** `SvXq0KmUb1Ct2AR2t8Yl` | Acting as the placeholder embed on [funnel/birthday-parties.html](../funnel/birthday-parties.html) until the real Birthday Parties form is built. |
 | Teen & Adult Classes | ⏸ | ❌ | ❌ | Paused until next school year schedule lands |
+
+**Verification task open:** [ClickUp 86ahnq2z2 "Verify Form Functionality"](https://app.clickup.com/t/86ahnq2z2) (urgent, due 2026-05-25). Amina needs to confirm each form: (1) appends to the correct Google Sheet via its `Add Row to Spreadsheet` workflow, (2) sends the right per-form notification email template, (3) redirect lands on `/waiver` with all three query params. Use `test@nilsllc.com` + the NILS LLC phone number for test submissions.
 
 ### Private Lessons, live GHL IDs (Systema Floyd FL, location `8IWtNFlmgJ8bif9DivHT`)
 
@@ -29,6 +31,12 @@ Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 **Folder**: `Private Lessons`, id `X4a97HKQJdXVkGV6R4Vg`
 
 **Destination Google Sheet**: `Private Lesson Booking`, id `1XVh9pBOwddr-wCZ4eIxA39htmEdGGGx_WRgDun1C_mU` (owned by `systemafloydsheets@gmail.com`, lives in the shared `Form Submissions` Drive folder `1YnCaA46sLC57w7A3vZf0tEGgZv9aoUxN`). Column order on `Sheet1`: `Contact ID | Full Name | Phone | Email | State | Instructor | Lesson Length & Price | Number of Students | Training Type | Age Group | Package | Preferred Date | Preferred Time` (13 cols).
+
+**GHL form (PUBLISHED 2026-05-22 by Amina)**: form id `Cpk2gmz9dcumDiz2KFun`
+- Form builder: `https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/form-builder-v2/Cpk2gmz9dcumDiz2KFun`
+- Embed location: [funnel/private-lessons.html](../funnel/private-lessons.html), hero `.page-hero-form#register` (2026-05-23)
+- **Known bug — Rule B conditional logic partially broken**: Amina admitted in [ClickUp thread `90130268726557`](https://app.clickup.com/t/86ahfhfj3) that the Instructor → Training Type lock (Evenson=Boxing only, Jessica/Bianca/Carolina=Dance only) is not fully working. Form is live and submittable, but conditional UI may misbehave for those instructor selections. Mitigation plan: walk Amina through using code nodes for conditional logic in a recorded video.
+- **Verification pending**: see [ClickUp 86ahnq2z2](https://app.clickup.com/t/86ahnq2z2).
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
@@ -53,6 +61,11 @@ Map written to `.claude/scratch/ghl_rent_a_sensei_ids.json`.
 **Folder**: `Rent-A-Sensei`, id `RbjiHT0moCfDgm5OEnHW`
 
 **Destination Google Sheet**: `Rent-A-Sensei Booking`, id `1zHDDtoHrjM8uoBsBoVffT09BqOZKRKPFfCDQEpi2CgE`. Column order on `Sheet1`: `Contact ID | Parent Name | Phone | Email | Service Type | Number of Children | Duration | Full Address | Date | Start Time | End Time | Confirm: not for parties or events | Special instructions / extra children info` (13 cols).
+
+**GHL form (PUBLISHED 2026-05-22 by Amina)**: form id `myEoOLL1SKGv0IvSF4ur`
+- Form builder: `https://app.nilsdigital.com/v2/location/8IWtNFlmgJ8bif9DivHT/form-builder-v2/myEoOLL1SKGv0IvSF4ur`
+- Embed location: [funnel/rent-a-sensei.html](../funnel/rent-a-sensei.html), `.ras-block#register` section (2026-05-23). The page's "Looking for a party?" CTA now points at `/birthday-parties` so users on Rent-A-Sensei who actually want a party flow get routed correctly.
+- **Verification pending**: see [ClickUp 86ahnq2z2](https://app.clickup.com/t/86ahnq2z2).
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
@@ -249,10 +262,25 @@ If package = "10 Sessions Pack":
 
 ---
 
-## 3. Birthday Parties (Priority #3), *PRICES MISSING*
+## 3. Birthday Parties (Priority #3), *PRICES MISSING — NOT YET BUILT*
 
 > Source: `IMG_0316.jpeg` from Juliana on May 4. No prices yet, each priced
 > option below has `($ {…} )` until Tom sends them.
+
+> **NOT THE SAME AS THE BALLOONS FORM.** Balloons (§5 below, GHL id
+> `SvXq0KmUb1Ct2AR2t8Yl`) is the *decoration sub-form for Emily*
+> — it lives inside the Birthday Parties flow as one of the Special
+> Add-Ons. The Birthday Parties form itself is a separate, larger
+> form covering venue choice, party size, food, premium extras, etc.
+> and **does not exist in GHL yet**.
+>
+> Tom escalated on **2026-05-22** ("Party page" email thread) asking
+> for the party page to have its own choices (home vs Systema gym vs
+> event space, party-size tiers, date, theme, age range). Emilio
+> committed in the reply but cannot build until Tom sends the 17 prices
+> below. Until then, [funnel/birthday-parties.html](../funnel/birthday-parties.html)
+> embeds the Balloons form as a placeholder so visitors hit *something*
+> bookable.
 
 | # | Label | Placeholder / help text | Type | Req | Field key | Options / notes |
 |---|---|---|---|---|---|---|

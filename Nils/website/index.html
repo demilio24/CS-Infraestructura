@@ -30,6 +30,9 @@
   <link rel="stylesheet" href="/Nils/website/assets/css/footer.css">
   <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
   <link rel="stylesheet" href="/Nils/website/assets/css/home.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/about.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/proof.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/contact.css">
 
   <!-- Site JS -->
   <script src="/Nils/website/assets/js/nav.js" defer></script>
@@ -62,7 +65,7 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- NAV (anchor-linked, blog stays as separate page) -->
   <header class="site-nav">
     <div class="container nav-inner">
       <a class="brand" href="/Nils/website/">Nils</a>
@@ -70,16 +73,16 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav-links">
-        <a href="/Nils/website/about.html">About</a>
-        <a href="/Nils/website/proof.html">Proof</a>
+        <a href="#about">About</a>
+        <a href="#proof">Proof</a>
         <a href="/Nils/website/blog/">Blog</a>
-        <a href="/Nils/website/contact.html">Contact</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <!-- SECTION 1: Hero (V3 centered with logo strip) -->
-  <section class="home-hero v3 bg-dotgrid anim">
+  <!-- HERO -->
+  <section id="top" class="home-hero v3 bg-dotgrid anim">
     <div class="container">
       <div class="logo-strip">
         <span>CLIENT A</span>
@@ -94,8 +97,8 @@
     </div>
   </section>
 
-  <!-- SECTION 2: Route halves (V2 copy + B3 button) -->
-  <section class="home-route-halves anim">
+  <!-- ROUTE HALVES (#offers, the only place they appear) -->
+  <section id="offers" class="home-route-halves anim">
     <div class="route-halves">
       <a class="route-half marketing" href="/Nils/funnel/vsl.html">
         <div class="ico">&#128200;</div>
@@ -112,98 +115,198 @@
     </div>
   </section>
 
-  <!-- SECTION 3: Proof teaser (V4 Trustpilot header + 3-card grid) -->
-  <section class="home-proof v4 anim">
-    <div class="container">
-      <span class="label">Receipts</span>
-      <div class="tp-header">
-        <div class="tp-stars-row">
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
+  <!-- PROOF (#proof, full section, no duplicate route halves) -->
+  <section id="proof" class="anim">
+
+    <!-- Proof hero (V3 layout + V1 copy) -->
+    <div class="proof-hero v3">
+      <div class="container">
+        <span class="eyebrow">Receipts</span>
+        <h1>Real businesses. Real numbers. Real results.</h1>
+        <p class="lead">Pulled from active client accounts: ad spend managed, hours reclaimed, reviews collected, leads booked. The kind of receipts you can verify.</p>
+        <div class="proof-filter">
+          <button class="pill active" type="button" data-filter="all">All</button>
+          <button class="pill marketing" type="button" data-filter="marketing">Marketing</button>
+          <button class="pill automation" type="button" data-filter="automation">Automation</button>
         </div>
-        <div class="tp-headline">Trusted by local service operators</div>
-        <div class="tp-meta">Excellent &middot; 5.0 &middot; Verified reviews</div>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial video marketing">
-          <span class="cat">Marketing</span>
-          <div class="video-wrap">
-            <video controls preload="metadata" playsinline>
-              <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4#t=127" type="video/mp4">
-            </video>
-          </div>
-          <p class="sub">"We have seen a huge jump in revenue." Opt-in rate up from 3% to 20.83%.</p>
-          <div class="attribution">
-            <div class="portrait" aria-hidden="true"></div>
-            <span class="name">Wendy Cox</span>
-          </div>
-        </div>
-        <div class="testimonial video marketing">
-          <span class="cat">Marketing</span>
-          <div class="video-wrap">
-            <video controls preload="metadata" playsinline>
-              <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4" type="video/mp4">
-            </video>
-          </div>
-          <p class="sub">"Best decision we could have made for our company." Fast, attentive, genuinely invested.</p>
-          <div class="attribution">
-            <div class="portrait" aria-hidden="true"></div>
-            <span class="name">Jessica Schlenz</span>
-          </div>
-        </div>
-        <div class="testimonial review-card automation">
-          <span class="cat">Automation</span>
-          <div class="review-screenshot">
-            <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg" alt="Keila Mulero's Trustpilot review" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="review-mock" style="display:none;">
-              <div class="tp-brand">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="#00b67a"><path d="M12 2l2.45 6.6H21l-5.4 3.9 2.05 6.6L12 15.1l-5.65 4 2.05-6.6L3 8.6h6.55z"/></svg>
-                <span>Trustpilot</span>
+    </div>
+
+    <!-- Proof cases (V1 compact, two columns by topic) -->
+    <div class="proof-cases v1">
+      <div class="container">
+        <h2>The work, sorted by what you came for.</h2>
+        <div class="columns">
+          <div class="col marketing">
+            <div class="col-head">Marketing wins</div>
+            <article class="case marketing video">
+              <span class="cat">Marketing</span>
+              <div class="video-wrap">
+                <video controls preload="metadata" playsinline>
+                  <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4#t=127" type="video/mp4">
+                </video>
               </div>
-              <div class="stars">
-                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
-                <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 1l2.45 6.6H19l-5.4 3.9 2.05 6.6L10 14.1l-5.65 4 2.05-6.6L1 7.6h6.55z"/></svg>
+              <h3>"We have seen a huge jump in revenue."</h3>
+              <div class="body"><p>Opt-in rate up from 3% to 20.83%. Booked-call volume followed.</p></div>
+              <span class="result">Conversion: 3% to 20.83%</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Wendy Cox</span>
               </div>
-              <div class="review-title">Outstanding work</div>
-              <p class="review-body">Real review text goes here once confirmed.</p>
-              <div class="review-author">Keila Mulero</div>
+            </article>
+            <article class="case marketing video">
+              <span class="cat">Marketing</span>
+              <div class="video-wrap">
+                <video controls preload="metadata" playsinline>
+                  <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>"Best decision we could have made for our company."</h3>
+              <div class="body"><p>Fast, attentive, genuinely invested. The team behaves like an in-house department, not an agency.</p></div>
+              <span class="result">5.0 partnership rating</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Jessica Schlenz</span>
+              </div>
+            </article>
+            <div class="stats-row">
+              <span>$2.4M+ ad spend</span>
+              <span>4.7x avg ROAS</span>
+              <span>23 clients</span>
             </div>
           </div>
-          <div class="attribution">
+
+          <div class="col automation">
+            <div class="col-head">Automation wins</div>
+            <article class="case automation review">
+              <span class="cat">Automation</span>
+              <div class="review-image">
+                <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg" alt="Keila Mulero Trustpilot review">
+              </div>
+              <h3>"They built exactly what we needed."</h3>
+              <div class="body"><p>Custom intake automation, document handling, status updates. The kind of system you don't notice until you try working without it.</p></div>
+              <span class="result">80% intake on AI</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Keila Mulero</span>
+              </div>
+            </article>
+            <article class="case automation">
+              <span class="cat">Automation</span>
+              <h3>Savvy Compliance reclaimed 40 hours every week.</h3>
+              <div class="body"><p>Manual onboarding, fragmented data, days-long reports. We mapped every workflow, automated the bottlenecks, and gave the team their week back.</p></div>
+              <span class="result">40 hrs/wk reclaimed</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Savvy Compliance ops</span>
+              </div>
+            </article>
+            <div class="stats-row">
+              <span>40 hrs/wk reclaimed</span>
+              <span>80% intake on AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT (#about, full section, no duplicate route halves) -->
+  <section id="about" class="anim">
+
+    <!-- About hero (V2 portrait-led asymmetric) -->
+    <div class="about-hero v2">
+      <div class="container">
+        <div class="inner">
+          <div>
+            <span class="eyebrow">Who runs this</span>
+            <h1>Hi, I'm Emilio. I started Nils because every $1M+ local service owner I knew was <em class="accent-marketing">trapped</em> running their own business.</h1>
+            <p class="lead">Six years later we install the marketing systems that bring leads in and the automations that take busywork out, so owners can build instead of maintain.</p>
+          </div>
+          <div class="portrait" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story + team (V2 timeline + portrait strip) -->
+    <div class="about-story v2">
+      <div class="container">
+        <h2>Six years, four chapters.</h2>
+
+        <div class="timeline">
+          <div class="milestone">
+            <span class="year">2019</span>
+            <p>Started as a one-man shop building websites for solo operators. The thesis: a sharp site can punch way above its price tag for local businesses.</p>
+          </div>
+          <div class="milestone">
+            <span class="year">2021</span>
+            <p>Added Google Ads management. Clients kept hitting the same ceiling: a good site doesn't matter if nobody finds it.</p>
+          </div>
+          <div class="milestone">
+            <span class="year">2023</span>
+            <p>Built the review-automation layer that turned every happy customer into a referral engine. Now a core part of the marketing stack.</p>
+          </div>
+          <div class="milestone">
+            <span class="year">2025</span>
+            <p>Launched the automation audit. Existing clients kept asking us to take the manual work out of their operations, so we systemized the answer.</p>
+          </div>
+        </div>
+
+        <div class="team-strip">
+          <div class="member">
             <div class="portrait" aria-hidden="true"></div>
-            <span class="name">Keila Mulero</span>
+            <span class="name">Emilio</span>
+            <span class="role">Founder</span>
+          </div>
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">AK</span>
+            <span class="role">Automations</span>
+          </div>
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">Amina</span>
+            <span class="role">Accounts</span>
+          </div>
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">Brian</span>
+            <span class="role">Build</span>
           </div>
         </div>
       </div>
-      <a class="see-all" href="/Nils/website/proof.html">See all case studies &rarr;</a>
     </div>
-  </section>
 
-  <!-- SECTION 4: About teaser (V1 portrait + paragraph) -->
-  <section class="home-about v1 anim">
-    <div class="container">
-      <span class="label">Who runs this</span>
-      <div class="inner">
-        <div class="emilio-portrait" aria-hidden="true"></div>
-        <div>
-          <h2>Run by an <em class="accent-marketing">operator</em>, not an agency.</h2>
-          <div class="body">
-            <p>Nils Digital is a small team led by Emilio. We've installed marketing and automation systems for $1M+ local service businesses for the better part of a decade.</p>
-            <p>Not a faceless agency. Not a one-man army. A proven team, right in the sweet spot.</p>
-          </div>
-          <a class="see-all" href="/Nils/website/about.html">Read the full story &rarr;</a>
+    <!-- Process FAQ (V3, FAQ only — route halves removed since #offers handles routing) -->
+    <div class="about-process v3">
+      <div class="container">
+        <h2>What working with Nils actually looks like.</h2>
+
+        <div class="faq">
+          <details>
+            <summary>How long does the marketing system take to install?</summary>
+            <p>The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
+          </details>
+          <details>
+            <summary>What does the automation audit actually deliver?</summary>
+            <p>A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
+          </details>
+          <details>
+            <summary>Do you take on businesses under $1M?</summary>
+            <p>Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
+          </details>
+          <details>
+            <summary>What happens if it doesn't work?</summary>
+            <p>If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
+          </details>
         </div>
       </div>
     </div>
+
   </section>
 
-  <!-- SECTION 5: Blog teaser (V4 wide featured + 2 narrow) -->
+  <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
   <section class="home-blog v4 anim">
     <div class="container">
       <span class="label">From the blog</span>
@@ -238,6 +341,20 @@
     </div>
   </section>
 
+  <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
+  <section id="contact" class="anim">
+    <div class="contact-hero">
+      <div class="container">
+        <span class="eyebrow">Book a call</span>
+        <h1>Bookings happen inside the system pages.</h1>
+        <p class="lead">Click the one that's right for you, watch the breakdown, and the calendar lives at the bottom of the page. Or scroll up to <a href="#offers" style="color: var(--marketing); text-decoration: underline;">pick a system</a>.</p>
+      </div>
+    </div>
+    <div class="contact-mailto container">
+      Other questions? <a href="mailto:emilio@nilsdigital.com">emilio@nilsdigital.com</a>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -248,10 +365,10 @@
       <nav class="footer-nav">
         <div class="footer-col">
           <h6>Explore</h6>
-          <a href="/Nils/website/about.html">About</a>
-          <a href="/Nils/website/proof.html">Proof</a>
+          <a href="#about">About</a>
+          <a href="#proof">Proof</a>
           <a href="/Nils/website/blog/">Blog</a>
-          <a href="/Nils/website/contact.html">Contact</a>
+          <a href="#contact">Contact</a>
         </div>
         <div class="footer-col">
           <h6>Get started</h6>
@@ -265,6 +382,30 @@
     </div>
     <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   </footer>
+
+  <!-- Filter-pill handler: toggle column visibility in #proof -->
+  <script>
+    document.querySelectorAll('.proof-filter .pill').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.proof-filter .pill').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        const f = p.dataset.filter;
+        const mCol = document.querySelector('.proof-cases.v1 .col.marketing');
+        const aCol = document.querySelector('.proof-cases.v1 .col.automation');
+        if (!mCol || !aCol) return;
+        if (f === 'all') {
+          mCol.style.display = '';
+          aCol.style.display = '';
+        } else if (f === 'marketing') {
+          mCol.style.display = '';
+          aCol.style.display = 'none';
+        } else if (f === 'automation') {
+          mCol.style.display = 'none';
+          aCol.style.display = '';
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
