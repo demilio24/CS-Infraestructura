@@ -27,7 +27,7 @@ This folder holds every web asset built for **Nils Digital** (Emilio's own agenc
 ### Top-level pages (client-portal + sales support)
 - `team.html` — Nils Digital team directory (Inter, light slate background, sticky card list + examples panel)
 - `presentation.html` — full-screen slide deck of "The Offer" (black bg, keyboard/click navigation)
-- `presentation-audit.html` — full-screen slide deck for the **14-Day Audit** ($1,400 standalone deliverable). Sibling visual to `presentation.html` (blue glassmorphism, same fonts). 7 slides: Hero, Problem, Metaphor, Offer, Process, Questions, Investment. Built-in EN/ES toggle (top-right pill) with manual Latin American Spanish translation; selection persists in `localStorage` under key `nils-audit-deck-lang`. Translation map lives in the inline `<script>` as a single `i18n = { en, es }` object keyed by `data-i18n` attrs.
+- `presentation-audit.html` — full-screen slide deck for the **14-Day Audit** ($3,000 standalone deliverable; bumped from $1,400 on 2026-05-25). Sibling visual to `presentation.html` (blue glassmorphism, same fonts). 7 slides: Hero, Problem, Metaphor, Offer, Process, Questions, Investment. Built-in EN/ES toggle (top-right pill) with manual Latin American Spanish translation; selection persists in `localStorage` under key `nils-audit-deck-lang`. Translation map lives in the inline `<script>` as a single `i18n = { en, es }` object keyed by `data-i18n` attrs.
 - `nextchapter.html` — fullscreen slide deck pitch ("The Next Chapter")
 - `nils-proof.html` — proof / case-study display (Trustpilot green `#00b67a`)
 - `urgency.html` — "Why decide today" page (white, narrow column)
@@ -86,8 +86,13 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
-### 2026-05-25 (passthrough) — No content changes
-`presentation-audit.html` shows as modified in the working tree from prior in-flight edits surfaced via `git stash pop` during Tristan_AquanautsAcademy work. No Nils-specific work this session.
+### 2026-05-25 — Audit deck polish: price bump, centering fix, hero proof bar, mobile
+- **Price bumped from $1,400 → $3,000** on the Investment slide of `presentation-audit.html`. Same currency, same layout, just the displayed amount.
+- **Centering fix:** `.center-stack` is now `display: flex; flex-direction: column; align-items: center` so the subtext block actually centers under the headline instead of left-aligning within the wider implicit container.
+- **Hero proof bar added** under the CTA: "100+ Audits delivered" · five-star "Rated Excellent on Trustpilot". Translated for ES.
+- **Headlines capped at 3 lines max** across all slides: global `.headline` font cap dropped 58 → 48px with `text-wrap: balance`; hero override dropped 68 → 42px with widened column (`1.35fr 1fr`). Verified at 1440 and 1920.
+- **Mobile fixes** (found while expanding test coverage): nav arrows were clipping into the centered paragraph on slide 2 at <640px → hidden on mobile (swipe still works); slide 5 timeline was taller than viewport with content clipped above the headline → `.slide` now `overflow-y: auto` and `justify-content: flex-start` on mobile.
+- **Test coverage:** `.claude/shot-audit-deck.js` now sweeps 3 viewports (1920 / 1440 / 390) × 2 languages × 7 slides = 42 shots per run.
 
 ### 2026-05-24 — Built `presentation-audit.html` (14-Day Audit pitch deck)
 New sales-deck sibling to `presentation.html` for selling the **14-Day Audit** as a standalone $1,400 deliverable (no credit toward future build; positioned as the diagnosis step before any quote). 7 slides: Hero ("The first step towards automation isn't tools. It's an automation blueprint"), Problem (tools-without-plan), Metaphor (surgeon-without-diagnosis pivot to "we can't quote without research"), Offer (single document with every integration / automation / code node / decision), Process (5-phase timeline: Days 1-2 Kickoff, 3-4 Deep Dive, 5-9 Architecture, 10-12 Blueprint Build, Day 14 Walkthrough), Questions (4 Q&As), Investment ($1,400 one-time, 7 bullets, CTA). Visual = sibling to marketing deck (blue glassmorphism, glass orbs, Google Sans / DM Sans / Instrument Sans, same chrome). Voice extracted from `funnel/automation-vsl-funnel-direct.html` (the existing Nils-authored automation funnel where the audit pitch lived as embedded sections). **EN/ES toggle baked in** (top-right pill, persists via `localStorage`) with manual Latin American Spanish translation, not auto-translated — every Spanish string hand-tuned to read naturally. Verified visually in both languages via `.claude/shot-audit-deck.js` (14 screenshots, layout clean across all density-heavy slides like the 5-phase timeline and 2×2 questions grid). Open: deck still pushes to `nilsdigital.com/client` for booking; if a dedicated audit-call calendar gets created, swap the CTA hrefs (2 places).
