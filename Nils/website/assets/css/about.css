@@ -322,42 +322,41 @@
 }
 
 /* V3 — FAQ-style collapsible process */
-.about-process.v3 .faq {
+.about-process.v3 .faq-article {
   max-width: 760px;
   margin: 0 auto var(--space-7);
 }
-.about-process.v3 details {
-  border-bottom: 1px solid var(--ink-line);
-  padding: var(--space-4) 0;
-}
-.about-process.v3 details:first-child {
+.about-process.v3 .faq-article .entry {
+  padding: var(--space-6) 0;
   border-top: 1px solid var(--ink-line);
 }
-.about-process.v3 summary {
-  cursor: pointer;
+.about-process.v3 .faq-article .entry:last-child {
+  border-bottom: 1px solid var(--ink-line);
+}
+.about-process.v3 .faq-article .index {
   font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
   font-weight: var(--fw-display-bold);
-  font-size: var(--fs-body-lg);
+  margin-bottom: var(--space-3);
+  display: block;
+}
+.about-process.v3 .faq-article h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
   color: var(--ink);
-  list-style: none;
-  position: relative;
-  padding-right: var(--space-5);
+  margin-bottom: var(--space-4);
 }
-.about-process.v3 summary::-webkit-details-marker { display: none; }
-.about-process.v3 summary::after {
-  content: '+';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: var(--marketing);
-}
-.about-process.v3 details[open] summary::after { content: '\2212'; }
-.about-process.v3 details p {
+.about-process.v3 .faq-article p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
   color: var(--ink-soft);
-  margin: var(--space-3) 0 0;
   line-height: var(--lh-relaxed);
+  margin: 0;
 }
 
 @media (max-width: 720px) {
