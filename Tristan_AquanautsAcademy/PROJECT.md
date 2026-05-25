@@ -67,6 +67,23 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-25 — Two funnel variations live + GHL form setup + verified booking redirect map
+- Wrote locked-in home page copy at `copy/home-final.md` (mirrors Center Lane Swim's 12-section structure exactly).
+- Built **Variation A** (`funnel/home.html`, light/coral approachable) and **Variation B** (`funnel/home-b.html`, dark cosmic editorial). Same structure + copy, distinct visual styles. Both have filter bubbles on Programs (6 categories) and Team (5 locations), category filter on FAQ (4 categories), and 30+ real Wix CDN images. Puppeteer QA: 48 desktop + mobile screenshots, zero em-dashes in either file.
+- Pushed both to GitHub Pages:
+  - A: https://demilio24.github.io/Websites/Tristan_AquanautsAcademy/funnel/home.html
+  - B: https://demilio24.github.io/Websites/Tristan_AquanautsAcademy/funnel/home-b.html
+- Created two GHL custom contact fields on Tristan's sub-account (`xBWIIj9IjYQL2XdtjJ1A`):
+  - `Program of interest` → id `6JTnsxZJBRqmgcDKDNnc`, key `contact.program_of_interest`, 7 options
+  - `Closest location` → id `uv5pZioA9EuxVABXNpxy`, key `contact.closest_location`, 8 options
+- Studied existing booking flow + Jane App. Verified 8 location deep links, 10 staff-member hash-fragment IDs. Service-level deep links don't exist on this Jane tenant. Updated [lead_form_routing.md](lead_form_routing.md) with the verified Program × Location → URL matrix; full research in [booking_flow_map.md](booking_flow_map.md).
+- API gotchas learned: GHL custom field POST expects `options: ["string","string"]` (plain strings, not objects, property name is `options` not `picklistOptions`). GHL rejects Python's default User-Agent at Cloudflare (1010); always send a real browser UA. Local `.ghl_creds.json` cache drifts because n8n rotates tokens; re-pull from Supabase before long script runs.
+
+Open at end of session:
+- Manual GHL UI step: create a folder "Aquanauts Funnel" under Sites > Forms (public API doesn't expose folder creation).
+- Site-wide image inventory agent still running in the background.
+- Image upload to GHL media library pending image inventory completion.
+
 ### 2026-05-24 (later, passthrough) — No content changes
 Folder was touched by a `git stash`/rebase pass during unrelated Charles_Notary CTA work (CRLF normalization warning on `lead_form_routing.md`). No file contents changed; folder still uncommitted/untracked. Logging only to satisfy the PROJECT.md hook.
 

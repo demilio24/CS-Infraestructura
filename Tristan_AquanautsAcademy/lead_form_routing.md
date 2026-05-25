@@ -1,27 +1,47 @@
 # Aquanauts — Lead Form Routing Map
 
-The new funnel will have a Center Lane style embedded GHL form in the hero. After submit, route the visitor to the right destination page on the existing Aquanauts site (or a future dedicated landing page).
+The new funnel has a Center Lane style embedded GHL form in the hero. After submit, route the visitor to the right destination using a Workflow with conditional `Custom Redirect URL` steps based on the contact's `program_interest` and `closest_location` answers.
 
-This file is the single source of truth for the form's redirect logic. Pair it with the GHL form builder: each "Interested in…" or "Location" answer maps to a Custom Redirect URL on form submit (GHL supports per-answer redirects via workflow).
+**Verified against the live site + Jane App on 2026-05-25.** Per-location Jane App deep links DO exist and we should use them. Per-service and per-instructor deep links via URL do not exist as fully-qualified paths (instructor IDs work as hash fragments but the user still picks the service on the next screen). Full verification report and 10-instructor staff-ID table in [booking_flow_map.md](booking_flow_map.md).
 
 ---
 
-## Primary intent → destination
+## GHL custom field IDs (created 2026-05-25)
 
-The first form field is "What are you looking for?". One required selection. Each option maps to one redirect.
+These are the field IDs the form writes into and the workflow reads from to decide the redirect:
 
-| Form option (visitor sees) | Audience | Redirect URL |
+| Field | Internal key | Field ID |
 |---|---|---|
-| Private swim lessons for my child | General | https://www.aquanautsacademy.ca/swim-lessons |
-| Private swim lessons for my child with autism, ADHD, or sensory needs | Adaptive | https://www.aquanautsacademy.ca/adaptive-aquatics |
-| Swim lessons for me (adult) | Adult | https://www.aquanautsacademy.ca/private-swim-lessons-for-adults |
-| Mobile lessons at my private pool | General + Premium | https://www.aquanautsacademy.ca/mobile-swim-lessons |
-| Lifeguard for a private event or facility | B2B | https://www.aquanautsacademy.ca/lifeguarding-services |
-| Aquayoga (gentle in-water yoga) | Adult wellness | https://www.aquanautsacademy.ca/aquayoga |
-| Pool host (rent my pool to Aquanauts) | B2B | https://www.aquanautsacademy.ca/pool-hosts |
-| Partnership for our school or organization | B2B | https://www.aquanautsacademy.ca/partnerships |
-| Sponsorship for a swimmer or family | B2B | https://www.aquanautsacademy.ca/sponsorship |
-| Just exploring, talk to me first | All | https://aquanautsacademy.janeapp.com/ (free assessment booking flow) |
+| Program of interest | `contact.program_of_interest` | `6JTnsxZJBRqmgcDKDNnc` |
+| Closest location | `contact.closest_location` | `uv5pZioA9EuxVABXNpxy` |
+
+---
+
+## Primary redirect matrix (Program × Location)
+
+For self-serve programs (Private 1:1, Family/Semi-Private, Adult, Mobile), route directly to the closest Jane App location deep link. For consultation-first programs (Adaptive, Lifeguarding) keep the content page in the loop so we don't burn warm intent on a self-serve booking flow.
+
+| Program | Location | Redirect URL |
+|---|---|---|
+| Private 1:1 lessons | Nanaimo | https://aquanautsacademy.janeapp.com/locations/nanaimo-south-location/book |
+| Private 1:1 lessons | Nanoose / Parksville | https://aquanautsacademy.janeapp.com/locations/parksville-location-private-indoor-pool/book |
+| Private 1:1 lessons | Victoria | https://aquanautsacademy.janeapp.com/locations/victoria-location-private-indoor-pool/book |
+| Private 1:1 lessons | Campbell River | https://aquanautsacademy.janeapp.com/locations/campbell-river-naturally-pacific-resort/book |
+| Private 1:1 lessons | Shawnigan / Mobile / other | https://aquanautsacademy.janeapp.com/locations/mobile-swim-lessons-lifeguarding-vancouver-island/book |
+| Family or semi-private | Nanaimo | https://aquanautsacademy.janeapp.com/locations/nanaimo-south-location/book |
+| Family or semi-private | Nanoose / Parksville | https://aquanautsacademy.janeapp.com/locations/parksville-location-private-indoor-pool/book |
+| Family or semi-private | Victoria | https://aquanautsacademy.janeapp.com/locations/victoria-location-private-indoor-pool/book |
+| Family or semi-private | Campbell River | https://aquanautsacademy.janeapp.com/locations/campbell-river-naturally-pacific-resort/book |
+| Family or semi-private | Shawnigan / Mobile / other | https://aquanautsacademy.janeapp.com/locations/mobile-swim-lessons-lifeguarding-vancouver-island/book |
+| Adult lessons | Nanaimo | https://aquanautsacademy.janeapp.com/locations/nanaimo-south-location/book |
+| Adult lessons | Nanoose / Parksville | https://aquanautsacademy.janeapp.com/locations/parksville-location-private-indoor-pool/book |
+| Adult lessons | Victoria | https://aquanautsacademy.janeapp.com/locations/victoria-location-private-indoor-pool/book |
+| Adult lessons | Campbell River | https://aquanautsacademy.janeapp.com/locations/campbell-river-naturally-pacific-resort/book |
+| Adult lessons | Shawnigan / Mobile / other | https://www.aquanautsacademy.ca/private-swim-lessons-for-adults |
+| Mobile (we come to you) | Any | https://aquanautsacademy.janeapp.com/locations/mobile-swim-lessons-lifeguarding-vancouver-island/book |
+| Adaptive aquatics | Any | https://www.aquanautsacademy.ca/adaptive-aquatics |
+| Lifeguarding services | Any | https://www.aquanautsacademy.ca/lifeguarding-services |
+| Not sure yet | Any | https://aquanautsacademy.janeapp.com/ |
 
 ---
 
