@@ -86,6 +86,9 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-25 (passthrough) — No content changes
+`presentation-audit.html` shows as modified in the working tree from prior in-flight edits surfaced via `git stash pop` during Tristan_AquanautsAcademy work. No Nils-specific work this session.
+
 ### 2026-05-24 — Built `presentation-audit.html` (14-Day Audit pitch deck)
 New sales-deck sibling to `presentation.html` for selling the **14-Day Audit** as a standalone $1,400 deliverable (no credit toward future build; positioned as the diagnosis step before any quote). 7 slides: Hero ("The first step towards automation isn't tools. It's an automation blueprint"), Problem (tools-without-plan), Metaphor (surgeon-without-diagnosis pivot to "we can't quote without research"), Offer (single document with every integration / automation / code node / decision), Process (5-phase timeline: Days 1-2 Kickoff, 3-4 Deep Dive, 5-9 Architecture, 10-12 Blueprint Build, Day 14 Walkthrough), Questions (4 Q&As), Investment ($1,400 one-time, 7 bullets, CTA). Visual = sibling to marketing deck (blue glassmorphism, glass orbs, Google Sans / DM Sans / Instrument Sans, same chrome). Voice extracted from `funnel/automation-vsl-funnel-direct.html` (the existing Nils-authored automation funnel where the audit pitch lived as embedded sections). **EN/ES toggle baked in** (top-right pill, persists via `localStorage`) with manual Latin American Spanish translation, not auto-translated — every Spanish string hand-tuned to read naturally. Verified visually in both languages via `.claude/shot-audit-deck.js` (14 screenshots, layout clean across all density-heavy slides like the 5-phase timeline and 2×2 questions grid). Open: deck still pushes to `nilsdigital.com/client` for booking; if a dedicated audit-call calendar gets created, swap the CTA hrefs (2 places).
 
