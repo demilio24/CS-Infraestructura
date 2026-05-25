@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T19:28:43Z",
+  "generatedAt": "2026-05-25T19:32:07Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -583,12 +583,12 @@
             "label": "No lunch",
             "byDay": {
               "Mon": 10,
-              "Tue": 8,
+              "Tue": 9,
               "Wed": 10,
               "Thu": 10,
-              "Fri": 9
+              "Fri": 10
             },
-            "total": 47,
+            "total": 49,
             "students": [
               {
                 "name": "Austin Shue",
@@ -683,8 +683,10 @@
                 "type": "summer",
                 "days": [
                   "Mon",
+                  "Tue",
                   "Wed",
-                  "Thu"
+                  "Thu",
+                  "Fri"
                 ],
                 "lunchRaw": "None"
               },
@@ -731,12 +733,12 @@
         "totals": {
           "byDay": {
             "Mon": 19,
-            "Tue": 16,
+            "Tue": 17,
             "Wed": 19,
             "Thu": 18,
-            "Fri": 17
+            "Fri": 18
           },
-          "all": 89
+          "all": 91
         }
       },
       "June 8th-12th": {
@@ -8472,10 +8474,10 @@
           "sourceRow": 4,
           "days": [
             true,
-            false,
             true,
             true,
-            false
+            true,
+            true
           ],
           "type": "summer"
         },
