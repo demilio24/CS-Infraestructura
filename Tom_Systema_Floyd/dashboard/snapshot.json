@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T19:02:03Z",
+  "generatedAt": "2026-05-25T19:07:35Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -220,7 +220,7 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 30,
+      "June 1st-5th": 31,
       "June 8th-12th": 30,
       "June 15th-19th": 31,
       "June 22nd-26th": 32,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 18,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 116,
+      "Westward Elementary School": 117,
       "Northboro Elementary School": 57,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
@@ -325,14 +325,14 @@
   },
   "combined": {
     "total": 164,
-    "enrollments": 530,
+    "enrollments": 531,
     "byCampus": {
       "Upper Campus": 74,
       "Lower Campus": 90,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 50,
+      "June 1st-5th": 51,
       "June 8th-12th": 55,
       "June 15th-19th": 52,
       "June 22nd-26th": 51,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 27,
-        "Lower Campus": 23,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -4022,13 +4022,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 30,
-              "Tue": 30,
-              "Wed": 30,
-              "Thu": 30,
-              "Fri": 30
+              "Mon": 31,
+              "Tue": 31,
+              "Wed": 31,
+              "Thu": 31,
+              "Fri": 31
             },
-            "total": 150,
+            "total": 155,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4059,6 +4059,19 @@
               {
                 "name": "Ashton Govan",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Chance Sandy",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4425,13 +4438,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 31,
+            "Tue": 31,
+            "Wed": 31,
+            "Thu": 31,
+            "Fri": 31
           },
-          "all": 150
+          "all": 155
         }
       },
       "June 8th-12th": {
@@ -8940,6 +8953,31 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
+        },
+        {
+          "name": "Chance Sandy",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "tyanathomas@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Charlotte Machnik",
