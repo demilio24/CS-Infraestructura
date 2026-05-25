@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T20:32:51Z",
+  "generatedAt": "2026-05-25T20:37:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -583,12 +583,12 @@
             "label": "No lunch",
             "byDay": {
               "Mon": 10,
-              "Tue": 9,
-              "Wed": 10,
-              "Thu": 10,
-              "Fri": 10
+              "Tue": 8,
+              "Wed": 9,
+              "Thu": 9,
+              "Fri": 9
             },
-            "total": 49,
+            "total": 45,
             "students": [
               {
                 "name": "Austin Shue",
@@ -617,11 +617,7 @@
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
+                  "Mon"
                 ],
                 "lunchRaw": "None"
               },
@@ -733,12 +729,12 @@
         "totals": {
           "byDay": {
             "Mon": 19,
-            "Tue": 17,
-            "Wed": 19,
-            "Thu": 18,
-            "Fri": 18
+            "Tue": 16,
+            "Wed": 18,
+            "Thu": 17,
+            "Fri": 17
           },
-          "all": 91
+          "all": 87
         }
       },
       "June 8th-12th": {
@@ -8702,10 +8698,10 @@
           "sourceRow": 12,
           "days": [
             true,
-            true,
-            true,
-            true,
-            true
+            false,
+            false,
+            false,
+            false
           ],
           "type": "summer"
         },
@@ -9408,10 +9404,8 @@
           "allergy": null,
           "notes": null,
           "email": "keiilove93@icloud.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
@@ -9460,10 +9454,8 @@
           "allergy": null,
           "notes": null,
           "email": "mzbeautifulladyl@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
