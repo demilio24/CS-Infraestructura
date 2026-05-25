@@ -28,7 +28,7 @@
   background: linear-gradient(135deg, var(--ink-line) 0%, var(--ink-line-soft) 100%);
   border: 1px solid var(--ink-line);
 }
-.about-hero.v2 h1 { margin-bottom: var(--space-4); }
+.about-hero.v2 h1, .about-hero.v2 h2 { margin-bottom: var(--space-4); font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: var(--fw-serif-regular); line-height: var(--lh-tight); letter-spacing: -0.025em; color: var(--ink); }
 .about-hero.v2 p.lead { color: var(--ink-soft); max-width: 540px; }
 
 .about-hero.v3 { text-align: center; }

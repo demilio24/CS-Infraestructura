@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Nils Digital | Growth + systems for $1M+ local service businesses</title>
+  <title>Landing V2 (alternating bg + chapter numbers) — Nils Digital</title>
   <meta name="description" content="We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.">
   <link rel="canonical" href="https://nilsdigital.com/Nils/website/">
 
@@ -37,6 +37,38 @@
   <!-- Site JS -->
   <script src="/Nils/website/assets/js/nav.js" defer></script>
   <script src="/Nils/website/assets/js/animations.js" defer></script>
+
+  <!-- V2 variation styles: alternating bg + chapter numbers -->
+  <style>
+    .chapter-label {
+      display: block;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: var(--fs-eyebrow);
+      font-weight: var(--fw-display-bold);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      padding-top: var(--space-7);
+      margin-bottom: calc(var(--space-3) * -1);
+    }
+    .chapter-label .num {
+      color: var(--marketing);
+      margin-right: var(--space-2);
+    }
+    /* Alternating section backgrounds */
+    #offers { background: #fafbfc; }
+    #proof { background: var(--bg); }
+    #about { background: #fafbfc; }
+    .home-blog.v4 { background: var(--bg); }
+    #contact { background: #fafbfc; }
+    /* Soft hairline divider between sections */
+    #offers, #proof, #about, .home-blog.v4, #contact {
+      border-top: 1px solid var(--ink-line-soft);
+    }
+    /* Hide the original .label inside .home-blog to avoid double-label with chapter-label */
+    .home-blog.v4 > .container > .label { display: none; }
+  </style>
 
   <!-- Organization schema -->
   <script type="application/ld+json">
@@ -99,6 +131,7 @@
 
   <!-- ROUTE HALVES (#offers, the only place they appear) -->
   <section id="offers" class="home-route-halves anim">
+    <span class="chapter-label"><span class="num">01</span> Our systems</span>
     <div class="route-halves">
       <a class="route-half marketing" href="/Nils/funnel/vsl.html">
         <div class="ico">&#128200;</div>
@@ -117,6 +150,7 @@
 
   <!-- PROOF (#proof, full section, no duplicate route halves) -->
   <section id="proof" class="anim">
+    <span class="chapter-label"><span class="num">02</span> Receipts</span>
 
     <!-- Proof hero (V3 layout + V1 copy) -->
     <div class="proof-hero v3">
@@ -214,6 +248,7 @@
 
   <!-- ABOUT (#about, full section, no duplicate route halves) -->
   <section id="about" class="anim">
+    <span class="chapter-label"><span class="num">03</span> Who runs this</span>
 
     <!-- About hero (V2 portrait-led asymmetric) -->
     <div class="about-hero v2">
@@ -308,6 +343,7 @@
 
   <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
   <section class="home-blog v4 anim">
+    <span class="chapter-label"><span class="num">04</span> From the blog</span>
     <div class="container">
       <span class="label">From the blog</span>
       <a class="featured-wide marketing" href="/Nils/website/blog/posts/local-plumbers-google-ads-leads.html">
@@ -343,6 +379,7 @@
 
   <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
   <section id="contact" class="anim">
+    <span class="chapter-label"><span class="num">05</span> Get on a call</span>
     <div class="contact-hero">
       <div class="container">
         <span class="eyebrow">Book a call</span>

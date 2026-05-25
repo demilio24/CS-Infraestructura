@@ -1,6 +1,6 @@
 /* ─── CONTACT HERO ─── */
 .contact-hero { padding: var(--space-8) 0 var(--space-6); text-align: center; }
-.contact-hero h1 { max-width: 720px; margin: 0 auto var(--space-4); }
+.contact-hero h1, .contact-hero h2 { max-width: 720px; margin: 0 auto var(--space-4); font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: var(--fw-serif-regular); line-height: var(--lh-tight); letter-spacing: -0.025em; color: var(--ink); }
 .contact-hero p.lead { max-width: 580px; margin: 0 auto; color: var(--ink-soft); }
 
 /* ─── CONTACT MAILTO FOOTNOTE ─── */

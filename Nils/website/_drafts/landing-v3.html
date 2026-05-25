@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
 
-  <title>Nils Digital | Growth + systems for $1M+ local service businesses</title>
+  <title>Landing V3 (chapter dividers, all-white) — Nils Digital</title>
   <meta name="description" content="We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.">
   <link rel="canonical" href="https://nilsdigital.com/Nils/website/">
 
@@ -37,6 +37,47 @@
   <!-- Site JS -->
   <script src="/Nils/website/assets/js/nav.js" defer></script>
   <script src="/Nils/website/assets/js/animations.js" defer></script>
+
+  <!-- V3 variation styles: chapter dividers + tight all-white rhythm -->
+  <style>
+    .chapter-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      max-width: 920px;
+      margin: 0 auto;
+      padding: var(--space-7) var(--space-5) var(--space-3);
+    }
+    .chapter-divider::before,
+    .chapter-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--ink-line);
+    }
+    .chapter-divider .label {
+      font-family: var(--font-display);
+      font-size: var(--fs-eyebrow);
+      font-weight: var(--fw-display-bold);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      white-space: nowrap;
+    }
+    /* Tighter section padding for V3 rhythm */
+    #offers, #proof, #about, .home-blog.v4, #contact {
+      padding-top: var(--space-5);
+      padding-bottom: var(--space-7);
+    }
+    /* Smaller-scaled section heading in V3 — feels more like a sub-page intro than another hero */
+    #proof .proof-hero h2,
+    #about .about-hero h2,
+    #contact .contact-hero h2 {
+      font-size: var(--fs-h2);
+    }
+    /* Hide the redundant inner .label inside .home-blog to avoid double-label with chapter-divider */
+    .home-blog.v4 > .container > .label { display: none; }
+  </style>
 
   <!-- Organization schema -->
   <script type="application/ld+json">
@@ -97,6 +138,8 @@
     </div>
   </section>
 
+  <div class="chapter-divider"><span class="label">Our systems</span></div>
+
   <!-- ROUTE HALVES (#offers, the only place they appear) -->
   <section id="offers" class="home-route-halves anim">
     <div class="route-halves">
@@ -114,6 +157,8 @@
       </a>
     </div>
   </section>
+
+  <div class="chapter-divider"><span class="label">Receipts</span></div>
 
   <!-- PROOF (#proof, full section, no duplicate route halves) -->
   <section id="proof" class="anim">
@@ -212,6 +257,8 @@
 
   </section>
 
+  <div class="chapter-divider"><span class="label">Who runs this</span></div>
+
   <!-- ABOUT (#about, full section, no duplicate route halves) -->
   <section id="about" class="anim">
 
@@ -306,6 +353,8 @@
 
   </section>
 
+  <div class="chapter-divider"><span class="label">From the blog</span></div>
+
   <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
   <section class="home-blog v4 anim">
     <div class="container">
@@ -340,6 +389,8 @@
       <a class="see-all" href="/Nils/website/blog/">All posts &rarr;</a>
     </div>
   </section>
+
+  <div class="chapter-divider"><span class="label">Get on a call</span></div>
 
   <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
   <section id="contact" class="anim">
