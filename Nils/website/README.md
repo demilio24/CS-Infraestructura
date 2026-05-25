@@ -15,7 +15,15 @@ npx http-server -p 8000
 
 Then open `http://localhost:8000/`.
 
-## Updating the blog search index
+## Scripts
+
+| Script | Purpose |
+|---|---|
+| `scripts/build-search.sh` | Regenerates the Pagefind blog search index (`pagefind/`) from the static HTML. Re-run after publishing posts. |
+| `scripts/build-sitemap.mjs` | Rebuilds `sitemap.xml` from home + `/blog/` + every published post under `blog/posts/*.html`. Skips files starting with `_` and any post with `<meta name="robots" content="noindex">`. Post lastmod comes from `<meta name="blg-date">` (falls back to file mtime). |
+| `scripts/inject-post-cta.mjs` | BabyLoveGrowth post-process: wraps a raw post in `blog/_template.html` and injects the tag-specific CTA. |
+
+### Updating the blog search index
 
 After adding or updating blog posts:
 
@@ -25,6 +33,16 @@ cd Nils/website
 ```
 
 This regenerates `pagefind/` from the static HTML. Commit the contents of `blog/posts/` and re-deploy; the user's browser fetches `pagefind/` at runtime.
+
+### Rebuilding the sitemap
+
+After publishing or removing a post, regenerate `sitemap.xml`:
+
+```bash
+node scripts/build-sitemap.mjs
+```
+
+Run from anywhere; output goes to `Nils/website/sitemap.xml`. Commit the regenerated file.
 
 ## Section variations
 
