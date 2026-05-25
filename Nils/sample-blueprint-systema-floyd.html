@@ -867,7 +867,6 @@
       <!-- TOC -->
       <nav class="toc" id="toc">
         <div class="toc-title">Contents</div>
-        <a href="#cover">Cover Note</a>
         <a href="#exec">Executive Summary</a>
         <a href="#diagnosis">Current-State Diagnosis</a>
         <a href="#target">Target-State Architecture</a>
@@ -884,36 +883,6 @@
       <!-- CONTENT -->
       <main class="content">
         <!-- ─── COVER ─── -->
-        <section id="cover">
-          <div class="section-kicker">Cover Note</div>
-          <h2>A letter, before the plan.</h2>
-          <p class="lede">Tom,</p>
-          <p>
-            Over the last two weeks we sat inside Systema Floyd's operation, traced every form submission, every spreadsheet, every dollar of revenue, and every place work is currently falling through the cracks. This document is the result.
-          </p>
-          <p>
-            It is not a pitch deck and it is not a sales document. It is a build-ready architecture and execution plan. Every integration is specified, every automation is named, every decision is recorded. Any competent technical team can take this document, quote it, and execute it.
-          </p>
-          <p>
-            The plan is yours. Forever. Whether we build it together, you hire someone else, or you build it in-house, the answers do not change and the document does not expire.
-          </p>
-
-          <h3>Three things to know before you start reading</h3>
-          <ol>
-            <li>
-              <strong>The recommendation is a single integrated system, not a stack of point tools.</strong> You currently have eight surfaces (forms, sheets, GHL, paper, email, manual reminders, the dashboard you wish you had, and the billing reconciliation you do each month). The plan collapses that into one source of truth (Google Sheets), one operational view (the Camp Dashboard), and one financial view (the Billing Dashboard), with everything else feeding those two.
-            </li>
-            <li>
-              <strong>Google Sheets stays as the source of truth on purpose.</strong> We looked at moving you to a custom database. Sheets wins. Your team already lives there, you can correct data in two clicks without a developer, and every other system can read from it. Trading that flexibility for a "real database" is the wrong tradeoff at your scale.
-            </li>
-            <li>
-              <strong>The failsafe pattern is the spine of the system.</strong> Every primary writer (GHL workflows, Apps Script jobs, n8n flows) gets a secondary watcher whose only job is to catch missed writes and patch them silently. You will not lose registrations, you will not lose billing rows, you will not lose waiver matches, and you will be told within 24 hours if any of the bots themselves go quiet.
-            </li>
-          </ol>
-          <p>The rest of this document is the build.</p>
-          <div class="signature">Nils Digital</div>
-        </section>
-
         <!-- ─── EXEC SUMMARY ─── -->
         <section id="exec">
           <div class="section-kicker">1 · Executive Summary</div>
@@ -1548,7 +1517,7 @@
         <!-- ─── STACK ─── -->
         <section id="stack">
           <div class="section-kicker">5 · Tool Stack &amp; Rationale</div>
-          <h2>Seven tools. Two are new. One total monthly bill increase of $20 to $50.</h2>
+          <h2>Seven tools, chosen for fit, not for hype.</h2>
           <div class="table-wrap">
             <table>
               <thead>
