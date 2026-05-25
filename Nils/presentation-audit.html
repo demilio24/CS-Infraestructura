@@ -302,6 +302,49 @@
         align-items: flex-start;
       }
 
+      .hero-proof {
+        margin-top: 28px;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(4, 107, 210, 0.12);
+        border-radius: 100px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      }
+      .hero-proof__item {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        line-height: 1.1;
+      }
+      .hero-proof__n {
+        font-family: var(--font-emphasis);
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: -0.01em;
+      }
+      .hero-proof__n--stars {
+        color: #f59e0b;
+        letter-spacing: 0.02em;
+      }
+      .hero-proof__l {
+        font-family: var(--font-secondary);
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(10, 10, 10, 0.55);
+        letter-spacing: 0.02em;
+      }
+      .hero-proof__div {
+        width: 1px;
+        height: 26px;
+        background: rgba(4, 107, 210, 0.18);
+      }
+
       .blueprint-mock {
         position: relative;
         background: #fff;
@@ -399,8 +442,15 @@
 
       /* SLIDE 2/3/4/5/6/7 — centered hero copy */
       .center-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         max-width: 980px;
+        width: 100%;
+      }
+      .center-stack .headline {
+        max-width: 1040px;
       }
       .center-stack .subtext {
         margin-top: 24px;
@@ -906,6 +956,13 @@
       @media (max-width: 640px) {
         .slide {
           padding: 70px 22px 80px;
+          justify-content: flex-start;
+          overflow-y: auto;
+          overflow-x: hidden;
+          -webkit-overflow-scrolling: touch;
+        }
+        .slide.active {
+          padding-top: 70px;
         }
         .hero-col-copy .headline {
           font-size: clamp(28px, 8vw, 40px);
@@ -938,6 +995,16 @@
         .lang-toggle {
           right: 86px;
           padding: 5px 10px;
+          font-size: 10px;
+        }
+        .arrow {
+          display: none;
+        }
+        .hero-proof {
+          gap: 12px;
+          padding: 10px 14px;
+        }
+        .hero-proof__l {
           font-size: 10px;
         }
       }
@@ -1005,6 +1072,18 @@
                 </span>
               </a>
               <div class="cta-subtext" data-i18n="hero.ctaSub">Free 15-minute fit call &middot; No pressure</div>
+            </div>
+
+            <div class="hero-proof">
+              <div class="hero-proof__item">
+                <div class="hero-proof__n">100+</div>
+                <div class="hero-proof__l" data-i18n="hero.proof1Label">Audits delivered</div>
+              </div>
+              <div class="hero-proof__div"></div>
+              <div class="hero-proof__item">
+                <div class="hero-proof__n hero-proof__n--stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <div class="hero-proof__l" data-i18n="hero.proof2Label">Rated Excellent on Trustpilot</div>
+              </div>
             </div>
           </div>
 
@@ -1317,6 +1396,8 @@
           "hero.sub": "Built for your business within 14 days.",
           "hero.cta": "Start Your 14-Day Audit",
           "hero.ctaSub": "Free 15-minute fit call &middot; No pressure",
+          "hero.proof1Label": "Audits delivered",
+          "hero.proof2Label": "Rated Excellent on Trustpilot",
           "hero.bpStamp": "The Blueprint",
           "hero.bpTitle": "Target Architecture",
           "hero.bpPill1": "Lead",
@@ -1424,6 +1505,8 @@
           "hero.cta": "Comienza tu Auditoría de 14 Días",
           "hero.ctaSub":
             "Llamada gratuita de 15 minutos &middot; Sin compromiso",
+          "hero.proof1Label": "Auditorías entregadas",
+          "hero.proof2Label": "Calificación Excelente en Trustpilot",
           "hero.bpStamp": "El Plan",
           "hero.bpTitle": "Arquitectura Objetivo",
           "hero.bpPill1": "Lead",
