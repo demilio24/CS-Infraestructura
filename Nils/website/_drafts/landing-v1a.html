@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Landing V1a (wider + flat proof grid + beefed contact) — Nils Digital</title>
+  <meta name="description" content="We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.">
+  <link rel="canonical" href="https://nilsdigital.com/Nils/website/">
+
+  <!-- OpenGraph + Twitter -->
+  <meta property="og:title" content="Nils Digital | Growth + systems for $1M+ local service businesses">
+  <meta property="og:description" content="We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.">
+  <meta property="og:url" content="https://nilsdigital.com/Nils/website/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nils Digital | Growth + systems for $1M+ local service businesses">
+  <meta name="twitter:description" content="We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/nav.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/footer.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/home.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/about.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/proof.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/contact.css">
+
+  <!-- Site JS -->
+  <script src="/Nils/website/assets/js/nav.js" defer></script>
+  <script src="/Nils/website/assets/js/animations.js" defer></script>
+
+  <!-- V1a overrides: wider container, flatten proof to 4-card grid, beef up contact -->
+  <style>
+    /* Wider container across the whole page */
+    .container, .container-narrow { max-width: 1400px !important; }
+    .home-hero h1 { max-width: 1080px; }
+    .home-hero p.lead { max-width: 820px; }
+    .proof-hero h1, .proof-hero h2 { max-width: 1080px !important; }
+    .proof-hero p.lead { max-width: 820px !important; }
+    .about-hero.v2 p.lead { max-width: 640px !important; }
+    .contact-hero h1, .contact-hero h2 { max-width: 880px !important; }
+    .contact-hero p.lead { max-width: 720px !important; }
+
+    /* Flatten proof cases into a unified 4-card grid (kill the topic columns) */
+    .proof-cases.v1 .columns {
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: var(--space-4);
+    }
+    .proof-cases.v1 .col {
+      display: contents !important;
+    }
+    .proof-cases.v1 .col-head,
+    .proof-cases.v1 .stats-row { display: none !important; }
+    .proof-cases.v1 .case { height: 100%; }
+    @media (max-width: 980px) {
+      .proof-cases.v1 .columns { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 600px) {
+      .proof-cases.v1 .columns { grid-template-columns: 1fr !important; }
+    }
+
+    /* Beef up contact with a 3-step "what happens on the call" block */
+    .contact-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-4);
+      max-width: 1080px;
+      margin: var(--space-7) auto var(--space-6);
+      padding: 0 var(--space-5);
+    }
+    .contact-step {
+      background: var(--bg);
+      border: 1px solid var(--ink-line);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-5) var(--space-6);
+      text-align: left;
+    }
+    .contact-step .n {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 4vw, 56px);
+      line-height: 0.9;
+      color: var(--marketing);
+      display: block;
+      margin-bottom: var(--space-3);
+    }
+    .contact-step h3 {
+      font-family: var(--font-display);
+      font-size: var(--fs-body-lg);
+      font-weight: var(--fw-display-bold);
+      color: var(--ink);
+      margin-bottom: var(--space-2);
+    }
+    .contact-step p {
+      font-family: var(--font-body);
+      font-size: var(--fs-meta);
+      color: var(--ink-soft);
+      line-height: var(--lh-relaxed);
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .contact-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Organization schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Nils Digital",
+    "url": "https://nilsdigital.com/Nils/website/",
+    "description": "Growth + systems for $1M+ local service businesses. Marketing system installation and AI/automation audits, done for you.",
+    "founder": {
+      "@type": "Person",
+      "name": "Emilio"
+    },
+    "sameAs": [],
+    "areaServed": "United States",
+    "knowsAbout": [
+      "Local SEO",
+      "Google Ads",
+      "Conversion rate optimization",
+      "Marketing automation",
+      "AI business automation",
+      "Service business operations"
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- NAV (anchor-linked, blog stays as separate page) -->
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/Nils/website/"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#proof">Proof</a>
+        <a href="/Nils/website/blog/">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="home-hero v3 bg-dotgrid anim">
+    <div class="container">
+      <span class="eyebrow">For local service businesses</span>
+      <h1>If you want to get <em class="accent-marketing">more clients</em> and <em class="accent-automation">automate your busywork</em>, you're in the right place.</h1>
+      <p class="lead">We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.</p>
+    </div>
+  </section>
+
+  <!-- ROUTE HALVES (#offers, the only place they appear) -->
+  <section id="offers" class="home-route-halves anim">
+    <div class="route-halves">
+      <a class="route-half marketing" href="/Nils/funnel/vsl.html">
+        <div class="ico">&#128200;</div>
+        <h3>Need more clients?</h3>
+        <p>We build sites that convert at 10-20%, plus the ads that fill them.</p>
+        <span class="btn">See how &rarr;</span>
+      </a>
+      <a class="route-half automation" href="/Nils/funnel/automation-vsl-funnel-direct.html">
+        <div class="ico">&#9881;&#65039;</div>
+        <h3>Drowning in manual work?</h3>
+        <p>Department-by-department blueprint of every job AI can do for you.</p>
+        <span class="btn">See the audit &rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- PROOF (#proof, full section, no duplicate route halves) -->
+  <section id="proof" class="anim">
+
+    <!-- Proof hero (V3 layout + V1 copy) -->
+    <div class="proof-hero v3">
+      <div class="container">
+        <span class="eyebrow">Receipts</span>
+        <h2>Real businesses. Real numbers. Real results.</h2>
+        <p class="lead">Pulled from active client accounts: ad spend managed, hours reclaimed, reviews collected, leads booked. The kind of receipts you can verify.</p>
+        <div class="proof-filter">
+          <button class="pill active" type="button" data-filter="all">All</button>
+          <button class="pill marketing" type="button" data-filter="marketing">Marketing</button>
+          <button class="pill automation" type="button" data-filter="automation">Automation</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proof cases (V1 compact, two columns by topic) -->
+    <div class="proof-cases v1">
+      <div class="container">
+        <h2>The work, sorted by what you came for.</h2>
+        <div class="columns">
+          <div class="col marketing">
+            <div class="col-head">Marketing wins</div>
+            <article class="case marketing video">
+              <span class="cat">Marketing</span>
+              <div class="video-wrap">
+                <video controls preload="metadata" playsinline>
+                  <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4#t=127" type="video/mp4">
+                </video>
+              </div>
+              <h3>"We have seen a huge jump in revenue."</h3>
+              <div class="body"><p>Opt-in rate up from 3% to 20.83%. Booked-call volume followed.</p></div>
+              <span class="result">Conversion: 3% to 20.83%</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Wendy Cox</span>
+              </div>
+            </article>
+            <article class="case marketing video">
+              <span class="cat">Marketing</span>
+              <div class="video-wrap">
+                <video controls preload="metadata" playsinline>
+                  <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>"Best decision we could have made for our company."</h3>
+              <div class="body"><p>Fast, attentive, genuinely invested. The team behaves like an in-house department, not an agency.</p></div>
+              <span class="result">5.0 partnership rating</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Jessica Schlenz</span>
+              </div>
+            </article>
+            <div class="stats-row">
+              <span>$2.4M+ ad spend</span>
+              <span>4.7x avg ROAS</span>
+              <span>23 clients</span>
+            </div>
+          </div>
+
+          <div class="col automation">
+            <div class="col-head">Automation wins</div>
+            <article class="case automation review">
+              <span class="cat">Automation</span>
+              <div class="review-image">
+                <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg" alt="Keila Mulero Trustpilot review">
+              </div>
+              <h3>"They built exactly what we needed."</h3>
+              <div class="body"><p>Custom intake automation, document handling, status updates. The kind of system you don't notice until you try working without it.</p></div>
+              <span class="result">80% intake on AI</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Keila Mulero</span>
+              </div>
+            </article>
+            <article class="case automation">
+              <span class="cat">Automation</span>
+              <h3>Savvy Compliance reclaimed 40 hours every week.</h3>
+              <div class="body"><p>Manual onboarding, fragmented data, days-long reports. We mapped every workflow, automated the bottlenecks, and gave the team their week back.</p></div>
+              <span class="result">40 hrs/wk reclaimed</span>
+              <div class="attribution">
+                <div class="portrait" aria-hidden="true"></div>
+                <span class="name">Savvy Compliance ops</span>
+              </div>
+            </article>
+            <div class="stats-row">
+              <span>40 hrs/wk reclaimed</span>
+              <span>80% intake on AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT (#about, full section, no duplicate route halves) -->
+  <section id="about" class="anim">
+
+    <!-- About hero (V2 portrait-led asymmetric) -->
+    <div class="about-hero v2">
+      <div class="container">
+        <div class="inner">
+          <div>
+            <span class="eyebrow">Who runs this</span>
+            <h2>Hi, I'm Emilio. I started Nils because every $1M+ local service owner I knew was <em class="accent-marketing">trapped</em> running their own business.</h2>
+            <p class="lead">Six years later we install the marketing systems that bring leads in and the automations that take busywork out, so owners can build instead of maintain.</p>
+          </div>
+          <img class="portrait" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="Emilio, founder of Nils Digital">
+        </div>
+      </div>
+    </div>
+
+    <!-- Story + team (V2 timeline + portrait strip) -->
+    <div class="about-story v2">
+      <div class="container">
+        <h2>Six years, four chapters.</h2>
+
+        <div class="timeline">
+          <div class="milestone">
+            <span class="year">2019</span>
+            <p>Started as a one-man shop building websites for solo operators. The thesis: a sharp site can punch way above its price tag for local businesses.</p>
+          </div>
+          <div class="milestone">
+            <span class="year">2021</span>
+            <p>Added Google Ads management. Clients kept hitting the same ceiling: a good site doesn't matter if nobody finds it.</p>
+          </div>
+          <div class="milestone">
+            <span class="year">2023</span>
+            <p>Built the review-automation layer that turned every happy customer into a referral engine. Now a core part of the marketing stack.</p>
+          </div>
+          <div class="milestone">
+            <span class="year">2025</span>
+            <p>Launched the automation audit. Existing clients kept asking us to take the manual work out of their operations, so we systemized the answer.</p>
+          </div>
+        </div>
+
+        <div class="team-strip">
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">Emilio</span>
+            <span class="role">Founder</span>
+          </div>
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">AK</span>
+            <span class="role">Automations</span>
+          </div>
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">Amina</span>
+            <span class="role">Accounts</span>
+          </div>
+          <div class="member">
+            <div class="portrait" aria-hidden="true"></div>
+            <span class="name">Brian</span>
+            <span class="role">Build</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process FAQ (V3, FAQ only — route halves removed since #offers handles routing) -->
+    <div class="about-process v3">
+      <div class="container">
+        <h2>What working with Nils actually looks like.</h2>
+
+        <div class="faq">
+          <details>
+            <summary>How long does the marketing system take to install?</summary>
+            <p>The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
+          </details>
+          <details>
+            <summary>What does the automation audit actually deliver?</summary>
+            <p>A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
+          </details>
+          <details>
+            <summary>Do you take on businesses under $1M?</summary>
+            <p>Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
+          </details>
+          <details>
+            <summary>What happens if it doesn't work?</summary>
+            <p>If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
+  <section class="home-blog v4 anim">
+    <div class="container">
+      <span class="label">From the blog</span>
+      <a class="featured-wide marketing" href="/Nils/website/blog/posts/local-plumbers-google-ads-leads.html">
+        <div class="thumb"></div>
+        <div class="body">
+          <span class="tag">Marketing</span>
+          <h4>How local plumbers get 50 leads/month from Google Ads</h4>
+          <p class="excerpt">The exact campaign structure, keyword themes, and landing-page setup we use to drive booked appointments for plumbing companies in the $1M-$5M range.</p>
+          <div class="meta">4 min read</div>
+        </div>
+      </a>
+      <div class="post-grid">
+        <a class="post-card automation" href="/Nils/website/blog/posts/hvac-automation-this-week.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Automation</span>
+            <h4>5 jobs a $2M HVAC company can automate this week</h4>
+            <div class="meta">6 min read</div>
+          </div>
+        </a>
+        <a class="post-card marketing" href="/Nils/website/blog/posts/5-star-review-filter-system.html">
+          <div class="thumb"></div>
+          <div class="body">
+            <span class="tag">Marketing</span>
+            <h4>The 5-star review system that filters bad reviews</h4>
+            <div class="meta">3 min read</div>
+          </div>
+        </a>
+      </div>
+      <a class="see-all" href="/Nils/website/blog/">All posts &rarr;</a>
+    </div>
+  </section>
+
+  <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
+  <section id="contact" class="anim">
+    <div class="contact-hero">
+      <div class="container">
+        <span class="eyebrow">Book a call</span>
+        <h2>Bookings happen inside the system pages.</h2>
+        <p class="lead">Click the one that's right for you, watch the breakdown, and the calendar lives at the bottom of the page. Or scroll up to <a href="#offers" style="color: var(--marketing); text-decoration: underline;">pick a system</a>.</p>
+      </div>
+    </div>
+    <div class="contact-steps">
+      <div class="contact-step">
+        <span class="n">1</span>
+        <h3>Pick the system.</h3>
+        <p>Marketing pulls more clients in. Automation pulls busywork out. Click the one that fits and watch the breakdown.</p>
+      </div>
+      <div class="contact-step">
+        <span class="n">2</span>
+        <h3>Book on the page.</h3>
+        <p>Each system pitch ends with a calendar. Grab a 30-minute slot that works. No qualification gates, no forms.</p>
+      </div>
+      <div class="contact-step">
+        <span class="n">3</span>
+        <h3>Leave with a plan.</h3>
+        <p>You'll get a real assessment whether you work with us or not. Boring guarantees on both systems if you do.</p>
+      </div>
+    </div>
+
+    <div class="contact-mailto container">
+      Other questions? <a href="mailto:emilio@nilsdigital.com">emilio@nilsdigital.com</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a class="brand" href="/Nils/website/"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
+        <p class="footer-tagline">Growth + systems for $1M+ local service businesses.</p>
+      </div>
+      <nav class="footer-nav">
+        <div class="footer-col">
+          <h6>Explore</h6>
+          <a href="#about">About</a>
+          <a href="#proof">Proof</a>
+          <a href="/Nils/website/blog/">Blog</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h6>Get started</h6>
+          <a href="/Nils/funnel/vsl.html">Marketing system</a>
+          <a href="/Nils/funnel/automation-vsl-funnel-direct.html">Automation audit</a>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer-meta">
+      <span>&copy; <span id="footer-year"></span> Nils Digital</span>
+    </div>
+    <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+  <!-- Filter-pill handler: toggle column visibility in #proof -->
+  <script>
+    document.querySelectorAll('.proof-filter .pill').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.proof-filter .pill').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        const f = p.dataset.filter;
+        const mCol = document.querySelector('.proof-cases.v1 .col.marketing');
+        const aCol = document.querySelector('.proof-cases.v1 .col.automation');
+        if (!mCol || !aCol) return;
+        if (f === 'all') {
+          mCol.style.display = '';
+          aCol.style.display = '';
+        } else if (f === 'marketing') {
+          mCol.style.display = '';
+          aCol.style.display = 'none';
+        } else if (f === 'automation') {
+          mCol.style.display = 'none';
+          aCol.style.display = '';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
