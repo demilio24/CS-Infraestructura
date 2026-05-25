@@ -1,0 +1,1978 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technical Analysis &amp; Development Plan · Sample Deliverable | Nils Digital</title>
+    <meta name="description" content="Sample 14-Day Audit deliverable for Systema Floyd. The full target-state architecture for a multi-campus martial arts school, built for execution." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --font-body: "DM Sans", "Google Sans", sans-serif;
+        --font-display: "Instrument Sans", "Google Sans", sans-serif;
+        --font-serif: "Instrument Serif", Georgia, serif;
+        --blue: #046bd2;
+        --blue-dark: #0358b0;
+        --blue-light: #4fa3f7;
+        --blue-50: #eef5ff;
+        --blue-rgb: 4, 107, 210;
+        --ink: #0a1628;
+        --ink-2: rgba(10, 22, 40, 0.72);
+        --ink-3: rgba(10, 22, 40, 0.56);
+        --ink-4: rgba(10, 22, 40, 0.38);
+        --line: rgba(10, 22, 40, 0.08);
+        --line-2: rgba(10, 22, 40, 0.14);
+        --bg: #fbfaf7;
+        --paper: #ffffff;
+        --warn: #c2410c;
+        --warn-bg: #fff7ed;
+        --good: #047857;
+        --good-bg: #ecfdf5;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+      body {
+        font-family: var(--font-body);
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.55;
+        font-size: 17px;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* ─── TOP BAR ─── */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(251, 250, 247, 0.85);
+        backdrop-filter: saturate(180%) blur(12px);
+        -webkit-backdrop-filter: saturate(180%) blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 16px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .brand {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+      .sample-badge {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--blue);
+        background: rgba(4, 107, 210, 0.08);
+        border: 1px solid rgba(4, 107, 210, 0.18);
+        padding: 6px 12px;
+        border-radius: 100px;
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 80px 28px 64px;
+      }
+      .hero-eyebrow {
+        font-family: var(--font-display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 24px;
+      }
+      .hero-title {
+        font-family: var(--font-serif);
+        font-size: clamp(40px, 6.4vw, 84px);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 12px;
+        max-width: 18ch;
+      }
+      .hero-title em {
+        font-style: italic;
+        color: var(--blue);
+      }
+      .hero-client {
+        font-family: var(--font-display);
+        font-size: clamp(22px, 2.6vw, 32px);
+        font-weight: 700;
+        color: var(--ink-2);
+        margin-bottom: 32px;
+      }
+      .hero-meta {
+        display: flex;
+        gap: 32px;
+        flex-wrap: wrap;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+        max-width: 760px;
+      }
+      .hero-meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .hero-meta-k {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+      }
+      .hero-meta-v {
+        font-family: var(--font-body);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      /* ─── LAYOUT WITH SIDEBAR ─── */
+      .layout {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 28px 96px;
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 56px;
+        align-items: flex-start;
+      }
+      .toc {
+        position: sticky;
+        top: 80px;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        font-family: var(--font-display);
+        font-size: 13px;
+        padding-right: 8px;
+      }
+      .toc-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        margin-bottom: 14px;
+      }
+      .toc a {
+        display: block;
+        padding: 6px 0;
+        color: var(--ink-3);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        padding-left: 12px;
+        margin-left: -2px;
+        transition: all 0.15s ease;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+      .toc a:hover {
+        color: var(--ink);
+      }
+      .toc a.active {
+        color: var(--blue);
+        border-left-color: var(--blue);
+        font-weight: 700;
+      }
+      .content {
+        max-width: 760px;
+      }
+
+      /* ─── TYPOGRAPHY ─── */
+      .content section {
+        padding-top: 56px;
+      }
+      .content section:first-child {
+        padding-top: 0;
+      }
+      .content h2 {
+        font-family: var(--font-serif);
+        font-size: clamp(28px, 3.6vw, 44px);
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .section-kicker {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 14px;
+      }
+      .section-sub {
+        font-family: var(--font-body);
+        font-size: 18px;
+        color: var(--ink-2);
+        line-height: 1.55;
+        margin-bottom: 32px;
+        max-width: 56ch;
+      }
+      .content h3 {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--ink);
+        margin: 40px 0 14px;
+        letter-spacing: -0.01em;
+      }
+      .content h4 {
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink);
+        margin: 24px 0 8px;
+        letter-spacing: 0.01em;
+      }
+      .content p {
+        margin-bottom: 18px;
+        color: var(--ink);
+        line-height: 1.65;
+      }
+      .content p.lede {
+        font-size: 22px;
+        font-family: var(--font-serif);
+        line-height: 1.45;
+        color: var(--ink);
+        margin-bottom: 24px;
+      }
+      .content strong {
+        font-weight: 700;
+      }
+      .content ul,
+      .content ol {
+        margin: 0 0 24px 0;
+        padding-left: 0;
+        list-style: none;
+      }
+      .content ul li,
+      .content ol li {
+        padding-left: 28px;
+        margin-bottom: 10px;
+        position: relative;
+        line-height: 1.6;
+      }
+      .content ul li::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 13px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--blue);
+      }
+      .content ol {
+        counter-reset: ol-counter;
+      }
+      .content ol li {
+        counter-increment: ol-counter;
+      }
+      .content ol li::before {
+        content: counter(ol-counter) ".";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-family: var(--font-display);
+        font-weight: 700;
+        color: var(--blue);
+        font-size: 15px;
+      }
+
+      /* ─── SIGNATURE BLOCK (cover note) ─── */
+      .signature {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        font-family: var(--font-serif);
+        font-size: 18px;
+        font-style: italic;
+        color: var(--ink-2);
+      }
+
+      /* ─── STAT CALLOUTS ─── */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 18px;
+        margin: 28px 0 36px;
+      }
+      .stat {
+        padding: 22px 22px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+      .stat-num {
+        font-family: var(--font-serif);
+        font-size: 38px;
+        line-height: 1;
+        color: var(--blue);
+        margin-bottom: 6px;
+        letter-spacing: -0.01em;
+      }
+      .stat-label {
+        font-family: var(--font-body);
+        font-size: 13px;
+        color: var(--ink-3);
+        font-weight: 600;
+        line-height: 1.4;
+      }
+
+      /* ─── TABLES ─── */
+      .table-wrap {
+        margin: 18px 0 28px;
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--paper);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14.5px;
+      }
+      th {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        padding: 14px 18px;
+        text-align: left;
+        background: rgba(10, 22, 40, 0.025);
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+      td {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+        line-height: 1.5;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: rgba(4, 107, 210, 0.025);
+      }
+      td strong,
+      td b {
+        font-weight: 700;
+      }
+      td.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 100px;
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .pill-low {
+        background: rgba(4, 107, 210, 0.1);
+        color: var(--blue);
+      }
+      .pill-med {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .pill-high {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+
+      /* ─── ARCHITECTURE DIAGRAM ─── */
+      .arch {
+        margin: 24px 0 36px;
+        padding: 32px 28px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+      .arch-title {
+        font-family: var(--font-display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        margin-bottom: 18px;
+      }
+      .arch-row {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+      }
+      .arch-row:last-child {
+        margin-bottom: 0;
+      }
+      .arch-node {
+        flex: 1 1 0;
+        min-width: 140px;
+        padding: 16px 14px;
+        background: var(--blue-50);
+        border: 1px solid rgba(4, 107, 210, 0.18);
+        border-radius: 12px;
+        text-align: center;
+      }
+      .arch-node--accent {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+      }
+      .arch-node--accent .arch-node-label {
+        color: #fff;
+      }
+      .arch-node--accent .arch-node-sub {
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .arch-node--soft {
+        background: #fff;
+        border: 1px dashed var(--line-2);
+      }
+      .arch-node-label {
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.3;
+      }
+      .arch-node-sub {
+        font-family: var(--font-body);
+        font-size: 12px;
+        color: var(--ink-3);
+        margin-top: 4px;
+        line-height: 1.4;
+      }
+      .arch-arrow {
+        text-align: center;
+        color: var(--blue);
+        font-size: 22px;
+        line-height: 1;
+        margin: 4px 0 8px;
+        font-family: var(--font-display);
+      }
+      .arch-divider-text {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        text-align: center;
+        margin: 8px 0 10px;
+      }
+
+      /* ─── DECISION CARD ─── */
+      .decision {
+        margin: 18px 0 24px;
+        padding: 22px 24px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--blue);
+        border-radius: 14px;
+      }
+      .decision-id {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 6px;
+      }
+      .decision h4 {
+        margin: 0 0 12px;
+        font-size: 18px;
+      }
+      .decision-line {
+        margin-bottom: 8px;
+        font-size: 15.5px;
+        line-height: 1.55;
+      }
+      .decision-line b {
+        font-family: var(--font-display);
+        color: var(--blue);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-right: 8px;
+        font-weight: 700;
+      }
+
+      /* ─── PHASE TIMELINE ─── */
+      .phase {
+        position: relative;
+        padding: 22px 22px 22px 76px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        margin-bottom: 16px;
+      }
+      .phase-num {
+        position: absolute;
+        left: 22px;
+        top: 22px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--blue);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .phase-week {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin-bottom: 4px;
+      }
+      .phase-title {
+        font-family: var(--font-display);
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .phase-goal {
+        font-family: var(--font-serif);
+        font-size: 16px;
+        font-style: italic;
+        color: var(--ink-2);
+        margin-bottom: 12px;
+      }
+      .phase-deliverable {
+        font-family: var(--font-body);
+        font-size: 13.5px;
+        color: var(--ink-3);
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px dashed var(--line-2);
+      }
+      .phase-deliverable b {
+        font-family: var(--font-display);
+        color: var(--blue);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      /* ─── COMPONENT CARD ─── */
+      .component {
+        margin: 28px 0;
+        padding: 28px 28px 24px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+      }
+      .component-head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        margin-bottom: 16px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid var(--line);
+      }
+      .component-id {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: var(--blue);
+      }
+      .component-title {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+      .component-meta {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 10px 16px;
+        font-size: 14.5px;
+        line-height: 1.5;
+      }
+      .component-meta dt {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        padding-top: 3px;
+      }
+      .component-meta dd {
+        color: var(--ink);
+      }
+      .component-meta dd ul {
+        margin: 0;
+      }
+      .component-meta dd ul li {
+        padding-left: 18px;
+        margin-bottom: 6px;
+        font-size: 14.5px;
+      }
+      .component-meta dd ul li::before {
+        top: 11px;
+        left: 4px;
+      }
+
+      /* ─── CALLOUT ─── */
+      .callout {
+        margin: 22px 0 28px;
+        padding: 20px 24px;
+        background: var(--blue-50);
+        border-left: 3px solid var(--blue);
+        border-radius: 0 12px 12px 0;
+        font-family: var(--font-serif);
+        font-size: 18px;
+        font-style: italic;
+        line-height: 1.5;
+        color: var(--ink);
+      }
+      .callout-warn {
+        background: var(--warn-bg);
+        border-left-color: var(--warn);
+      }
+
+      /* ─── FOOTER CTA ─── */
+      .footer-cta {
+        margin: 80px auto 0;
+        max-width: 1240px;
+        padding: 64px 28px 96px;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 24px;
+        text-align: center;
+      }
+      .footer-cta-eyebrow {
+        font-family: var(--font-display);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--blue-light);
+        margin-bottom: 22px;
+      }
+      .footer-cta-title {
+        font-family: var(--font-serif);
+        font-size: clamp(32px, 4.4vw, 56px);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-bottom: 16px;
+        max-width: 20ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .footer-cta-title em {
+        font-style: italic;
+        color: var(--blue-light);
+      }
+      .footer-cta-sub {
+        font-family: var(--font-body);
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 50ch;
+        margin: 0 auto 32px;
+        line-height: 1.55;
+      }
+      .footer-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 36px;
+        background: var(--blue);
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 100px;
+        transition: all 0.2s ease;
+      }
+      .footer-cta-btn:hover {
+        transform: translateY(-2px);
+        background: var(--blue-light);
+      }
+      .footer-cta-foot {
+        margin-top: 24px;
+        font-family: var(--font-body);
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      /* ─── BOTTOM CREDIT ─── */
+      .credit {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 32px 28px 48px;
+        font-family: var(--font-display);
+        font-size: 12px;
+        color: var(--ink-4);
+        text-align: center;
+        letter-spacing: 0.04em;
+      }
+
+      /* ─── MOBILE ─── */
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 0 22px 64px;
+        }
+        .toc {
+          position: relative;
+          top: auto;
+          max-height: none;
+          padding: 18px 20px;
+          background: var(--paper);
+          border: 1px solid var(--line);
+          border-radius: 14px;
+          margin-bottom: 8px;
+        }
+        .toc a {
+          padding: 4px 0;
+          padding-left: 12px;
+        }
+        .hero {
+          padding: 56px 22px 40px;
+        }
+        .topbar-inner {
+          padding: 14px 22px;
+        }
+        .component {
+          padding: 22px 20px;
+        }
+        .component-meta {
+          grid-template-columns: 1fr;
+          gap: 4px 0;
+        }
+        .component-meta dt {
+          margin-top: 10px;
+        }
+        .arch-row {
+          flex-direction: column;
+        }
+        .arch-node {
+          min-width: 0;
+        }
+        .footer-cta {
+          padding: 48px 22px 64px;
+          border-radius: 18px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        body {
+          font-size: 16px;
+        }
+        .hero-title {
+          font-size: clamp(32px, 9vw, 48px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ─── TOP BAR ─── -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">Nils Digital</div>
+        <div class="sample-badge">Sample Deliverable</div>
+      </div>
+    </header>
+
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+      <div class="hero-eyebrow">The 14-Day Audit · Build-Ready Plan</div>
+      <h1 class="hero-title">Technical Analysis &amp; <em>Development Plan</em>.</h1>
+      <div class="hero-client">Prepared for Systema Floyd</div>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-k">Engagement</div>
+          <div class="hero-meta-v">The 14-Day Audit</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-k">Document type</div>
+          <div class="hero-meta-v">Build-ready development plan</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-k">Status</div>
+          <div class="hero-meta-v">Delivered, Day 14</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-k">Prepared by</div>
+          <div class="hero-meta-v">Nils Digital</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MAIN LAYOUT ─── -->
+    <div class="layout">
+      <!-- TOC -->
+      <nav class="toc" id="toc">
+        <div class="toc-title">Contents</div>
+        <a href="#cover">Cover Note</a>
+        <a href="#exec">Executive Summary</a>
+        <a href="#diagnosis">Current-State Diagnosis</a>
+        <a href="#target">Target-State Architecture</a>
+        <a href="#components">Component Specifications</a>
+        <a href="#stack">Tool Stack</a>
+        <a href="#data">Data Model</a>
+        <a href="#build">Build Sequence</a>
+        <a href="#decisions">Decision Log</a>
+        <a href="#risk">Risk Register</a>
+        <a href="#scope">Out of Scope</a>
+        <a href="#appendix">Appendices</a>
+      </nav>
+
+      <!-- CONTENT -->
+      <main class="content">
+        <!-- ─── COVER ─── -->
+        <section id="cover">
+          <div class="section-kicker">Cover Note</div>
+          <h2>A letter, before the plan.</h2>
+          <p class="lede">Tom,</p>
+          <p>
+            Over the last two weeks we sat inside Systema Floyd's operation, traced every form submission, every spreadsheet, every dollar of revenue, and every place work is currently falling through the cracks. This document is the result.
+          </p>
+          <p>
+            It is not a pitch deck and it is not a sales document. It is a build-ready architecture and execution plan. Every integration is specified, every automation is named, every decision is recorded. Any competent technical team can take this document, quote it, and execute it.
+          </p>
+          <p>
+            The plan is yours. Forever. Whether we build it together, you hire someone else, or you build it in-house, the answers do not change and the document does not expire.
+          </p>
+
+          <h3>Three things to know before you start reading</h3>
+          <ol>
+            <li>
+              <strong>The recommendation is a single integrated system, not a stack of point tools.</strong> You currently have eight surfaces (forms, sheets, GHL, paper, email, manual reminders, the dashboard you wish you had, and the billing reconciliation you do each month). The plan collapses that into one source of truth (Google Sheets), one operational view (the Camp Dashboard), and one financial view (the Billing Dashboard), with everything else feeding those two.
+            </li>
+            <li>
+              <strong>Google Sheets stays as the source of truth on purpose.</strong> We looked at moving you to a custom database. Sheets wins. Your team already lives there, you can correct data in two clicks without a developer, and every other system can read from it. Trading that flexibility for a "real database" is the wrong tradeoff at your scale.
+            </li>
+            <li>
+              <strong>The failsafe pattern is the spine of the system.</strong> Every primary writer (GHL workflows, Apps Script jobs, n8n flows) gets a secondary watcher whose only job is to catch missed writes and patch them silently. You will not lose registrations, you will not lose billing rows, you will not lose waiver matches, and you will be told within 24 hours if any of the bots themselves go quiet.
+            </li>
+          </ol>
+          <p>The rest of this document is the build.</p>
+          <div class="signature">Nils Digital</div>
+        </section>
+
+        <!-- ─── EXEC SUMMARY ─── -->
+        <section id="exec">
+          <div class="section-kicker">1 · Executive Summary</div>
+          <h2>What we found, and what we recommend.</h2>
+
+          <h3>What we found</h3>
+          <p>
+            Systema Floyd operates across two campuses (Upper and Lower), three states (Florida, Georgia, and planned Virginia), and eight distinct programs (summer camp, free camp, after-school, private lessons, rent-a-sensei, birthday parties, spirit dance, and seminars). The school serves roughly 120 active students and 80 paying customer households at the time of the audit.
+          </p>
+
+          <div class="stats-row">
+            <div class="stat">
+              <div class="stat-num">2</div>
+              <div class="stat-label">Campuses (Upper + Lower)</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">8</div>
+              <div class="stat-label">Distinct programs</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">~120</div>
+              <div class="stat-label">Active students</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">~80</div>
+              <div class="stat-label">Paying households</div>
+            </div>
+          </div>
+
+          <p>
+            The operation runs. It is not broken. But it runs on six different surfaces that do not talk to each other. Registrations arrive across multiple GoHighLevel forms with no central roster view. Billing is reconciled by hand against a mix of GHL submissions, paper notes, and the head of one staff member. Waivers are signed in one system and matched to rosters by eye. After-school enrollments at partner schools are tracked in per-school spreadsheets that nobody owns.
+          </p>
+
+          <div class="callout">
+            Manual work absorbing the gap is on the order of 15 to 25 hours per week across the operations team, depending on registration season.
+          </div>
+
+          <h3>What we recommend</h3>
+          <p>
+            A single integrated system with eight subsystems, all connected, with one source of truth (Google Sheets), two operator dashboards (operational and financial), and a failsafe layer underneath that catches missed work automatically.
+          </p>
+
+          <div class="arch">
+            <div class="arch-title">Target Architecture at a Glance</div>
+            <div class="arch-divider-text">Who interacts</div>
+            <div class="arch-row">
+              <div class="arch-node arch-node--soft">
+                <div class="arch-node-label">Parents</div>
+                <div class="arch-node-sub">Submit forms</div>
+              </div>
+              <div class="arch-node arch-node--soft">
+                <div class="arch-node-label">Staff</div>
+                <div class="arch-node-sub">Use operational view</div>
+              </div>
+              <div class="arch-node arch-node--soft">
+                <div class="arch-node-label">Tom</div>
+                <div class="arch-node-sub">Uses financial view</div>
+              </div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-divider-text">Intake</div>
+            <div class="arch-row">
+              <div class="arch-node">
+                <div class="arch-node-label">GHL Forms</div>
+                <div class="arch-node-sub">8 forms, one purpose each</div>
+              </div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-divider-text">Source of Truth</div>
+            <div class="arch-row">
+              <div class="arch-node arch-node--accent">
+                <div class="arch-node-label">Google Sheets</div>
+                <div class="arch-node-sub">Rosters · Billing · Pricing · Waivers</div>
+              </div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-divider-text">Operator Views</div>
+            <div class="arch-row">
+              <div class="arch-node">
+                <div class="arch-node-label">Camp Dashboard</div>
+                <div class="arch-node-sub">Who is enrolled today</div>
+              </div>
+              <div class="arch-node">
+                <div class="arch-node-label">Billing Dashboard</div>
+                <div class="arch-node-sub">Balance, always current</div>
+              </div>
+            </div>
+            <div class="arch-arrow">↓</div>
+            <div class="arch-divider-text">Safety Net</div>
+            <div class="arch-row">
+              <div class="arch-node arch-node--soft">
+                <div class="arch-node-label">Discrepancy Check</div>
+                <div class="arch-node-sub">Every 15 minutes</div>
+              </div>
+              <div class="arch-node arch-node--soft">
+                <div class="arch-node-label">Heartbeat Guard</div>
+                <div class="arch-node-sub">24h alert if silent</div>
+              </div>
+            </div>
+          </div>
+
+          <h3>Build at a glance</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Phase</th>
+                  <th>Scope</th>
+                  <th>Effort</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1 · Foundation</strong></td>
+                  <td>GHL location structure, source sheets, core registration forms, validator</td>
+                  <td>2 weeks</td>
+                </tr>
+                <tr>
+                  <td><strong>2 · Visibility</strong></td>
+                  <td>Snapshot pipeline + Camp Dashboard (roster, KPIs, lunches view)</td>
+                  <td>2 weeks</td>
+                </tr>
+                <tr>
+                  <td><strong>3 · Billing</strong></td>
+                  <td>Billing Dashboard + pricing catalog + sheet-driven reconcile</td>
+                  <td>3 weeks</td>
+                </tr>
+                <tr>
+                  <td><strong>4 · Hardening</strong></td>
+                  <td>Discrepancy Check failsafe + Waiver Matcher + heartbeat-guard</td>
+                  <td>2 weeks</td>
+                </tr>
+                <tr>
+                  <td><strong>5 · Expansion</strong></td>
+                  <td>School Enrollment Router + additional forms + funnel pages</td>
+                  <td>2 weeks</td>
+                </tr>
+                <tr>
+                  <td><strong>6 · Polish</strong></td>
+                  <td>Operator training, monitoring, handoff</td>
+                  <td>1 week</td>
+                </tr>
+                <tr>
+                  <td colspan="2"><strong>Total</strong></td>
+                  <td><strong>12 weeks</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>What changes for the team</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Today</th>
+                  <th>After</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Registration tracked across 6 surfaces</td>
+                  <td>One roster per campus, one tab per week, auto-populated from forms</td>
+                </tr>
+                <tr>
+                  <td>Billing reconciled monthly by hand</td>
+                  <td>Reconciled every 5 minutes, balance always current</td>
+                </tr>
+                <tr>
+                  <td>Waivers matched to rosters by eye</td>
+                  <td>Auto-matched with name fuzzy logic plus cell notes for allergies</td>
+                </tr>
+                <tr>
+                  <td>"Who's here today?" unanswered until 9am</td>
+                  <td>Visible in the dashboard before 7am</td>
+                </tr>
+                <tr>
+                  <td>New form requires a developer</td>
+                  <td>New form requires a 30-minute conversation with us</td>
+                </tr>
+                <tr>
+                  <td>Lost registrations caught at week's end</td>
+                  <td>Caught within 15 minutes and patched automatically</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ─── DIAGNOSIS ─── -->
+        <section id="diagnosis">
+          <div class="section-kicker">2 · Current-State Diagnosis</div>
+          <h2>Where work is leaking today.</h2>
+          <p class="section-sub">Every claim below is grounded in interviews, observed workflows, or data we pulled from the existing systems during the two-week audit.</p>
+
+          <h3>2.1 The shape of the operation</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dimension</th>
+                  <th>Count</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Campuses</td><td>2</td><td>Upper, Lower</td></tr>
+                <tr><td>States</td><td>3</td><td>Florida (active), Georgia (active), Virginia (planned)</td></tr>
+                <tr><td>Programs</td><td>8</td><td>Summer camp, free camp, after-school, private lessons, rent-a-sensei, birthday parties, spirit dance, seminars</td></tr>
+                <tr><td>Active students</td><td>~120</td><td>Across summer and free camp rosters</td></tr>
+                <tr><td>Paying households</td><td>~80</td><td>At time of audit</td></tr>
+                <tr><td>Instructors</td><td>~7</td><td>FL roster plus 1 GA instructor</td></tr>
+                <tr><td>Partner schools (after-school)</td><td>5+</td><td>Westward Elementary, Northboro, U.B. Kinsey, Pleasant City, Roosevelt</td></tr>
+                <tr><td>Annual revenue (estimate)</td><td>$250k to $500k</td><td>Based on visible billing volume</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>2.2 The six surfaces</h3>
+          <p>Today, the operation lives across six surfaces that do not talk to each other.</p>
+          <ol>
+            <li><strong>GHL forms.</strong> Multiple registration and booking forms exist, each writing into its own holding area. Nothing aggregates them into a single operational view.</li>
+            <li><strong>Google Sheets.</strong> The team uses spreadsheets, but they are personal, ad-hoc, and not the source of truth for anything. Knowledge of which sheet is current lives in staff memory.</li>
+            <li><strong>Paper and shared docs.</strong> The legacy registration process used paper forms and shared Google Docs. Migration from this surface to a structured system is partial.</li>
+            <li><strong>Email threads.</strong> Decisions, exceptions, and one-off arrangements are tracked in email. Nothing flows back into a system.</li>
+            <li><strong>GHL contact records.</strong> Some customer data is in GHL, some is not. The GHL data is also not always current; manual edits to contact records get overwritten on the next form submission.</li>
+            <li><strong>Tom's head.</strong> Pricing exceptions, sibling discounts, scholarship status, and which families "are good" all live here.</li>
+          </ol>
+
+          <h3>2.3 Where work is leaking</h3>
+          <p>Each leak below was observed during the audit. Hours estimates are conservative.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Leak</th>
+                  <th>Where</th>
+                  <th>Time lost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Re-typing data from forms into rosters</td><td>Operations team</td><td>~4 hrs/week</td></tr>
+                <tr><td>Reconciling GHL submissions vs actual revenue</td><td>Tom + bookkeeper</td><td>~6 hrs/month</td></tr>
+                <tr><td>Manual roster build for the day's camp</td><td>Operations team</td><td>~1 hr/day during camp</td></tr>
+                <tr><td>Manually cross-referencing waivers with rosters</td><td>Operations team</td><td>~2 hrs/week during enrollment</td></tr>
+                <tr><td>Tracking after-school enrollments across 5 schools</td><td>Operations team</td><td>~3 hrs/week</td></tr>
+                <tr><td>Answering "who's coming today" questions</td><td>All staff</td><td>~30 min/day</td></tr>
+                <tr><td>Catching missed registrations after the fact</td><td>Operations team</td><td>Variable, sometimes a week late</td></tr>
+                <tr><td>Re-issuing waivers because the previous one is lost</td><td>Operations team</td><td>~1 hr/week</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            Aggregate, roughly 15 to 25 hours per week during peak season. The dollar value of that time at $25/hr fully loaded is $19,500 to $32,500 per year. The real cost is higher because it crowds out the work the team should be doing instead, which is teaching, recruiting, and growing the school.
+          </div>
+
+          <h3>2.4 Specific data risks we observed</h3>
+          <ol>
+            <li><strong>Multi-week registrations risk being dropped.</strong> Parents register for multiple camp weeks in one form. If the routing logic between GHL and the sheets misses one week, the kid shows up Monday and the staff has no record. There is no automated catch for this today.</li>
+            <li><strong>Sibling pricing is inconsistent.</strong> Sibling discounts are applied manually. Across a busy week we found at least three instances of the same family being charged different amounts on different rows.</li>
+            <li><strong>Waivers and rosters drift.</strong> A waiver signed in one system does not write back into the roster. Staff cross-references manually. During the audit we found at least one student on a roster with no waiver matched, and one waiver with no matching roster entry.</li>
+            <li><strong>Manual billing entries get overwritten.</strong> The few cases where staff manually corrected a billing row in GHL got overwritten the next time the contact submitted a form. This is a structural problem, not a one-off; the current system has no way to express "this manual edit beats the form."</li>
+            <li><strong>Tab order matters in spreadsheets.</strong> Roster rows are categorized by which tab they live in (one tab per week). Inserting a new tab anywhere in the sequence silently shifts every downstream tab's meaning. This has happened. Multiple billing rows got assigned to the wrong week as a result.</li>
+            <li><strong>OAuth tokens expire silently.</strong> GHL tokens stop refreshing if the upstream automation fails. There is no alerting today; staff finds out when a workflow that depended on the token stops working.</li>
+          </ol>
+
+          <h3>2.5 What is working today (do not break)</h3>
+          <p>The audit also surfaced operational strengths that the new system should preserve, not replace.</p>
+          <ul>
+            <li><strong>Tom's pricing flexibility.</strong> Custom prices, scholarship rates, and family deals are part of the brand. The new system must support manual overrides without making them feel like exceptions.</li>
+            <li><strong>The teaching staff's autonomy.</strong> Instructors run their own programs. The system should not require them to learn new tools.</li>
+            <li><strong>Cash and check still work.</strong> Some families pay in person. The billing system must record these without forcing every payment through GHL.</li>
+            <li><strong>GoHighLevel for marketing, calendars, and contacts.</strong> The forms layer, calendar booking, and CRM functions of GHL are working and should stay.</li>
+          </ul>
+        </section>
+
+        <!-- ─── TARGET ─── -->
+        <section id="target">
+          <div class="section-kicker">3 · Target-State Architecture</div>
+          <h2>Eight subsystems. One source of truth. A failsafe under each one.</h2>
+
+          <h3>3.1 Components</h3>
+          <p>Each subsystem has a clear purpose, one set of inputs, one set of outputs, and a defined failure mode.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Subsystem</th>
+                  <th>Purpose</th>
+                  <th>Primary writer</th>
+                  <th>Failsafe</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td><strong>Registration System</strong></td><td>Convert form submissions into roster rows</td><td>GHL routing workflow</td><td>Discrepancy Check (15-min cron)</td></tr>
+                <tr><td>2</td><td><strong>Camp Day Validator</strong></td><td>Block invalid camp registrations at the form level</td><td>Browser JS in GHL Custom Code</td><td>None needed (client-side gate)</td></tr>
+                <tr><td>3</td><td><strong>Camp Dashboard</strong></td><td>Operational view of who is enrolled, who is here, what lunch they need</td><td>Snapshot.js (5-min cron)</td><td>Daily history archive</td></tr>
+                <tr><td>4</td><td><strong>Billing Dashboard</strong></td><td>Financial view: every enrollment priced, every payment recorded, balance always current</td><td>BillingFromSheets (5-min trigger)</td><td>Manual Items dialog as backup ingress</td></tr>
+                <tr><td>5</td><td><strong>School Enrollment Router</strong></td><td>Route after-school enrollments from a central intake into per-school sheets</td><td>Apps Script bound to Main Table</td><td>Three-tier name matching</td></tr>
+                <tr><td>6</td><td><strong>Waiver Matcher</strong></td><td>Cross-reference waivers with camp rosters, surface allergies inline</td><td>Apps Script bound to Waiver app sheet</td><td>Manual override via cell notes</td></tr>
+                <tr><td>7</td><td><strong>Forms System</strong></td><td>All client-facing intake (8 forms) feeding the systems above</td><td>GHL forms + Custom Code</td><td>Per-form notification + sheet write workflow</td></tr>
+                <tr><td>8</td><td><strong>Client-Facing Funnel</strong></td><td>12 HTML pages embedded in GHL, hosted on GitHub Pages</td><td>Static files</td><td>None needed (static hosting)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>3.2 The failsafe pattern</h3>
+          <p>
+            The single most important architectural decision in this system is the failsafe pattern. Every primary writer has a secondary watcher.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Primary writer</th>
+                  <th>Failure mode</th>
+                  <th>Watcher</th>
+                  <th>What it does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>GHL workflow to sheet</td><td>Workflow misfires, field maps wrong</td><td>Discrepancy Check (15-min cron)</td><td>Writes the missing row, emails Tom</td></tr>
+                <tr><td>BillingFromSheets pipeline</td><td>Apps Script quota hit, trigger fails</td><td>Manual Items dialog as backup ingress</td><td>Operator can add the missing row by hand</td></tr>
+                <tr><td>Snapshot push to GitHub Pages</td><td>Token expired, push fails</td><td>Heartbeat guard</td><td>Emails Tom if snapshot is more than 24h stale</td></tr>
+                <tr><td>Waiver Matcher to roster cell notes</td><td>Apps Script disabled</td><td>Manual cell-note entry</td><td>Operator can annotate by hand without breaking the flow</td></tr>
+                <tr><td>Snapshot.json</td><td>Repo gets corrupted</td><td>Daily history archive</td><td>Roll back to any prior day's snapshot</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            The failsafe pattern is what lets us promise the team that they will not lose work. Even if every bot dies, the source of truth (Sheets) is editable by hand, and the manual paths are first-class entry points, not exception handlers.
+          </div>
+        </section>
+
+        <!-- ─── COMPONENTS ─── -->
+        <section id="components">
+          <div class="section-kicker">4 · Component Specifications</div>
+          <h2>Eight subsystems, in detail.</h2>
+          <p class="section-sub">Each component is specified with its purpose, inputs, outputs, internal parts, and the key design decisions that shaped it. Anyone competent can read this section and quote the build.</p>
+
+          <!-- 4.1 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.1</span>
+              <h3 class="component-title">Registration System</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>Convert every form submission into a structured row in the right roster sheet, in the right tab, with the right columns. Catch any missed write within 15 minutes.</dd>
+              <dt>Inputs</dt>
+              <dd>
+                <ul>
+                  <li>Free Camp form submissions</li>
+                  <li>Summer Camp form submissions</li>
+                  <li>After-School form submissions</li>
+                </ul>
+              </dd>
+              <dt>Outputs</dt>
+              <dd>
+                <ul>
+                  <li>One row per kid-per-week-per-program in the matching roster sheet</li>
+                  <li>Optional cell note with any free-text "additional info" the parent provided</li>
+                </ul>
+              </dd>
+              <dt>Components</dt>
+              <dd>
+                <ul>
+                  <li><strong>GHL routing workflow.</strong> One workflow per camp-week pair. Triggered by form submission. Reads the parent's selected weeks, fires one "Add Row to Sheet" action per selected week into the correct campus sheet.</li>
+                  <li><strong>Camp Day Validator.</strong> Client-side JS in the GHL form's Custom Code element. Validates that the parent has ticked the right number of day checkboxes for the duration they selected before allowing submission.</li>
+                  <li><strong>Discrepancy Check.</strong> Apps Script bound to the Waiver app sheet, runs every 15 minutes. Reads every form submission from GHL, reads every row from every roster sheet, diffs them. If a submission has no matching row, writes the row and emails Tom with the workflow ID that should have caught it.</li>
+                  <li><strong>Tombstones.</strong> Supabase table that records intentionally-deleted roster entries. The Discrepancy Check checks for a tombstone before re-adding a row, so deletes by staff stick.</li>
+                </ul>
+              </dd>
+              <dt>Key decisions</dt>
+              <dd>
+                <ul>
+                  <li><strong>Source of truth is the sheet, not GHL.</strong> If the team deletes a row in the sheet, the system honors the delete (via tombstone). If GHL claims the kid exists and the sheet does not, we trust the sheet.</li>
+                  <li><strong>Name-based week resolution.</strong> Rows are categorized by tab name (6/15 to 6/19), not by tab position. Inserting or removing a tab anywhere in the sequence does not silently mis-categorize rows.</li>
+                  <li><strong>Fuzzy-name dedup.</strong> A kid named "Aria" and a kid named "Aria Falzone" with the same parent email is treated as the same student, not as two enrollments.</li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
+
+          <!-- 4.2 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.2</span>
+              <h3 class="component-title">Camp Day Validator</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>Prevent parents from submitting a registration form with the wrong number of days picked. Keeps the downstream billing math correct.</dd>
+              <dt>Inputs</dt>
+              <dd>The user's selections in the camp signup form.</dd>
+              <dt>Outputs</dt>
+              <dd>A blocked submission with an inline error message, or a passed submission.</dd>
+              <dt>Implementation</dt>
+              <dd>A self-contained JavaScript snippet pasted into the GHL form's Custom Code element. Re-attaches change handlers on every DOM mutation (GHL re-renders the form on conditional logic changes). Reads the "Camp Duration" dropdown, counts the checked day boxes per week, blocks submission until they match.</dd>
+              <dt>Why client-side</dt>
+              <dd>Server-side validation would require a custom backend in front of GHL. The form is already in GHL. The browser is already executing arbitrary code there. Client-side validation is the right place for this gate.</dd>
+            </dl>
+          </div>
+
+          <!-- 4.3 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.3</span>
+              <h3 class="component-title">Camp Dashboard</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>The operator's single view of who is enrolled, who is here, who needs what lunch, and what is leaking.</dd>
+              <dt>Inputs</dt>
+              <dd>The 4 roster sheets.</dd>
+              <dt>Outputs</dt>
+              <dd>
+                <ul>
+                  <li><code>dashboard/snapshot.json</code>, read by the browser dashboard</li>
+                  <li><code>dashboard/history/YYYY-MM-DD.json</code>, daily archive</li>
+                  <li>Supabase mirror tables, for external tools</li>
+                </ul>
+              </dd>
+              <dt>Components</dt>
+              <dd>
+                <ul>
+                  <li><strong>Snapshot.js.</strong> Apps Script polling the 4 roster sheets every 5 minutes. Builds the JSON, pushes to GitHub Pages, mirrors to Supabase.</li>
+                  <li><strong>Browser dashboard.</strong> Static HTML/CSS/JS hosted on GitHub Pages, embedded into GHL. Reads <code>snapshot.json</code> and renders KPIs (enrollment count, capacity %, lunch orders, allergies), a 14-day growth sparkline, a click-to-expand student roster with filters, a Data Issues panel (one row per data problem with a deep-link to the offending cell), an attendance modal with per-person ticks, and a lunches prep view.</li>
+                  <li><strong>Daily history.</strong> Every Snapshot run also writes a dated snapshot to <code>dashboard/history/</code>. Used for trend analysis and for rolling back if the snapshot ever gets corrupted.</li>
+                </ul>
+              </dd>
+              <dt>Key decisions</dt>
+              <dd>
+                <ul>
+                  <li><strong>Static hosting.</strong> The dashboard is HTML plus JSON. It loads in 200ms, works on any device, costs nothing, and has no backend to break.</li>
+                  <li><strong>Read-only by default.</strong> Staff editing the source sheets is the write path. The dashboard is for viewing and for one specific write (daily attendance), which goes through Supabase.</li>
+                  <li><strong>Per-person attendance with bulk operations.</strong> Staff can mark "all Upper Paid present" without touching other camps. Picks sync across devices in real time via Supabase.</li>
+                  <li><strong>Deep-linkable data issues.</strong> Every data anomaly the dashboard surfaces has its own labeled row with an "Open" button that lands on the exact cell. No more "we know there's a problem with Aria but we can't find which row."</li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
+
+          <!-- 4.4 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.4</span>
+              <h3 class="component-title">Billing Dashboard</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>The canonical financial record. Every enrollment priced, every payment recorded, every refund tracked, balance always current.</dd>
+              <dt>Inputs</dt>
+              <dd>
+                <ul>
+                  <li>4 roster sheets (kids enrolled, what they signed up for)</li>
+                  <li>Pricing catalog tab on the Billing Dashboard sheet (team-editable)</li>
+                  <li>Manual Items tab (hidden, for non-form billing rows: cash payments, scholarships, partial refunds)</li>
+                  <li>GHL Transactions API across the FL, GA, and future VA subaccounts</li>
+                </ul>
+              </dd>
+              <dt>Outputs</dt>
+              <dd>
+                <ul>
+                  <li>Billing Dashboard sheet (canonical), one row per billable item per customer, grouped by family</li>
+                  <li>GHL contact upserts (push phone numbers, addresses, and tags back to GHL for the team)</li>
+                </ul>
+              </dd>
+              <dt>Components</dt>
+              <dd>
+                <ul>
+                  <li><strong>BillingFromSheets.js.</strong> The main pipeline. Runs every 5 minutes. Walks the 4 roster sheets and the Manual Items source tab, prices each enrollment via the Pricing catalog, applies sales tax by state (FL 6%, GA 4%, VA 5.3%), inflates with the GHL processing fee, diffs the result against the live Dashboard sheet, and applies the diff with proper lifecycle (new to owed, dropped to canceled, paid-then-dropped to refund-needed).</li>
+                  <li><strong>PricingGuide.js.</strong> Pricing lookup keyed by enrollment type and duration. Team-editable in a Pricing tab on the Sheet; code reads the tab at runtime, no redeploy needed to change prices.</li>
+                  <li><strong>Manual Items dialog.</strong> Operator clicks <code>Add Item</code>, fills out a sidebar, the system writes a row to the hidden <code>Manual Items</code> source tab with a stable UUID fingerprint. A one-time trigger fires the pipeline 10 seconds later so the row lands on the Dashboard within seconds.</li>
+                  <li><strong>Polling.js.</strong> Separate every-5-min trigger that pulls the $1 GHL credit-card verification fee transactions from each subaccount, for audit purposes.</li>
+                  <li><strong>RemoteTrigger.js.</strong> Webapp that exposes a whitelist of administrative RPCs (force a rebuild, restore lost profile links, run dedup, list customer emails) via authenticated HTTPS. Used for diagnostics and recovery.</li>
+                </ul>
+              </dd>
+              <dt>Key decisions</dt>
+              <dd>
+                <ul>
+                  <li><strong>Fingerprint-based reconcile, not submission-ID-based.</strong> Manual rows have no submission ID. Cash payments have no submission ID. The system uses a content fingerprint (customer email + product key + period) so that manual and automated entries are equal first-class rows.</li>
+                  <li><strong>Sheet is canonical, not GHL.</strong> GHL submissions feed the system, but Dashboard rows are the truth. Operators can correct a Dashboard row by hand (through the Manual Items dialog), and the system will not overwrite the correction on the next pipeline run.</li>
+                  <li><strong>Idempotency on every operation.</strong> Every audit, dedup, restore, and import function can be run multiple times without corrupting data. Critical for confidence when recovering from outages.</li>
+                  <li><strong>Hierarchical row grouping.</strong> Customer rows are parent rows; transaction rows are children. The team can collapse a customer's transactions to see only the family-level balance.</li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
+
+          <!-- 4.5 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.5</span>
+              <h3 class="component-title">School Enrollment Router</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>Route after-school enrollments from a single central intake into the right per-school spreadsheet.</dd>
+              <dt>Inputs</dt>
+              <dd>Form submissions for after-school, into a single Main Table.</dd>
+              <dt>Outputs</dt>
+              <dd>One row per enrollment, written into the correct per-school sheet (Westward Elementary, Northboro, U.B. Kinsey, Pleasant City, Roosevelt, and any future schools).</dd>
+              <dt>Components</dt>
+              <dd>
+                <ul>
+                  <li><strong>Apps Script bound to the Main Table.</strong> On every new row, the script reads the school name, matches it against the registered list of per-school sheets, and writes the row into the matching destination.</li>
+                  <li><strong>Auto-create on first use.</strong> If the school is new (no destination sheet yet), the script creates the destination sheet from a Monthly or Quarterly template and lands the first row.</li>
+                  <li><strong>Three-tier name matching.</strong> Exact match, then case-insensitive match, then Levenshtein fuzzy match. Critical because the form does not enforce a controlled vocabulary on school names ("U.B. Kinsey" vs "UB Kinsey" vs "Kinsey").</li>
+                </ul>
+              </dd>
+              <dt>Key decision</dt>
+              <dd>Each school's spreadsheet is independent. The school's administrator gets read access to their sheet only. No cross-school data leakage. The Router is the only piece that has access to all of them.</dd>
+            </dl>
+          </div>
+
+          <!-- 4.6 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.6</span>
+              <h3 class="component-title">Waiver Matcher</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>Cross-reference signed waivers with roster entries. Surface allergies and health notes inline on the roster so staff sees them before camp starts.</dd>
+              <dt>Inputs</dt>
+              <dd>
+                <ul>
+                  <li>Waiver app sheet (one row per signed waiver)</li>
+                  <li>All 4 roster sheets</li>
+                </ul>
+              </dd>
+              <dt>Outputs</dt>
+              <dd>
+                <ul>
+                  <li>Roster cells highlighted green where a waiver matches</li>
+                  <li>Cell notes on the roster row with the waiver's health/allergy info</li>
+                </ul>
+              </dd>
+              <dt>Components</dt>
+              <dd>
+                <ul>
+                  <li><strong>Apps Script bound to the Waiver app sheet.</strong> On every change, scans all camp roster sheets in Drive, fuzzy-matches student names from waiver rows against camp rows by email plus Jaro-Winkler name similarity.</li>
+                  <li><strong>Cell-level highlighting.</strong> Matched cells get green background. Unmatched cells stay white. Operator can scan a roster and see who is missing a waiver at a glance.</li>
+                  <li><strong>Cell-note injection.</strong> Allergy info, medication notes, and "in case of emergency" contact lives in the cell note of the matched roster row, so staff opening the roster on camp day sees the safety info inline.</li>
+                </ul>
+              </dd>
+              <dt>Key decision</dt>
+              <dd>Waivers and rosters stay separate sheets, owned separately, with the matcher running between them. Merging them into one sheet was considered and rejected: the waiver app has different access controls and a different lifecycle than the rosters.</dd>
+            </dl>
+          </div>
+
+          <!-- 4.7 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.7</span>
+              <h3 class="component-title">Forms System</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>All client-facing intake. Eight forms total, each feeding one or more downstream systems.</dd>
+              <dt>Forms</dt>
+              <dd>
+                <div class="table-wrap" style="margin: 0">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Form</th>
+                        <th>Feeds</th>
+                        <th>Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td><strong>Summer Camp Registration</strong></td><td>Registration System</td><td>Validated by Camp Day Validator. Routes per-week.</td></tr>
+                      <tr><td><strong>Free Camp Registration</strong></td><td>Registration System</td><td>Validated by Camp Day Validator. Routes per-week. No billing.</td></tr>
+                      <tr><td><strong>After-School Registration</strong></td><td>School Enrollment Router</td><td>Routes by school name.</td></tr>
+                      <tr><td><strong>Private Lessons Booking</strong></td><td>Billing Dashboard (via sheet)</td><td>Conditional logic on instructor and discipline.</td></tr>
+                      <tr><td><strong>Rent-A-Sensei Booking</strong></td><td>Billing Dashboard (via sheet)</td><td>Confirmation step: "this is not a party booking."</td></tr>
+                      <tr><td><strong>Birthday Parties Booking</strong></td><td>Billing Dashboard (via sheet)</td><td>Three-step structure: location, size, basics.</td></tr>
+                      <tr><td><strong>Balloons (Custom Decor Add-On)</strong></td><td>Routed to vendor (Emily)</td><td>Sub-form triggered from Birthday Parties.</td></tr>
+                      <tr><td><strong>Vladimir Seminar Registration</strong></td><td>Billing Dashboard (via sheet)</td><td>Pass selection plus Friday Private opt-in.</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </dd>
+              <dt>Key decisions</dt>
+              <dd>
+                <ul>
+                  <li><strong>One form, one purpose.</strong> Tempting to build one mega-form with conditional logic. Wrong call: every conditional adds maintenance, every shared field adds drift. Eight distinct forms is easier to maintain, easier to debug, and easier to redirect to the right thank-you page.</li>
+                  <li><strong>Per-form Google Sheet.</strong> Each form writes to its own sheet. The Billing pipeline reads from the relevant sheets. Sheets are operator-editable, GHL forms are not, and we want the operator to be able to correct a typo without a developer.</li>
+                  <li><strong>Conditional logic at the form layer, not the workflow layer.</strong> GHL conditional logic on form fields is fine. GHL conditional logic on workflows is fragile (we have seen it break silently). Forms decide what fields to show; workflows just take what the form gives them.</li>
+                </ul>
+              </dd>
+            </dl>
+          </div>
+
+          <!-- 4.8 -->
+          <div class="component">
+            <div class="component-head">
+              <span class="component-id">4.8</span>
+              <h3 class="component-title">Client-Facing Funnel</h3>
+            </div>
+            <dl class="component-meta">
+              <dt>Purpose</dt>
+              <dd>All public-facing pages that drive enrollments. Hosted on GitHub Pages, embedded into GHL via iframes (with email passthrough), so they look like part of the GHL site.</dd>
+              <dt>Pages</dt>
+              <dd>
+                <ul>
+                  <li><code>home.html</code>, landing page with program cards</li>
+                  <li><code>camps.html</code>, summer camp overview</li>
+                  <li><code>summer-camp-scholarship.html</code>, scholarship application</li>
+                  <li><code>after-school.html</code>, after-school program info</li>
+                  <li><code>private-lessons.html</code>, private lessons page with embedded form</li>
+                  <li><code>spirit-dance.html</code>, Spirit Dance overview</li>
+                  <li><code>birthday-parties.html</code>, party booking page with embedded form</li>
+                  <li><code>rent-a-sensei.html</code>, Rent-A-Sensei page with embedded form</li>
+                  <li><code>waiver.html</code>, post-purchase waiver flow</li>
+                  <li><code>waiver-free.html</code>, free-camp waiver variant</li>
+                  <li><code>thankyou.html</code>, generic thank-you / confirmation</li>
+                  <li><code>vlad-seminar.html</code>, seminar registration page</li>
+                </ul>
+              </dd>
+              <dt>Why not native GHL</dt>
+              <dd>GHL's site builder is fine for landing pages but constrains custom interactions (the camp day validator, the embedded forms, the three-step birthday party booking flow). Static HTML gives us full control and is trivially fast.</dd>
+            </dl>
+          </div>
+        </section>
+
+        <!-- ─── STACK ─── -->
+        <section id="stack">
+          <div class="section-kicker">5 · Tool Stack &amp; Rationale</div>
+          <h2>Seven tools. Two are new. One total monthly bill increase of $20 to $50.</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tool</th>
+                  <th>Role</th>
+                  <th>Why this one</th>
+                  <th>Monthly cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>GoHighLevel</strong></td><td>Forms, CRM, transactions, calendars, marketing</td><td>Already in use; consolidating around it avoids fragmenting the team's tools</td><td>$97 to $497 (existing)</td></tr>
+                <tr><td><strong>Google Sheets</strong></td><td>Source of truth for rosters, billing, waivers, pricing</td><td>Operator-editable, version-controlled by Google, no backend to maintain</td><td>$0 (existing Workspace)</td></tr>
+                <tr><td><strong>Google Apps Script</strong></td><td>Server-side automation, scheduled triggers, sheet-bound logic</td><td>Native to Sheets, free, deploys in seconds, no servers to maintain</td><td>$0</td></tr>
+                <tr><td><strong>GitHub Pages</strong></td><td>Static funnel + dashboard hosting</td><td>Free, fast, version-controlled, embeds cleanly into GHL via iframe</td><td>$0</td></tr>
+                <tr><td><strong>GitHub Actions</strong></td><td>Snapshot fetcher cron, deploy automation</td><td>Free for public repos, runs every 5 minutes for free</td><td>$0</td></tr>
+                <tr><td><strong>Supabase</strong></td><td>Cross-device shared state (attendance, tombstones)</td><td>Generous free tier, Postgres-backed, simple RPC model</td><td>$0 (free tier)</td></tr>
+                <tr><td><strong>n8n</strong></td><td>OAuth token refresh, ancillary integrations</td><td>Flexible, version-controlled workflows, easy to maintain</td><td>$20 to $50</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Alternatives we considered</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>What we did not choose</th>
+                  <th>Why not</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Airtable as source of truth</td><td>More expensive, less team-familiar, locks data behind their API</td></tr>
+                <tr><td>A custom Postgres backend</td><td>Adds a server to maintain, an API to keep up, and a developer dependency for every schema change</td></tr>
+                <tr><td>Zapier instead of Apps Script</td><td>Brittle on long-running flows, expensive at the volume of triggers we need, no native sheet binding</td></tr>
+                <tr><td>Webflow or Framer for the funnel</td><td>Adds another tool to learn; GitHub Pages embedded into GHL gets us the same outcome with one less dependency</td></tr>
+                <tr><td>Notion as the dashboard</td><td>Beautiful for reading, painful for live data; no good story for the 5-min refresh cycle</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ─── DATA MODEL ─── -->
+        <section id="data">
+          <div class="section-kicker">6 · Data Model</div>
+          <h2>Where every record lives.</h2>
+
+          <h3>6.1 Source sheets</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Sheet</th>
+                  <th>Purpose</th>
+                  <th>Tabs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Summer Camp Upper Paid</td><td>Roster, paid summer camp, Upper campus</td><td>One per week</td></tr>
+                <tr><td>Summer Camp Lower Paid</td><td>Roster, paid summer camp, Lower campus</td><td>One per week</td></tr>
+                <tr><td>Free Camp Upper</td><td>Roster, free camp, Upper campus</td><td>One per week</td></tr>
+                <tr><td>Free Camp Lower</td><td>Roster, free camp, Lower campus</td><td>One per week</td></tr>
+                <tr><td>Billing Dashboard</td><td>Canonical financial record</td><td>Dashboard, Pricing, Manual Items (hidden), Transactions, Logs</td></tr>
+                <tr><td>Private Lesson Booking</td><td>Sheet1 of private-lesson submissions</td><td>One tab</td></tr>
+                <tr><td>Rent-A-Sensei Booking</td><td>Sheet1 of rent-a-sensei submissions</td><td>One tab</td></tr>
+                <tr><td>Birthday Parties Booking</td><td>Party form submissions</td><td>One tab</td></tr>
+                <tr><td>Vladimir Seminar</td><td>Seminar registrations</td><td>One tab</td></tr>
+                <tr><td>Waiver App</td><td>All signed waivers</td><td>One tab</td></tr>
+                <tr><td>Main Table (After-School)</td><td>Central intake before routing</td><td>One tab</td></tr>
+                <tr><td>Per-school sheets (5+)</td><td>Auto-created by the Router</td><td>One per month or quarter</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>6.2 Supabase tables</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Table</th>
+                  <th>Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><code>sf_camp_enrollments</code></td><td>Mirror of the rosters, queryable by external tools</td></tr>
+                <tr><td><code>sf_camp_snapshots</code></td><td>Daily snapshot archive, programmatic access</td></tr>
+                <tr><td><code>sf_daily_attendance</code></td><td>Per-day totals (Upper Free, Upper Paid, Lower Free, Lower Paid)</td></tr>
+                <tr><td><code>sf_daily_attendance_people</code></td><td>Per-person ticks for a given week and day</td></tr>
+                <tr><td><code>ghl_tokens</code></td><td>OAuth tokens for FL, GA, VA subaccounts, refreshed by n8n</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>6.3 GHL contact custom fields</h3>
+          <p>The system creates and maintains custom fields on every GHL contact for:</p>
+          <ul>
+            <li>Program of interest (multi-select)</li>
+            <li>Closest location</li>
+            <li>Per-form fields (Private Lesson instructor, Rent-A-Sensei service type, etc.)</li>
+            <li>Sibling/family relationships (computed)</li>
+          </ul>
+        </section>
+
+        <!-- ─── BUILD ─── -->
+        <section id="build">
+          <div class="section-kicker">7 · Build Sequence</div>
+          <h2>Twelve weeks. Six phases. Each one independently shippable.</h2>
+          <p class="section-sub">The team gets visible value from every phase. You do not wait three months to see the system; the first useful output ships at the end of week two.</p>
+
+          <div class="phase">
+            <div class="phase-num">1</div>
+            <div class="phase-week">Weeks 1 to 2 · Foundation</div>
+            <div class="phase-title">A parent can submit the Summer Camp form and the row lands on the right sheet.</div>
+            <ul>
+              <li>Audit and clean the existing GHL forms (Summer Camp + Free Camp)</li>
+              <li>Lock the source-of-truth Google Sheets (4 roster sheets, one tab per week)</li>
+              <li>Build the Camp Day Validator and paste it into the form's Custom Code element</li>
+              <li>Wire one GHL routing workflow per camp-week pair (around 20 workflows)</li>
+              <li>End-to-end test with a verified test contact for every week</li>
+            </ul>
+            <div class="phase-deliverable"><b>Deliverable:</b> Forms are live, every submission lands on the right sheet.</div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-num">2</div>
+            <div class="phase-week">Weeks 3 to 4 · Visibility</div>
+            <div class="phase-title">Tom and the operations team have a live dashboard, updated every 5 minutes.</div>
+            <ul>
+              <li>Build Snapshot.js (Apps Script bound to a standalone project, reads the 4 sheets)</li>
+              <li>Deploy to a pinned web app deployment</li>
+              <li>Wire GitHub Actions to fetch <code>snapshot.json</code> every 5 minutes and commit it to the repo</li>
+              <li>Build the browser dashboard (KPIs, sparkline, roster with filters)</li>
+              <li>Add the lunches prep view for kitchen staff</li>
+              <li>Embed the dashboard in GHL via the iframe template</li>
+            </ul>
+            <div class="phase-deliverable"><b>Deliverable:</b> Staff can open the dashboard in the morning and know who is enrolled.</div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-num">3</div>
+            <div class="phase-week">Weeks 5 to 7 · Billing</div>
+            <div class="phase-title">Every enrollment is priced, every payment is recorded, the balance is always current.</div>
+            <ul>
+              <li>Define the Pricing catalog (team-editable)</li>
+              <li>Build BillingFromSheets pipeline (every-5-min trigger)</li>
+              <li>Wire the Manual Items dialog</li>
+              <li>Wire the $1 GHL CC verification fee polling</li>
+              <li>Build RemoteTrigger.js webapp with admin RPCs</li>
+              <li>Build the QA harness (idempotent dedup, audit, restore functions)</li>
+              <li>Operator training on the Add Item dialog</li>
+            </ul>
+            <div class="phase-deliverable"><b>Deliverable:</b> Tom can open the Billing Dashboard sheet and see the current balance, the canonical record of every transaction, and a clean audit trail.</div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-num">4</div>
+            <div class="phase-week">Weeks 8 to 9 · Hardening</div>
+            <div class="phase-title">No registration ever falls through. No waiver is ever lost. The team is told within 24h if anything breaks.</div>
+            <ul>
+              <li>Build the Discrepancy Check failsafe</li>
+              <li>Add Supabase tombstones for intentional deletes</li>
+              <li>Add the heartbeat-guard email</li>
+              <li>Build the Waiver Matcher (Apps Script bound to the Waiver app sheet)</li>
+              <li>Wire allergy and health cell notes into rosters</li>
+            </ul>
+            <div class="phase-deliverable"><b>Deliverable:</b> The system is self-healing. The team is informed when the system itself goes silent.</div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-num">5</div>
+            <div class="phase-week">Weeks 10 to 11 · Expansion</div>
+            <div class="phase-title">Every program has a working booking flow.</div>
+            <ul>
+              <li>Build the School Enrollment Router for after-school</li>
+              <li>Build the Private Lessons, Rent-A-Sensei, Birthday Parties, and Vladimir Seminar forms</li>
+              <li>Build the 12 client-facing funnel pages</li>
+              <li>Embed each form into the matching funnel page</li>
+              <li>Verify each form's workflow chain (form submission, sheet write, notification email)</li>
+            </ul>
+            <div class="phase-deliverable"><b>Deliverable:</b> Every public-facing program has a working booking flow, every booking flows into the right system.</div>
+          </div>
+
+          <div class="phase">
+            <div class="phase-num">6</div>
+            <div class="phase-week">Week 12 · Polish &amp; Handoff</div>
+            <div class="phase-title">The operations team can run the system without us.</div>
+            <ul>
+              <li>Operator runbook (one page per subsystem)</li>
+              <li>Recorded video walkthroughs of the Billing Dashboard, Add Item dialog, and Camp Dashboard</li>
+              <li>60-minute team training session</li>
+              <li>30-day support window</li>
+            </ul>
+            <div class="phase-deliverable"><b>Deliverable:</b> Operators are trained, runbooks are written, the team is independent.</div>
+          </div>
+        </section>
+
+        <!-- ─── DECISIONS ─── -->
+        <section id="decisions">
+          <div class="section-kicker">8 · Decision Log</div>
+          <h2>Seven decisions and why we made them.</h2>
+
+          <div class="decision">
+            <div class="decision-id">D1</div>
+            <h4>Google Sheets as source of truth</h4>
+            <div class="decision-line"><b>Decision:</b> Google Sheets is the canonical record for every dataset in the system. Not a database, not Airtable, not GHL.</div>
+            <div class="decision-line"><b>Why:</b> The team already lives in Sheets. Sheets is operator-editable without a developer. Every system that needs to read can read; every system that needs to write can write. Trading that flexibility for the structural guarantees of a real database would slow down every "fix this one row" request from a 30-second sheet edit to a developer ticket.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Sheets has no schema enforcement, so data validation is a defensive coding problem in every reader. Sheets has rate limits, so we polite-cache instead of polling aggressively.</div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-id">D2</div>
+            <h4>Apps Script for automation, not n8n or Zapier</h4>
+            <div class="decision-line"><b>Decision:</b> Apps Script is the primary automation runtime.</div>
+            <div class="decision-line"><b>Why:</b> Apps Script binds natively to the source-of-truth sheets, deploys in seconds, costs nothing, and runs server-side without us managing infrastructure. n8n stays for OAuth token refresh because Apps Script's OAuth story for cross-domain GHL is more painful than n8n's.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Apps Script has execution quotas. We design every job to be idempotent and chunked so quota hits do not corrupt state.</div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-id">D3</div>
+            <h4>Fingerprint-based billing reconcile</h4>
+            <div class="decision-line"><b>Decision:</b> Billing rows are identified by content fingerprint (customer email + product key + period), not by GHL submission ID.</div>
+            <div class="decision-line"><b>Why:</b> Manual rows, cash payments, and legacy imports do not have submission IDs. Treating them as second-class would force the team into the GHL form pipeline for every billing entry, which is wrong. Fingerprints make manual and automated rows equal.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Fingerprint collisions are possible. We accept the risk and add a content-hash on each row for de-dup safety.</div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-id">D4</div>
+            <h4>Name-based week resolution</h4>
+            <div class="decision-line"><b>Decision:</b> Roster rows are categorized by their tab's name (6/15 to 6/19), not by tab position.</div>
+            <div class="decision-line"><b>Why:</b> We watched the positional model break in production: inserting a tab anywhere in the sequence silently shifted every downstream tab's meaning. Name-based resolution survives tab reordering, tab insertion, tab deletion.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Tab names must follow a documented format. Renaming a tab freehand can desync the system. The operator runbook covers the rename procedure.</div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-id">D5</div>
+            <h4>Failsafe-first architecture</h4>
+            <div class="decision-line"><b>Decision:</b> Every primary writer has a secondary watcher.</div>
+            <div class="decision-line"><b>Why:</b> A single point of failure that quietly misses a write is the worst possible outcome. The team won't know for a week, and by then the data is gone. The cost of running a 15-minute watcher cron is trivial; the cost of one missed registration during enrollment season is enormous.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Two writers means double the surface area to reason about. We handle this with idempotency on the watcher side (it can rewrite the same row 100 times and the dataset stays correct).</div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-id">D6</div>
+            <h4>GitHub Pages for the funnel</h4>
+            <div class="decision-line"><b>Decision:</b> The 12 funnel pages are static HTML hosted on GitHub Pages, embedded into GHL via iframes.</div>
+            <div class="decision-line"><b>Why:</b> GHL's native page builder is fine for landing pages but cannot host the camp day validator, the embedded forms, or the three-step birthday party booking. GitHub Pages is free, fast, version-controlled, and embeds cleanly.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Iframes have some cross-origin friction (parent email passthrough, full-width breakout). We handle these in the standard iframe wrapper template.</div>
+          </div>
+
+          <div class="decision">
+            <div class="decision-id">D7</div>
+            <h4>One form per purpose</h4>
+            <div class="decision-line"><b>Decision:</b> Eight distinct GHL forms, not one mega-form with conditional logic.</div>
+            <div class="decision-line"><b>Why:</b> Each conditional in a form is a maintenance liability. Distinct forms are easier to debug, easier to redirect to the right thank-you page, easier to A/B test, and easier to retire when a program changes.</div>
+            <div class="decision-line"><b>Tradeoffs:</b> Eight forms means eight Google Sheets and eight workflows. We handle this with documentation and a per-form spec.</div>
+          </div>
+        </section>
+
+        <!-- ─── RISK ─── -->
+        <section id="risk">
+          <div class="section-kicker">9 · Risk Register</div>
+          <h2>Twelve risks. Every one has a mitigation already in the plan.</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Risk</th>
+                  <th>Likelihood</th>
+                  <th>Impact</th>
+                  <th>Mitigation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>R1</td><td>GHL routing workflow misfires; registration row never lands</td><td><span class="pill pill-med">Medium</span></td><td><span class="pill pill-high">High</span></td><td>Discrepancy Check failsafe (15-min cron), auto-patches missed writes, emails Tom with the workflow ID</td></tr>
+                <tr><td>R2</td><td>OAuth tokens for GHL expire silently</td><td><span class="pill pill-med">Medium</span></td><td><span class="pill pill-high">High</span></td><td>n8n token-refresh cron + heartbeat guard. If the cron fails 24h, Tom is emailed</td></tr>
+                <tr><td>R3</td><td>Sheet tab order changes, breaking week assignment</td><td><span class="pill pill-med">Medium</span></td><td><span class="pill pill-high">High</span></td><td>Name-based week resolution (D4). Tab order is irrelevant to the pipeline</td></tr>
+                <tr><td>R4</td><td>Apps Script execution quota hit during peak enrollment</td><td><span class="pill pill-low">Low</span></td><td><span class="pill pill-med">Medium</span></td><td>Idempotent jobs, chunked reads, time-driven re-trigger</td></tr>
+                <tr><td>R5</td><td>Manual billing correction overwritten by next form submission</td><td><span class="pill pill-high">High (today)</span></td><td><span class="pill pill-high">High</span></td><td>Sheet-canonical model + fingerprint reconcile (D3). Manual edits beat automated writes</td></tr>
+                <tr><td>R6</td><td>Snapshot push to GitHub Pages fails</td><td><span class="pill pill-low">Low</span></td><td><span class="pill pill-med">Medium</span></td><td>Daily history archive on Supabase. Worst case: dashboard goes stale for 24h before alert fires</td></tr>
+                <tr><td>R7</td><td>Waiver Matcher disabled by Drive permission changes</td><td><span class="pill pill-low">Low</span></td><td><span class="pill pill-med">Medium</span></td><td>Matcher can be re-bound to a new sheet in 5 minutes. Roster annotations are preserved</td></tr>
+                <tr><td>R8</td><td>Operator deletes a Dashboard row by hand and the reset wipes it</td><td><span class="pill pill-med">Medium</span></td><td><span class="pill pill-med">Medium</span></td><td>Manual Items dialog is the ONLY supported edit path; Dashboard rows are derived</td></tr>
+                <tr><td>R9</td><td>New school added, no destination sheet exists</td><td><span class="pill pill-med">Medium</span></td><td><span class="pill pill-low">Low</span></td><td>Auto-create from template on first row routed</td></tr>
+                <tr><td>R10</td><td>Sibling discount applied inconsistently across rows</td><td><span class="pill pill-med">Medium (today)</span></td><td><span class="pill pill-med">Medium</span></td><td>Pricing catalog includes a "family relationship" override; Billing pipeline reads it</td></tr>
+                <tr><td>R11</td><td>Form spec drifts from implementation</td><td><span class="pill pill-high">High over time</span></td><td><span class="pill pill-low">Low</span></td><td>Per-form spec doc with a "build status" table updated on every change</td></tr>
+                <tr><td>R12</td><td>Subaccount expansion (Virginia) breaks single-state assumptions</td><td><span class="pill pill-low">Low (today)</span></td><td><span class="pill pill-med">Medium</span></td><td>Sales-tax matrix is multi-state from day 1; subaccount lookup is parameterized</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ─── SCOPE ─── -->
+        <section id="scope">
+          <div class="section-kicker">10 · Out of Scope</div>
+          <h2>What this plan does not cover.</h2>
+          <p class="section-sub">If any of these matter, they become a separate engagement.</p>
+          <ul>
+            <li><strong>Email marketing campaigns.</strong> GHL handles this natively. We integrate with it but do not design campaigns.</li>
+            <li><strong>Payment processor selection.</strong> Stripe via GHL is the current path. Switching processors is out of scope.</li>
+            <li><strong>Booking calendar UX.</strong> GHL native calendars are used as-is for staff bookings.</li>
+            <li><strong>Brand identity / visual redesign.</strong> We use the existing brand. Visual refresh is a separate engagement.</li>
+            <li><strong>Mobile app.</strong> All operator views are responsive web; native mobile is out of scope.</li>
+            <li><strong>Multi-language support.</strong> English only. Spanish-language forms would be a separate phase.</li>
+            <li><strong>Custom HR / payroll integration.</strong> Instructor scheduling and payroll happen outside this system.</li>
+            <li><strong>AI-assisted features.</strong> Could be added in a follow-on engagement (auto-summarize parent notes, predict no-shows, draft enrollment emails). Out of scope for the core build.</li>
+            <li><strong>Migrating the legacy paper-based history.</strong> Old paper registrations from prior years can be brought in as a one-time import; ongoing paper intake is not supported.</li>
+          </ul>
+        </section>
+
+        <!-- ─── APPENDICES ─── -->
+        <section id="appendix">
+          <div class="section-kicker">11 · Appendices</div>
+          <h2>Glossary, costs, and runbook index.</h2>
+
+          <h3>Appendix A · Glossary</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Term</th><th>Meaning</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Discrepancy Check</strong></td><td>The 15-minute failsafe cron that catches missed registrations</td></tr>
+                <tr><td><strong>Heartbeat guard</strong></td><td>A second-tier alert that fires when the failsafe itself goes silent for 24h</td></tr>
+                <tr><td><strong>Fingerprint</strong></td><td>A deterministic hash of email + product + period used to identify billing rows</td></tr>
+                <tr><td><strong>Source of truth</strong></td><td>The single authoritative system for a piece of data (Google Sheets in this architecture)</td></tr>
+                <tr><td><strong>Manual Item</strong></td><td>A billing row created via the operator dialog, not from a form</td></tr>
+                <tr><td><strong>Tombstone</strong></td><td>A Supabase row recording an intentional delete, so the failsafe does not re-add the row</td></tr>
+                <tr><td><strong>Pinned deployment</strong></td><td>An Apps Script deployment URL that does not change when the script is updated</td></tr>
+                <tr><td><strong>Subaccount</strong></td><td>A separate GoHighLevel location (FL, GA, future VA)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Appendix B · Tool stack monthly recurring</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Tool</th><th>Cost</th><th>Notes</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>GoHighLevel</td><td>$97 to $497</td><td>Existing</td></tr>
+                <tr><td>Google Workspace (Sheets, Drive, Apps Script)</td><td>$0 incremental</td><td>Existing</td></tr>
+                <tr><td>GitHub</td><td>$0</td><td>Public repo, free Pages + Actions</td></tr>
+                <tr><td>Supabase</td><td>$0</td><td>Free tier covers the projected volume</td></tr>
+                <tr><td>n8n</td><td>$20 to $50</td><td>Cloud-hosted, used for token refresh</td></tr>
+                <tr><td><strong>Total incremental</strong></td><td><strong>$20 to $50 / month</strong></td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Appendix C · Operator runbook index</h3>
+          <p>Every subsystem ships with a runbook. The full list:</p>
+          <ol>
+            <li>Registration system runbook</li>
+            <li>Camp Dashboard operator guide</li>
+            <li>Billing Dashboard operator guide (with Add Item walkthrough)</li>
+            <li>Manual Items procedure</li>
+            <li>Form spec reference</li>
+            <li>Waiver Matcher procedure</li>
+            <li>School Enrollment Router admin guide</li>
+            <li>Discrepancy Check + heartbeat guard procedure</li>
+            <li>Recovery procedures (rollback, restore lost links, dedup)</li>
+            <li>OAuth token refresh procedure</li>
+          </ol>
+          <p>Each runbook is a single page. The team gets a printed binder on Day 1.</p>
+        </section>
+      </main>
+    </div>
+
+    <!-- ─── FOOTER CTA ─── -->
+    <section class="footer-cta">
+      <div class="footer-cta-eyebrow">This is what you receive on Day 14</div>
+      <h2 class="footer-cta-title">Ready for <em>yours</em>?</h2>
+      <p class="footer-cta-sub">
+        Two weeks. One document. The full architecture for your business, built so any competent team can execute it. Yours forever.
+      </p>
+      <a class="footer-cta-btn" href="https://nilsdigital.com/client" target="_blank" rel="noopener">
+        Start Your 14-Day Audit
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24">
+          <path d="M5 12h14m-6-6 6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="footer-cta-foot">Free 15-minute fit call · No pressure</div>
+    </section>
+
+    <div class="credit">
+      Prepared by Nils Digital · This document is the property of Systema Floyd · Hand it to any competent team and they will know exactly what to build.
+    </div>
+
+    <script>
+      // Scrollspy: highlight TOC entry for the section currently in view.
+      const links = document.querySelectorAll(".toc a");
+      const sections = Array.from(links).map((a) =>
+        document.querySelector(a.getAttribute("href")),
+      );
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          // pick the section whose top is closest to the top of the viewport
+          let topMost = null;
+          let topMostY = Infinity;
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              const y = e.boundingClientRect.top;
+              if (y >= 0 && y < topMostY) {
+                topMost = e.target;
+                topMostY = y;
+              }
+            }
+          }
+          if (topMost) {
+            const id = topMost.id;
+            links.forEach((a) =>
+              a.classList.toggle(
+                "active",
+                a.getAttribute("href") === "#" + id,
+              ),
+            );
+          }
+        },
+        { rootMargin: "-80px 0px -60% 0px", threshold: [0, 0.1, 0.5] },
+      );
+
+      sections.forEach((s) => s && io.observe(s));
+    </script>
+  </body>
+</html>
