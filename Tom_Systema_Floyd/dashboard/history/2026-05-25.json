@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T21:52:01Z",
+  "generatedAt": "2026-05-25T21:57:15Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -215,8 +215,8 @@
   "free": {
     "total": 42,
     "byCampus": {
-      "Upper Campus": 25,
-      "Lower Campus": 17,
+      "Upper Campus": 24,
+      "Lower Campus": 18,
       "Unknown": 0
     },
     "byWeek": {
@@ -251,8 +251,8 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 18,
-        "Lower Campus": 13,
+        "Upper Campus": 17,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -327,8 +327,8 @@
     "total": 162,
     "enrollments": 520,
     "byCampus": {
-      "Upper Campus": 72,
-      "Lower Campus": 90,
+      "Upper Campus": 71,
+      "Lower Campus": 91,
       "Unknown": 0
     },
     "byWeek": {
@@ -363,8 +363,8 @@
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 23,
-        "Lower Campus": 27,
+        "Upper Campus": 22,
+        "Lower Campus": 28,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -5265,16 +5265,44 @@
         "rows": [
           {
             "category": "other",
+            "subtypeKey": "other|willie james richardson",
+            "label": "Willie James Richardson",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Autumn Willow Richardson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Willie James Richardson"
+              }
+            ]
+          },
+          {
+            "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 30,
+              "Tue": 30,
+              "Wed": 30,
+              "Thu": 30,
+              "Fri": 30
             },
-            "total": 155,
+            "total": 150,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5304,19 +5332,6 @@
               },
               {
                 "name": "Ashton Govan",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Autumn Willow Richardson",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -10534,10 +10549,8 @@
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
@@ -10842,10 +10855,8 @@
           "allergy": null,
           "notes": null,
           "email": "daisyb30@yahoo.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
@@ -12632,7 +12643,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -12682,7 +12693,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -12695,19 +12706,19 @@
         },
         {
           "name": "Autumn Willow Richardson",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Willie James Richardson",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "wrichardson1384@gmail.com",
+          "email": "6a0388e4cde2c905423625e4",
           "incomplete": false,
           "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 2,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -12757,7 +12768,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -12782,7 +12793,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -12832,7 +12843,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -12857,7 +12868,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -12882,7 +12893,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -12932,7 +12943,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -13007,7 +13018,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -13032,7 +13043,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -13082,7 +13093,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -13132,7 +13143,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -13227,12 +13238,14 @@
           "allergy": null,
           "notes": null,
           "email": "patallenaj@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
+          "incomplete": true,
+          "missingFields": [
+            "Age"
+          ],
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -13257,7 +13270,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -13332,7 +13345,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -13357,7 +13370,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 3,
+          "sourceRow": 2,
           "days": [
             true,
             true,
@@ -13382,7 +13395,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
