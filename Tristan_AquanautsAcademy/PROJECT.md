@@ -57,8 +57,8 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Open threads
 
-1. **GHL sub-account confirmation** — looking up Tristan Tolley's locationId + `acces_token` from `public.ghl_tokens` in Supabase (`nroeiabeirifurdaybyo`).
-2. **Site image scrape + upload to GHL media library** — in progress, parallelized into agents 2026-05-24.
+1. **GHL sub-account confirmed** — Tristan's locationId is `xBWIIj9IjYQL2XdtjJ1A`, `account_name = "Tristan Tolley's Account"` in `public.ghl_tokens`. Token is rotated by n8n; re-pull on long runs.
+2. **Funnel HTML rewrite** — swap Wix URLs to GHL CDN URLs in `funnel/home.html` and `funnel/home-b.html` using `image_url_map.json` (64 mappings). Pending — done in a separate Claude conversation per the hand-off plan.
 3. **Verify all `/partnerships` claims** with Tristan before reusing on a funnel: SELF DESIGN, NIDES, HCOS, Island ConnectEd, Superhero Swim University, inSpace Childcare, Katies Korner, Balance Physio, Long Lake Physio, Splash About, Autism Support BC, Special Olympics BC.
 4. **Google Business Profile** — claimed? Total reviews + stars? Currently only 3 named testimonials exist anywhere online; a review-collection workflow is priority #1 for social proof.
 5. **AFU registration** — is Aquanauts a registered AFU provider, or are clients paying-and-claiming? Affects how we phrase pricing on the adaptive page.
@@ -66,6 +66,31 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 7. **Video assets** — none exist. A 60-90s founder story video is the highest-ROI single asset he could produce.
 
 ## Changelog
+
+### 2026-05-25 (late) — UX polish, B retheme to "space swim school", handoff doc
+- Wrote [HANDOFF.md](HANDOFF.md) — complete next-session brief covering live URLs, what's done, what's pending, file map, GHL access, gotchas, and quick-start instructions.
+- Mobile UI/UX audit on both variations (Puppeteer): fixed iOS form-input zoom (16px font), undersized tap targets on `.loc-card-link` (44px min-height), tiny program-card-tag text (bumped to 0.78rem).
+- Reviews section: added 6 new verbatim Google reviews (Kirsten R, Heidi R, Amanda C, Ranu D, Cristina P, Natali S) covering Tristan, Catherine, Brandon, Drake, Anastasia + autism/neurodiverse/adult/fearful-kid personas; 9 total. Replaced "Read More on Google" CTA with an in-page topic filter (All / Kids / Adaptive / Adults / Beat Fear). Bug fix: filter was wired but didn't visually hide cards — missing `.review-card.hidden { display: none; }` rule.
+- Pre-fill CTAs: every CTA targeting `#hero-form` now smooth-scrolls AND pre-fills `program_interest` + `closest_location`, then pulses the form card. Program-card CTAs use `data-program`; location and team cards have location inferred from card content via JS.
+- Gallery expanded from 6 to 12 images (added 6 pool-location photos). Image-section fit audit: swapped About to the warm "instructor-and-child in water" shot; swapped Lifeguard program card to the Naturally Pacific Resort pool photo.
+- **Variation B retheme arc** (driven by user feedback "it just looks dark"):
+  - Fixed `body { background }` blocking `body::before`/`::after` decorative layers (moved base color to `html`).
+  - Saturn-style glowing planet (360px) in hero top-right with tilted ring + concentric water-ripple animation.
+  - Strengthened hero wave divider (4-layer SVG, alpha 0.06 → 0.65). Added 3 more wave dividers between Programs→Events, Locations→Steps, Team→Why.
+  - Bubbles: bigger (8-22px), brighter cores, 12s cycle.
+  - Final shift from "outer space + bubbles" to "space swim school": deep pool blue base (#0a2548), strong caustic-light patches, faint pool-tile grid, drifting horizontal water-ripple bands, reduced starfield density.
+  - Fixed B logo invisibility (removed `filter: brightness(0) invert(1)`, replaced with cyan drop-shadow glow).
+- Team card alignment: `.team-card` flex-column, `.team-card-bio { flex: 1 }`, `.team-card-serves { margin-top: auto }`. "Book with X" CTAs now align across all 8 cards regardless of bio length.
+- Headline rule established: section headlines max 2 lines. Team uses explicit `<br>` to force "Eight Instructors." / "110+ Years on Deck."
+- Scheduled remote routine `trig_01MsfuJWmQYW5WUGNFzMsV6x` for the Wix→GHL URL swap at `2026-05-25T10:39:00Z` — now superseded because the parallel scrape conversation finished and `image_url_map.json` is ready; swap can be run directly.
+
+### 2026-05-25 (evening) — Site image scrape + GHL media library upload complete
+- Crawled all 19 site pages from `sitemap.xml` plus 3 blog posts (`/post/why-private-swim-lessons-are-worth-it`, `/post/discover-the-benefits-of-adult-swimming-classes`, `/post/space-themed-swimming-lessons-for-kids-with-diverse-abilities-1`). 67 unique canonical Wix assets discovered.
+- Filtered 2 UI-icon glyphs (Facebook/Instagram, 22x22 only). Downloaded the rest at native resolution to `uploads/` (122.9 MB).
+- Uploaded 64 to Tristan's GHL media library (`xBWIIj9IjYQL2XdtjJ1A`). One Wix asset URL on the live homepage has a malformed 31-char hash and returns 403 (Shawnigan secondary thumbnail) — documented as failed in `image_inventory.md`, safe to drop because it duplicates `location-shawnigan-mobile.jpg`.
+- AVIF asset (Victoria Pool 2) converted to JPEG via Wix `/v1/.../enc_jpg/` variant since GHL rejects AVIF (`INVALID_FILE_TYPE`).
+- Outputs: `image_inventory.md` (categorized catalog), `image_url_map.json` (Wix canonical → GHL CDN, 64 entries). Map is ready for the funnel-rewrite step where `funnel/home.html` and `funnel/home-b.html` get their image URLs swapped from Wix to GHL.
+- Gotcha logged: Supabase `acces_token` (5879 chars) gets silently truncated by ~1 char per write boundary when pulled in chunks; need to pull with overlapping windows and stitch in Node to get the full string. Anything short and you get 401 Invalid JWT against `/locations`.
 
 ### 2026-05-25 — Wix → GHL URL swap blocked; swap status note written
 - Checked for `image_url_map.json` and `image_inventory.md` — neither file exists yet (parallel scrape + upload pipeline not complete).
