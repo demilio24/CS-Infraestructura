@@ -95,6 +95,14 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-25 — Website housekeeping: em-dash audit, sitemap auto-grow script, `_drafts/` inventory
+Knocked out three low-friction cleanup items from `Nils/website/HANDOFF.md` §7 in one session, each as its own commit so any can be reverted independently:
+1. **Em-dash audit.** Scanned `index.html`, `blog/index.html`, `blog/_template.html`, `blog/posts/*.html` against the Copy Rules (HANDOFF §3) no-em-dash rule. Only one instance found, inside an HTML comment at `index.html:294`. Replaced with a comma for consistency. No user-visible copy needed changes.
+2. **Sitemap auto-grow script.** Added `Nils/website/scripts/build-sitemap.mjs`. Globs `blog/posts/*.html`, reads each post's `<meta name="blg-date">` (falls back to file mtime), skips files starting with `_` and any post tagged `<meta name="robots" content="noindex">`, regenerates `sitemap.xml` with home + `/blog/` + every published post. Output is byte-identical to the current sitemap when no posts exist (verified). `README.md` got a new "Scripts" table documenting all three scripts plus a "Rebuilding the sitemap" how-to.
+3. **`_drafts/` inventory.** Wrote `Nils/website/_drafts/INVENTORY.md` with a per-file recommendation: **keep** `ghl-media-gallery.html` + `ghl-media-inventory.md` (still referenced from HANDOFF §4 and §11), **delete** the other 18 build-iteration variations. Suggested `git rm` command included. Stopped short of deleting, the call is Emilio's.
+
+Open follow-up: Emilio to approve / run the suggested `git rm` from INVENTORY.md if a cleaner repo is wanted.
+
 ### 2026-05-25 — 14-Day Audit offer shipped end to end: pitch deck + sample blueprint deliverable + handoff doc
 Closed out the audit-offer build track that started 2026-05-24 and continued today. Three assets live and pushed:
 1. **`Nils/presentation-audit.html`** — 7-slide audit pitch deck, EN/ES toggle, $3,000 price. Iterated through the day: headline 3-line cap, centering fix on the problem-slide paragraph, hero proof bar ("100+ Audits delivered" + 5-star Trustpilot), mobile arrow hiding + scroll-on-overflow, ES slide-5 headline simplified to "Plan completo en 14 días." Verified at 1920/1440/390 in EN+ES via `.claude/shot-audit-deck.js`.
