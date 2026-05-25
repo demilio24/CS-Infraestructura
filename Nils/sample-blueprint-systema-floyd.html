@@ -673,6 +673,146 @@
         left: 4px;
       }
 
+      /* ─── TECH DROPDOWN ─── */
+      details.tech {
+        margin-top: 18px;
+        padding-top: 18px;
+        border-top: 1px dashed var(--line-2);
+      }
+      details.tech > summary {
+        cursor: pointer;
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--blue);
+        list-style: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 16px 8px 10px;
+        background: rgba(4, 107, 210, 0.06);
+        border: 1px solid rgba(4, 107, 210, 0.16);
+        border-radius: 100px;
+        transition: all 0.15s ease;
+        user-select: none;
+      }
+      details.tech > summary:hover {
+        background: rgba(4, 107, 210, 0.1);
+      }
+      details.tech > summary::-webkit-details-marker {
+        display: none;
+      }
+      details.tech > summary::before {
+        content: "+";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--blue);
+        color: #fff;
+        font-size: 14px;
+        line-height: 1;
+        font-weight: 700;
+      }
+      details.tech[open] > summary::before {
+        content: "−";
+      }
+      details.tech .tech-body {
+        margin-top: 16px;
+        padding: 20px 24px;
+        background: rgba(10, 22, 40, 0.025);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      details.tech .tech-body h5 {
+        font-family: var(--font-display);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-3);
+        margin: 18px 0 8px;
+      }
+      details.tech .tech-body h5:first-child {
+        margin-top: 0;
+      }
+      details.tech .tech-body p {
+        margin-bottom: 10px;
+        font-size: 14.5px;
+        line-height: 1.6;
+      }
+      details.tech .tech-body ul {
+        margin: 0 0 12px 0 !important;
+      }
+      details.tech .tech-body ul li {
+        padding-left: 18px !important;
+        margin-bottom: 5px !important;
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+      }
+      details.tech .tech-body ul li::before {
+        top: 10px !important;
+        left: 4px !important;
+        background: var(--ink-4) !important;
+      }
+      details.tech .tech-body code {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 12.5px;
+        background: rgba(10, 22, 40, 0.06);
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: var(--ink);
+      }
+      details.tech .tech-body pre {
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        font-size: 12.5px;
+        background: var(--ink);
+        color: #d5e4f5;
+        padding: 14px 16px;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 10px 0 14px;
+        line-height: 1.55;
+      }
+      details.tech .tech-body pre code {
+        background: transparent;
+        padding: 0;
+        color: inherit;
+      }
+      details.tech .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+        margin: 6px 0 14px;
+      }
+      details.tech .tech-grid > div {
+        padding: 12px 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      details.tech .tech-grid h6 {
+        font-family: var(--font-display);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-4);
+        margin-bottom: 4px;
+      }
+      details.tech .tech-grid p {
+        font-size: 13px;
+        margin: 0;
+        color: var(--ink-2);
+        line-height: 1.45;
+      }
+
       /* ─── CALLOUT ─── */
       .callout {
         margin: 22px 0 28px;
@@ -1268,6 +1408,35 @@
                 </ul>
               </dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Architecture</h5>
+                <ul>
+                  <li><strong>Primary writer:</strong> GHL routing workflow (one per camp/week pair, roughly 20 total)</li>
+                  <li><strong>Failsafe:</strong> Apps Script <code>DiscrepancyCheck.js</code>, runs every 15 minutes via time-based trigger, bound to the Waiver App sheet (uses the sheet as a host, not as data)</li>
+                  <li><strong>Tombstone store:</strong> Supabase table <code>sf_tombstones</code> records intentional deletes so the failsafe does not re-add them</li>
+                </ul>
+
+                <h5>GHL workflow naming convention</h5>
+                <p>One workflow per <code>(camp_type, week)</code> pair, named in the form <code>"&lt;seq&gt;. &lt;Camp Type&gt; (&lt;MM/DD&gt;-&lt;MM/DD&gt;) -&gt; Google Sheet routing"</code>. Example: <code>9. Free Camp (July 27th-31st) -&gt; Google Sheet routing</code>.</p>
+
+                <h5>Dedup logic</h5>
+                <ul>
+                  <li>Email-first match on parent email (exact)</li>
+                  <li>Within matched emails, Jaro-Winkler similarity on student name, threshold 0.85</li>
+                  <li>Tombstone lookup: skip re-add if <code>(student_name, parent_email, week_label)</code> exists in <code>sf_tombstones</code></li>
+                </ul>
+
+                <h5>Failure modes and recovery</h5>
+                <div class="tech-grid">
+                  <div><h6>Webhook never fires</h6><p>DiscrepancyCheck patches within 15 min, emails the team with the workflow ID that should have caught it</p></div>
+                  <div><h6>DiscrepancyCheck silent &gt;24h</h6><p>Heartbeat-guard cron emails the team automatically</p></div>
+                  <div><h6>Sheet write throws</h6><p>Row queued for next cron iteration; retries are idempotent</p></div>
+                  <div><h6>Operator deletes a row</h6><p>Tombstone written; failsafe respects it on future runs</p></div>
+                </div>
+              </div>
+            </details>
           </div>
 
           <!-- 4.2 -->
@@ -1288,6 +1457,35 @@
               <dt>Why client-side</dt>
               <dd>Server-side validation would require a custom backend in front of GHL. The form is already in GHL. The browser is already executing arbitrary code there. Client-side validation is the right place for this gate.</dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Runtime</h5>
+                <ul>
+                  <li>100% client-side JavaScript, no server, no build step</li>
+                  <li>Embedded as a Custom Code element at the bottom of the GHL form</li>
+                  <li>About 3KB minified, zero external dependencies</li>
+                </ul>
+
+                <h5>DOM observation</h5>
+                <p>A <code>MutationObserver</code> watches the form root and re-attaches change handlers on every re-render (GHL re-renders the form whenever its conditional logic changes). Re-attach is debounced 50ms.</p>
+
+                <h5>Validation rule</h5>
+                <p>For each week the parent has ticked, the number of day-checkboxes must equal the value in the Camp Duration dropdown:</p>
+                <ul>
+                  <li><code>"1 day"</code> → exactly 1 day box checked</li>
+                  <li><code>"2 days"</code> → exactly 2</li>
+                  <li>…up to <code>"5 days"</code> (full week)</li>
+                </ul>
+
+                <h5>Submit blocking</h5>
+                <ul>
+                  <li>Hooks the form's submit button <code>click</code> (capture phase, <code>e.preventDefault</code>)</li>
+                  <li>Hooks form's <code>Enter</code> keydown so the parent cannot bypass the button</li>
+                  <li>Shows an inline error message under the offending week; auto-clears when validation passes</li>
+                </ul>
+              </div>
+            </details>
           </div>
 
           <!-- 4.3 -->
@@ -1327,6 +1525,63 @@
                 </ul>
               </dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Snapshot pipeline</h5>
+                <ul>
+                  <li>Apps Script standalone project with a pinned web app deployment ID (always updated in place, never replaced)</li>
+                  <li>Time-based trigger: every 5 minutes</li>
+                  <li>Reads the 4 source sheets (Summer Upper Paid, Summer Lower Paid, FREE Higher, FREE Lower)</li>
+                  <li>Outputs: <code>dashboard/snapshot.json</code> (committed by GH Actions) plus Supabase tables <code>sf_camp_enrollments</code> and <code>sf_camp_snapshots</code></li>
+                </ul>
+
+                <h5>Deployment discipline</h5>
+                <p>Always update the same deployment ID via clasp:</p>
+                <pre><code>clasp push -f
+clasp deploy --deploymentId &lt;pinned&gt; --description "..."</code></pre>
+                <p>Never run <code>clasp deploy</code> alone, which regenerates the URL and breaks the GitHub Actions fetcher.</p>
+
+                <h5>GitHub Actions cron</h5>
+                <ul>
+                  <li>Workflow: <code>.github/workflows/refresh-systema-snapshot.yml</code></li>
+                  <li>Schedule: every 5 minutes</li>
+                  <li>Script: <code>.claude/scripts/fetch-systema-snapshot-from-sheets.py</code></li>
+                  <li>Commits <code>snapshot.json</code> with <code>[skip ci]</code> suffix so it does not retrigger CI</li>
+                </ul>
+
+                <h5>snapshot.json schema (top level)</h5>
+                <pre><code>{
+  "generatedAt": "ISO 8601",
+  "upper": {
+    "paid": [ { studentName, parentEmail, week, days, lunch,
+                allergies, sourceSheetId, sourceTabName,
+                sourceRow, sourceGid }, ... ],
+    "free": [ ... ]
+  },
+  "lower": { "paid": [...], "free": [...] },
+  "totals": {
+    "byCampus": { "upperPaid": N, "upperFree": N,
+                  "lowerPaid": N, "lowerFree": N },
+    "byWeek":   { "&lt;week_label&gt;": { paid, free, total }, ... },
+    "byMeal":   { "lunch": N, "noLunch": N, "allergies": [...] }
+  },
+  "dataIssues": [ { kind, studentName, sourceSheetId,
+                    sourceTabName, sourceRow, sourceGid,
+                    missingFields: [...] }, ... ]
+}</code></pre>
+
+                <h5>Supabase RPCs (per-person attendance)</h5>
+                <ul>
+                  <li><code>sf_get_daily_attendance_people(week_label?)</code> bulk fetch</li>
+                  <li><code>sf_set_daily_attendance_person(...)</code> single upsert; null/empty status deletes</li>
+                  <li><code>sf_bulk_set_daily_attendance_people(secret, week, day, status, persons[], marked_by)</code> bulk upsert/clear</li>
+                </ul>
+
+                <h5>Daily history</h5>
+                <p><code>dashboard/history/YYYY-MM-DD.json</code> is written on each Snapshot run; <code>history/index.json</code> maintains a sorted list. Used for trend analysis and rollback.</p>
+              </div>
+            </details>
           </div>
 
           <!-- 4.4 -->
@@ -1374,6 +1629,86 @@
                 </ul>
               </dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Apps Script project</h5>
+                <ul>
+                  <li>Bound to the <em>Billing Dashboard</em> Google Sheet</li>
+                  <li>Owned by the Sheets/Drive permission anchor account; <code>clasp deploy</code> only runs from the owner</li>
+                  <li><code>clasp push -f</code> works from any authorized account</li>
+                </ul>
+
+                <h5>Files</h5>
+                <ul>
+                  <li><code>BillingFromSheets.js</code> main pipeline</li>
+                  <li><code>PricingGuide.js</code> team-editable Pricing tab reader</li>
+                  <li><code>Polling.js</code> $1 CC verification fee polling</li>
+                  <li><code>RemoteTrigger.js</code> admin webapp with whitelisted RPCs</li>
+                  <li><code>Helpers.js</code>, <code>Configuration.js</code>, <code>FieldRegistry.js</code> utilities</li>
+                </ul>
+
+                <h5>Triggers</h5>
+                <div class="tech-grid">
+                  <div><h6>buildAllBilling</h6><p>Every 5 min, main pipeline</p></div>
+                  <div><h6>pollFloridaSubmissions</h6><p>Every 5 min, $1 CC fee only</p></div>
+                  <div><h6>dailyDashboardSelfHeal</h6><p>Daily 04:00, idempotent self-heal pass</p></div>
+                </div>
+
+                <h5>Sheet structure (Billing Dashboard)</h5>
+                <ul>
+                  <li><code>Dashboard</code> canonical: customer rows plus tx child rows, grouped</li>
+                  <li><code>Pricing</code> team-editable price catalog</li>
+                  <li><code>Manual Items</code> <strong>hidden</strong>, source of truth for manual rows</li>
+                  <li><code>Transactions</code> auto-synced from each subaccount's <code>/payments/transactions</code></li>
+                  <li><code>Logs</code> instrumentation</li>
+                </ul>
+
+                <h5>Row fingerprint</h5>
+                <p>SHA-256 of <code>parent_email | product_key | period | base_amount</code>. Used for dedup and for matching across pipeline runs.</p>
+
+                <h5>Row lifecycle states</h5>
+                <pre><code>new
+  ↓ first time priced
+owed ─────┬──────────────────► canceled  (source row removed,
+  │       │                      no payment)
+  │ GHL transaction matched
+  ↓
+paid ─────┴──────────────────► refund-needed  (source row removed,
+                                                payment exists)</code></pre>
+
+                <h5>Sales tax matrix</h5>
+                <ul>
+                  <li>Florida: 6.0%</li>
+                  <li>Georgia: 4.0%</li>
+                  <li>Virginia: 5.3% (when subaccount activates)</li>
+                </ul>
+                <p>Tax is computed at price time and baked into the row's amount; the GHL processing fee is inflated on top.</p>
+
+                <h5>Manual Items entry path</h5>
+                <ol style="counter-reset: ol-counter;">
+                  <li>Operator clicks <code>Add Item</code> → <code>+ New manual item</code></li>
+                  <li>Sidebar dialog (<code>AddManualItem.html</code>) collects fields</li>
+                  <li>Writes a row to hidden <code>Manual Items</code> source tab with a stable UUID fingerprint</li>
+                  <li>One-time trigger fires <code>buildAllBilling</code> about 10s later</li>
+                  <li>Row lands on the Dashboard with proper fingerprint and lifecycle</li>
+                </ol>
+
+                <h5>Idempotency contract</h5>
+                <p>Every audit, dedup, restore, and import function is keyed on content hash (not row index), safe to run multiple times, and produces the same Dashboard state regardless of run count.</p>
+
+                <h5>Recovery RPCs (RemoteTrigger.js webapp)</h5>
+                <ul>
+                  <li><code>restoreLostProfileLinks()</code></li>
+                  <li><code>cleanupDoubleShirtSuffix()</code></li>
+                  <li><code>cleanupExtraNuclearTriggers()</code></li>
+                  <li><code>listAllCustomerEmails()</code></li>
+                  <li><code>traceCustomer(email)</code></li>
+                  <li><code>registrationStats()</code></li>
+                </ul>
+                <p>All claim-secret gated, all idempotent.</p>
+              </div>
+            </details>
           </div>
 
           <!-- 4.5 -->
@@ -1400,6 +1735,40 @@
               <dt>Key decision</dt>
               <dd>Each school's spreadsheet is independent. The school's administrator gets read access to their sheet only. No cross-school data leakage. The Router is the only piece that has access to all of them.</dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Apps Script binding</h5>
+                <p>Bound to the Main Table spreadsheet. Trigger: <code>onChange</code> (any new row in the intake tab).</p>
+
+                <h5>School name matching tiers (in order)</h5>
+                <ol style="counter-reset: ol-counter;">
+                  <li>Exact match against registered school list → write to that sheet</li>
+                  <li>Case-insensitive match → write to that sheet, log normalization to alerts tab</li>
+                  <li>Levenshtein distance ≤ 3 → suggest match, write, log to alerts tab</li>
+                  <li>No match → create new destination sheet from template (Monthly or Quarterly)</li>
+                </ol>
+
+                <h5>Templates</h5>
+                <ul>
+                  <li><code>School Enrollment Template, Monthly</code></li>
+                  <li><code>School Enrollment Template, Quarterly</code></li>
+                </ul>
+                <p>School admin picks the cadence on first enrollment; subsequent enrollments land in the same template type.</p>
+
+                <h5>Access control</h5>
+                <ul>
+                  <li>Each destination sheet is shared only with: the school administrator (read by default, write on request) and the Systema Floyd operator (write)</li>
+                  <li>The Router has access to all destination sheets via its service-account binding</li>
+                </ul>
+
+                <h5>Failure modes</h5>
+                <ul>
+                  <li>New school, admin email not provided → sheet created but unshared, operator notified</li>
+                  <li>Levenshtein false positive → operator can manually move the row and add the new school to the registered list</li>
+                </ul>
+              </div>
+            </details>
           </div>
 
           <!-- 4.6 -->
@@ -1436,6 +1805,41 @@
               <dt>Key decision</dt>
               <dd>Waivers and rosters stay separate sheets, owned separately, with the matcher running between them. Merging them into one sheet was considered and rejected: the waiver app has different access controls and a different lifecycle than the rosters.</dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Apps Script binding</h5>
+                <p>Bound to the Waiver APP spreadsheet. Trigger: <code>onChange</code> (any cell edit).</p>
+
+                <h5>Matching algorithm</h5>
+                <ol style="counter-reset: ol-counter;">
+                  <li>Read every row from the Waiver app sheet</li>
+                  <li>For each waiver row, iterate the 4 roster sheets in Drive</li>
+                  <li>Match by parent email (exact) first</li>
+                  <li>If multiple email matches, narrow by Jaro-Winkler similarity on student name (threshold 0.85)</li>
+                  <li>On match: highlight the roster cell green (<code>#d4edda</code>) and inject a cell note with health/allergy data</li>
+                </ol>
+
+                <h5>Health data fields surfaced in cell notes</h5>
+                <ul>
+                  <li>Allergies (food, environmental, medication)</li>
+                  <li>Medications currently taken</li>
+                  <li>Medical conditions</li>
+                  <li>Emergency contact name and phone</li>
+                  <li>Special notes (behavioral, dietary, mobility)</li>
+                </ul>
+
+                <h5>Performance</h5>
+                <p>All 4 roster sheets are scanned on every Waiver app change. About 500ms for roughly 120 students. Triggered only on Waiver edits, not on roster edits.</p>
+
+                <h5>Failure modes</h5>
+                <ul>
+                  <li>Apps Script disabled → operator can hand-annotate roster cells (manual override)</li>
+                  <li>Waiver edited but student name typo → no match; waiver appears unmatched in audit view</li>
+                  <li>Two students with same name plus same parent email → both rows get the note; operator can disambiguate manually</li>
+                </ul>
+              </div>
+            </details>
           </div>
 
           <!-- 4.7 -->
@@ -1480,6 +1884,40 @@
                 </ul>
               </dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>GHL custom-field convention</h5>
+                <ul>
+                  <li>Each form has its own folder of custom fields in GHL</li>
+                  <li>Field keys are prefixed with the form code: <code>contact.pl_instructor</code>, <code>contact.ras_service_type</code>, <code>contact.sc_camp_duration</code>, etc.</li>
+                  <li>Field IDs are opaque GHL strings; field keys are human-readable</li>
+                  <li>Per-form ID maps are stored in <code>.claude/scratch/ghl_&lt;form&gt;_ids.json</code> and committed to the docs folder for reference</li>
+                </ul>
+
+                <h5>Per-form workflow chain</h5>
+                <ol style="counter-reset: ol-counter;">
+                  <li><strong>Trigger:</strong> form submission</li>
+                  <li><strong>Action 1:</strong> Add Row to Spreadsheet (with explicit field-to-column map)</li>
+                  <li><strong>Action 2:</strong> Send Email Notification (per-form template)</li>
+                  <li><strong>Action 3:</strong> Redirect Contact to <code>/waiver</code> with query params (camp + dates if camp form; contact info otherwise)</li>
+                </ol>
+
+                <h5>Camp Day Validator (camp forms only)</h5>
+                <p>Pasted as a Custom Code element at the bottom of camp registration forms. Blocks submission if duration and day-checkbox count do not match. See spec 4.2.</p>
+
+                <h5>Verification harness</h5>
+                <p>Test contact: <code>test@nilsllc.com</code> plus the NILS LLC phone number. For each form, on every change, verify:</p>
+                <ol style="counter-reset: ol-counter;">
+                  <li>Submission appends to the correct Google Sheet</li>
+                  <li>Notification email fires with the correct per-form template</li>
+                  <li>Redirect lands on <code>/waiver</code> with all expected query params</li>
+                </ol>
+
+                <h5>Form spec drift control</h5>
+                <p>Every form has a paired spec doc with a build-status table (Spec'd / GHL fields created / GHL form built / Notes). Updated on every change so the form and its sheet, workflow, and downstream consumers stay in sync.</p>
+              </div>
+            </details>
           </div>
 
           <!-- 4.8 -->
@@ -1511,6 +1949,54 @@
               <dt>Why not native GHL</dt>
               <dd>GHL's site builder is fine for landing pages but constrains custom interactions (the camp day validator, the embedded forms, the three-step birthday party booking flow). Static HTML gives us full control and is trivially fast.</dd>
             </dl>
+            <details class="tech">
+              <summary>Implementation details</summary>
+              <div class="tech-body">
+                <h5>Hosting</h5>
+                <ul>
+                  <li>GitHub Pages, public repo</li>
+                  <li>Path: <code>/Tom_Systema_Floyd/funnel/&lt;page&gt;.html</code></li>
+                  <li>Public URL: <code>https://&lt;org&gt;.github.io/Websites/Tom_Systema_Floyd/funnel/&lt;page&gt;.html</code></li>
+                </ul>
+
+                <h5>Tech stack</h5>
+                <ul>
+                  <li>Vanilla HTML/CSS/JS, no framework, no build step</li>
+                  <li>Inline <code>&lt;style&gt;</code> and <code>&lt;script&gt;</code> per page (no separate CSS or JS files to manage)</li>
+                  <li>Google Fonts loaded via <code>&lt;link&gt;</code></li>
+                  <li>Mobile-first responsive</li>
+                </ul>
+
+                <h5>GHL embedding</h5>
+                <p>Each page is embedded into a GHL Custom Code element via a standard iframe wrapper that:</p>
+                <ul>
+                  <li>Neutralizes GHL's container padding (full-width breakout)</li>
+                  <li>Passes <code>?email=</code> from the parent context into the iframe (so the GHL contact identity flows through)</li>
+                  <li>Uses a unique iframe id per page (e.g. <code>sfBirthdayPartiesFrame</code>) so multiple embeds on the same parent never collide</li>
+                </ul>
+
+                <h5>Slug to file mapping</h5>
+                <pre><code>/                       →  home.html
+/camps                  →  camps.html
+/summer-camp-scholarship → summer-camp-scholarship.html
+/after-school           →  after-school.html
+/private-lessons        →  private-lessons.html
+/spirit-dance           →  spirit-dance.html
+/birthday-parties       →  birthday-parties.html
+/rent-a-sensei          →  rent-a-sensei.html
+/waiver                 →  waiver.html
+/waiver-free            →  waiver-free.html
+/thankyou               →  thankyou.html
+/vlad-seminar           →  vlad-seminar.html</code></pre>
+
+                <h5>House conventions</h5>
+                <ul>
+                  <li>No em-dashes in any user-visible copy. Use comma, period, colon, or en-dash for ranges.</li>
+                  <li>One sentence per <code>&lt;p&gt;</code> in editorial sections.</li>
+                  <li>IntersectionObserver scroll animations (<code>.anim</code> + <code>.visible</code>) with <code>.d1</code>..<code>.d5</code> stagger delays.</li>
+                </ul>
+              </div>
+            </details>
           </div>
         </section>
 

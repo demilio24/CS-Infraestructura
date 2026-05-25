@@ -19,6 +19,7 @@ const SHOTS = [
   { name: "exec", anchor: "#exec", scroll: 0 },
   { name: "diagnosis", anchor: "#diagnosis", scroll: 0 },
   { name: "components", anchor: "#components", scroll: 0 },
+  { name: "component-open", anchor: "#components", scroll: 300, openTech: true },
   { name: "build", anchor: "#build", scroll: 0 },
   { name: "risk", anchor: "#risk", scroll: 0 },
   { name: "footer", anchor: "#appendix", scroll: 4000 },
@@ -40,6 +41,12 @@ const SHOTS = [
     await new Promise((r) => setTimeout(r, 600));
 
     for (const shot of SHOTS) {
+      if (shot.openTech) {
+        await page.evaluate(() => {
+          const d = document.querySelector("details.tech");
+          if (d) d.open = true;
+        });
+      }
       if (shot.anchor) {
         await page.evaluate((sel, sc) => {
           const el = document.querySelector(sel);
