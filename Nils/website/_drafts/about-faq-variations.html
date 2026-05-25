@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About FAQ — Structure Variations</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/Nils/website/assets/css/tokens.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/globals.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/components.css">
+  <link rel="stylesheet" href="/Nils/website/assets/css/about.css">
+
+  <style>
+    .variation-label { background: #0a0a0a; color: white; padding: 14px 24px; font-family: 'Instrument Sans', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 600; text-align: center; }
+    .variation-label small { display: block; opacity: 0.6; font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; font-weight: 400; }
+
+    /* All variations share this section heading */
+    .faq-section { padding: var(--space-7) 0; }
+    .faq-section > .container > h2 { text-align: center; margin-bottom: var(--space-6); }
+
+    /* ───── A: 2x2 grid, always open ───── */
+    .faq-a .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5) var(--space-6);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .faq-a .item h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: var(--lh-snug);
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: var(--space-3);
+    }
+    .faq-a .item p {
+      font-family: var(--font-body);
+      font-size: var(--fs-meta);
+      color: var(--ink-soft);
+      line-height: var(--lh-relaxed);
+      margin: 0;
+    }
+    @media (max-width: 720px) { .faq-a .grid { grid-template-columns: 1fr; } }
+
+    /* ───── B: Numbered Q&A rows ───── */
+    .faq-b .row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: var(--space-5);
+      padding: var(--space-5) 0;
+      border-top: 1px solid var(--ink-line);
+      max-width: 1080px;
+      margin: 0 auto;
+      align-items: baseline;
+    }
+    .faq-b .row:last-child { border-bottom: 1px solid var(--ink-line); }
+    .faq-b .num {
+      font-family: var(--font-serif);
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      color: var(--marketing);
+    }
+    .faq-b .body h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(20px, 2.4vw, 28px);
+      line-height: var(--lh-snug);
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: var(--space-3);
+    }
+    .faq-b .body p {
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      color: var(--ink-soft);
+      line-height: var(--lh-relaxed);
+      margin: 0;
+      max-width: 720px;
+    }
+    @media (max-width: 720px) {
+      .faq-b .row { grid-template-columns: 1fr; gap: var(--space-3); }
+      .faq-b .num { font-size: 44px; }
+    }
+
+    /* ───── C: Vertical tab interface ───── */
+    .faq-c .tabwrap {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: var(--space-7);
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .faq-c .tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--ink-line);
+    }
+    .faq-c .tab {
+      font-family: var(--font-serif);
+      font-size: clamp(17px, 1.7vw, 21px);
+      line-height: var(--lh-snug);
+      letter-spacing: -0.01em;
+      color: var(--ink-soft);
+      padding: var(--space-4) var(--space-3) var(--space-4) 0;
+      border-bottom: 1px solid var(--ink-line);
+      cursor: pointer;
+      transition: color var(--dur-fast);
+      background: transparent;
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      text-align: left;
+    }
+    .faq-c .tab:hover { color: var(--ink); }
+    .faq-c .tab.active {
+      color: var(--marketing);
+      font-weight: 400;
+    }
+    .faq-c .tab.active::before {
+      content: '— ';
+      color: var(--marketing);
+    }
+    .faq-c .panel {
+      padding: var(--space-4) 0;
+    }
+    .faq-c .panel .a-body {
+      display: none;
+      font-family: var(--font-body);
+      font-size: var(--fs-body-lg);
+      color: var(--ink-soft);
+      line-height: var(--lh-relaxed);
+    }
+    .faq-c .panel .a-body.active { display: block; }
+    @media (max-width: 720px) {
+      .faq-c .tabwrap { grid-template-columns: 1fr; gap: var(--space-5); }
+    }
+
+    /* ───── D: Magazine longform single column ───── */
+    .faq-d .article {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .faq-d .article > div {
+      padding: var(--space-6) 0;
+      border-top: 1px solid var(--ink-line);
+    }
+    .faq-d .article > div:last-child { border-bottom: 1px solid var(--ink-line); }
+    .faq-d .article h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: var(--space-4);
+    }
+    .faq-d .article p {
+      font-family: var(--font-body);
+      font-size: var(--fs-body-lg);
+      color: var(--ink-soft);
+      line-height: var(--lh-relaxed);
+      margin: 0;
+    }
+    .faq-d .article .index {
+      font-family: var(--font-display);
+      font-size: var(--fs-eyebrow);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      font-weight: var(--fw-display-bold);
+      margin-bottom: var(--space-3);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ───── VARIATION A: 2x2 grid, always open ───── -->
+  <div class="variation-label">Variation A — 2x2 grid (all open)<small>Static side-by-side, no accordion. Most scannable, fills horizontal space.</small></div>
+  <section class="faq-section faq-a">
+    <div class="container">
+      <h2>What working with Nils actually looks like.</h2>
+      <div class="grid">
+        <div class="item">
+          <h3>How long does the marketing system take to install?</h3>
+          <p>The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
+        </div>
+        <div class="item">
+          <h3>What does the automation audit actually deliver?</h3>
+          <p>A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
+        </div>
+        <div class="item">
+          <h3>Do you take on businesses under $1M?</h3>
+          <p>Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
+        </div>
+        <div class="item">
+          <h3>What happens if it doesn't work?</h3>
+          <p>If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── VARIATION B: Numbered Q&A rows ───── -->
+  <div class="variation-label">Variation B — Numbered Q&amp;A rows<small>Big serif numerals (01-04) anchor each question. Editorial feel, generous body copy.</small></div>
+  <section class="faq-section faq-b">
+    <div class="container">
+      <h2>What working with Nils actually looks like.</h2>
+      <div class="rows">
+        <div class="row">
+          <div class="num">01</div>
+          <div class="body">
+            <h3>How long does the marketing system take to install?</h3>
+            <p>The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="num">02</div>
+          <div class="body">
+            <h3>What does the automation audit actually deliver?</h3>
+            <p>A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="num">03</div>
+          <div class="body">
+            <h3>Do you take on businesses under $1M?</h3>
+            <p>Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="num">04</div>
+          <div class="body">
+            <h3>What happens if it doesn't work?</h3>
+            <p>If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── VARIATION C: Vertical tab interface ───── -->
+  <div class="variation-label">Variation C — Vertical tabs (Q list left, A panel right)<small>Questions on the left as a clickable list. Selected answer shows on the right. Most compact, most interactive.</small></div>
+  <section class="faq-section faq-c">
+    <div class="container">
+      <h2>What working with Nils actually looks like.</h2>
+      <div class="tabwrap">
+        <div class="tabs">
+          <button class="tab active" data-i="0">How long does the marketing system take to install?</button>
+          <button class="tab" data-i="1">What does the automation audit actually deliver?</button>
+          <button class="tab" data-i="2">Do you take on businesses under $1M?</button>
+          <button class="tab" data-i="3">What happens if it doesn't work?</button>
+        </div>
+        <div class="panel">
+          <p class="a-body active" data-i="0">The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
+          <p class="a-body" data-i="1">A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
+          <p class="a-body" data-i="2">Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
+          <p class="a-body" data-i="3">If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── VARIATION D: Magazine longform single column ───── -->
+  <div class="variation-label">Variation D — Magazine longform (single column, generous)<small>Each Q&amp;A reads like a magazine spread. Big serif heading, full-width body. Slowest, most considered.</small></div>
+  <section class="faq-section faq-d">
+    <div class="container">
+      <h2>What working with Nils actually looks like.</h2>
+      <div class="article">
+        <div>
+          <span class="index">Question 01</span>
+          <h3>How long does the marketing system take to install?</h3>
+          <p>The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
+        </div>
+        <div>
+          <span class="index">Question 02</span>
+          <h3>What does the automation audit actually deliver?</h3>
+          <p>A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
+        </div>
+        <div>
+          <span class="index">Question 03</span>
+          <h3>Do you take on businesses under $1M?</h3>
+          <p>Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
+        </div>
+        <div>
+          <span class="index">Question 04</span>
+          <h3>What happens if it doesn't work?</h3>
+          <p>If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Tab handler for Variation C
+    document.querySelectorAll('.faq-c .tab').forEach(t => {
+      t.addEventListener('click', () => {
+        const i = t.dataset.i;
+        document.querySelectorAll('.faq-c .tab').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.faq-c .a-body').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        document.querySelector('.faq-c .a-body[data-i="' + i + '"]').classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
