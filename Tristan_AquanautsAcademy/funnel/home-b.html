@@ -46,17 +46,41 @@ p { margin: 0 0 1em; }
 ::selection { background: rgba(91,231,255,0.3); color: #fff; }
 
 /* Starfield base */
+/* Layered space + water atmosphere — starfield up top, deep ocean glow toward bottom */
 body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(2px 2px at 12% 18%, rgba(255,255,255,0.55), transparent 50%),
-    radial-gradient(1px 1px at 68% 8%, rgba(255,255,255,0.4), transparent 50%),
-    radial-gradient(1.5px 1.5px at 24% 78%, rgba(255,255,255,0.45), transparent 50%),
-    radial-gradient(1px 1px at 82% 56%, rgba(255,255,255,0.35), transparent 50%),
-    radial-gradient(2px 2px at 56% 84%, rgba(255,255,255,0.4), transparent 50%),
-    radial-gradient(1px 1px at 42% 32%, rgba(255,255,255,0.3), transparent 50%),
-    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,231,255,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(58,216,212,0.06) 0%, transparent 60%),
+    /* Starfield — top half of viewport */
+    radial-gradient(2px 2px at 12% 8%, rgba(255,255,255,0.7), transparent 50%),
+    radial-gradient(1px 1px at 68% 4%, rgba(255,255,255,0.55), transparent 50%),
+    radial-gradient(1.5px 1.5px at 24% 18%, rgba(255,255,255,0.6), transparent 50%),
+    radial-gradient(1px 1px at 82% 16%, rgba(255,255,255,0.5), transparent 50%),
+    radial-gradient(2px 2px at 56% 24%, rgba(255,255,255,0.55), transparent 50%),
+    radial-gradient(1px 1px at 42% 12%, rgba(255,255,255,0.4), transparent 50%),
+    radial-gradient(1px 1px at 88% 28%, rgba(255,255,255,0.45), transparent 50%),
+    radial-gradient(1.5px 1.5px at 32% 36%, rgba(255,255,255,0.4), transparent 50%),
+    /* Caustic water-light ripple — mid viewport */
+    radial-gradient(ellipse 60% 30% at 30% 55%, rgba(91,231,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 28% at 75% 65%, rgba(58,216,212,0.05) 0%, transparent 60%),
+    /* Aurora cyan glow up top */
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(91,231,255,0.12) 0%, transparent 60%),
+    /* Deep ocean gradient at the bottom */
+    linear-gradient(180deg, transparent 0%, transparent 55%, rgba(8,26,73,0.45) 80%, rgba(4,15,55,0.65) 100%),
     var(--space);
+}
+/* Floating water bubbles drifting upward across the whole page */
+body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.55;
+  background-image:
+    radial-gradient(circle 3px at 8% 110%, rgba(91,231,255,0.5), transparent 60%),
+    radial-gradient(circle 4px at 28% 110%, rgba(91,231,255,0.45), transparent 60%),
+    radial-gradient(circle 2px at 48% 110%, rgba(58,216,212,0.5), transparent 60%),
+    radial-gradient(circle 5px at 68% 110%, rgba(91,231,255,0.4), transparent 60%),
+    radial-gradient(circle 3px at 88% 110%, rgba(58,216,212,0.5), transparent 60%);
+  background-size: 100% 200%;
+  animation: bubblesRise 22s linear infinite;
+}
+@keyframes bubblesRise {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% -200%; }
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -117,17 +141,39 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 /* ═══════════════════════════════════════════════════════
    HERO
 ═══════════════════════════════════════════════════════ */
-.hero { position: relative; overflow: hidden; padding: 70px 0 100px; }
+.hero { position: relative; overflow: hidden; padding: 70px 0 130px; }
+/* Underwater cyan glow + cosmic aurora overlay */
 .hero::before { content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 60% at 8% 18%, rgba(91,231,255,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 50% at 95% 90%, rgba(58,216,212,0.13) 0%, transparent 65%);
+    radial-gradient(ellipse 60% 60% at 8% 18%, rgba(91,231,255,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 50% at 95% 90%, rgba(58,216,212,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(8,36,98,0.5) 0%, transparent 70%);
   pointer-events: none; z-index: 0;
 }
-.hero::after { content: ''; position: absolute; top: -40%; right: -10%; width: 700px; height: 700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(91,231,255,0.10) 0%, transparent 70%);
-  pointer-events: none; z-index: 0; filter: blur(40px);
+/* Planet orb in hero corner — Saturn-style with subtle ring */
+.hero::after { content: ''; position: absolute; top: -25%; right: -12%; width: 540px; height: 540px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(91,231,255,0.18) 0%, rgba(58,216,212,0.08) 40%, transparent 70%);
+  pointer-events: none; z-index: 0; filter: blur(30px);
 }
+/* Floating bubbles rising in the hero */
+.hero-bubbles { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.hero-bubble {
+  position: absolute; bottom: -40px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(91,231,255,0.25) 40%, rgba(91,231,255,0.05) 70%);
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.25), 0 0 16px rgba(91,231,255,0.18);
+  animation: bubbleFloat linear infinite;
+  opacity: 0;
+}
+@keyframes bubbleFloat {
+  0%   { transform: translateY(0) translateX(0) scale(0.7); opacity: 0; }
+  10%  { opacity: 0.85; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateY(-110vh) translateX(20px) scale(1); opacity: 0; }
+}
+/* Ocean wave divider — sits at the bottom of the hero, transitioning to the about section */
+.wave-divider { position: absolute; bottom: -1px; left: 0; right: 0; height: 72px; pointer-events: none; z-index: 2; line-height: 0; }
+.wave-divider svg { width: 100%; height: 100%; display: block; }
+.wave-divider-flip svg { transform: rotateX(180deg); }
 .hero .container { position: relative; z-index: 1; }
 .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 9px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.76rem; letter-spacing: 3.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 26px; padding: 8px 18px; background: rgba(91,231,255,0.10); border: 1px solid rgba(91,231,255,0.22); border-radius: 50px; }
@@ -149,7 +195,7 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 .hero-form-card .form-field { display: block; margin-bottom: 12px; }
 .hero-form-card .form-field label { display: block; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1.5px; }
 .hero-form-card .form-field input,
-.hero-form-card .form-field select { width: 100%; padding: 13px 14px; border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 0.96rem; color: #fff; background: rgba(0,0,0,0.25); transition: all 0.2s; }
+.hero-form-card .form-field select { width: 100%; padding: 14px 14px; border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 1rem; color: #fff; background: rgba(0,0,0,0.25); transition: all 0.2s; }
 .hero-form-card .form-field input::placeholder { color: var(--text-dim); }
 .hero-form-card .form-field select { color: var(--text-mute); }
 .hero-form-card .form-field input:focus,
@@ -193,7 +239,7 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 .program-card-img { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--space-2); }
 .program-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.9); }
 .program-card:hover .program-card-img img { transform: scale(1.06); filter: brightness(1); }
-.program-card-tag { position: absolute; top: 14px; left: 14px; background: rgba(4,15,36,0.7); color: #fff; padding: 5px 12px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; backdrop-filter: blur(8px); border: 1px solid var(--line-2); }
+.program-card-tag { position: absolute; top: 14px; left: 14px; background: rgba(4,15,36,0.7); color: #fff; padding: 6px 12px; border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; backdrop-filter: blur(8px); border: 1px solid var(--line-2); }
 .program-card-tag.popular { background: var(--cyan); color: var(--space); border-color: var(--cyan); }
 .program-card-body { padding: 24px 22px 26px; flex: 1; display: flex; flex-direction: column; }
 .program-card-body h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 10px; letter-spacing: -0.02em; }
@@ -231,7 +277,7 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 .loc-card-body { padding: 20px 20px 22px; }
 .loc-card-body h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 600; color: #fff; margin-bottom: 6px; line-height: 1.25; letter-spacing: -0.015em; }
 .loc-card-body p { font-size: 0.86rem; color: var(--text-mute); line-height: 1.55; margin: 0 0 12px; }
-.loc-card-link { display: inline-flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; color: var(--cyan); }
+.loc-card-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 0; min-height: 44px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--cyan); }
 .loc-card-link:hover { color: #fff; }
 .loc-cta-row { text-align: center; margin-top: 50px; }
 
@@ -340,11 +386,25 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 .final-cta { padding: 130px 0; position: relative; overflow: hidden; }
 .final-cta::before { content: ''; position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(91,231,255,0.13) 0%, transparent 60%);
+    /* Planet glow at center */
+    radial-gradient(circle 280px at 50% 50%, rgba(91,231,255,0.22) 0%, rgba(58,216,212,0.10) 40%, transparent 70%),
+    /* Deep ocean atmosphere */
+    radial-gradient(ellipse 90% 80% at 50% 50%, rgba(8,36,98,0.4) 0%, transparent 65%);
   pointer-events: none;
 }
-.final-cta::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 760px; height: 760px; border-radius: 50%; border: 1px solid rgba(91,231,255,0.22); pointer-events: none; }
-.final-cta-orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 520px; height: 520px; border-radius: 50%; border: 1px solid rgba(91,231,255,0.14); pointer-events: none; }
+/* Outermost orbit ring */
+.final-cta::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 900px; height: 900px; border-radius: 50%; border: 1px solid rgba(91,231,255,0.16); pointer-events: none; }
+/* Middle orbit ring (the .final-cta-orb div, plus extra rings via box-shadow concentric) */
+.final-cta-orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 620px; height: 620px; border-radius: 50%; border: 1px solid rgba(91,231,255,0.22); pointer-events: none;
+  box-shadow:
+    inset 0 0 0 80px transparent,
+    0 0 0 1px rgba(91,231,255,0.10),
+    inset 0 0 80px rgba(91,231,255,0.04);
+}
+/* Inner orbit ring */
+.final-cta-orb::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 420px; height: 420px; border-radius: 50%; border: 1px solid rgba(91,231,255,0.18); }
+/* Saturn-style ring — angled elliptical accent */
+.final-cta-orb::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(-18deg); width: 780px; height: 110px; border-radius: 50%; border: 1px solid rgba(91,231,255,0.18); }
 .final-cta .container { position: relative; z-index: 1; text-align: center; }
 .final-cta h2 { font-size: clamp(2.6rem, 6vw, 4.4rem); color: #fff; margin-bottom: 22px; letter-spacing: -0.03em; }
 .final-cta h2 .accent { color: var(--cyan); font-style: italic; }
@@ -393,8 +453,10 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
   .team-grid { grid-template-columns: repeat(2, 1fr); }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
-  .final-cta-orb { width: 380px; height: 380px; }
-  .final-cta::after { width: 540px; height: 540px; }
+  .final-cta-orb { width: 460px; height: 460px; }
+  .final-cta-orb::before { width: 300px; height: 300px; }
+  .final-cta-orb::after { width: 560px; height: 80px; }
+  .final-cta::after { width: 680px; height: 680px; }
 }
 @media (max-width: 640px) {
   .programs-grid, .events-grid, .locations-grid, .steps-list, .gallery-grid, .team-grid, .why-grid { grid-template-columns: 1fr; }
@@ -465,6 +527,17 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
 
 <!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-bubbles" aria-hidden="true">
+    <span class="hero-bubble" style="left:6%;  width:14px; height:14px; animation-duration:18s; animation-delay:0s;"></span>
+    <span class="hero-bubble" style="left:16%; width:8px;  height:8px;  animation-duration:14s; animation-delay:2s;"></span>
+    <span class="hero-bubble" style="left:24%; width:22px; height:22px; animation-duration:22s; animation-delay:5s;"></span>
+    <span class="hero-bubble" style="left:38%; width:10px; height:10px; animation-duration:16s; animation-delay:1s;"></span>
+    <span class="hero-bubble" style="left:48%; width:18px; height:18px; animation-duration:20s; animation-delay:6s;"></span>
+    <span class="hero-bubble" style="left:60%; width:6px;  height:6px;  animation-duration:13s; animation-delay:3s;"></span>
+    <span class="hero-bubble" style="left:72%; width:14px; height:14px; animation-duration:17s; animation-delay:7s;"></span>
+    <span class="hero-bubble" style="left:84%; width:10px; height:10px; animation-duration:19s; animation-delay:4s;"></span>
+    <span class="hero-bubble" style="left:92%; width:16px; height:16px; animation-duration:24s; animation-delay:8s;"></span>
+  </div>
   <div class="container">
     <div class="hero-grid">
       <div class="anim">
@@ -556,6 +629,13 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
         </div>
       </div>
     </div>
+  </div>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C240,72 480,8 720,32 C960,56 1200,16 1440,40 L1440,72 L0,72 Z" fill="rgba(91,231,255,0.06)"/>
+      <path d="M0,52 C240,28 480,68 720,44 C960,20 1200,60 1440,52 L1440,72 L0,72 Z" fill="rgba(58,216,212,0.08)"/>
+      <path d="M0,60 C240,76 480,40 720,60 C960,80 1200,44 1440,60 L1440,72 L0,72 Z" fill="rgba(8,26,73,0.45)"/>
+    </svg>
   </div>
 </section>
 
@@ -893,6 +973,72 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
           </div>
         </div>
       </div>
+      <div class="review-card anim" style="transition-delay:.24s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">We cannot say enough good things about Aquanauts! Tristan has been amazing with our 6 year old, who has always been fearful of getting his head and face wet. In just a few private sessions, he has made <span class="hl">more progress than he did in years of public swimming lessons</span>. Worth every penny!</p>
+        <div class="review-author">
+          <div class="review-avatar">K</div>
+          <div>
+            <div class="review-author-name">Kirsten R.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.32s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">Tristan is an absolute GEM! <span class="hl">We call him the swim whisperer</span> as he is able to accomplish things with our son that we've struggled to overcome for years. Our 7 year old son is autistic and has always hated water on his face.</p>
+        <div class="review-author">
+          <div class="review-avatar">H</div>
+          <div>
+            <div class="review-author-name">Heidi R.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.40s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">Catherine is AMAZING. She is so so patient and understanding with our neurodiverse son. <span class="hl">She asks me questions to try and figure out how his mind works.</span> She follows his lead and lets him be himself while also making sure he's learning swim skills.</p>
+        <div class="review-author">
+          <div class="review-avatar">A</div>
+          <div>
+            <div class="review-author-name">Amanda C.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.48s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">This is our second lesson with Brandon. He is absolutely wonderful. He is kind, patient and nurturing. My daughter didn't want to leave. When she first came in she was shy and not talking. <span class="hl">2 minutes in she was so comfortable and chatting away.</span></p>
+        <div class="review-author">
+          <div class="review-avatar">R</div>
+          <div>
+            <div class="review-author-name">Ranu D.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.56s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">Excellent instructing from Drake. Drake is observant and attentive to the detail of what Luca is experiencing. He responds to these cues, which is <span class="hl">fantastic working with a non-verbal, highly kinaesthetic and visual learner.</span></p>
+        <div class="review-author">
+          <div class="review-avatar">C</div>
+          <div>
+            <div class="review-author-name">Cristina P.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card anim" style="transition-delay:.64s">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-quote">Anastasia at AquaNauts Swim Academy in Victoria has been an <span class="hl">absolutely fantastic swimming instructor</span> for my 8-year-old daughter. From day one, Anastasia created a warm and encouraging environment that immediately put my child at ease.</p>
+        <div class="review-author">
+          <div class="review-avatar">N</div>
+          <div>
+            <div class="review-author-name">Natali S.</div>
+            <div class="review-author-source">Google review</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="reviews-cta-row anim">
       <a href="https://www.google.com/search?q=Aquanauts+Swim+Academy+Nanaimo+reviews" target="_blank" class="btn btn-secondary">Read More Reviews on Google
@@ -918,6 +1064,11 @@ body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-even
       <div class="gallery-item anim" style="transition-delay:.18s"><img src="https://static.wixstatic.com/media/07f34f_f2367b4d09cc4f52ab7cf398a3119883~mv2.jpg" alt="Kids learning together" loading="lazy"></div>
       <div class="gallery-item anim" style="transition-delay:.24s"><img src="https://static.wixstatic.com/media/07f34f_46e8e57aef1b4eb68b4d34eec983a63f~mv2.jpg" alt="Personalized one-on-one instruction" loading="lazy"></div>
       <div class="gallery-item anim" style="transition-delay:.30s"><img src="https://static.wixstatic.com/media/07f34f_dbc8ebca4da4442fb95bcce4f8a6a914~mv2.jpg" alt="Adaptive aquatics moment" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.36s"><img src="https://static.wixstatic.com/media/07f34f_c5683bf866c2445da9bf9b4cf77f7e61~mv2.jpg" alt="Ramada by Wyndham pool, Campbell River" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.42s"><img src="https://static.wixstatic.com/media/07f34f_bd064a36c3394ee39f89aed3ec85aa49~mv2.jpg" alt="Naturally Pacific Resort pool" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.48s"><img src="https://static.wixstatic.com/media/86088a_662cc43382004c23a128a823437d381c~mv2.jpg" alt="Pacific Shores Resort, Nanoose Bay" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.54s"><img src="https://static.wixstatic.com/media/07f34f_420f5426d3a744009368d58b078b2686~mv2.jpg" alt="Oceanside Manor, Parksville" loading="lazy"></div>
+      <div class="gallery-item anim" style="transition-delay:.60s"><img src="https://static.wixstatic.com/media/07f34f_bc03eb5724764f5a80c4f8e8557028d3~mv2.jpg" alt="Shawnigan Lake summer location" loading="lazy"></div>
     </div>
   </div>
 </section>
