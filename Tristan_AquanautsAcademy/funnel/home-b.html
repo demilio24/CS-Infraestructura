@@ -365,17 +365,17 @@ body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events
 ═══════════════════════════════════════════════════════ */
 .team { padding: 110px 0; position: relative; }
 .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.team-card { background: var(--glass-2); border-radius: 20px; overflow: hidden; border: 1px solid var(--line); transition: all 0.3s; backdrop-filter: blur(10px); }
+.team-card { background: var(--glass-2); border-radius: 20px; overflow: hidden; border: 1px solid var(--line); transition: all 0.3s; backdrop-filter: blur(10px); display: flex; flex-direction: column; }
 .team-card.hidden { display: none; }
 .team-card:hover { transform: translateY(-4px); border-color: rgba(91,231,255,0.4); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
 .team-card-img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--space-2); }
 .team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.92); }
 .team-card:hover .team-card-img img { transform: scale(1.05); filter: brightness(1); }
-.team-card-body { padding: 22px 20px 24px; }
+.team-card-body { padding: 22px 20px 24px; flex: 1; display: flex; flex-direction: column; }
 .team-card-body h3 { font-family: 'Fraunces', serif; font-size: 1.12rem; font-weight: 600; color: #fff; margin-bottom: 4px; letter-spacing: -0.015em; }
 .team-card-role { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-.team-card-bio { font-size: 0.88rem; color: var(--text-mute); line-height: 1.6; margin-bottom: 14px; }
-.team-card-serves { font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 600; color: #fff; padding-top: 14px; border-top: 1px solid var(--line); }
+.team-card-bio { font-size: 0.88rem; color: var(--text-mute); line-height: 1.6; margin-bottom: 14px; flex: 1; }
+.team-card-serves { font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 600; color: #fff; padding-top: 14px; border-top: 1px solid var(--line); margin-top: auto; }
 .team-card-serves span { color: var(--text-mute); font-weight: 400; }
 .team-card-link { display: inline-flex; align-items: center; gap: 4px; font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; color: var(--cyan); margin-top: 12px; }
 .team-card-link:hover { color: #fff; }

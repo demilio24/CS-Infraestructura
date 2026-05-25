@@ -270,17 +270,17 @@ p { margin: 0 0 1em; }
 ═══════════════════════════════════════════════════════ */
 .team { padding: 100px 0; background: #fff; }
 .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.team-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; }
+.team-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; display: flex; flex-direction: column; }
 .team-card.hidden { display: none; }
 .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); }
 .team-card-img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--bg-band); }
 .team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .team-card:hover .team-card-img img { transform: scale(1.05); }
-.team-card-body { padding: 20px 18px 22px; }
+.team-card-body { padding: 20px 18px 22px; flex: 1; display: flex; flex-direction: column; }
 .team-card-body h3 { font-family: 'Outfit', sans-serif; font-size: 1.06rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
 .team-card-role { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-.team-card-bio { font-size: 0.9rem; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
-.team-card-serves { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); padding-top: 12px; border-top: 1px dashed var(--line); }
+.team-card-bio { font-size: 0.9rem; color: var(--muted); line-height: 1.55; margin-bottom: 14px; flex: 1; }
+.team-card-serves { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); padding-top: 12px; border-top: 1px dashed var(--line); margin-top: auto; }
 .team-card-serves span { color: var(--muted); font-weight: 500; }
 .team-card-link { display: inline-flex; align-items: center; gap: 4px; font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 700; color: var(--coral-2); margin-top: 10px; }
 .team-cta-row { text-align: center; margin-top: 44px; }
