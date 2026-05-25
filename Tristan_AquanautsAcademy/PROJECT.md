@@ -67,6 +67,11 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-25 — Wix → GHL URL swap blocked; swap status note written
+- Checked for `image_url_map.json` and `image_inventory.md` — neither file exists yet (parallel scrape + upload pipeline not complete).
+- Counted 38 Wix CDN references in `funnel/home.html` and 37 in `funnel/home-b.html` (75 total). No funnel files were modified.
+- Wrote `.swap_status.md` with current state and resume instructions for when the parallel conversation delivers the mapping file (needs 20+ entries to proceed).
+
 ### 2026-05-25 (afternoon) — Lead Form fields finalized + Amina handoff
 - Updated all 3 GHL custom contact fields to match the canonical `lead_form_routing.md` spec (renamed with `Lead Form *` prefix to match the form name Amina is building):
   - `Lead Form Intent` (id `6JTnsxZJBRqmgcDKDNnc`, fieldKey `contact.program_of_interest` - fieldKey unchanged on rename) - now **10 options**
