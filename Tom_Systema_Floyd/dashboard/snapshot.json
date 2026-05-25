@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T15:47:26Z",
+  "generatedAt": "2026-05-25T15:52:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -236,13 +236,13 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 22,
-        "Lower Campus": 10,
+        "Upper Campus": 20,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 21,
-        "Lower Campus": 11,
+        "Upper Campus": 23,
+        "Lower Campus": 9,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -303,8 +303,8 @@
     },
     "bySchool": {
       "Westward Elementary School": 137,
-      "Northboro Elementary School": 59,
-      "Pleasant City Elementary School": 58,
+      "Northboro Elementary School": 58,
+      "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
       "Roosevelt Elementary School": 34
     },
@@ -348,13 +348,13 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 31,
-        "Lower Campus": 21,
+        "Upper Campus": 29,
+        "Lower Campus": 23,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 34,
-        "Lower Campus": 23,
+        "Upper Campus": 36,
+        "Lower Campus": 21,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -4019,16 +4019,72 @@
         "rows": [
           {
             "category": "other",
+            "subtypeKey": "other|freneashae l smith",
+            "label": "Freneashae L Smith",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Javonni Jerome",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Freneashae L Smith"
+              }
+            ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|terrica greenfield",
+            "label": "Terrica Greenfield",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Rico Clark",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Terrica Greenfield"
+              }
+            ]
+          },
+          {
+            "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 30,
+              "Tue": 30,
+              "Wed": 30,
+              "Thu": 30,
+              "Fri": 30
             },
-            "total": 160,
+            "total": 150,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4187,19 +4243,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Javonni Jerome",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Jewels Summer Gibbs",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -4344,19 +4387,6 @@
               },
               {
                 "name": "Qy'Aayla Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Rico Clark",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -4698,7 +4728,7 @@
               },
               {
                 "name": "Juan Pablo Lopez Sanchez",
-                "campus": "Lower Campus",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4880,7 +4910,7 @@
               },
               {
                 "name": "Zecahri Barney",
-                "campus": "Lower Campus",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -9140,7 +9170,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 17,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -9165,7 +9195,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -9190,7 +9220,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 14,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -9215,7 +9245,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 20,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -9240,7 +9270,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 21,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -9265,7 +9295,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9290,7 +9320,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 7,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -9315,7 +9345,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -9340,7 +9370,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 19,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -9365,7 +9395,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -9390,7 +9420,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -9415,7 +9445,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 16,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -9428,19 +9458,21 @@
         },
         {
           "name": "Javonni Jerome",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Freneashae L Smith",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "freneashaesmith@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 3,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -9465,7 +9497,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -9490,7 +9522,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -9515,7 +9547,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 15,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -9540,7 +9572,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 22,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -9565,7 +9597,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9590,7 +9622,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -9640,7 +9672,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -9715,7 +9747,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -9740,7 +9772,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 18,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -9753,19 +9785,19 @@
         },
         {
           "name": "Rico Clark",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Terrica Greenfield",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "terrica.greenfield@gmail.com",
+          "email": "6a0481d5cde2c9846038ff74",
           "incomplete": false,
           "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 2,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -9790,7 +9822,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 7,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -9815,7 +9847,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -9840,7 +9872,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 6,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -9865,7 +9897,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 5,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -9890,7 +9922,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 4,
+          "sourceRow": 2,
           "days": [
             true,
             true,
@@ -9915,7 +9947,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 23,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -10597,7 +10629,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -10849,7 +10881,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -10926,7 +10958,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -10989,21 +11021,19 @@
         },
         {
           "name": "Juan Pablo Lopez Sanchez",
-          "campus": "Lower Campus",
+          "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
+          "breakfastRaw": "162 Winter Park Ln",
           "allergy": null,
           "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email"
-          ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "email": "(561) 729-4169",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 5,
+          "sourceRow": 23,
           "days": [
             true,
             true,
@@ -11238,7 +11268,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -11351,21 +11381,19 @@
         },
         {
           "name": "Zecahri Barney",
-          "campus": "Lower Campus",
+          "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
+          "breakfastRaw": "231 Gale Place",
           "allergy": null,
           "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email"
-          ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "email": "(561) 358-7490",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 24,
           "days": [
             true,
             true,
