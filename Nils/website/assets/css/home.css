@@ -646,3 +646,46 @@
   .home-blog.v4 .featured-wide { grid-template-columns: 1fr; }
   .home-blog.v4 .post-grid { grid-template-columns: 1fr; }
 }
+
+/* ─── BEHIND THE SCENES (new section between #about and blog teaser) ─── */
+.home-behind { padding: var(--space-8) 0; }
+.home-behind .label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-display-bold);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: var(--space-3);
+}
+.home-behind h2 {
+  text-align: center;
+  max-width: 880px;
+  margin: 0 auto var(--space-6);
+}
+.home-behind .photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.home-behind .photo {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--ink-line-soft);
+  aspect-ratio: 4 / 3;
+}
+.home-behind .photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--dur-base);
+}
+.home-behind .photo:hover img { transform: scale(1.03); }
+@media (max-width: 720px) {
+  .home-behind .photo-grid { grid-template-columns: 1fr; }
+}
