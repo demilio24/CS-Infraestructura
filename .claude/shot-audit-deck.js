@@ -8,7 +8,7 @@ const ROOT = path.resolve(__dirname, "..");
 const FILE = "file:///" + path.join(ROOT, "Nils/presentation-audit.html").replace(/\\/g, "/");
 const OUT = path.join(__dirname, "screenshots");
 const TOTAL = 7;
-const VIEWPORT = { width: 1440, height: 900 };
+const VIEWPORT = { width: parseInt(process.env.W || "1440", 10), height: parseInt(process.env.H || "900", 10) };
 
 async function shoot(page, lang) {
   await page.evaluate((l) => {
