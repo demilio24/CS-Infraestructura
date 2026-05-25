@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T16:07:05Z",
+  "generatedAt": "2026-05-25T16:12:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -271,13 +271,13 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 25,
-        "Lower Campus": 8,
+        "Upper Campus": 21,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 23,
-        "Lower Campus": 9,
+        "Upper Campus": 20,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 137,
+      "Westward Elementary School": 136,
       "Northboro Elementary School": 57,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
@@ -383,13 +383,13 @@
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 33,
-        "Lower Campus": 20,
+        "Upper Campus": 29,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "July 27th-31st": {
-        "Upper Campus": 30,
-        "Lower Campus": 15,
+        "Upper Campus": 27,
+        "Lower Campus": 18,
         "Unknown": 0
       },
       "August 3rd-7th": {
@@ -7643,16 +7643,100 @@
         "rows": [
           {
             "category": "other",
+            "subtypeKey": "other|freneashae l smith",
+            "label": "Freneashae L Smith",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Javonni Jerome",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Freneashae L Smith"
+              }
+            ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|terrica greenfield",
+            "label": "Terrica Greenfield",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Rico Clark",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Terrica Greenfield"
+              }
+            ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|tyana thomas",
+            "label": "Tyana Thomas",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Chance Sandy",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Tyana Thomas"
+              }
+            ]
+          },
+          {
+            "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 33,
-              "Tue": 33,
-              "Wed": 33,
-              "Thu": 33,
-              "Fri": 33
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 165,
+            "total": 145,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -7707,19 +7791,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Chance Sandy",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Charlotte Machnik",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -7734,19 +7805,6 @@
               },
               {
                 "name": "Chloe Machnik",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Cyle Porter",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -7825,19 +7883,6 @@
               },
               {
                 "name": "Jahziah Jerome",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Javonni Jerome",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -7993,19 +8038,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Rico Clark",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Riley King",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -8084,6 +8116,34 @@
                 "lunchRaw": "Yes"
               }
             ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|zandra curry",
+            "label": "Zandra Curry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Cyle Porter",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Zandra Curry"
+              }
+            ]
           }
         ],
         "totals": {
@@ -8101,16 +8161,100 @@
         "rows": [
           {
             "category": "other",
+            "subtypeKey": "other|freneashae l smith",
+            "label": "Freneashae L Smith",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Javonni Jerome",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Freneashae L Smith"
+              }
+            ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|terrica greenfield",
+            "label": "Terrica Greenfield",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Rico Clark",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Terrica Greenfield"
+              }
+            ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|tyana thomas",
+            "label": "Tyana Thomas",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Chance Sandy",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Tyana Thomas"
+              }
+            ]
+          },
+          {
+            "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 28,
+              "Tue": 28,
+              "Wed": 28,
+              "Thu": 28,
+              "Fri": 28
             },
-            "total": 160,
+            "total": 140,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8165,19 +8309,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Chance Sandy",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Charlotte Machnik",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -8192,19 +8323,6 @@
               },
               {
                 "name": "Chloe Machnik",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Cyle Porter",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -8283,19 +8401,6 @@
               },
               {
                 "name": "Jahziah Jerome",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Javonni Jerome",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -8438,19 +8543,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Rico Clark",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Riley King",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -8517,7 +8609,7 @@
               },
               {
                 "name": "Zecahri Barney",
-                "campus": "Lower Campus",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8527,6 +8619,34 @@
                   "Fri"
                 ],
                 "lunchRaw": "Yes"
+              }
+            ]
+          },
+          {
+            "category": "other",
+            "subtypeKey": "other|zandra curry",
+            "label": "Zandra Curry",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Cyle Porter",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Zandra Curry"
               }
             ]
           }
@@ -18786,7 +18906,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 21,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -18811,7 +18931,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -18836,7 +18956,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 17,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -18874,19 +18994,19 @@
         },
         {
           "name": "Chance Sandy",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Tyana Thomas",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "tyanathomas@gmail.com",
+          "email": "6a04b6b86cf024292548178c",
           "incomplete": false,
           "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 7,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -18911,7 +19031,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 24,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -18936,7 +19056,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 25,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -18949,19 +19069,21 @@
         },
         {
           "name": "Cyle Porter",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Zandra Curry",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "zanncurry30@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 9,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -18986,7 +19108,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 15,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -19011,7 +19133,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 23,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -19036,7 +19158,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 16,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -19086,7 +19208,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 20,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -19111,7 +19233,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 19,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -19124,19 +19246,21 @@
         },
         {
           "name": "Javonni Jerome",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Freneashae L Smith",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "freneashaesmith@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 8,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -19186,7 +19310,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 13,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -19211,7 +19335,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 18,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -19236,7 +19360,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 11,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -19261,7 +19385,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 14,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -19361,7 +19485,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 12,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -19411,7 +19535,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 22,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -19424,19 +19548,19 @@
         },
         {
           "name": "Rico Clark",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Terrica Greenfield",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "terrica.greenfield@gmail.com",
+          "email": "6a0481d5cde2c9846038ff74",
           "incomplete": false,
           "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 6,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -19486,7 +19610,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 10,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -19586,7 +19710,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 91994491,
           "sourceTabName": "7/20-7/24",
-          "sourceRow": 26,
+          "sourceRow": 22,
           "days": [
             true,
             true,
@@ -19941,7 +20065,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 20,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -19966,7 +20090,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -19991,7 +20115,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 16,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -20029,19 +20153,19 @@
         },
         {
           "name": "Chance Sandy",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Tyana Thomas",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "tyanathomas@gmail.com",
+          "email": "6a04b6b86cf024292548178c",
           "incomplete": false,
           "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 6,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -20066,7 +20190,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 23,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -20091,7 +20215,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 24,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -20104,16 +20228,18 @@
         },
         {
           "name": "Cyle Porter",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Zandra Curry",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "zanncurry30@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
           "sourceRow": 13,
@@ -20141,7 +20267,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 14,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -20166,7 +20292,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 22,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -20191,7 +20317,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 15,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -20241,7 +20367,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 19,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -20266,7 +20392,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 17,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -20279,19 +20405,21 @@
         },
         {
           "name": "Javonni Jerome",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Freneashae L Smith",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "freneashaesmith@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 18,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -20341,7 +20469,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 11,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -20366,7 +20494,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 9,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -20391,7 +20519,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 12,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -20491,7 +20619,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 10,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -20541,7 +20669,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 21,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -20554,21 +20682,21 @@
         },
         {
           "name": "Rico Clark",
-          "campus": "Upper Campus",
+          "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Yes",
+          "lunchRaw": "Terrica Greenfield",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "terrica.greenfield@gmail.com",
+          "email": "6a0481d5cde2c9846038ff74",
           "incomplete": true,
           "missingFields": [
             "Age"
           ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 8,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -20618,7 +20746,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -20708,19 +20836,19 @@
         },
         {
           "name": "Zecahri Barney",
-          "campus": "Lower Campus",
+          "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
+          "breakfastRaw": "231 Gale Place",
           "allergy": null,
           "notes": null,
-          "email": "daisyb30@yahoo.com",
+          "email": "(561) 358-7490",
           "incomplete": false,
           "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 9,
+          "sourceRow": 21,
           "days": [
             true,
             true,
