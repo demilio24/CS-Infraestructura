@@ -38,35 +38,79 @@
   <script src="/Nils/website/assets/js/nav.js" defer></script>
   <script src="/Nils/website/assets/js/animations.js" defer></script>
 
-  <!-- V2 variation styles: alternating bg + chapter numbers -->
+  <!-- V2 variation: BOLD magazine-style alternation (light/dark/light) + huge chapter numbers -->
   <style>
-    .chapter-label {
-      display: block;
-      text-align: center;
+    /* Massive serif chapter number, brand-colored, left-anchored above each section */
+    .chapter-block {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-7) var(--space-5) 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-5);
+      align-items: end;
+    }
+    .chapter-block .num {
+      font-family: var(--font-serif);
+      font-size: clamp(60px, 9vw, 120px);
+      line-height: 0.85;
+      letter-spacing: -0.04em;
+      color: var(--marketing);
+      margin: 0;
+    }
+    .chapter-block .meta {
+      padding-bottom: var(--space-2);
+    }
+    .chapter-block .meta .kicker {
       font-family: var(--font-display);
-      font-size: var(--fs-eyebrow);
+      font-size: 11px;
       font-weight: var(--fw-display-bold);
-      letter-spacing: 0.25em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--ink-mute);
-      padding-top: var(--space-7);
-      margin-bottom: calc(var(--space-3) * -1);
+      margin-bottom: var(--space-2);
+      display: block;
     }
-    .chapter-label .num {
-      color: var(--marketing);
-      margin-right: var(--space-2);
+    .chapter-block .meta .title {
+      font-family: var(--font-serif);
+      font-size: clamp(22px, 2.6vw, 30px);
+      line-height: var(--lh-tight);
+      color: var(--ink);
     }
-    /* Alternating section backgrounds */
-    #offers { background: #fafbfc; }
-    #proof { background: var(--bg); }
-    #about { background: #fafbfc; }
-    .home-blog.v4 { background: var(--bg); }
-    #contact { background: #fafbfc; }
-    /* Soft hairline divider between sections */
-    #offers, #proof, #about, .home-blog.v4, #contact {
-      border-top: 1px solid var(--ink-line-soft);
+
+    /* Strong alternation: dark sections invert palette */
+    .v2-dark {
+      background: #0a1933;
+      color: rgba(255,255,255,0.85);
     }
-    /* Hide the original .label inside .home-blog to avoid double-label with chapter-label */
+    .v2-dark .chapter-block .num { color: #34d399; }
+    .v2-dark .chapter-block .meta .kicker { color: rgba(255,255,255,0.5); }
+    .v2-dark .chapter-block .meta .title { color: white; }
+    .v2-dark h2, .v2-dark h3, .v2-dark h4 { color: white !important; }
+    .v2-dark p, .v2-dark .lead, .v2-dark .sub, .v2-dark .body p { color: rgba(255,255,255,0.75) !important; }
+    .v2-dark .testimonial,
+    .v2-dark .case,
+    .v2-dark .post-card,
+    .v2-dark .featured-wide {
+      background: #122042;
+      border-color: rgba(255,255,255,0.1);
+    }
+    .v2-dark .post-card h4,
+    .v2-dark .testimonial .name,
+    .v2-dark .case h3,
+    .v2-dark .featured-wide h4 { color: white !important; }
+    .v2-dark .post-card .meta,
+    .v2-dark .case .body p,
+    .v2-dark .featured-wide .excerpt,
+    .v2-dark .stats-row { color: rgba(255,255,255,0.6) !important; }
+    .v2-dark .attribution { border-top-color: rgba(255,255,255,0.1) !important; }
+    .v2-dark .col-head { color: rgba(255,255,255,0.8) !important; }
+    .v2-dark .tp-headline { color: white !important; }
+    .v2-dark .tp-meta { color: rgba(255,255,255,0.6) !important; }
+    .v2-dark .see-all { color: #5ea8ff !important; }
+    .v2-dark .label { color: rgba(255,255,255,0.5) !important; }
+
+    /* Hide the redundant inner blog label since chapter-block carries the section title */
     .home-blog.v4 > .container > .label { display: none; }
   </style>
 
@@ -100,7 +144,7 @@
   <!-- NAV (anchor-linked, blog stays as separate page) -->
   <header class="site-nav">
     <div class="container nav-inner">
-      <a class="brand" href="/Nils/website/">Nils</a>
+      <a class="brand" href="/Nils/website/"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -116,22 +160,19 @@
   <!-- HERO -->
   <section id="top" class="home-hero v3 bg-dotgrid anim">
     <div class="container">
-      <div class="logo-strip">
-        <span>CLIENT A</span>
-        <span>CLIENT B</span>
-        <span>CLIENT C</span>
-        <span>CLIENT D</span>
-        <span>CLIENT E</span>
-      </div>
       <span class="eyebrow">For local service businesses</span>
       <h1>If you want to get <em class="accent-marketing">more clients</em> and <em class="accent-automation">automate your busywork</em>, you're in the right place.</h1>
       <p class="lead">We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.</p>
     </div>
   </section>
 
+  <div class="chapter-block">
+    <span class="num">01</span>
+    <div class="meta"><span class="kicker">Chapter one</span><span class="title">Our systems.</span></div>
+  </div>
+
   <!-- ROUTE HALVES (#offers, the only place they appear) -->
   <section id="offers" class="home-route-halves anim">
-    <span class="chapter-label"><span class="num">01</span> Our systems</span>
     <div class="route-halves">
       <a class="route-half marketing" href="/Nils/funnel/vsl.html">
         <div class="ico">&#128200;</div>
@@ -148,9 +189,14 @@
     </div>
   </section>
 
+  <div class="v2-dark">
+    <div class="chapter-block">
+      <span class="num">02</span>
+      <div class="meta"><span class="kicker">Chapter two</span><span class="title">Receipts.</span></div>
+    </div>
+
   <!-- PROOF (#proof, full section, no duplicate route halves) -->
   <section id="proof" class="anim">
-    <span class="chapter-label"><span class="num">02</span> Receipts</span>
 
     <!-- Proof hero (V3 layout + V1 copy) -->
     <div class="proof-hero v3">
@@ -246,9 +292,15 @@
 
   </section>
 
+  </div><!-- /.v2-dark for proof -->
+
+  <div class="chapter-block">
+    <span class="num">03</span>
+    <div class="meta"><span class="kicker">Chapter three</span><span class="title">Who runs this.</span></div>
+  </div>
+
   <!-- ABOUT (#about, full section, no duplicate route halves) -->
   <section id="about" class="anim">
-    <span class="chapter-label"><span class="num">03</span> Who runs this</span>
 
     <!-- About hero (V2 portrait-led asymmetric) -->
     <div class="about-hero v2">
@@ -259,7 +311,7 @@
             <h2>Hi, I'm Emilio. I started Nils because every $1M+ local service owner I knew was <em class="accent-marketing">trapped</em> running their own business.</h2>
             <p class="lead">Six years later we install the marketing systems that bring leads in and the automations that take busywork out, so owners can build instead of maintain.</p>
           </div>
-          <div class="portrait" aria-hidden="true"></div>
+          <img class="portrait" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="Emilio, founder of Nils Digital">
         </div>
       </div>
     </div>
@@ -341,9 +393,14 @@
 
   </section>
 
+  <div class="v2-dark">
+    <div class="chapter-block">
+      <span class="num">04</span>
+      <div class="meta"><span class="kicker">Chapter four</span><span class="title">From the blog.</span></div>
+    </div>
+
   <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
   <section class="home-blog v4 anim">
-    <span class="chapter-label"><span class="num">04</span> From the blog</span>
     <div class="container">
       <span class="label">From the blog</span>
       <a class="featured-wide marketing" href="/Nils/website/blog/posts/local-plumbers-google-ads-leads.html">
@@ -377,9 +434,15 @@
     </div>
   </section>
 
+  </div><!-- /.v2-dark for blog -->
+
+  <div class="chapter-block">
+    <span class="num">05</span>
+    <div class="meta"><span class="kicker">Chapter five</span><span class="title">Get on a call.</span></div>
+  </div>
+
   <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
   <section id="contact" class="anim">
-    <span class="chapter-label"><span class="num">05</span> Get on a call</span>
     <div class="contact-hero">
       <div class="container">
         <span class="eyebrow">Book a call</span>
@@ -396,7 +459,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="/Nils/website/">Nils</a>
+        <a class="brand" href="/Nils/website/"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
         <p class="footer-tagline">Growth + systems for $1M+ local service businesses.</p>
       </div>
       <nav class="footer-nav">

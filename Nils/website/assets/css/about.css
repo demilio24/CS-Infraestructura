@@ -27,6 +27,11 @@
   border-radius: var(--radius-lg);
   background: linear-gradient(135deg, var(--ink-line) 0%, var(--ink-line-soft) 100%);
   border: 1px solid var(--ink-line);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 .about-hero.v2 h1, .about-hero.v2 h2 { margin-bottom: var(--space-4); font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: var(--fw-serif-regular); line-height: var(--lh-tight); letter-spacing: -0.025em; color: var(--ink); }
 .about-hero.v2 p.lead { color: var(--ink-soft); max-width: 540px; }

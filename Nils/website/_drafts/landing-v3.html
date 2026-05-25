@@ -38,44 +38,71 @@
   <script src="/Nils/website/assets/js/nav.js" defer></script>
   <script src="/Nils/website/assets/js/animations.js" defer></script>
 
-  <!-- V3 variation styles: chapter dividers + tight all-white rhythm -->
+  <!-- V3 variation: full-bleed chapter splash screens (museum-exhibit pacing) -->
   <style>
-    .chapter-divider {
+    .chapter-splash {
+      min-height: 60vh;
       display: flex;
       align-items: center;
-      gap: var(--space-4);
-      max-width: 920px;
-      margin: 0 auto;
-      padding: var(--space-7) var(--space-5) var(--space-3);
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: var(--space-7) var(--space-5);
+      position: relative;
+      overflow: hidden;
     }
-    .chapter-divider::before,
-    .chapter-divider::after {
+    .chapter-splash::before {
       content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--ink-line);
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(var(--marketing-rgb), 0.1) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black, transparent 75%);
     }
-    .chapter-divider .label {
+    .chapter-splash > * { position: relative; z-index: 1; }
+    .chapter-splash .roman {
+      font-family: var(--font-serif);
+      font-size: clamp(80px, 14vw, 200px);
+      line-height: 0.85;
+      letter-spacing: -0.05em;
+      color: var(--marketing);
+      font-style: italic;
+      margin: 0 0 var(--space-4);
+      opacity: 0.95;
+    }
+    .chapter-splash .kicker {
       font-family: var(--font-display);
-      font-size: var(--fs-eyebrow);
+      font-size: 11px;
       font-weight: var(--fw-display-bold);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: var(--space-3);
+    }
+    .chapter-splash .title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .chapter-splash .scroll-hint {
+      margin-top: var(--space-6);
+      font-family: var(--font-display);
+      font-size: 11px;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--ink-mute);
-      white-space: nowrap;
+      animation: nudge 2s ease-in-out infinite;
     }
-    /* Tighter section padding for V3 rhythm */
-    #offers, #proof, #about, .home-blog.v4, #contact {
-      padding-top: var(--space-5);
-      padding-bottom: var(--space-7);
+    @keyframes nudge {
+      0%, 100% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(4px); opacity: 1; }
     }
-    /* Smaller-scaled section heading in V3 — feels more like a sub-page intro than another hero */
-    #proof .proof-hero h2,
-    #about .about-hero h2,
-    #contact .contact-hero h2 {
-      font-size: var(--fs-h2);
-    }
-    /* Hide the redundant inner .label inside .home-blog to avoid double-label with chapter-divider */
+
+    /* Hide the redundant inner blog label since splash carries the section name */
     .home-blog.v4 > .container > .label { display: none; }
   </style>
 
@@ -109,7 +136,7 @@
   <!-- NAV (anchor-linked, blog stays as separate page) -->
   <header class="site-nav">
     <div class="container nav-inner">
-      <a class="brand" href="/Nils/website/">Nils</a>
+      <a class="brand" href="/Nils/website/"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -125,20 +152,18 @@
   <!-- HERO -->
   <section id="top" class="home-hero v3 bg-dotgrid anim">
     <div class="container">
-      <div class="logo-strip">
-        <span>CLIENT A</span>
-        <span>CLIENT B</span>
-        <span>CLIENT C</span>
-        <span>CLIENT D</span>
-        <span>CLIENT E</span>
-      </div>
       <span class="eyebrow">For local service businesses</span>
       <h1>If you want to get <em class="accent-marketing">more clients</em> and <em class="accent-automation">automate your busywork</em>, you're in the right place.</h1>
       <p class="lead">We run super profitable Google Ads and build custom automations that eliminate your manual work by up to 100%, so you can focus on growing the business, not just maintaining it.</p>
     </div>
   </section>
 
-  <div class="chapter-divider"><span class="label">Our systems</span></div>
+  <section class="chapter-splash">
+    <div class="kicker">Chapter I</div>
+    <div class="roman">I</div>
+    <h2 class="title">Our systems.</h2>
+    <div class="scroll-hint">Scroll ↓</div>
+  </section>
 
   <!-- ROUTE HALVES (#offers, the only place they appear) -->
   <section id="offers" class="home-route-halves anim">
@@ -158,7 +183,12 @@
     </div>
   </section>
 
-  <div class="chapter-divider"><span class="label">Receipts</span></div>
+  <section class="chapter-splash">
+    <div class="kicker">Chapter II</div>
+    <div class="roman">II</div>
+    <h2 class="title">Receipts.</h2>
+    <div class="scroll-hint">Scroll ↓</div>
+  </section>
 
   <!-- PROOF (#proof, full section, no duplicate route halves) -->
   <section id="proof" class="anim">
@@ -257,7 +287,12 @@
 
   </section>
 
-  <div class="chapter-divider"><span class="label">Who runs this</span></div>
+  <section class="chapter-splash">
+    <div class="kicker">Chapter III</div>
+    <div class="roman">III</div>
+    <h2 class="title">Who runs this.</h2>
+    <div class="scroll-hint">Scroll ↓</div>
+  </section>
 
   <!-- ABOUT (#about, full section, no duplicate route halves) -->
   <section id="about" class="anim">
@@ -271,7 +306,7 @@
             <h2>Hi, I'm Emilio. I started Nils because every $1M+ local service owner I knew was <em class="accent-marketing">trapped</em> running their own business.</h2>
             <p class="lead">Six years later we install the marketing systems that bring leads in and the automations that take busywork out, so owners can build instead of maintain.</p>
           </div>
-          <div class="portrait" aria-hidden="true"></div>
+          <img class="portrait" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="Emilio, founder of Nils Digital">
         </div>
       </div>
     </div>
@@ -353,7 +388,12 @@
 
   </section>
 
-  <div class="chapter-divider"><span class="label">From the blog</span></div>
+  <section class="chapter-splash">
+    <div class="kicker">Chapter IV</div>
+    <div class="roman">IV</div>
+    <h2 class="title">From the blog.</h2>
+    <div class="scroll-hint">Scroll ↓</div>
+  </section>
 
   <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
   <section class="home-blog v4 anim">
@@ -390,7 +430,12 @@
     </div>
   </section>
 
-  <div class="chapter-divider"><span class="label">Get on a call</span></div>
+  <section class="chapter-splash">
+    <div class="kicker">Chapter V</div>
+    <div class="roman">V</div>
+    <h2 class="title">Get on a call.</h2>
+    <div class="scroll-hint">Scroll ↓</div>
+  </section>
 
   <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
   <section id="contact" class="anim">
@@ -410,7 +455,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="/Nils/website/">Nils</a>
+        <a class="brand" href="/Nils/website/"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
         <p class="footer-tagline">Growth + systems for $1M+ local service businesses.</p>
       </div>
       <nav class="footer-nav">
