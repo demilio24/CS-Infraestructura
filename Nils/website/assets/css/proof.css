@@ -6,8 +6,8 @@
 
 /* ─── PROOF HERO ─── */
 .proof-hero { padding: var(--space-8) 0 var(--space-6); text-align: center; }
-.proof-hero h1, .proof-hero h2 { max-width: 880px; margin: 0 auto var(--space-4); font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: var(--fw-serif-regular); line-height: var(--lh-tight); letter-spacing: -0.025em; color: var(--ink); }
-.proof-hero p.lead { max-width: 620px; margin: 0 auto; color: var(--ink-soft); }
+.proof-hero h1, .proof-hero h2 { max-width: 1080px; margin: 0 auto var(--space-4); font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: var(--fw-serif-regular); line-height: var(--lh-tight); letter-spacing: -0.025em; color: var(--ink); }
+.proof-hero p.lead { max-width: 820px; margin: 0 auto; color: var(--ink-soft); }
 
 .proof-hero .stat-row {
   display: flex;
@@ -162,16 +162,23 @@
   display: block;
 }
 
-/* V1 — Two columns by topic */
+/* V1 — Two columns by topic (equal-height enforced) */
 .proof-cases.v1 .columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-5);
+  align-items: stretch;
 }
 .proof-cases.v1 .col {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+.proof-cases.v1 .case {
+  flex: 1 1 auto;
+}
+.proof-cases.v1 .stats-row {
+  margin-top: auto;
 }
 .proof-cases.v1 .col-head {
   font-family: var(--font-display);

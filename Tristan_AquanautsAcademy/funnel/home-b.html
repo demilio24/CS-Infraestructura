@@ -437,6 +437,11 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
 /* ═══════════════════════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════════════════════ */
+.program-card-cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 10px 16px; background: rgba(91,231,255,0.08); color: var(--cyan); border: 1px solid rgba(91,231,255,0.3); border-radius: 100px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; transition: all 0.2s; align-self: flex-start; }
+.program-card-cta:hover { background: var(--cyan); color: var(--space); border-color: var(--cyan); }
+@keyframes formPulseB { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.015); box-shadow: 0 30px 80px rgba(91,231,255,0.5), 0 0 0 4px rgba(91,231,255,0.35); } }
+.hero-form-card.form-highlight { animation: formPulseB 1.6s ease-out 1; }
+
 @media (max-width: 1024px) {
   .nav-links { display: none; }
   .nav-right .btn-nav-portal { display: none; }
@@ -715,6 +720,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
             <div class="program-card-price"><span class="price-label">30 min</span><span class="price-value">$60</span></div>
             <div class="program-card-price"><span class="price-label">60 min</span><span class="price-value popular">$110</span></div>
           </div>
+          <a href="#hero-form" class="program-card-cta" data-program="private">Book Private Lessons →</a>
         </div>
       </div>
 
@@ -731,6 +737,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
             <div class="program-card-price"><span class="price-label">Family 60 min</span><span class="price-value">$120</span></div>
             <div class="program-card-price"><span class="price-label">Semi-private</span><span class="price-value">from $35</span></div>
           </div>
+          <a href="#hero-form" class="program-card-cta" data-program="family">Book Family Lessons →</a>
         </div>
       </div>
 
@@ -746,6 +753,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
             <div class="program-card-price"><span class="price-label">60 min session</span><span class="price-value">$120</span></div>
             <div class="program-card-price"><span class="price-label">Coverage</span><span class="price-value">Island-wide</span></div>
           </div>
+          <a href="#hero-form" class="program-card-cta" data-program="mobile">Book Mobile Lessons →</a>
         </div>
       </div>
 
@@ -761,6 +769,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
             <div class="program-card-price"><span class="price-label">30-min assessment</span><span class="price-value">Free</span></div>
             <div class="program-card-price"><span class="price-label">BC AFU funding</span><span class="price-value">Pathway available</span></div>
           </div>
+          <a href="#hero-form" class="program-card-cta" data-program="adaptive">Book Free Assessment →</a>
         </div>
       </div>
 
@@ -776,6 +785,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
             <div class="program-card-price"><span class="price-label">Format</span><span class="price-value">Private or semi-private</span></div>
             <div class="program-card-price"><span class="price-label">Length</span><span class="price-value">30 or 60 min</span></div>
           </div>
+          <a href="#hero-form" class="program-card-cta" data-program="adult">Book Adult Lessons →</a>
         </div>
       </div>
 
@@ -791,6 +801,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
             <div class="program-card-price"><span class="price-label">Events</span><span class="price-value">Birthdays + parties</span></div>
             <div class="program-card-price"><span class="price-label">Coverage</span><span class="price-value">Facility + camp staffing</span></div>
           </div>
+          <a href="#hero-form" class="program-card-cta" data-program="lifeguard">Get a Quote →</a>
         </div>
       </div>
     </div>
@@ -939,8 +950,15 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
       <div class="eyebrow">Real Families, Real Words</div>
       <h2 class="section-title">Trusted by Hundreds of <span class="accent">Island Families</span></h2>
     </div>
+        <div class="filter-row anim" style="margin-bottom: 32px;">
+      <button class="filter-btn active" data-review-filter="all">All Reviews</button>
+      <button class="filter-btn" data-review-filter="kids">For Kids</button>
+      <button class="filter-btn" data-review-filter="adaptive">Adaptive / Neurodiverse</button>
+      <button class="filter-btn" data-review-filter="adults">Adult Learners</button>
+      <button class="filter-btn" data-review-filter="fear">Beat Fear of Water</button>
+    </div>
     <div class="reviews-grid">
-      <div class="review-card anim">
+      <div class="review-card anim" data-review-tags="kids adaptive">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote"><span class="hl">Tristan was amazing with my boys who are on the autism spectrum.</span> He showed patience and was able to be flexible with their needs during their lessons. We look forward to working with him again in the future. Highly recommend!</p>
         <div class="review-author">
@@ -951,7 +969,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.08s">
+      <div class="review-card anim" style="transition-delay:.08s" data-review-tags="kids">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">Drake is one of the best instructors to have ever taught my children to swim. He is patient, kind, and caring! <span class="hl">Aquanauts is by far the best swim school on the entire island.</span> Highly, highly recommend them to anyone looking to get their kiddos into the water and developing crucial water skills!</p>
         <div class="review-author">
@@ -962,7 +980,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.16s">
+      <div class="review-card anim" style="transition-delay:.16s" data-review-tags="adults">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">At 62, I never thought I would be taking swim lessons. I can swim but have always wanted to do a 'proper' front crawl. Thank you so much to Sage for <span class="hl">making a front crawler out of me in just two lessons</span>...well enough to start strong at least :)</p>
         <div class="review-author">
@@ -973,7 +991,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.24s">
+      <div class="review-card anim" style="transition-delay:.24s" data-review-tags="kids fear">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">We cannot say enough good things about Aquanauts! Tristan has been amazing with our 6 year old, who has always been fearful of getting his head and face wet. In just a few private sessions, he has made <span class="hl">more progress than he did in years of public swimming lessons</span>. Worth every penny!</p>
         <div class="review-author">
@@ -984,7 +1002,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.32s">
+      <div class="review-card anim" style="transition-delay:.32s" data-review-tags="kids adaptive fear">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">Tristan is an absolute GEM! <span class="hl">We call him the swim whisperer</span> as he is able to accomplish things with our son that we've struggled to overcome for years. Our 7 year old son is autistic and has always hated water on his face.</p>
         <div class="review-author">
@@ -995,7 +1013,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.40s">
+      <div class="review-card anim" style="transition-delay:.40s" data-review-tags="kids adaptive">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">Catherine is AMAZING. She is so so patient and understanding with our neurodiverse son. <span class="hl">She asks me questions to try and figure out how his mind works.</span> She follows his lead and lets him be himself while also making sure he's learning swim skills.</p>
         <div class="review-author">
@@ -1006,7 +1024,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.48s">
+      <div class="review-card anim" style="transition-delay:.48s" data-review-tags="kids">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">This is our second lesson with Brandon. He is absolutely wonderful. He is kind, patient and nurturing. My daughter didn't want to leave. When she first came in she was shy and not talking. <span class="hl">2 minutes in she was so comfortable and chatting away.</span></p>
         <div class="review-author">
@@ -1017,7 +1035,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.56s">
+      <div class="review-card anim" style="transition-delay:.56s" data-review-tags="kids adaptive">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">Excellent instructing from Drake. Drake is observant and attentive to the detail of what Luca is experiencing. He responds to these cues, which is <span class="hl">fantastic working with a non-verbal, highly kinaesthetic and visual learner.</span></p>
         <div class="review-author">
@@ -1028,7 +1046,7 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-      <div class="review-card anim" style="transition-delay:.64s">
+      <div class="review-card anim" style="transition-delay:.64s" data-review-tags="kids">
         <div class="review-stars">★★★★★</div>
         <p class="review-quote">Anastasia at AquaNauts Swim Academy in Victoria has been an <span class="hl">absolutely fantastic swimming instructor</span> for my 8-year-old daughter. From day one, Anastasia created a warm and encouraging environment that immediately put my child at ease.</p>
         <div class="review-author">
@@ -1039,12 +1057,6 @@ body::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-event
           </div>
         </div>
       </div>
-    </div>
-    <div class="reviews-cta-row anim">
-      <a href="https://www.google.com/search?q=Aquanauts+Swim+Academy+Nanaimo+reviews" target="_blank" class="btn btn-secondary">Read More Reviews on Google
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
-      </a>
-      <span class="cta-subtext">We never edit, filter, or pay for reviews.</span>
     </div>
   </div>
 </section>
@@ -1370,15 +1382,72 @@ document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', () 
   if (!open) item.classList.add('open');
 }));
 
+// Smooth scroll + form pre-fill (for CTAs targeting #hero-form)
+function inferLocation(link) {
+  const lc = link.closest('.loc-card');
+  if (lc) {
+    const t = ((lc.querySelector('h3') || {}).textContent || '').toLowerCase();
+    if (t.includes('campbell river')) return 'campbell-river';
+    if (t.includes('nanoose')) return 'nanoose';
+    if (t.includes('parksville')) return 'parksville';
+    if (t.includes('victoria')) return 'victoria';
+    if (t.includes('shawnigan')) return 'shawnigan';
+    if (t.includes('mobile') || t.includes('in-home')) return 'mobile';
+    if (t.includes('nanaimo')) return 'nanaimo';
+  }
+  const tc = link.closest('.team-card');
+  if (tc) {
+    const s = ((tc.querySelector('.team-card-serves') || {}).textContent || '').toLowerCase();
+    if (s.includes('campbell river')) return 'campbell-river';
+    if (s.includes('port alberni')) return 'port-alberni';
+    if (s.includes('victoria') || s.includes('shawnigan')) return 'victoria';
+    if (s.includes('parksville') || s.includes('nanoose')) return 'parksville';
+    if (s.includes('nanaimo') || s.includes('central')) return 'nanaimo';
+  }
+  return null;
+}
+function highlightForm() {
+  const card = document.querySelector('.hero-form-card');
+  if (!card) return;
+  card.classList.add('form-highlight');
+  setTimeout(() => card.classList.remove('form-highlight'), 1800);
+}
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
   const id = a.getAttribute('href');
   if (id.length < 2) return;
   const t = document.querySelector(id);
   if (!t) return;
   e.preventDefault();
+  if (id === '#hero-form') {
+    const program = a.dataset.program;
+    const location = a.dataset.location || inferLocation(a);
+    if (program) {
+      const sel = document.querySelector('select[name="program_interest"]');
+      if (sel) { sel.value = program; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+    }
+    if (location) {
+      const sel = document.querySelector('select[name="location"]');
+      if (sel) { sel.value = location; sel.dispatchEvent(new Event('change', { bubbles: true })); }
+    }
+    if (program || location) setTimeout(highlightForm, 500);
+  }
   const y = t.getBoundingClientRect().top + window.scrollY - 70;
   window.scrollTo({ top: y, behavior: 'smooth' });
 }));
+
+const reviewFilters = document.querySelectorAll('.filter-btn[data-review-filter]');
+const reviewCards = document.querySelectorAll('.reviews-grid .review-card');
+reviewFilters.forEach(btn => btn.addEventListener('click', () => {
+  reviewFilters.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const f = btn.dataset.reviewFilter;
+  reviewCards.forEach(card => {
+    if (f === 'all') { card.classList.remove('hidden'); return; }
+    const tags = (card.dataset.reviewTags || '').split(' ');
+    card.classList.toggle('hidden', !tags.includes(f));
+  });
+}));
+
 </script>
 
 </body>
