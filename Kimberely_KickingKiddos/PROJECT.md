@@ -27,6 +27,9 @@ Funnel flow:
 
 ## Changelog
 
+## 2026-05-25 — Picture package pickup + delivery-timing disclosures
+Per Kimberley's email request: added a "When will I receive my picture package?" FAQ entry to `kickingkiddos.html` stating packages are delivered at the end of the summer lesson session and must be picked up in person (no shipping/delivery). Mirrored the pickup-only + end-of-summer disclosure on `picture-package.html` in both the orange charge-notice and the small delivery-note under the buttons.
+
 ## 2026-05-18 — Synced local working tree with remote main
 Pulled ~3,300 remote commits. No file-level conflicts in this folder; the merge incorporated remote changes cleanly. No structural decisions made here — no code or copy edits this session.
 
