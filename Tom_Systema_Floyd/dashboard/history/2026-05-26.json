@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-26T17:12:28Z",
+  "generatedAt": "2026-05-26T17:18:00Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 121,
-    "free": 41,
+    "free": 42,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,14 +213,14 @@
     ]
   },
   "free": {
-    "total": 41,
+    "total": 42,
     "byCampus": {
       "Upper Campus": 22,
-      "Lower Campus": 19,
+      "Lower Campus": 20,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 29,
+      "June 1st-5th": 30,
       "June 8th-12th": 28,
       "June 15th-19th": 29,
       "June 22nd-26th": 30,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 16,
-        "Lower Campus": 13,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -324,15 +324,15 @@
     ]
   },
   "combined": {
-    "total": 162,
-    "enrollments": 518,
+    "total": 163,
+    "enrollments": 519,
     "byCampus": {
       "Upper Campus": 70,
-      "Lower Campus": 92,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 49,
+      "June 1st-5th": 50,
       "June 8th-12th": 53,
       "June 15th-19th": 50,
       "June 22nd-26th": 49,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 25,
-        "Lower Campus": 24,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -4046,6 +4046,34 @@
       "June 1st-5th": {
         "rows": [
           {
+            "category": "none",
+            "subtypeKey": "none",
+            "label": "No lunch",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 1,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 5,
+            "students": [
+              {
+                "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": null
+              }
+            ]
+          },
+          {
             "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
@@ -4440,13 +4468,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 29,
-            "Tue": 29,
-            "Wed": 29,
-            "Thu": 29,
-            "Fri": 29
+            "Mon": 30,
+            "Tue": 30,
+            "Wed": 30,
+            "Thu": 30,
+            "Fri": 30
           },
-          "all": 145
+          "all": 150
         }
       },
       "June 8th-12th": {
@@ -9126,6 +9154,36 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
+        },
+        {
+          "name": "Juan Pablo Lopez",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": null,
+          "breakfastRaw": null,
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email",
+            "School",
+            "Parent/Guardian name",
+            "Age"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 15,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": null
         },
         {
           "name": "Juno Katherine Santos Pacheco",
