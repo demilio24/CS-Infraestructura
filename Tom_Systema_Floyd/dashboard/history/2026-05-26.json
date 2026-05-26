@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T15:22:02Z",
+  "generatedAt": "2026-05-26T15:29:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -3160,13 +3160,13 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 7,
-              "Tue": 7,
-              "Wed": 7,
-              "Thu": 7,
+              "Mon": 8,
+              "Tue": 8,
+              "Wed": 8,
+              "Thu": 8,
               "Fri": 7
             },
-            "total": 35,
+            "total": 39,
             "students": [
               {
                 "name": "Alex Gioia",
@@ -3178,6 +3178,18 @@
                   "Wed",
                   "Thu",
                   "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Henry Reynolds",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu"
                 ],
                 "lunchRaw": "Pizza ($30/week)"
               },
@@ -3333,13 +3345,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 10,
-              "Tue": 10,
-              "Wed": 10,
-              "Thu": 10,
-              "Fri": 10
+              "Mon": 9,
+              "Tue": 9,
+              "Wed": 9,
+              "Thu": 9,
+              "Fri": 9
             },
-            "total": 50,
+            "total": 45,
             "students": [
               {
                 "name": "Carter Grant",
@@ -3382,19 +3394,6 @@
               },
               {
                 "name": "Harrison Galligan",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
-                "name": "Henry Reynolds",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -3480,9 +3479,9 @@
             "Tue": 22,
             "Wed": 22,
             "Thu": 22,
-            "Fri": 21
+            "Fri": 20
           },
-          "all": 108
+          "all": 107
         }
       },
       "August 10th-14th": {
@@ -19508,12 +19507,12 @@
         {
           "name": "Henry Reynolds",
           "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "Pizza ($30/week)",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
           "allergy": null,
-          "notes": null,
-          "email": "Full Week",
+          "notes": "Full Week",
+          "email": "sareynolds4@icloud.com",
           "incomplete": false,
           "missingFields": [],
           "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
@@ -19525,7 +19524,7 @@
             true,
             true,
             true,
-            true
+            false
           ],
           "type": "summer"
         },
