@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T15:17:48Z",
+  "generatedAt": "2026-05-26T15:22:02Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -1134,27 +1134,14 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 3,
-              "Tue": 3,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 0,
+              "Thu": 0,
+              "Fri": 0
             },
-            "total": 9,
+            "total": 4,
             "students": [
-              {
-                "name": "Cameron Hamilton",
-                "campus": "Lower Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Pizza ($7.75/day)"
-              },
               {
                 "name": "Georgie Wright",
                 "campus": "Lower Campus",
@@ -1182,16 +1169,29 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 4,
-              "Tue": 4,
-              "Wed": 4,
-              "Thu": 4,
-              "Fri": 4
+              "Mon": 5,
+              "Tue": 5,
+              "Wed": 5,
+              "Thu": 5,
+              "Fri": 5
             },
-            "total": 20,
+            "total": 25,
             "students": [
               {
                 "name": "Alex Gioia",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Cameron Hamilton",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -10955,7 +10955,7 @@
           "name": "Cameron Hamilton",
           "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Pizza ($7.75/day)",
+          "lunchRaw": "Pizza ($30/week)",
           "breakfastRaw": "None",
           "allergy": null,
           "notes": null,
