@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T17:37:06Z",
+  "generatedAt": "2026-05-26T17:42:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -304,8 +304,8 @@
     "bySchool": {
       "Westward Elementary School": 117,
       "Pleasant City Elementary School": 57,
+      "Northboro Elementary School": 46,
       "U.B. Kinsey Educational and Community Center": 45,
-      "Northboro Elementary School": 43,
       "Roosevelt Elementary School": 33
     },
     "weekOrder": [
@@ -4050,27 +4050,14 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 3,
-              "Tue": 3,
-              "Wed": 3,
-              "Thu": 3,
-              "Fri": 3
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
             },
-            "total": 15,
+            "total": 10,
             "students": [
-              {
-                "name": "Carolina Lopez Sanchez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": null
-              },
               {
                 "name": "Juan Pablo Lopez",
                 "campus": "Lower Campus",
@@ -4104,13 +4091,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 29,
-              "Tue": 29,
-              "Wed": 29,
-              "Thu": 29,
-              "Fri": 29
+              "Mon": 30,
+              "Tue": 30,
+              "Wed": 30,
+              "Thu": 30,
+              "Fri": 30
             },
-            "total": 145,
+            "total": 150,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4141,6 +4128,19 @@
               {
                 "name": "Ashton Govan",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Carolina Lopez Sanchez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -8859,16 +8859,15 @@
         {
           "name": "Carolina Lopez Sanchez",
           "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": null,
-          "breakfastRaw": null,
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
           "email": null,
           "incomplete": true,
           "missingFields": [
             "Email",
-            "School",
             "Parent/Guardian name",
             "Grade"
           ],
@@ -8884,7 +8883,7 @@
             true
           ],
           "type": "free",
-          "school": null
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Chance Sandy",
@@ -9223,7 +9222,6 @@
           "incomplete": true,
           "missingFields": [
             "Email",
-            "School",
             "Parent/Guardian name"
           ],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
@@ -9238,7 +9236,7 @@
             true
           ],
           "type": "free",
-          "school": null
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Juno Katherine Santos Pacheco",
@@ -9402,7 +9400,6 @@
           "incomplete": true,
           "missingFields": [
             "Email",
-            "School",
             "Parent/Guardian name",
             "Grade"
           ],
@@ -9418,7 +9415,7 @@
             true
           ],
           "type": "free",
-          "school": null
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Mike Frantzley Stardens Duval Beausejour",
