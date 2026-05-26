@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T14:32:09Z",
+  "generatedAt": "2026-05-26T14:37:09Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -215,8 +215,8 @@
   "free": {
     "total": 41,
     "byCampus": {
-      "Upper Campus": 21,
-      "Lower Campus": 20,
+      "Upper Campus": 22,
+      "Lower Campus": 19,
       "Unknown": 0
     },
     "byWeek": {
@@ -236,8 +236,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 15,
-        "Lower Campus": 14,
+        "Upper Campus": 16,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 108,
+      "Westward Elementary School": 109,
       "Pleasant City Elementary School": 57,
       "U.B. Kinsey Educational and Community Center": 45,
       "Northboro Elementary School": 43,
@@ -327,8 +327,8 @@
     "total": 162,
     "enrollments": 509,
     "byCampus": {
-      "Upper Campus": 69,
-      "Lower Campus": 93,
+      "Upper Campus": 70,
+      "Lower Campus": 92,
       "Unknown": 0
     },
     "byWeek": {
@@ -348,8 +348,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 24,
-        "Lower Campus": 25,
+        "Upper Campus": 25,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -4424,7 +4424,7 @@
               },
               {
                 "name": "Zecahri Barney",
-                "campus": "Lower Campus",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -9312,7 +9312,7 @@
         },
         {
           "name": "Zecahri Barney",
-          "campus": "Lower Campus",
+          "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Yes",
           "breakfastRaw": "Yes",
@@ -9321,13 +9321,12 @@
           "email": null,
           "incomplete": true,
           "missingFields": [
-            "Email",
-            "Parent/Guardian name"
+            "Email"
           ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 15,
+          "sourceRow": 17,
           "days": [
             true,
             true,
