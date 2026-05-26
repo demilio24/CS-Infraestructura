@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T17:42:13Z",
+  "generatedAt": "2026-05-26T17:47:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -215,16 +215,16 @@
   "free": {
     "total": 44,
     "byCampus": {
-      "Upper Campus": 22,
-      "Lower Campus": 22,
+      "Upper Campus": 23,
+      "Lower Campus": 21,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 32,
-      "June 8th-12th": 28,
-      "June 15th-19th": 29,
-      "June 22nd-26th": 30,
-      "June 29th-July 3rd": 31,
+      "June 8th-12th": 30,
+      "June 15th-19th": 31,
+      "June 22nd-26th": 32,
+      "June 29th-July 3rd": 33,
       "July 6th-10th": 30,
       "July 13th-17th": 31,
       "July 20th-24th": 30,
@@ -236,28 +236,28 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 16,
-        "Lower Campus": 16,
+        "Upper Campus": 17,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 15,
-        "Lower Campus": 13,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 15,
-        "Lower Campus": 14,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 16,
-        "Lower Campus": 14,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 17,
-        "Lower Campus": 14,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -304,7 +304,7 @@
     "bySchool": {
       "Westward Elementary School": 117,
       "Pleasant City Elementary School": 57,
-      "Northboro Elementary School": 46,
+      "Northboro Elementary School": 54,
       "U.B. Kinsey Educational and Community Center": 45,
       "Roosevelt Elementary School": 33
     },
@@ -325,18 +325,18 @@
   },
   "combined": {
     "total": 165,
-    "enrollments": 521,
+    "enrollments": 529,
     "byCampus": {
-      "Upper Campus": 70,
-      "Lower Campus": 95,
+      "Upper Campus": 71,
+      "Lower Campus": 94,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 52,
-      "June 8th-12th": 53,
-      "June 15th-19th": 50,
-      "June 22nd-26th": 49,
-      "June 29th-July 3rd": 45,
+      "June 8th-12th": 55,
+      "June 15th-19th": 52,
+      "June 22nd-26th": 51,
+      "June 29th-July 3rd": 47,
       "July 6th-10th": 50,
       "July 13th-17th": 48,
       "July 20th-24th": 51,
@@ -348,28 +348,28 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 25,
-        "Lower Campus": 27,
+        "Upper Campus": 26,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "June 8th-12th": {
         "Upper Campus": 28,
-        "Lower Campus": 25,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "June 15th-19th": {
         "Upper Campus": 19,
-        "Lower Campus": 31,
+        "Lower Campus": 33,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 21,
-        "Lower Campus": 28,
+        "Lower Campus": 30,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
         "Upper Campus": 22,
-        "Lower Campus": 23,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "July 6th-10th": {
@@ -4046,58 +4046,17 @@
       "June 1st-5th": {
         "rows": [
           {
-            "category": "none",
-            "subtypeKey": "none",
-            "label": "No lunch",
-            "byDay": {
-              "Mon": 2,
-              "Tue": 2,
-              "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
-            },
-            "total": 10,
-            "students": [
-              {
-                "name": "Juan Pablo Lopez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": null
-              },
-              {
-                "name": "Mateo Lopez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": null
-              }
-            ]
-          },
-          {
             "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 30,
-              "Tue": 30,
-              "Wed": 30,
-              "Thu": 30,
-              "Fri": 30
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 150,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4140,7 +4099,7 @@
               },
               {
                 "name": "Carolina Lopez Sanchez",
-                "campus": "Lower Campus",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4321,6 +4280,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Juno Katherine Santos Pacheco",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -4387,6 +4359,19 @@
               },
               {
                 "name": "Luvvie’Love Johnson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Mateo Lopez",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -4505,6 +4490,47 @@
       },
       "June 8th-12th": {
         "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|162 winter park ln, palm beach gardens, fl 33410",
+            "label": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10,
+            "students": [
+              {
+                "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              },
+              {
+                "name": "Mateo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              }
+            ]
+          },
           {
             "category": "other",
             "subtypeKey": "other|yes",
@@ -4887,17 +4913,58 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 28,
-            "Thu": 28,
-            "Fri": 28
+            "Mon": 30,
+            "Tue": 30,
+            "Wed": 30,
+            "Thu": 30,
+            "Fri": 30
           },
-          "all": 140
+          "all": 150
         }
       },
       "June 15th-19th": {
         "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|162 winter park ln, palm beach gardens, fl 33410",
+            "label": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10,
+            "students": [
+              {
+                "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              },
+              {
+                "name": "Mateo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              }
+            ]
+          },
           {
             "category": "other",
             "subtypeKey": "other|yes",
@@ -5293,17 +5360,58 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 29,
-            "Tue": 29,
-            "Wed": 29,
-            "Thu": 29,
-            "Fri": 29
+            "Mon": 31,
+            "Tue": 31,
+            "Wed": 31,
+            "Thu": 31,
+            "Fri": 31
           },
-          "all": 145
+          "all": 155
         }
       },
       "June 22nd-26th": {
         "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|162 winter park ln, palm beach gardens, fl 33410",
+            "label": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10,
+            "students": [
+              {
+                "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              },
+              {
+                "name": "Mateo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              }
+            ]
+          },
           {
             "category": "other",
             "subtypeKey": "other|willie james richardson",
@@ -5727,17 +5835,58 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 150
+          "all": 160
         }
       },
       "June 29th-July 3rd": {
         "rows": [
+          {
+            "category": "other",
+            "subtypeKey": "other|162 winter park ln, palm beach gardens, fl 33410",
+            "label": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+            "byDay": {
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
+            },
+            "total": 10,
+            "students": [
+              {
+                "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              },
+              {
+                "name": "Mateo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
+              }
+            ]
+          },
           {
             "category": "other",
             "subtypeKey": "other|yes",
@@ -6159,13 +6308,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 155
+          "all": 165
         }
       },
       "July 6th-10th": {
@@ -8858,23 +9007,21 @@
         },
         {
           "name": "Carolina Lopez Sanchez",
-          "campus": "Lower Campus",
+          "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Yes",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": null,
+          "email": "(561) 729-4169",
           "incomplete": true,
           "missingFields": [
-            "Email",
-            "Parent/Guardian name",
             "Grade"
           ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 17,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -9213,17 +9360,14 @@
         {
           "name": "Juan Pablo Lopez",
           "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": null,
-          "breakfastRaw": null,
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": null,
-          "incomplete": true,
-          "missingFields": [
-            "Email",
-            "Parent/Guardian name"
-          ],
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
@@ -9391,16 +9535,14 @@
         {
           "name": "Mateo Lopez",
           "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": null,
-          "breakfastRaw": null,
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": null,
+          "email": "e.carol80@gmail.com",
           "incomplete": true,
           "missingFields": [
-            "Email",
-            "Parent/Guardian name",
             "Grade"
           ],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
@@ -10630,6 +10772,31 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Juan Pablo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 42263552,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 15,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Juno Katherine Santos Pacheco",
           "campus": "Lower Campus",
           "lunch": true,
@@ -10782,6 +10949,33 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Mateo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Grade"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 42263552,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Qy'Aayla Johnson",
@@ -11841,6 +12035,31 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Juan Pablo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 44844437,
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Juno Katherine Santos Pacheco",
           "campus": "Lower Campus",
           "lunch": true,
@@ -11989,6 +12208,33 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Mateo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Grade"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 44844437,
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Mattison Curry",
@@ -13069,6 +13315,31 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Juan Pablo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 624596140,
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Juno Katherine Santos Pacheco",
           "campus": "Lower Campus",
           "lunch": true,
@@ -13217,6 +13488,33 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Mateo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Grade"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 624596140,
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Mattison Curry",
@@ -14200,6 +14498,31 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Juan Pablo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 2124671237,
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Juno Katherine Santos Pacheco",
           "campus": "Lower Campus",
           "lunch": true,
@@ -14323,6 +14646,33 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Mateo Lopez",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Grade"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 2124671237,
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Mattison Curry",
