@@ -41,6 +41,14 @@ const WEEK_ORDER = [
   'August 24th-28th',
 ];
 
+// Free Summer Camp (Related Ross Foundation scholarship) runs 10 weeks
+// from June 1 to August 7, 2026 per Tom (2026-05-26). The paid camp sheets
+// have extra tabs through August (Aug 10+), and the free-camp workbooks
+// mirror that tab structure, but those weeks aren't actually free-camp
+// weeks. Capping freeWeekOrder here keeps the dashboard's seasonCap
+// (= weeklyCap × numWeeks) at the correct 350 spots instead of 420.
+const FREE_PROGRAM_WEEKS = WEEK_ORDER.slice(0, 10);
+
 const PROGRAM_ORDER = [
   'Foundations Block',
   'School Pickup Track',
@@ -87,7 +95,9 @@ function buildSnapshot() {
   const allFree   = freeUpperEnrolls.concat(freeLowerEnrolls);
 
   const summerWeekOrder = WEEK_ORDER.filter(w => summerWeeksSeen[w]);
-  const freeWeekOrder   = WEEK_ORDER.filter(w => freeWeeksSeen[w]);
+  // Free camp is fixed at 10 weeks (Jun 1 - Aug 7); ignore the extra Aug
+  // tabs that mirror the paid-camp workbook structure.
+  const freeWeekOrder   = FREE_PROGRAM_WEEKS.filter(w => freeWeeksSeen[w]);
 
   const summer   = aggregate_(allSummer, 'summer');
   const free     = aggregate_(allFree,   'free');

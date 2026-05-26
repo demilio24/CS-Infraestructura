@@ -269,6 +269,58 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .school-card-times .row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--sf-ink-60);line-height:1.4}
 .school-card-times .row em{font-style:normal;color:var(--sf-blue-700);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-family:'Oswald',sans-serif;font-weight:700}
 .school-empty{grid-column:1/-1;text-align:center;padding:40px 20px;color:var(--sf-ink-50);font-size:14px;background:#fff;border:1px dashed var(--sf-border);border-radius:8px}
+/* Program picker, tab-style toggle for Martial Arts / Spirit Dance */
+.program-picker{max-width:820px;width:100%;margin:0 auto 24px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.program-picker-label{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--sf-blue-700);display:inline-flex;align-items:center;gap:12px}
+.program-picker-label::before,.program-picker-label::after{content:"";width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--sf-border-strong),transparent)}
+.program-picker-tabs{display:inline-flex;background:#fff;border:1px solid var(--sf-border);border-radius:100px;padding:5px;box-shadow:0 10px 28px -16px rgba(27,47,110,.25);position:relative}
+.program-picker-tab{position:relative;display:inline-flex;align-items:center;gap:8px;padding:11px 22px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sf-ink-60);background:transparent;border:0;border-radius:100px;cursor:pointer;transition:color .25s var(--ease-out),background .25s var(--ease-out),box-shadow .25s}
+.program-picker-tab svg{width:16px;height:16px;color:currentColor}
+.program-picker-tab:hover{color:var(--sf-blue-700)}
+.program-picker-tab.active{color:#fff;background:var(--grad-blue);box-shadow:0 10px 24px -10px rgba(47,130,196,.55)}
+.program-picker-tab.active.spirit{background:linear-gradient(135deg,#a855f7,#7c3aed);box-shadow:0 10px 24px -10px rgba(124,58,237,.55)}
+.program-picker-hint{font-size:12.5px;color:var(--sf-ink-50);text-align:center;margin:0}
+@media (max-width:520px){.program-picker-tabs{width:100%;justify-content:center}.program-picker-tab{flex:1;justify-content:center;padding:11px 12px;font-size:12px;letter-spacing:.08em}}
+/* Schedule comms, per-program cadence breakdown */
+.schedule-comms{padding:96px 32px;background:linear-gradient(180deg,#fff 0%,#f7fafe 60%,#fff 100%);position:relative}
+.schedule-comms::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(47,130,196,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(47,130,196,.06) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);pointer-events:none}
+.schedule-comms-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto}
+.schedule-comms-head{max-width:780px;margin:0 auto 48px;text-align:center}
+.schedule-comms-head .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;background:var(--sf-blue-100);border:1px solid rgba(47,130,196,.3);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.schedule-comms-head h2{font-family:'Oswald',sans-serif;font-size:clamp(28px,3.8vw,44px);color:var(--sf-ink);margin:0 0 12px;line-height:1.05;letter-spacing:-0.01em}
+.schedule-comms-head p{color:var(--sf-ink-60);font-size:16.5px;line-height:1.6;max-width:680px;margin:0 auto}
+.schedule-comms-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.schedule-comms-card{position:relative;display:flex;flex-direction:column;gap:18px;padding:32px 30px;background:#fff;border:1px solid var(--sf-border);border-top:3px solid var(--sf-blue-500);border-radius:var(--radius-md);box-shadow:var(--shadow-md);overflow:hidden;transition:transform .35s var(--ease-out),box-shadow .35s}
+.schedule-comms-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.schedule-comms-card.spirit{border-top-color:#a855f7}
+.schedule-comms-card-kicker{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;padding:6px 13px;background:var(--sf-blue-100);color:var(--sf-blue-700);font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border-radius:100px}
+.schedule-comms-card.spirit .schedule-comms-card-kicker{background:#f3e8ff;color:#7c3aed}
+.schedule-comms-card-kicker svg{width:13px;height:13px}
+.schedule-comms-card h3{font-family:'Oswald',sans-serif;font-size:26px;font-weight:700;color:var(--sf-ink);margin:0;line-height:1.1;letter-spacing:.01em;text-transform:uppercase}
+.schedule-comms-card-lead{font-size:15.5px;line-height:1.6;color:var(--sf-ink-60);margin:0}
+.schedule-comms-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.schedule-comms-stat{padding:14px 16px;background:var(--sf-cream);border:1px solid var(--sf-border);border-left:3px solid var(--sf-blue-500);border-radius:8px}
+.schedule-comms-card.spirit .schedule-comms-stat{border-left-color:#a855f7}
+.schedule-comms-stat .label{display:block;font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sf-blue-700);margin-bottom:4px}
+.schedule-comms-card.spirit .schedule-comms-stat .label{color:#7c3aed}
+.schedule-comms-stat .value{display:block;font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;color:var(--sf-ink);line-height:1.2}
+.schedule-comms-cadence{padding:18px 18px;background:linear-gradient(135deg,#f4f8fd,#eef2f8);border:1px solid var(--sf-border);border-radius:10px;display:flex;flex-direction:column;gap:8px}
+.schedule-comms-card.spirit .schedule-comms-cadence{background:linear-gradient(135deg,#faf5ff,#f3e8ff)}
+.schedule-comms-cadence-row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;font-size:14px;line-height:1.5;color:var(--sf-ink)}
+.schedule-comms-cadence-row b{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-blue-700);font-weight:700;flex-shrink:0}
+.schedule-comms-card.spirit .schedule-comms-cadence-row b{color:#7c3aed}
+.schedule-comms-card ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.schedule-comms-card li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.55;color:var(--sf-ink)}
+.schedule-comms-card li svg{width:17px;height:17px;color:var(--sf-blue-500);flex-shrink:0;margin-top:2px}
+.schedule-comms-card.spirit li svg{color:#a855f7}
+.schedule-comms-card .btn{margin-top:auto;align-self:flex-start}
+.schedule-comms-card.spirit .btn-primary{background:linear-gradient(135deg,#a855f7,#7c3aed);box-shadow:0 10px 26px -10px rgba(124,58,237,.55)}
+.schedule-comms-card.spirit .btn-primary:hover{background:#6d28d9}
+.schedule-comms-foot{margin-top:36px;padding:22px 26px;background:#fff;border:1px solid var(--sf-border);border-radius:var(--radius-md);box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap;text-align:center}
+.schedule-comms-foot svg{width:22px;height:22px;color:var(--sf-blue-500);flex-shrink:0}
+.schedule-comms-foot p{margin:0;font-size:15px;color:var(--sf-ink-60);line-height:1.5}
+.schedule-comms-foot b{color:var(--sf-ink);font-weight:700}
+@media (max-width:860px){.schedule-comms{padding:72px 20px}.schedule-comms-grid{grid-template-columns:1fr;gap:20px}.schedule-comms-card{padding:26px 22px}.schedule-comms-stats{grid-template-columns:1fr 1fr;gap:10px}}
 .page-hero-form{position:relative;background:#fff;color:var(--sf-ink);border-radius:10px;padding:18px;box-shadow:0 30px 80px -24px rgba(0,0,0,.55),0 10px 24px -12px rgba(10,16,40,.4);border:1px solid rgba(74,163,224,.25);border-top:3px solid var(--sf-blue-500)}
 .page-hero-form-head{padding:4px 4px 14px;border-bottom:1px solid var(--sf-border);margin-bottom:14px}
 .page-hero-form-head .kicker{display:inline-flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sf-blue-700);margin-bottom:8px}
@@ -556,7 +608,25 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   <div class="directory-section-head anim">
     <span class="badge">Find Your Campus</span>
     <h2>Your School. Your Day. Your Time.</h2>
-    <p>Search the directory to see exactly when your child's campus runs. We're on 20+ campuses five days a week.</p>
+    <p>Pick the program you want, then search the directory to see exactly when your child's campus runs. We're on 20+ campuses five days a week.</p>
+  </div>
+  <div class="program-picker anim" role="tablist" aria-label="Choose your program">
+    <span class="program-picker-label">Choose your program</span>
+    <div class="program-picker-tabs">
+      <button class="program-picker-tab active" type="button" role="tab" data-program="all" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+        Both
+      </button>
+      <button class="program-picker-tab" type="button" role="tab" data-program="martial-arts" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17.5 6.5 21 8 13.5 3 9l6.5-.5z"/></svg>
+        Martial Arts
+      </button>
+      <button class="program-picker-tab spirit" type="button" role="tab" data-program="spirit-dance" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 22v-4M6 6l3 3M18 18l-3-3M2 12h6M22 12h-4M6 18l3-3M18 6l-3 3"/></svg>
+        Spirit Dance
+      </button>
+    </div>
+    <p class="program-picker-hint">Picking a program filters the campuses below and pre-fills it on the registration form.</p>
   </div>
   <div class="school-search-wrap anim">
     <svg class="school-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -691,12 +761,16 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     render(filtered);
   }
   document.getElementById('schoolSearch')?.addEventListener('input', apply);
-  document.querySelectorAll('.school-filter').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.school-filter').forEach(b => b.classList.remove('active')); btn.classList.add('active'); apply(); }); });
+  document.querySelectorAll('.school-filter').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.school-filter').forEach(b => b.classList.remove('active')); btn.classList.add('active'); syncProgramPickerFromFilter(); apply(); }); });
   apply();
 
-  /* SCHOOL CARD → pre-fill GHL Select Class via iframe query param */
+  /* SCHOOL CARD + PROGRAM PICKER → pre-fill GHL form via iframe query params */
+  /* TODO: confirm with Tom the GHL form has a Custom Field with key "program"
+     (Martial Arts / Spirit Dance). If the actual key differs (e.g. "program_choice"
+     or "which_program"), update the searchParams.set('program', …) calls below. */
   const FORM_BASE = 'https://link.nilsdigital.com/widget/form/TkioOL4IoByeHU3K2gTs';
   const FIELD_KEY = 'select_class';
+  const PROGRAM_LABEL = { 'martial-arts': 'Martial Arts', 'spirit-dance': 'Spirit Dance' };
   const iframe = document.getElementById('inline-TkioOL4IoByeHU3K2gTs');
   function flashForm() {
     const card = document.querySelector('.page-hero-form');
@@ -706,11 +780,69 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     card.classList.add('flash');
     setTimeout(() => card.classList.remove('flash'), 1900);
   }
+  function setProgramPicker(prog) {
+    document.querySelectorAll('.program-picker-tab').forEach(t => {
+      const isActive = t.dataset.program === prog;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', String(isActive));
+    });
+  }
+  function syncProgramPickerFromFilter() {
+    const f = document.querySelector('.school-filter.active')?.dataset.filter || 'all';
+    if (f === 'martial-arts' || f === 'spirit-dance') setProgramPicker(f);
+    else setProgramPicker('all');
+  }
+  function buildFormSrc({ selectClass, program } = {}) {
+    const url = new URL(FORM_BASE);
+    if (selectClass) url.searchParams.set(FIELD_KEY, selectClass);
+    if (program && PROGRAM_LABEL[program]) url.searchParams.set('program', PROGRAM_LABEL[program]);
+    return url.toString();
+  }
+  function updateIframe(opts) {
+    if (!iframe) return;
+    // Preserve any existing params we aren't overriding
+    let url;
+    try { url = new URL(iframe.getAttribute('src') || FORM_BASE); }
+    catch (e) { url = new URL(FORM_BASE); }
+    if (opts.selectClass !== undefined) {
+      if (opts.selectClass) url.searchParams.set(FIELD_KEY, opts.selectClass);
+      else url.searchParams.delete(FIELD_KEY);
+    }
+    if (opts.program !== undefined) {
+      if (opts.program && PROGRAM_LABEL[opts.program]) url.searchParams.set('program', PROGRAM_LABEL[opts.program]);
+      else url.searchParams.delete('program');
+    }
+    const next = url.toString();
+    if (iframe.getAttribute('src') !== next) iframe.setAttribute('src', next);
+  }
+  document.querySelectorAll('.program-picker-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const prog = tab.dataset.program;
+      setProgramPicker(prog);
+      document.querySelectorAll('.school-filter').forEach(b => b.classList.remove('active'));
+      const target = document.querySelector(`.school-filter[data-filter="${prog === 'all' ? 'all' : prog}"]`);
+      if (target) target.classList.add('active');
+      updateIframe({ program: prog === 'all' ? null : prog });
+      apply();
+    });
+  });
+  // "Register, Martial Arts" / "Register, Spirit Dance" buttons inside the schedule cards
+  document.querySelectorAll('[data-program-jump]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const prog = btn.getAttribute('data-program-jump');
+      setProgramPicker(prog);
+      document.querySelectorAll('.school-filter').forEach(b => b.classList.remove('active'));
+      const target = document.querySelector(`.school-filter[data-filter="${prog}"]`);
+      if (target) target.classList.add('active');
+      updateIframe({ program: prog });
+      apply();
+      setTimeout(flashForm, 450);
+    });
+  });
   function pickClass(el) {
     const val = el.dataset.class || '';
     if (!val || !iframe) return;
-    const newSrc = `${FORM_BASE}?${FIELD_KEY}=${encodeURIComponent(val)}`;
-    if (iframe.getAttribute('src') !== newSrc) iframe.setAttribute('src', newSrc);
+    updateIframe({ selectClass: val });
     // Scroll to form on mobile, to top on desktop
     if (window.innerWidth <= 960) {
       const f = document.getElementById('register');
@@ -737,6 +869,102 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 })();
 </script>
 
+
+<!-- SCHEDULE & SESSIONS, per-program cadence breakdown -->
+<section class="schedule-comms" id="schedule-comms" aria-label="Schedule and sessions">
+  <div class="schedule-comms-inner">
+    <div class="schedule-comms-head anim">
+      <span class="badge">Schedule &amp; Sessions</span>
+      <h2>How class times and sessions actually work.</h2>
+      <p>Both programs meet weekly during the school year, right after the final bell on your campus. What changes from program to program (and sometimes school to school) is the session length, so here's the breakdown before you register.</p>
+    </div>
+    <div class="schedule-comms-grid">
+      <!-- Martial Arts -->
+      <article class="schedule-comms-card anim d1">
+        <span class="schedule-comms-card-kicker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17.5 6.5 21 8 13.5 3 9l6.5-.5z"/></svg>
+          Program 1
+        </span>
+        <h3>Martial Arts</h3>
+        <p class="schedule-comms-card-lead">Authentic Systema, scaled for kids. Weekly on-campus classes that build discipline, focus, and real self-defense skill.</p>
+        <div class="schedule-comms-stats">
+          <div class="schedule-comms-stat">
+            <span class="label">Days</span>
+            <span class="value">Mon, Tue, Wed, Thu, Fri</span>
+          </div>
+          <div class="schedule-comms-stat">
+            <span class="label">Time</span>
+            <span class="value">Right after dismissal</span>
+          </div>
+          <div class="schedule-comms-stat">
+            <span class="label">Length</span>
+            <span class="value">30 to 60 min</span>
+          </div>
+          <div class="schedule-comms-stat">
+            <span class="label">Ages</span>
+            <span class="value">Pre-K to 8th</span>
+          </div>
+        </div>
+        <div class="schedule-comms-cadence">
+          <div class="schedule-comms-cadence-row"><b>Cadence</b><span>Most campuses run <b>month-to-month</b>, with new families welcome to start any time.</span></div>
+          <div class="schedule-comms-cadence-row"><b>Quarterly</b><span>A few partner schools run on a <b>quarterly</b> session (look for "quarterly" on the campus card below).</span></div>
+          <div class="schedule-comms-cadence-row"><b>Testings</b><span>Belt testings happen every quarter so kids always have a clear next goal.</span></div>
+        </div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Classes grouped by grade band (PreK to K, 1st to 5th, etc.) so kids train with peers.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>You'll get a welcome email with your campus calendar and start date the same week you register.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pause or cancel any month, no long contracts.</li>
+        </ul>
+        <a class="btn btn-primary" href="#register" data-program-jump="martial-arts">Register, Martial Arts</a>
+      </article>
+
+      <!-- Spirit Dance -->
+      <article class="schedule-comms-card spirit anim d2">
+        <span class="schedule-comms-card-kicker">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 22v-4M6 6l3 3M18 18l-3-3M2 12h6M22 12h-4M6 18l3-3M18 6l-3 3"/></svg>
+          Program 2
+        </span>
+        <h3>Spirit Dance</h3>
+        <p class="schedule-comms-card-lead">Pom, hip-hop, and team-spirit choreography. Weekly practices that build confidence, coordination, and a big-stage end-of-session showcase.</p>
+        <div class="schedule-comms-stats">
+          <div class="schedule-comms-stat">
+            <span class="label">Days</span>
+            <span class="value">Mon, Tue, Wed, Thu, Fri</span>
+          </div>
+          <div class="schedule-comms-stat">
+            <span class="label">Time</span>
+            <span class="value">Right after dismissal</span>
+          </div>
+          <div class="schedule-comms-stat">
+            <span class="label">Length</span>
+            <span class="value">30 to 45 min</span>
+          </div>
+          <div class="schedule-comms-stat">
+            <span class="label">Ages</span>
+            <span class="value">Pre-K to 6th</span>
+          </div>
+        </div>
+        <div class="schedule-comms-cadence">
+          <div class="schedule-comms-cadence-row"><b>Cadence</b><span>Most Spirit Dance squads run on a <b>quarterly</b> session so we can build a routine and end with a showcase.</span></div>
+          <div class="schedule-comms-cadence-row"><b>Monthly</b><span>A few campuses also offer a <b>month-to-month</b> option for younger dancers, perfect for a trial run.</span></div>
+          <div class="schedule-comms-cadence-row"><b>Showcase</b><span>Every session wraps with a parent-friendly performance, dates shared in your welcome email.</span></div>
+        </div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Mixed-age squads grouped by grade band so the choreography fits the dancers.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No prior dance experience needed, we coach from day one.</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Costume and showcase details go out at least 3 weeks before the performance.</li>
+          <!-- TODO: confirm with Tom, is a costume fee included in tuition or billed separately? -->
+        </ul>
+        <a class="btn btn-primary" href="#register" data-program-jump="spirit-dance">Register, Spirit Dance</a>
+      </article>
+    </div>
+
+    <div class="schedule-comms-foot anim d3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 2"/></svg>
+      <p><b>Don't see your exact time?</b> Every campus has its own dismissal bell, so class start times shift by 5 to 15 minutes from school to school. Check the campus card below for your school's exact slot.</p>
+    </div>
+  </div>
+</section>
 
 <!-- SPONSORS -->
 <section class="sponsors" aria-label="Our sponsors">

@@ -198,6 +198,29 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .form-placeholder-cta:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(47,130,196,.7)}
 .form-placeholder-cta svg{width:14px;height:14px}
 
+/* Pre-form: location picker + service chips */
+.lesson-options{padding:14px 4px 18px;display:flex;flex-direction:column;gap:16px;border-bottom:1px solid var(--sf-border);margin-bottom:14px}
+.lesson-options-row{display:flex;flex-direction:column;gap:8px}
+.lesson-options-label{display:inline-flex;align-items:center;gap:8px;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sf-blue-700);font-weight:700}
+.lesson-options-label::before{content:'';width:18px;height:2px;background:var(--sf-blue-500)}
+.location-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.location-option{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:12px 10px;background:#fff;border:1.5px solid var(--sf-border);border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--sf-ink);transition:border-color .25s,background .25s,transform .2s,box-shadow .25s;text-align:center;line-height:1.15;min-height:62px}
+.location-option svg{width:16px;height:16px;color:var(--sf-blue-500);transition:color .25s}
+.location-option:hover{border-color:var(--sf-blue-500);background:var(--sf-blue-50);transform:translateY(-1px);box-shadow:0 6px 14px -8px rgba(47,130,196,.35)}
+.location-option.is-active{background:var(--grad-blue);color:#fff;border-color:transparent;box-shadow:0 10px 22px -10px rgba(47,130,196,.6)}
+.location-option.is-active svg{color:#fff}
+.location-option input{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.location-option .sub{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:.04em;text-transform:none;color:var(--sf-ink-50);margin-top:2px}
+.location-option.is-active .sub{color:rgba(255,255,255,.85)}
+.service-chips{display:flex;flex-wrap:wrap;gap:6px}
+.service-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:var(--sf-blue-50);border:1px solid rgba(47,130,196,.2);border-radius:100px;font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sf-blue-700);line-height:1}
+.service-chip svg{width:11px;height:11px;color:var(--sf-blue-500)}
+.service-chip.dance{background:#f3e8ff;border-color:rgba(124,58,237,.25);color:#6b21a8}
+.service-chip.dance svg{color:#7c3aed}
+.service-chip.boxing{background:#fde2e1;border-color:rgba(155,28,28,.25);color:#9b1c1c}
+.service-chip.boxing svg{color:#b91c1c}
+@media (max-width:520px){.location-picker{grid-template-columns:1fr;gap:6px}.location-option{flex-direction:row;justify-content:flex-start;padding:11px 14px;min-height:48px}.location-option .sub{margin-top:0;margin-left:auto}}
+
 /* DIRECTORY-SECTION: page content wrapper (matches after-school structure) */
 .directory-section{padding:64px 32px 96px;background:linear-gradient(180deg,#f7fafe 0%,#fff 100%);position:relative}
 .directory-section-head{max-width:820px;margin:0 auto 24px;text-align:center}
@@ -518,8 +541,57 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <span class="kicker">Book A Lesson</span>
         <h2>Reserve Your Private Session</h2>
       </div>
+
+      <!--
+        Pre-form picker: surfaces Location (FL / GA / VA) and Service categories
+        above the GHL iframe so visitors see what's on offer before they fill the form.
+        The clicked location is appended to the iframe src as ?location=Florida so GHL can
+        prefill a matching custom field.
+        TODO: confirm with Tom, inside the GHL form builder
+        (form id Cpk2gmz9dcumDiz2KFun), add a "Location" dropdown
+        (options: Florida / Georgia / Virginia) and a "Service / Discipline"
+        multi-select (options: Martial Arts, Fitness / Weight Lifting,
+        Mobility / Stretch / Massage, Dance, Boxing, Systema, Combination).
+      -->
+      <div class="lesson-options">
+        <div class="lesson-options-row">
+          <span class="lesson-options-label">Choose your location</span>
+          <div class="location-picker" id="locationPicker" role="radiogroup" aria-label="Lesson location">
+            <label class="location-option is-active" data-location="Florida">
+              <input type="radio" name="lesson-location" value="Florida" checked />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Florida
+              <span class="sub">West Palm Beach</span>
+            </label>
+            <label class="location-option" data-location="Georgia">
+              <input type="radio" name="lesson-location" value="Georgia" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Georgia
+              <span class="sub">With Sean Nasiff</span>
+            </label>
+            <label class="location-option" data-location="Virginia">
+              <input type="radio" name="lesson-location" value="Virginia" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Virginia
+              <span class="sub">With Ryan</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="lesson-options-row">
+          <span class="lesson-options-label">What you can train</span>
+          <div class="service-chips" aria-label="Available service categories">
+            <span class="service-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Martial Arts</span>
+            <span class="service-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 4v16M18 4v16M3 8h6M15 8h6M3 16h6M15 16h6"/></svg>Fitness / Weight Lifting</span>
+            <span class="service-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 12c4 0 4-4 8-4s4 4 8 4M4 18c4 0 4-4 8-4s4 4 8 4"/></svg>Mobility / Stretch / Massage</span>
+            <span class="service-chip dance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M12 7v6M12 13l-4 7M12 13l4 7M8 11l8 0"/></svg>Dance</span>
+            <span class="service-chip boxing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 7v10a3 3 0 003 3h6a3 3 0 003-3V9a2 2 0 00-2-2h-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v2H8a2 2 0 00-2 2z"/></svg>Boxing</span>
+          </div>
+        </div>
+      </div>
+
       <iframe
-        src="https://link.nilsdigital.com/widget/form/Cpk2gmz9dcumDiz2KFun"
+        src="https://link.nilsdigital.com/widget/form/Cpk2gmz9dcumDiz2KFun?location=Florida"
         id="inline-Cpk2gmz9dcumDiz2KFun"
         data-layout="{'id':'INLINE'}"
         data-trigger-type="alwaysShow"
@@ -532,6 +604,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         data-height="1934"
         data-layout-iframe-id="inline-Cpk2gmz9dcumDiz2KFun"
         data-form-id="Cpk2gmz9dcumDiz2KFun"
+        data-form-base-src="https://link.nilsdigital.com/widget/form/Cpk2gmz9dcumDiz2KFun"
         title="Private Lesson Booking"
         style="width:100%;min-height:1934px;border:none;border-radius:8px;background:#fff;display:block;"
       ></iframe>
@@ -1029,6 +1102,26 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.anim').forEach(el => io.observe(el));
   document.getElementById('yr').textContent = new Date().getFullYear();
+  /* LOCATION PICKER, updates the GHL iframe src so GHL can prefill the Location field */
+  (function() {
+    const picker = document.getElementById('locationPicker');
+    const iframe = document.getElementById('inline-Cpk2gmz9dcumDiz2KFun');
+    if (!picker || !iframe) return;
+    const baseSrc = iframe.getAttribute('data-form-base-src') || iframe.src.split('?')[0];
+    picker.addEventListener('change', (e) => {
+      const input = e.target.closest('input[name="lesson-location"]');
+      if (!input) return;
+      picker.querySelectorAll('.location-option').forEach(o => o.classList.toggle('is-active', o.dataset.location === input.value));
+      iframe.src = baseSrc + '?location=' + encodeURIComponent(input.value);
+    });
+    /* Click-anywhere fallback for the label cards on touch devices */
+    picker.querySelectorAll('.location-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const radio = opt.querySelector('input[type="radio"]');
+        if (radio && !radio.checked) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
+      });
+    });
+  })();
 })();
 </script>
 </body>
