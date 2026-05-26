@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-26T17:22:08Z",
+  "generatedAt": "2026-05-26T17:27:25Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 121,
-    "free": 42,
+    "free": 44,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,14 +213,14 @@
     ]
   },
   "free": {
-    "total": 42,
+    "total": 44,
     "byCampus": {
       "Upper Campus": 22,
-      "Lower Campus": 20,
+      "Lower Campus": 22,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 30,
+      "June 1st-5th": 32,
       "June 8th-12th": 28,
       "June 15th-19th": 29,
       "June 22nd-26th": 30,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 16,
-        "Lower Campus": 14,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -324,15 +324,15 @@
     ]
   },
   "combined": {
-    "total": 163,
-    "enrollments": 519,
+    "total": 165,
+    "enrollments": 521,
     "byCampus": {
       "Upper Campus": 70,
-      "Lower Campus": 93,
+      "Lower Campus": 95,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 50,
+      "June 1st-5th": 52,
       "June 8th-12th": 53,
       "June 15th-19th": 50,
       "June 22nd-26th": 49,
@@ -349,7 +349,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 25,
-        "Lower Campus": 25,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -4050,16 +4050,42 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
+              "Mon": 3,
+              "Tue": 3,
+              "Wed": 3,
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 5,
+            "total": 15,
             "students": [
               {
+                "name": "Carolina Lopez Sanchez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": null
+              },
+              {
                 "name": "Juan Pablo Lopez",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": null
+              },
+              {
+                "name": "Mateo Lopez",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -4468,13 +4494,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 150
+          "all": 160
         }
       },
       "June 8th-12th": {
@@ -8831,6 +8857,36 @@
           "school": "Roosevelt Elementary School"
         },
         {
+          "name": "Carolina Lopez Sanchez",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": null,
+          "breakfastRaw": null,
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email",
+            "School",
+            "Parent/Guardian name",
+            "Grade"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": null
+        },
+        {
           "name": "Chance Sandy",
           "campus": "Lower Campus",
           "lunch": true,
@@ -9168,8 +9224,7 @@
           "missingFields": [
             "Email",
             "School",
-            "Parent/Guardian name",
-            "Age"
+            "Parent/Guardian name"
           ],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
@@ -9334,6 +9389,36 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Mateo Lopez",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": null,
+          "breakfastRaw": null,
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email",
+            "School",
+            "Parent/Guardian name",
+            "Grade"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": null
         },
         {
           "name": "Mike Frantzley Stardens Duval Beausejour",
