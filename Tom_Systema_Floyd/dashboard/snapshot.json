@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-26T02:27:11Z",
+  "generatedAt": "2026-05-26T02:32:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 120,
+    "summer": 121,
     "free": 41,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,9 +108,9 @@
     "roster": []
   },
   "summer": {
-    "total": 120,
+    "total": 121,
     "byCampus": {
-      "Upper Campus": 47,
+      "Upper Campus": 48,
       "Lower Campus": 73,
       "Unknown": 0
     },
@@ -121,8 +121,8 @@
       "June 22nd-26th": 19,
       "June 29th-July 3rd": 14,
       "July 6th-10th": 20,
-      "July 13th-17th": 16,
-      "July 20th-24th": 20,
+      "July 13th-17th": 17,
+      "July 20th-24th": 21,
       "July 27th-31st": 13,
       "August 3rd-7th": 22,
       "August 10th-14th": 14,
@@ -161,12 +161,12 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 6,
+        "Upper Campus": 7,
         "Lower Campus": 10,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 8,
+        "Upper Campus": 9,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -324,10 +324,10 @@
     ]
   },
   "combined": {
-    "total": 161,
-    "enrollments": 507,
+    "total": 162,
+    "enrollments": 509,
     "byCampus": {
-      "Upper Campus": 68,
+      "Upper Campus": 69,
       "Lower Campus": 93,
       "Unknown": 0
     },
@@ -338,8 +338,8 @@
       "June 22nd-26th": 48,
       "June 29th-July 3rd": 44,
       "July 6th-10th": 49,
-      "July 13th-17th": 46,
-      "July 20th-24th": 49,
+      "July 13th-17th": 47,
+      "July 20th-24th": 50,
       "July 27th-31st": 41,
       "August 3rd-7th": 49,
       "August 10th-14th": 14,
@@ -378,12 +378,12 @@
         "Unknown": 0
       },
       "July 13th-17th": {
-        "Upper Campus": 23,
+        "Upper Campus": 24,
         "Lower Campus": 23,
         "Unknown": 0
       },
       "July 20th-24th": {
-        "Upper Campus": 25,
+        "Upper Campus": 26,
         "Lower Campus": 24,
         "Unknown": 0
       },
@@ -2390,13 +2390,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 10,
-              "Tue": 9,
-              "Wed": 10,
-              "Thu": 9,
-              "Fri": 7
+              "Mon": 11,
+              "Tue": 10,
+              "Wed": 11,
+              "Thu": 10,
+              "Fri": 8
             },
-            "total": 45,
+            "total": 50,
             "students": [
               {
                 "name": "Beckham Fox",
@@ -2523,6 +2523,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Walker Segerson",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Wilder Scott",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -2536,13 +2549,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 15,
-            "Tue": 14,
-            "Wed": 15,
-            "Thu": 14,
-            "Fri": 12
+            "Mon": 16,
+            "Tue": 15,
+            "Wed": 16,
+            "Thu": 15,
+            "Fri": 13
           },
-          "all": 70
+          "all": 75
         }
       },
       "July 20th-24th": {
@@ -2643,13 +2656,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 14,
-              "Tue": 14,
-              "Wed": 14,
-              "Thu": 15,
-              "Fri": 9
+              "Mon": 15,
+              "Tue": 15,
+              "Wed": 15,
+              "Thu": 16,
+              "Fri": 10
             },
-            "total": 66,
+            "total": 71,
             "students": [
               {
                 "name": "Annabelle Dockus",
@@ -2836,19 +2849,32 @@
                   "Fri"
                 ],
                 "lunchRaw": "None"
+              },
+              {
+                "name": "Walker Segerson",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
               }
             ]
           }
         ],
         "totals": {
           "byDay": {
-            "Mon": 19,
-            "Tue": 18,
-            "Wed": 18,
-            "Thu": 19,
-            "Fri": 13
+            "Mon": 20,
+            "Tue": 19,
+            "Wed": 19,
+            "Thu": 20,
+            "Fri": 14
           },
-          "all": 87
+          "all": 92
         }
       },
       "July 27th-31st": {
@@ -15527,6 +15553,30 @@
           "type": "summer"
         },
         {
+          "name": "Walker Segerson",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "lauristonsegerson@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 1672665144,
+          "sourceTabName": "7/13-7/17",
+          "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Wilder Scott",
           "campus": "Upper Campus",
           "lunch": false,
@@ -16723,6 +16773,30 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Walker Segerson",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "lauristonsegerson@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 91994491,
+          "sourceTabName": "7/20-7/24",
+          "sourceRow": 10,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
