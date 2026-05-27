@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T15:07:05Z",
+  "generatedAt": "2026-05-27T15:12:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -221,10 +221,10 @@
     },
     "byWeek": {
       "June 1st-5th": 32,
-      "June 8th-12th": 30,
-      "June 15th-19th": 31,
-      "June 22nd-26th": 32,
-      "June 29th-July 3rd": 33,
+      "June 8th-12th": 31,
+      "June 15th-19th": 32,
+      "June 22nd-26th": 33,
+      "June 29th-July 3rd": 34,
       "July 6th-10th": 30,
       "July 13th-17th": 31,
       "July 20th-24th": 30,
@@ -241,22 +241,22 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 15,
+        "Upper Campus": 16,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 15,
-        "Lower Campus": 16,
-        "Unknown": 0
-      },
-      "June 22nd-26th": {
         "Upper Campus": 16,
         "Lower Campus": 16,
         "Unknown": 0
       },
-      "June 29th-July 3rd": {
+      "June 22nd-26th": {
         "Upper Campus": 17,
+        "Lower Campus": 16,
+        "Unknown": 0
+      },
+      "June 29th-July 3rd": {
+        "Upper Campus": 18,
         "Lower Campus": 16,
         "Unknown": 0
       },
@@ -303,8 +303,8 @@
     },
     "bySchool": {
       "Westward Elementary School": 117,
+      "Northboro Elementary School": 58,
       "Pleasant City Elementary School": 57,
-      "Northboro Elementary School": 54,
       "U.B. Kinsey Educational and Community Center": 45,
       "Roosevelt Elementary School": 34
     },
@@ -323,7 +323,7 @@
   },
   "combined": {
     "total": 167,
-    "enrollments": 534,
+    "enrollments": 538,
     "byCampus": {
       "Upper Campus": 74,
       "Lower Campus": 93,
@@ -331,10 +331,10 @@
     },
     "byWeek": {
       "June 1st-5th": 54,
-      "June 8th-12th": 57,
-      "June 15th-19th": 52,
-      "June 22nd-26th": 51,
-      "June 29th-July 3rd": 47,
+      "June 8th-12th": 58,
+      "June 15th-19th": 53,
+      "June 22nd-26th": 52,
+      "June 29th-July 3rd": 48,
       "July 6th-10th": 50,
       "July 13th-17th": 48,
       "July 20th-24th": 51,
@@ -351,22 +351,22 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 30,
+        "Upper Campus": 31,
         "Lower Campus": 27,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 19,
+        "Upper Campus": 20,
         "Lower Campus": 33,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 21,
+        "Upper Campus": 22,
         "Lower Campus": 30,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 22,
+        "Upper Campus": 23,
         "Lower Campus": 25,
         "Unknown": 0
       },
@@ -4599,13 +4599,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 28,
-              "Tue": 28,
-              "Wed": 28,
-              "Thu": 28,
-              "Fri": 28
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 140,
+            "total": 145,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4816,6 +4816,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Juno Katherine Santos Pacheco",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -4976,13 +4989,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 30,
-            "Tue": 30,
-            "Wed": 30,
-            "Thu": 30,
-            "Fri": 30
+            "Mon": 31,
+            "Tue": 31,
+            "Wed": 31,
+            "Thu": 31,
+            "Fri": 31
           },
-          "all": 150
+          "all": 155
         }
       },
       "June 15th-19th": {
@@ -5033,13 +5046,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 29,
-              "Tue": 29,
-              "Wed": 29,
-              "Thu": 29,
-              "Fri": 29
+              "Mon": 30,
+              "Tue": 30,
+              "Wed": 30,
+              "Thu": 30,
+              "Fri": 30
             },
-            "total": 145,
+            "total": 150,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5225,6 +5238,19 @@
               },
               {
                 "name": "Journey Jerome",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juan Pablo Lopez Sanchez",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -5423,13 +5449,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 31,
-            "Tue": 31,
-            "Wed": 31,
-            "Thu": 31,
-            "Fri": 31
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 155
+          "all": 160
         }
       },
       "June 22nd-26th": {
@@ -5508,13 +5534,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 29,
-              "Tue": 29,
-              "Wed": 29,
-              "Thu": 29,
-              "Fri": 29
+              "Mon": 30,
+              "Tue": 30,
+              "Wed": 30,
+              "Thu": 30,
+              "Fri": 30
             },
-            "total": 145,
+            "total": 150,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5700,6 +5726,19 @@
               },
               {
                 "name": "Journey Jerome",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juan Pablo Lopez Sanchez",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -5898,13 +5937,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 32,
-            "Tue": 32,
-            "Wed": 32,
-            "Thu": 32,
-            "Fri": 32
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 160
+          "all": 165
         }
       },
       "June 29th-July 3rd": {
@@ -5955,13 +5994,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 155,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6185,6 +6224,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Juno Katherine Santos Pacheco",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -6371,13 +6423,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 33,
-            "Tue": 33,
-            "Wed": 33,
-            "Thu": 33,
-            "Fri": 33
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 165
+          "all": 170
         }
       },
       "July 6th-10th": {
@@ -10967,6 +11019,31 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Juan Pablo Lopez Sanchez",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 42263552,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Juno Katherine Santos Pacheco",
           "campus": "Lower Campus",
           "lunch": true,
@@ -12219,6 +12296,31 @@
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
           "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Juan Pablo Lopez Sanchez",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 44844437,
+          "sourceTabName": "6/15-6/19",
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -13510,6 +13612,31 @@
           "school": "Northboro Elementary School"
         },
         {
+          "name": "Juan Pablo Lopez Sanchez",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 624596140,
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 18,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
           "name": "Juno Katherine Santos Pacheco",
           "campus": "Lower Campus",
           "lunch": true,
@@ -14682,6 +14809,31 @@
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
           "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Juan Pablo Lopez Sanchez",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 2124671237,
+          "sourceTabName": "6/29-7/3",
+          "sourceRow": 19,
           "days": [
             true,
             true,
