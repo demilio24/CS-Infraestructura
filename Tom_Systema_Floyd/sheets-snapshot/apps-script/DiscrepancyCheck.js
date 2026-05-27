@@ -2503,7 +2503,8 @@ function _dcNotifyRecipients() {
 
 function _dcAsArr(v) {
   if (v == null) return [];
-  return Array.isArray(v) ? v : [v];
+  var arr = Array.isArray(v) ? v : [v];
+  return arr.map(function (s) { return String(s).replace(/–/g, '-'); });
 }
 
 /**

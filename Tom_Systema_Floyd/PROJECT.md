@@ -11,7 +11,7 @@ Tom runs Systema Floyd, a Florida-based martial arts school (Upper Campus + Lowe
 - `OG_Site/` — Static HTML scrape of the original systemafloyd.com (After School, Camps, Contact, Spirit Dance, Program Survey, FORM, asset folders, screenshots). Reference only.
 - `billing-stages/` — Staged build plan + reference docs: `00-README.md` through `06-migrate-to-polling.md`, `billing-dashboard-plan.md`, `pricing-syntax.md`. Historical narrative of how the billing system was built.
 - `context/` — Active handoff notes. Currently: `2026-05-07-dashboard-handoff.md` (registrations dashboard state). Always read this folder first when resuming.
-- `dashboard/` — The registrations/lunches dashboard the team actually uses. `index.html` (KPIs + roster), `lunches.html` (kitchen prep), `snapshot.json` (read by both pages, written by GH Actions cron), `history/` (daily snapshots `2026-05-01.json`..today + `index.json`).
+- `dashboard/` — The registrations/lunches dashboard the team actually uses. `index.html` (KPIs + roster + attendance with per-kid time in/out), `lunches.html` (kitchen prep), `free-camp.html` (FREE camp roster), `staff.html` (admin-only staff management), `auth.js` (shared auth module — login, sessions, permissions), `snapshot.json` (read by all pages, written by GH Actions cron), `history/` (daily snapshots `2026-05-01.json`..today + `index.json`).
 - `funnel/` — 12 client-facing pages: `home.html`, `camps.html`, `summer-camp-scholarship.html`, `after-school.html`, `private-lessons.html`, `spirit-dance.html`, `birthday-parties.html`, `rent-a-sensei.html`, `waiver.html`, `waiver-free.html`, `thankyou.html`, `vlad-seminar.html`. All seminar imagery + the flyer PDF live in the Floyd FL GHL media library (uploaded 2026-05-17, see changelog).
 - `sheets-snapshot/` — The OTHER Apps Script project (clasp-managed) — the lightweight web app the dashboard pipeline calls. `apps-script/Snapshot.js` (hardcoded SHEETS map + readers), `DiscrepancyCheck.js`, `appsscript.json`, `README.md`.
 
@@ -58,6 +58,14 @@ See memory `todos_systema_floyd_billing.md` for the prioritized list. Headlines:
 ### Registrations dashboard TODOs
 See `context/2026-05-07-dashboard-handoff.md`. Headlines: wire up after-school once Drive folder `1hT0qjM_NCIkONm1-HhUr3rvB4FDV-o8V` populates and is shared (~20 lines in `Snapshot.js`); Free Camp wiring already live, fills automatically when form opens; KPI card styling pass pending direction choice; consider bringing back GHL `totals.contacts`/`leadOnly`/`newLast7Days`/`newLast30Days` as a hybrid pass.
 
+### Auth & staff management TODOs
+- **Flip `REQUIRE_LOGIN` to `true`** — when ready to lock the dashboard behind login. One-line change in `dashboard/auth.js`. Currently `false` (public access preserved). When flipped: login card becomes mandatory (no skip link), all pages require auth.
+- **Replace `claim_secret` with JWT-based RLS** — once REQUIRE_LOGIN is true, swap the shared secret for per-user session tokens. Each attendance RPC would check `auth.uid()` instead of `claim_secret`. Requires RLS policies on `sf_daily_attendance` and `sf_daily_attendance_people`.
+- **Campus-level permissions** — restrict instructors to only see certain schools (Upper/Lower). Add `campus_access` column to `sf_staff` and gate the roster/attendance UI per campus. Not needed until instructors get their own logins.
+- **Staff invite flow** — currently new staff must sign up via the login page first, then admin sets permissions on Staff page. Ideal: admin enters email, Supabase sends invite automatically. Needs a Supabase Edge Function calling `auth.admin.inviteUserByEmail()` (requires `service_role` key).
+- **Change Emilio's initial password** — seeded as `SistemaFloyd2026!`. Change after first login.
+- **Email template customization** — Supabase sends default-branded emails for magic link. Customizable in Supabase dashboard under Auth > Email Templates.
+
 ### Demo-prep state snapshot (most recent prior milestone)
 Full file map + shipped features from 2026-05-07 in memory `project_systema_floyd_state_snapshot.md`.
 
@@ -81,11 +89,15 @@ Added Supabase Auth integration to the dashboard. Staff can log in via magic lin
 ### 2026-05-27 — DiscrepancyCheck switched from Supabase OAuth to PIT; 3 missing scholarship kids identified
 Juliana reported 3 kids (Savannah Hazen, Serenity Randolph, Malia) not appearing on the FREE camp sheets. Investigation confirmed all 3 had valid GHL form submissions (Free Camp form `3Z4E9y7WlWgkZDxViBUW`, submitted May 26-27) but the per-week GHL routing workflows failed to write them to the sheets. The DiscrepancyCheck failsafe also missed them because it was fetching the Florida OAuth token from Supabase, which had expired (n8n refresh cron is dead).
 
-**Fix:** replaced the 55-line `_dcGhlToken_()` function in [sheets-snapshot/apps-script/DiscrepancyCheck.js](sheets-snapshot/apps-script/DiscrepancyCheck.js) with a one-liner returning the Florida PIT (`pit-ba33c398-1647-41c9-9024-98f203d6b30c`). PITs don't expire, so the DC no longer depends on the n8n token refresh cron or the Supabase RPC. Pushed via `clasp push -f` from `emilio@nilsdigital.com`. No deployment bump needed (time-driven triggers pick up `@HEAD`).
+**Fix 1 (PIT):** replaced the 55-line `_dcGhlToken_()` function in [sheets-snapshot/apps-script/DiscrepancyCheck.js](sheets-snapshot/apps-script/DiscrepancyCheck.js) with a one-liner returning the Florida PIT (`pit-ba33c398-1647-41c9-9024-98f203d6b30c`). PITs don't expire, so the DC no longer depends on the n8n token refresh cron or the Supabase RPC. Pushed via `clasp push -f` from `emilio@nilsdigital.com`. No deployment bump needed (time-driven triggers pick up `@HEAD`).
+
+**Fix 2 (en-dash):** after running the DC manually and finding only 1 of 5 expected kid+week entries added, discovered the GHL Free Camp form returns en-dashes (`–`, U+2013) in some week names (e.g. `June 1st–5th`) while `DC_WEEK_TO_TAB` uses regular hyphens (`-`, U+002D). The lookup silently skipped unrecognized weeks. Fixed by adding `.replace(/–/g, '-')` in `_dcAsArr()` so all week strings are normalized before lookup. Malia's `August 3rd-7th` had a regular hyphen (matched on first run); her `June 1st–5th` and all of Savannah's and Serenity's weeks had en-dashes (missed until this fix). Second push + manual run resolved all 5 remaining entries.
+
+First manual run results: 38 Free Camp rows added, 184 linked to existing rows, 0 errors. No duplicates — the DC's multi-layer dedup (name+email+week index, fuzzy match, Supabase tombstones, in-run dedup) prevented any double-writes.
 
 Also manually refreshed the Florida OAuth token in Supabase for other systems that still use it (billing dashboard, etc.).
 
-Campus assignment for the 3 kids (Upper = age 6+ as of June 1): Savannah Hazen (DOB 06/26/2019, age 6) → Upper; Serenity Randolph (DOB 06/29/2022, age 3) → Lower; Malia (DOB 03/16/2016, age 10) → Upper. The DC's `_dcAppendFreeCamp()` auto-add should place them on the correct tabs on its next run.
+Campus assignment for the 3 kids (Upper = age 6+ as of June 1): Savannah Hazen (DOB 06/26/2019, age 6) → Upper; Serenity Randolph (DOB 06/29/2022, age 3) → Lower; Malia (DOB 03/16/2016, age 10) → Upper.
 
 ### 2026-05-24 — Funnel revisions from Tom's emails: private-lessons (Georgia + lesson types) + birthday-parties page repurposed for real party booking
 Three same-day emails from Tom (`floydkarateinstitute@gmail.com`) on the [private-lessons](funnel/private-lessons.html) page: (1) "We need a Georgia option as well", (2) "Needs to have martial arts option and fitness weight lifting as well. Mobility stretch massage too", (3) "Sean Nasiff is the Georgia instructor". Plus the open 2026-05-22 "Party page" thread from Juliana — they want the birthday-parties page to actually capture party bookings (location: at home / at Systema / event place; size tier: 10-20 / 20-30 / 30+; date, timeframe, theme, age range). Pricing remains TBD per the [forms map](../../C:/Users/demo/.claude/projects/f--GitHub-Websites/memory/project_systema_floyd_funnel_form_map.md) but Tom said "these don't have prices, just basic info" — i.e. ship the form without pricing.
