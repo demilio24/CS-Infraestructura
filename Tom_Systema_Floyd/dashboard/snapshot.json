@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T14:17:10Z",
+  "generatedAt": "2026-05-27T14:22:37Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -110,12 +110,12 @@
   "summer": {
     "total": 122,
     "byCampus": {
-      "Upper Campus": 49,
-      "Lower Campus": 73,
+      "Upper Campus": 50,
+      "Lower Campus": 72,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 21,
+      "June 1st-5th": 22,
       "June 8th-12th": 27,
       "June 15th-19th": 21,
       "June 22nd-26th": 19,
@@ -131,7 +131,7 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 10,
+        "Upper Campus": 11,
         "Lower Campus": 11,
         "Unknown": 0
       },
@@ -323,14 +323,14 @@
   },
   "combined": {
     "total": 167,
-    "enrollments": 533,
+    "enrollments": 534,
     "byCampus": {
-      "Upper Campus": 73,
-      "Lower Campus": 94,
+      "Upper Campus": 74,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 53,
+      "June 1st-5th": 54,
       "June 8th-12th": 57,
       "June 15th-19th": 52,
       "June 22nd-26th": 51,
@@ -346,7 +346,7 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 27,
+        "Upper Campus": 28,
         "Lower Campus": 26,
         "Unknown": 0
       },
@@ -421,14 +421,27 @@
             "subtypeKey": "pizza-daily",
             "label": "Pizza daily ($7.75/day)",
             "byDay": {
-              "Mon": 1,
-              "Tue": 0,
-              "Wed": 1,
-              "Thu": 0,
-              "Fri": 0
+              "Mon": 2,
+              "Tue": 1,
+              "Wed": 2,
+              "Thu": 1,
+              "Fri": 1
             },
-            "total": 2,
+            "total": 7,
             "students": [
+              {
+                "name": "Sebastian Martinat",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($7.75/day)"
+              },
               {
                 "name": "Taavi Horn",
                 "campus": "Upper Campus",
@@ -739,13 +752,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 20,
-            "Tue": 17,
-            "Wed": 19,
-            "Thu": 18,
-            "Fri": 18
+            "Mon": 21,
+            "Tue": 18,
+            "Wed": 20,
+            "Thu": 19,
+            "Fri": 19
           },
-          "all": 92
+          "all": 97
         }
       },
       "June 8th-12th": {
@@ -8656,6 +8669,30 @@
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
           "sourceRow": 8,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Sebastian Martinat",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($7.75/day)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "pizza friday",
+          "email": "danielamartinat@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 12,
           "days": [
             true,
             true,
