@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T15:02:03Z",
+  "generatedAt": "2026-05-27T15:07:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -4161,19 +4161,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Carolina Lopez Sanchez",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Chance Sandy",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -4345,6 +4332,19 @@
               {
                 "name": "Juan Pablo Lopez",
                 "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Juan Pablo Lopez Sanchez",
+                "campus": "Upper Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -9130,33 +9130,6 @@
           "school": "Roosevelt Elementary School"
         },
         {
-          "name": "Carolina Lopez Sanchez",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "(561) 729-4169",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 18,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
           "name": "Chance Sandy",
           "campus": "Lower Campus",
           "lunch": true,
@@ -9496,6 +9469,31 @@
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
           "sourceRow": 15,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
+        },
+        {
+          "name": "Juan Pablo Lopez Sanchez",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "e.carol80@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 18,
           "days": [
             true,
             true,
