@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Staff Management · Systema Floyd</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" href="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --sf-white:#fff; --sf-cream:#f7f9fc; --sf-cream-2:#eef2f8;
+  --sf-border:#e2e8f2; --sf-border-strong:#c6d1e4;
+  --sf-ink:#0d1534; --sf-ink-60:#475067; --sf-ink-50:#6b7490; --sf-ink-40:#8b95ad;
+  --sf-blue-900:#0a1028; --sf-blue-800:#111a3d; --sf-blue-700:#1b2f6e;
+  --sf-blue-600:#234091; --sf-blue-500:#2f82c4; --sf-blue-400:#4aa3e0;
+  --sf-blue-100:#e8f1fb; --sf-blue-50:#f4f8fd;
+  --sf-amber:#f3a847; --sf-amber-deep:#c97a16;
+  --sf-green:#2da375; --sf-red:#d8453d;
+  --radius-sm:8px; --radius-md:16px; --radius-lg:24px;
+  --grad-blue:linear-gradient(135deg,#2f82c4,#1b2f6e);
+  --grad-blue-deep:linear-gradient(135deg,#1b2f6e,#0a1028);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --shadow-sm:0 2px 8px rgba(15,27,61,.06),0 1px 3px rgba(15,27,61,.04);
+  --shadow-md:0 12px 32px -12px rgba(27,47,110,.18);
+  --shadow-lg:0 24px 60px -20px rgba(27,47,110,.24);
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;color:var(--sf-ink);background:var(--sf-cream);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,select{font-family:inherit;color:inherit}
+h1,h2,h3,h4{font-family:'Oswald','Inter',sans-serif;font-weight:700;line-height:1.05;margin:0 0 .4em;letter-spacing:.01em;color:var(--sf-ink);text-transform:uppercase}
+p{margin:0 0 1em;color:var(--sf-ink-60)}
+
+/* ====== Dashboard header ====== */
+.dash-header{display:flex;align-items:center;gap:18px;padding:14px 32px;background:var(--sf-white);border-bottom:1px solid var(--sf-border);flex-wrap:wrap}
+.dash-brand{display:flex;align-items:center;text-decoration:none}
+.dash-brand img{height:42px;width:auto;display:block}
+.dash-title{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--sf-ink-60);padding-left:16px;border-left:1.5px solid var(--sf-border-strong)}
+.dash-meta{margin-left:auto;display:flex;align-items:center;gap:12px;font-family:'Space Grotesk','Inter',monospace;font-size:12.5px;color:var(--sf-ink-50);font-weight:500}
+
+/* ====== Page shell ====== */
+.dash{max-width:1280px;margin:0 auto;padding:8px 32px 60px}
+
+/* ====== Nav ====== */
+.dash-nav{display:flex;align-items:center;gap:6px;margin:18px 0 24px;padding:8px 14px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:12px;box-shadow:var(--shadow-sm);overflow-x:auto;scrollbar-width:thin}
+.dash-nav::-webkit-scrollbar{height:6px}
+.dash-nav::-webkit-scrollbar-thumb{background:var(--sf-border-strong);border-radius:3px}
+.nav-group{display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-group-label{font-family:'Oswald',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--sf-ink-40);text-transform:uppercase;padding:0 8px 0 2px;white-space:nowrap}
+.nav-divider{width:1px;height:22px;background:var(--sf-border);margin:0 8px;flex-shrink:0}
+.nav-link{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:7px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--sf-ink-60);text-decoration:none;white-space:nowrap;border:1px solid transparent;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.nav-link:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);transform:translateY(-1px)}
+.nav-link.active{background:var(--grad-blue);color:#fff;font-weight:600;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
+.nav-link.active:hover{transform:none;color:#fff}
+.nav-link.sheet,.nav-link.billing{background:#f4f8fd;border-color:#d4e3f3;color:var(--sf-ink);font-weight:600;box-shadow:0 1px 0 rgba(15,23,42,.04),0 2px 6px -3px rgba(47,130,196,.18)}
+.nav-link.sheet:hover,.nav-link.billing:hover{transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(47,130,196,.35)}
+.nav-link.sheet::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;flex-shrink:0;background:#34a853}
+.nav-link.billing{background:#e6f4ea;border-color:#b8dfc3;color:#137333}
+.nav-link.billing:hover{background:#d4ecdc;color:#0d5723;border-color:#9bd1ac}
+.nav-link svg{flex-shrink:0;opacity:.85}
+.nav-link.active svg{opacity:1}
+
+/* ====== Page intro ====== */
+.page-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:6px 0 22px;flex-wrap:wrap}
+.page-intro h1{font-size:28px;letter-spacing:.04em;margin:0;font-family:'Oswald',sans-serif}
+.page-intro .sub{font-family:'Space Grotesk','Inter',sans-serif;font-size:12.5px;color:var(--sf-ink-50);letter-spacing:.04em;max-width:680px}
+
+/* ====== Add Staff button ====== */
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:var(--radius-sm);background:var(--grad-blue);color:#fff;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;box-shadow:0 4px 10px -4px rgba(47,130,196,.5);transition:opacity .15s,transform .15s}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-primary svg{flex-shrink:0}
+
+/* ====== Staff table ====== */
+.staff-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:var(--radius-md);padding:0;box-shadow:var(--shadow-sm);overflow:hidden;margin-top:18px}
+.staff-table{width:100%;border-collapse:collapse;font-family:'Inter',sans-serif;font-size:13px}
+.staff-table thead th{background:var(--sf-cream);font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-ink-50);font-weight:700;padding:12px 14px;text-align:left;border-bottom:1px solid var(--sf-border);white-space:nowrap}
+.staff-table thead th:last-child{text-align:right}
+.staff-table tbody td{padding:12px 14px;border-bottom:1px solid var(--sf-border);vertical-align:middle}
+.staff-table tbody tr:last-child td{border-bottom:0}
+.staff-table tbody tr{transition:background .15s}
+.staff-table tbody tr:hover{background:var(--sf-blue-50)}
+.staff-table .td-name{font-weight:600;color:var(--sf-ink)}
+.staff-table .td-email{font-family:'Space Grotesk','Inter',sans-serif;font-size:12.5px;color:var(--sf-ink-60);letter-spacing:.02em}
+.staff-table .td-actions{text-align:right;white-space:nowrap}
+
+/* Role badges */
+.role-badge{display:inline-block;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.role-badge.super_admin{background:#fef3c7;color:#92400e}
+.role-badge.staff{background:var(--sf-blue-100);color:var(--sf-blue-700)}
+
+/* Page pill chips */
+.page-pills{display:flex;flex-wrap:wrap;gap:4px}
+.page-pill{display:inline-block;font-family:'Space Grotesk','Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;background:var(--sf-cream);border:1px solid var(--sf-border);color:var(--sf-ink-60);text-transform:capitalize}
+
+/* Active status dot */
+.status-dot{display:inline-block;width:10px;height:10px;border-radius:50%}
+.status-dot.active{background:var(--sf-green);box-shadow:0 0 0 3px rgba(45,163,117,.16)}
+.status-dot.inactive{background:var(--sf-red);box-shadow:0 0 0 3px rgba(216,69,61,.14)}
+
+/* Action buttons */
+.btn-edit,.btn-toggle{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;border:1px solid var(--sf-border);background:var(--sf-white);color:var(--sf-ink-60);cursor:pointer;transition:all .15s;letter-spacing:.02em}
+.btn-edit:hover{background:var(--sf-blue-50);color:var(--sf-blue-700);border-color:var(--sf-blue-700)}
+.btn-toggle{margin-left:6px}
+.btn-toggle.deactivate{color:var(--sf-red);border-color:rgba(216,69,61,.3)}
+.btn-toggle.deactivate:hover{background:rgba(216,69,61,.08);border-color:var(--sf-red)}
+.btn-toggle.reactivate{color:var(--sf-green);border-color:rgba(45,163,117,.3)}
+.btn-toggle.reactivate:hover{background:rgba(45,163,117,.08);border-color:var(--sf-green)}
+
+/* Empty state */
+.empty-state{padding:40px 20px;text-align:center;color:var(--sf-ink-40);font-size:13px}
+.empty-state strong{display:block;color:var(--sf-ink-60);font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+
+/* ====== Modal ====== */
+.modal-backdrop{position:fixed;inset:0;z-index:9000;background:rgba(10,16,40,.5);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{background:var(--sf-white);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);width:440px;max-width:92vw;max-height:85vh;overflow-y:auto;position:relative;animation:modalIn .26s var(--ease-out)}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad-blue);border-radius:16px 16px 0 0}
+@keyframes modalIn{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px 14px;border-bottom:1px solid var(--sf-border)}
+.modal-header h3{margin:0;font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--sf-ink)}
+.modal-close{background:transparent;border:0;color:var(--sf-ink-40);font-size:22px;cursor:pointer;padding:4px 8px;border-radius:8px;line-height:1;transition:background .15s,color .15s}
+.modal-close:hover{background:var(--sf-blue-50);color:var(--sf-ink)}
+.modal-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:18px}
+.modal-note{font-size:12px;color:var(--sf-ink-50);line-height:1.55;background:var(--sf-cream);border:1px solid var(--sf-border);border-radius:8px;padding:12px 14px}
+.modal-note strong{color:var(--sf-ink-60)}
+
+/* Form fields */
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-ink-50)}
+.field input,.field select{padding:10px 12px;border:1px solid var(--sf-border);border-radius:8px;font-size:14px;background:var(--sf-white);transition:border-color .15s,box-shadow .15s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--sf-blue-500);box-shadow:0 0 0 3px rgba(47,130,196,.12)}
+.field select{cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7490' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+
+/* Checkboxes group */
+.checkbox-group{display:flex;flex-direction:column;gap:8px}
+.checkbox-group label{font-family:'Oswald',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sf-ink-50);margin-bottom:2px}
+.checkbox-row{display:flex;flex-wrap:wrap;gap:8px}
+.chk{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:8px;border:1px solid var(--sf-border);background:var(--sf-white);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--sf-ink-60);user-select:none}
+.chk:hover{border-color:var(--sf-blue-500);background:var(--sf-blue-50)}
+.chk input{display:none}
+.chk.checked{background:var(--sf-blue-100);border-color:var(--sf-blue-700);color:var(--sf-blue-700);font-weight:600}
+.chk .chk-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--sf-border-strong);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.chk.checked .chk-box{background:var(--sf-blue-700);border-color:var(--sf-blue-700)}
+.chk .chk-box svg{display:none}
+.chk.checked .chk-box svg{display:block}
+
+/* Modal save button */
+.btn-save{display:block;width:100%;padding:12px;border-radius:8px;background:var(--grad-blue);color:#fff;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;transition:opacity .15s;box-shadow:0 4px 10px -4px rgba(47,130,196,.5)}
+.btn-save:hover{opacity:.9}
+.btn-save:disabled{opacity:.6;cursor:wait}
+.modal-feedback{font-size:12px;text-align:center;min-height:18px;color:var(--sf-ink-50)}
+.modal-feedback.error{color:var(--sf-red)}
+.modal-feedback.success{color:var(--sf-green)}
+
+/* ====== Auth (login card, header user area) ====== */
+.auth-backdrop{position:fixed;inset:0;z-index:9000;background:rgba(10,16,40,.5);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.auth-card{background:var(--sf-white);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:36px 32px 28px;width:360px;max-width:92vw}
+.auth-brand{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.auth-brand img{height:48px}
+.auth-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-ink)}
+.auth-tabs{display:flex;gap:0;margin-bottom:20px;background:var(--sf-cream);border-radius:8px;padding:3px;border:1px solid var(--sf-border)}
+.auth-tab{flex:1;padding:8px 12px;border-radius:6px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--sf-ink-50);transition:all .15s;text-align:center}
+.auth-tab.active{background:var(--sf-white);color:var(--sf-blue-700);box-shadow:0 1px 3px rgba(15,23,42,.08)}
+.auth-label{display:block;font-size:12px;font-weight:600;color:var(--sf-ink-60);letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+.auth-input{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid var(--sf-border);border-radius:8px;font-size:14px;background:var(--sf-white);transition:border-color .15s}
+.auth-input:focus{outline:none;border-color:var(--sf-blue-700)}
+.auth-submit{display:block;width:100%;padding:12px;border-radius:8px;background:var(--grad-blue);color:#fff;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;margin-top:4px;transition:opacity .15s}
+.auth-submit:hover{opacity:.9}
+.auth-feedback{font-size:12px;margin-top:12px;text-align:center;min-height:18px;color:var(--sf-ink-50)}
+.auth-feedback.error{color:var(--sf-red)}
+.auth-feedback.success{color:var(--sf-green)}
+.auth-skip{display:block;width:100%;text-align:center;margin-top:12px;font-size:12px;color:var(--sf-ink-40);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif}
+.auth-skip:hover{color:var(--sf-ink-60)}
+.auth-signin-btn{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);transition:background .2s;border:none;cursor:pointer}
+.auth-signin-btn:hover{background:var(--sf-blue-100)}
+.auth-user-name{font-family:'Space Grotesk','Inter',monospace;font-size:12.5px;font-weight:600;color:var(--sf-ink)}
+.auth-badge{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:4px}
+.auth-badge.admin{background:#fef3c7;color:#92400e}
+.auth-badge.staff{background:var(--sf-blue-100);color:var(--sf-blue-700)}
+.auth-signout-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--sf-ink-40);text-decoration:underline;cursor:pointer;background:none;border:none}
+.auth-signout-btn:hover{color:var(--sf-ink-60)}
+
+/* ====== Animations ====== */
+.anim{transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.js-ready .anim{opacity:0;transform:translateY(18px)}
+.js-ready .anim.in{opacity:1;transform:translateY(0)}
+.anim.d1{transition-delay:.06s}.anim.d2{transition-delay:.12s}.anim.d3{transition-delay:.18s}
+
+/* ====== Responsive ====== */
+@media (min-width:1600px){.dash{max-width:1600px}}
+@media (max-width:980px){
+  .dash-header{padding:12px 18px;gap:12px}
+  .dash-meta{margin-left:0;width:100%;justify-content:flex-start;gap:10px}
+  .dash{padding:8px 18px 60px}
+  .page-intro h1{font-size:24px}
+}
+@media (max-width:700px){
+  .dash-header{gap:10px;padding:12px 14px}
+  .dash-brand img{height:36px}
+  .dash-title{font-size:13px;letter-spacing:.2em;padding-left:12px}
+  .dash{padding:8px 14px 60px}
+  .dash-nav{padding:8px 10px;gap:4px}
+  .nav-divider{margin:0 4px}
+  .nav-group-label{font-size:9.5px;padding:0 4px 0 0}
+  .nav-link{padding:6px 11px;font-size:12.5px}
+  /* Make table horizontally scrollable */
+  .staff-card{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .staff-table{min-width:640px}
+}
+@media (max-width:520px){
+  .dash-header{padding:12px 14px;gap:10px}
+  .dash{padding:8px 14px 60px}
+  .dash-brand img{height:34px}
+  .dash-title{font-size:12px;letter-spacing:.2em;padding-left:10px}
+  .page-intro h1{font-size:22px}
+  .page-intro{gap:12px}
+  .btn-primary{padding:10px 16px;font-size:12px}
+  .staff-table{min-width:580px}
+  .modal{max-height:90vh}
+  .modal-body{padding:16px 18px 20px}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
+</head>
+<body class="js-ready">
+<div id="auth-card-root"></div>
+
+<header class="dash-header">
+  <a class="dash-brand" href="../funnel/home.html" title="Back to Systema Floyd home">
+    <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
+  </a>
+  <span class="dash-title">Dashboard</span>
+  <div id="user-area" class="dash-meta" style="gap:8px"></div>
+</header>
+
+<main class="dash">
+
+  <!-- Dashboard nav: Pages | Sheets | Billing -->
+  <nav class="dash-nav anim d1" aria-label="Dashboard navigation">
+    <div class="nav-group">
+      <span class="nav-group-label">Pages</span>
+      <a class="nav-link" href="./">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h18M9 21V10"/></svg>
+        Registrations
+      </a>
+      <a class="nav-link" href="./lunches.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0z"/><path d="M2 12h20M7 12V7M12 12V5M17 12V7"/></svg>
+        Lunches
+      </a>
+      <a class="nav-link" href="./free-camp.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.4L20 8l-4 4 1 6-5-3-5 3 1-6-4-4 5.6-.6z"/></svg>
+        Free Camp
+      </a>
+      <a class="nav-link active" href="./staff.html" aria-current="page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Staff
+      </a>
+    </div>
+    <span class="nav-divider"></span>
+    <div class="nav-group">
+      <span class="nav-group-label">Sheets</span>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA/edit" target="_blank" rel="noopener">PAID Upper</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs/edit" target="_blank" rel="noopener">PAID Lower</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ/edit" target="_blank" rel="noopener">FREE Upper</a>
+      <a class="nav-link sheet" href="https://docs.google.com/spreadsheets/d/1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY/edit" target="_blank" rel="noopener">FREE Lower</a>
+    </div>
+    <span class="nav-divider"></span>
+    <div class="nav-group">
+      <span class="nav-group-label">Billing</span>
+      <a class="nav-link billing" href="https://docs.google.com/spreadsheets/d/1VKwy29-ah7AznrcKs5aGqVKdIuOkCWO6JMUfonas2bM/edit?gid=1693204858#gid=1693204858" target="_blank" rel="noopener">Billing Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- Page intro + Add Staff button -->
+  <div class="page-intro anim d1">
+    <div>
+      <h1>Staff Management</h1>
+      <div class="sub">Manage dashboard access for team members. Only super admins can view this page.</div>
+    </div>
+    <button type="button" class="btn-primary" id="btn-add-staff">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add Staff
+    </button>
+  </div>
+
+  <!-- Staff table -->
+  <div class="staff-card anim d2">
+    <table class="staff-table" id="staff-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Pages</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="staff-tbody">
+        <tr><td colspan="6" class="empty-state"><strong>Loading...</strong>Fetching staff list</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<!-- ====== Add/Edit Staff Modal ====== -->
+<div class="modal-backdrop" id="staff-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Add Staff Member</h3>
+      <button type="button" class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-note" id="modal-note">
+        <strong>How it works:</strong> New staff members must first sign up via the
+        <a href="./" style="color:var(--sf-blue-700);font-weight:600;text-decoration:underline">login page</a>
+        on any dashboard page. Once they have signed in at least once, you can find them by email here
+        and set their role and page permissions.
+      </div>
+
+      <div class="field">
+        <label for="field-email">Email</label>
+        <input type="email" id="field-email" placeholder="staff@example.com" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="field-name">Display Name</label>
+        <input type="text" id="field-name" placeholder="e.g. Tom Floyd" autocomplete="off" />
+      </div>
+
+      <div class="field">
+        <label for="field-role">Role</label>
+        <select id="field-role">
+          <option value="staff">Staff</option>
+          <option value="super_admin">Super Admin</option>
+        </select>
+      </div>
+
+      <div class="checkbox-group">
+        <label>Page Access</label>
+        <div class="checkbox-row" id="page-checks">
+          <label class="chk" data-page="registrations">
+            <input type="checkbox" value="registrations" />
+            <span class="chk-box"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Registrations
+          </label>
+          <label class="chk" data-page="lunches">
+            <input type="checkbox" value="lunches" />
+            <span class="chk-box"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Lunches
+          </label>
+          <label class="chk" data-page="free-camp">
+            <input type="checkbox" value="free-camp" />
+            <span class="chk-box"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Free Camp
+          </label>
+        </div>
+      </div>
+
+      <button type="button" class="btn-save" id="btn-save">Save</button>
+      <div class="modal-feedback" id="modal-feedback"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(async () => {
+  /* ── Init auth ── */
+  const { session, profile } = await SF_AUTH.init('staff');
+
+  /* Animate visible elements in */
+  document.querySelectorAll('.anim').forEach(el => el.classList.add('in'));
+
+  /* If not super_admin the auth module already shows access denied; stop here */
+  if (!profile || profile.role !== 'super_admin') return;
+
+  const sb = SF_AUTH.supabase;
+  let staffList = [];
+  let editingId = null; /* null = add mode, uuid = edit mode */
+
+  /* ── DOM refs ── */
+  const tbody       = document.getElementById('staff-tbody');
+  const modal       = document.getElementById('staff-modal');
+  const modalTitle  = document.getElementById('modal-title');
+  const modalNote   = document.getElementById('modal-note');
+  const fieldEmail  = document.getElementById('field-email');
+  const fieldName   = document.getElementById('field-name');
+  const fieldRole   = document.getElementById('field-role');
+  const pageChecks  = document.getElementById('page-checks');
+  const btnSave     = document.getElementById('btn-save');
+  const feedback    = document.getElementById('modal-feedback');
+
+  /* ── Checkbox toggle behavior ── */
+  pageChecks.querySelectorAll('.chk').forEach(chk => {
+    chk.addEventListener('click', e => {
+      if (e.target.tagName === 'INPUT') return; /* let native handle */
+      const inp = chk.querySelector('input');
+      inp.checked = !inp.checked;
+      chk.classList.toggle('checked', inp.checked);
+    });
+    chk.querySelector('input').addEventListener('change', function() {
+      chk.classList.toggle('checked', this.checked);
+    });
+  });
+
+  /* ── Helpers ── */
+  function esc(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function pageName(slug) {
+    const map = { registrations: 'Registrations', lunches: 'Lunches', 'free-camp': 'Free Camp' };
+    return map[slug] || slug;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '-';
+    try {
+      return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    } catch { return iso; }
+  }
+
+  /* ── Load staff list ── */
+  async function loadStaff() {
+    const { data, error } = await sb.rpc('sf_get_staff');
+    if (error) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><strong>Error</strong>' + esc(error.message) + '</td></tr>';
+      return;
+    }
+    staffList = data || [];
+    renderTable();
+  }
+
+  /* ── Render table ── */
+  function renderTable() {
+    if (staffList.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><strong>No Staff</strong>No staff members found.</td></tr>';
+      return;
+    }
+
+    /* Sort: super_admin first, then active first, then alphabetical */
+    const sorted = [...staffList].sort((a, b) => {
+      if (a.role !== b.role) return a.role === 'super_admin' ? -1 : 1;
+      if (a.is_active !== b.is_active) return a.is_active ? -1 : 1;
+      return (a.display_name || a.email || '').localeCompare(b.display_name || b.email || '');
+    });
+
+    tbody.innerHTML = sorted.map(s => {
+      const name = esc(s.display_name || '-');
+      const email = esc(s.email || '-');
+      const roleCls = s.role === 'super_admin' ? 'super_admin' : 'staff';
+      const roleLabel = s.role === 'super_admin' ? 'Admin' : 'Staff';
+      const pages = (s.allowed_pages || []).map(p =>
+        '<span class="page-pill">' + esc(pageName(p)) + '</span>'
+      ).join('') || '<span style="color:var(--sf-ink-40);font-size:12px;font-style:italic">none</span>';
+      const statusCls = s.is_active ? 'active' : 'inactive';
+      const statusTitle = s.is_active ? 'Active' : 'Inactive';
+      const isSelf = profile && s.id === profile.id;
+      const toggleCls = s.is_active ? 'deactivate' : 'reactivate';
+      const toggleLabel = s.is_active ? 'Deactivate' : 'Reactivate';
+
+      return `<tr data-id="${s.id}">
+        <td class="td-name">${name}</td>
+        <td class="td-email">${email}</td>
+        <td><span class="role-badge ${roleCls}">${roleLabel}</span></td>
+        <td><div class="page-pills">${pages}</div></td>
+        <td><span class="status-dot ${statusCls}" title="${statusTitle}"></span></td>
+        <td class="td-actions">
+          <button type="button" class="btn-edit" data-action="edit" data-id="${s.id}">Edit</button>
+          ${isSelf ? '' : `<button type="button" class="btn-toggle ${toggleCls}" data-action="toggle" data-id="${s.id}">${toggleLabel}</button>`}
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  /* ── Table click delegation ── */
+  tbody.addEventListener('click', e => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (btn.dataset.action === 'edit') openEditModal(id);
+    if (btn.dataset.action === 'toggle') toggleActive(id);
+  });
+
+  /* ── Open modal (add) ── */
+  document.getElementById('btn-add-staff').addEventListener('click', () => {
+    editingId = null;
+    modalTitle.textContent = 'Add Staff Member';
+    modalNote.hidden = false;
+    fieldEmail.value = '';
+    fieldEmail.disabled = false;
+    fieldName.value = '';
+    fieldRole.value = 'staff';
+    setCheckedPages([]);
+    feedback.textContent = '';
+    feedback.className = 'modal-feedback';
+    modal.classList.add('open');
+  });
+
+  /* ── Open modal (edit) ── */
+  function openEditModal(id) {
+    const s = staffList.find(x => x.id === id);
+    if (!s) return;
+    editingId = id;
+    modalTitle.textContent = 'Edit Staff Member';
+    modalNote.hidden = true;
+    fieldEmail.value = s.email || '';
+    fieldEmail.disabled = true;
+    fieldName.value = s.display_name || '';
+    fieldRole.value = s.role || 'staff';
+    setCheckedPages(s.allowed_pages || []);
+    feedback.textContent = '';
+    feedback.className = 'modal-feedback';
+    modal.classList.add('open');
+  }
+
+  /* ── Close modal ── */
+  function closeModal() {
+    modal.classList.remove('open');
+    editingId = null;
+  }
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+  /* ── Page checkbox helpers ── */
+  function setCheckedPages(pages) {
+    pageChecks.querySelectorAll('.chk').forEach(chk => {
+      const inp = chk.querySelector('input');
+      const on = pages.includes(inp.value);
+      inp.checked = on;
+      chk.classList.toggle('checked', on);
+    });
+  }
+  function getCheckedPages() {
+    return Array.from(pageChecks.querySelectorAll('input:checked')).map(i => i.value);
+  }
+
+  /* ── Save ── */
+  btnSave.addEventListener('click', async () => {
+    const email = fieldEmail.value.trim();
+    const displayName = fieldName.value.trim();
+    const role = fieldRole.value;
+    const allowedPages = getCheckedPages();
+
+    if (!email) { showFeedback('Email is required.', true); return; }
+    if (!displayName) { showFeedback('Display name is required.', true); return; }
+
+    btnSave.disabled = true;
+    feedback.textContent = 'Saving...';
+    feedback.className = 'modal-feedback';
+
+    const { data, error } = await sb.rpc('sf_upsert_staff', {
+      p_email: email,
+      p_display_name: displayName,
+      p_role: role,
+      p_allowed_pages: allowedPages
+    });
+
+    if (error) {
+      showFeedback(error.message || 'Save failed.', true);
+      btnSave.disabled = false;
+      return;
+    }
+
+    showFeedback('Saved successfully.', false);
+    btnSave.disabled = false;
+    await loadStaff();
+    setTimeout(closeModal, 800);
+  });
+
+  function showFeedback(msg, isError) {
+    feedback.textContent = msg;
+    feedback.className = 'modal-feedback ' + (isError ? 'error' : 'success');
+  }
+
+  /* ── Toggle active/inactive ── */
+  async function toggleActive(id) {
+    const s = staffList.find(x => x.id === id);
+    if (!s) return;
+    const action = s.is_active ? 'sf_deactivate_staff' : 'sf_reactivate_staff';
+    const confirmMsg = s.is_active
+      ? `Deactivate ${s.display_name || s.email}? They will lose dashboard access.`
+      : `Reactivate ${s.display_name || s.email}?`;
+    if (!confirm(confirmMsg)) return;
+
+    const { error } = await sb.rpc(action, { p_user_id: id });
+    if (error) {
+      alert('Error: ' + (error.message || 'Operation failed.'));
+      return;
+    }
+    await loadStaff();
+  }
+
+  /* ── Initial load ── */
+  await loadStaff();
+})();
+</script>
+</body>
+</html>

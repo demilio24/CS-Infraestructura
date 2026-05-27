@@ -284,15 +284,47 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   .stu .stu-day{width:24px;height:24px;font-size:11px}
   .bars-svg{min-width:0}
 }
+
+/* ====== Auth (login card, header user area) ====== */
+.auth-backdrop{position:fixed;inset:0;z-index:9000;background:rgba(10,16,40,.5);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.auth-card{background:var(--sf-white);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);padding:36px 32px 28px;width:360px;max-width:92vw}
+.auth-brand{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.auth-brand img{height:48px}
+.auth-title{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sf-ink)}
+.auth-tabs{display:flex;gap:0;margin-bottom:20px;background:var(--sf-cream);border-radius:8px;padding:3px;border:1px solid var(--sf-border)}
+.auth-tab{flex:1;padding:8px 12px;border-radius:6px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--sf-ink-50);transition:all .15s;text-align:center}
+.auth-tab.active{background:var(--sf-white);color:var(--sf-blue-700);box-shadow:0 1px 3px rgba(15,23,42,.08)}
+.auth-label{display:block;font-size:12px;font-weight:600;color:var(--sf-ink-60);letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+.auth-input{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid var(--sf-border);border-radius:8px;font-size:14px;background:var(--sf-white);transition:border-color .15s}
+.auth-input:focus{outline:none;border-color:var(--sf-blue-700)}
+.auth-submit{display:block;width:100%;padding:12px;border-radius:8px;background:var(--grad-blue);color:#fff;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;cursor:pointer;margin-top:4px;transition:opacity .15s}
+.auth-submit:hover{opacity:.9}
+.auth-feedback{font-size:12px;margin-top:12px;text-align:center;min-height:18px;color:var(--sf-ink-50)}
+.auth-feedback.error{color:var(--sf-red)}
+.auth-feedback.success{color:var(--sf-green)}
+.auth-skip{display:block;width:100%;text-align:center;margin-top:12px;font-size:12px;color:var(--sf-ink-40);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif}
+.auth-skip:hover{color:var(--sf-ink-60)}
+.auth-signin-btn{font-family:'Oswald',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:7px 13px;border-radius:6px;background:var(--sf-blue-50);color:var(--sf-blue-700);transition:background .2s;border:none;cursor:pointer}
+.auth-signin-btn:hover{background:var(--sf-blue-100)}
+.auth-user-name{font-family:'Space Grotesk','Inter',monospace;font-size:12.5px;font-weight:600;color:var(--sf-ink)}
+.auth-badge{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:4px}
+.auth-badge.admin{background:#fef3c7;color:#92400e}
+.auth-badge.staff{background:var(--sf-blue-100);color:var(--sf-blue-700)}
+.auth-signout-btn{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:var(--sf-ink-40);text-decoration:underline;cursor:pointer;background:none;border:none}
+.auth-signout-btn:hover{color:var(--sf-ink-60)}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="./auth.js"></script>
 </head>
 <body class="js-ready">
+<div id="auth-card-root"></div>
 
 <header class="dash-header">
   <a class="dash-brand" href="../funnel/home.html" title="Back to Systema Floyd home">
     <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/5d66f583-c02a-4140-91aa-5f3362ec9b01.png" alt="Systema Floyd" />
   </a>
   <span class="dash-title">Dashboard</span>
+  <div id="user-area" class="dash-meta" style="gap:8px"></div>
   <div class="dash-meta">
     <span class="dot" title="Live data via Google Sheets"></span>
     <span>Updated <span id="updated-at">–</span></span>
@@ -438,8 +470,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 </main>
 
 <script>
-(() => {
+(async () => {
   'use strict';
+
+  await SF_AUTH.init('free-camp');
 
   const $ = (id) => document.getElementById(id);
   const SHEET_URL_BASE = 'https://docs.google.com/spreadsheets/d/';
