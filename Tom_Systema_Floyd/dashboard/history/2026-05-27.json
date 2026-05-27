@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T13:13:08Z",
+  "generatedAt": "2026-05-27T13:17:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -116,7 +116,7 @@
     },
     "byWeek": {
       "June 1st-5th": 21,
-      "June 8th-12th": 25,
+      "June 8th-12th": 26,
       "June 15th-19th": 21,
       "June 22nd-26th": 19,
       "June 29th-July 3rd": 14,
@@ -136,7 +136,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 13,
+        "Upper Campus": 14,
         "Lower Campus": 12,
         "Unknown": 0
       },
@@ -323,7 +323,7 @@
   },
   "combined": {
     "total": 167,
-    "enrollments": 531,
+    "enrollments": 532,
     "byCampus": {
       "Upper Campus": 73,
       "Lower Campus": 94,
@@ -331,7 +331,7 @@
     },
     "byWeek": {
       "June 1st-5th": 53,
-      "June 8th-12th": 55,
+      "June 8th-12th": 56,
       "June 15th-19th": 52,
       "June 22nd-26th": 51,
       "June 29th-July 3rd": 47,
@@ -351,7 +351,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 28,
+        "Upper Campus": 29,
         "Lower Campus": 27,
         "Unknown": 0
       },
@@ -752,6 +752,33 @@
         "rows": [
           {
             "category": "pizza",
+            "subtypeKey": "pizza-daily",
+            "label": "Pizza daily ($7.75/day)",
+            "byDay": {
+              "Mon": 1,
+              "Tue": 0,
+              "Wed": 1,
+              "Thu": 1,
+              "Fri": 1
+            },
+            "total": 4,
+            "students": [
+              {
+                "name": "Olivia Englesbe",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($7.75/day)"
+              }
+            ]
+          },
+          {
+            "category": "pizza",
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
@@ -1129,13 +1156,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 24,
+            "Mon": 25,
             "Tue": 22,
-            "Wed": 25,
-            "Thu": 24,
-            "Fri": 21
+            "Wed": 26,
+            "Thu": 25,
+            "Fri": 22
           },
-          "all": 116
+          "all": 120
         }
       },
       "June 15th-19th": {
@@ -10002,6 +10029,30 @@
           "days": [
             true,
             true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Olivia Englesbe",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($7.75/day)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "lentz8979@aol.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 42263552,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 15,
+          "days": [
+            true,
+            false,
             true,
             true,
             true
