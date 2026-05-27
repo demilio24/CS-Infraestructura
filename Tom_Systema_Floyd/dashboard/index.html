@@ -285,7 +285,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .att-mode-btn{flex:1;padding:7px 14px;border-radius:999px;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;transition:all .18s;letter-spacing:.02em}
 .att-mode-btn:hover{color:var(--sf-ink)}
 .att-mode-btn.active{background:var(--sf-white);color:var(--sf-blue-700);box-shadow:0 1px 3px rgba(15,23,42,.08),0 0 0 1px var(--sf-border)}
-.att-people{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;max-height:300px;overflow-y:auto;padding:6px;border:1px solid var(--sf-border);border-radius:8px;background:var(--sf-cream)}
+.att-people{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;max-height:400px;overflow-y:auto;padding:6px;border:1px solid var(--sf-border);border-radius:8px;background:var(--sf-cream)}
 .att-people .att-empty{padding:14px;text-align:center;font-size:12px;color:var(--sf-ink-40);font-style:italic}
 .att-people .att-bulk{display:flex;gap:6px;margin-bottom:4px}
 .att-people .att-bulk button{flex:1;padding:6px 10px;border-radius:6px;border:1px solid var(--sf-border);background:var(--sf-white);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;letter-spacing:.04em;transition:background .15s,color .15s}
@@ -294,12 +294,17 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .att-people .att-filter button{padding:5px 9px;border-radius:999px;border:1px solid var(--sf-border);background:var(--sf-white);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--sf-ink-60);cursor:pointer;letter-spacing:.02em;transition:background .15s,color .15s,border-color .15s}
 .att-people .att-filter button:hover{background:var(--sf-blue-50);color:var(--sf-blue-700)}
 .att-people .att-filter button.active{background:var(--sf-blue-700);color:var(--sf-white);border-color:var(--sf-blue-700)}
-.att-person{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:6px;transition:background .15s,border-color .15s}
+.att-person{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--sf-white);border:1px solid var(--sf-border);border-radius:6px;transition:background .15s,border-color .15s;flex-wrap:wrap}
 .att-person .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .att-person .dot.u{background:#1b2f6e}
 .att-person .dot.l{background:#4aa3e0}
 .att-person .dot.f{background:#f4b63a}
 .att-person .nm{flex:1;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--sf-ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.att-person .att-times{display:none;gap:3px;flex-shrink:0;align-items:center}
+.att-person.present .att-times{display:inline-flex}
+.att-person .att-times input[type="time"]{width:90px;padding:3px 5px;border:1px solid var(--sf-border);border-radius:5px;font-family:'Inter',sans-serif;font-size:11px;color:var(--sf-ink);background:var(--sf-white);transition:border-color .15s}
+.att-person .att-times input[type="time"]:focus{outline:none;border-color:var(--sf-blue-700)}
+.att-person .att-times .att-tlbl{font-size:9px;font-weight:600;color:var(--sf-ink-40);letter-spacing:.04em;text-transform:uppercase}
 .att-person .att-marks{display:inline-flex;gap:4px;flex-shrink:0}
 .att-person .att-mark{width:28px;height:28px;border-radius:6px;border:1px solid var(--sf-border);background:var(--sf-white);font-size:14px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;color:var(--sf-ink-40);font-family:'Space Grotesk','Inter',sans-serif;line-height:1}
 .att-person .att-mark:hover{background:var(--sf-blue-50);color:var(--sf-ink)}
@@ -810,7 +815,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 
   <!-- Single-day attendance popup, opened by clicking a Mon-Fri chip on a roster week card -->
   <div class="day-modal-backdrop" id="att-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="att-modal-title" hidden>
-    <div class="day-modal" role="document" style="max-width:380px">
+    <div class="day-modal" role="document" style="max-width:480px">
       <div class="day-modal-h">
         <div>
           <h3 id="att-modal-title">Mark attendance</h3>
@@ -2237,6 +2242,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   // person) to sf_daily_attendance_people so the picks sync across
   // devices. The last-used mode is still local-only (sf-att-mode in
   // localStorage) because mode preference is a per-device UX choice.
+  function nowHHMM() { const d = new Date(); return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); }
   const ATT_MODE_KEY = 'sf-att-mode';                       // last mode used
   let currentPeopleFilter = 'all';                          // session-only, persists across modal opens until page reload
   function personKey(r) { return `${r.name || ''}|${r.email || ''}`.toLowerCase(); }
@@ -2252,17 +2258,32 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     });
     return out;
   }
+  function loadPeopleTimes(week, day) {
+    const cell = (state.peopleByWeek && state.peopleByWeek[week] && state.peopleByWeek[week][day]) || {};
+    const out = {};
+    Object.keys(cell).forEach(k => {
+      if (cell[k]) out[k] = { timeIn: cell[k].timeIn || '', timeOut: cell[k].timeOut || '' };
+    });
+    return out;
+  }
   function ensurePeopleCell(week, day) {
     if (!state.peopleByWeek) state.peopleByWeek = {};
     if (!state.peopleByWeek[week]) state.peopleByWeek[week] = {};
     if (!state.peopleByWeek[week][day]) state.peopleByWeek[week][day] = {};
     return state.peopleByWeek[week][day];
   }
-  function setPersonLocal(week, day, person, status) {
+  function setPersonLocal(week, day, person, status, timeIn, timeOut) {
     const cell = ensurePeopleCell(week, day);
     const k = personKey(person);
     if (!status) delete cell[k];
-    else cell[k] = { status, name: person.name, bucket: person.bucket, markedAt: new Date().toISOString() };
+    else {
+      const prev = cell[k] || {};
+      cell[k] = {
+        status, name: person.name, bucket: person.bucket, markedAt: new Date().toISOString(),
+        timeIn:  timeIn  !== undefined ? timeIn  : (prev.timeIn  || ''),
+        timeOut: timeOut !== undefined ? timeOut : (prev.timeOut || ''),
+      };
+    }
   }
   function setBulkLocal(week, day, people, status) {
     const cell = ensurePeopleCell(week, day);
@@ -2270,8 +2291,12 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       people.forEach(p => { delete cell[personKey(p)]; });
     } else {
       const now = new Date().toISOString();
+      const timeNow = status === 'present' ? nowHHMM() : '';
       people.forEach(p => {
-        cell[personKey(p)] = { status, name: p.name, bucket: p.bucket, markedAt: now };
+        const k = personKey(p);
+        const prev = cell[k] || {};
+        cell[k] = { status, name: p.name, bucket: p.bucket, markedAt: now,
+                    timeIn: prev.timeIn || timeNow, timeOut: prev.timeOut || '' };
       });
     }
   }
@@ -2352,16 +2377,22 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       return;
     }
 
+    const times = loadPeopleTimes(week, day);
     const rows = people.map(p => {
       const key   = personKey(p);
-      const state = picks[key] || '';
-      const cls   = state === 'present' ? 'present' : state === 'absent' ? 'absent' : '';
+      const st    = picks[key] || '';
+      const cls   = st === 'present' ? 'present' : st === 'absent' ? 'absent' : '';
       const dotCls = p.bucket === 'u' ? 'u' : p.bucket === 'l' ? 'l' : 'f';
       const safeName = String(p.name).replace(/</g, '&lt;');
       const safeKey  = key.replace(/"/g, '&quot;');
+      const t = times[key] || { timeIn: '', timeOut: '' };
       return `<div class="att-person ${cls}" data-pk="${safeKey}">
           <span class="dot ${dotCls}" title="${p.bucket==='u'?'Upper':p.bucket==='l'?'Lower':'Free'}"></span>
           <span class="nm">${safeName}</span>
+          <span class="att-times">
+            <span class="att-tlbl">In</span><input type="time" class="att-time-in" value="${t.timeIn}" data-field="time_in">
+            <span class="att-tlbl">Out</span><input type="time" class="att-time-out" value="${t.timeOut}" data-field="time_out">
+          </span>
           <span class="att-marks">
             <button type="button" class="att-mark yes" data-att-pick="present" aria-label="Mark present">✓</button>
             <button type="button" class="att-mark no"  data-att-pick="absent"  aria-label="Mark absent">✗</button>
@@ -2486,21 +2517,48 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
       const person = people.find(p => personKey(p) === pk);
       if (!person) return;
       const picks = loadPeoplePicks(week, day);
-      // Clicking the same mark again clears it (toggle off).
       const next = picks[pk] === want ? null : want;
       const prev = picks[pk] || null;
-      setPersonLocal(week, day, person, next);
-      row.classList.remove('present', 'absent');
-      if (next) row.classList.add(next);
+      const prevTimes = loadPeopleTimes(week, day)[pk] || { timeIn: '', timeOut: '' };
+      let timeIn = prevTimes.timeIn, timeOut = prevTimes.timeOut;
+      if (next === 'present' && !timeIn) timeIn = nowHHMM();
+      if (next === 'absent' || next === null) { timeIn = ''; timeOut = ''; }
+      setPersonLocal(week, day, person, next, timeIn, timeOut);
+      renderPeopleList(week, day);
       recomputeAttTotal();
       try {
-        await setPersonPickRpc(week, day, person, next);
+        await setPersonPickRpc(week, day, person, next, timeIn, timeOut);
       } catch (err) {
-        setPersonLocal(week, day, person, prev);
-        row.classList.remove('present', 'absent');
-        if (prev) row.classList.add(prev);
+        setPersonLocal(week, day, person, prev, prevTimes.timeIn, prevTimes.timeOut);
+        renderPeopleList(week, day);
         recomputeAttTotal();
         showAttFeedback('✗ Save failed: ' + err.message, 'error');
+      }
+    });
+
+    // Time input change handler — saves time_in/time_out edits
+    peopleEl.addEventListener('change', async e => {
+      const inp = e.target.closest('.att-time-in, .att-time-out');
+      if (!inp) return;
+      const week = backdrop.getAttribute('data-week');
+      const day  = backdrop.getAttribute('data-day');
+      if (!week || !day) return;
+      const row = inp.closest('.att-person');
+      if (!row) return;
+      const pk = row.getAttribute('data-pk');
+      const people = expectedPeopleFor(week, day);
+      const person = people.find(p => personKey(p) === pk);
+      if (!person) return;
+      const cell = ensurePeopleCell(week, day);
+      const rec  = cell[pk];
+      if (!rec) return;
+      const isIn = inp.classList.contains('att-time-in');
+      const val  = inp.value || '';
+      if (isIn) rec.timeIn = val; else rec.timeOut = val;
+      try {
+        await setPersonPickRpc(week, day, person, rec.status, rec.timeIn, rec.timeOut);
+      } catch (err) {
+        showAttFeedback('✗ Time save failed: ' + err.message, 'error');
       }
     });
 
@@ -3273,6 +3331,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           bucket:   r.bucket,
           markedAt: r.marked_at,
           markedBy: r.marked_by,
+          timeIn:   r.time_in  || '',
+          timeOut:  r.time_out || '',
         };
       });
       state.peopleByWeek = map;
@@ -3296,7 +3356,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
     }
   }
 
-  async function setPersonPickRpc(week, day, person, status) {
+  async function setPersonPickRpc(week, day, person, status, timeIn, timeOut) {
     const resp = await fetch(SUPABASE_URL + '/rest/v1/rpc/sf_set_daily_attendance_person', {
       method: 'POST',
       headers: {
@@ -3311,8 +3371,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         p_person_key:  personKey(person),
         p_person_name: person.name,
         p_bucket:      person.bucket,
-        p_status:      status,            // null/'' deletes the row
+        p_status:      status,
         p_marked_by:   SF_AUTH.markedBy,
+        p_time_in:     timeIn  || null,
+        p_time_out:    timeOut || null,
       }),
     });
     if (!resp.ok) throw new Error('HTTP ' + resp.status + ': ' + (await resp.text()));
@@ -3331,7 +3393,10 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         p_week_label:  week,
         p_day_of_week: day,
         p_status:      status,            // null/'' clears all passed people for this (week, day)
-        p_persons:     people.map(p => ({ key: personKey(p), name: p.name, bucket: p.bucket })),
+        p_persons:     people.map(p => {
+          const cell = (state.peopleByWeek && state.peopleByWeek[week] && state.peopleByWeek[week][day] && state.peopleByWeek[week][day][personKey(p)]) || {};
+          return { key: personKey(p), name: p.name, bucket: p.bucket, time_in: cell.timeIn || null, time_out: cell.timeOut || null };
+        }),
         p_marked_by:   SF_AUTH.markedBy,
       }),
     });
