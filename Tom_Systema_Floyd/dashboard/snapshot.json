@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-27T18:27:36Z",
+  "generatedAt": "2026-05-27T18:31:59Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 124,
-    "free": 48,
+    "free": 50,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,19 +213,19 @@
     ]
   },
   "free": {
-    "total": 48,
+    "total": 50,
     "byCampus": {
-      "Upper Campus": 30,
-      "Lower Campus": 18,
+      "Upper Campus": 31,
+      "Lower Campus": 19,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 34,
+      "June 1st-5th": 37,
       "June 8th-12th": 33,
       "June 15th-19th": 35,
       "June 22nd-26th": 35,
       "June 29th-July 3rd": 36,
-      "July 6th-10th": 32,
+      "July 6th-10th": 33,
       "July 13th-17th": 33,
       "July 20th-24th": 32,
       "July 27th-31st": 31,
@@ -236,8 +236,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 19,
-        "Lower Campus": 15,
+        "Upper Campus": 21,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -262,7 +262,7 @@
       },
       "July 6th-10th": {
         "Upper Campus": 18,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -305,8 +305,8 @@
       "Westward Elementary School": 138,
       "Northboro Elementary School": 71,
       "Pleasant City Elementary School": 59,
-      "U.B. Kinsey Educational and Community Center": 46,
-      "Roosevelt Elementary School": 35
+      "U.B. Kinsey Educational and Community Center": 49,
+      "Roosevelt Elementary School": 36
     },
     "weekOrder": [
       "June 1st-5th",
@@ -322,20 +322,20 @@
     ]
   },
   "combined": {
-    "total": 172,
-    "enrollments": 564,
+    "total": 174,
+    "enrollments": 568,
     "byCampus": {
-      "Upper Campus": 80,
-      "Lower Campus": 92,
+      "Upper Campus": 81,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 56,
+      "June 1st-5th": 59,
       "June 8th-12th": 62,
       "June 15th-19th": 56,
       "June 22nd-26th": 56,
       "June 29th-July 3rd": 50,
-      "July 6th-10th": 52,
+      "July 6th-10th": 53,
       "July 13th-17th": 50,
       "July 20th-24th": 53,
       "July 27th-31st": 44,
@@ -346,8 +346,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 30,
-        "Lower Campus": 26,
+        "Upper Campus": 32,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -372,7 +372,7 @@
       },
       "July 6th-10th": {
         "Upper Campus": 27,
-        "Lower Campus": 25,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -4180,13 +4180,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 37,
+              "Tue": 37,
+              "Wed": 37,
+              "Thu": 37,
+              "Fri": 37
             },
-            "total": 170,
+            "total": 185,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4514,6 +4514,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Malia",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Mateo Lopez",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -4579,8 +4592,34 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Savannah Hazen",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Serenity Canidate",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Serenity Randolph",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4635,13 +4674,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 37,
+            "Tue": 37,
+            "Wed": 37,
+            "Thu": 37,
+            "Fri": 37
           },
-          "all": 170
+          "all": 185
         }
       },
       "June 8th-12th": {
@@ -6574,13 +6613,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 160,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6973,6 +7012,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Serenity Randolph",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -7003,13 +7055,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 32,
-            "Tue": 32,
-            "Wed": 32,
-            "Thu": 32,
-            "Fri": 32
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 160
+          "all": 165
         }
       },
       "July 13th-17th": {
@@ -10014,6 +10066,33 @@
           "school": "Westward Elementary School"
         },
         {
+          "name": "Malia",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "barouletteedline@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Age"
+          ],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 22,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Roosevelt Elementary School"
+        },
+        {
           "name": "Mateo Lopez",
           "campus": "Upper Campus",
           "lunch": true,
@@ -10141,6 +10220,33 @@
           "school": "Pleasant City Elementary School"
         },
         {
+          "name": "Savannah Hazen",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "wxernona@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Age"
+          ],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 23,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
           "name": "Serenity Canidate",
           "campus": "Upper Campus",
           "lunch": true,
@@ -10164,6 +10270,33 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
+        },
+        {
+          "name": "Serenity Randolph",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "1127 N Rosemary Ave",
+          "allergy": null,
+          "notes": null,
+          "email": "wxernona@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Age"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 17,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Sunni Hall",
@@ -17159,6 +17292,33 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
+        },
+        {
+          "name": "Serenity Randolph",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "wxernona@gmail.com",
+          "incomplete": true,
+          "missingFields": [
+            "Age"
+          ],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 812152810,
+          "sourceTabName": "7/6-7/10",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Zaire Clinton",
