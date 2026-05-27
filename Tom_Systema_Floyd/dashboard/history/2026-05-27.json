@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-27T00:27:13Z",
+  "generatedAt": "2026-05-27T00:32:21Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 122,
-    "free": 44,
+    "free": 45,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,9 +213,9 @@
     ]
   },
   "free": {
-    "total": 44,
+    "total": 45,
     "byCampus": {
-      "Upper Campus": 23,
+      "Upper Campus": 24,
       "Lower Campus": 21,
       "Unknown": 0
     },
@@ -229,7 +229,7 @@
       "July 13th-17th": 31,
       "July 20th-24th": 30,
       "July 27th-31st": 29,
-      "August 3rd-7th": 28,
+      "August 3rd-7th": 29,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -281,7 +281,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 17,
+        "Upper Campus": 18,
         "Lower Campus": 11,
         "Unknown": 0
       },
@@ -306,7 +306,7 @@
       "Pleasant City Elementary School": 57,
       "Northboro Elementary School": 54,
       "U.B. Kinsey Educational and Community Center": 45,
-      "Roosevelt Elementary School": 33
+      "Roosevelt Elementary School": 34
     },
     "weekOrder": [
       "June 1st-5th",
@@ -322,10 +322,10 @@
     ]
   },
   "combined": {
-    "total": 166,
-    "enrollments": 530,
+    "total": 167,
+    "enrollments": 531,
     "byCampus": {
-      "Upper Campus": 72,
+      "Upper Campus": 73,
       "Lower Campus": 94,
       "Unknown": 0
     },
@@ -339,7 +339,7 @@
       "July 13th-17th": 48,
       "July 20th-24th": 51,
       "July 27th-31st": 42,
-      "August 3rd-7th": 50,
+      "August 3rd-7th": 51,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -391,7 +391,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 25,
+        "Upper Campus": 26,
         "Lower Campus": 25,
         "Unknown": 0
       },
@@ -8011,13 +8011,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 28,
-              "Tue": 28,
-              "Wed": 28,
-              "Thu": 28,
-              "Fri": 28
+              "Mon": 29,
+              "Tue": 29,
+              "Wed": 29,
+              "Thu": 29,
+              "Fri": 29
             },
-            "total": 140,
+            "total": 145,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8293,6 +8293,19 @@
                 "lunchRaw": "Yes"
               },
               {
+                "name": "Malia",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
                 "name": "Mattison Curry",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -8388,13 +8401,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 28,
-            "Wed": 28,
-            "Thu": 28,
-            "Fri": 28
+            "Mon": 29,
+            "Tue": 29,
+            "Wed": 29,
+            "Thu": 29,
+            "Fri": 29
           },
-          "all": 140
+          "all": 145
         }
       },
       "August 10th-14th": {
@@ -20808,6 +20821,31 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
+        },
+        {
+          "name": "Malia",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "barouletteedline@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 470608811,
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 19,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Mattison Curry",
