@@ -33,14 +33,14 @@ const CTA_BY_TAG = {
     headline: 'Want this kind of growth for your business?',
     body: 'We run super profitable Google Ads and build the website that converts them.',
     button: 'See the marketing system',
-    href: '/Nils/funnel/vsl.html',
+    href: '../../funnel/vsl.html',
     cls: 'marketing'
   },
   automation: {
     headline: 'Want to reclaim hours every week?',
     body: 'Our audit shows you exactly where AI plus automation save the most time in your business.',
     button: 'See the audit',
-    href: '/Nils/funnel/automation-vsl-funnel-direct.html',
+    href: '../../funnel/automation-vsl-funnel-direct.html',
     cls: 'automation'
   }
 };
