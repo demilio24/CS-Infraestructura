@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-27T15:52:15Z",
+  "generatedAt": "2026-05-27T15:57:24Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 123,
-    "free": 46,
+    "free": 45,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,10 +213,10 @@
     ]
   },
   "free": {
-    "total": 46,
+    "total": 45,
     "byCampus": {
       "Upper Campus": 25,
-      "Lower Campus": 21,
+      "Lower Campus": 20,
       "Unknown": 0
     },
     "byWeek": {
@@ -322,11 +322,11 @@
     ]
   },
   "combined": {
-    "total": 169,
+    "total": 168,
     "enrollments": 540,
     "byCampus": {
       "Upper Campus": 75,
-      "Lower Campus": 94,
+      "Lower Campus": 93,
       "Unknown": 0
     },
     "byWeek": {
@@ -5473,72 +5473,16 @@
         "rows": [
           {
             "category": "other",
-            "subtypeKey": "other|162 winter park ln, palm beach gardens, fl 33410",
-            "label": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Carolina Pablo Lopez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
-              }
-            ]
-          },
-          {
-            "category": "other",
-            "subtypeKey": "other|willie james richardson",
-            "label": "Willie James Richardson",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Autumn Willow Richardson",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Willie James Richardson"
-              }
-            ]
-          },
-          {
-            "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 31,
-              "Tue": 31,
-              "Wed": 31,
-              "Thu": 31,
-              "Fri": 31
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 155,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5569,6 +5513,32 @@
               {
                 "name": "Ashton Govan",
                 "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Autumn Willow Richardson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Carolina Lopez",
+                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -5961,44 +5931,16 @@
         "rows": [
           {
             "category": "other",
-            "subtypeKey": "other|162 winter park ln, palm beach gardens, fl 33410",
-            "label": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
-            "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
-            },
-            "total": 5,
-            "students": [
-              {
-                "name": "Carolina Pablo Lopez",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410"
-              }
-            ]
-          },
-          {
-            "category": "other",
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 33,
-              "Tue": 33,
-              "Wed": 33,
-              "Thu": 33,
-              "Fri": 33
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 165,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6041,6 +5983,19 @@
               },
               {
                 "name": "Autumn Willow Richardson",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Carolina Lopez",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -9197,7 +9152,7 @@
           "campus": "Lower Campus",
           "lunch": true,
           "lunchRaw": "Yes",
-          "breakfastRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
@@ -13330,11 +13285,11 @@
           "name": "Autumn Willow Richardson",
           "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "Willie James Richardson",
+          "lunchRaw": "Yes",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
-          "email": "6a0388e4cde2c905423625e4",
+          "email": "wrichardson1384@gmail.com",
           "incomplete": false,
           "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
@@ -13352,18 +13307,17 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Carolina Pablo Lopez",
+          "name": "Carolina Lopez",
           "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "lunchRaw": "Yes",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
           "incomplete": true,
           "missingFields": [
-            "Grade",
-            "Age"
+            "Grade"
           ],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 624596140,
@@ -14538,18 +14492,17 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Carolina Pablo Lopez",
+          "name": "Carolina Lopez",
           "campus": "Lower Campus",
           "lunch": true,
-          "lunchRaw": "162 Winter Park Ln, Palm Beach Gardens, FL 33410",
+          "lunchRaw": "Yes",
           "breakfastRaw": "Yes",
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
           "incomplete": true,
           "missingFields": [
-            "Grade",
-            "Age"
+            "Grade"
           ],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
