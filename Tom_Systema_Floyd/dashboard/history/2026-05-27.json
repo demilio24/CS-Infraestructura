@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-27T16:02:10Z",
+  "generatedAt": "2026-05-27T16:07:16Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 123,
+    "summer": 124,
     "free": 45,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,17 +108,17 @@
     "roster": []
   },
   "summer": {
-    "total": 123,
+    "total": 124,
     "byCampus": {
       "Upper Campus": 50,
-      "Lower Campus": 73,
+      "Lower Campus": 74,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 22,
-      "June 8th-12th": 28,
+      "June 8th-12th": 29,
       "June 15th-19th": 21,
-      "June 22nd-26th": 20,
+      "June 22nd-26th": 21,
       "June 29th-July 3rd": 14,
       "July 6th-10th": 20,
       "July 13th-17th": 17,
@@ -137,7 +137,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 15,
-        "Lower Campus": 13,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -147,7 +147,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 5,
-        "Lower Campus": 15,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -322,18 +322,18 @@
     ]
   },
   "combined": {
-    "total": 168,
-    "enrollments": 540,
+    "total": 169,
+    "enrollments": 542,
     "byCampus": {
       "Upper Campus": 75,
-      "Lower Campus": 93,
+      "Lower Campus": 94,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 54,
-      "June 8th-12th": 59,
+      "June 8th-12th": 60,
       "June 15th-19th": 53,
-      "June 22nd-26th": 53,
+      "June 22nd-26th": 54,
       "June 29th-July 3rd": 48,
       "July 6th-10th": 50,
       "July 13th-17th": 48,
@@ -352,7 +352,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 32,
-        "Lower Campus": 27,
+        "Lower Campus": 28,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -362,7 +362,7 @@
       },
       "June 22nd-26th": {
         "Upper Campus": 23,
-        "Lower Campus": 30,
+        "Lower Campus": 31,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -807,16 +807,29 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 6,
-              "Tue": 6,
-              "Wed": 6,
-              "Thu": 6,
-              "Fri": 6
+              "Mon": 7,
+              "Tue": 7,
+              "Wed": 7,
+              "Thu": 7,
+              "Fri": 7
             },
-            "total": 30,
+            "total": 35,
             "students": [
               {
                 "name": "Alexander Abouelatta",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Antonio Abouelatta",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -1194,13 +1207,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 27,
-            "Tue": 23,
-            "Wed": 28,
-            "Thu": 27,
-            "Fri": 24
+            "Mon": 28,
+            "Tue": 24,
+            "Wed": 29,
+            "Thu": 28,
+            "Fri": 25
           },
-          "all": 129
+          "all": 134
         }
       },
       "June 15th-19th": {
@@ -1616,16 +1629,29 @@
             "subtypeKey": "pizza-weekly",
             "label": "Pizza weekly ($30/wk)",
             "byDay": {
-              "Mon": 1,
-              "Tue": 1,
-              "Wed": 1,
-              "Thu": 1,
-              "Fri": 1
+              "Mon": 2,
+              "Tue": 2,
+              "Wed": 2,
+              "Thu": 2,
+              "Fri": 2
             },
-            "total": 5,
+            "total": 10,
             "students": [
               {
                 "name": "Alexander Abouelatta",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($30/week)"
+              },
+              {
+                "name": "Antonio Abouelatta",
                 "campus": "Lower Campus",
                 "type": "summer",
                 "days": [
@@ -1841,13 +1867,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 16,
-            "Tue": 17,
-            "Wed": 17,
-            "Thu": 17,
-            "Fri": 16
+            "Mon": 17,
+            "Tue": 18,
+            "Wed": 18,
+            "Thu": 18,
+            "Fri": 17
           },
-          "all": 83
+          "all": 88
         }
       },
       "June 29th-July 3rd": {
@@ -10275,6 +10301,30 @@
           "type": "summer"
         },
         {
+          "name": "Antonio Abouelatta",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "natashafedo@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceGid": 663575066,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 15,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Austin Shue",
           "campus": "Lower Campus",
           "lunch": false,
@@ -12871,6 +12921,30 @@
           "sourceGid": 1334566025,
           "sourceTabName": "6/22-6/26",
           "sourceRow": 16,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Antonio Abouelatta",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($30/week)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "natashafedo@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceGid": 1334566025,
+          "sourceTabName": "6/22-6/26",
+          "sourceRow": 17,
           "days": [
             true,
             true,
