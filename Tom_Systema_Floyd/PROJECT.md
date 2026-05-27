@@ -68,6 +68,13 @@ Full file map + shipped features from 2026-05-07 in memory `project_systema_floy
 
 ## Changelog
 
+### 2026-05-27 — n8n Square After School Registration: fixed pagination bug causing recurring 400 errors
+The n8n workflow **"Square After School Registration"** (`6eASXF5DYfEIL0Hp`) had been failing with `400 INVALID_VALUE` on the `name` field at the **Create New Group** node since at least April 20. Root cause: the **List Square Groups** HTTP Request node fetched only the first page of Square customer groups (~44 groups, alphabetically A through N). Groups alphabetically past "N" (like "South Olive Elementary: Martial Arts") were never found by the **Find Matching Group** code node, so the workflow tried to create them as new groups. Square rejected the creation because the group already existed.
+
+**Fix:** added `limit=1000` query parameter to the List Square Groups node so all groups are returned in one call. Published to production (active version `59b63009-95b2-4a7a-bc80-69a1b3ef8b2c`). Also enabled MCP access on the workflow for future inspection.
+
+**Side note:** the GHL workflow "4. Lead/Customer -> Team notifications + Square Contacts Integration" routes After School registrations to the `/webhook/summer-camp` n8n endpoint instead of `/webhook/after-school`. This is cosmetic — all 4 n8n triggers feed into the same Normalize Data node — but could be cleaned up in the GHL workflow builder if desired.
+
 ### 2026-05-27 — Dashboard auth system: login, staff management, page permissions
 Added Supabase Auth integration to the dashboard. Staff can log in via magic link or email/password. Emilio (emilio@nilsdigital.com) is super admin and can manage staff via a new Staff page ([dashboard/staff.html](dashboard/staff.html)). Each staff member has page-level access control. `marked_by` field on attendance now records who made the mark. Ships with `REQUIRE_LOGIN = false` (public access preserved); flip to `true` in [dashboard/auth.js](dashboard/auth.js) to block unauthenticated access. New Supabase table `sf_staff` linked to `auth.users`, with 5 new RPCs (sf_get_my_profile, sf_get_staff, sf_upsert_staff, sf_deactivate_staff, sf_reactivate_staff). New files: [dashboard/auth.js](dashboard/auth.js) (shared auth module), [dashboard/staff.html](dashboard/staff.html) (admin page). All 3 existing pages modified to load auth.js and show login/user UI.
 
