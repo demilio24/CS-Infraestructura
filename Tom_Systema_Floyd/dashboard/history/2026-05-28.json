@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-28T18:12:23Z",
+  "generatedAt": "2026-05-28T18:17:14Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 124,
-    "free": 50,
+    "free": 49,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,14 +213,14 @@
     ]
   },
   "free": {
-    "total": 50,
+    "total": 49,
     "byCampus": {
       "Upper Campus": 28,
-      "Lower Campus": 22,
+      "Lower Campus": 21,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 36,
+      "June 1st-5th": 35,
       "June 8th-12th": 33,
       "June 15th-19th": 34,
       "June 22nd-26th": 35,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 20,
-        "Lower Campus": 16,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -306,7 +306,7 @@
       "Northboro Elementary School": 68,
       "Pleasant City Elementary School": 58,
       "U.B. Kinsey Educational and Community Center": 47,
-      "Roosevelt Elementary School": 36
+      "Roosevelt Elementary School": 35
     },
     "weekOrder": [
       "June 1st-5th",
@@ -322,15 +322,15 @@
     ]
   },
   "combined": {
-    "total": 174,
-    "enrollments": 566,
+    "total": 173,
+    "enrollments": 565,
     "byCampus": {
       "Upper Campus": 78,
-      "Lower Campus": 96,
+      "Lower Campus": 95,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 58,
+      "June 1st-5th": 57,
       "June 8th-12th": 62,
       "June 15th-19th": 55,
       "June 22nd-26th": 56,
@@ -347,7 +347,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 31,
-        "Lower Campus": 27,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -4180,13 +4180,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4295,19 +4295,6 @@
               {
                 "name": "Darren Dushawn Edwards Jr",
                 "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "DUVAL BEAUSEJOUR MIKE FRANTZLEY STARDENS",
-                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4661,13 +4648,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "June 8th-12th": {
@@ -9449,7 +9436,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9501,7 +9488,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -9526,7 +9513,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -9636,31 +9623,6 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
-        },
-        {
-          "name": "DUVAL BEAUSEJOUR MIKE FRANTZLEY STARDENS",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "francinabeausejour8@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Everette Machnik",
@@ -9776,7 +9738,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -9903,7 +9865,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -10107,7 +10069,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -10132,7 +10094,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -10236,7 +10198,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -10288,7 +10250,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
