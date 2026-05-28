@@ -37,6 +37,11 @@ Map written to `.claude/scratch/ghl_private_lessons_ids.json`.
 - Embed location: [funnel/private-lessons.html](../funnel/private-lessons.html), hero `.page-hero-form#register` (2026-05-23)
 - **Known bug — Rule B conditional logic partially broken**: Amina admitted in [ClickUp thread `90130268726557`](https://app.clickup.com/t/86ahfhfj3) that the Instructor → Training Type lock (Evenson=Boxing only, Jessica/Bianca/Carolina=Dance only) is not fully working. Form is live and submittable, but conditional UI may misbehave for those instructor selections. Mitigation plan: walk Amina through using code nodes for conditional logic in a recorded video.
 - **Verification pending**: see [ClickUp 86ahnq2z2](https://app.clickup.com/t/86ahnq2z2).
+- **Instructor headshots (2026-05-28)**: Tom sent real photos for the three newest FL instructors (email "Insturctor photos", 2026-05-28). They replace the placeholder avatars on the [funnel/private-lessons.html](../funnel/private-lessons.html) Florida roster and were also added to the [funnel/home.html](../funnel/home.html) coaches grid. Uploaded to the **Florida PIT location `8IWtNFlmgJ8bif9DivHT`** (NOT the older `2RNdy2siRA6d4r1tWL09` location that hosts Mr. Floyd / Alex / George / James), via the PIT with no `locationId` in the request:
+  - **Evenson** (Boxing) — `https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/4ef507f5-bcfd-4aea-a54b-00d143174a2c.jpg`
+  - **Jessica** (Spirit Dance, blonde) — `https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/8fd4e6e9-0c42-49d2-a080-b307a914fbb5.jpg`
+  - **Carolina** (Spirit Dance, brunette) — `https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/2c76eb2e-036a-4b07-a636-b1120312d6c4.jpg`
+  - The two dance headshots carry no name text, so the Jessica/Carolina split (blonde = Jessica, brunette = Carolina) was **confirmed with Emilio on 2026-05-28**, not OCR-derived. If a re-upload is ever needed, keep that mapping. Bianca (Dance) and Ryan (VA) are still placeholder cards, awaiting photos.
 
 | # | Label | Type | Field ID | Field Key |
 |---|---|---|---|---|
