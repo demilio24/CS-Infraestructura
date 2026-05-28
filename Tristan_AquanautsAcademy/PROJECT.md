@@ -67,6 +67,20 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-28 (later) — Tristan's revision round committed + pushed (Variation A)
+Acted on Tristan's email feedback (2026-05-28, "I definitely like the light and warm version" → **Variation A `funnel/home.html` is the chosen direction**; Variation B `home-b.html` left untouched). Folded in, extended, and **committed** the previously-uncommitted edits noted in the entry below, plus Emilio's add-on request (lowcountry-style collapsible cards). Commit `680e0e1f`, pushed to `origin/main`; live at https://demilio24.github.io/Websites/Tristan_AquanautsAcademy/funnel/home.html
+
+Tristan's requests → what was done:
+- **Reduce scroll length** — removed the "Inside the Pool" gallery section (HTML + CSS + responsive rules), trimmed reviews 9 → 6 (kept first 6; all filter tabs Kids/Adaptive/Adults/Fear still populated), tightened section padding (100→68px desktop, 70→48px mobile), hero 56/80→44/60, section-head margin 44→34px, CTA-row margins 44→32px.
+- **Move "How It Works" above "Our Programs"** — section order is now hero → about → steps → programs → events → locations → reviews → team → why → faq → final-cta.
+- **Icons that don't look like iPhone emojis** — every emoji replaced with inline SVG line icons: Events (lifebuoy / waves / users / award), About adaptive-point heart, Final-CTA badges (droplet/users/map-pin/home) + contact row (phone/mail/calendar/instagram); removed 🚀/💙/😊 from nav CTA, mobile CTA, footer brand, form heading, form submit, and the "Adaptive Aquatics" card title.
+- **Keep Shop / Partnerships / Adaptive Aquatics pages** — added a footer "Explore" column (footer grid 3→4 cols) + mobile-menu links. Adaptive Aquatics → `#programs`, Partnerships → `#events`, **Shop → `#shop` placeholder (no real URL yet — OPEN THREAD: wire live Shop URL or build a Shop page).**
+- **Collapsible program cards (Emilio's add-on)** — `.program-card-toggle` button (title + rotating chevron) toggles `.program-card-collapse` (max-height/opacity transition); `.programs-grid { align-items:start }` so collapsed siblings don't stretch. Collapsed = image + title + chevron; expanded = description + pricing + CTA.
+- Background alternation re-fixed for the new order: programs `bg-soft`→`#fff`, reviews `#fff`→`bg-soft`.
+- Added "How It Works" to desktop nav + mobile menu.
+
+Testing: Puppeteer audit across **14 viewports (320 → 1920px)** — zero horizontal overflow, zero console errors at every width. Tap-target fixes from the audit: program-card-toggle 24px → ~44px (padding 10px 0; body top padding 22→14px; open collapse margin-top 14→8px) and team-card-link 22px → ~38px (padding 8px 0). Verified collapsed/expanded states + mobile menu on desktop, iPad (768, 2-col), and mobile (390). Test scripts in `.claude/test-viewports.js`, `test-revisions.js`, `test-icons.js`, `test-nav.js`.
+
 ### 2026-05-28 — Pre-existing uncommitted home.html edits (NOT made this session)
 This session's work was entirely in `Tom_Systema_Floyd` (discrepancy-checker email tuning). No Aquanauts file was touched by Claude. Logging only to satisfy the PROJECT.md hook, which fired on a working-tree modification to `funnel/home.html` that **was already uncommitted at session start** (provenance unknown — likely a prior in-progress session). Leaving the file untouched pending confirmation from Tristan/Emilio before commit.
 
