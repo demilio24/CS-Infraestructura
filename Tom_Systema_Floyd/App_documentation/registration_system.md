@@ -250,7 +250,7 @@ sf_get_systema_floyd_florida_token(claim_secret text)
   Verifies account_name = 'Systema Floyd - Florida' before returning.
 ```
 
-The bot reads `updated_at` to compute token age, if > 12h old (`DC_TOKEN_STALE_WARN_HOURS`), the email digest gets a warning block. The external refresher should keep this < 24h.
+The bot reads `updated_at` to compute token age, if > 12h old (`DC_TOKEN_STALE_WARN_HOURS`), the email digest gets a warning block. The external refresher should keep this < 24h. **Exception: Florida now uses a manually-created, non-rotating PIT (token starts with `pit-`), whose `updated_at` is frozen by design. `_dcGhlToken_()` sets `_dcTokenIsPit` for `pit-` tokens and `tokenStaleWarning` is forced false for them — otherwise the perpetually-aging PIT tripped the digest every 15 min.** The stale warning is only meaningful for the rotating OAuth tokens (GA/VA).
 
 **`public.sf_form_submissions`**, created by this project.
 Tombstone log: every `(submission_id, week)` the bot has ever processed.
@@ -527,7 +527,9 @@ If you see `⚠ GHL TOKEN AGE WARNING`, the GHL OAuth token in Supabase is
 older than `DC_TOKEN_STALE_WARN_HOURS` (12h). The token is still valid but
 the upstream refresher (n8n / scheduled function) is drifting. Investigate
 that refresh job, if the token reaches 24h it expires hard and the bot
-loses GHL access entirely.
+loses GHL access entirely. **This warning is suppressed for Florida's
+non-rotating PIT (`pit-…`), whose `updated_at` is frozen on purpose — a
+stale PIT timestamp is expected, not a failure.**
 
 ### 9.2 Heartbeat alert (sent by `discrepancyHeartbeatGuard`)
 

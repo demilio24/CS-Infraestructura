@@ -339,7 +339,9 @@ function runDiscrepancyCheck() {
   report.tokenAgeHours = (typeof globalThis._dcTokenAgeHours === 'number')
     ? Math.round(globalThis._dcTokenAgeHours * 10) / 10
     : null;
-  report.tokenStaleWarning = (report.tokenAgeHours != null && report.tokenAgeHours > DC_TOKEN_STALE_WARN_HOURS);
+  // A non-rotating PIT has a frozen updated_at by design — never flag it stale.
+  report.tokenIsPit = globalThis._dcTokenIsPit === true;
+  report.tokenStaleWarning = (!report.tokenIsPit && report.tokenAgeHours != null && report.tokenAgeHours > DC_TOKEN_STALE_WARN_HOURS);
 
   // Heartbeat: record this successful run so the daily guard knows
   // the bot is alive. Done BEFORE email so a mail-send failure
@@ -1917,6 +1919,7 @@ function _dcGhlToken_() {
   var cachedAge = cache.get('GHL_FLORIDA_TOKEN_AGE_HOURS');
   if (cached) {
     if (cachedAge != null) globalThis._dcTokenAgeHours = parseFloat(cachedAge);
+    globalThis._dcTokenIsPit = cached.indexOf('pit-') === 0;
     return cached;
   }
 
@@ -1955,6 +1958,9 @@ function _dcGhlToken_() {
   }
   var token = row.acces_token;
   if (!token) throw new Error('Supabase RPC returned empty acces_token');
+  // Florida is a manually-created, non-rotating PIT. Its updated_at is
+  // frozen by design, so token-age is meaningless — never warn on it.
+  globalThis._dcTokenIsPit = token.indexOf('pit-') === 0;
   // Stash the token's age so the email digest can warn if drifting
   var ageHours = null;
   if (row.updated_at) {
