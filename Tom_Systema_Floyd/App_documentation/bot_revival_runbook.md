@@ -13,6 +13,13 @@ call 401s, the run aborts before the heartbeat is recorded, and
 failures are silent (the email-digest branch comes after the work the
 HTTP error aborts).
 
+> ⚠️ **Florida is now a non-rotating PIT (since 2026-05-25).** The above
+> "24h TTL / refresher" model applies to the *old* rotating OAuth token and
+> to Georgia/Virginia. Florida's token (`pit-…`) **does not expire from age
+> and is not refreshed by n8n** — a large `token_age_hours` is **normal and
+> expected**, not a sign of a broken refresher. Do NOT chase the n8n Token
+> Manager for a Florida outage. See "Florida PIT" notes below before acting.
+
 ## Quick diagnosis (3 SQL queries)
 
 ```sql
@@ -21,22 +28,37 @@ SELECT component, last_ok_at, now() - last_ok_at AS staleness, metadata
 FROM public.sf_bot_health
 ORDER BY last_ok_at DESC;
 
--- 2. How old is the GHL token? TTL is 24h.
+-- 2. How old is the GHL token? (Florida = PIT, no TTL. GA/VA = OAuth, 24h TTL.)
+-- For Florida (8IWtNFlmgJ8bif9DivHT) a large token_age_hours is EXPECTED — the
+-- PIT's updated_at is frozen by design. starts_with(acces_token,'pit-') tells
+-- you which model applies.
 SELECT "locationId", account_name, updated_at,
        now() - updated_at AS token_age,
-       extract(epoch FROM (now() - updated_at)) / 3600 AS token_age_hours
+       extract(epoch FROM (now() - updated_at)) / 3600 AS token_age_hours,
+       starts_with(acces_token, 'pit-') AS is_pit
 FROM public.ghl_tokens
 WHERE "locationId" = '8IWtNFlmgJ8bif9DivHT';
 
 -- 3. Is the refresher running? (n8n exec history is the source of truth,
 -- but a quick sanity check is comparing two consecutive token timestamps.)
+-- N/A for Florida while it's a PIT — n8n no longer refreshes it.
 ```
 
 Interpretation:
-- **`discrepancy_check.last_ok_at` more than 60 min stale AND token_age_hours > 24** ⇒ token refresh is broken. Fix that first, then revive the bot.
+- **Florida row `is_pit = true`** ⇒ ignore `token_age_hours` entirely; the PIT never expires from age. A Florida outage with a PIT is **not** a token-refresh problem — skip Step 1 and go to Steps 2–3 (trigger/scopes). Only treat the token as the cause if the GHL calls actually 401 (the PIT was revoked/regenerated in the GHL UI — re-issue it and update both Supabase `ghl_tokens` and the Billing project's `GHL_TOKEN_FLORIDA` Script Property).
+- **`discrepancy_check.last_ok_at` more than 60 min stale AND token_age_hours > 24 AND `is_pit = false`** ⇒ rotating-token refresh is broken (GA/VA, or Florida before the PIT swap). Fix that first, then revive the bot.
 - **`last_ok_at` stale but token is fresh** ⇒ the bot's trigger has been deleted/disabled, or Apps Script scopes were revoked. Re-install the trigger from the editor.
 
 ## Step 1, fix the token refresher
+
+> **Skip this entire step for Florida while it's on the PIT.** Florida is not
+> refreshed by n8n anymore — the `GHL Token Manager` workflow only handles the
+> Georgia/Virginia rotating OAuth tokens. If a Florida GHL call genuinely 401s,
+> the PIT (`pit-573ff6fd-…`) was revoked or regenerated in the GHL UI; re-issue
+> it and write the new value to both Supabase `ghl_tokens.acces_token` (Florida
+> row) and the Billing project Script Property `GHL_TOKEN_FLORIDA`. Loop Tom in
+> before touching the sub-account. This step below applies to GA/VA (and to
+> Florida only if it is ever reverted to OAuth).
 
 The refresher is the `GHL Token Manager` n8n workflow (id `i9ovjPw1ZDhGB86A`). It's supposed to call GHL's `/oauth/token` endpoint with the stored `refresh_token`, get a new `acces_token`, and write it back to `public.ghl_tokens`.
 
@@ -86,7 +108,7 @@ GROUP BY form, status ORDER BY form, status;
 ## Why the email digest didn't warn earlier
 
 Two design gaps:
-1. The token-age *warning* (`> DC_TOKEN_STALE_WARN_HOURS`, default 12h) only fires when the token fetch **succeeds** but is old — a hard token failure never sets `_dcTokenAgeHours`, so there's no age to warn on.
+1. The token-age *warning* (`> DC_TOKEN_STALE_WARN_HOURS`, default 12h) only fires when the token fetch **succeeds** but is old — a hard token failure never sets `_dcTokenAgeHours`, so there's no age to warn on. (Since 2026-05-28 it is also suppressed entirely for non-rotating PIT tokens, so Florida never warns on age regardless — see `registration_system.md` § Token-age warning.)
 2. The heartbeat guard runs **daily**, not every 15 minutes. So if the whole script/trigger dies (deauthorized, deleted, quota), you get ~24h of silent failure before the alert fires.
 
 **Current behavior (since the per-form try/catch was added):** a hard token failure no longer goes silent. Each form check (`_dcCheckFreeCamp`, etc.) is individually wrapped in try/catch, and `_dcGhlToken_()` is called inside them — so a broken token throws, is caught, and lands in that form's `errors[]`, which **does** trigger the email digest (errors are part of the noteworthy gate). You get an error email every 15 min with the exception message. The only genuinely silent case is gap #2: the run itself never executing.

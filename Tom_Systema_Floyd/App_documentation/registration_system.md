@@ -478,10 +478,18 @@ There are **two distinct emails** the system can send:
 ### 9.1 Discrepancy digest (sent by `runDiscrepancyCheck`)
 
 Sent only when a run finds something **actionable**: a row was auto-added,
-an error occurred, or the GHL token is older than 12h. Linked-manual stamps,
-orphans, and duplicate clusters are FYI-only — they no longer trigger an email
-on their own (they still appear in the body when an email does fire for another
-reason). Quiet runs send nothing.
+an error occurred, or a *rotating* GHL token is older than 12h. Linked-manual
+stamps, orphans, and duplicate clusters are FYI-only — they no longer trigger an
+email on their own (they still appear in the body when an email does fire for
+another reason). Quiet runs send nothing.
+
+> **PIT exception.** Florida's token is a manually-created, non-rotating PIT
+> (`pit-…`) whose `updated_at` is frozen by design, so its age climbs past 12h
+> and stays there forever. The token-age warning is therefore **suppressed for
+> PIT tokens** (`_dcTokenIsPit`) — otherwise it would mark every run noteworthy
+> and email every 15 minutes. With Florida on the PIT, in practice the digest
+> fires **only on auto-adds and errors**. (The age warning still protects the
+> rotating Georgia/Virginia OAuth tokens.)
 
 **Recipient:** Script Property `DC_NOTIFY_EMAIL` (comma-separated list
 supported), falling back to `DC_NOTIFY_EMAIL_DEFAULT` (`emilio@nilsdigital.com`)
@@ -709,7 +717,7 @@ All the magic numbers live at the top of the file in named groups:
 - `DC_TRACKING_HEADER`, `_submissionId` (hidden column header name)
 - `DC_TRIGGER_FUNCTION`, `runDiscrepancyCheck` (trigger entry point name)
 - `DC_NOTIFY_EMAIL_DEFAULT`, fallback email recipient when Script Property `DC_NOTIFY_EMAIL` is unset
-- `DC_TOKEN_STALE_WARN_HOURS`, warn in the email digest when Supabase's `ghl_tokens.updated_at` is older than this (12h)
+- `DC_TOKEN_STALE_WARN_HOURS`, warn in the email digest when a *rotating* token's `ghl_tokens.updated_at` is older than this (12h). Suppressed for non-rotating PIT tokens (Florida) — see Token-age warning below.
 - `DC_HEARTBEAT_MAX_AGE_HOURS`, `discrepancyHeartbeatGuard` alerts when last successful run is older than this (24h)
 - `DC_FORM_FREE_CAMP` / `DC_FORM_SUMMER_CAMP` / `DC_FORM_AFTER_SCHOOL`, form IDs
 - `DC_FREE_UPPER_SS` / `DC_FREE_LOWER_SS` / `DC_SUMMER_UPPER_SS` / `DC_SUMMER_LOWER_SS` / `DC_AFTER_SCHOOL_SS`, spreadsheet IDs
@@ -732,11 +740,22 @@ For those, an external monitor (UptimeRobot, n8n cron) would be needed.
 
 ### Token-age warning
 
-On every run, the bot records the age of the GHL OAuth access token (read
+On every run, the bot records the age of the GHL access token (read
 from Supabase `ghl_tokens.updated_at`). If older than
 `DC_TOKEN_STALE_WARN_HOURS` (12h), the email digest gets a `⚠ GHL TOKEN AGE
 WARNING` block. The external refresh service is supposed to keep the token
 < 24h old; this surfaces drift before the token expires hard.
+
+**Suppressed for non-rotating PIT tokens.** `_dcGhlToken_()` sets
+`globalThis._dcTokenIsPit = true` when the fetched token starts with `pit-`,
+and the report computes
+`tokenStaleWarning = (!tokenIsPit && tokenAgeHours > DC_TOKEN_STALE_WARN_HOURS)`.
+Florida swapped to a manually-created, non-rotating PIT (2026-05-25), so its
+`updated_at` is permanently frozen and would otherwise trip this warning on
+every run — emailing every 15 minutes. The age (`token_age_hours`) is still
+recorded in the heartbeat for visibility; it just never fires an alert for a
+PIT. The warning remains active for the rotating Georgia/Virginia OAuth tokens.
+(Fixed 2026-05-28.)
 
 ### Email recipient
 
