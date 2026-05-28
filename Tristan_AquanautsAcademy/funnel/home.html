@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aquanauts Swim Academy | Private + Adaptive Swim Lessons on Vancouver Island</title>
-  <meta name="description" content="Private and adaptive swim lessons across Vancouver Island. 1:1 instruction for babies, kids, teens, and adults. 7 pool locations + mobile-to-your-pool service from Victoria to Campbell River." />
+  <meta name="description" content="Private and adaptive swim lessons across Vancouver Island. 1:1 instruction for babies, kids, teens, and adults. 6 pool locations + mobile-to-your-pool service from Victoria to Campbell River." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://assets.cdn.filesafe.space" crossorigin>
@@ -147,6 +147,7 @@ p { margin: 0 0 1em; }
 .about-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 70px; align-items: center; }
 .about-img { position: relative; }
 .about-img img { border-radius: 24px; box-shadow: 0 20px 60px rgba(10,30,58,0.18); aspect-ratio: 4/5; object-fit: cover; }
+.about-video { width: 100%; height: auto; display: block; border-radius: 24px; box-shadow: 0 20px 60px rgba(10,30,58,0.18); background: #000; }
 .about-img-badge { position: absolute; bottom: -22px; right: -22px; background: var(--coral); padding: 18px 24px; border-radius: 18px; box-shadow: 0 14px 36px rgba(250,165,107,0.4); }
 .about-img-badge strong { font-family: 'Outfit', sans-serif; font-size: 1.55rem; font-weight: 900; color: var(--navy); display: block; line-height: 1; }
 .about-img-badge span { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; }
@@ -199,7 +200,10 @@ p { margin: 0 0 1em; }
 /* ═══════════════════════════════════════════════════════
    EVENTS
 ═══════════════════════════════════════════════════════ */
-.events { padding: 68px 0; background: linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 100%); color: #fff; position: relative; overflow: hidden; }
+.events { padding: 68px 0; background:
+  linear-gradient(180deg, rgba(10,30,58,0.90) 0%, rgba(17,41,82,0.93) 100%),
+  url('https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/35ae96b2-d36b-41ed-872b-9455c6ed9349.png') center/cover no-repeat;
+  color: #fff; position: relative; overflow: hidden; }
 .events::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 36px 36px; pointer-events: none; opacity: 0.5; }
 .events::after { content: ''; position: absolute; top: -200px; right: -200px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(58,216,212,0.20) 0%, transparent 70%); pointer-events: none; }
 .events .container { position: relative; z-index: 1; }
@@ -481,7 +485,7 @@ p { margin: 0 0 1em; }
           </span>
           <span class="hero-pill">
             <svg viewBox="0 0 24 24" fill="none" stroke="#1e4d92" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            7 Locations + Mobile to Your Pool
+            6 Locations + Mobile to Your Pool
           </span>
         </div>
       </div>
@@ -548,52 +552,6 @@ p { margin: 0 0 1em; }
 </section>
 
 <!-- ═══════════════════════════════════════════════════════
-     ABOUT
-═══════════════════════════════════════════════════════ -->
-<section class="about" id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-img anim">
-        <img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/3a9a143e-2122-43a8-9aad-568ee2e000c1.jpg" alt="Aquanauts instructor in the pool with a child, sharing a moment" loading="lazy">
-        <div class="about-img-badge">
-          <strong>3,000+</strong>
-          <span>Lessons Delivered</span>
-        </div>
-      </div>
-      <div class="anim">
-        <div class="eyebrow">Why Choose Us</div>
-        <h2 class="section-title">Why Families Across Vancouver Island <span class="accent">Choose Aquanauts</span></h2>
-        <ul class="about-points">
-          <li>
-            <div class="about-point-num">1</div>
-            <div class="about-point-text"><strong>Lessons designed to fit your goals,</strong> whether you are mastering water safety or building advanced skills.</div>
-          </li>
-          <li>
-            <div class="about-point-num">2</div>
-            <div class="about-point-text"><strong>Flexible Scheduling.</strong> Convenient times for busy families, homeschoolers, and working adults.</div>
-          </li>
-          <li>
-            <div class="about-point-num">3</div>
-            <div class="about-point-text"><strong>Small Class Sizes.</strong> Focused attention to ensure safety and faster progress.</div>
-          </li>
-          <li>
-            <div class="about-point-num">4</div>
-            <div class="about-point-text"><strong>Our unique swim and space theme</strong> makes learning fun and adventurous.</div>
-          </li>
-          <li>
-            <div class="about-point-num heart"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-            <div class="about-point-text"><strong>Adaptive Aquatics Expertise.</strong> Inclusive instruction for autism, ADHD, and sensory needs.</div>
-          </li>
-        </ul>
-        <a href="#team" class="btn btn-ghost">Meet the Team
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════
      STEPS / HOW IT WORKS
 ═══════════════════════════════════════════════════════ -->
 <section class="steps" id="steps">
@@ -630,6 +588,54 @@ p { margin: 0 0 1em; }
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
       <span class="cta-subtext">Takes less than a minute.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     ABOUT
+═══════════════════════════════════════════════════════ -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img anim">
+        <video class="about-video" controls playsinline preload="metadata" poster="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/3a9a143e-2122-43a8-9aad-568ee2e000c1.jpg">
+          <source src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/34c37f84-8cf8-4caa-8ed7-686eac955b29.mp4" type="video/mp4">
+        </video>
+        <div class="about-img-badge">
+          <strong>3,000+</strong>
+          <span>Lessons Delivered</span>
+        </div>
+      </div>
+      <div class="anim">
+        <div class="eyebrow">Why Choose Us</div>
+        <h2 class="section-title">Why Families Across Vancouver Island <span class="accent">Choose Aquanauts</span></h2>
+        <ul class="about-points">
+          <li>
+            <div class="about-point-num">1</div>
+            <div class="about-point-text"><strong>Lessons designed to fit your goals,</strong> whether you are mastering water safety or building advanced skills.</div>
+          </li>
+          <li>
+            <div class="about-point-num">2</div>
+            <div class="about-point-text"><strong>Flexible Scheduling.</strong> Convenient times for busy families, homeschoolers, and working adults.</div>
+          </li>
+          <li>
+            <div class="about-point-num">3</div>
+            <div class="about-point-text"><strong>Small Class Sizes.</strong> Focused attention to ensure safety and faster progress.</div>
+          </li>
+          <li>
+            <div class="about-point-num">4</div>
+            <div class="about-point-text"><strong>Our unique swim and space theme</strong> makes learning fun and adventurous.</div>
+          </li>
+          <li>
+            <div class="about-point-num heart"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+            <div class="about-point-text"><strong>Adaptive Aquatics Expertise.</strong> Inclusive instruction for autism, ADHD, and sensory needs.</div>
+          </li>
+        </ul>
+        <a href="#team" class="btn btn-ghost">Meet the Team
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -772,10 +778,12 @@ p { margin: 0 0 1em; }
             <svg class="program-card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="program-card-collapse">
-            <p>Certified lifeguards for private events, resort pools, schools, and camps. CPR-C, AED, and first aid trained.</p>
+            <p>Professional, reliable, certified water safety supervision. Accidents happen in seconds, so even strong swimmers benefit from the peace of mind a lifeguard on deck provides.</p>
             <div class="program-card-prices">
-              <div class="program-card-price"><span class="price-label">Events</span><span class="price-value">Birthdays + parties</span></div>
-              <div class="program-card-price"><span class="price-label">Coverage</span><span class="price-value">Facility + camp staffing</span></div>
+              <div class="program-card-price"><span class="price-label">Events</span><span class="price-value">Parties + backyard pools</span></div>
+              <div class="program-card-price"><span class="price-label">Facilities</span><span class="price-value">Clubs, gyms, resort pools</span></div>
+              <div class="program-card-price"><span class="price-label">Camps + schools</span><span class="price-value">Outing supervision</span></div>
+              <div class="program-card-price"><span class="price-label">Certified</span><span class="price-value">Lifesaving Society / Red Cross, CPR-C, AED</span></div>
             </div>
             <a href="#hero-form" class="program-card-cta" data-program="lifeguard">Get a Quote →</a>
           </div>
@@ -834,7 +842,7 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="section-head anim">
       <div class="eyebrow">Locations</div>
-      <h2 class="section-title">7 Pools Across <span class="accent">Vancouver Island</span></h2>
+      <h2 class="section-title">6 Pools Across <span class="accent">Vancouver Island</span></h2>
       <p class="section-sub">From Victoria up to Campbell River. Find the location closest to you.</p>
     </div>
     <div class="locations-grid">
@@ -863,7 +871,7 @@ p { margin: 0 0 1em; }
         </div>
       </div>
       <div class="loc-card anim">
-        <div class="loc-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/73cad5b2-3400-4164-93b3-243809d72b2a.jpg" alt="Victoria pool location" loading="lazy"></div>
+        <div class="loc-card-img"><img src="assets/victoria-dome-pool.jpg" alt="Victoria geodesic dome pool location" loading="lazy"></div>
         <div class="loc-card-body">
           <h3>Victoria</h3>
           <p>Near Hillside Mall.</p>
@@ -871,15 +879,7 @@ p { margin: 0 0 1em; }
         </div>
       </div>
       <div class="loc-card anim">
-        <div class="loc-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/b16bacff-51ef-4b36-a7df-81bf9f7f743e.jpg" alt="Ramada by Wyndham Campbell River pool" loading="lazy"></div>
-        <div class="loc-card-body">
-          <h3>Campbell River, Ramada</h3>
-          <p>462 S Island Hwy. Heated indoor, 28-30°C, 15m, 3.5 to 6 ft.</p>
-          <a href="#hero-form" class="loc-card-link">Book here →</a>
-        </div>
-      </div>
-      <div class="loc-card anim">
-        <div class="loc-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/2b08c877-c33d-4e96-be04-9b8b130e1602.jpg" alt="Naturally Pacific Resort pool, Campbell River" loading="lazy"></div>
+        <div class="loc-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/079239dc-4d0c-4beb-b1f5-f77e4f45bcd0.webp" alt="Naturally Pacific Resort indoor pool, Campbell River" loading="lazy"></div>
         <div class="loc-card-body">
           <h3>Campbell River, Naturally Pacific</h3>
           <p>700 Petersen Rd. Heated indoor, 28-30°C, 15 to 20m, 3.5 to 8 ft.</p>
@@ -887,7 +887,7 @@ p { margin: 0 0 1em; }
         </div>
       </div>
       <div class="loc-card anim">
-        <div class="loc-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/80aecad0-fe24-4f7c-96ad-7a23c45e144f.jpg" alt="Shawnigan Lake summer location" loading="lazy"></div>
+        <div class="loc-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/1e2f35c9-d2cb-49ac-93fb-1a1370b81dbb.jpg" alt="Shawnigan Lake outdoor pool" loading="lazy"></div>
         <div class="loc-card-body">
           <h3>Shawnigan Lake (summer)</h3>
           <p>June through mid-September. Serves Cobble Hill, Mill Bay, Maple Bay, Duncan.</p>
@@ -1011,8 +1011,8 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="section-head anim">
       <div class="eyebrow">Meet the Team</div>
-      <h2 class="section-title">Eight Instructors.<br><span class="accent">110+ Years</span> on Deck.</h2>
-      <p class="section-sub">From a 40-year master instructor trainer to a behaviour interventionist, every coach here is here for a reason.</p>
+      <h2 class="section-title">Eight Instructors.<br><span class="accent">Decades</span> on Deck.</h2>
+      <p class="section-sub">From a 30-year lifesaving instructor trainer to a behaviour interventionist, every coach here is here for a reason.</p>
     </div>
 
     <div class="filter-row anim">
@@ -1021,12 +1021,11 @@ p { margin: 0 0 1em; }
       <button class="filter-btn" data-team-filter="parksville">Parksville / Nanoose</button>
       <button class="filter-btn" data-team-filter="victoria">Victoria / Shawnigan</button>
       <button class="filter-btn" data-team-filter="campbell">Campbell River</button>
-      <button class="filter-btn" data-team-filter="alberni">Port Alberni</button>
     </div>
 
     <div class="team-grid">
       <div class="team-card anim" data-team-tags="nanaimo parksville victoria">
-        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/99f8def7-a11d-44ae-872b-9b4113b27e3c.jpeg" alt="Tristan Tolley" loading="lazy"></div>
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/c56ba206-d265-4c03-9c2a-c0438e1f7762.png" alt="Tristan Tolley" loading="lazy"></div>
         <div class="team-card-body">
           <h3>Tristan Tolley</h3>
           <div class="team-card-role">Founder · Lifeguard · Instructor</div>
@@ -1035,14 +1034,14 @@ p { margin: 0 0 1em; }
           <a href="#hero-form" class="team-card-link">Book with Tristan →</a>
         </div>
       </div>
-      <div class="team-card anim" data-team-tags="parksville nanaimo" style="transition-delay:.05s">
-        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/7ad6b162-621a-484d-93e6-a345291df1d8.jpeg" alt="Erica" loading="lazy"></div>
+      <div class="team-card anim" data-team-tags="victoria" style="transition-delay:.05s">
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/eee8bbaa-9610-4177-b469-6e87b9e4d1fd.jpeg" alt="Anastasia Musaji" loading="lazy"></div>
         <div class="team-card-body">
-          <h3>Erica</h3>
-          <div class="team-card-role">Former Synchro Coach</div>
-          <p class="team-card-bio">20+ years on deck. Coached the Jamaican National Synchronized Swimming Team. 15+ years as a rec-centre lifeguard. Mother of four.</p>
-          <div class="team-card-serves">Serves: <span>Parksville, Nanoose, North Nanaimo</span></div>
-          <a href="#hero-form" class="team-card-link">Book with Erica →</a>
+          <h3>Anastasia Musaji</h3>
+          <div class="team-card-role">Swim Instructor</div>
+          <p class="team-card-bio">Teaches private lessons at our Victoria indoor pool and travels Island-wide for mobile lessons and lifeguarding. Calm, encouraging, and great with nervous beginners.</p>
+          <div class="team-card-serves">Serves: <span>Victoria, Mobile (Island-wide)</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Anastasia →</a>
         </div>
       </div>
       <div class="team-card anim" data-team-tags="campbell" style="transition-delay:.10s">
@@ -1065,14 +1064,14 @@ p { margin: 0 0 1em; }
           <a href="#hero-form" class="team-card-link">Book with Brandon →</a>
         </div>
       </div>
-      <div class="team-card anim" data-team-tags="nanaimo parksville" style="transition-delay:.20s">
-        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/ef2d5d76-6d13-44d2-81a0-e642d0c0b195.jpg" alt="Sage Gibson" loading="lazy"></div>
+      <div class="team-card anim" data-team-tags="victoria" style="transition-delay:.20s">
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/00031899-6cef-492f-9a6e-a0da3e11fff1.jpg" alt="Sandy Dowell" loading="lazy"></div>
         <div class="team-card-body">
-          <h3>Sage Gibson</h3>
-          <div class="team-card-role">National Lifeguard · Instructor</div>
-          <p class="team-card-bio">National Lifeguard and Lifesaving Society Instructor. BTM student at Vancouver Island University. DEI-forward teaching style.</p>
-          <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose, Parksville</span></div>
-          <a href="#hero-form" class="team-card-link">Book with Sage →</a>
+          <h3>Sandy Dowell</h3>
+          <div class="team-card-role">Swim Instructor</div>
+          <p class="team-card-bio">Patient, experienced instructor at our Victoria private indoor pool. Focused on building water confidence and steady progress at every age.</p>
+          <div class="team-card-serves">Serves: <span>Victoria</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Sandy →</a>
         </div>
       </div>
       <div class="team-card anim" data-team-tags="victoria" style="transition-delay:.25s">
@@ -1095,14 +1094,14 @@ p { margin: 0 0 1em; }
           <a href="#hero-form" class="team-card-link">Book with Donna →</a>
         </div>
       </div>
-      <div class="team-card anim" data-team-tags="alberni parksville" style="transition-delay:.35s">
-        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/b2df22bf-45e7-4d0c-9617-3ab16744c8fd.jpeg" alt="Maurya" loading="lazy"></div>
+      <div class="team-card anim" data-team-tags="parksville" style="transition-delay:.35s">
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/48f9b798-e872-4051-9a59-64eb5e313503.png" alt="Kesya LeCoz" loading="lazy"></div>
         <div class="team-card-body">
-          <h3>Maurya</h3>
-          <div class="team-card-role">Master Instructor Trainer</div>
-          <p class="team-card-bio">40+ years on deck. Red Cross Master Instructor Trainer and Certified Water Fitness Instructor. Specializes in water safety, stroke development, and adaptive swim.</p>
-          <div class="team-card-serves">Serves: <span>Port Alberni (summer), Parksville (fall, winter)</span></div>
-          <a href="#hero-form" class="team-card-link">Book with Maurya →</a>
+          <h3>Kesya LeCoz</h3>
+          <div class="team-card-role">Swim Instructor</div>
+          <p class="team-card-bio">Teaches at Pacific Shores Resort in Nanoose Bay and our Parksville indoor pool. Warm, patient, and focused on confident, steady progress.</p>
+          <div class="team-card-serves">Serves: <span>Nanoose Bay, Parksville</span></div>
+          <a href="#hero-form" class="team-card-link">Book with Kesya →</a>
         </div>
       </div>
     </div>
@@ -1144,7 +1143,7 @@ p { margin: 0 0 1em; }
       <div class="why-card anim" style="transition-delay:.18s">
         <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <h3>Decades on Deck</h3>
-        <p>Combined 110+ years of teaching across the team.</p>
+        <p>Combined decades of teaching experience across the team.</p>
       </div>
       <div class="why-card anim" style="transition-delay:.24s">
         <div class="why-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V8a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4z"/><circle cx="12" cy="12" r="3"/></svg></div>
@@ -1275,7 +1274,7 @@ p { margin: 0 0 1em; }
       <div class="final-cta-badges">
         <span class="final-cta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> 3,000+ Lessons</span>
         <span class="final-cta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> 8 Instructors</span>
-        <span class="final-cta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 7 Locations</span>
+        <span class="final-cta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 6 Locations</span>
         <span class="final-cta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Mobile to Your Pool</span>
       </div>
       <div class="final-cta-contact">
