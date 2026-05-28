@@ -381,16 +381,16 @@ function runDiscrepancyCheck() {
     ' duration=' + report.durationMs + 'ms'
   );
 
+  // Only email when something is actionable: people were auto-added, an
+  // error occurred, or the GHL token is going stale. Linked-manual stamps,
+  // orphans, and duplicate clusters are FYI-only — they no longer trigger
+  // an email on their own (they still appear in the body when an email does fire).
   var noteworthy =
     report.freeCamp.added.length        > 0 ||
-    report.freeCamp.linkedManual.length > 0 ||
-    report.freeCamp.orphans.length      > 0 ||
     report.freeCamp.errors.length       > 0 ||
     report.summerCamp.added.length        > 0 ||
-    report.summerCamp.linkedManual.length > 0 ||
     report.summerCamp.errors.length       > 0 ||
     report.afterSchool.added.length       > 0 ||
-    report.afterSchool.linkedManual.length > 0 ||
     report.afterSchool.errors.length       > 0 ||
     report.privateLessons.added.length    > 0 ||
     report.privateLessons.errors.length   > 0 ||
@@ -400,8 +400,7 @@ function runDiscrepancyCheck() {
     report.balloons.errors.length         > 0 ||
     report.vasilievSeminar.added.length   > 0 ||
     report.vasilievSeminar.errors.length  > 0 ||
-    report.duplicates.clusters.length     > 0 ||
-    report.duplicates.crossCampus.length  > 0 ||
+    report.duplicates.errors.length       > 0 ||
     report.tokenStaleWarning              === true;
   if (noteworthy) {
     try { _dcEmailReport(report); }

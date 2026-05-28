@@ -477,9 +477,11 @@ There are **two distinct emails** the system can send:
 
 ### 9.1 Discrepancy digest (sent by `runDiscrepancyCheck`)
 
-Sent only when a run finds something noteworthy (added row, linked row,
-duplicate cluster, error, or the GHL token is older than 12h). Quiet runs
-send nothing.
+Sent only when a run finds something **actionable**: a row was auto-added,
+an error occurred, or the GHL token is older than 12h. Linked-manual stamps,
+orphans, and duplicate clusters are FYI-only — they no longer trigger an email
+on their own (they still appear in the body when an email does fire for another
+reason). Quiet runs send nothing.
 
 **Recipient:** Script Property `DC_NOTIFY_EMAIL` (comma-separated list
 supported), falling back to `DC_NOTIFY_EMAIL_DEFAULT` (`emilio@nilsdigital.com`)
