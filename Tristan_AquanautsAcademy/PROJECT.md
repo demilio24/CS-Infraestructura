@@ -67,6 +67,26 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-28 (evening) — Tristan's 2nd revision round (emails 19:26 + 19:32) committed + pushed
+Acted on Tristan's two follow-up emails (2026-05-28 "New Edit" + "Additional Edits"). Commit `9749bfd7e` on `funnel/home.html` (+ `funnel/assets/victoria-dome-pool.jpg`), pushed to `origin/main`. Live at https://demilio24.github.io/Websites/Tristan_AquanautsAcademy/funnel/home.html
+
+Requests → what was done:
+- **Move "How It Works" above "Why Families Choose Us"** — section order is now hero → **steps → about** → programs → ... (swapped the two via a Python block-move).
+- **Embed the video ad in "Why Families Choose Us"** — replaced the static About photo with a `<video>` (`.about-video`), poster = the old instructor+child shot, source = `Aquanauts_Video_Ad.mp4` on GHL CDN. Kept the "3,000+ Lessons" badge.
+- **Keep some fun AI-generated art for a background** — `Aquanauts_Website_Cover_1.png` (space/astronaut swim art) layered behind the dark Events ("More Than a Swim School") section under a 0.90/0.93 navy overlay so text stays legible. One placement only, "just to see what it looks like."
+- **Instructor roster** — removed Erica, Sage Gibson, Maurya; added **Anastasia Musaji** (Victoria), **Sandy Dowell** (Victoria), **Kesya LeCoz** (Nanoose/Parksville) with their Jane App headshots; updated **Tristan's headshot to v2**. Stays at 8 cards. Bios written modestly (no fabricated certs — Jane App lists names/locations only). Removed the now-empty **Port Alberni** team filter. Softened stale claims: team H2 "110+ Years" → "Decades", sub "40-year" → "30-year" (Catherine), Why card "Combined 110+ years" → "Combined decades".
+- **Remove "Ramada" location** — deleted the card; updated pool counts **7 → 6** (locations H2, hero pill, final-CTA badge, meta description).
+- **Replace kid pics at pool locations with pool pics** — new clean photos for **Naturally Pacific** (indoor pool .webp), **Shawnigan Lake** (outdoor pool .jpg), and **Victoria** (geodesic dome pool). 
+- **Lifeguarding Services copy** — enriched the existing Lifeguarding program card with the real copy from `/lifeguarding-services` (certified water-safety supervision; events / facilities / camps+schools rows; Lifesaving Society / Red Cross, CPR-C, AED). Kept it in the card rather than a new section to respect the earlier "reduce scroll" ask.
+
+Assets: pulled all attachments from Tristan's two emails via the `/get-attachments` n8n workflow (`0L1NeAQaAoK4wref`) using the **Aquanauts** GHL OAuth token from Supabase `ghl_tokens` (NOT the `.env` token — that one is **Center Lane Swim School** `JL5Xsreqcpi8naffNZWe`). 10/12 uploaded to GHL CDN; the **2 Victoria `.avif` files failed** (`INVALID_FILE_TYPE`, known GHL limitation). Pulled the better Victoria avif from the workflow's Drive mirror, converted to JPG with Pillow 12 (native AVIF decode), and committed it to `funnel/assets/` because the GHL media API was not reachable from the local network at the time.
+
+Open items for next round:
+- **Parksville** location card still shows a kid (no Parksville pool photo was provided). Mobile/In-Home card kept its kid photo (reasonable for "we come to you").
+- **Victoria pool** is repo-hosted (`assets/victoria-dome-pool.jpg`), not in GHL media — move it into the GHL library when the API is reachable so the client can manage it there.
+- **Lifeguard-specific photos** weren't among the attachments (the "Screenshot" attachment was the AI art); card still uses the resort-pool image. Ask Tristan for action shots if he wants them.
+- A remaining review (Melissa S.) still thanks **Sage**, who was removed from the team. Left the testimonial intact (it's genuine); flag to Tristan whether to keep/swap.
+
 ### 2026-05-28 (later) — Tristan's revision round committed + pushed (Variation A)
 Acted on Tristan's email feedback (2026-05-28, "I definitely like the light and warm version" → **Variation A `funnel/home.html` is the chosen direction**; Variation B `home-b.html` left untouched). Folded in, extended, and **committed** the previously-uncommitted edits noted in the entry below, plus Emilio's add-on request (lowcountry-style collapsible cards). Commit `680e0e1f`, pushed to `origin/main`; live at https://demilio24.github.io/Websites/Tristan_AquanautsAcademy/funnel/home.html
 
