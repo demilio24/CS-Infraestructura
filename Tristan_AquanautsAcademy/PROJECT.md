@@ -67,6 +67,9 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-28 (evening, follow-up) — Central Nanaimo pool placeholder
+Scheduled 1-hour follow-up check caught Tristan's 19:42 email: "The IMG is the Central Nanaimo Pool ... use these as a placeholder for now." Set the Nanaimo (Central) location card to `IMG_8996` (the only image still unplaced from his attachments). It is an iPhone 12 portrait with EXIF orientation=6, so it was EXIF-normalized (Pillow `ImageOps.exif_transpose`), downscaled to 1000px wide, and committed to `funnel/assets/nanaimo-central-pool.jpg` (repo-hosted, same as Victoria — flag to migrate to GHL later). Commit `fc02ccdff`, pushed. Note: Tristan says better Nanaimo photos are coming; this is a placeholder.
+
 ### 2026-05-28 (evening) — Tristan's 2nd revision round (emails 19:26 + 19:32) committed + pushed
 Acted on Tristan's two follow-up emails (2026-05-28 "New Edit" + "Additional Edits"). Commit `9749bfd7e` on `funnel/home.html` (+ `funnel/assets/victoria-dome-pool.jpg`), pushed to `origin/main`. Live at https://demilio24.github.io/Websites/Tristan_AquanautsAcademy/funnel/home.html
 
