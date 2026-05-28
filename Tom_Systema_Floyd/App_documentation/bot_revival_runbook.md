@@ -86,7 +86,9 @@ GROUP BY form, status ORDER BY form, status;
 ## Why the email digest didn't warn earlier
 
 Two design gaps:
-1. The token-age warning (`> DC_TOKEN_STALE_WARN_HOURS`, default 12h) is only emailed on "noteworthy" runs. A hard fail on the first GHL call kills the run before the noteworthy check, so the warning never gets sent.
-2. The heartbeat guard runs **daily**, not every 15 minutes. So in the worst case you get ~24h of silent failure before the alert fires.
+1. The token-age *warning* (`> DC_TOKEN_STALE_WARN_HOURS`, default 12h) only fires when the token fetch **succeeds** but is old — a hard token failure never sets `_dcTokenAgeHours`, so there's no age to warn on.
+2. The heartbeat guard runs **daily**, not every 15 minutes. So if the whole script/trigger dies (deauthorized, deleted, quota), you get ~24h of silent failure before the alert fires.
 
-The right long-term fix is to wrap the GHL token fetch in a try/catch that records a `token_failure` heartbeat and emails immediately, separate from the noteworthy gate. Open as a follow-up if this outage class repeats.
+**Current behavior (since the per-form try/catch was added):** a hard token failure no longer goes silent. Each form check (`_dcCheckFreeCamp`, etc.) is individually wrapped in try/catch, and `_dcGhlToken_()` is called inside them — so a broken token throws, is caught, and lands in that form's `errors[]`, which **does** trigger the email digest (errors are part of the noteworthy gate). You get an error email every 15 min with the exception message. The only genuinely silent case is gap #2: the run itself never executing.
+
+A further hardening (not yet done): wrap the token fetch to record a `token_failure` heartbeat and email immediately, so even a dead trigger surfaces faster than the daily guard. Open as a follow-up if this outage class repeats.
