@@ -67,6 +67,19 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-28 — Pre-existing uncommitted home.html edits (NOT made this session)
+This session's work was entirely in `Tom_Systema_Floyd` (discrepancy-checker email tuning). No Aquanauts file was touched by Claude. Logging only to satisfy the PROJECT.md hook, which fired on a working-tree modification to `funnel/home.html` that **was already uncommitted at session start** (provenance unknown — likely a prior in-progress session). Leaving the file untouched pending confirmation from Tristan/Emilio before commit.
+
+For the record, `git diff funnel/home.html` (183 insertions / 191 deletions vs. committed `688cfed8`) contains a layout/UX pass on Variation A:
+- Tighter vertical rhythm: section padding cut from 100px to 68px across most sections; hero 56/80 → 44/60; section-head bottom margin 44px → 34px; CTA-row margins 44px → 32px.
+- New **collapsible program cards** (`.program-card-toggle`, `.program-card-chevron`, `.program-card-collapse` with rotate + max-height transitions).
+- Event-card icons switched from glyph/emoji to inline **SVG** (`.event-card-icon svg`, `color:#fff`).
+- **Gallery section removed entirely** (CSS block + its responsive rules deleted).
+- Footer grid changed from 3 to 4 columns (`1.4fr 1fr 1fr` → `1.6fr 1fr 1fr 1fr`).
+- Reviews section background `#fff` → `var(--bg-soft)`; programs background `var(--bg-soft)` → `#fff`.
+
+**Open thread:** confirm whether these edits are intended (and whether they should also be mirrored to Variation B / `home-b.html`), then commit or discard. Until then this remains an uncommitted working-tree change.
+
 ### 2026-05-25 (night) — Wix → GHL image URL swap complete on both funnel variations
 Picked up the pending HANDOFF section 3a task after the prior parallel scrape conversation never persisted its output (`image_url_map.json` was missing and both funnel files still pointed at `static.wixstatic.com`). Did a tighter, funnel-only pass instead of re-running the full-site crawl: collected the 24 distinct Wix URLs actually referenced across `funnel/home.html` (38 refs) and `funnel/home-b.html` (37 refs), downloaded each with a real browser UA + `Referer: https://aquanautsacademy.ca/` (no 403s, sizes ranged 14 KB → 17 MB), and POSTed each to `services.leadconnectorhq.com/medias/upload-file` with `hosted=false&locationId=xBWIIj9IjYQL2XdtjJ1A`. All 24 returned `HTTP 201` with `https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/<uuid>.<ext>` URLs. GHL token pulled fresh from Supabase (`public.ghl_tokens.acces_token`, 5879 chars) right before the run. Ran `rewrite-aquanauts-html.py` to swap each URL; the only post-swap `static.wixstatic.com` reference was a stale `<link rel="preconnect">` in the head of each file, which I retargeted to `assets.cdn.filesafe.space`. Final `grep -c "static.wixstatic.com" funnel/*.html` returns 0/0; GHL references at 38/37 (matching pre-swap Wix counts). Spot-checked 4 random GHL URLs via `curl -I` with a browser UA, all returned `HTTP 200` with matching `Content-Type` and `Content-Length` to the uploaded source. New artifacts: `image_url_map.json` (24 entries), `image_inventory.md` (table of size/type/status per image), and `.claude/swap-aquanauts-wix-to-ghl.py` + `.claude/rewrite-aquanauts-html.py` (idempotent, safe to re-run if the funnels ever pull more Wix assets).
 
