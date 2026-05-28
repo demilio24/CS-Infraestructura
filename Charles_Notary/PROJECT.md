@@ -19,6 +19,9 @@ Veteran-owned mobile notary service operating across Miami-Dade and Broward Coun
 (none clear)
 
 ## Changelog
+## 2026-05-28 Physical address removed from legal modal (Terms, Privacy, Contact)
+Charles emailed asking to remove his physical address (18495 South Dixie Hwy. #236, Miami, Florida 33157) from the Terms and Contact pages, saying email + phone suffice for contact info. Removed all four street-address references in the legal modal: Terms tab "registered office is…" line, Privacy tab "please write to…" and "the above address" lines (repointed both to support@mobilenotarymiamiflorida.com), and the Contact tab "Address:" line. Left the Cutler Bay / Palmetto Bay service-area ZIP `33157` entries alone (those are coverage areas, not his address). Phone `305-613-3300` and email remain as the only contact details.
+
 ## 2026-05-24 Every primary CTA converted to click-to-call
 Charles emailed asking to convert "Request an Appointment" buttons → "Click to Call" and "Get In Touch" → "Call Now", all linking to `tel:+13056133300` so mobile users tap straight into the dialer. Confirmed scope with Emilio and converted every form-driving CTA on the page (not just the literal matches):
 - Header nav: "Get In Touch" + envelope icon → "Call Now" + phone icon
