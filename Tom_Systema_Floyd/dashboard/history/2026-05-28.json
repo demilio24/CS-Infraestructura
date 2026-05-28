@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-28T18:27:10Z",
+  "generatedAt": "2026-05-28T18:32:13Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 124,
-    "free": 49,
+    "free": 50,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,10 +213,10 @@
     ]
   },
   "free": {
-    "total": 49,
+    "total": 50,
     "byCampus": {
       "Upper Campus": 28,
-      "Lower Campus": 21,
+      "Lower Campus": 22,
       "Unknown": 0
     },
     "byWeek": {
@@ -229,7 +229,7 @@
       "July 13th-17th": 33,
       "July 20th-24th": 32,
       "July 27th-31st": 31,
-      "August 3rd-7th": 32,
+      "August 3rd-7th": 33,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -282,7 +282,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 20,
-        "Lower Campus": 12,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -303,7 +303,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 127,
-      "Northboro Elementary School": 68,
+      "Northboro Elementary School": 69,
       "Pleasant City Elementary School": 58,
       "U.B. Kinsey Educational and Community Center": 47,
       "Roosevelt Elementary School": 35
@@ -322,11 +322,11 @@
     ]
   },
   "combined": {
-    "total": 173,
-    "enrollments": 565,
+    "total": 174,
+    "enrollments": 566,
     "byCampus": {
       "Upper Campus": 78,
-      "Lower Campus": 95,
+      "Lower Campus": 96,
       "Unknown": 0
     },
     "byWeek": {
@@ -339,7 +339,7 @@
       "July 13th-17th": 50,
       "July 20th-24th": 53,
       "July 27th-31st": 44,
-      "August 3rd-7th": 54,
+      "August 3rd-7th": 55,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -392,7 +392,7 @@
       },
       "August 3rd-7th": {
         "Upper Campus": 28,
-        "Lower Campus": 26,
+        "Lower Campus": 27,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -8367,13 +8367,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 32,
-              "Tue": 32,
-              "Wed": 32,
-              "Thu": 32,
-              "Fri": 32
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 160,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8416,6 +8416,19 @@
               },
               {
                 "name": "Aubree L. Pannell",
+                "campus": "Lower Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Billy Joe Shannon Jr",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -8796,13 +8809,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 32,
-            "Tue": 32,
-            "Wed": 32,
-            "Thu": 32,
-            "Fri": 32
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 160
+          "all": 165
         }
       },
       "August 10th-14th": {
@@ -21599,6 +21612,31 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
+        },
+        {
+          "name": "Billy Joe Shannon Jr",
+          "campus": "Lower Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "duhshan07@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
+          "sourceGid": 470608811,
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 14,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Northboro Elementary School"
         },
         {
           "name": "Brendon Montgomery",
