@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-29T18:13:07Z",
+  "generatedAt": "2026-05-29T18:17:03Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 124,
+    "summer": 125,
     "free": 51,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,15 +108,15 @@
     "roster": []
   },
   "summer": {
-    "total": 124,
+    "total": 125,
     "byCampus": {
-      "Upper Campus": 50,
+      "Upper Campus": 51,
       "Lower Campus": 74,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 22,
-      "June 8th-12th": 29,
+      "June 8th-12th": 30,
       "June 15th-19th": 21,
       "June 22nd-26th": 21,
       "June 29th-July 3rd": 14,
@@ -136,7 +136,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 15,
+        "Upper Campus": 16,
         "Lower Campus": 14,
         "Unknown": 0
       },
@@ -322,16 +322,16 @@
     ]
   },
   "combined": {
-    "total": 175,
-    "enrollments": 576,
+    "total": 176,
+    "enrollments": 577,
     "byCampus": {
-      "Upper Campus": 79,
+      "Upper Campus": 80,
       "Lower Campus": 96,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 56,
-      "June 8th-12th": 64,
+      "June 8th-12th": 65,
       "June 15th-19th": 55,
       "June 22nd-26th": 56,
       "June 29th-July 3rd": 49,
@@ -351,7 +351,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 34,
+        "Upper Campus": 35,
         "Lower Campus": 30,
         "Unknown": 0
       },
@@ -771,11 +771,21 @@
               "Mon": 2,
               "Tue": 0,
               "Wed": 2,
-              "Thu": 2,
-              "Fri": 2
+              "Thu": 3,
+              "Fri": 3
             },
-            "total": 8,
+            "total": 10,
             "students": [
+              {
+                "name": "Michael french",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Pizza ($7.75/day)"
+              },
               {
                 "name": "Olivia Englesbe",
                 "campus": "Upper Campus",
@@ -1210,10 +1220,10 @@
             "Mon": 28,
             "Tue": 24,
             "Wed": 29,
-            "Thu": 28,
-            "Fri": 25
+            "Thu": 29,
+            "Fri": 26
           },
-          "all": 134
+          "all": 136
         }
       },
       "June 15th-19th": {
@@ -10567,6 +10577,30 @@
             true,
             true,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Michael french",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Pizza ($7.75/day)",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "nolenurse8@icloud.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 42263552,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 17,
+          "days": [
+            false,
+            false,
+            false,
+            true,
+            true
           ],
           "type": "summer"
         },
