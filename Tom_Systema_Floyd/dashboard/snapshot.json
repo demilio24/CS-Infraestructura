@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T13:27:27Z",
+  "generatedAt": "2026-05-29T13:32:17Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -220,12 +220,12 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 35,
+      "June 1st-5th": 34,
       "June 8th-12th": 36,
-      "June 15th-19th": 36,
-      "June 22nd-26th": 37,
+      "June 15th-19th": 35,
+      "June 22nd-26th": 36,
       "June 29th-July 3rd": 36,
-      "July 6th-10th": 36,
+      "July 6th-10th": 35,
       "July 13th-17th": 36,
       "July 20th-24th": 35,
       "July 27th-31st": 34,
@@ -237,7 +237,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 19,
-        "Lower Campus": 16,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -247,12 +247,12 @@
       },
       "June 15th-19th": {
         "Upper Campus": 19,
-        "Lower Campus": 17,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 20,
-        "Lower Campus": 17,
+        "Lower Campus": 16,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -262,7 +262,7 @@
       },
       "July 6th-10th": {
         "Upper Campus": 20,
-        "Lower Campus": 16,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -303,7 +303,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 127,
-      "Northboro Elementary School": 82,
+      "Northboro Elementary School": 78,
       "Pleasant City Elementary School": 58,
       "U.B. Kinsey Educational and Community Center": 55,
       "Roosevelt Elementary School": 33
@@ -323,19 +323,19 @@
   },
   "combined": {
     "total": 175,
-    "enrollments": 585,
+    "enrollments": 581,
     "byCampus": {
       "Upper Campus": 79,
       "Lower Campus": 96,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 57,
+      "June 1st-5th": 56,
       "June 8th-12th": 65,
-      "June 15th-19th": 57,
-      "June 22nd-26th": 58,
+      "June 15th-19th": 56,
+      "June 22nd-26th": 57,
       "June 29th-July 3rd": 50,
-      "July 6th-10th": 56,
+      "July 6th-10th": 55,
       "July 13th-17th": 53,
       "July 20th-24th": 56,
       "July 27th-31st": 47,
@@ -347,7 +347,7 @@
     "byWeekCampus": {
       "June 1st-5th": {
         "Upper Campus": 30,
-        "Lower Campus": 27,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -357,12 +357,12 @@
       },
       "June 15th-19th": {
         "Upper Campus": 23,
-        "Lower Campus": 34,
+        "Lower Campus": 33,
         "Unknown": 0
       },
       "June 22nd-26th": {
         "Upper Campus": 25,
-        "Lower Campus": 33,
+        "Lower Campus": 32,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
@@ -372,7 +372,7 @@
       },
       "July 6th-10th": {
         "Upper Campus": 29,
-        "Lower Campus": 27,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -4180,13 +4180,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 175,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4217,19 +4217,6 @@
               {
                 "name": "Ashton Govan",
                 "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Bryson J Shannon",
-                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -4648,13 +4635,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 175
+          "all": 170
         }
       },
       "June 8th-12th": {
@@ -5161,13 +5148,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5210,19 +5197,6 @@
               },
               {
                 "name": "Autumn Willow Richardson",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Bryson J Shannon",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -5642,13 +5616,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "June 22nd-26th": {
@@ -5658,13 +5632,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 37,
-              "Tue": 37,
-              "Wed": 37,
-              "Thu": 37,
-              "Fri": 37
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 185,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5707,19 +5681,6 @@
               },
               {
                 "name": "Autumn Willow Richardson",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Bryson J Shannon",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -6152,13 +6113,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 37,
-            "Tue": 37,
-            "Wed": 37,
-            "Thu": 37,
-            "Fri": 37
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 185
+          "all": 180
         }
       },
       "June 29th-July 3rd": {
@@ -6665,13 +6626,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6728,19 +6689,6 @@
               {
                 "name": "Brendon Montgomery",
                 "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Bryson J Shannon",
-                "campus": "Lower Campus",
                 "type": "free",
                 "days": [
                   "Mon",
@@ -7146,13 +7094,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "July 13th-17th": {
@@ -9731,33 +9679,6 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
-        },
-        {
-          "name": "Bryson J Shannon",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "duhshan07@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 17,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Carolina Lopez",
@@ -12818,33 +12739,6 @@
           "school": "Northboro Elementary School"
         },
         {
-          "name": "Bryson J Shannon",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "duhshan07@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 44844437,
-          "sourceTabName": "6/15-6/19",
-          "sourceRow": 18,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
           "name": "Carolina Lopez",
           "campus": "Lower Campus",
           "lunch": true,
@@ -14245,33 +14139,6 @@
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
           "sourceRow": 15,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
-          "name": "Bryson J Shannon",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "duhshan07@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 624596140,
-          "sourceTabName": "6/22-6/26",
-          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -16986,33 +16853,6 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
-        },
-        {
-          "name": "Bryson J Shannon",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "duhshan07@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 812152810,
-          "sourceTabName": "7/6-7/10",
-          "sourceRow": 17,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Chance Sandy",
