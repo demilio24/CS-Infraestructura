@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-29T15:42:05Z",
+  "generatedAt": "2026-05-29T15:47:07Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
     "summer": 124,
-    "free": 52,
+    "free": 51,
     "afterSchool": 0,
     "leadOnly": 0,
     "newLast7Days": 0,
@@ -213,18 +213,18 @@
     ]
   },
   "free": {
-    "total": 52,
+    "total": 51,
     "byCampus": {
-      "Upper Campus": 30,
+      "Upper Campus": 29,
       "Lower Campus": 22,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 35,
-      "June 8th-12th": 36,
-      "June 15th-19th": 35,
-      "June 22nd-26th": 36,
-      "June 29th-July 3rd": 36,
+      "June 1st-5th": 34,
+      "June 8th-12th": 35,
+      "June 15th-19th": 34,
+      "June 22nd-26th": 35,
+      "June 29th-July 3rd": 35,
       "July 6th-10th": 35,
       "July 13th-17th": 35,
       "July 20th-24th": 35,
@@ -236,27 +236,27 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 20,
+        "Upper Campus": 19,
         "Lower Campus": 15,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 20,
-        "Lower Campus": 16,
-        "Unknown": 0
-      },
-      "June 15th-19th": {
         "Upper Campus": 19,
         "Lower Campus": 16,
         "Unknown": 0
       },
+      "June 15th-19th": {
+        "Upper Campus": 18,
+        "Lower Campus": 16,
+        "Unknown": 0
+      },
       "June 22nd-26th": {
-        "Upper Campus": 20,
+        "Upper Campus": 19,
         "Lower Campus": 16,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 20,
+        "Upper Campus": 19,
         "Lower Campus": 16,
         "Unknown": 0
       },
@@ -303,7 +303,7 @@
     },
     "bySchool": {
       "Westward Elementary School": 127,
-      "Northboro Elementary School": 83,
+      "Northboro Elementary School": 78,
       "Pleasant City Elementary School": 58,
       "U.B. Kinsey Educational and Community Center": 51,
       "Roosevelt Elementary School": 33
@@ -322,19 +322,19 @@
     ]
   },
   "combined": {
-    "total": 176,
-    "enrollments": 582,
+    "total": 175,
+    "enrollments": 577,
     "byCampus": {
-      "Upper Campus": 80,
+      "Upper Campus": 79,
       "Lower Campus": 96,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 57,
-      "June 8th-12th": 65,
-      "June 15th-19th": 56,
-      "June 22nd-26th": 57,
-      "June 29th-July 3rd": 50,
+      "June 1st-5th": 56,
+      "June 8th-12th": 64,
+      "June 15th-19th": 55,
+      "June 22nd-26th": 56,
+      "June 29th-July 3rd": 49,
       "July 6th-10th": 55,
       "July 13th-17th": 52,
       "July 20th-24th": 56,
@@ -346,27 +346,27 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 31,
+        "Upper Campus": 30,
         "Lower Campus": 26,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 35,
+        "Upper Campus": 34,
         "Lower Campus": 30,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 23,
+        "Upper Campus": 22,
         "Lower Campus": 33,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 25,
+        "Upper Campus": 24,
         "Lower Campus": 32,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 25,
+        "Upper Campus": 24,
         "Lower Campus": 25,
         "Unknown": 0
       },
@@ -4180,13 +4180,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 175,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4501,19 +4501,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Mateo Lopez",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Mateo Lopez Sanchez",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -4648,13 +4635,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 175
+          "all": 170
         }
       },
       "June 8th-12th": {
@@ -4664,13 +4651,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5024,19 +5011,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Mateo Lopez",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Mateo Lopez Sanchez",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -5145,13 +5119,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "June 15th-19th": {
@@ -5161,13 +5135,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 175,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5482,19 +5456,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Mateo Lopez",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Mateo Lopez Sanchez",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -5629,13 +5590,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 175
+          "all": 170
         }
       },
       "June 22nd-26th": {
@@ -5645,13 +5606,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5979,19 +5940,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Mateo Lopez",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Mateo Lopez Sanchez",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6126,13 +6074,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "June 29th-July 3rd": {
@@ -6142,13 +6090,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 35,
+              "Tue": 35,
+              "Wed": 35,
+              "Thu": 35,
+              "Fri": 35
             },
-            "total": 180,
+            "total": 175,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6476,19 +6424,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Mateo Lopez",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Mattison Curry",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -6623,13 +6558,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 35,
+            "Tue": 35,
+            "Wed": 35,
+            "Thu": 35,
+            "Fri": 35
           },
-          "all": 180
+          "all": 175
         }
       },
       "July 6th-10th": {
@@ -9702,10 +9637,8 @@
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
@@ -10009,7 +9942,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -10221,33 +10154,6 @@
           "school": "Westward Elementary School"
         },
         {
-          "name": "Mateo Lopez",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "(561) 729-4169",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 18,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
           "name": "Mateo Lopez Sanchez",
           "campus": "Upper Campus",
           "lunch": true,
@@ -10263,7 +10169,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -10363,7 +10269,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -11367,7 +11273,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -11414,10 +11320,8 @@
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
@@ -11696,7 +11600,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -11908,33 +11812,6 @@
           "school": "Westward Elementary School"
         },
         {
-          "name": "Mateo Lopez",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "(561) 729-4169",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 42263552,
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 18,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
           "name": "Mateo Lopez Sanchez",
           "campus": "Upper Campus",
           "lunch": true,
@@ -11950,7 +11827,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -12775,10 +12652,8 @@
           "allergy": null,
           "notes": null,
           "email": "e.carol80@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
@@ -13057,7 +12932,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -13269,33 +13144,6 @@
           "school": "Westward Elementary School"
         },
         {
-          "name": "Mateo Lopez",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "(561) 729-4169",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 44844437,
-          "sourceTabName": "6/15-6/19",
-          "sourceRow": 18,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
           "name": "Mateo Lopez Sanchez",
           "campus": "Upper Campus",
           "lunch": true,
@@ -13311,7 +13159,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -14489,7 +14337,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -14701,33 +14549,6 @@
           "school": "Westward Elementary School"
         },
         {
-          "name": "Mateo Lopez",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "(561) 729-4169",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 624596140,
-          "sourceTabName": "6/22-6/26",
-          "sourceRow": 19,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
-        },
-        {
           "name": "Mateo Lopez Sanchez",
           "campus": "Upper Campus",
           "lunch": true,
@@ -14743,7 +14564,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -15776,7 +15597,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -15961,33 +15782,6 @@
           ],
           "type": "free",
           "school": "Westward Elementary School"
-        },
-        {
-          "name": "Mateo Lopez",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "(561) 729-4169",
-          "incomplete": true,
-          "missingFields": [
-            "Grade"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 2124671237,
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 20,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Mattison Curry",
