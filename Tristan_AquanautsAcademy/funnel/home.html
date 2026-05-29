@@ -216,6 +216,16 @@ p { margin: 0 0 1em; }
 .event-card-icon svg { width: 26px; height: 26px; }
 .event-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.18rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
 .event-card p { font-size: 0.92rem; color: rgba(255,255,255,0.72); line-height: 1.55; margin: 0; }
+.partners { margin-top: 38px; text-align: center; }
+.partners-toggle { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: #fff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.95rem; padding: 13px 24px; border-radius: 50px; cursor: pointer; transition: all 0.25s; }
+.partners-toggle:hover { background: rgba(255,255,255,0.14); border-color: rgba(58,216,212,0.5); }
+.partners-toggle .chev { width: 18px; height: 18px; transition: transform 0.35s; }
+.partners.open .partners-toggle .chev { transform: rotate(180deg); }
+.partners-collapse { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.45s ease, opacity 0.3s ease, margin-top 0.3s ease; }
+.partners.open .partners-collapse { max-height: 640px; opacity: 1; margin-top: 24px; }
+.partners-intro { color: rgba(255,255,255,0.72); font-size: 0.98rem; max-width: 620px; margin: 0 auto 20px; }
+.partners-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 840px; margin: 0 auto; }
+.partner-pill { display: inline-flex; align-items: center; padding: 9px 16px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 50px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.85rem; color: #fff; }
 
 /* ═══════════════════════════════════════════════════════
    LOCATIONS
@@ -787,6 +797,30 @@ p { margin: 0 0 1em; }
         <div class="event-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5 7 22l5-2.5L17 22l-1.5-8.5"/></svg></div>
         <h3>Sponsorship + Camps</h3>
         <p>Seasonal camps and sponsored sessions for community partners. Contact us for current openings.</p>
+      </div>
+    </div>
+    <div class="partners anim">
+      <button class="partners-toggle" aria-expanded="false">
+        <span>See our community partners</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="partners-collapse">
+        <p class="partners-intro">We partner with schools, childcare, alternative-learning platforms, physiotherapy clinics, and community organizations across Vancouver Island.</p>
+        <div class="partners-grid">
+          <span class="partner-pill">SELF DESIGN</span>
+          <span class="partner-pill">NIDES</span>
+          <span class="partner-pill">HCOS</span>
+          <span class="partner-pill">Island ConnectEd</span>
+          <span class="partner-pill">inSpace Childcare</span>
+          <span class="partner-pill">Katies Korner Childcare</span>
+          <span class="partner-pill">Autism Support BC</span>
+          <span class="partner-pill">Balance Physiotherapy</span>
+          <span class="partner-pill">Long Lake Physio</span>
+          <span class="partner-pill">Superhero Swim University</span>
+          <span class="partner-pill">Local School Districts</span>
+          <span class="partner-pill">Special Olympics BC</span>
+          <span class="partner-pill">Splash About</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1385,6 +1419,12 @@ programFilters.forEach(btn => btn.addEventListener('click', () => {
 document.querySelectorAll('.program-card-toggle').forEach(btn => btn.addEventListener('click', () => {
   const card = btn.closest('.program-card');
   const open = card.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}));
+
+// Partners dropdown
+document.querySelectorAll('.partners-toggle').forEach(btn => btn.addEventListener('click', () => {
+  const open = btn.closest('.partners').classList.toggle('open');
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }));
 
