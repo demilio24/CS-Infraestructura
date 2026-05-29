@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T17:07:04Z",
+  "generatedAt": "2026-05-29T17:13:25Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -229,7 +229,7 @@
       "July 13th-17th": 35,
       "July 20th-24th": 35,
       "July 27th-31st": 34,
-      "August 3rd-7th": 34,
+      "August 3rd-7th": 33,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
@@ -281,7 +281,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 21,
+        "Upper Campus": 20,
         "Lower Campus": 13,
         "Unknown": 0
       },
@@ -305,7 +305,7 @@
       "Westward Elementary School": 127,
       "Northboro Elementary School": 78,
       "Pleasant City Elementary School": 58,
-      "U.B. Kinsey Educational and Community Center": 51,
+      "U.B. Kinsey Educational and Community Center": 50,
       "Roosevelt Elementary School": 33
     },
     "weekOrder": [
@@ -323,7 +323,7 @@
   },
   "combined": {
     "total": 175,
-    "enrollments": 577,
+    "enrollments": 576,
     "byCampus": {
       "Upper Campus": 79,
       "Lower Campus": 96,
@@ -339,7 +339,7 @@
       "July 13th-17th": 52,
       "July 20th-24th": 56,
       "July 27th-31st": 47,
-      "August 3rd-7th": 56,
+      "August 3rd-7th": 55,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -391,7 +391,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 29,
+        "Upper Campus": 28,
         "Lower Campus": 27,
         "Unknown": 0
       },
@@ -8497,13 +8497,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 170,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8818,19 +8818,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "LaShaun Johnson",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Luvvie’Love Johnson",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -8952,13 +8939,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 170
+          "all": 165
         }
       },
       "August 10th-14th": {
@@ -10314,10 +10301,8 @@
           "allergy": null,
           "notes": null,
           "email": "wxernona@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
+          "incomplete": false,
+          "missingFields": [],
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
@@ -22465,33 +22450,6 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
-        },
-        {
-          "name": "LaShaun Johnson",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "ltribble2020@gmail.com",
-          "incomplete": true,
-          "missingFields": [
-            "Age"
-          ],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 470608811,
-          "sourceTabName": "8/3-8/7",
-          "sourceRow": 22,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "U.B. Kinsey Educational and Community Center"
         },
         {
           "name": "Luvvie’Love Johnson",
