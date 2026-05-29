@@ -327,6 +327,21 @@ p { margin: 0 0 1em; }
 .why-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.14rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
 .why-card p { font-size: 0.94rem; color: var(--muted); line-height: 1.55; margin: 0; }
 
+/* OUR STORY */
+.story { padding: 84px 0; background: linear-gradient(180deg, #ffffff 0%, var(--bg-soft) 100%); }
+.story-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: center; max-width: 1080px; margin: 0 auto; }
+.story-img { position: relative; }
+.story-img img { width: 100%; border-radius: 24px; box-shadow: 0 20px 60px rgba(10,30,58,0.18); aspect-ratio: 4/5; object-fit: cover; }
+.story-img-badge { position: absolute; bottom: -20px; left: -20px; background: var(--blue); color: #fff; padding: 16px 22px; border-radius: 16px; box-shadow: 0 14px 36px rgba(30,77,146,0.35); font-family: 'Outfit', sans-serif; }
+.story-img-badge strong { display: block; font-size: 1.2rem; font-weight: 800; line-height: 1; }
+.story-img-badge span { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85; }
+.story-body p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin: 0 0 16px; }
+.story-body .story-lead { font-size: 1.18rem; color: var(--navy); font-weight: 600; }
+.story-quote { border-left: 4px solid var(--teal); padding: 8px 0 8px 20px; margin: 22px 0; font-family: 'Outfit', sans-serif; font-style: italic; color: var(--navy); font-size: 1.1rem; line-height: 1.5; }
+.story-sign { margin-top: 22px; font-family: 'Outfit', sans-serif; }
+.story-sign strong { display: block; color: var(--navy); font-weight: 800; font-size: 1.02rem; }
+.story-sign span { color: var(--muted); font-size: 0.9rem; }
+
 /* ═══════════════════════════════════════════════════════
    FAQ
 ═══════════════════════════════════════════════════════ */
@@ -398,6 +413,8 @@ p { margin: 0 0 1em; }
   .hamburger { display: block; }
   .hero-grid { grid-template-columns: 1fr; gap: 44px; }
   .about-grid { grid-template-columns: 1fr; gap: 44px; }
+  .story-grid { grid-template-columns: 1fr; gap: 48px; }
+  .story-img-badge { left: 16px; bottom: -18px; }
   .programs-grid { grid-template-columns: repeat(2, 1fr); }
   .events-grid { grid-template-columns: repeat(2, 1fr); }
   .locations-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1345,6 +1362,32 @@ p { margin: 0 0 1em; }
 </section>
 
 <!-- ═══════════════════════════════════════════════════════
+     OUR STORY
+═══════════════════════════════════════════════════════ -->
+<section class="story" id="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-img anim">
+        <img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/c56ba206-d265-4c03-9c2a-c0438e1f7762.png" alt="Tristan Tolley, founder of Aquanauts Swim Academy" loading="lazy">
+        <div class="story-img-badge"><strong>Est. 2023</strong><span>Founded on Vancouver Island</span></div>
+      </div>
+      <div class="story-body anim">
+        <div class="eyebrow">Our Story</div>
+        <h2 class="section-title">The Heart Behind <span class="accent">Aquanauts</span></h2>
+        <p class="story-lead">It started with a memory: riding on my dad's shoulders, gliding underwater like a space shuttle ride beneath the surface. Safe, free, and inspired.</p>
+        <p>In October 2023, my father passed away from stage 4 cancer. I left university to care for my younger siblings, and I made a choice: to turn my lifelong love of swimming into something meaningful, not just for me, but for families across Vancouver Island.</p>
+        <p>What began as a few private lessons has grown into a community program that has served hundreds of families. To me, Aquanauts is a legacy. It is a way to honor my dad, who first put me in the water.</p>
+        <div class="story-quote">Our mission is to empower the next generation of explorers and dreamers, building water confidence, safety, and skills in every child while fostering curiosity, resilience, and a spirit of adventure.</div>
+        <div class="story-sign">
+          <strong>Tristan Tolley</strong>
+          <span>Founder, Aquanauts Swim Academy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
      FINAL CTA
 ═══════════════════════════════════════════════════════ -->
 <section class="final-cta">
@@ -1400,6 +1443,7 @@ p { margin: 0 0 1em; }
       <div class="footer-col">
         <h4>Explore</h4>
         <ul>
+          <li><a href="#story">Our Story</a></li>
           <li><a href="#programs">Adaptive Aquatics</a></li>
           <li><a href="#events">Partnerships</a></li>
           <li><a href="#shop">Shop</a></li>
