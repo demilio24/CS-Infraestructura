@@ -67,6 +67,25 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-29 — Revision Round 3 (from the May 29 check-in call)
+Worked the call feedback one item at a time on `funnel/home.html` (Variation A), one commit per item, QA'd with Puppeteer (no overflow at 1280/390, zero console errors, all toggles work), then pushed. Plan file: `~/.claude/plans/bubbly-wibbling-hopper.md`.
+
+1. **Reorder (reverses R2):** hero -> Why Choose Us -> Programs -> Events -> Locations -> How It Works -> Reviews -> Team -> What Sets Us Apart -> FAQ -> Our Story -> Final CTA. Nav + mobile menu reordered to match.
+2. **Removed the embedded video ad (reverses R2):** restored the instructor+child photo in Why Choose Us; dropped the unused `.about-video` CSS. (Call decision: generic ad belongs on social, not the site.)
+3. **Hero CTA consolidated** to a single "Book Your First Lesson"; free-assessment line folded into the subtext.
+4. **Lifeguarding card** now uses a real lifeguard-on-duty photo from their `/lifeguarding-services` page (`funnel/assets/lifeguarding.jpg`).
+5. **Program dropdowns enriched** (Mobile coverage + "best for"; Adaptive sensory-aware approach + AFU pathway). Adaptive video in the dropdown still pending an asset.
+6. **Partnerships highlighted:** "See our community partners" dropdown below the Events grid, 13 partner pills from their `/partnerships` page.
+7. **Instructor "More information" dropdowns:** cards show name + role by default, full bio + locations reveal on toggle. Returning 5 bios enriched from `/our-instructors` (added Donna's surname, Underwood).
+8. **"What Sets Us Apart" effects:** white wave divider + soft blue gradient + faint rising teal bubbles (respects `prefers-reduced-motion`).
+9. **"Our Story" section** added before the Final CTA: Tristan's founder story + mission + signature, with his headshot. Footer "Our Story" link added.
+
+Open items / flags for Tristan:
+- **Bios for Anastasia, Sandy, Kesya** are short drafts (not on their site or Jane) — need his real text.
+- **Partner list** (item 6) reproduced from their site; confirm it is current before go-live (PROJECT.md still flags those as unverified).
+- **Repo-hosted images** now: `assets/lifeguarding.jpg`, `assets/victoria-dome-pool.jpg`, `assets/nanaimo-central-pool.jpg` — migrate into GHL media when the API is reachable so the client can manage them. GHL upload host is `services.leadconnectorhq.com` (the "hq").
+- **Deferred:** better location photos (Parksville still a kid), and a **Shop/Catalog page** for SplashAbout products (catalog only) wired to `#shop`.
+
 ### 2026-05-28 (evening, follow-up) — Central Nanaimo pool placeholder
 Scheduled 1-hour follow-up check caught Tristan's 19:42 email: "The IMG is the Central Nanaimo Pool ... use these as a placeholder for now." Set the Nanaimo (Central) location card to `IMG_8996` (the only image still unplaced from his attachments). It is an iPhone 12 portrait with EXIF orientation=6, so it was EXIF-normalized (Pillow `ImageOps.exif_transpose`), downscaled to 1000px wide, and committed to `funnel/assets/nanaimo-central-pool.jpg` (repo-hosted, same as Victoria — flag to migrate to GHL later). Commit `fc02ccdff`, pushed. Note: Tristan says better Nanaimo photos are coming; this is a placeholder.
 
