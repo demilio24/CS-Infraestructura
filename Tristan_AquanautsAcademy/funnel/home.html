@@ -295,6 +295,12 @@ p { margin: 0 0 1em; }
 .team-card-serves { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); padding-top: 12px; border-top: 1px dashed var(--line); margin-top: auto; }
 .team-card-serves span { color: var(--muted); font-weight: 500; }
 .team-card-link { display: inline-flex; align-items: center; gap: 4px; font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 700; color: var(--coral-2); margin-top: 6px; padding: 8px 0; }
+.team-card-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; background: none; border: none; padding: 6px 0; margin: 0 0 2px; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--blue); text-align: left; }
+.team-card-toggle .chev { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.35s; }
+.team-card.open .team-card-toggle .chev { transform: rotate(180deg); }
+.team-card-collapse { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease, opacity 0.3s ease; }
+.team-card.open .team-card-collapse { max-height: 380px; opacity: 1; }
+.team-card-collapse .team-card-bio { margin-top: 10px; }
 .team-cta-row { text-align: center; margin-top: 32px; }
 
 /* ═══════════════════════════════════════════════════════
@@ -1061,8 +1067,11 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Tristan Tolley</h3>
           <div class="team-card-role">Founder · Lifeguard · Instructor</div>
-          <p class="team-card-bio">10+ years on deck. Started coaching with the Special Olympics swim program. Specializes in infant survival rescue paired with learn-to-swim foundations.</p>
-          <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose Bay, Parksville, Shawnigan Lake</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">Founder of Aquanauts and a lifeguard and swim instructor with 10+ years teaching swimmers of all ages and abilities. He started with the Special Olympics swim program and specializes in adaptive aquatics, neurodiverse support, and infant survival rescue paired with strong learn-to-swim foundations.</p>
+            <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose Bay, Parksville, Shawnigan Lake</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Tristan →</a>
         </div>
       </div>
@@ -1071,8 +1080,11 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Anastasia Musaji</h3>
           <div class="team-card-role">Swim Instructor</div>
-          <p class="team-card-bio">Teaches private lessons at our Victoria indoor pool and travels Island-wide for mobile lessons and lifeguarding. Calm, encouraging, and great with nervous beginners.</p>
-          <div class="team-card-serves">Serves: <span>Victoria, Mobile (Island-wide)</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">Teaches private lessons at our Victoria indoor pool and travels Island-wide for mobile lessons and lifeguarding. Calm, encouraging, and great with nervous beginners.</p>
+            <div class="team-card-serves">Serves: <span>Victoria, Mobile (Island-wide)</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Anastasia →</a>
         </div>
       </div>
@@ -1081,8 +1093,11 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Catherine May</h3>
           <div class="team-card-role">Lifesaving Instructor Trainer</div>
-          <p class="team-card-bio">30+ years on deck. Has certified hundreds of instructors. Specializes in 1:1 instruction, including autistic and neurodiverse swimmers.</p>
-          <div class="team-card-serves">Serves: <span>Campbell River, Comox Valley</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">30+ years in aquatics, from swim club as a child to managing pools and certifying hundreds of instructors. A Lifesaving Society Instructor Trainer who specializes in 1:1 instruction, including autistic and neurodiverse swimmers.</p>
+            <div class="team-card-serves">Serves: <span>Campbell River, Comox Valley</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Catherine →</a>
         </div>
       </div>
@@ -1091,8 +1106,11 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Brandon Tolley</h3>
           <div class="team-card-role">Behaviour Interventionist</div>
-          <p class="team-card-bio">Bronze Medallion, Bronze Cross, Lifesaving Society Swim Instructor. Day-job behaviour interventionist at Coast Karma, so neurodiverse families are home turf.</p>
-          <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose, Parksville</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">Certified swim instructor with Bronze Medallion, Bronze Cross, and Lifesaving Society Swim Instructor training. A behaviour interventionist by day at Coast Karma, so neurodiverse families are home turf for him.</p>
+            <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose, Parksville</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Brandon →</a>
         </div>
       </div>
@@ -1101,8 +1119,11 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Sandy Dowell</h3>
           <div class="team-card-role">Swim Instructor</div>
-          <p class="team-card-bio">Patient, experienced instructor at our Victoria private indoor pool. Focused on building water confidence and steady progress at every age.</p>
-          <div class="team-card-serves">Serves: <span>Victoria</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">Patient, experienced instructor at our Victoria private indoor pool. Focused on building water confidence and steady progress at every age.</p>
+            <div class="team-card-serves">Serves: <span>Victoria</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Sandy →</a>
         </div>
       </div>
@@ -1111,18 +1132,24 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Drake McKay</h3>
           <div class="team-card-role">Masters Swimmer · Head Coach</div>
-          <p class="team-card-bio">10+ years on deck. Endurance-sport background, former head coach of multiple swim teams. Best fit for swimmers refining technique or eyeing competition.</p>
-          <div class="team-card-serves">Serves: <span>Victoria, Shawnigan Lake</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">10+ years on deck with an endurance-sport background and experience as head coach of multiple swim teams. Swimming has been a core part of his life, and he loves helping swimmers refine technique and grow in the water.</p>
+            <div class="team-card-serves">Serves: <span>Victoria, Shawnigan Lake</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Drake →</a>
         </div>
       </div>
       <div class="team-card anim" data-team-tags="nanaimo" style="transition-delay:.30s">
         <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/bc607c24-951b-4cee-babc-92f5865ed08a.jpeg" alt="Donna" loading="lazy"></div>
         <div class="team-card-body">
-          <h3>Donna</h3>
+          <h3>Donna Underwood</h3>
           <div class="team-card-role">Masters Coach</div>
-          <p class="team-card-bio">Competitive swimmer background. Warm, patient, adaptive. Meets every swimmer at their level.</p>
-          <div class="team-card-serves">Serves: <span>Nanaimo (Central)</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">A lifelong, competitive swimmer for whom the pool has always been a happy place. Warm, patient, and adaptive, she meets every swimmer right at their level.</p>
+            <div class="team-card-serves">Serves: <span>Nanaimo (Central)</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Donna →</a>
         </div>
       </div>
@@ -1131,8 +1158,11 @@ p { margin: 0 0 1em; }
         <div class="team-card-body">
           <h3>Kesya LeCoz</h3>
           <div class="team-card-role">Swim Instructor</div>
-          <p class="team-card-bio">Teaches at Pacific Shores Resort in Nanoose Bay and our Parksville indoor pool. Warm, patient, and focused on confident, steady progress.</p>
-          <div class="team-card-serves">Serves: <span>Nanoose Bay, Parksville</span></div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <p class="team-card-bio">Teaches at Pacific Shores Resort in Nanoose Bay and our Parksville indoor pool. Warm, patient, and focused on confident, steady progress.</p>
+            <div class="team-card-serves">Serves: <span>Nanoose Bay, Parksville</span></div>
+          </div>
           <a href="#hero-form" class="team-card-link">Book with Kesya →</a>
         </div>
       </div>
@@ -1425,6 +1455,12 @@ document.querySelectorAll('.program-card-toggle').forEach(btn => btn.addEventLis
 // Partners dropdown
 document.querySelectorAll('.partners-toggle').forEach(btn => btn.addEventListener('click', () => {
   const open = btn.closest('.partners').classList.toggle('open');
+  btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}));
+
+// Instructor "More information" dropdown
+document.querySelectorAll('.team-card-toggle').forEach(btn => btn.addEventListener('click', () => {
+  const open = btn.closest('.team-card').classList.toggle('open');
   btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 }));
 
