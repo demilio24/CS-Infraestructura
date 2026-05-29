@@ -2289,6 +2289,15 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
   background: linear-gradient(180deg, transparent 60%, rgba(10,16,40,0.7) 100%);
   pointer-events: none;
 }
+.instructor-photo.placeholder {
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, #1b2f6e 0%, #0a1028 100%);
+}
+.instructor-photo.placeholder span {
+  font-family: 'Oswald', sans-serif; font-size: 42px; font-weight: 700;
+  letter-spacing: 0.04em; color: #7fc0ed;
+  text-shadow: 0 2px 12px rgba(10,16,40,0.45);
+}
 .instructor-body { padding: 18px 20px 22px; }
 .instructor-body h4 {
   font-family: 'Oswald', sans-serif; font-weight: 700;
@@ -3362,14 +3371,21 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
       </div>
 
       <div class="instructor-card anim">
+        <div class="instructor-photo placeholder" aria-hidden="true"><span>JO</span></div>
+        <div class="instructor-body">
+          <h4>Sensei Jordan</h4>
+          <div class="instructor-role">Martial Arts Instructor</div>
+          <p class="instructor-bio">A 4th Degree Black Belt in Mixed Martial Arts, trained across Karate, Tae Kwon Do, Kickboxing, Muay Thai, Brazilian Jiu-Jitsu, MMA, and XMA/Hyper Martial Arts, plus weapons including Kamas, Bo Staff, Nunchaku, Sword and Kali Escrima. In the martial arts since age 9 and teaching professionally for over 8 years, he is honored to share his passion and help students reach their goals.</p>
+        </div>
+      </div>
+
+      <div class="instructor-card anim">
         <div class="instructor-photo">
           <img src="https://assets.cdn.filesafe.space/8IWtNFlmgJ8bif9DivHT/media/4ef507f5-bcfd-4aea-a54b-00d143174a2c.jpg" alt="Evenson, boxing instructor at Systema Floyd" loading="lazy" decoding="async" />
         </div>
         <div class="instructor-body">
           <h4>Evenson</h4>
-          <div class="instructor-role">Boxing Instructor</div>
-          <p class="instructor-bio">Bio coming soon.</p>
-        </div>
+          <div class="instructor-role">Boxing Instructor</div>        </div>
       </div>
 
       <div class="instructor-card anim">
@@ -3378,9 +3394,7 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         </div>
         <div class="instructor-body">
           <h4>Jessica</h4>
-          <div class="instructor-role">Spirit Dance Instructor</div>
-          <p class="instructor-bio">Bio coming soon.</p>
-        </div>
+          <div class="instructor-role">Spirit Dance Instructor</div>        </div>
       </div>
 
       <div class="instructor-card anim">
@@ -3389,8 +3403,15 @@ p { margin: 0 0 1em; color: var(--sf-ink-60); }
         </div>
         <div class="instructor-body">
           <h4>Carolina</h4>
+          <div class="instructor-role">Spirit Dance Instructor</div>        </div>
+      </div>
+
+      <div class="instructor-card anim">
+        <div class="instructor-photo placeholder" aria-hidden="true"><span>BI</span></div>
+        <div class="instructor-body">
+          <h4>Bianca Oliveira</h4>
           <div class="instructor-role">Spirit Dance Instructor</div>
-          <p class="instructor-bio">Bio coming soon.</p>
+          <p class="instructor-bio">Bianca brings 18 years of dance and cheer experience and is a proud member of the Florida Atlantic University dance team. Originally from Michigan, she has a strong passion for teaching and loves sharing her dedication to dance with others.</p>
         </div>
       </div>
     </div>
