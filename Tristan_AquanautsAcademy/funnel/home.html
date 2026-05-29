@@ -306,7 +306,19 @@ p { margin: 0 0 1em; }
 /* ═══════════════════════════════════════════════════════
    WHY / VALUES
 ═══════════════════════════════════════════════════════ */
-.why { padding: 68px 0; background: linear-gradient(180deg, var(--bg-soft) 0%, #fff 100%); }
+.why { padding: 84px 0 68px; background: linear-gradient(180deg, #e6f3fb 0%, #f1f8fd 55%, #ffffff 100%); position: relative; overflow: hidden; }
+.why .container { position: relative; z-index: 1; }
+.why-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.why-wave { position: absolute; top: -1px; left: 0; right: 0; height: 72px; line-height: 0; }
+.why-wave svg { width: 100%; height: 100%; display: block; }
+.why-bubble { position: absolute; bottom: -50px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(58,216,212,0.42) 45%, rgba(58,216,212,0.06) 72%); box-shadow: inset 0 0 10px rgba(255,255,255,0.7); animation: whyBubble linear infinite; opacity: 0; }
+@keyframes whyBubble {
+  0%   { transform: translateY(0) scale(0.7); opacity: 0; }
+  12%  { opacity: 0.7; }
+  85%  { opacity: 0.45; }
+  100% { transform: translateY(-620px) translateX(16px) scale(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .why-bubble { animation: none; display: none; } }
 .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .why-card { background: #fff; border-radius: 18px; padding: 28px 24px; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; }
 .why-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); border-color: rgba(58,216,212,0.5); }
@@ -1180,6 +1192,17 @@ p { margin: 0 0 1em; }
      WHY / VALUES
 ═══════════════════════════════════════════════════════ -->
 <section class="why" id="why">
+  <div class="why-deco" aria-hidden="true">
+    <div class="why-wave"><svg viewBox="0 0 1440 72" preserveAspectRatio="none"><path fill="#ffffff" d="M0,34 C240,74 480,6 720,26 C960,46 1200,74 1440,40 L1440,0 L0,0 Z"></path></svg></div>
+    <span class="why-bubble" style="left:7%;  width:16px; height:16px; animation-duration:15s; animation-delay:0s;"></span>
+    <span class="why-bubble" style="left:18%; width:9px;  height:9px;  animation-duration:12s; animation-delay:3s;"></span>
+    <span class="why-bubble" style="left:30%; width:22px; height:22px; animation-duration:19s; animation-delay:6s;"></span>
+    <span class="why-bubble" style="left:44%; width:11px; height:11px; animation-duration:14s; animation-delay:1.5s;"></span>
+    <span class="why-bubble" style="left:57%; width:14px; height:14px; animation-duration:17s; animation-delay:4s;"></span>
+    <span class="why-bubble" style="left:69%; width:8px;  height:8px;  animation-duration:13s; animation-delay:7s;"></span>
+    <span class="why-bubble" style="left:81%; width:18px; height:18px; animation-duration:20s; animation-delay:2.5s;"></span>
+    <span class="why-bubble" style="left:92%; width:12px; height:12px; animation-duration:16s; animation-delay:5s;"></span>
+  </div>
   <div class="container">
     <div class="section-head anim">
       <div class="eyebrow">What Sets Us Apart</div>
