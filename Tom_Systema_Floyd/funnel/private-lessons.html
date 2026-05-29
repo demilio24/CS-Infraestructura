@@ -259,11 +259,13 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
 .instructor-card.is-premium{border-color:var(--sf-blue-500);background:linear-gradient(180deg,#fff 0%,var(--sf-blue-50) 100%)}
 .instructor-card.is-premium::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--grad-blue);z-index:2}
 .instructor-photo{position:relative;aspect-ratio:1/1;background:var(--grad-blue-deep);overflow:hidden}
-.instructor-photo img{width:100%;height:100%;object-fit:cover}
+.instructor-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .6s var(--ease-out)}
+.instructor-card:hover .instructor-photo img{transform:scale(1.05)}
+.instructor-photo:not(.placeholder)::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(10,16,40,.55) 100%);pointer-events:none}
 .instructor-photo.placeholder{display:grid;place-items:center;background:linear-gradient(135deg,var(--sf-blue-700) 0%,var(--sf-blue-900) 100%);color:#fff;font-family:'Oswald',sans-serif;font-size:42px;font-weight:700;letter-spacing:.04em;position:relative;overflow:hidden}
 .instructor-photo.placeholder::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(74,163,224,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(74,163,224,.18) 1px,transparent 1px);background-size:24px 24px;-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);pointer-events:none}
 .instructor-photo.placeholder span{position:relative;z-index:2;text-shadow:0 2px 12px rgba(10,16,40,.45)}
-.instructor-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.instructor-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
 .instructor-name{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--sf-ink);margin:0;text-transform:uppercase;letter-spacing:.02em;line-height:1.15}
 .instructor-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
 .instructor-tag{display:inline-block;padding:3px 10px;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border-radius:100px;background:var(--sf-blue-100);color:var(--sf-blue-700)}
@@ -542,54 +544,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <h2>Reserve Your Private Session</h2>
       </div>
 
-      <!--
-        Pre-form picker: surfaces Location (FL / GA / VA) and Service categories
-        above the GHL iframe so visitors see what's on offer before they fill the form.
-        The clicked location is appended to the iframe src as ?location=Florida so GHL can
-        prefill a matching custom field.
-        TODO: confirm with Tom, inside the GHL form builder
-        (form id Cpk2gmz9dcumDiz2KFun), add a "Location" dropdown
-        (options: Florida / Georgia / Virginia) and a "Service / Discipline"
-        multi-select (options: Martial Arts, Fitness / Weight Lifting,
-        Mobility / Stretch / Massage, Dance, Boxing, Systema, Combination).
-      -->
-      <div class="lesson-options">
-        <div class="lesson-options-row">
-          <span class="lesson-options-label">Choose your location</span>
-          <div class="location-picker" id="locationPicker" role="radiogroup" aria-label="Lesson location">
-            <label class="location-option is-active" data-location="Florida">
-              <input type="radio" name="lesson-location" value="Florida" checked />
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Florida
-              <span class="sub">West Palm Beach</span>
-            </label>
-            <label class="location-option" data-location="Georgia">
-              <input type="radio" name="lesson-location" value="Georgia" />
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Georgia
-              <span class="sub">With Sean Nasiff</span>
-            </label>
-            <label class="location-option" data-location="Virginia">
-              <input type="radio" name="lesson-location" value="Virginia" />
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Virginia
-              <span class="sub">With Ryan</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="lesson-options-row">
-          <span class="lesson-options-label">What you can train</span>
-          <div class="service-chips" aria-label="Available service categories">
-            <span class="service-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Martial Arts</span>
-            <span class="service-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 4v16M18 4v16M3 8h6M15 8h6M3 16h6M15 16h6"/></svg>Fitness / Weight Lifting</span>
-            <span class="service-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M4 12c4 0 4-4 8-4s4 4 8 4M4 18c4 0 4-4 8-4s4 4 8 4"/></svg>Mobility / Stretch / Massage</span>
-            <span class="service-chip dance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M12 7v6M12 13l-4 7M12 13l4 7M8 11l8 0"/></svg>Dance</span>
-            <span class="service-chip boxing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 7v10a3 3 0 003 3h6a3 3 0 003-3V9a2 2 0 00-2-2h-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v2H8a2 2 0 00-2 2z"/></svg>Boxing</span>
-          </div>
-        </div>
-      </div>
-
       <iframe
         src="https://link.nilsdigital.com/widget/form/Cpk2gmz9dcumDiz2KFun?location=Florida"
         id="inline-Cpk2gmz9dcumDiz2KFun"
@@ -682,6 +636,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">Alex</h4>
+            <div class="instructor-tags"><span class="instructor-tag">Martial Arts</span></div>
             <p class="instructor-bio">A decade of martial arts experience starting at age 10 and 10+ years of hands-on teaching. Certified Systema instructor who specializes in working with children with special needs.</p>
           </div>
         </div>
@@ -693,6 +648,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">George</h4>
+            <div class="instructor-tags"><span class="instructor-tag">Martial Arts</span></div>
             <p class="instructor-bio">George is a seasoned martial arts expert and dedicated US Army veteran whose career spans the study of combat disciplines and protecting national interests. Combining military training with the technical precision of traditional and modern martial arts, George embodies the spirit of a warrior, focusing on hand-to-hand combat effectiveness, discipline, and mental resilience.</p>
           </div>
         </div>
@@ -704,6 +660,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">James</h4>
+            <div class="instructor-tags"><span class="instructor-tag">Martial Arts</span></div>
             <p class="instructor-bio">Trained in Kempo Karate, Jujitsu, and now Systema. Four years under Sensei Cindy Graham, then one-on-one with Tom Floyd. Attention to detail paired with a friendly demeanor.</p>
           </div>
         </div>
@@ -713,6 +670,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           <div class="instructor-photo placeholder" aria-hidden="true"><span>JO</span></div>
           <div class="instructor-body">
             <h4 class="instructor-name">Sensei Jordan</h4>
+            <div class="instructor-tags"><span class="instructor-tag">Martial Arts</span></div>
             <p class="instructor-bio">A 4th Degree Black Belt in Mixed Martial Arts, Sensei Jordan trains across Karate, Tae Kwon Do, Kickboxing, Muay Thai, Brazilian Jiu-Jitsu, MMA, and XMA/Hyper Martial Arts, plus weapons including Kamas, Bo Staff, Nunchaku, Sword and Kali Escrima. He has been in the martial arts since he was 9 years old and teaching professionally for over 8 years. Martial arts has influenced every aspect of his life, and he is honored to share his passion and help students reach their goals.</p>
           </div>
         </div>
@@ -724,7 +682,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">Evenson</h4>
-            <div class="instructor-tags"><span class="instructor-tag boxing">Boxing only</span></div>          </div>
+            <div class="instructor-tags"><span class="instructor-tag boxing">Boxing only</span></div>
+          </div>
         </div>
 
         <!-- Jessica, Dance -->
@@ -734,7 +693,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">Jessica</h4>
-            <div class="instructor-tags"><span class="instructor-tag dance">Dance</span></div>          </div>
+            <div class="instructor-tags"><span class="instructor-tag dance">Dance</span></div>
+          </div>
         </div>
 
         <!-- Bianca, Dance, placeholder photo -->
@@ -754,7 +714,8 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">Carolina</h4>
-            <div class="instructor-tags"><span class="instructor-tag dance">Dance</span></div>          </div>
+            <div class="instructor-tags"><span class="instructor-tag dance">Dance</span></div>
+          </div>
         </div>
 
       </div>
@@ -776,7 +737,9 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
         <div class="instructor-card anim">
           <div class="instructor-photo placeholder" aria-hidden="true"><span>RY</span></div>
           <div class="instructor-body">
-            <h4 class="instructor-name">Ryan</h4>          </div>
+            <h4 class="instructor-name">Ryan</h4>
+            <div class="instructor-tags"><span class="instructor-tag">Martial Arts</span></div>
+          </div>
         </div>
 
       </div>
@@ -801,6 +764,7 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
           </div>
           <div class="instructor-body">
             <h4 class="instructor-name">Sean Nasiff</h4>
+            <div class="instructor-tags"><span class="instructor-tag">Lead · Georgia</span></div>
             <p class="instructor-bio">Lead Instructor for Systema Floyd Georgia. Studying under Tom Floyd since 2008, teaching since 2009. Former MMA competitor with 7+ years in the mental health field.</p>
           </div>
         </div>
@@ -1109,26 +1073,6 @@ p{margin:0 0 1em;color:var(--sf-ink-60)}
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.anim').forEach(el => io.observe(el));
   document.getElementById('yr').textContent = new Date().getFullYear();
-  /* LOCATION PICKER, updates the GHL iframe src so GHL can prefill the Location field */
-  (function() {
-    const picker = document.getElementById('locationPicker');
-    const iframe = document.getElementById('inline-Cpk2gmz9dcumDiz2KFun');
-    if (!picker || !iframe) return;
-    const baseSrc = iframe.getAttribute('data-form-base-src') || iframe.src.split('?')[0];
-    picker.addEventListener('change', (e) => {
-      const input = e.target.closest('input[name="lesson-location"]');
-      if (!input) return;
-      picker.querySelectorAll('.location-option').forEach(o => o.classList.toggle('is-active', o.dataset.location === input.value));
-      iframe.src = baseSrc + '?location=' + encodeURIComponent(input.value);
-    });
-    /* Click-anywhere fallback for the label cards on touch devices */
-    picker.querySelectorAll('.location-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        const radio = opt.querySelector('input[type="radio"]');
-        if (radio && !radio.checked) { radio.checked = true; radio.dispatchEvent(new Event('change', { bubbles: true })); }
-      });
-    });
-  })();
 })();
 </script>
 </body>
