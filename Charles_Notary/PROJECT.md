@@ -4,8 +4,8 @@
 Veteran-owned mobile notary service operating across Miami-Dade and Broward County since 2012 (real estate, power of attorney, wedding officiating, etc.). This folder holds the main marketing site plus the post-conversion thank-you page.
 
 ## Architecture
-- `charles.html` : main marketing / sales page (lives at mobilenotarymiamiflorida.com), includes Google Ads gtag `AW-16857632055` and the GHL form embed script
-- `thankyou.html` : post-form thank-you page; fires the Google Ads conversion event on load and is set to `noindex, nofollow`
+- `charles.html` : main marketing / sales page (lives at mobilenotarymiamiflorida.com), includes Google Ads gtag `AW-16857632055`, Microsoft UET tag `247022076` (Bing Ads), and the GHL form embed script
+- `thankyou.html` : post-form thank-you page; fires the Google Ads conversion event on load, carries the Microsoft UET tag `247022076`, and is set to `noindex, nofollow`
 - Tech: HTML + embedded CSS/JS, GitHub Pages, GHL iframe embed (standard pattern across all client funnels in this repo)
 
 ## Conventions
@@ -19,6 +19,9 @@ Veteran-owned mobile notary service operating across Miami-Dade and Broward Coun
 (none clear)
 
 ## Changelog
+## 2026-05-30 Microsoft UET (Bing Ads) tag installed on every page
+Charles emailed the Microsoft Advertising UET snippet (ti: `247022076`, `enableAutoSpaTracking: true`) and asked for it on every page of the site. Added a single `<script>` block to the `<head>` of both `charles.html` and `thankyou.html`, placed directly below the existing Google Ads gtag so both ad-network pixels live together (clear `<!-- Microsoft UET tag (Bing Ads) -->` comment for findability). Pushed to main; GitHub Pages auto-deploys to mobilenotarymiamiflorida.com. Charles can now build Bing Ads remarketing audiences and conversion goals against the live site.
+
 ## 2026-05-28 Physical address removed from legal modal (Terms, Privacy, Contact)
 Charles emailed asking to remove his physical address (18495 South Dixie Hwy. #236, Miami, Florida 33157) from the Terms and Contact pages, saying email + phone suffice for contact info. Removed all four street-address references in the legal modal: Terms tab "registered office is…" line, Privacy tab "please write to…" and "the above address" lines (repointed both to support@mobilenotarymiamiflorida.com), and the Contact tab "Address:" line. Left the Cutler Bay / Palmetto Bay service-area ZIP `33157` entries alone (those are coverage areas, not his address). Phone `305-613-3300` and email remain as the only contact details.
 
