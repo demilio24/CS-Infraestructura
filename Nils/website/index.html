@@ -108,19 +108,115 @@
     </div>
   </section>
 
-  <!-- THIN PROOF BAR -->
-  <section class="thin-proof-bar anim">
+  <!-- ABOUT NILS — 3 clickable receipt cards, modal opens with more detail -->
+  <section class="about-nils anim">
     <div class="container">
-      <div class="proof-items">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span>Rated Excellent on Trustpilot</span>
-        <span class="sep">&middot;</span>
-        <span><strong>300+</strong> Projects</span>
-        <span class="sep">&middot;</span>
-        <span><strong>$2.4M+</strong> Ad Spend Managed</span>
+      <span class="eyebrow">About Nils</span>
+      <h2>300+ projects. $2.4M+ in ads. 50+ five-star reviews.</h2>
+      <div class="nils-cards">
+        <button class="nils-card" data-modal="trust" type="button">
+          <div class="img-wrap trustpilot-comp">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="rating-label">Excellent</span>
+            <span class="rating-source">on Trustpilot</span>
+          </div>
+          <div class="body">
+            <h3>Trusted by the operators we build for.</h3>
+            <p>50+ verified five-star reviews from local service business owners.</p>
+            <span class="more">Read them all &rarr;</span>
+          </div>
+        </button>
+        <button class="nils-card" data-modal="projects" type="button">
+          <div class="img-wrap">
+            <img src="https://demilio24.github.io/Websites/references/4.png" alt="One of the websites we've built">
+          </div>
+          <div class="body">
+            <h3>300+ projects shipped since 2019.</h3>
+            <p>Websites, ad campaigns, and automations built for $1M+ local service businesses.</p>
+            <span class="more">See the work &rarr;</span>
+          </div>
+        </button>
+        <button class="nils-card" data-modal="adspend" type="button">
+          <div class="img-wrap">
+            <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg" alt="Google Ads spend dashboard">
+          </div>
+          <div class="body">
+            <h3>$2.4M+ in active ad spend.</h3>
+            <p>Managed daily across 23 Google Ads accounts, running at 4.7x average ROAS.</p>
+            <span class="more">See the breakdown &rarr;</span>
+          </div>
+        </button>
       </div>
     </div>
   </section>
+
+  <!-- MODALS — one per receipt card -->
+  <div class="nils-modal" id="modal-trust" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <span class="modal-eyebrow">Trustpilot</span>
+      <h3>What our clients say.</h3>
+      <p class="subhead">Verified five-star reviews from local service operators we've worked with.</p>
+      <div class="review-grid">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d573a4e42b93178beb8f8.jpg" alt="Trustpilot review from Cesar" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69779987eb392bb68b8a8d79.jpg" alt="Trustpilot review from David" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69779a4fd4fb905980103293.jpg" alt="Trustpilot review from Gabo" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d662eb392bf8196989f8.jpg" alt="Trustpilot review from Hamani" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d5760439b6be373540aef.jpg" alt="Trustpilot review from Nacho" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c409e3421e2429444d13a9.png" alt="Trustpilot review from Reed" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c39e29dcf50eef663181.jpg" alt="Trustpilot review from Simon" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c37a29dcf5e749662cd0.jpg" alt="Trustpilot review from Simon (second)" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768425d4fb905497e26c54.jpg" alt="Trustpilot review from Joe" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <div class="nils-modal" id="modal-projects" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <span class="modal-eyebrow">Projects</span>
+      <h3>A few of the sites we've built.</h3>
+      <p class="subhead">Local service businesses, $1M to $10M revenue, across the US.</p>
+      <div class="project-grid">
+        <img src="https://demilio24.github.io/Websites/references/1.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/2.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/3.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/4.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/5.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/6.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/7.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/8.png" alt="Client website" loading="lazy">
+        <img src="https://demilio24.github.io/Websites/references/9.png" alt="Client website" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <div class="nils-modal" id="modal-adspend" aria-hidden="true" role="dialog">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <span class="modal-eyebrow">Ad spend</span>
+      <h3>$2.4M+ in active Google Ads.</h3>
+      <p class="subhead">Managed daily across 23 client accounts. Real spend, real performance, pulled from the dashboard.</p>
+      <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg" alt="Google Ads spend dashboard showing $2.4M+ managed" class="dashboard-shot">
+      <div class="roas-stats">
+        <div class="stat-block">
+          <span class="num">$2.4M+</span>
+          <span class="label">Total Managed</span>
+        </div>
+        <div class="stat-block">
+          <span class="num">4.7x</span>
+          <span class="label">Avg ROAS</span>
+        </div>
+        <div class="stat-block">
+          <span class="num">23</span>
+          <span class="label">Active Accounts</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- MAILTO LINE -->
   <div class="contact-mailto container">
@@ -154,6 +250,35 @@
     </div>
     <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   </footer>
+
+  <!-- About-Nils receipt-card modal handler -->
+  <script>
+    (function() {
+      function openModal(id) {
+        var m = document.getElementById('modal-' + id);
+        if (!m) return;
+        m.classList.add('open');
+        m.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeAll() {
+        document.querySelectorAll('.nils-modal.open').forEach(function(m) {
+          m.classList.remove('open');
+          m.setAttribute('aria-hidden', 'true');
+        });
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.nils-card[data-modal]').forEach(function(card) {
+        card.addEventListener('click', function() { openModal(card.dataset.modal); });
+      });
+      document.querySelectorAll('.nils-modal [data-close]').forEach(function(el) {
+        el.addEventListener('click', closeAll);
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeAll();
+      });
+    })();
+  </script>
 
 </body>
 </html>

@@ -97,6 +97,20 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Replace thin proof bar with "About Nils" receipt cards (clickable, modal-based)
+Promoted the thin proof bar between the picker and the mailto into a real section. Three clickable cards now sit under an "About Nils" eyebrow + stat-led headline ("300+ projects. $2.4M+ in ads. 50+ five-star reviews."). Each card has its own lightbox modal with deeper content:
+- **Trust card** — custom Trustpilot composition (green gradient + 5 stars + "Excellent" in Instrument Serif italic + "on Trustpilot" caps label). Modal opens to the 9-image Trustpilot review wall pulled from the GHL media library.
+- **Projects card** — site screenshot from `/references/4.png`. Modal opens to a 3x3 grid of `/references/1.png` through `9.png`.
+- **Ad-spend card** — `69c0a8875596d15ca607f536.jpg` ad-spend dashboard from GHL media. Modal opens to the same image at full size + a ROAS stats band ($2.4M+ / 4.7x / 23 accounts).
+
+Modal mechanics live in an inline `<script>` at the bottom of `index.html` (open by `[data-modal]` click, close by backdrop / close button / Escape key, with `body { overflow: hidden }` while open). Animations: backdrop fades in, panel scales/translates from 0.96/+12px. All structure uses existing tokens (--space-*, --radius-*, --marketing, --font-serif italic, etc.).
+
+CSS changes:
+- Removed `.thin-proof-bar` from `home.css` (~28 lines).
+- Added `.about-nils` section block, `.nils-card` (with `.trustpilot-comp` variant for the custom green card), `.nils-modal` (with `.review-grid`, `.project-grid`, `.dashboard-shot`, `.roas-stats`), full mobile breakpoint at 720px.
+
+Image fit fix: bumped aspect ratio from 16/9 to 4/3 so the dashboard image breathes, and replaced the original Trustpilot review screenshot (portrait, cropped badly) with the custom composition.
+
 ### 2026-05-31 — Marketing route-card copy + prominent CTA
 Tightened the blue (Marketing) `.route-half` on home:
 - Body copy from "We build sites that convert at 10-20%, plus the ads that fill them." → "Our sites get 3-4x more leads, and we run extremely profitable Google Ads." (matches the metric language in `funnel/vsl.html`).

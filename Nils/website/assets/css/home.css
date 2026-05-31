@@ -690,34 +690,267 @@
   .home-behind .photo-grid { grid-template-columns: 1fr; }
 }
 
-/* ─── THIN PROOF BAR (sits between picker and closing reminder) ─── */
-.thin-proof-bar {
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--ink-line-soft);
-  border-bottom: 1px solid var(--ink-line-soft);
-  background: var(--bg);
+/* ─── ABOUT NILS section — 3 clickable receipt cards ─── */
+.about-nils { padding-top: var(--space-9); padding-bottom: var(--space-9); }
+.about-nils .eyebrow {
+  display: block; text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: var(--space-4);
+  font-weight: var(--fw-display-bold);
 }
-.thin-proof-bar .proof-items {
+.about-nils h2 {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--fw-serif-regular);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  max-width: 900px;
+  margin: 0 auto var(--space-7);
+  color: var(--ink);
+}
+
+.nils-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+.nils-card {
+  background: var(--bg);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--dur-base), box-shadow var(--dur-base), border-color var(--dur-base);
+  font: inherit; color: inherit;
+  padding: 0;
+  width: 100%;
+}
+.nils-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--ink-line);
+}
+.nils-card .img-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #fbfaf7;
+  border-bottom: 1px solid var(--ink-line-soft);
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: var(--space-4);
-  flex-wrap: wrap;
+  justify-content: center;
+}
+.nils-card .img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--dur-base);
+}
+.nils-card:hover .img-wrap img { transform: scale(1.04); }
+.nils-card .body { padding: var(--space-5); display: flex; flex-direction: column; flex: 1; }
+.nils-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-display-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-2);
+  color: var(--ink);
+}
+.nils-card p {
   font-family: var(--font-body);
   font-size: var(--fs-meta);
   color: var(--ink-soft);
+  line-height: var(--lh-relaxed);
+  margin: 0 0 var(--space-4);
+  flex: 1;
+}
+.nils-card .more {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-display-bold);
+  color: var(--marketing);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  align-self: flex-start;
+  transition: color var(--dur-fast);
+}
+.nils-card:hover .more { color: var(--marketing-dark); }
+
+/* Card 1 — custom Trustpilot composition (no screenshot, designed inline) */
+.nils-card .trustpilot-comp {
+  background: linear-gradient(135deg, #00b67a 0%, #008559 100%);
+  flex-direction: column;
+  color: white;
   text-align: center;
+  padding: var(--space-5);
+  gap: var(--space-2);
 }
-.thin-proof-bar .proof-items strong {
+.nils-card .trustpilot-comp .stars {
+  font-size: 40px;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.nils-card .trustpilot-comp .rating-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 36px;
+  font-weight: var(--fw-serif-regular);
+  line-height: 1;
+}
+.nils-card .trustpilot-comp .rating-source {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: var(--fw-display-bold);
+  opacity: 0.92;
+}
+
+/* ─── About-Nils MODAL ─── */
+.nils-modal {
+  position: fixed; inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center; justify-content: center;
+  padding: var(--space-5);
+}
+.nils-modal.open { display: flex; }
+.nils-modal .modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(4px);
+  animation: nm-fade var(--dur-base) var(--ease-out);
+}
+.nils-modal .modal-panel {
+  position: relative;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  max-width: 980px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--space-8) var(--space-7) var(--space-7);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+  animation: nm-scale var(--dur-base) var(--ease-out);
+}
+@keyframes nm-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nm-scale {
+  from { opacity: 0; transform: scale(0.96) translateY(12px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.nils-modal .modal-close {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  background: var(--ink-line-soft); border: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 22px; line-height: 1;
   color: var(--ink);
-  font-weight: var(--fw-body-bold);
+  cursor: pointer;
+  transition: background var(--dur-fast);
+  display: inline-flex; align-items: center; justify-content: center;
 }
-.thin-proof-bar .proof-items .stars {
-  color: var(--automation);
-  letter-spacing: 0.05em;
-  font-weight: var(--fw-body-bold);
-}
-.thin-proof-bar .proof-items .sep {
+.nils-modal .modal-close:hover { background: var(--ink-line); }
+.nils-modal .modal-eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--ink-mute);
+  font-weight: var(--fw-display-bold);
+  margin-bottom: var(--space-3);
+}
+.nils-modal h3 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-serif-regular);
+  line-height: var(--lh-tight);
+  margin: 0 0 var(--space-3);
+  color: var(--ink);
+}
+.nils-modal .subhead {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-6);
+  max-width: 720px;
+}
+
+/* Trustpilot modal: 9-image review grid */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+.review-grid img {
+  width: 100%; height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06), 0 0 0 1px var(--ink-line-soft);
+}
+
+/* Projects modal: 9-image website grid */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+.project-grid img {
+  width: 100%; height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06), 0 0 0 1px var(--ink-line-soft);
+}
+
+/* Ad-spend modal: big dashboard image + ROAS stats band */
+.dashboard-shot {
+  width: 100%; height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06), 0 0 0 1px var(--ink-line-soft);
+  margin-bottom: var(--space-5);
+}
+.roas-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: var(--space-5) var(--space-6);
+  background: #fbfaf7;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ink-line-soft);
+}
+.roas-stats .stat-block { text-align: center; }
+.roas-stats .stat-block .num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: var(--fw-display-bold);
+  color: var(--marketing);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.roas-stats .stat-block .label {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: var(--fw-display-bold);
+}
+
+/* Mobile */
+@media (max-width: 720px) {
+  .about-nils { padding-top: var(--space-7); padding-bottom: var(--space-7); }
+  .nils-cards { grid-template-columns: 1fr; gap: var(--space-4); }
+  .nils-modal { padding: var(--space-3); }
+  .nils-modal .modal-panel { padding: var(--space-6) var(--space-4) var(--space-4); }
+  .review-grid, .project-grid { grid-template-columns: 1fr 1fr; }
+  .roas-stats { flex-wrap: wrap; gap: var(--space-5); padding: var(--space-4); }
+  .roas-stats .stat-block .num { font-size: 26px; }
 }
 
