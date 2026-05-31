@@ -97,6 +97,12 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Marketing route-card copy + prominent CTA
+Tightened the blue (Marketing) `.route-half` on home:
+- Body copy from "We build sites that convert at 10-20%, plus the ads that fill them." → "Our sites get 3-4x more leads, and we run extremely profitable Google Ads." (matches the metric language in `funnel/vsl.html`).
+- CTA from "See how →" → "Get a free audit →".
+- Added a new `.btn.prominent` modifier in `components.css` (16px font, `--space-4`/`--space-6` padding, 6px hard-offset shadow, scaled press on hover). Applied only to the marketing card's button — intentionally creates visual hierarchy where marketing is the primary CTA and automation is the secondary path. Reusable modifier in case the same prominence is wanted elsewhere.
+
 ### 2026-05-31 — Drop closing route-halves echo on home (redundant on short page)
 On a same-day post-deploy look, the closing `.home-route-halves.closing` block — added as a "Still deciding? Pick your path." final-reminder per the brainstorm decision — sat too close to the original `#offers` picker now that proof / about / behind-the-scenes / blog teaser / contact are all gone from the home. The same two cards twice within one short scroll read as visual repetition, not reinforcement. Removed the closing section from `index.html` and the `.home-route-halves.closing` + `.closing-eyebrow` rules from `home.css`. Home page is now hero → picker → thin proof bar → mailto → footer (3 real content sections).
 

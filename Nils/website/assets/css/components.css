@@ -56,6 +56,19 @@
   box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
 }
 
+/* Prominent CTA modifier — bigger type + padding, deeper hard-offset shadow.
+   Used on the marketing route-half "Get a free audit" button to make it
+   the primary visual call-to-action on the home page. */
+.route-half .btn.prominent {
+  font-size: 16px;
+  padding: var(--space-4) var(--space-6);
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.28);
+}
+.route-half:hover .btn.prominent {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.28);
+}
+
 @media (max-width: 720px) {
   .route-halves { grid-template-columns: 1fr; }
   .route-half { min-height: 220px; padding: var(--space-6) var(--space-4); }
