@@ -97,6 +97,14 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Enrich About Nils modal contents (video testimonials, full project grid, campaign cards)
+Per user request to add "more information" inside the receipt-card modals (with reviews as the lead example):
+- **Trust modal** — added 2 featured video testimonials at the top (Wendy Cox + Jessica Schlenz, pulled from `funnel/vsl.html` / original index proof-cases section) with quote + result + name metadata, plus a `.modal-divider` separator before the "More reviews" Trustpilot wall. Wall expanded from 9 to 10 images (added Keila Mulero review). New CSS: `.video-features` 2-column grid, `.video-case` containers, `.case-meta` row, `.modal-divider`, `.section-subhead`.
+- **Projects modal** — grid expanded from 9 to all 18 references (`/references/1.png` through `18.png`). Subhead updated to mention "300+ shipped since 2019."
+- **Ad-spend modal** — added a "Featured campaigns" mini-section under the ROAS band: 3 campaign mini-cards (3% → 20.83% conversion, 4.7x avg ROAS, 5.0 partnership rating) with deep-blue result text + uppercase label + 1-line context. New CSS: `.campaign-grid` 3-col, `.campaign-card`.
+
+Mobile breakpoint at 720px updated: video-features and campaign-grid both collapse to single column, section-subhead shrinks.
+
 ### 2026-05-31 — Replace thin proof bar with "About Nils" receipt cards (clickable, modal-based)
 Promoted the thin proof bar between the picker and the mailto into a real section. Three clickable cards now sit under an "About Nils" eyebrow + stat-led headline ("300+ projects. $2.4M+ in ads. 50+ five-star reviews."). Each card has its own lightbox modal with deeper content:
 - **Trust card** — custom Trustpilot composition (green gradient + 5 stars + "Excellent" in Instrument Serif italic + "on Trustpilot" caps label). Modal opens to the 9-image Trustpilot review wall pulled from the GHL media library.
