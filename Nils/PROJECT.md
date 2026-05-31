@@ -82,6 +82,8 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 - `onboarding-completed-*.html` = post-form thank-you pages, one per onboarding flow
 
 ## Open threads
+- **Rebuild `about.html` / `proof.html` / `contact.html` as real subpages (2026-05-31).** Today's pure-router pivot removed `#about` / `#proof` / `#contact` from the home page, but `about.html` / `proof.html` / `contact.html` are still meta-refresh redirects to those (now-nonexistent) anchors. Functionally they land at the top of `index.html`, so the nav links work but waste a redirect hop and the SEO story is broken (subpages with no unique content). The build material already exists in `Nils/website/_drafts/`: pull `about-v2.html` content into `about.html`, the proof recognition + cases + reviews wall into `proof.html`, the contact hero into `contact.html`. Once those exist, nav will route cleanly to them and the redirects can go.
+- **Architecture-pivot whiplash note (2026-05-31).** The 2026-05-25 "single-page with anchors" architecture has been reversed by today's pure-router pivot. If a future-you reading the 2026-05-25 changelog gets confused, the resolution is: anchors are gone, home is now the router, sections live (or will live) as real subpages. The 2026-05-25 entry below is preserved verbatim for history but does not describe the live site as of 2026-05-31.
 - **14-Day Audit offer handoff (2026-05-25):** Full handoff document for the new $3,000 audit offer + pitch deck + sample blueprint deliverable is at [`docs/superpowers/handoffs/2026-05-25-audit-offer-handoff.md`](docs/superpowers/handoffs/2026-05-25-audit-offer-handoff.md). Read it first if picking up audit-offer sales work. Two named follow-ups still open: (1) the §2.1 detail table in the sample blueprint still shows per-campus numbers vs the network-wide stats now in the exec summary (70+ locations / 7,000+ students); Emilio to pick "scale §2.1 up" vs "frame §2.1 as the one campus we audited." (2) Refund/guarantee language from the automation funnel is not currently on the audit deck; reconsider if conversion lags.
 - The 2026-04-24 memory file references the automation funnel as `NILS-FUNNELS/Automation/automation-vsl-direct-bg-matrix.html`; current canonical location is `Nils/funnel/automation-vsl-funnel-direct.html`. Memory note is stale, file content matches the green-theme + matrix-hero direction described.
 - `funnel/screenshots/` accumulates dozens of build-iteration PNGs, candidate for `.gitignore` cleanup.
@@ -94,6 +96,22 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 - Variation history is preserved in `Nils/website/_drafts/` (landing-v1a / v1b / v2 / v3 / home-hero / home-route-halves / proof-* / about-* / contact-page / blog-index / about-faq-variations / ghl-media-gallery) for reference; none are reachable from the live site.
 
 ## Changelog
+
+### 2026-05-31 — Home page pivoted to pure-router model (reverses 2026-05-25 single-page-with-anchors decision)
+Rebuilt [`Nils/website/index.html`](Nils/website/index.html) into an aggressive pure-router landing page. The home no longer contains the `#proof` / `#about` / behind-the-scenes / blog-teaser / `#contact` sections — only hero (with picker) → thin proof bar → closing route halves → mailto line → footer. Page weight dropped from ~9 sections to 4. Brainstormed via `superpowers:brainstorming` with the visual companion; user decisions locked through 4 screens (hero layout C, no above-fold trust strip, aggressive below-fold C, offers-first nav B).
+
+**Changes:**
+- **index.html** — sections deleted: `#proof` (recognition row, 2-column cases, reviews wall), `#about` (portrait hero, timeline, magazine FAQ), behind-the-scenes 2-photo grid, blog teaser V4, `#contact` hero block + scroll-up explainer. Sections kept/added: hero (existing editorial copy unchanged), `#offers` route-halves picker, new `.thin-proof-bar` (★★★★★ Trustpilot · 300+ Projects · $2.4M+ Ad Spend), new `.home-route-halves.closing` (with "Still deciding? Pick your path." eyebrow), existing `.contact-mailto` line, footer. The proof-cases filter-pill JS handler at the bottom of the file is gone too (no proof cases to filter).
+- **Offers-first nav** — both header and footer nav rewritten. Header order: Marketing (blue) · Automation (green) · Proof · About · Blog · Contact (black pill button). All links go to real URLs (the funnel files for Marketing/Automation, the subpage HTMLs for Proof/About/Contact). The two color-coded offer links are the new primary path.
+- **nav.css** — added `.nav-links a.nav-marketing` / `.nav-automation` / `.nav-cta` rules using `--marketing` / `--automation` / `--ink` tokens. Color-coded weight bumped to `--fw-body-bold`. Contact CTA uses `--radius-pill` + `--ink` background.
+- **home.css** — added `.thin-proof-bar` (centered horizontal strip with top + bottom hairline borders) and `.home-route-halves.closing` (extra top padding + "Still deciding?" eyebrow).
+
+**What did NOT change:**
+- `about.html`, `proof.html`, `contact.html` are still meta-refresh redirects to `index.html#about` etc. The anchors no longer exist on home, so they functionally land at the top of the router page. This is the interim state — see Open threads.
+- Token system, fonts, B3 brutalist button style, copy rules, animation layer, Pagefind, blog publishing, SEO config — all untouched.
+- The two VSL targets (`../funnel/vsl.html`, `../funnel/automation-vsl-funnel-direct.html`) — unchanged.
+
+**Architecture reversal flagged.** The 2026-05-25 decision was "single-page with anchors + redirect stubs." Today's decision goes the other direction: aggressive separation, home becomes the router, content destined for real subpages. Reason: user wants the home to "feel more like a router" so organic SEO + blog traffic gets a clean, decisive choice instead of a content-heavy hub. Existing variation drafts in `Nils/website/_drafts/` (about-v1, about-v2, proof-v1, contact-page, etc.) are the source material for the deferred subpage rebuild.
 
 ### 2026-05-25 — Website housekeeping: em-dash audit, sitemap auto-grow script, `_drafts/` inventory
 Knocked out three low-friction cleanup items from `Nils/website/HANDOFF.md` §7 in one session, each as its own commit so any can be reverted independently:

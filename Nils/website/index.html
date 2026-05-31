@@ -30,8 +30,6 @@
   <link rel="stylesheet" href="assets/css/footer.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/about.css">
-  <link rel="stylesheet" href="assets/css/proof.css">
   <link rel="stylesheet" href="assets/css/contact.css">
 
   <!-- Site JS -->
@@ -65,7 +63,7 @@
 </head>
 <body>
 
-  <!-- NAV (anchor-linked, blog stays as separate page) -->
+  <!-- NAV (offers-first: Marketing + Automation color-coded, Contact as CTA button) -->
   <header class="site-nav">
     <div class="container nav-inner">
       <a class="brand" href="./"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/67af965f2ba94ec985a2603c.png" alt="Nils Digital"></a>
@@ -73,10 +71,12 @@
         <span></span><span></span><span></span>
       </button>
       <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#proof">Proof</a>
+        <a class="nav-marketing" href="../funnel/vsl.html">Marketing</a>
+        <a class="nav-automation" href="../funnel/automation-vsl-funnel-direct.html">Automation</a>
+        <a href="proof.html">Proof</a>
+        <a href="about.html">About</a>
         <a href="blog/">Blog</a>
-        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
@@ -90,7 +90,7 @@
     </div>
   </section>
 
-  <!-- ROUTE HALVES (#offers, the only place they appear) -->
+  <!-- PICKER — the router decision -->
   <section id="offers" class="home-route-halves anim">
     <div class="route-halves">
       <a class="route-half marketing" href="../funnel/vsl.html">
@@ -108,298 +108,45 @@
     </div>
   </section>
 
-  <!-- PROOF (#proof, full section, no duplicate route halves) -->
-  <section id="proof" class="anim">
-
-    <!-- Proof hero (V3 layout + V1 copy) -->
-    <div class="proof-hero v3">
-      <div class="container">
-        <span class="eyebrow">Receipts</span>
-        <h2>Real businesses. Real numbers. Real results.</h2>
-        <p class="lead">Pulled from active client accounts: ad spend managed, hours reclaimed, reviews collected, leads booked. The kind of receipts you can verify.</p>
-        <div class="proof-filter">
-          <button class="pill active" type="button" data-filter="all">All</button>
-          <button class="pill marketing" type="button" data-filter="marketing">Marketing</button>
-          <button class="pill automation" type="button" data-filter="automation">Automation</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Recognition row (presentation + award + ad-spend dashboard) -->
-    <div class="recognition-row">
-      <div class="tile">
-        <div class="img-wrap"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69caaaef8e239565a1c7173c.jpeg" alt="Emilio presenting at the Asociación de Usuarios de la Zona Libre"></div>
-        <div class="caption">
-          <span class="label">Speaking</span>
-          <div class="desc">Presenting the Nils system to the Asociación de Usuarios de la Zona Libre.</div>
-        </div>
-      </div>
-      <div class="tile">
-        <div class="img-wrap"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0b3d83b3a582a5be61dc4.jpg" alt="Funnels award"></div>
-        <div class="caption">
-          <span class="label">Recognition</span>
-          <div class="desc">Top-tier funnel-builder recognition for client conversion results.</div>
-        </div>
-      </div>
-      <div class="tile">
-        <div class="img-wrap"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c0a8875596d15ca607f536.jpg" alt="$2.4M+ Google Ads spend dashboard"></div>
-        <div class="caption">
-          <span class="label">$2.4M+ managed</span>
-          <div class="desc">Google Ads spend managed across active client accounts.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Proof cases (V1 compact, two columns by topic) -->
-    <div class="proof-cases v1">
-      <div class="container">
-        <h2>The work, sorted by what you came for.</h2>
-        <div class="columns">
-          <div class="col marketing">
-            <div class="col-head">Marketing wins</div>
-            <article class="case marketing video">
-              <span class="cat">Marketing</span>
-              <div class="video-wrap">
-                <video controls preload="metadata" playsinline>
-                  <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699dd81a1001a5b5fb2fa22b.mp4#t=127" type="video/mp4">
-                </video>
-              </div>
-              <h3>"We have seen a huge jump in revenue."</h3>
-              <div class="body"><p>Opt-in rate up from 3% to 20.83%. Booked-call volume followed.</p></div>
-              <span class="result">Conversion: 3% to 20.83%</span>
-              <div class="attribution">
-                <div class="portrait" aria-hidden="true"></div>
-                <span class="name">Wendy Cox</span>
-              </div>
-            </article>
-            <article class="case marketing video">
-              <span class="cat">Marketing</span>
-              <div class="video-wrap">
-                <video controls preload="metadata" playsinline>
-                  <source src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/699e169f50d0aa0156c65c59.mp4" type="video/mp4">
-                </video>
-              </div>
-              <h3>"Best decision we could have made for our company."</h3>
-              <div class="body"><p>Fast, attentive, genuinely invested. The team behaves like an in-house department, not an agency.</p></div>
-              <span class="result">5.0 partnership rating</span>
-              <div class="attribution">
-                <div class="portrait" aria-hidden="true"></div>
-                <span class="name">Jessica Schlenz</span>
-              </div>
-            </article>
-            <div class="stats-row">
-              <span>$2.4M+ ad spend</span>
-              <span>4.7x avg ROAS</span>
-              <span>23 clients</span>
-            </div>
-          </div>
-
-          <div class="col automation">
-            <div class="col-head">Automation wins</div>
-            <article class="case automation review">
-              <span class="cat">Automation</span>
-              <div class="review-image">
-                <img src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d59d29dcf5971368e277.jpg" alt="Keila Mulero Trustpilot review">
-              </div>
-              <h3>"They built exactly what we needed."</h3>
-              <div class="body"><p>Custom intake automation, document handling, status updates. The kind of system you don't notice until you try working without it.</p></div>
-              <span class="result">80% intake on AI</span>
-              <div class="attribution">
-                <div class="portrait" aria-hidden="true"></div>
-                <span class="name">Keila Mulero</span>
-              </div>
-            </article>
-            <article class="case automation">
-              <span class="cat">Automation</span>
-              <h3>Savvy Compliance reclaimed 40 hours every week.</h3>
-              <div class="body"><p>Manual onboarding, fragmented data, days-long reports. We mapped every workflow, automated the bottlenecks, and gave the team their week back.</p></div>
-              <span class="result">40 hrs/wk reclaimed</span>
-              <div class="attribution">
-                <div class="portrait" aria-hidden="true"></div>
-                <span class="name">Savvy Compliance ops</span>
-              </div>
-            </article>
-            <div class="stats-row">
-              <span>40 hrs/wk reclaimed</span>
-              <span>80% intake on AI</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reviews wall (9 Trustpilot screenshots) -->
-    <div class="reviews-wall">
-      <span class="label">More reviews</span>
-      <p class="sub"><strong>Verified Trustpilot reviews</strong> from local service operators we've worked with.</p>
-      <div class="grid">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d573a4e42b93178beb8f8.jpg" alt="Trustpilot review from Cesar" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69779987eb392bb68b8a8d79.jpg" alt="Trustpilot review from David" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69779a4fd4fb905980103293.jpg" alt="Trustpilot review from Gabo" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976d662eb392bf8196989f8.jpg" alt="Trustpilot review from Hamani" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/696d5760439b6be373540aef.jpg" alt="Trustpilot review from Nacho" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69c409e3421e2429444d13a9.png" alt="Trustpilot review from Reed" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c39e29dcf50eef663181.jpg" alt="Trustpilot review from Simon" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/6976c37a29dcf5e749662cd0.jpg" alt="Trustpilot review from Simon (second)" loading="lazy">
-        <img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768425d4fb905497e26c54.jpg" alt="Trustpilot review from Joe" loading="lazy">
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ABOUT (#about, full section, no duplicate route halves) -->
-  <section id="about" class="anim">
-
-    <!-- About hero (V2 portrait-led asymmetric) -->
-    <div class="about-hero v2">
-      <div class="container">
-        <div class="inner">
-          <div>
-            <span class="eyebrow">Who runs this</span>
-            <h2>Hi, I'm Emilio. I started Nils because every $1M+ local service owner I knew was <em class="accent-marketing">trapped</em> running their own business.</h2>
-            <p class="lead">Six years later we install the marketing systems that bring leads in and the automations that take busywork out, so owners can build instead of maintain.</p>
-          </div>
-          <img class="portrait" src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69768d44c1fa0cbb239dd86e.png" alt="Emilio, founder of Nils Digital">
-        </div>
-      </div>
-    </div>
-
-    <!-- Story + team (V2 timeline + portrait strip) -->
-    <div class="about-story v2">
-      <div class="container">
-        <h2>Six years, four chapters.</h2>
-
-        <div class="timeline">
-          <div class="milestone">
-            <span class="year">2019</span>
-            <p>Started as a one-man shop building websites for solo operators. The thesis: a sharp site can punch way above its price tag for local businesses.</p>
-          </div>
-          <div class="milestone">
-            <span class="year">2021</span>
-            <p>Added Google Ads management. Clients kept hitting the same ceiling: a good site doesn't matter if nobody finds it.</p>
-          </div>
-          <div class="milestone">
-            <span class="year">2023</span>
-            <p>Built the review-automation layer that turned every happy customer into a referral engine. Now a core part of the marketing stack.</p>
-          </div>
-          <div class="milestone">
-            <span class="year">2025</span>
-            <p>Launched the automation audit. Existing clients kept asking us to take the manual work out of their operations, so we systemized the answer.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Process FAQ (V3, FAQ only, route halves removed since #offers handles routing) -->
-    <div class="about-process v3">
-      <div class="container">
-        <h2>What working with Nils actually looks like.</h2>
-
-        <div class="faq-article">
-          <div class="entry">
-            <span class="index">Question 01</span>
-            <h3>How long does the marketing system take to install?</h3>
-            <p>The site goes live in 3 to 4 weeks. Ads light up the week the site does. The review-automation layer hooks in shortly after. By month two you should already be seeing the leading indicators move: more form fills, more booked calls, more reviews landing on autopilot.</p>
-          </div>
-          <div class="entry">
-            <span class="index">Question 02</span>
-            <h3>What does the automation audit actually deliver?</h3>
-            <p>A department-by-department blueprint of every manual job in your business that AI or automation can take over, scored by hours saved per month and difficulty to build. You get the document plus a working session to walk through it. You can build it yourself, hire us to install it, or sit on it. No upsell pressure.</p>
-          </div>
-          <div class="entry">
-            <span class="index">Question 03</span>
-            <h3>Do you take on businesses under $1M?</h3>
-            <p>Sometimes, but rarely. The honest answer: most of what we install pays for itself fastest at the $1M to $10M stage, where there's enough volume to make the system pay back inside a few months. Below that we usually point owners to lighter-weight tools and check back in a year.</p>
-          </div>
-          <div class="entry">
-            <span class="index">Question 04</span>
-            <h3>What happens if it doesn't work?</h3>
-            <p>If the marketing system doesn't double your conversion rate inside 60 days, we refund every dollar of the build fee. If the audit doesn't surface enough automation opportunity to pay for itself in year one, same deal. Boring guarantees, on purpose.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- BEHIND THE SCENES (between #about and blog teaser) -->
-  <section class="home-behind anim">
+  <!-- THIN PROOF BAR -->
+  <section class="thin-proof-bar anim">
     <div class="container">
-      <span class="label">Behind the scenes</span>
-      <h2>Doing the work, with the people we do it for.</h2>
-      <div class="photo-grid">
-        <div class="photo"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69921f0b3b3cc967babccfd2.jpg" alt="Working with a client" loading="lazy"></div>
-        <div class="photo"><img src="https://assets.cdn.filesafe.space/stoLOEGDIvEDY3xQI4B8/media/69921f0b54da04a2311d802d.jpg" alt="On-site with a client" loading="lazy"></div>
+      <div class="proof-items">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>Rated Excellent on Trustpilot</span>
+        <span class="sep">&middot;</span>
+        <span><strong>300+</strong> Projects</span>
+        <span class="sep">&middot;</span>
+        <span><strong>$2.4M+</strong> Ad Spend Managed</span>
       </div>
     </div>
   </section>
 
-  <!-- BLOG TEASER (V4 wide featured + 2 narrow) -->
-  <section class="home-blog v4 anim">
+  <!-- CLOSING ROUTE HALVES (final reminder) -->
+  <section class="home-route-halves closing anim">
     <div class="container">
-      <span class="label">From the blog</span>
-      <a class="featured-wide marketing" href="blog/posts/local-plumbers-google-ads-leads.html">
-        <div class="thumb"></div>
-        <div class="body">
-          <span class="tag">Marketing</span>
-          <h4>How local plumbers get 50 leads/month from Google Ads</h4>
-          <p class="excerpt">The exact campaign structure, keyword themes, and landing-page setup we use to drive booked appointments for plumbing companies in the $1M-$5M range.</p>
-          <div class="meta">4 min read</div>
-        </div>
+      <span class="closing-eyebrow">Still deciding? Pick your path.</span>
+    </div>
+    <div class="route-halves">
+      <a class="route-half marketing" href="../funnel/vsl.html">
+        <div class="ico">&#128200;</div>
+        <h3>Need more clients?</h3>
+        <p>We build sites that convert at 10-20%, plus the ads that fill them.</p>
+        <span class="btn">See how &rarr;</span>
       </a>
-      <div class="post-grid">
-        <a class="post-card automation" href="blog/posts/hvac-automation-this-week.html">
-          <div class="thumb"></div>
-          <div class="body">
-            <span class="tag">Automation</span>
-            <h4>5 jobs a $2M HVAC company can automate this week</h4>
-            <div class="meta">6 min read</div>
-          </div>
-        </a>
-        <a class="post-card marketing" href="blog/posts/5-star-review-filter-system.html">
-          <div class="thumb"></div>
-          <div class="body">
-            <span class="tag">Marketing</span>
-            <h4>The 5-star review system that filters bad reviews</h4>
-            <div class="meta">3 min read</div>
-          </div>
-        </a>
-      </div>
-      <a class="see-all" href="blog/">All posts &rarr;</a>
+      <a class="route-half automation" href="../funnel/automation-vsl-funnel-direct.html">
+        <div class="ico">&#9881;&#65039;</div>
+        <h3>Drowning in manual work?</h3>
+        <p>Department-by-department blueprint of every job AI can do for you.</p>
+        <span class="btn">See the audit &rarr;</span>
+      </a>
     </div>
   </section>
 
-  <!-- CONTACT (#contact, hero + mailto only, no route halves duplicate) -->
-  <section id="contact" class="anim">
-    <div class="contact-hero">
-      <div class="container">
-        <span class="eyebrow">Book a call</span>
-        <h2>Bookings happen inside the system pages.</h2>
-        <p class="lead">Click the one that's right for you, watch the breakdown, and the calendar lives at the bottom of the page. Or scroll up to <a href="#offers" style="color: var(--marketing); text-decoration: underline;">pick a system</a>.</p>
-      </div>
-    </div>
-    <section class="contact-routes-echo home-route-halves">
-      <div class="route-halves">
-        <a class="route-half marketing" href="../funnel/vsl.html">
-          <div class="ico">&#128200;</div>
-          <h3>Need more clients?</h3>
-          <p>We build sites that convert at 10-20%, plus the ads that fill them.</p>
-          <span class="btn">See how &rarr;</span>
-        </a>
-        <a class="route-half automation" href="../funnel/automation-vsl-funnel-direct.html">
-          <div class="ico">&#9881;&#65039;</div>
-          <h3>Drowning in manual work?</h3>
-          <p>Department-by-department blueprint of every job AI can do for you.</p>
-          <span class="btn">See the audit &rarr;</span>
-        </a>
-      </div>
-    </section>
-
-    <div class="contact-mailto container">
-      Other questions? <a href="mailto:emilio@nilsdigital.com">emilio@nilsdigital.com</a>
-    </div>
-  </section>
+  <!-- MAILTO LINE -->
+  <div class="contact-mailto container">
+    Other questions? <a href="mailto:emilio@nilsdigital.com">emilio@nilsdigital.com</a>
+  </div>
 
   <!-- FOOTER -->
   <footer class="site-footer">
@@ -410,16 +157,16 @@
       </div>
       <nav class="footer-nav">
         <div class="footer-col">
-          <h6>Explore</h6>
-          <a href="#about">About</a>
-          <a href="#proof">Proof</a>
-          <a href="blog/">Blog</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer-col">
           <h6>Get started</h6>
           <a href="../funnel/vsl.html">Marketing system</a>
           <a href="../funnel/automation-vsl-funnel-direct.html">Automation audit</a>
+        </div>
+        <div class="footer-col">
+          <h6>Explore</h6>
+          <a href="proof.html">Proof</a>
+          <a href="about.html">About</a>
+          <a href="blog/">Blog</a>
+          <a href="contact.html">Contact</a>
         </div>
       </nav>
     </div>
@@ -428,30 +175,6 @@
     </div>
     <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   </footer>
-
-  <!-- Filter-pill handler: toggle column visibility in #proof -->
-  <script>
-    document.querySelectorAll('.proof-filter .pill').forEach(p => {
-      p.addEventListener('click', () => {
-        document.querySelectorAll('.proof-filter .pill').forEach(x => x.classList.remove('active'));
-        p.classList.add('active');
-        const f = p.dataset.filter;
-        const mCol = document.querySelector('.proof-cases.v1 .col.marketing');
-        const aCol = document.querySelector('.proof-cases.v1 .col.automation');
-        if (!mCol || !aCol) return;
-        if (f === 'all') {
-          mCol.style.display = '';
-          aCol.style.display = '';
-        } else if (f === 'marketing') {
-          mCol.style.display = '';
-          aCol.style.display = 'none';
-        } else if (f === 'automation') {
-          mCol.style.display = 'none';
-          aCol.style.display = '';
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>

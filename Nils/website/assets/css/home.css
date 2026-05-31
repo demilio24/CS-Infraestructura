@@ -689,3 +689,50 @@
 @media (max-width: 720px) {
   .home-behind .photo-grid { grid-template-columns: 1fr; }
 }
+
+/* ─── THIN PROOF BAR (sits between picker and closing reminder) ─── */
+.thin-proof-bar {
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--ink-line-soft);
+  border-bottom: 1px solid var(--ink-line-soft);
+  background: var(--bg);
+}
+.thin-proof-bar .proof-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  font-family: var(--font-body);
+  font-size: var(--fs-meta);
+  color: var(--ink-soft);
+  text-align: center;
+}
+.thin-proof-bar .proof-items strong {
+  color: var(--ink);
+  font-weight: var(--fw-body-bold);
+}
+.thin-proof-bar .proof-items .stars {
+  color: var(--automation);
+  letter-spacing: 0.05em;
+  font-weight: var(--fw-body-bold);
+}
+.thin-proof-bar .proof-items .sep {
+  color: var(--ink-mute);
+}
+
+/* ─── CLOSING ROUTE HALVES (final reminder, with eyebrow framing) ─── */
+.home-route-halves.closing {
+  padding-top: var(--space-7);
+}
+.home-route-halves.closing .closing-eyebrow {
+  display: block;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: var(--space-5);
+  font-weight: var(--fw-display-bold);
+}

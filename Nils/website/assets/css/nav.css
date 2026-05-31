@@ -14,3 +14,21 @@
   .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; padding: var(--space-4) var(--space-5); background: var(--bg); border-bottom: 1px solid var(--ink-line); }
   .nav-links.open { display: flex; }
 }
+
+/* ─── OFFERS-FIRST NAV (Marketing + Automation color-coded, Contact CTA) ─── */
+.nav-links a.nav-marketing { color: var(--marketing); font-weight: var(--fw-body-bold); }
+.nav-links a.nav-automation { color: var(--automation); font-weight: var(--fw-body-bold); }
+.nav-links a.nav-marketing:hover { color: var(--marketing-dark); }
+.nav-links a.nav-automation:hover { color: var(--automation-dark); }
+.nav-links a.nav-cta {
+  background: var(--ink);
+  color: var(--bg);
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-pill);
+  font-weight: var(--fw-body-bold);
+  transition: background var(--dur-fast), opacity var(--dur-fast);
+}
+.nav-links a.nav-cta:hover {
+  color: var(--bg);
+  opacity: 0.85;
+}
