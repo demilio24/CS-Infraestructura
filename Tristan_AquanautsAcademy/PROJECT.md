@@ -67,6 +67,13 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +3) — Modal CTA pinned, broken nav logo fixed, perceptually-deduped galleries (55 dupes removed)
+Three small fixes from client feedback after seeing R5 live:
+
+1. **"Inquire to order" CTA was scrolling off-screen on long-description products** (and on small phone viewports). Restructured the modal's info column into three flex regions: `.aq-modal-info-head` (title/price/size, pinned at top), `.aq-modal-info-body` (description, scrollable), `.aq-modal-info-actions` (CTA + microcopy, pinned at bottom with a top border). The CTA now stays visible at every scroll depth on desktop and mobile.
+2. **Nav logo was 404** on shop.html, GHL CDN URL `52a3a91a-...` was wrong (probably grabbed during early pipeline iteration). Swapped to the same URL home.html uses (`3dab965f-...`) which we know returns HTTP 200.
+3. **Visual deduplication of product galleries.** Many Splash About products had the same source image uploaded twice to Wix under different filenames, so after our upload pipeline the same image appeared at multiple GHL CDN URLs and showed up twice in the modal thumbnails. `dedupe-galleries.py` aHash-fingerprints every cached gallery file (8x8 grayscale average hash, Hamming-distance ≤ 4 = match) and drops near-duplicates within each product's gallery. Removed 55 dupes across 281 references (now 226 total; avg 5.6 photos/product instead of 7). Every single product had at least one duplicate. Re-running is safe (idempotent).
+
 ### 2026-05-31 (latest +2) — Shop page: filter bar, per-card mini previews, clean descriptions (em-dashes stripped, paragraph breaks preserved)
 Three targeted improvements driven by client feedback after seeing the modal go live:
 
