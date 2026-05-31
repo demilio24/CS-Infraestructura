@@ -691,18 +691,16 @@
 }
 
 /* ─── ABOUT NILS section — 3 clickable receipt cards ─── */
-.about-nils { padding-top: var(--space-9); padding-bottom: var(--space-9); }
+.about-nils {
+  padding-top: var(--space-9);
+  padding-bottom: var(--space-9);
+  text-align: center; /* centers the inline-block eyebrow pill + the h2 text */
+}
 .about-nils .eyebrow {
-  display: block; text-align: center;
-  font-family: var(--font-display);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ink-mute);
+  /* inherits the compact blue pill from globals.css .eyebrow */
   margin-bottom: var(--space-4);
-  font-weight: var(--fw-display-bold);
 }
 .about-nils h2 {
-  text-align: center;
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: var(--fw-serif-regular);
