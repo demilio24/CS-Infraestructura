@@ -67,6 +67,18 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest) — Shop page: click any product card to open a lightbox modal with gallery + description + size selector
+Tristan asked us to mirror the original Wix product detail experience: multiple images per product, the full description, and the size dropdown for items that have one. Built a click-to-open modal on `funnel/shop.html` covering all 40 products.
+
+Pipeline (idempotent scripts in `.claude/`):
+
+1. `scrape-product-details.js` — Puppeteer-scraped each of the 40 `/product-page/<slug>` URLs. For each: extracted title, price, full description text, and the complete image gallery (cycling thumbnails to trigger lazy load). Output: `aquanauts_product_details.json` (40 entries, avg 9 images each, descriptions ~700-1,600 chars).
+2. **Parallelized the upload step with 4 subagents.** Split the 244 unique gallery image URLs into 4 round-robin chunks of 61 (saved as `upload_chunk_{1..4}.json`). Spawned 4 general-purpose Agent calls in parallel, each running `upload-batch.py` against their chunk. Token was piped via stdin to never touch disk. **243 / 244 uploaded successfully (1 truncated Wix URL).** Each worker wrote to its own `upload_result_{1..4}.json`. Total wall-clock: ~3.5 min vs ~12+ min sequential.
+3. `build-product-data.py` — merged the 4 partial maps into one `url -> ghl_url` dictionary, then for each product built an ordered list of GHL gallery URLs preserving the original gallery order. Added size variants only where they exist on the source (the 24 Happy Nappy products have `["0-3 Months", "3-6 Months", "6-12 Months", "12-24 Months", "2-3 Years"]`; all other products have no size variant in Wix). Output: `aquanauts_shop_product_data.json`.
+4. `inject-shop-modal.py` — appended a ~5 KB modal CSS block to the existing `<style>` and inserted the modal markup + product JSON blob (`<script type="application/json" id="aqProductData">`) + IIFE handler at the end of body. Cards became `tabindex="0"` clickable, lookup matches the card's `.product-name` + `.product-tag` against the JSON via normalized-alphanumeric keys with tag-aware fallback. The modal is a 2-column desktop / stacked mobile lightbox: gallery + scroll-thumbnails on the left, title + price + "Splash About via Aquanauts" badge + size dropdown (only when present) + description + "Inquire to order" CTA on the right. Closes on backdrop click, ESC, or the rotating X. Body scroll-locks while open.
+
+Bug found in QA-screenshot pass and fixed: the `[hidden]` HTML attribute was being overridden by `.aq-modal-size { display: flex }`; switched to `style.display` + always clearing `sizeSel.innerHTML` so the size dropdown isn't carried over from a previous open.
+
 ### 2026-05-31 (later) — Shop page now uses real Splash About product photography
 Replaced the placeholder per-category SVG glyphs on `funnel/shop.html` with the actual product images from Aquanauts' live `/category/all-products` page. Pipeline (all idempotent, scripts in `.claude/`):
 
