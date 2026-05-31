@@ -97,6 +97,13 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Visual QA fixes: video aspect + project-modal image weight
+Ran a Puppeteer visual test on the live About Nils modals at desktop (1440x900) + mobile (390x844). Found two bugs and fixed both:
+1. **Trust modal videos were cropped.** Wendy/Jessica source videos are 478x850 (portrait), but `.video-wrap` was `aspect-ratio: 16/9` with `object-fit: cover`, which zoomed vertically and chopped both heads. Fixed by flipping the container to `aspect-ratio: 9/16` (matching the source ratio) and adding a `max-height: 540px` cap so the videos don't blow up the modal height on wide viewports.
+2. **Projects modal image weight was crushing first-open UX.** 18 references PNGs at 2160x3840 totaled ~68 MB cold. Built `.claude/optimize-references.js` (sharp) → generated `references/thumbs/*.webp` at 600px wide, q80. Total dropped to ~1 MB (98% reduction). Swapped all 19 image references in `index.html` (18 grid + 1 card preview) from `/references/N.png` → `/references/thumbs/N.webp`. Originals untouched for other consumers (presentation.html etc.).
+
+Test script lives at `.claude/test-about-nils-modals.js` (gitignored area) for re-running on future changes. Screenshots saved to `.claude/screenshots/about-nils-tests/`.
+
 ### 2026-05-31 — Modal redesign: blue gradient hero strip (C variant)
 Picked from a 4-option visual brainstorm (editorial / dark premium / blue gradient / frosted glass). All 3 About Nils modals (Trust / Projects / Ad-spend) now share a 2-zone layout:
 - **Top zone (`.modal-hero`):** blue gradient (`var(--marketing)` → `var(--marketing-dark)`) with the existing radial dot pattern from the route halves (visually ties the modals to the picker cards). Contains the eyebrow (uppercase white at 80% opacity), the italic serif title (white), and the subhead (white at 92%). Close button repositioned inside the hero, restyled as a 36px translucent-white circle with subtle border.
