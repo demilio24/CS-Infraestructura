@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-31T02:54:06Z",
+  "generatedAt": "2026-05-31T02:57:05Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 126,
+    "summer": 127,
     "free": 51,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,15 +108,15 @@
     "roster": []
   },
   "summer": {
-    "total": 126,
+    "total": 127,
     "byCampus": {
       "Upper Campus": 52,
-      "Lower Campus": 74,
+      "Lower Campus": 75,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 22,
-      "June 8th-12th": 30,
+      "June 8th-12th": 31,
       "June 15th-19th": 21,
       "June 22nd-26th": 22,
       "June 29th-July 3rd": 15,
@@ -137,7 +137,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 16,
-        "Lower Campus": 14,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -322,16 +322,16 @@
     ]
   },
   "combined": {
-    "total": 177,
-    "enrollments": 584,
+    "total": 178,
+    "enrollments": 585,
     "byCampus": {
       "Upper Campus": 81,
-      "Lower Campus": 96,
+      "Lower Campus": 97,
       "Unknown": 0
     },
     "byWeek": {
       "June 1st-5th": 56,
-      "June 8th-12th": 65,
+      "June 8th-12th": 66,
       "June 15th-19th": 55,
       "June 22nd-26th": 57,
       "June 29th-July 3rd": 50,
@@ -352,7 +352,7 @@
       },
       "June 8th-12th": {
         "Upper Campus": 35,
-        "Lower Campus": 30,
+        "Lower Campus": 31,
         "Unknown": 0
       },
       "June 15th-19th": {
@@ -977,13 +977,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 17,
-              "Tue": 15,
+              "Mon": 18,
+              "Tue": 16,
               "Wed": 18,
               "Thu": 18,
               "Fri": 15
             },
-            "total": 83,
+            "total": 85,
             "students": [
               {
                 "name": "Anna McIntosh",
@@ -1097,6 +1097,16 @@
                   "Mon",
                   "Wed",
                   "Thu"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Louis Del Sol Green",
+                "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue"
                 ],
                 "lunchRaw": "None"
               },
@@ -1217,13 +1227,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 28,
-            "Tue": 24,
+            "Mon": 29,
+            "Tue": 25,
             "Wed": 29,
             "Thu": 29,
             "Fri": 26
           },
-          "all": 136
+          "all": 138
         }
       },
       "June 15th-19th": {
@@ -11110,6 +11120,30 @@
           "days": [
             false,
             false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Louis Del Sol Green",
+          "campus": "Lower Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "danielle.delsol@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
+          "sourceGid": 663575066,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 16,
+          "days": [
+            true,
+            true,
             false,
             false,
             false
