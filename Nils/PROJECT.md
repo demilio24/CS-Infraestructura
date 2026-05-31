@@ -97,6 +97,9 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Drop closing route-halves echo on home (redundant on short page)
+On a same-day post-deploy look, the closing `.home-route-halves.closing` block — added as a "Still deciding? Pick your path." final-reminder per the brainstorm decision — sat too close to the original `#offers` picker now that proof / about / behind-the-scenes / blog teaser / contact are all gone from the home. The same two cards twice within one short scroll read as visual repetition, not reinforcement. Removed the closing section from `index.html` and the `.home-route-halves.closing` + `.closing-eyebrow` rules from `home.css`. Home page is now hero → picker → thin proof bar → mailto → footer (3 real content sections).
+
 ### 2026-05-31 — Home page pivoted to pure-router model (reverses 2026-05-25 single-page-with-anchors decision)
 Rebuilt [`Nils/website/index.html`](Nils/website/index.html) into an aggressive pure-router landing page. The home no longer contains the `#proof` / `#about` / behind-the-scenes / blog-teaser / `#contact` sections — only hero (with picker) → thin proof bar → closing route halves → mailto line → footer. Page weight dropped from ~9 sections to 4. Brainstormed via `superpowers:brainstorming` with the visual companion; user decisions locked through 4 screens (hero layout C, no above-fold trust strip, aggressive below-fold C, offers-first nav B).
 

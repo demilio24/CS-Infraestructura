@@ -721,18 +721,3 @@
   color: var(--ink-mute);
 }
 
-/* ─── CLOSING ROUTE HALVES (final reminder, with eyebrow framing) ─── */
-.home-route-halves.closing {
-  padding-top: var(--space-7);
-}
-.home-route-halves.closing .closing-eyebrow {
-  display: block;
-  text-align: center;
-  font-family: var(--font-display);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-mute);
-  margin-bottom: var(--space-5);
-  font-weight: var(--fw-display-bold);
-}
