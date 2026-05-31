@@ -67,6 +67,19 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 — Closed remaining May 29 call action items (Google review branding + Shop page + client email)
+Reviewed both Tristan meeting transcripts (May 22 onboarding, May 29 check-in) against the changelog and found three R3 next-steps still open. Closed all three on `funnel/home.html` (Variation A) and added a new `funnel/shop.html`.
+
+1. **Google-branded the reviews.** Replaced the plain text "Google review" subtitle on all 6 review cards with the 4-color Google G SVG + "Posted on Google". Added the G logo to the `.reviews-stat` badge ("5.0 · over 129 Google reviews"). Added a `.reviews-trust-cta` button below the grid: "Read all 129+ reviews on Google" linking to `https://www.google.com/search?q=Aquanauts+Swim+Academy+Vancouver+Island+reviews` (search URL is a fallback; needs Tristan's direct Google Business Profile URL to swap to). Addresses Tristan's 00:08:23 worry that the reviews look fake.
+2. **Built the Shop / Catalog page** at `funnel/shop.html`. Mirrors the home design tokens (light/coral/teal navy, Outfit/Manrope, same nav-back chrome, anim observer). Catalog organized into 5 categories matching `copy_archive.md` (Swim Caps & Hats, Swim Rings, Beach & Water Toys, Swimming Headbands, Happy Nappy™), 50+ Splash About products with name + price + category tag. No checkout (Tristan said "we're not really selling, just a catalog") — CTA points back to the home form + a mailto. Wired both `#shop` placeholders on `home.html` (nav line 485 + footer Explore line 1449) to `shop.html`.
+3. **Drafted the post-R3 review email to Tristan** in Gmail (draft ID `r-6495911312607481781`), titled "Aquanauts website: round 3 revisions are live for your review." Lists all 10 R3 changes (the original 9 from 2026-05-29 plus today's Google branding + Shop page) and asks for 3 things back: GBP direct URL, Parksville + Nanaimo pool photos, refined bios for Anastasia/Sandy/Kesya.
+
+Open items after this push:
+- **Tristan's Google Business Profile direct URL** — swap the search-URL fallback in `.reviews-trust-cta` once he sends it.
+- **Adaptive video** in the Programs dropdown — still pending an asset from Tristan (carried over from 2026-05-29).
+- **Parksville + better Nanaimo pool photos** — also pending.
+- Shop page uses generic per-category SVG glyphs. If/when Splash About product imagery is needed, we can pull from their catalog and upload to GHL CDN.
+
 ### 2026-05-29 — Revision Round 3 (from the May 29 check-in call)
 Worked the call feedback one item at a time on `funnel/home.html` (Variation A), one commit per item, QA'd with Puppeteer (no overflow at 1280/390, zero console errors, all toggles work), then pushed. Plan file: `~/.claude/plans/bubbly-wibbling-hopper.md`.
 

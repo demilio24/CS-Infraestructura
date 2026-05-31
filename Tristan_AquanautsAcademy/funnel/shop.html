@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop · Aquanauts Swim Academy</title>
+  <meta name="description" content="Browse swim gear available through our Splash About partnership: caps, rings, swim diapers (Happy Nappy), headbands and more. Ask us about any item at your next lesson." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; padding: 0; font-family: 'Manrope', sans-serif; font-weight: 500; background: #fff; color: #0a1e3a; overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 800; margin: 0; line-height: 1.15; letter-spacing: -0.02em; color: #0a1e3a; }
+p { margin: 0 0 1em; }
+
+:root {
+  --navy: #0a1e3a;
+  --blue: #1e4d92;
+  --teal: #3ad8d4;
+  --teal-2: #2bc4c0;
+  --coral: #faa56b;
+  --coral-2: #f5904a;
+  --gold: #ffd56b;
+  --bg-soft: #f5f8fc;
+  --bg-band: #eaf1fa;
+  --line: #d8e3f2;
+  --muted: #4a6585;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.78rem; letter-spacing: 2.5px; text-transform: uppercase; padding: 8px 18px; border-radius: 50px; background: rgba(58,216,212,0.15); color: var(--blue); margin-bottom: 18px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; border: none; border-radius: 12px; padding: 15px 30px; cursor: pointer; transition: all 0.25s ease; text-decoration: none; line-height: 1; }
+.btn-primary { background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%); color: var(--navy); box-shadow: 0 8px 24px rgba(250,165,107,0.45); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(250,165,107,0.55); }
+.btn-secondary { background: #fff; color: var(--navy); border: 2px solid var(--line); }
+.btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+.anim { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.anim.visible { opacity: 1; transform: translateY(0); }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 90; background: rgba(255,255,255,0.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(216,227,242,0.6); }
+.nav-inner { max-width: 1280px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--navy); }
+.nav-logo img { height: 42px; width: auto; }
+.nav-back { display: inline-flex; align-items: center; gap: 6px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.94rem; color: var(--blue); padding: 9px 18px; border: 1.5px solid var(--line); border-radius: 10px; transition: all .2s ease; }
+.nav-back:hover { border-color: var(--blue); background: rgba(30,77,146,0.06); }
+
+/* HERO */
+.hero { padding: 64px 0 36px; background: linear-gradient(180deg, var(--bg-soft) 0%, #fff 100%); text-align: center; }
+.hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.4rem); margin-bottom: 14px; }
+.hero h1 .accent { color: var(--blue); font-style: italic; }
+.hero p { font-size: 1.08rem; color: var(--muted); max-width: 660px; margin: 0 auto 22px; }
+.partner-chip { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; background: #fff; border: 1.5px solid var(--line); border-radius: 50px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.92rem; color: var(--navy); box-shadow: 0 6px 20px rgba(10,30,58,0.06); }
+.partner-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px rgba(58,216,212,0.25); }
+
+/* CATALOG */
+.catalog { padding: 36px 0 80px; background: #fff; }
+.cat-section { margin-top: 56px; }
+.cat-section:first-child { margin-top: 0; }
+.cat-head { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 2px solid var(--line); }
+.cat-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); color: #fff; flex-shrink: 0; }
+.cat-icon svg { width: 22px; height: 22px; }
+.cat-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.45rem; color: var(--navy); margin: 0; }
+.cat-subtitle { display: block; font-family: 'Manrope', sans-serif; font-weight: 500; font-size: 0.86rem; color: var(--muted); margin-top: 2px; letter-spacing: 0; text-transform: none; }
+
+.product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.product-card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 18px; box-shadow: 0 4px 14px rgba(10,30,58,0.05); display: flex; flex-direction: column; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(10,30,58,0.1); border-color: var(--teal); }
+.product-visual { width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; background: linear-gradient(135deg, var(--bg-band) 0%, var(--bg-soft) 100%); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.product-visual svg { width: 50%; height: 50%; opacity: 0.55; color: var(--blue); }
+.product-name { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--navy); margin: 0 0 6px; line-height: 1.3; flex: 1; }
+.product-price { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--blue); margin-bottom: 0; }
+.product-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--muted); padding: 3px 8px; background: var(--bg-soft); border-radius: 6px; margin-bottom: 10px; align-self: flex-start; }
+
+/* CTA */
+.shop-cta { padding: 64px 0; background: var(--bg-soft); text-align: center; }
+.shop-cta h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 14px; }
+.shop-cta p { font-size: 1.04rem; color: var(--muted); max-width: 580px; margin: 0 auto 26px; }
+.shop-cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* FOOTER */
+.footer { background: var(--navy); color: #cfd9e9; padding: 36px 0 24px; text-align: center; font-size: 0.9rem; }
+.footer a { color: var(--teal); }
+.footer-brand { font-family: 'Outfit', sans-serif; font-weight: 800; color: #fff; font-size: 1.1rem; margin-bottom: 6px; }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .product-card { padding: 16px 14px; }
+  .cat-head { flex-direction: row; }
+  .cat-title { font-size: 1.2rem; }
+  .nav-logo span { display: none; }
+}
+@media (max-width: 480px) {
+  .nav-back { padding: 8px 14px; font-size: 0.88rem; }
+}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="home.html" class="nav-logo">
+      <img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/52a3a91a-22f2-4f24-a90b-fbe53cc73d75.png" alt="Aquanauts Swim Academy">
+      <span>Aquanauts</span>
+    </a>
+    <a href="home.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow anim">Shop · Catalog</div>
+    <h1 class="anim">Swim Gear We <span class="accent">Love and Use</span></h1>
+    <p class="anim">A curated catalog of swim caps, rings, swim diapers, headbands and water toys we keep in rotation with our families. Ask us about any item at your next lesson, by email, or by phone — we'll help you order it.</p>
+    <div class="anim">
+      <span class="partner-chip"><span class="dot"></span>In partnership with Splash About™ Swim Products</span>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOG -->
+<section class="catalog">
+  <div class="container">
+
+    <!-- Swim Caps & Hats -->
+    <div class="cat-section anim">
+      <div class="cat-head">
+        <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c0-5 4-9 9-9s9 4 9 9"/><path d="M3 14h18"/><path d="M5 14v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg></div>
+        <div>
+          <h2 class="cat-title">Swim Caps & Hats</h2>
+          <span class="cat-subtitle">Sun protection and warmth for poolside and outdoor swimming</span>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c0-5 4-9 9-9s9 4 9 9"/><path d="M3 14h18"/></svg></div><span class="product-tag">Baby & Toddler</span><h3 class="product-name">Swim Cap · Turtle Tide</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c0-5 4-9 9-9s9 4 9 9"/><path d="M3 14h18"/></svg></div><span class="product-tag">Legionnaire Hat</span><h3 class="product-name">Legionnaire Hat · Lilac Spring</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c0-5 4-9 9-9s9 4 9 9"/><path d="M3 14h18"/></svg></div><span class="product-tag">Legionnaire Hat</span><h3 class="product-name">Legionnaire Hat · Strawberry Field</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c0-5 4-9 9-9s9 4 9 9"/><path d="M3 14h18"/></svg></div><span class="product-tag">Legionnaire Hat</span><h3 class="product-name">Legionnaire Hat · Shark Reef</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c0-5 4-9 9-9s9 4 9 9"/><path d="M3 14h18"/></svg></div><span class="product-tag">Legionnaire Hat</span><h3 class="product-name">Legionnaire Hat · Turtle Tide</h3><div class="product-price">$15.00</div></div>
+      </div>
+    </div>
+
+    <!-- Swim Rings -->
+    <div class="cat-section anim">
+      <div class="cat-head">
+        <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div>
+          <h2 class="cat-title">Swim Rings</h2>
+          <span class="cat-subtitle">Buoyancy aids for floating practice and water play</span>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div><span class="product-tag">36" Diameter</span><h3 class="product-name">Coastal Castaway Swim Ring</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div><span class="product-tag">Split Ring</span><h3 class="product-name">Floatin' Friends Split Swim Ring</h3><div class="product-price">$15.00</div></div>
+      </div>
+    </div>
+
+    <!-- Beach & Water Toys -->
+    <div class="cat-section anim">
+      <div class="cat-head">
+        <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+        <div>
+          <h2 class="cat-title">Beach & Water Toys</h2>
+          <span class="cat-subtitle">Beach balls and infant swim seats for first water experiences</span>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div><span class="product-tag">Beach Toy</span><h3 class="product-name">Traditional Beach Balls</h3><div class="product-price">$22.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l2-7h12l2 7"/><path d="M3 17h18"/><circle cx="12" cy="9" r="2"/></svg></div><span class="product-tag">1-2 Years</span><h3 class="product-name">Baby Swim Boat</h3><div class="product-price">$22.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l2-7h12l2 7"/><path d="M3 17h18"/><circle cx="12" cy="9" r="2"/></svg></div><span class="product-tag">1-2 Years</span><h3 class="product-name">Baby Swim Seat</h3><div class="product-price">$22.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l2-7h12l2 7"/><path d="M3 17h18"/><circle cx="12" cy="9" r="2"/></svg></div><span class="product-tag">0-1 Years</span><h3 class="product-name">Baby Swim Seat</h3><div class="product-price">$18.00</div></div>
+      </div>
+    </div>
+
+    <!-- Swimming Headbands -->
+    <div class="cat-section anim">
+      <div class="cat-head">
+        <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/></svg></div>
+        <div>
+          <h2 class="cat-title">Swimming Headbands</h2>
+          <span class="cat-subtitle">Comfort and stay-put fit for goggle and ear protection</span>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/></svg></div><span class="product-tag">Headband</span><h3 class="product-name">Swimming Headband · Red</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/></svg></div><span class="product-tag">Headband</span><h3 class="product-name">Swimming Headband · Cashmere Blue</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/></svg></div><span class="product-tag">Headband</span><h3 class="product-name">Swimming Headband · Pink</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/></svg></div><span class="product-tag">Headband</span><h3 class="product-name">Swimming Headband · Pistachio</h3><div class="product-price">$15.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 16 0"/><path d="M2 12h20"/></svg></div><span class="product-tag">Headband</span><h3 class="product-name">Swimming Headband · Lilac</h3><div class="product-price">$15.00</div></div>
+      </div>
+    </div>
+
+    <!-- Happy Nappy -->
+    <div class="cat-section anim">
+      <div class="cat-head">
+        <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div>
+        <div>
+          <h2 class="cat-title">Happy Nappy™ Swim Diapers</h2>
+          <span class="cat-subtitle">The original reusable neoprene swim diaper. Required for our infant programs.</span>
+        </div>
+      </div>
+      <div class="product-grid">
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pastel</span><h3 class="product-name">Happy Nappy™ · Lilac</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pastel</span><h3 class="product-name">Happy Nappy™ · Cashmere Blue</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Nina's Ark</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Noah's Ark</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Up & Away</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Vintage Moby</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Forest Walk</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Tug Boats</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Solid</span><h3 class="product-name">Happy Nappy™ · Blue Cobalt</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pastel</span><h3 class="product-name">Happy Nappy™ · Pistachio</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Neon</span><h3 class="product-name">Happy Nappy™ · Neon Orange</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Neon</span><h3 class="product-name">Happy Nappy™ · Neon Pink</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Neon</span><h3 class="product-name">Happy Nappy™ · Neon Yellow</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Neon</span><h3 class="product-name">Happy Nappy™ · Neon Lime</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Under The Sea</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Almond Blossom</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Playful Otters</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Pink Dotty</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Crocodile Swamp</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Lemons</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Shark Reef</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Lilac Spring</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Turtle Tide</h3><div class="product-price">$25.00</div></div>
+        <div class="product-card"><div class="product-visual"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1.5 9a2 2 0 0 1-2 1.7H9.5a2 2 0 0 1-2-1.7L6 8z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><span class="product-tag">Pattern</span><h3 class="product-name">Happy Nappy™ · Strawberry Field</h3><div class="product-price">$25.00</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="shop-cta">
+  <div class="container">
+    <h2 class="anim">Want one of these?</h2>
+    <p class="anim">We're not selling online yet. Tell us at your next lesson, send us an email, or send us a message and we'll order on your behalf with your next session.</p>
+    <div class="shop-cta-row anim">
+      <a href="home.html#hero-form" class="btn btn-primary">Get in Touch
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a href="mailto:tristan@aquanautsacademy.ca?subject=Question%20about%20Aquanauts%20Shop" class="btn btn-secondary">Email Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">Aquanauts Swim Academy</div>
+    <p>Private + adaptive swim lessons across Vancouver Island. <a href="home.html">Return to main site</a>.</p>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.anim').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
