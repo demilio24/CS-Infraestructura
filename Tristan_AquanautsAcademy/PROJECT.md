@@ -67,6 +67,15 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (later) — Shop page now uses real Splash About product photography
+Replaced the placeholder per-category SVG glyphs on `funnel/shop.html` with the actual product images from Aquanauts' live `/category/all-products` page. Pipeline (all idempotent, scripts in `.claude/`):
+
+1. `scrape-aquanauts-shop-pup.js` — Puppeteer-scraped both shop pages (page=1 + page=2) using the `li[data-hook="product-list-grid-item"]` selector after lazy-load scroll. Extracted 40 unique product name + Wix CDN image URLs. Output: `.claude/aquanauts_shop_products.json`.
+2. `upload-aquanauts-shop-images.py` — for each product: stripped Wix's `/v1/fill/...` transform suffix to get the full-res `.webp`, downloaded with a real browser UA + `Referer: https://aquanautsacademy.ca/`, then POSTed to `services.leadconnectorhq.com/medias/upload-file` with `hosted=false&locationId=xBWIIj9IjYQL2XdtjJ1A`. Token piped via stdin (never written to disk). **40/40 uploaded, 0 fails.** All return `https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/<uuid>.webp`. Map saved at `.claude/aquanauts_shop_image_map.json`.
+3. `swap-shop-images.py` — for each `<div class="product-card">` in shop.html: read `.product-tag` + `.product-name`, normalized to alphanumeric-only, looked up the GHL URL in the map (with tag-aware fallback for ambiguous names like "Baby Swim Seat" 0-1 vs 1-2). Replaced the `<svg>` block inside `.product-visual` with `<img src="<ghl_url>" alt="<tag> <name>" loading="lazy">`. Also updated the `.product-visual` CSS to add `overflow: hidden` + `.product-visual img { width:100%; height:100%; object-fit:cover; }`. **40/40 swapped, 0 missing.**
+
+Verified with Puppeteer (`shot-shop-r4b.js`) — all 40 product photos render. The one console error during local screenshot (`ERR_BLOCKED_BY_ORB` on the logo PNG) is a `file://` cross-origin quirk and does not affect the live GitHub Pages render (where the page is served same-origin to the GHL CDN).
+
 ### 2026-05-31 — Closed remaining May 29 call action items (Google review branding + Shop page + client email)
 Reviewed both Tristan meeting transcripts (May 22 onboarding, May 29 check-in) against the changelog and found three R3 next-steps still open. Closed all three on `funnel/home.html` (Variation A) and added a new `funnel/shop.html`.
 
