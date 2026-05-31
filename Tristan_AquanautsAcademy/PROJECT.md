@@ -67,6 +67,15 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +2) — Shop page: filter bar, per-card mini previews, clean descriptions (em-dashes stripped, paragraph breaks preserved)
+Three targeted improvements driven by client feedback after seeing the modal go live:
+
+1. **Filter / search bar** (sticky at top of catalog). Search input (debounced via `input` event, normalized alphanumeric match across name + description) + 6 category pills (All / Caps & Hats / Swim Rings / Beach & Toys / Headbands / Happy Nappy). Hidden cards collapse their parent `.cat-section` automatically; an empty-state message shows when no products match.
+2. **Per-card mini preview thumbnails.** Each `.product-card` now renders a row of up to 3 small image thumbnails below the price (sourced from `gallery[1..3]`). Clicking one opens the modal **at that image index** (new `initialIdx` arg on `openModal`). Card click still opens at index 0. The mini-thumb click stops propagation so it doesn't double-fire the card's click handler.
+3. **Description cleanup.** Originally scraped via `.textContent` which collapsed all block-element whitespace, producing run-on strings like "raysHelps", "beachMatches". Re-scraped all 40 product descriptions via `.innerText` using 4 parallel subagents (`rescrape-descriptions-batch.js`, 10 products each, ~40s total). Then `build-product-data.py.clean_description()` strips em-dashes (replaced with `, `), em-dash-with-surrounding-spaces en-dashes (same), normalizes NBSPs, collapses runs of blank lines down to a single blank line, and trims trailing whitespace per line. En-dashes in digit ranges (`11–15kg`, `1–2 years`) are intentionally kept (per global memory rule). Also removed one hardcoded em-dash from the shop hero subtitle.
+
+Also fixed a subtle bug in `inject-shop-modal.py`: `re.sub` interprets backslash sequences in *string* replacements, so `\\n` escapes inside the embedded JSON blob were being collapsed to literal newlines, breaking `JSON.parse` in the browser. Switched all three `re.sub` calls to lambda replacements so the JSON survives verbatim.
+
 ### 2026-05-31 (latest) — Shop page: click any product card to open a lightbox modal with gallery + description + size selector
 Tristan asked us to mirror the original Wix product detail experience: multiple images per product, the full description, and the size dropdown for items that have one. Built a click-to-open modal on `funnel/shop.html` covering all 40 products.
 
