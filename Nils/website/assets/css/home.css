@@ -836,7 +836,7 @@
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  padding: var(--space-8) var(--space-7) var(--space-7);
+  padding: 0;
   box-shadow: 0 24px 60px rgba(0,0,0,0.3);
   animation: nm-scale var(--dur-base) var(--ease-out);
 }
@@ -845,42 +845,84 @@
   from { opacity: 0; transform: scale(0.96) translateY(12px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+/* Modal HERO STRIP — blue gradient header with dot pattern, ties to route halves */
+.nils-modal .modal-hero {
+  position: relative;
+  background: linear-gradient(135deg, var(--marketing) 0%, var(--marketing-dark) 100%);
+  padding: var(--space-7) var(--space-7) var(--space-6);
+  color: white;
+  overflow: hidden;
+}
+.nils-modal .modal-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(135deg, black 30%, transparent 80%);
+  pointer-events: none;
+}
+.nils-modal .modal-hero > * { position: relative; z-index: 1; }
+
 .nils-modal .modal-close {
   position: absolute; top: var(--space-4); right: var(--space-4);
-  background: var(--ink-line-soft); border: 0;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.22);
   width: 36px; height: 36px;
   border-radius: 50%;
   font-size: 22px; line-height: 1;
-  color: var(--ink);
+  color: white;
   cursor: pointer;
-  transition: background var(--dur-fast);
+  transition: background var(--dur-fast), border-color var(--dur-fast);
   display: inline-flex; align-items: center; justify-content: center;
+  z-index: 2;
 }
-.nils-modal .modal-close:hover { background: var(--ink-line); }
-.nils-modal .modal-eyebrow {
+.nils-modal .modal-close:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.35);
+}
+
+/* Modal content area — white panel below the hero strip */
+.nils-modal .modal-content {
+  padding: var(--space-7);
+}
+
+/* Hero text styles (white on blue) */
+.nils-modal .modal-hero .modal-eyebrow {
   display: block;
   font-family: var(--font-display);
   font-size: var(--fs-eyebrow);
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--ink-mute);
+  color: rgba(255,255,255,0.8);
   font-weight: var(--fw-display-bold);
   margin-bottom: var(--space-3);
 }
-.nils-modal h3 {
+.nils-modal .modal-hero h3 {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: var(--fs-h2);
   font-weight: var(--fw-serif-regular);
   line-height: var(--lh-tight);
   margin: 0 0 var(--space-3);
-  color: var(--ink);
+  color: white;
 }
-.nils-modal .subhead {
+.nils-modal .modal-hero .subhead {
   font-family: var(--font-body);
   font-size: var(--fs-body-lg);
-  color: var(--ink-soft);
-  margin: 0 0 var(--space-6);
+  color: rgba(255,255,255,0.92);
+  margin: 0;
   max-width: 720px;
+}
+
+/* Divider eyebrow inside content area — blue, ties back to brand */
+.nils-modal .modal-content .modal-eyebrow {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--marketing);
+  font-weight: var(--fw-display-bold);
+  margin-bottom: var(--space-2);
 }
 
 /* ─── About-Nils MODAL — section dividers ─── */
@@ -1070,7 +1112,8 @@
   .about-nils { padding-top: var(--space-7); padding-bottom: var(--space-7); }
   .nils-cards { grid-template-columns: 1fr; gap: var(--space-4); }
   .nils-modal { padding: var(--space-3); }
-  .nils-modal .modal-panel { padding: var(--space-6) var(--space-4) var(--space-4); }
+  .nils-modal .modal-hero { padding: var(--space-6) var(--space-5) var(--space-5); }
+  .nils-modal .modal-content { padding: var(--space-5) var(--space-4) var(--space-5); }
   .review-grid, .project-grid { grid-template-columns: 1fr 1fr; }
   .roas-stats { flex-wrap: wrap; gap: var(--space-5); padding: var(--space-4); }
   .roas-stats .stat-block .num { font-size: 26px; }

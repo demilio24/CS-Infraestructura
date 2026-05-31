@@ -97,6 +97,15 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Modal redesign: blue gradient hero strip (C variant)
+Picked from a 4-option visual brainstorm (editorial / dark premium / blue gradient / frosted glass). All 3 About Nils modals (Trust / Projects / Ad-spend) now share a 2-zone layout:
+- **Top zone (`.modal-hero`):** blue gradient (`var(--marketing)` → `var(--marketing-dark)`) with the existing radial dot pattern from the route halves (visually ties the modals to the picker cards). Contains the eyebrow (uppercase white at 80% opacity), the italic serif title (white), and the subhead (white at 92%). Close button repositioned inside the hero, restyled as a 36px translucent-white circle with subtle border.
+- **Bottom zone (`.modal-content`):** white panel. Houses everything that used to live below the title: featured videos, divider, review/project grid, dashboard, campaign cards. Divider eyebrows colored `var(--marketing)` to echo the brand.
+
+Structural change: each modal's HTML now wraps the title block in `<div class="modal-hero">` and the body in `<div class="modal-content">`. Padding moved from `.modal-panel` (now `padding: 0`) into the two zones individually.
+
+Mobile breakpoint updated: hero and content zones each shrink padding independently.
+
 ### 2026-05-31 — Enrich About Nils modal contents (video testimonials, full project grid, campaign cards)
 Per user request to add "more information" inside the receipt-card modals (with reviews as the lead example):
 - **Trust modal** — added 2 featured video testimonials at the top (Wendy Cox + Jessica Schlenz, pulled from `funnel/vsl.html` / original index proof-cases section) with quote + result + name metadata, plus a `.modal-divider` separator before the "More reviews" Trustpilot wall. Wall expanded from 9 to 10 images (added Keila Mulero review). New CSS: `.video-features` 2-column grid, `.video-case` containers, `.case-meta` row, `.modal-divider`, `.section-subhead`.
