@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T17:32:00Z",
+  "generatedAt": "2026-05-31T17:37:01Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -221,7 +221,7 @@
     },
     "byWeek": {
       "June 1st-5th": 34,
-      "June 8th-12th": 35,
+      "June 8th-12th": 36,
       "June 15th-19th": 34,
       "June 22nd-26th": 35,
       "June 29th-July 3rd": 35,
@@ -241,7 +241,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 19,
+        "Upper Campus": 20,
         "Lower Campus": 16,
         "Unknown": 0
       },
@@ -302,7 +302,7 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 127,
+      "Westward Elementary School": 128,
       "Northboro Elementary School": 78,
       "Pleasant City Elementary School": 58,
       "U.B. Kinsey Educational and Community Center": 50,
@@ -323,7 +323,7 @@
   },
   "combined": {
     "total": 178,
-    "enrollments": 585,
+    "enrollments": 586,
     "byCampus": {
       "Upper Campus": 81,
       "Lower Campus": 97,
@@ -331,7 +331,7 @@
     },
     "byWeek": {
       "June 1st-5th": 56,
-      "June 8th-12th": 66,
+      "June 8th-12th": 67,
       "June 15th-19th": 55,
       "June 22nd-26th": 57,
       "June 29th-July 3rd": 50,
@@ -351,7 +351,7 @@
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 35,
+        "Upper Campus": 36,
         "Lower Campus": 31,
         "Unknown": 0
       },
@@ -4762,13 +4762,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 36,
+              "Tue": 36,
+              "Wed": 36,
+              "Thu": 36,
+              "Fri": 36
             },
-            "total": 175,
+            "total": 180,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4915,6 +4915,19 @@
               },
               {
                 "name": "Damion Short",
+                "campus": "Upper Campus",
+                "type": "free",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "Yes"
+              },
+              {
+                "name": "Darren Dushawn Edwards Jr",
                 "campus": "Upper Campus",
                 "type": "free",
                 "days": [
@@ -5230,13 +5243,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 36,
+            "Tue": 36,
+            "Wed": 36,
+            "Thu": 36,
+            "Fri": 36
           },
-          "all": 175
+          "all": 180
         }
       },
       "June 15th-19th": {
@@ -11292,7 +11305,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 11,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -11367,7 +11380,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -11417,7 +11430,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 19,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -11519,7 +11532,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 14,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -11544,7 +11557,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 15,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -11569,7 +11582,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 6,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -11579,6 +11592,31 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
+        },
+        {
+          "name": "Darren Dushawn Edwards Jr",
+          "campus": "Upper Campus",
+          "lunch": true,
+          "lunchRaw": "Yes",
+          "breakfastRaw": "Yes",
+          "allergy": null,
+          "notes": null,
+          "email": "prettytiya17@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
+          "sourceGid": 42263552,
+          "sourceTabName": "6/8-6/12",
+          "sourceRow": 3,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "free",
+          "school": "Westward Elementary School"
         },
         {
           "name": "Everette Machnik",
@@ -11594,7 +11632,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 13,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -11619,7 +11657,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 7,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -11669,7 +11707,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -11744,7 +11782,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 18,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -11769,7 +11807,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -11794,7 +11832,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 17,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -11844,7 +11882,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 4,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -11894,7 +11932,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 5,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -11971,7 +12009,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 20,
+          "sourceRow": 21,
           "days": [
             true,
             true,
@@ -11996,7 +12034,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 12,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -12071,7 +12109,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 3,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -12146,7 +12184,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 16,
+          "sourceRow": 17,
           "days": [
             true,
             true,
