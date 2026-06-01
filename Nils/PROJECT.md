@@ -97,6 +97,9 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-06-01 — Passthrough (no Nils content changes)
+Stop hook flagged Nils after a `git pull --rebase` during unrelated Tristan_AquanautsAcademy work normalized line endings in `Nils/website/index.html` and `Nils/website/assets/css/home.css`. No file contents changed in this session; logging only to satisfy the PROJECT.md rule.
+
 ### 2026-05-31 — Removed footer entirely
 Per user, the home page now has zero footer chrome. Page is just hero + picker filling the entire remaining viewport. The body's flex-column layout from the prior pure-picker pass continues to make the picker grow naturally — without a footer to claim bottom space, the picker simply extends to the bottom of the viewport itself.
 
