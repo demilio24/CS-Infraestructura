@@ -697,18 +697,51 @@
   text-align: center; /* centers the inline-block eyebrow pill + the h2 text */
 }
 .about-nils .eyebrow {
-  /* inherits the compact blue pill from globals.css .eyebrow */
+  /* override globals.css pill — D variant uses plain text eyebrow */
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--ink-mute);
+  letter-spacing: 0.25em;
+  margin-bottom: var(--space-5);
+}
+
+/* D variant — stat-led headline */
+.about-nils .stat-headline {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-7);
+  flex-wrap: wrap;
   margin-bottom: var(--space-4);
 }
-.about-nils h2 {
+.about-nils .stat-block { text-align: center; }
+.about-nils .stat-block .num {
+  display: block;
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: var(--fw-serif-regular);
-  font-size: var(--fs-h2);
-  line-height: var(--lh-tight);
-  max-width: 900px;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--marketing);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-1);
+}
+.about-nils .stat-block .label {
+  font-family: var(--font-display);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: var(--fw-display-bold);
+}
+.about-nils .closer {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 500px;
   margin: 0 auto var(--space-7);
-  color: var(--ink);
+  line-height: var(--lh-snug);
 }
 
 .nils-cards {
@@ -1119,5 +1152,8 @@
   .video-features { grid-template-columns: 1fr; gap: var(--space-4); }
   .campaign-grid { grid-template-columns: 1fr; gap: var(--space-3); }
   .nils-modal .section-subhead { font-size: 18px; }
+  .about-nils .stat-headline { gap: var(--space-5); }
+  .about-nils .stat-block .num { font-size: 38px; }
+  .about-nils .closer { font-size: 16px; }
 }
 

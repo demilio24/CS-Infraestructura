@@ -97,6 +97,14 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — About Nils header: stat-led D variant (numbers ARE the headline)
+Picked D from a 4-option brainstorm (pill / plain / hairlines / stat-led). Replaces the previous `<h2>300+ projects. $2.4M+ in ads. 50+ five-star reviews.</h2>` italic-serif single-sentence headline with a 3-block stat row + italic-serif closer:
+- **Eyebrow** "About Nils" — overrides globals.css `.eyebrow` pill (background, border, padding all stripped). Plain gray uppercase text, wider letter-spacing (0.25em).
+- **Stat row** — `.stat-headline` flex layout with 3 `.stat-block` items. Each block: huge italic-serif `var(--marketing)` number (52px desktop / 38px mobile) + uppercase label below.
+- **Closer** "Six years of building for local service businesses." — italic-serif, 18px (16px mobile), ink-soft color, max 500px centered.
+
+CSS additions in `home.css` (.about-nils block + mobile breakpoint). Mobile uses flex-wrap so the 3 stat blocks wrap if the viewport's too narrow.
+
 ### 2026-05-31 — Visual QA fixes: video aspect + project-modal image weight
 Ran a Puppeteer visual test on the live About Nils modals at desktop (1440x900) + mobile (390x844). Found two bugs and fixed both:
 1. **Trust modal videos were cropped.** Wendy/Jessica source videos are 478x850 (portrait), but `.video-wrap` was `aspect-ratio: 16/9` with `object-fit: cover`, which zoomed vertically and chopped both heads. Fixed by flipping the container to `aspect-ratio: 9/16` (matching the source ratio) and adding a `max-height: 540px` cap so the videos don't blow up the modal height on wide viewports.
