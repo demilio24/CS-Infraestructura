@@ -97,6 +97,11 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Removed footer entirely
+Per user, the home page now has zero footer chrome. Page is just hero + picker filling the entire remaining viewport. The body's flex-column layout from the prior pure-picker pass continues to make the picker grow naturally — without a footer to claim bottom space, the picker simply extends to the bottom of the viewport itself.
+
+The `footer.css` link and `.site-footer` flex rule are left in place — inert without the `<footer>` markup, but cheap to leave.
+
 ### 2026-05-31 — Pure picker page: removed About Emilio / About Nils / closing nudge, picker now fills viewport
 Per user, the home is now JUST the router: hero + picker + footer. Removed from `index.html`:
 - About Emilio section (polaroid wall)
