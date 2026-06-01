@@ -1,33 +1,42 @@
-/* ─── PURE-ROUTER PAGE LAYOUT — hero (top 50vh) + picker (bottom 50vh) ─── */
-html, body { height: 100%; }
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* ─── PURE-ROUTER PAGE LAYOUT — strict 50/50 grid on desktop ─── */
+html, body { height: 100%; margin: 0; }
+body { min-height: 100vh; }
+
+@media (min-width: 721px) {
+  html, body { height: 100vh; overflow: hidden; }
+  body {
+    display: grid;
+    grid-template-rows: 50vh 50vh;
+    grid-template-columns: 1fr;
+  }
+  .home-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .home-route-halves#offers {
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+  }
+  .home-route-halves#offers .route-halves {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100%;
+  }
+  .home-route-halves#offers .route-half {
+    height: 100%;
+    min-height: 0;
+  }
 }
-.home-hero {
-  flex: 1 1 auto;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.home-route-halves#offers {
-  flex: 0 0 50vh;
-  min-height: 50vh;
-  display: flex;
-  align-items: stretch;
-}
-.home-route-halves#offers .route-halves {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  width: 100%;
-}
-.home-route-halves#offers .route-half {
-  height: 100%;
-  min-height: 0;
+
+@media (max-width: 720px) {
+  body { display: flex; flex-direction: column; }
+  .home-hero { flex: 0 0 auto; }
 }
 @media (max-width: 720px) {
   .home-route-halves#offers .route-halves {
