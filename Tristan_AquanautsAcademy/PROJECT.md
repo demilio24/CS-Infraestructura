@@ -67,6 +67,16 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +8) — Real instructor bios + Glenn Mathieson added (now 9 instructors, 3x3 grid)
+Tristan sent the canonical bio text for 4 existing instructors (himself, Brandon, Donna, Kesya) and the bio for a new addition (Glenn Mathieson, ~16 years experience, Lifesaving Society / BCRPA / Red Cross / WorkSafe BC certs).
+
+- Swapped the 4 placeholder bios for the real ~300-word multi-paragraph versions. Restructured `.team-card-bio` from a single `<p>` to a `<div>` containing multiple `<p>` tags with proper paragraph spacing. Em-dashes stripped per project rule (replaced with commas, periods, or removed).
+- Added a 9th team card for Glenn. No photo from him yet, so used a clean placeholder treatment: teal-to-blue gradient with a big "G" initial and a small "PHOTO COMING SOON" tag at the bottom. CSS class `.team-card-img.placeholder`. Tagged with all 4 location filters since his bio says "across Vancouver Island."
+- Team grid was 4 columns. Switched to **3 columns** so 9 cards land as a clean 3x3. Bumped collapse `max-height` from 380px to 1200px to fit the longer multi-paragraph bios.
+- Section H2 updated: "Eight Instructors" → "Nine Instructors". Decades, on Deck.
+
+Open item: **Glenn's headshot.** Add the email ask to the next round of follow-up.
+
 ### 2026-05-31 (latest +7) — Reviews header merged into one card; Our Story photo swapped to Tristan-with-dad
 Two targeted polish changes:
 

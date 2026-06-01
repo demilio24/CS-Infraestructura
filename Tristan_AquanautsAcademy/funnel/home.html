@@ -305,25 +305,29 @@ p { margin: 0 0 1em; }
    TEAM
 ═══════════════════════════════════════════════════════ */
 .team { padding: 68px 0; background: #fff; }
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .team-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; display: flex; flex-direction: column; }
 .team-card.hidden { display: none; }
 .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); }
 .team-card-img { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--bg-band); }
 .team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .team-card:hover .team-card-img img { transform: scale(1.05); }
+.team-card-img.placeholder { background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 4.5rem; line-height: 1; letter-spacing: -0.04em; position: relative; }
+.team-card-img.placeholder::after { content: 'Photo coming soon'; position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-family: 'Manrope', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; }
 .team-card-body { padding: 20px 18px 22px; flex: 1; display: flex; flex-direction: column; }
 .team-card-body h3 { font-family: 'Outfit', sans-serif; font-size: 1.06rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
 .team-card-role { font-family: 'Outfit', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
 .team-card-bio { font-size: 0.9rem; color: var(--muted); line-height: 1.55; margin-bottom: 14px; flex: 1; }
+.team-card-bio p { margin: 0 0 10px; }
+.team-card-bio p:last-child { margin-bottom: 0; }
 .team-card-serves { font-family: 'Outfit', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--navy); padding-top: 12px; border-top: 1px dashed var(--line); margin-top: auto; }
 .team-card-serves span { color: var(--muted); font-weight: 500; }
 .team-card-link { display: inline-flex; align-items: center; gap: 4px; font-family: 'Outfit', sans-serif; font-size: 0.84rem; font-weight: 700; color: var(--coral-2); margin-top: 6px; padding: 8px 0; }
 .team-card-toggle { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; background: none; border: none; padding: 6px 0; margin: 0 0 2px; cursor: pointer; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--blue); text-align: left; }
 .team-card-toggle .chev { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.35s; }
 .team-card.open .team-card-toggle .chev { transform: rotate(180deg); }
-.team-card-collapse { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.4s ease, opacity 0.3s ease; }
-.team-card.open .team-card-collapse { max-height: 380px; opacity: 1; }
+.team-card-collapse { max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s ease, opacity 0.3s ease; }
+.team-card.open .team-card-collapse { max-height: 1200px; opacity: 1; }
 .team-card-collapse .team-card-bio { margin-top: 10px; }
 .team-cta-row { text-align: center; margin-top: 32px; }
 
@@ -1123,7 +1127,7 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="section-head anim">
       <div class="eyebrow">Meet the Team</div>
-      <h2 class="section-title">Eight Instructors.<br><span class="accent">Decades</span> on Deck.</h2>
+      <h2 class="section-title">Nine Instructors.<br><span class="accent">Decades</span> on Deck.</h2>
       <p class="section-sub">From a 30-year lifesaving instructor trainer to a behaviour interventionist, every coach here is here for a reason.</p>
     </div>
 
@@ -1143,7 +1147,13 @@ p { margin: 0 0 1em; }
           <div class="team-card-role">Founder · Lifeguard · Instructor</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
-            <p class="team-card-bio">Founder of Aquanauts and a lifeguard and swim instructor with 10+ years teaching swimmers of all ages and abilities. He started with the Special Olympics swim program and specializes in adaptive aquatics, neurodiverse support, and infant survival rescue paired with strong learn-to-swim foundations.</p>
+            <div class="team-card-bio">
+              <p>Hi, I'm Tristan! I'm a lifeguard and swim instructor with nearly 10 years of experience teaching swimming lessons to people of all ages and abilities. My love for swimming began at a young age, and I've developed a passion for sharing my knowledge to help people feel confident and safe in the water.</p>
+              <p>I started Aquanauts Swim Academy on Vancouver Island to combine high-quality, personalized instruction with a sense of adventure and discovery. Our mission is to empower swimmers of all ages to build water confidence, master safety skills, and explore their potential, whether it's their first splash in the pool or working toward lifelong swimming goals.</p>
+              <p>One of my proudest accomplishments has been coaching athletes through the Special Olympics, where I've seen the transformative power of swimming in building confidence, improving physical fitness, and achieving personal milestones. This experience inspires me every day to make Aquanauts a place where everyone feels supported and encouraged.</p>
+              <p>I also love combining learn-to-swim with infant survival rescue. Watching little ones discover the joy of swimming while learning to be incredibly safe and begin self-rescue is one of the most rewarding parts of what I do.</p>
+              <p>Swimming is more than a skill. It is a life-saving ability and a gateway to lifelong health and enjoyment. My goal with Aquanauts is to make swimming accessible, enjoyable, and enriching for everyone. Happy swimming!</p>
+            </div>
             <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose Bay, Parksville, Shawnigan Lake</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Tristan →</a>
@@ -1182,7 +1192,12 @@ p { margin: 0 0 1em; }
           <div class="team-card-role">Behaviour Interventionist</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
-            <p class="team-card-bio">Certified swim instructor with Bronze Medallion, Bronze Cross, and Lifesaving Society Swim Instructor training. A behaviour interventionist by day at Coast Karma, so neurodiverse families are home turf for him.</p>
+            <div class="team-card-bio">
+              <p>Hi, I'm Brandon! I'm a certified swim instructor with training in Bronze Medallion, Bronze Cross, and Swim Instructor certifications through the Lifesaving Society. I've spent the last several years working closely with children and individuals with diverse needs, both as a behaviour interventionist at Coast Karma and through my work in daycares and as a kids' dance instructor at VIBE Studios.</p>
+              <p>I love creating a safe, fun, and encouraging environment where swimmers can build confidence, learn essential skills, and truly enjoy their time in the water. Whether I'm working with beginners who are just getting comfortable or more experienced swimmers refining their technique, I'm all about meeting each swimmer where they're at and helping them reach their goals at their own pace.</p>
+              <p>My lessons are focused on water safety, skill-building, and of course, having fun. I believe that learning to swim is not only a vital life skill but a great way for kids to build confidence and discover what they're capable of!</p>
+              <p>I can't wait to dive in and help your swimmer conquer the water!</p>
+            </div>
             <div class="team-card-serves">Serves: <span>Nanaimo, Nanoose, Parksville</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Brandon →</a>
@@ -1221,7 +1236,11 @@ p { margin: 0 0 1em; }
           <div class="team-card-role">Masters Coach</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
-            <p class="team-card-bio">A lifelong, competitive swimmer for whom the pool has always been a happy place. Warm, patient, and adaptive, she meets every swimmer right at their level.</p>
+            <div class="team-card-bio">
+              <p>Hi, I'm Donna! I've been a swimmer for as long as I can remember, and the pool has always been my happy place. From my days as a competitive swimmer in my youth to swimming for fun and fitness as an adult, water has been a constant in my life. So I decided to turn that passion into a side career as a swim instructor and Masters Coach.</p>
+              <p>I specialize in personalized swim lessons that meet each swimmer exactly where they are. Whether they're just learning to feel comfortable in the water, building confidence with their first strokes, or refining technique as they grow. My philosophy is simple: when swimmers feel safe, supported, and encouraged, real progress follows.</p>
+              <p>I bring a warm, patient, and adaptive teaching style that helps me connect with swimmers of all ages. I love creating lessons that are both fun and purposeful, so that every student not only builds their skills but also leaves the pool feeling proud of themselves. Whether I'm working with toddlers, teens, or adults, my goal is always the same: to help each swimmer feel confident, capable, and joyful in the water.</p>
+            </div>
             <div class="team-card-serves">Serves: <span>Nanaimo (Central)</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Donna →</a>
@@ -1234,10 +1253,34 @@ p { margin: 0 0 1em; }
           <div class="team-card-role">Swim Instructor</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
-            <p class="team-card-bio">Teaches at Pacific Shores Resort in Nanoose Bay and our Parksville indoor pool. Warm, patient, and focused on confident, steady progress.</p>
+            <div class="team-card-bio">
+              <p>Hi, I'm Kesya! Movement, wellness, and water have been part of my life for as long as I can remember. I've worked with children, athletes, seniors, and individuals with diverse abilities through recreation, fitness, wellness, and coaching roles over the years.</p>
+              <p>My background includes training through the National Academy of Sports Medicine (NASM), group fitness instruction, mobility and barre-based movement, aquafitness and Aqua Zumba instruction, as well as Emergency Medical Responder (EMR) and wilderness response training.</p>
+              <p>I'm passionate about helping people build confidence in their bodies through safe movement, breath control, and body awareness. Water has always been one of my favourite places to teach and connect.</p>
+              <p>Over the years I've snorkelled and explored oceans during my travels, started diving with PADI, and even worked as a professional mermaid performer! As a mom of four, I've also personally taught my own children swimming, diving, breath control, and water confidence from a young age.</p>
+              <p>My teaching style focuses on creating a calm, supportive, and encouraging environment where swimmers feel safe, capable, and proud of themselves. Whether working with young children, beginners, or more advanced swimmers, my goal is always to help each person build confidence, skills, and a lifelong comfort in the water.</p>
+            </div>
             <div class="team-card-serves">Serves: <span>Nanoose Bay, Parksville</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Kesya →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="nanaimo parksville victoria campbell" style="transition-delay:.40s">
+        <div class="team-card-img placeholder" aria-label="Glenn Mathieson, photo coming soon">G</div>
+        <div class="team-card-body">
+          <h3>Glenn Mathieson</h3>
+          <div class="team-card-role">Aquatics Instructor · Lifeguard</div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <div class="team-card-bio">
+              <p>Hi, I'm Glenn! I've loved swimming my whole life, and been an aquatics expert for over 16 years. I have experience as a lifeguard, swim instructor, and aqua fitness instructor across Vancouver Island, and hold certifications through the Lifesaving Society, BCRPA, Canadian Red Cross, and Worksafe BC.</p>
+              <p>Swimming can be scary when you're not used to the water, and stressful when you don't see progress. You and your child deserve a personalized, safe, and fun experience to build confidence and success.</p>
+              <p>Don't let fear and frustration hold you back. No matter your age or ability, I specialize in helping developing swimmers get to the next level. Confidence in the water starts here.</p>
+              <p>Book now for your free 30 minute trial lesson and kickstart your aquatic journey today!</p>
+            </div>
+            <div class="team-card-serves">Serves: <span>Vancouver Island</span></div>
+          </div>
+          <a href="#hero-form" class="team-card-link">Book with Glenn →</a>
         </div>
       </div>
     </div>
