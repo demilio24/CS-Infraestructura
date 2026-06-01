@@ -57,6 +57,14 @@ uploads/*
 # Per-project .claude/ folders (local agent state — settings.local.json, etc.)
 */.claude/
 
+# Exception: NILS-SKILLS dashboard data IS version-controlled (the Refresh
+# Dashboard workflow commits these). Re-include the folder, re-exclude its
+# contents, then allow only the two data dirs.
+!NILS-SKILLS/.claude/
+NILS-SKILLS/.claude/*
+!NILS-SKILLS/.claude/dashboard-data/
+!NILS-SKILLS/.claude/reports/
+
 # Brainstorming companion state (superpowers:brainstorming visual companion)
 .superpowers/
 
