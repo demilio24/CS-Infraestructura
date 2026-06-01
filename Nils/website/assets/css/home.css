@@ -28,6 +28,10 @@ body {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
   }
+  .home-route-halves#offers .route-half {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
 }
 
 /* ─── HOME PAGE — Hero (shared across all variations) ─── */
