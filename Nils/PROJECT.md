@@ -97,6 +97,21 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Pure picker page: removed About Emilio / About Nils / closing nudge, picker now fills viewport
+Per user, the home is now JUST the router: hero + picker + footer. Removed from `index.html`:
+- About Emilio section (polaroid wall)
+- About Nils section (stat-led headline + 3 receipt cards)
+- 3 modals (Trust / Projects / Ad-spend) and their inline modal-handler `<script>`
+- Closing nudge (Still deciding? CTAs)
+- Caveat font link (no more polaroid handwritten captions)
+
+Added to `home.css` so the picker visually extends to the bottom of the viewport:
+- `body { min-height: 100vh; display: flex; flex-direction: column; }`
+- `.home-route-halves#offers { flex: 1 0 auto; }` so the picker grows
+- `.route-halves { min-height: 50vh; }` as a fallback floor
+
+Hero stays auto-height at the top, footer stays auto-height at the bottom, picker fills everything in between. The CSS rules for `.about-emilio` / `.about-nils` / `.nils-card` / `.nils-modal` / `.closing-nudge` / `.video-features` / `.campaign-grid` / `.roas-stats` are left in `home.css` as dead code in case any of these come back — harmless when no elements use them.
+
 ### 2026-05-31 — Automation CTAs repointed to nilsdigital.com/automation
 All four automation-side links on the home page now go to `https://nilsdigital.com/automation` instead of `../funnel/automation-vsl-funnel-direct.html`:
 - Automation route-half (picker)
