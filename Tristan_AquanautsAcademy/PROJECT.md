@@ -67,6 +67,13 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-06-01 (+7) — Swimmer Age dropdown added to lead form
+User noticed the webhook trigger sample payload didn't include `swimmer_age` and asked for the field. Reason: the GHL custom field `Lead Form Swimmer Age` (`DZFtnzJksaTkgxGUJuNs`) was created via API back in May but no form input was ever wired up to feed it, so every contact ended up with that field empty.
+
+- Added optional `<select name="swimmer_age">` to the hero form between the location field and the honeypot, with 7 options matching the existing GHL picklist values exactly: `6 to 18 months (Infant Survival)` / `2 to 4 years` / `5 to 12 years` / `13 to 18 years` / `Adult (18+)` / `Adult 55+` / `Adaptive (any age)`. Made it optional — non-lesson inquiries (Pool host, Partnership, Sponsorship) don't need it and adding required friction there would hurt conversion.
+- Added `AGE_TO_GHL` mapping in the form JS so the short form value (`kid`, `teen`, etc.) gets translated to the exact picklist string before posting to the webhook. Body now carries `swimmer_age` as a sibling of `program_of_interest` and `closest_location`.
+- Verified live with `.claude/verify-leadform-age.js` (puppeteer + real webhook POST as Emilio Nils, Private + Nanaimo, `5 to 12 years`): GHL returned `200 OK` with `{"status":"Success: request sent to trigger execution server","id":"tjwaNPdB6vg47WcRcer7"}` — note the message changed from the previous "test request received" because the workflow trigger is now active, so each submit actually executes the workflow now.
+
 ### 2026-06-01 (+6) — GHL custom-field cleanup + folder consolidation
 Cleaned up the snapshot cruft in the custom fields of Tristan's GHL sub-account (`xBWIIj9IjYQL2XdtjJ1A`). Scope confirmed with user: **conservative — delete only definite junk/duplicates; only the Lead Form(s) are live.** Started at 71 field items / 10 folders, ended at **64 fields / 6 populated folders**.
 

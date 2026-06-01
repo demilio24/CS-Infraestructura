@@ -671,6 +671,19 @@ p { margin: 0 0 1em; }
                 <option value="not-sure">Not sure yet, recommend one</option>
               </select>
             </div>
+            <div class="form-field">
+              <label>Swimmer age <span style="text-transform:none;font-weight:500;opacity:0.7">(optional, helps instructor matching)</span></label>
+              <select name="swimmer_age">
+                <option value="">Pick an age range</option>
+                <option value="infant">6 to 18 months (Infant Survival)</option>
+                <option value="toddler">2 to 4 years</option>
+                <option value="kid">5 to 12 years</option>
+                <option value="teen">13 to 18 years</option>
+                <option value="adult">Adult (18+)</option>
+                <option value="adult-55">Adult 55+</option>
+                <option value="adaptive">Adaptive (any age)</option>
+              </select>
+            </div>
             <!-- Honeypot: real users never see or interact with this. Bots fill it; we silently route them to success without hitting the API. -->
             <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" tabindex="-1">
               <label for="lf_hp">Leave this field blank</label>
@@ -1893,6 +1906,15 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
     'mobile':                'Mobile / in-home pool',
     'not-sure':              'Not sure yet, recommend one',
   };
+  const AGE_TO_GHL = {
+    'infant':   '6 to 18 months (Infant Survival)',
+    'toddler':  '2 to 4 years',
+    'kid':      '5 to 12 years',
+    'teen':     '13 to 18 years',
+    'adult':    'Adult (18+)',
+    'adult-55': 'Adult 55+',
+    'adaptive': 'Adaptive (any age)',
+  };
 
   // Routing matrix → where the user is redirected after submit.
   const PROGRAM_REDIRECT = {
@@ -1955,6 +1977,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
       phone:               data.phone,
       program_of_interest: PROGRAM_TO_GHL[data.program_interest] || data.program_interest,
       closest_location:    LOCATION_TO_GHL[data.location]        || data.location,
+      swimmer_age:         data.swimmer_age ? (AGE_TO_GHL[data.swimmer_age] || data.swimmer_age) : '',
       tags:                ['funnel-aquanauts-2026'],
       source:              'Funnel - Home Hero',
       page_url:            window.location.href,
