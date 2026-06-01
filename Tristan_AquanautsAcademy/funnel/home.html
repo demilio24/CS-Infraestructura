@@ -260,20 +260,27 @@ p { margin: 0 0 1em; }
    REVIEWS
 ═══════════════════════════════════════════════════════ */
 .reviews { padding: 68px 0; background: var(--bg-soft); }
-.reviews-google-card { display: inline-flex; align-items: center; gap: 18px; padding: 18px 28px; background: #fff; border: 1.5px solid var(--line); border-radius: 18px; box-shadow: 0 8px 24px rgba(10,30,58,0.08); margin: 0 auto 14px; text-align: left; }
+.reviews-google-card { display: inline-block; max-width: 540px; width: 100%; padding: 0; background: #fff; border: 1.5px solid var(--line); border-radius: 18px; box-shadow: 0 10px 32px rgba(10,30,58,0.1); margin: 0 auto 30px; overflow: hidden; text-align: left; }
+.reviews-google-card-main { display: flex; align-items: center; gap: 18px; padding: 20px 26px; }
 .reviews-google-card .google-g-big { width: 36px; height: 36px; flex-shrink: 0; }
 .reviews-google-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.74rem; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 .reviews-google-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .reviews-google-row .rating { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--navy); line-height: 1; }
 .reviews-google-row .stars { color: var(--gold); font-size: 1.15rem; letter-spacing: -1px; }
 .reviews-google-row .count { font-size: 0.88rem; color: var(--muted); }
-.reviews-trust-line { display: inline-flex; align-items: center; gap: 8px; margin: 0 auto 32px; padding: 9px 18px; background: rgba(52,168,83,0.1); color: #1e7e3a; border: 1px solid rgba(52,168,83,0.25); border-radius: 50px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.86rem; }
-.reviews-trust-line svg { width: 16px; height: 16px; flex-shrink: 0; }
+.reviews-google-card-trust { display: flex; align-items: center; gap: 10px; padding: 12px 26px; background: rgba(52,168,83,0.08); border-top: 1px solid rgba(52,168,83,0.18); color: #1e7e3a; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.84rem; line-height: 1.35; }
+.reviews-google-card-trust svg { width: 16px; height: 16px; flex-shrink: 0; }
+@media (max-width: 540px) {
+  .reviews-google-card-main { padding: 16px 18px; gap: 14px; }
+  .reviews-google-card .google-g-big { width: 30px; height: 30px; }
+  .reviews-google-row .rating { font-size: 1.3rem; }
+  .reviews-google-card-trust { padding: 11px 18px; font-size: 0.8rem; }
+}
 .reviews-stat { display: inline-flex; align-items: center; gap: 14px; padding: 14px 24px; background: linear-gradient(135deg, rgba(58,216,212,0.12) 0%, rgba(30,77,146,0.08) 100%); border: 1.5px solid rgba(58,216,212,0.3); border-radius: 50px; margin: 0 auto 36px; }
 .reviews-stat .stars { color: var(--gold); font-size: 1.2rem; letter-spacing: -1px; }
 .reviews-stat .rating { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--navy); }
 .reviews-stat .count { font-size: 0.92rem; color: var(--muted); }
-.reviews-head { text-align: center; }
+.reviews-head { text-align: center; display: flex; flex-direction: column; align-items: center; }
 .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .review-card { background: #fff; border-radius: 20px; padding: 28px 26px; border: 1px solid var(--line); box-shadow: 0 8px 26px rgba(10,30,58,0.08); display: flex; flex-direction: column; position: relative; }
 .review-card::before { content: '"'; position: absolute; top: 18px; right: 24px; font-family: 'Outfit', sans-serif; font-size: 4.5rem; font-weight: 900; color: var(--teal); opacity: 0.18; line-height: 1; }
@@ -1004,19 +1011,21 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="reviews-head anim">
       <div class="reviews-google-card">
-        <svg class="google-g-big" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        <div>
-          <div class="reviews-google-label">Google Reviews</div>
-          <div class="reviews-google-row">
-            <span class="rating">5.0</span>
-            <span class="stars">★★★★★</span>
-            <span class="count">based on 129+ Google reviews</span>
+        <div class="reviews-google-card-main">
+          <svg class="google-g-big" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <div>
+            <div class="reviews-google-label">Google Reviews</div>
+            <div class="reviews-google-row">
+              <span class="rating">5.0</span>
+              <span class="stars">★★★★★</span>
+              <span class="count">based on 129+ Google reviews</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="reviews-trust-line">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-        These reviews are pulled directly from our Google Business Profile
+        <div class="reviews-google-card-trust">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>These reviews are pulled directly from our Google Business Profile</span>
+        </div>
       </div>
       <div class="eyebrow">Real Families, Real Words</div>
       <h2 class="section-title">Trusted by Hundreds of <span class="accent">Island Families</span></h2>
@@ -1404,7 +1413,7 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="story-grid">
       <div class="story-img anim">
-        <img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/c56ba206-d265-4c03-9c2a-c0438e1f7762.png" alt="Tristan Tolley, founder of Aquanauts Swim Academy" loading="lazy">
+        <img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/f3e2c634-775e-4266-bda9-9eac634ab86d.jpg" alt="Tristan with his father and siblings in the pool, the memory that started Aquanauts" loading="lazy">
         <div class="story-img-badge"><strong>Est. 2023</strong><span>Founded on Vancouver Island</span></div>
       </div>
       <div class="story-body anim">

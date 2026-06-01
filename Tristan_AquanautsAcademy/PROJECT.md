@@ -67,6 +67,12 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +7) — Reviews header merged into one card; Our Story photo swapped to Tristan-with-dad
+Two targeted polish changes:
+
+1. **Reviews header was two disconnected pieces** (white Google card + separate green trust pill side-by-side). Merged into a single unified card: top section has the Google G + rating, bottom section has a green-tinted strip with the check + "These reviews are pulled directly from our Google Business Profile." Visually one cohesive Google Business Profile widget. Also fixed the `.reviews-head` layout to be `display: flex; flex-direction: column; align-items: center` so the eyebrow and section title stack cleanly below the card on every viewport.
+2. **Our Story photo swapped from Tristan's headshot to the actual family photo** he uses on `/about` (Tristan and siblings in the pool with their dad). Pulled from `static.wixstatic.com/.../07f34f_d43d0b10..._mv2.jpg` (alt: "Tristan with father and family"), uploaded to GHL CDN at `f3e2c634-775e-4266-bda9-9eac634ab86d.jpg`. The narrative is about his late father, so the photo now matches the story.
+
 ### 2026-05-31 (latest +6) — Reviews section: prominent Google branding + explicit trust statement
 Tristan's #1 worry from the May 29 call was that the reviews look fake. The R3 branding pass added a small G logo and a CTA at the bottom, but it was still subtle. This pass makes the Google sourcing unmistakable:
 
