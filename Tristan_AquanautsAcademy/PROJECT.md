@@ -67,6 +67,16 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +11) — All CTAs now point to #hero-form
+Per user direction ("All the call-to-actions on the main website should point to the lead form at the top, all of them"), audited every conversion CTA on `funnel/home.html`. Result: every button-styled link except the nav "Client Login" (Jane App portal for existing customers, by design) was already pointing to `#hero-form` — except the "Meet the Team" ghost button at the bottom of the About section.
+
+Changed: `<a href="#team" class="btn btn-ghost">Meet the Team` → `<a href="#hero-form" class="btn btn-primary">Book Your First Lesson`. Style upgraded ghost -> primary to match the conversion CTA pattern.
+
+Intentionally left as-is:
+- Nav "Client Login" -> Jane App (existing customer flow, not a conversion CTA)
+- Reviews "Read all reviews on Google" -> Google search (trust signal pointing out, not lead capture)
+- Phone, email, social, footer credit links (not CTAs)
+
 ### 2026-05-31 (latest +10) — Merged SEO additions from Tristan's Wix homepage (keywords, FAQs, cities, audience pills)
 Tristan emailed 2026-06-01 03:01 UTC asking us to look at his Wix homepage SEO/keyword work and pull anything useful into the funnel. Scraped `aquanautsacademy.ca/` via `scrape-aquanauts-homepage.js` and brought over the highest-impact pieces:
 
