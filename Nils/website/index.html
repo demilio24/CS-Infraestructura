@@ -100,7 +100,6 @@
         <span class="btn prominent">Get a free audit &rarr;</span>
       </a>
       <a class="route-half automation" href="../funnel/automation-vsl-funnel-direct.html">
-        <canvas class="matrix-canvas" aria-hidden="true"></canvas>
         <div class="ico">&#9881;&#65039;</div>
         <h3>Drowning in manual work?</h3>
         <p>You will implement AI and automation in your business to help you run leaner, faster, and cut your manual work.</p>
@@ -344,50 +343,6 @@
     </div>
     <script>document.getElementById('footer-year').textContent = new Date().getFullYear();</script>
   </footer>
-
-  <!-- Matrix-rain canvas for the automation route-half -->
-  <script>
-    (function() {
-      var canvases = document.querySelectorAll('.route-half.automation .matrix-canvas');
-      canvases.forEach(function(canvas) {
-        var ctx = canvas.getContext('2d');
-        var fontSize = 14;
-        var drops = [];
-
-        function resize() {
-          canvas.width = canvas.offsetWidth;
-          canvas.height = canvas.offsetHeight;
-          var cols = Math.floor(canvas.width / fontSize);
-          drops = [];
-          for (var i = 0; i < cols; i++) drops.push(Math.random() * -20);
-        }
-        resize();
-        window.addEventListener('resize', resize);
-
-        var chars = '01';
-        function draw() {
-          ctx.fillStyle = 'rgba(8, 122, 77, 0.10)';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.font = fontSize + "px 'Courier New', monospace";
-          for (var i = 0; i < drops.length; i++) {
-            var ch = chars[Math.floor(Math.random() * chars.length)];
-            var y = drops[i] * fontSize;
-            // Bright "head" character at the leading edge
-            ctx.fillStyle = 'rgba(230, 255, 240, 0.95)';
-            ctx.fillText(ch, i * fontSize, y);
-            // Slightly dimmer trailing character
-            if (drops[i] > 1) {
-              ctx.fillStyle = 'rgba(180, 255, 200, 0.55)';
-              ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fontSize, y - fontSize);
-            }
-            if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-          }
-        }
-        setInterval(draw, 60);
-      });
-    })();
-  </script>
 
   <!-- About-Nils receipt-card modal handler -->
   <script>

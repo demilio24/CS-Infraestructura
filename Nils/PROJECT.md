@@ -97,6 +97,15 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Automation card: static matrix pattern (top-right fade), mirrors marketing
+Reverted from the canvas-based animated Matrix rain to a static binary pattern that mirrors the marketing card's visual treatment. Marketing has a dot pattern concentrated in the top-left fading toward the bottom-right (`mask-image: linear-gradient(135deg, black 30%, transparent 80%)`). Automation now has a binary-character pattern concentrated in the top-right fading toward the bottom-left (`mask-image: linear-gradient(225deg, black 30%, transparent 80%)`) — same mask geometry, mirrored corner.
+
+Changes:
+- Removed the `<canvas class="matrix-canvas">` element from the automation route-half in `index.html`.
+- Removed the inline matrix-rain init script.
+- Removed the `.route-half > canvas.matrix-canvas` CSS rule.
+- Restored `.route-half.automation::before` with a denser binary string (Courier New 13px, color `rgba(220, 255, 230, 0.55)`, letter-spacing 3px), masked to fade from top-right (visible) toward bottom-left (transparent).
+
 ### 2026-05-31 — $2.4M ad-spend stat re-scoped to 2025 specifically
 Per user note, the $2.4M figure should reflect 2025 campaign spend (not a perpetual lifetime claim). Added "2025" qualifier wherever $2.4M appears on the home:
 - About Nils stat block label: "in Ads" → "2025 Ad Spend"
