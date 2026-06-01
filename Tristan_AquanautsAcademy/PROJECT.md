@@ -67,6 +67,13 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +6) — Reviews section: prominent Google branding + explicit trust statement
+Tristan's #1 worry from the May 29 call was that the reviews look fake. The R3 branding pass added a small G logo and a CTA at the bottom, but it was still subtle. This pass makes the Google sourcing unmistakable:
+
+1. **Replaced the small `.reviews-stat` pill** with a `.reviews-google-card`: white card with a 36px Google G logo on the left, "GOOGLE REVIEWS" eyebrow + "5.0 ★★★★★ based on 129+ Google reviews" on the right. Reads as a real Google Business Profile summary.
+2. **New `.reviews-trust-line` green pill** immediately below: ✓ "These reviews are pulled directly from our Google Business Profile." Green = trust convention; explicit statement removes ambiguity.
+3. **Per-card source line** updated: bumped G logo from 12px to 14px, changed "Posted on Google" → "Google review" (matches Google's own UI label), added a green `.verified` badge with a check icon. Each card now shows `G Google review · ✓ Verified` under the reviewer name.
+
 ### 2026-05-31 (latest +5) — Added Shop link to the home page desktop nav
 Mobile menu already had a Shop entry; desktop nav (`.nav-links` in `funnel/home.html`) didn't. Appended `<li><a href="shop.html">Shop</a></li>` after the FAQ link so the catalog is one click away from any home-page visitor. No CSS or JS changes (the existing `.nav-links` styling handles it).
 
