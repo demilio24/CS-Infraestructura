@@ -1,0 +1,4 @@
+# Force LF endings on the dirty-baseline so the Stop-hook's `comm -23` matches
+# against git status output (which is always LF). Without this, Windows autocrlf
+# rewrites the file with CRLF on stash/checkout, breaking baseline subtraction.
+.dirty-baseline text eol=lf
