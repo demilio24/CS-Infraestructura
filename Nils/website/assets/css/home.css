@@ -690,6 +690,49 @@
   .home-behind .photo-grid { grid-template-columns: 1fr; }
 }
 
+/* ─── CLOSING NUDGE — dual path-specific CTA above footer ─── */
+.closing-nudge {
+  text-align: center;
+  padding: var(--space-7) 0 var(--space-7);
+}
+.closing-nudge .prompt {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-4);
+}
+.closing-nudge .nudge-links {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.closing-nudge .nudge-links a {
+  font-family: var(--font-display);
+  font-weight: var(--fw-body-bold);
+  font-size: var(--fs-body);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid currentColor;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
+}
+.closing-nudge .nudge-marketing { color: var(--marketing); }
+.closing-nudge .nudge-automation { color: var(--automation); }
+.closing-nudge .nudge-links a:hover { opacity: 0.78; transform: translateY(-1px); }
+.closing-nudge .sep {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 16px;
+}
+@media (max-width: 720px) {
+  .closing-nudge { padding: var(--space-6) var(--space-4); }
+  .closing-nudge .prompt { font-size: 18px; }
+  .closing-nudge .nudge-links { flex-direction: column; gap: var(--space-3); }
+}
+
 /* ─── ABOUT NILS section — 3 clickable receipt cards ─── */
 .about-nils {
   padding-top: var(--space-9);

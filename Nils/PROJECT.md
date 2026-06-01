@@ -97,6 +97,11 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Path-specific CTAs + closing nudge replaces mailto
+- **Marketing card CTA**: "Get a free audit →" → "Get a free marketing audit →"
+- **Automation card CTA**: "Get a free audit →" → "Get a free automation audit →"
+- **Replaced** the `.contact-mailto` "Other questions? emilio@nilsdigital.com" line above the footer with a `.closing-nudge` two-CTA block: italic-serif prompt ("Still deciding which way?") + 2 color-coded path-specific links ("Get a free marketing audit →" in blue, "Get a free automation audit →" in green) separated by an italic "or". Both push to the same funnel pages as the route halves. Hover: subtle lift + opacity. Mobile: links stack vertically. Email contact still reachable via the nav Contact link.
+
 ### 2026-05-31 — Automation card: static matrix pattern (top-right fade), mirrors marketing
 Reverted from the canvas-based animated Matrix rain to a static binary pattern that mirrors the marketing card's visual treatment. Marketing has a dot pattern concentrated in the top-left fading toward the bottom-right (`mask-image: linear-gradient(135deg, black 30%, transparent 80%)`). Automation now has a binary-character pattern concentrated in the top-right fading toward the bottom-left (`mask-image: linear-gradient(225deg, black 30%, transparent 80%)`) — same mask geometry, mirrored corner.
 
