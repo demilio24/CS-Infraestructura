@@ -442,8 +442,45 @@ p { margin: 0 0 1em; }
 ═══════════════════════════════════════════════════════ */
 .program-card-cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 10px 16px; background: rgba(30,77,146,0.08); color: var(--blue); border: 1.5px solid var(--line); border-radius: 10px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.88rem; transition: all 0.2s; align-self: flex-start; }
 .program-card-cta:hover { background: var(--blue); color: #fff; border-color: var(--blue); transform: translateY(-1px); }
-@keyframes formPulse { 0%, 100% { transform: scale(1); } 25% { transform: scale(1.015); box-shadow: 0 24px 70px rgba(58,216,212,0.5), 0 0 0 4px rgba(58,216,212,0.3); } }
-.hero-form-card.form-highlight { animation: formPulse 1.6s ease-out 1; }
+/* CTA → form attention effect (multi-stage: scale + colour-shifting halo + shimmer sweep) */
+@keyframes formAttract {
+  0%   { transform: scale(1);     box-shadow: 0 20px 60px rgba(10,30,58,0.18), 0 4px 14px rgba(10,30,58,0.08); }
+  18%  { transform: scale(1.028); box-shadow: 0 28px 80px rgba(58,216,212,0.55), 0 0 0 6px rgba(58,216,212,0.32), 0 0 90px rgba(250,165,107,0.22); }
+  42%  { transform: scale(1.004); box-shadow: 0 22px 65px rgba(10,30,58,0.22), 0 0 0 2px rgba(58,216,212,0.15); }
+  62%  { transform: scale(1.018); box-shadow: 0 24px 72px rgba(250,165,107,0.5),  0 0 0 5px rgba(250,165,107,0.32), 0 0 70px rgba(58,216,212,0.2); }
+  100% { transform: scale(1);     box-shadow: 0 20px 60px rgba(10,30,58,0.18), 0 4px 14px rgba(10,30,58,0.08); }
+}
+@keyframes formGlowBoost {
+  0%, 100% { opacity: 0.25; filter: blur(20px); }
+  30%      { opacity: 0.85; filter: blur(28px); }
+  65%      { opacity: 0.55; filter: blur(24px); }
+}
+@keyframes formShimmer {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(220%)  skewX(-18deg); opacity: 0; }
+}
+.hero-form-card.form-highlight { overflow: hidden; animation: formAttract 2.2s cubic-bezier(.4,0,.2,1) 1; }
+.hero-form-card.form-highlight::before { animation: formGlowBoost 2.2s ease-out 1; }
+.hero-form-card.form-highlight::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent 0%, rgba(58,216,212,0.18) 35%, rgba(255,255,255,0.55) 50%, rgba(250,165,107,0.22) 65%, transparent 100%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+  animation: formShimmer 1.6s cubic-bezier(.4,0,.2,1) 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-form-card.form-highlight,
+  .hero-form-card.form-highlight::before,
+  .hero-form-card.form-highlight::after { animation: none; }
+}
 
 @media (max-width: 1024px) {
   .nav-links { display: none; }
@@ -1761,8 +1798,12 @@ function inferLocation(link) {
 function highlightForm() {
   const card = document.querySelector('.hero-form-card');
   if (!card) return;
+  // Restart cleanly even if class is already present (rapid repeat clicks)
+  card.classList.remove('form-highlight');
+  // Force reflow so the next add re-triggers the animation
+  void card.offsetWidth;
   card.classList.add('form-highlight');
-  setTimeout(() => card.classList.remove('form-highlight'), 1800);
+  setTimeout(() => card.classList.remove('form-highlight'), 2400);
 }
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
   const id = a.getAttribute('href');
@@ -1781,7 +1822,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
       const sel = document.querySelector('select[name="location"]');
       if (sel) { sel.value = location; sel.dispatchEvent(new Event('change', { bubbles: true })); }
     }
-    if (program || location) setTimeout(highlightForm, 500);
+    // Always pulse the form so visitors see where the click "landed".
+    // Delay so the smooth scroll has a moment to position the card in view first.
+    setTimeout(highlightForm, 450);
   }
   const y = t.getBoundingClientRect().top + window.scrollY - 70;
   window.scrollTo({ top: y, behavior: 'smooth' });

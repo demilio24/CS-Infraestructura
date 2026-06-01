@@ -67,6 +67,27 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-06-01 (+4) — Hero form attention effect on every CTA click
+User asked for a more attractive on-click effect that draws the eye to the lead form when any CTA is pressed. The old `formPulse` keyframe only fired when the link carried a `data-program` or `data-location` attribute (program cards, location cards, team cards), so the most prominent CTAs (top of hero, "See All Programs", footer book links, nav book button) scrolled silently.
+
+- Replaced `formPulse` with a multi-stage `formAttract` keyframe (2.2s): scale 1.028 → settle → 1.018 → settle, with the box-shadow cycling teal halo → coral halo → back, so the card "pulses" twice in two brand colours.
+- Added `formGlowBoost` keyframe that intensifies the existing `::before` aura backdrop in sync (opacity 0.25 → 0.85 → 0.55 → 0.25, blur 20 → 28 → 24 → 20px).
+- Added a diagonal shimmer sweep via `::after` (linear-gradient teal/white/coral band, translateX -120% → 220%, skewX -18deg). Card gets `overflow: hidden` only while `.form-highlight` is active so the static `::before` aura isn't clipped the rest of the time.
+- Respects `prefers-reduced-motion: reduce` (all three animations disabled).
+- JS: `highlightForm()` now does `classList.remove → reflow → add` so rapid repeat clicks re-trigger cleanly. The click handler always calls `highlightForm` (no longer gated on program/location data) with a 450ms delay so the smooth scroll settles before the pulse fires.
+- Verified with `.claude/verify-form-highlight.js` (puppeteer): hero CTA + program-card CTA both add the class on click, animation runs `formAttract`, class auto-removes ~2.4s later, no JS errors. Peak frame at `.claude/screenshots/form-highlight/frame-t+700.png` shows the halo + shimmer reading clearly against the white card.
+
+### 2026-06-01 (+3) — Full site text scrape of aquanautsacademy.ca
+User asked for all page text from the live Wix site dumped into a new folder under this project so future sessions have offline reference copy without re-crawling.
+
+- New folder `scrape_2026-06-01/`:
+  - `_scraper.js` — Puppeteer scraper (also copied to `.claude/wix_scraper.js` so node_modules resolve); navigates each URL, scrolls to trigger Wix lazy sections, dumps `document.body.innerText` + h1/h2/h3 + meta description to a markdown file with frontmatter (`url`, `title`, `description`, `scraped_at`). Skips files that already exist so re-runs are idempotent.
+  - `chunk_1_pages.txt` … `chunk_4_blog_misc.txt` — 66 URLs total split for parallel scraping.
+  - `pages/` — 66 markdown files (~444 KB total) + `README.md` index grouped by main pages / blog / category / pricing-plans / products (Happy Nappy / Legionnaire / Headband / Baby & toddler / Rings & toys).
+- Why curl alone wasn't enough: Wix ships JS bundles, not server-rendered text. Puppeteer + scroll + 2s settle is the minimum that returns real copy.
+- Dispatched 4 parallel subagents (chunks 1–4); all 4 reported `ok=N fail=0`. Final tally: 66/66 markdown files, zero `.error.txt`.
+- **How to re-run later:** `cd F:/GitHub/Websites/.claude && node wix_scraper.js <chunk_file> F:/GitHub/Websites/Tristan_AquanautsAcademy/scrape_2026-06-01/pages` — must run from `.claude` so puppeteer resolves. Delete a markdown file to force re-scrape of that URL.
+
 ### 2026-06-01 (+2) — Shop CTA simplified to email; per-product mailto links added
 User asked us to drop the "Get in Touch" routing back to the home lead form for shop visitors and make direct email the primary call to action, with each product opening a pre-filled message.
 
