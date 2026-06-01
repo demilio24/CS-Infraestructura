@@ -150,9 +150,16 @@ p { margin: 0 0 1em; }
 .hero-form-card .form-field input:focus,
 .hero-form-card .form-field select:focus { outline: none; border-color: var(--teal); }
 .hero-form-card .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.hero-form-card .form-submit { width: 100%; padding: 15px; margin-top: 8px; background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%); color: var(--navy); border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.02rem; cursor: pointer; box-shadow: 0 8px 22px rgba(250,165,107,0.45); transition: transform 0.2s, box-shadow 0.2s; }
+.hero-form-card .form-submit { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 15px; margin-top: 8px; background: linear-gradient(135deg, var(--coral) 0%, var(--coral-2) 100%); color: var(--navy); border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.02rem; cursor: pointer; box-shadow: 0 8px 22px rgba(250,165,107,0.45); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; text-align: center; }
 .hero-form-card .form-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(250,165,107,0.55); }
+.hero-form-card .form-submit:disabled { opacity: 0.7; cursor: progress; transform: none; box-shadow: 0 6px 18px rgba(250,165,107,0.35); }
 .hero-form-card .form-foot { font-size: 0.78rem; color: var(--muted); text-align: center; margin-top: 12px; }
+.hero-form-card .form-success { text-align: center; padding: 8px 0 4px; }
+.hero-form-card .form-success-check { width: 64px; height: 64px; margin: 4px auto 16px; border-radius: 50%; background: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px rgba(58,216,212,0.45); animation: successPop .55s cubic-bezier(.2,.85,.3,1.2) 1; }
+.hero-form-card .form-success-check svg { width: 32px; height: 32px; }
+.hero-form-card .form-success-title { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.hero-form-card .form-success-sub { font-size: 0.94rem; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+@keyframes successPop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
 
 /* ═══════════════════════════════════════════════════════
    ABOUT / WHY FAMILIES CHOOSE US
@@ -613,7 +620,7 @@ p { margin: 0 0 1em; }
         <h3>Talk to Our Swim Team</h3>
         <p class="form-sub">We will help you find the right program.</p>
         <div id="ghl-form-placeholder">
-          <form onsubmit="event.preventDefault(); alert('Form placeholder. GHL embed goes here.');">
+          <form id="leadForm" novalidate>
             <div class="form-row-2">
               <div class="form-field">
                 <label>First name</label>
@@ -636,13 +643,16 @@ p { margin: 0 0 1em; }
               <label>Program of interest</label>
               <select name="program_interest" required>
                 <option value="">Select a program</option>
-                <option value="private">Private 1:1 lessons</option>
-                <option value="family">Family or semi-private</option>
-                <option value="mobile">Mobile lessons (we come to you)</option>
-                <option value="adaptive">Adaptive aquatics</option>
-                <option value="adult">Adult lessons</option>
-                <option value="lifeguard">Lifeguarding services</option>
-                <option value="other">Not sure yet</option>
+                <option value="private">Private 1:1 lessons (for my child)</option>
+                <option value="adaptive">Adaptive aquatics (autism, ADHD, sensory)</option>
+                <option value="adult">Adult lessons (for me)</option>
+                <option value="mobile">Mobile lessons at my private pool</option>
+                <option value="lifeguard">Lifeguarding for an event or facility</option>
+                <option value="aquayoga">Aquayoga</option>
+                <option value="pool-host">Pool host (rent my pool)</option>
+                <option value="partnership">Partnership for school or organization</option>
+                <option value="sponsorship">Sponsorship</option>
+                <option value="other">Just exploring</option>
               </select>
             </div>
             <div class="form-field">
@@ -650,21 +660,38 @@ p { margin: 0 0 1em; }
               <select name="location" required>
                 <option value="">Pick your area</option>
                 <option value="nanaimo-central">Nanaimo (Central)</option>
-                <option value="nanaimo-south">Nanaimo (South)</option>
-                <option value="nanoose">Nanoose Bay</option>
-                <option value="parksville">Parksville</option>
-                <option value="victoria">Victoria</option>
-                <option value="campbell-river">Campbell River</option>
-                <option value="shawnigan">Shawnigan Lake</option>
-                <option value="port-alberni">Port Alberni</option>
-                <option value="mobile">Mobile to my pool</option>
+                <option value="nanoose">Nanoose Bay (Pacific Shores Resort)</option>
+                <option value="parksville">Parksville (Oceanside Manor)</option>
+                <option value="victoria">Victoria (near Hillside Mall)</option>
+                <option value="shawnigan">Shawnigan Lake (summer mobile)</option>
+                <option value="campbell-river-ramada">Campbell River, Ramada by Wyndham</option>
+                <option value="campbell-river-npr">Campbell River, Naturally Pacific Resort</option>
+                <option value="port-alberni">Port Alberni (seasonal)</option>
+                <option value="mobile">Mobile / in-home pool</option>
+                <option value="not-sure">Not sure yet, recommend one</option>
               </select>
+            </div>
+            <!-- Honeypot: real users never see or interact with this. Bots fill it; we silently route them to success without hitting the API. -->
+            <div aria-hidden="true" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;" tabindex="-1">
+              <label for="lf_hp">Leave this field blank</label>
+              <input type="text" id="lf_hp" name="company_url" tabindex="-1" autocomplete="off">
             </div>
             <button class="form-submit" type="submit">Get Matched to an Instructor
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="vertical-align:-1px;margin-left:4px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </button>
             <p class="form-foot">Reply within one business day. Free first call.</p>
           </form>
+          <div id="leadFormSuccess" class="form-success" hidden>
+            <div class="form-success-check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="form-success-title">You are matched.</h3>
+            <p class="form-success-sub">Tristan and the team will reach out within one business day. While you wait, pick your first slot:</p>
+            <a id="leadFormRedirectBtn" href="#" target="_top" rel="noopener" class="form-submit">Continue to booking
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" style="vertical-align:-1px;margin-left:4px"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <p class="form-foot">No commitment until you are sure we are the right fit.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1829,6 +1856,149 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
   const y = t.getBoundingClientRect().top + window.scrollY - 70;
   window.scrollTo({ top: y, behavior: 'smooth' });
 }));
+
+// ═══════════════════════════════════════════════════════
+// Hero lead form: POST to GHL Contacts API, compute redirect, show success.
+// ═══════════════════════════════════════════════════════
+(function () {
+  const form = document.getElementById('leadForm');
+  if (!form) return;
+
+  // GHL Inbound Webhook — public URL that triggers Tristan's "Aquanauts Funnel" workflow.
+  // No auth header needed (single-purpose, scoped to one workflow), CORS-friendly.
+  const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/xBWIIj9IjYQL2XdtjJ1A/webhook-trigger/7825fb7b-c5fa-4e9c-9161-97c0f156bc3f';
+
+  // form value → exact GHL custom field option string (must match picklistOptions)
+  const PROGRAM_TO_GHL = {
+    'private':     'Private swim lessons for my child',
+    'adaptive':    'Private swim lessons for my child with autism, ADHD, or sensory needs',
+    'adult':       'Swim lessons for me (adult)',
+    'mobile':      'Mobile lessons at my private pool',
+    'lifeguard':   'Lifeguard for a private event or facility',
+    'aquayoga':    'Aquayoga (gentle in-water yoga)',
+    'pool-host':   'Pool host (rent my pool to Aquanauts)',
+    'partnership': 'Partnership for our school or organization',
+    'sponsorship': 'Sponsorship for a swimmer or family',
+    'other':       'Just exploring, talk to me first',
+  };
+  const LOCATION_TO_GHL = {
+    'nanaimo-central':       'Nanaimo (Central)',
+    'nanoose':               'Nanoose Bay (Pacific Shores Resort)',
+    'parksville':            'Parksville (Oceanside Manor)',
+    'victoria':              'Victoria (near Hillside Mall)',
+    'shawnigan':             'Shawnigan Lake (summer mobile)',
+    'campbell-river-ramada': 'Campbell River, Ramada by Wyndham',
+    'campbell-river-npr':    'Campbell River, Naturally Pacific Resort',
+    'port-alberni':          'Port Alberni (seasonal)',
+    'mobile':                'Mobile / in-home pool',
+    'not-sure':              'Not sure yet, recommend one',
+  };
+
+  // Routing matrix → where the user is redirected after submit.
+  const PROGRAM_REDIRECT = {
+    'adaptive':    'https://www.aquanautsacademy.ca/adaptive-aquatics',
+    'mobile':      'https://aquanautsacademy.janeapp.com/locations/mobile-swim-lessons-lifeguarding-vancouver-island/book',
+    'lifeguard':   'https://www.aquanautsacademy.ca/lifeguarding-services',
+    'aquayoga':    'https://www.aquanautsacademy.ca/aquayoga',
+    'pool-host':   'https://www.aquanautsacademy.ca/pool-hosts',
+    'partnership': 'https://www.aquanautsacademy.ca/partnerships',
+    'sponsorship': 'https://www.aquanautsacademy.ca/sponsorship',
+    'other':       'https://aquanautsacademy.janeapp.com/',
+    'adult':       'https://www.aquanautsacademy.ca/private-swim-lessons-for-adults',
+  };
+  const LOCATION_BOOKING = {
+    'nanaimo-central':       'https://aquanautsacademy.janeapp.com/locations/nanaimo-south-location/book',
+    'nanoose':               'https://aquanautsacademy.janeapp.com/locations/nanoose-bay-pacific-shores-resort-and-spa/book',
+    'parksville':            'https://aquanautsacademy.janeapp.com/locations/parksville-location-private-indoor-pool/book',
+    'victoria':              'https://aquanautsacademy.janeapp.com/locations/victoria-location-private-indoor-pool/book',
+    'shawnigan':             'https://aquanautsacademy.janeapp.com/locations/shawnigan-lake-location-private-outdoor-pool/book',
+    'campbell-river-ramada': 'https://aquanautsacademy.janeapp.com/locations/campbell-river-naturally-pacific-resort/book',
+    'campbell-river-npr':    'https://aquanautsacademy.janeapp.com/locations/campbell-river-naturally-pacific-resort/book',
+    'port-alberni':          'https://aquanautsacademy.janeapp.com/locations/mobile-swim-lessons-lifeguarding-vancouver-island/book',
+    'mobile':                'https://aquanautsacademy.janeapp.com/locations/mobile-swim-lessons-lifeguarding-vancouver-island/book',
+  };
+  const JANE_FALLBACK = 'https://aquanautsacademy.janeapp.com/';
+
+  function computeRedirect(program, location) {
+    if (PROGRAM_REDIRECT[program]) return PROGRAM_REDIRECT[program];
+    // Only program 'private' depends on location for routing.
+    if (program === 'private') return LOCATION_BOOKING[location] || JANE_FALLBACK;
+    return JANE_FALLBACK;
+  }
+
+  const successEl    = document.getElementById('leadFormSuccess');
+  const redirectBtn  = document.getElementById('leadFormRedirectBtn');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const data = Object.fromEntries(new FormData(form));
+
+    // Honeypot tripped → silently show success without sending. Bots get a redirect, we save the API call.
+    if (data.company_url) {
+      console.warn('[leadForm] honeypot tripped, skipping API');
+      return showSuccess(data.program_interest, data.location);
+    }
+
+    const btn = form.querySelector('button[type="submit"]');
+    const originalLabel = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Sending…';
+
+    const utm = new URLSearchParams(window.location.search);
+    // Webhook body: flat shape, named with the same keys the GHL workflow's
+    // "Create/Update Contact" step expects to map onto contact fields.
+    const body = {
+      first_name:          data.first_name,
+      last_name:           data.last_name,
+      email:               data.email,
+      phone:               data.phone,
+      program_of_interest: PROGRAM_TO_GHL[data.program_interest] || data.program_interest,
+      closest_location:    LOCATION_TO_GHL[data.location]        || data.location,
+      tags:                ['funnel-aquanauts-2026'],
+      source:              'Funnel - Home Hero',
+      page_url:            window.location.href,
+      submitted_at:        new Date().toISOString(),
+    };
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(k => {
+      if (utm.get(k)) body[k] = utm.get(k);
+    });
+
+    try {
+      const resp = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (!resp.ok) {
+        const errText = await resp.text().catch(() => '');
+        console.error('[leadForm] GHL webhook failed', resp.status, errText.slice(0, 400));
+      } else {
+        console.info('[leadForm] webhook accepted, status', resp.status);
+      }
+    } catch (err) {
+      // Network error. Never lose the lead — still proceed to the redirect step.
+      console.error('[leadForm] network error during webhook POST', err);
+    } finally {
+      showSuccess(data.program_interest, data.location);
+      btn.disabled = false;
+      btn.innerHTML = originalLabel;
+    }
+  });
+
+  function showSuccess(program, location) {
+    const url = computeRedirect(program, location);
+    if (redirectBtn) redirectBtn.href = url;
+    form.hidden = true;
+    if (successEl) successEl.hidden = false;
+    // Scroll the success card into view in case the page is below the fold (mobile).
+    const card = document.querySelector('.hero-form-card');
+    if (card) {
+      const y = card.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+})();
 
 const reviewFilters = document.querySelectorAll('.filter-btn[data-review-filter]');
 const reviewCards = document.querySelectorAll('.reviews-grid .review-card');
