@@ -67,6 +67,18 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +5) — Added Shop link to the home page desktop nav
+Mobile menu already had a Shop entry; desktop nav (`.nav-links` in `funnel/home.html`) didn't. Appended `<li><a href="shop.html">Shop</a></li>` after the FAQ link so the catalog is one click away from any home-page visitor. No CSS or JS changes (the existing `.nav-links` styling handles it).
+
+### 2026-05-31 (latest +4) — Shop-page roadmap brainstorm (no code changes)
+Talked through what to build next on `funnel/shop.html` to impress Tristan. Three options on the table, ranked by impact-to-effort:
+
+1. **Inquiry modal that captures product + size + parent info.** The "Inquire to order" CTA opens a small GHL form pre-filled with the product name and size; every inquiry creates a GHL contact with a `Interested in product` custom field. Directly answers Tristan's "I want lead capture for everything" ask from the May 22 onboarding call. **Recommended first** — makes the shop productive (leads in GHL) instead of just pretty.
+2. **"Matching prints" cross-sell.** Splash About sells the same Turtle Tide / Strawberry Field / Shark Reef pattern across cap + diaper + headband. Surface "Available in matching prints" with 2-3 thumbnails on each modal. Easy win, raises avg order value, no work for Tristan.
+3. **Sizing helper for Happy Nappy.** Tiny widget that asks for baby's weight in kg and recommends a size from the 5 options. Solves a real friction point (descriptions already have the weight ranges to drive it).
+
+Waiting on Tristan's pick before implementing. Carrying this into the next session as the open thread on the shop page.
+
 ### 2026-05-31 (latest +3) — Modal CTA pinned, broken nav logo fixed, perceptually-deduped galleries (55 dupes removed)
 Three small fixes from client feedback after seeing R5 live:
 
