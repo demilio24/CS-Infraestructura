@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-01T13:17:07Z",
+  "generatedAt": "2026-06-01T13:22:10Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 128,
+    "summer": 134,
     "free": 52,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,10 +108,10 @@
     "roster": []
   },
   "summer": {
-    "total": 128,
+    "total": 134,
     "byCampus": {
-      "Upper Campus": 54,
-      "Lower Campus": 74,
+      "Upper Campus": 59,
+      "Lower Campus": 75,
       "Unknown": 0
     },
     "byWeek": {
@@ -322,11 +322,11 @@
     ]
   },
   "combined": {
-    "total": 180,
+    "total": 186,
     "enrollments": 586,
     "byCampus": {
-      "Upper Campus": 84,
-      "Lower Campus": 96,
+      "Upper Campus": 89,
+      "Lower Campus": 97,
       "Unknown": 0
     },
     "byWeek": {
@@ -430,7 +430,7 @@
             "total": 7,
             "students": [
               {
-                "name": "Sebastian Martinat",
+                "name": "Sebastian Martinat✔️",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -443,7 +443,7 @@
                 "lunchRaw": "Pizza ($7.75/day)"
               },
               {
-                "name": "Taavi Horn",
+                "name": "Taavi Horn✔️",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -494,7 +494,7 @@
                 "lunchRaw": "Pizza ($30/week)"
               },
               {
-                "name": "Jacob Perna",
+                "name": "Jacob Perna✔️",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -574,7 +574,7 @@
             "total": 5,
             "students": [
               {
-                "name": "Akasha Smith",
+                "name": "Akasha Smith ✔️",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -637,6 +637,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Dawson Denney✔️",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
                 "name": "Finley Torcivia",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -646,7 +659,7 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Finnley Torcivia",
+                "name": "Finnley Torcivia✔️",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -698,19 +711,6 @@
                 "lunchRaw": null
               },
               {
-                "name": "Maci Denney",
-                "campus": "Upper Campus",
-                "type": "summer",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "None"
-              },
-              {
                 "name": "Matias McCollum",
                 "campus": "Upper Campus",
                 "type": "summer",
@@ -748,7 +748,7 @@
                 "lunchRaw": "None"
               },
               {
-                "name": "Vladimir Aheyev",
+                "name": "Vladimir Aheyev✔️",
                 "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
@@ -9119,7 +9119,7 @@
     "June 1st-5th": {
       "upper": [
         {
-          "name": "Akasha Smith",
+          "name": "Akasha Smith ✔️",
           "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Melt Belt- Grilled Cheese, Sides: CHips( Deep River), Smoothie: Smooth Moves - Very Berry Berry",
@@ -9167,7 +9167,31 @@
           "type": "summer"
         },
         {
-          "name": "Finnley Torcivia",
+          "name": "Dawson Denney✔️",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": "Counselor and training program",
+          "email": "tdenney138@me.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 10,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Finnley Torcivia✔️",
           "campus": "Upper Campus",
           "lunch": false,
           "lunchRaw": null,
@@ -9225,7 +9249,7 @@
           "type": "summer"
         },
         {
-          "name": "Jacob Perna",
+          "name": "Jacob Perna✔️",
           "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Pizza ($30/week)",
@@ -9241,30 +9265,6 @@
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
           "sourceRow": 9,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Maci Denney",
-          "campus": "Upper Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Counselor and training program",
-          "email": "tdenney138@me.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -9347,7 +9347,7 @@
           "type": "summer"
         },
         {
-          "name": "Sebastian Martinat",
+          "name": "Sebastian Martinat✔️",
           "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Pizza ($7.75/day)",
@@ -9371,7 +9371,7 @@
           "type": "summer"
         },
         {
-          "name": "Taavi Horn",
+          "name": "Taavi Horn✔️",
           "campus": "Upper Campus",
           "lunch": true,
           "lunchRaw": "Pizza ($7.75/day)",
@@ -9421,7 +9421,7 @@
           "type": "summer"
         },
         {
-          "name": "Vladimir Aheyev",
+          "name": "Vladimir Aheyev✔️",
           "campus": "Upper Campus",
           "lunch": false,
           "lunchRaw": "None",
