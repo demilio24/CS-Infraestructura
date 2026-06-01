@@ -97,6 +97,14 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Nav: Marketing & Automation as colored gradient pills, Contact back to plain text
+Picked B from a 4-option nav brainstorm (text+pill / colored pills / centered split / stacked tagline). Marketing and Automation links now render as solid gradient pill buttons matching the home page's route halves:
+- `.nav-marketing` → blue gradient `var(--marketing)` → `var(--marketing-dark)` + 4px blue glow
+- `.nav-automation` → green gradient `var(--automation)` → `var(--automation-dark)` + 4px green glow
+- Both: 12px font, var(--space-2)/var(--space-4) padding, `--radius-md`, lift-on-hover (transform translateY -1px + deeper shadow)
+
+Contact link reverted to plain text (no more `.nav-cta` black-pill button per the user — pills are reserved for offers only now). `.nav-cta` CSS rule removed from `nav.css`.
+
 ### 2026-05-31 — About Nils header: stat-led D variant (numbers ARE the headline)
 Picked D from a 4-option brainstorm (pill / plain / hairlines / stat-led). Replaces the previous `<h2>300+ projects. $2.4M+ in ads. 50+ five-star reviews.</h2>` italic-serif single-sentence headline with a 3-block stat row + italic-serif closer:
 - **Eyebrow** "About Nils" — overrides globals.css `.eyebrow` pill (background, border, padding all stripped). Plain gray uppercase text, wider letter-spacing (0.25em).
