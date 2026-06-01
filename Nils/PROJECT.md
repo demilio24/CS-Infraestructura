@@ -97,6 +97,9 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-06-01 — Fixed mobile homepage scroll lock (`website/index.html`)
+The homepage (`Nils/website/` — note this is the multi-page site, not `funnel/`) was built as a no-scroll single-screen "router page": `home.css` pinned `html, body` to `100svh` with `overflow: hidden` on mobile, hid the hero lead paragraph, and force-split the two offer cards into `1fr 1fr` to fit one viewport. On real iPhones the hero + blue ("Need more clients?") + green ("Drowning in manual work?") cards are taller than the screen, so the green card's CTA was clipped by the Safari bottom bar and **unreachable** (a prior `svh`/`safe-area` tweak didn't help because the real blocker was `overflow: hidden`). Switched the `@media (max-width: 720px)` block to natural flow: `height: auto` + `min-height: 100svh`, `overflow-y: auto`, body grid rows `auto auto`, cards `min-height: 50svh` and size to content. Desktop 50/50 grid (`min-width: 721px`) untouched. Bumped cache-buster `home.css?v=20260601g → h`. Verified scrollable via Puppeteer at 390×740 (scrollHeight 1052 > 740, scrolled to bottom OK).
+
 ### 2026-06-01 — Passthrough (no Nils content changes)
 Stop hook flagged Nils after a `git pull --rebase` during unrelated Tristan_AquanautsAcademy work normalized line endings in `Nils/website/index.html` and `Nils/website/assets/css/home.css`. No file contents changed in this session; logging only to satisfy the PROJECT.md rule.
 

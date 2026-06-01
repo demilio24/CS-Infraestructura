@@ -25,5 +25,11 @@ Files:
 (none clear — internal tooling, refreshed on demand)
 
 ## Changelog
+## 2026-06-01 — Fixed the Refresh Dashboard CI (two bugs in series)
+The dashboard is refreshed by a **GitHub Actions** workflow, not n8n: `.github/workflows/refresh-dashboard.yml` runs `NILS-SKILLS/.claude/scrape-dashboard.js` (Apify, `--limit 15`) every Monday 13:00 UTC, then commits `dashboard.html` + `.claude/dashboard-data/` + `.claude/reports/` back to main. It had failed **every weekly run since late March**. Root cause was two stacked bugs:
+1. A repo-wide `.gitignore` rule `*/.claude/` (added after the data dirs were first committed in March) silently re-ignored the new snapshots. Under `bash -e`, `git add` of the ignored paths exited 1 → step failed before it ever reached push. Fixed by un-ignoring only `NILS-SKILLS/.claude/dashboard-data/` and `/reports/` (negation block in root `.gitignore`); all other per-project `.claude/` state stays ignored.
+2. Fixing #1 exposed a 403 at `git push` — default `GITHUB_TOKEN` is read-only. Added `permissions: contents: write` to the workflow.
+Also bumped `actions/checkout` and `actions/setup-node` to `@v5` (Node 24) ahead of the 2026-06-16 Node 20 deprecation. Verified green end-to-end via manual `workflow_dispatch` (run 26779498988); the bot's `Auto-refresh dashboard data 2026-06-01` commit landed on main.
+
 ## 2026-05-17 — PROJECT.md seeded
 Initial seed from existing folder state.
