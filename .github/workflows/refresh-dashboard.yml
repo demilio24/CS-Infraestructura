@@ -6,6 +6,11 @@ on:
     - cron: '0 13 * * 1'
   workflow_dispatch: # Manual trigger from GitHub UI
 
+# Grant the GITHUB_TOKEN write access so the bot can push the refreshed
+# dashboard back to main (default token is read-only → 403 on git push).
+permissions:
+  contents: write
+
 jobs:
   scrape-and-build:
     runs-on: ubuntu-latest
