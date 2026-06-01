@@ -67,6 +67,15 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-06-01 (+1) — Cross-page nav rewritten to /home + /shop with target=_top
+Domain handoff prep. Both pages will live behind GHL custom-code pages at `aquanautsacademy.ca/home` and `aquanautsacademy.ca/shop`, each iframe-embedding the GitHub Pages HTML. Updated all cross-page navigation to use root-relative absolute URLs that work when the user clicks something inside the iframe:
+
+- `funnel/home.html`: 3 references to `shop.html` (desktop nav, mobile menu, footer Explore) → `/shop` with `target="_top"`.
+- `funnel/shop.html`: 5 references to `home.html` (nav logo, nav back chip, Get in Touch CTA, footer return link, modal "Inquire to order" CTA) → `/home` (and `/home#hero-form` where applicable), all with `target="_top"`.
+- `.claude/inject-shop-modal.py` updated to match so re-runs stay idempotent.
+
+`target="_top"` is required because the iframe content otherwise tries to navigate the iframe itself to `/shop`, which resolves to `demilio24.github.io/shop` (404). Breaking out to the parent window lands on the correct GHL URL.
+
 ### 2026-06-01 — Nanaimo South surfaced as sub-location on the Nanaimo card
 Tristan emailed 2026-06-01 04:50 + 04:52 UTC: approved the site ("looks awesome, port over the domain") and asked us to surface the second Nanaimo pool ("Nanaimo South Location") alongside Central for clarity. Per user direction ("if it's another sub-location just point that out without a pic"), did the change without creating a second card:
 
