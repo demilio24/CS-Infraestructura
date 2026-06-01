@@ -1,12 +1,13 @@
 /* ─── PURE-ROUTER PAGE LAYOUT — strict 50/50 grid on desktop ─── */
 html, body { height: 100%; margin: 0; }
-body { min-height: 100vh; }
+body { min-height: 100vh; min-height: 100svh; }
 
 @media (min-width: 721px) {
-  html, body { height: 100vh; overflow: hidden; }
+  html, body { height: 100vh; height: 100svh; overflow: hidden; }
   body {
     display: grid;
     grid-template-rows: 50vh 50vh;
+    grid-template-rows: 50svh 50svh;
     grid-template-columns: 1fr;
   }
   .home-hero {
@@ -36,11 +37,12 @@ body { min-height: 100vh; }
 }
 
 @media (max-width: 720px) {
-  html, body { height: 100vh; overflow: hidden; }
+  html, body { height: 100vh; height: 100svh; overflow: hidden; }
   body {
     display: grid;
     grid-template-rows: auto 1fr;
     grid-template-columns: 1fr;
+    padding-bottom: env(safe-area-inset-bottom);
   }
   .home-hero {
     overflow: hidden;
