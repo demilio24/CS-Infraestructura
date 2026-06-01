@@ -306,6 +306,7 @@ p { margin: 0 0 1em; }
 ═══════════════════════════════════════════════════════ */
 .team { padding: 68px 0; background: #fff; }
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.team-grid > .team-card:nth-child(10):last-child { grid-column: 2; }
 .team-card { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 6px 20px rgba(10,30,58,0.06); transition: all 0.3s; display: flex; flex-direction: column; }
 .team-card.hidden { display: none; }
 .team-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(10,30,58,0.14); }
@@ -1127,7 +1128,7 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="section-head anim">
       <div class="eyebrow">Meet the Team</div>
-      <h2 class="section-title">Nine Instructors.<br><span class="accent">Decades</span> on Deck.</h2>
+      <h2 class="section-title">Ten Instructors.<br><span class="accent">Decades</span> on Deck.</h2>
       <p class="section-sub">From a 30-year lifesaving instructor trainer to a behaviour interventionist, every coach here is here for a reason.</p>
     </div>
 
@@ -1173,13 +1174,19 @@ p { margin: 0 0 1em; }
         </div>
       </div>
       <div class="team-card anim" data-team-tags="campbell" style="transition-delay:.10s">
-        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/1146fb0c-8fa7-4b95-8f6d-6c10eeed0695.jpg" alt="Catherine May" loading="lazy"></div>
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/2fad314e-a538-4441-934f-a467991e4b52.png" alt="Catherine May" loading="lazy"></div>
         <div class="team-card-body">
           <h3>Catherine May</h3>
-          <div class="team-card-role">Lifesaving Instructor Trainer</div>
+          <div class="team-card-role">Lifesaving Instructor Trainer · 30+ Years</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
-            <p class="team-card-bio">30+ years in aquatics, from swim club as a child to managing pools and certifying hundreds of instructors. A Lifesaving Society Instructor Trainer who specializes in 1:1 instruction, including autistic and neurodiverse swimmers.</p>
+            <div class="team-card-bio">
+              <p>Hi, I'm Catherine! I've been involved in aquatics for over 30 years, starting from swim club as a child all the way to managing pools and training new instructors. For almost 20 years, I've been a certified Lifesaving Instructor Trainer and Swim Instructor Trainer, and I've had the privilege of certifying hundreds of instructors throughout my career.</p>
+              <p>While I enjoy teaching all types of classes, my true passion is working one-on-one with swimmers. I love getting to know each person individually, understanding how they learn, and building the trust and confidence that help them thrive in the water.</p>
+              <p>Over the years, I've taught swimmers of all ages and abilities, from young children to older adults, individuals with autism and neurodiverse needs, and even specialized training for those pursuing aquatic employment or certifications.</p>
+              <p>Living on Vancouver Island, I truly believe that everyone should know how to swim and feel comfortable around the water. My goal is to make every lesson a positive, rewarding experience that helps each swimmer develop skills they'll carry for life.</p>
+              <p>I look forward to working with you or your loved ones and being part of your aquatic journey!</p>
+            </div>
             <div class="team-card-serves">Serves: <span>Campbell River, Comox Valley</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Catherine →</a>
@@ -1217,13 +1224,19 @@ p { margin: 0 0 1em; }
         </div>
       </div>
       <div class="team-card anim" data-team-tags="victoria" style="transition-delay:.25s">
-        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/d4dcedeb-6ce0-489c-b9d1-bfe9daea7fe3.jpeg" alt="Drake McKay" loading="lazy"></div>
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/ea9cc660-e9fb-4a33-a90a-82e4a58a4fe1.png" alt="Drake McKay" loading="lazy"></div>
         <div class="team-card-body">
           <h3>Drake McKay</h3>
-          <div class="team-card-role">Masters Swimmer · Head Coach</div>
+          <div class="team-card-role">Masters Swimmer · Head Coach · 10+ Years</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
-            <p class="team-card-bio">10+ years on deck with an endurance-sport background and experience as head coach of multiple swim teams. Swimming has been a core part of his life, and he loves helping swimmers refine technique and grow in the water.</p>
+            <div class="team-card-bio">
+              <p>Hi, I'm Drake! Swimming has been a core part of my life, and I'm passionate about helping others grow and improve in the water. As a dedicated Masters swimmer, I train rigorously to push my own limits and refine my technique, and I bring that same dedication to my coaching.</p>
+              <p>With a background in endurance sports and years spent being the head coach of several swim teams, I tailor lessons for swimmers of all levels, whether you're a beginner building confidence or a competitive athlete looking to fine-tune your stroke mechanics.</p>
+              <p>Beyond the pool, I believe in the power of consistency, personal growth, and community. Swimming isn't just about technique. It's about strength, resilience, and discipline.</p>
+              <p>No matter your goal, improving efficiency, gaining endurance, or overcoming fear in the water, I'm here to guide and support you every step of the way.</p>
+              <p>Catch you poolside!</p>
+            </div>
             <div class="team-card-serves">Serves: <span>Victoria, Shawnigan Lake</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Drake →</a>
@@ -1266,10 +1279,10 @@ p { margin: 0 0 1em; }
         </div>
       </div>
       <div class="team-card anim" data-team-tags="nanaimo parksville victoria campbell" style="transition-delay:.40s">
-        <div class="team-card-img placeholder" aria-label="Glenn Mathieson, photo coming soon">G</div>
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/0f13863d-8340-4668-a12c-c8af07d5fa69.png" alt="Glenn Mathieson" loading="lazy"></div>
         <div class="team-card-body">
           <h3>Glenn Mathieson</h3>
-          <div class="team-card-role">Aquatics Instructor · Lifeguard</div>
+          <div class="team-card-role">Aquatics Instructor · Lifeguard · 16+ Years</div>
           <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
           <div class="team-card-collapse">
             <div class="team-card-bio">
@@ -1281,6 +1294,22 @@ p { margin: 0 0 1em; }
             <div class="team-card-serves">Serves: <span>Vancouver Island</span></div>
           </div>
           <a href="#hero-form" class="team-card-link">Book with Glenn →</a>
+        </div>
+      </div>
+      <div class="team-card anim" data-team-tags="nanaimo parksville victoria campbell" style="transition-delay:.45s">
+        <div class="team-card-img"><img src="https://assets.cdn.filesafe.space/xBWIIj9IjYQL2XdtjJ1A/media/f349acaf-4c74-4771-9642-4cfd7b7fb728.jpg" alt="Talia Nicholson" loading="lazy"></div>
+        <div class="team-card-body">
+          <h3>Talia Nicholson</h3>
+          <div class="team-card-role">Swim Instructor · Lifeguard</div>
+          <button class="team-card-toggle" aria-expanded="false">More information<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="team-card-collapse">
+            <div class="team-card-bio">
+              <p>Hi, I'm Talia! I've been a lifeguard and swim instructor for over five years, teaching swimmers of all ages and abilities along the way.</p>
+              <p>Full bio coming soon. Reach out and we'll connect you with Talia for your next lesson.</p>
+            </div>
+            <div class="team-card-serves">Serves: <span>Vancouver Island</span></div>
+          </div>
+          <a href="#hero-form" class="team-card-link">Book with Talia →</a>
         </div>
       </div>
     </div>

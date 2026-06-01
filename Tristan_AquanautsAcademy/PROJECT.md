@@ -67,6 +67,24 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +9) — Scraped Jane App + Wix /our-instructors, added Talia + 4 real photos + 2 more real bios (now 10 instructors)
+User asked us to scrape `aquanautsacademy.janeapp.com` for canonical instructor data. Parallelized across 4 subagents.
+
+Key findings:
+- **Jane App publicly truncates bios** at ~150 chars with a "Read More" link that points to `#/staff_member/{id}/bio`. Visiting that URL or clicking the link does not actually expand the bio — Jane appears to gate the full text behind the admin/owner view. So Jane is only useful for staff photos + names.
+- **Real bios live on `aquanautsacademy.ca/our-instructors`** for some instructors. Scraped full canonical bios for Catherine May (30+ years, 5 paragraphs) and Drake McKay (10+ years, 5 paragraphs). The Wix page still lists Erica/Sage/Maurya who are no longer on the team — those bios were ignored.
+- **Discovered Talia Nicholson (Jane ID 22)** who wasn't on our team page. Real photo available. Bio is the truncated Jane snippet only.
+
+Updates:
+- Catherine May: full real bio + new spring-portrait headshot (Jane CDN -> GHL `2fad314e-a538-4441-934f-a467991e4b52.png`). Role tag now `Lifesaving Instructor Trainer · 30+ Years`.
+- Drake McKay: full real bio + new spring-portrait headshot (`ea9cc660-e9fb-4a33-a90a-82e4a58a4fe1.png`). Role tag now `Masters Swimmer · Head Coach · 10+ Years`.
+- Glenn Mathieson: placeholder swapped for real Jane photo (`0f13863d-8340-4668-a12c-c8af07d5fa69.png`). Role updated to add `· 16+ Years`.
+- **Talia Nicholson added as 10th instructor.** Real photo (`f349acaf-4c74-4771-9642-4cfd7b7fb728.jpg`). Bio shows what Jane returned ("Hi, I'm Talia! I've been a lifeguard and swim instructor for over five years...") + a "Full bio coming soon" follow-up. Tagged for all 4 location filters since her actual location wasn't specified.
+- H2: "Nine Instructors" → "Ten Instructors".
+- Grid stays 3 cols. The lone 10th card centers itself via `.team-grid > .team-card:nth-child(10):last-child { grid-column: 2 }`.
+
+Open items: Talia's full bio (only Jane snippet available); Anastasia/Sandy/Talia still have placeholder bios since neither Jane nor /our-instructors has their canonical text.
+
 ### 2026-05-31 (latest +8) — Real instructor bios + Glenn Mathieson added (now 9 instructors, 3x3 grid)
 Tristan sent the canonical bio text for 4 existing instructors (himself, Brandon, Donna, Kesya) and the bio for a new addition (Glenn Mathieson, ~16 years experience, Lifesaving Society / BCRPA / Red Cross / WorkSafe BC certs).
 
