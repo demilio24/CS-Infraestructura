@@ -113,6 +113,9 @@ p { margin: 0 0 1em; }
 .product-card .product-minithumbs button:hover { border-color: var(--blue); transform: translateY(-1px); }
 .product-card .product-minithumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .product-card .product-minithumbs.empty { display: none; }
+.product-card .product-ask-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 0.82rem; color: var(--coral-2); text-decoration: none; transition: color .15s ease; }
+.product-card .product-ask-link:hover { color: var(--coral); text-decoration: underline; }
+.product-card .product-ask-link svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 /* SHOP FILTER BAR */
 .shop-filter { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); padding: 14px 0; margin-bottom: 28px; }
@@ -351,12 +354,11 @@ body.modal-locked { overflow: hidden; }
 <section class="shop-cta">
   <div class="container">
     <h2 class="anim">Want one of these?</h2>
-    <p class="anim">We're not selling online yet. Tell us at your next lesson, send us an email, or send us a message and we'll order on your behalf with your next session.</p>
+    <p class="anim">We're not selling online yet. Send Tristan a quick email and he'll order on your behalf for your next session.</p>
     <div class="shop-cta-row anim">
-      <a href="/home#hero-form" target="_top" class="btn btn-primary">Get in Touch
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      <a href="mailto:tristan@aquanautsacademy.ca?subject=Question%20about%20the%20Aquanauts%20shop&amp;body=Hi%20Tristan%2C%0A%0AI%20have%20a%20question%20about%20the%20Aquanauts%20shop.%0A%0AThanks%21" class="btn btn-primary">Email Tristan
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </a>
-      <a href="mailto:tristan@aquanautsacademy.ca?subject=Question%20about%20Aquanauts%20Shop" class="btn btn-secondary">Email Us</a>
     </div>
   </div>
 </section>
@@ -401,11 +403,11 @@ body.modal-locked { overflow: hidden; }
         <div class="aq-modal-desc" id="aqModalDesc"></div>
       </div>
       <div class="aq-modal-info-actions">
-        <a href="/home#hero-form" target="_top" class="aq-modal-cta">
-          Inquire to order
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        <a href="#" class="aq-modal-cta" id="aqModalCta">
+          Email Tristan about this
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </a>
-        <div class="aq-modal-foot">We don't sell online. Ask us at your next lesson or send an email and we'll order on your behalf.</div>
+        <div class="aq-modal-foot">We don't sell online. Tristan will reply quickly and order on your behalf for your next session.</div>
       </div>
     </div>
   </div>
@@ -449,6 +451,13 @@ body.modal-locked { overflow: hidden; }
   const sizeSel = document.getElementById('aqModalSizeSelect');
   const descEl = document.getElementById('aqModalDesc');
   const closeBtn = modal.querySelector('.aq-modal-close');
+
+  function buildProductMailto(p) {
+    const name = ((p && (p.title || p.name)) || '').trim();
+    const subject = 'Interested in ' + name;
+    const body = "Hi Tristan,\n\nI'm interested in the " + name + ' from your shop. Could you let me know about availability and how to order?\n\nThanks!';
+    return 'mailto:tristan@aquanautsacademy.ca?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
 
   function lookup(name, tag) {
     let key = norm(name);
@@ -500,6 +509,8 @@ body.modal-locked { overflow: hidden; }
       thumbsEl.appendChild(b);
     });
     bigImg.src = gallery[initialIdx] || '';
+    const ctaLink = document.getElementById('aqModalCta');
+    if (ctaLink) ctaLink.href = buildProductMailto(p);
     modal.classList.add('open');
     document.body.classList.add('modal-locked');
     closeBtn.focus();
@@ -539,6 +550,14 @@ body.modal-locked { overflow: hidden; }
         mini.appendChild(b);
       });
       card.appendChild(mini);
+    }
+    if (p) {
+      const ask = document.createElement('a');
+      ask.className = 'product-ask-link';
+      ask.href = buildProductMailto(p);
+      ask.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Ask about this</span>';
+      ask.addEventListener('click', e => e.stopPropagation());
+      card.appendChild(ask);
     }
     card.addEventListener('click', () => openModal(p, 0));
     card.addEventListener('keydown', e => {

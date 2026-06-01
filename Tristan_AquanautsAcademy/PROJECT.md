@@ -67,6 +67,16 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-06-01 (+2) — Shop CTA simplified to email; per-product mailto links added
+User asked us to drop the "Get in Touch" routing back to the home lead form for shop visitors and make direct email the primary call to action, with each product opening a pre-filled message.
+
+- Bottom shop CTA reduced from "Get in Touch / Email Tristan" pair to a single `mailto:tristan@aquanautsacademy.ca` button with generic subject + body.
+- Every product card now has a small "Ask about this" link below the price + minithumbs, with `stopPropagation` so it doesn't open the modal.
+- Modal CTA changed from "Inquire to order" → "Email Tristan about this", `href` is set per product by `buildProductMailto(p)` (subject: `Interested in {name}`, body: `Hi Tristan,\n\nI'm interested in the {name} from your shop. Could you let me know about availability and how to order?\n\nThanks!`).
+- Modal footer microcopy updated to "We don't sell online. Tristan will reply quickly and order on your behalf for your next session."
+
+Note: while iterating, an earlier edit to `inject-shop-modal.py` used raw `\n` in a Python triple-quoted string, which Python collapsed to literal newlines in the output JS and broke the entire IIFE (the per-card links AND the existing mini thumbnails both disappeared). Fixed by escaping to `\\n` so the JS string contains a proper `\n` escape sequence. Verified: 40/40 cards have minithumbs + ask links, zero pageerrors.
+
 ### 2026-06-01 (+1) — Cross-page nav rewritten to /home + /shop with target=_top
 Domain handoff prep. Both pages will live behind GHL custom-code pages at `aquanautsacademy.ca/home` and `aquanautsacademy.ca/shop`, each iframe-embedding the GitHub Pages HTML. Updated all cross-page navigation to use root-relative absolute URLs that work when the user clicks something inside the iframe:
 
