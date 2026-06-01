@@ -97,6 +97,11 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Removed top navigation bar entirely
+Per user, dropped the `<header class="site-nav">` block from `index.html`. Page now starts directly with the hero. Routing to the two VSLs continues through the picker (right under the hero) + the dual CTAs in the About Emilio section + the closing nudge. Secondary navigation (Proof / About / Blog / Contact) remains in the footer. Brand logo no longer appears at the top; still present in the footer.
+
+`nav.css`, `nav.js`, and the corresponding link/script tags in `<head>` are intentionally left in place — they're inert without the header markup but might come back if a future change wants a slim sticky nav or a logo-only top bar. Cost is one unused style sheet + one unused JS file.
+
 ### 2026-05-31 — About Emilio: polaroid wall (L variant) above About Nils
 Picked L from a 12-option brainstorm spanning 3 rounds (A-D / E-H / I-L). New `.about-emilio` section inserted between the picker and About Nils to put the human face before the stats:
 - 4 polaroid-style cards positioned at the corners, each tilted 5–8° with the existing GHL media photos: Emilio with the 100-clients plaque, presenting at the Asoc. de Usuarios, with a client, and the funnels award.
