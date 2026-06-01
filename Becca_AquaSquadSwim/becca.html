@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AquaSquad Swim: Water Safety for Children | Wesley Chapel, FL</title>
+    <title>AquaSquad Swim: Swim Lessons &amp; Water Safety | Wesley Chapel, FL</title>
     <meta
       name="description"
-      content="AquaSquad teaches children real survival skills in the water. Led by Becca, a certified survival swim instructor serving Wesley Chapel, Epperson, and surrounding areas."
+      content="AquaSquad Swim is a full-service swim school in Wesley Chapel, FL: survival swim, mobile learn-to-swim, private and small group lessons, stroke development, and adult lessons. Every program is built on water safety first, taught by trained professionals. Call or text 813-320-9787."
     />
 
     <link rel="preconnect" href="https://assets.cdn.filesafe.space" crossorigin />
@@ -335,21 +335,29 @@
         max-width: var(--container);
         margin: 0 auto;
       }
+      .nav-logo {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
       .nav-logo img {
-        height: 110px;
+        height: 92px;
         width: auto;
+        flex-shrink: 0;
       }
       .nav-links {
         display: flex;
-        gap: 4px;
+        gap: 3px;
         list-style: none;
         align-items: center;
+        flex-shrink: 1;
+        min-width: 0;
       }
       .nav-links a {
         color: var(--text-primary);
         font-weight: 600;
-        font-size: 15px;
-        padding: 8px 12px;
+        font-size: 14.5px;
+        padding: 8px 10px;
         position: relative;
         transition: color 0.22s ease-out;
         white-space: nowrap;
@@ -533,27 +541,26 @@
         display: none;
       }
 
-      @media (max-width: 1100px) {
-        .nav-links {
-          gap: 2px;
-        }
-        .nav-links a {
-          font-size: 14px;
-          padding: 7px 11px;
-        }
-      }
-      @media (max-width: 900px) {
+      /* Below true-desktop width the 8 links won't fit alongside the phone
+         + CTA, so collapse them into the hamburger and keep phone + CTA. */
+      @media (max-width: 1200px) {
         .nav-links {
           display: none;
         }
-        /* CTA button — visible and readable on mobile */
-        .nav-cta {
-          padding: 13px 22px !important;
-          font-size: 15px !important;
-          min-width: unset !important;
-        }
         .hamburger {
           display: flex;
+        }
+      }
+      @media (max-width: 900px) {
+        /* Phone moves into the mobile menu + hero here to save the row */
+        .nav-phone {
+          display: none !important;
+        }
+        /* CTA button — visible and readable on mobile */
+        .nav-cta {
+          padding: 13px 18px !important;
+          font-size: 14px !important;
+          min-width: unset !important;
         }
         .nav-logo img {
           height: 76px;
@@ -3280,16 +3287,16 @@
           <span class="nav-num">01</span> About Becca
         </a>
         <a href="#services" onclick="closeMobileMenu()">
-          <span class="nav-num">02</span> Programs &amp; Pricing
+          <span class="nav-num">02</span> Programs
+        </a>
+        <a href="#pricing" onclick="closeMobileMenu()">
+          <span class="nav-num">03</span> Pricing
         </a>
         <a href="#process" onclick="closeMobileMenu()">
-          <span class="nav-num">03</span> How It Works
+          <span class="nav-num">04</span> How It Works
         </a>
         <a href="#benefits" onclick="closeMobileMenu()">
-          <span class="nav-num">04</span> Why AquaSquad
-        </a>
-        <a href="#services" onclick="closeMobileMenu()">
-          <span class="nav-num">05</span> Programs
+          <span class="nav-num">05</span> Why AquaSquad
         </a>
         <a href="#gallery" onclick="closeMobileMenu()">
           <span class="nav-num">06</span> Gallery
@@ -3306,6 +3313,12 @@
       <div class="mobile-menu-cta">
         <a href="#final-cta" onclick="closeMobileMenu()"
           >Get a Free Consultation</a
+        >
+        <a
+          href="tel:+18133209787"
+          onclick="closeMobileMenu()"
+          style="display: block; margin-top: 10px; text-align: center; font-weight: 700; color: var(--primary-dark)"
+          >📞 Call or Text: 813-320-9787</a
         >
         <p>No commitment required, just a conversation</p>
       </div>
@@ -3325,17 +3338,24 @@
         <ul class="nav-links">
           <li><a href="#problem">About Becca</a></li>
           <li><a href="#services">Programs</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#process">How It Works</a></li>
           <li><a href="#benefits">Why AquaSquad</a></li>
-          <li><a href="#services">Programs</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#faq">FAQ</a></li>
         </ul>
         <a
+          href="tel:+18133209787"
+          class="nav-phone"
+          aria-label="Call or text AquaSquad Swim at 813-320-9787"
+          style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14.5px; color: var(--primary-dark); margin-right: 6px; white-space: nowrap; flex-shrink: 0"
+          ><span aria-hidden="true" style="font-size: 15px">📞</span> 813-320-9787</a
+        >
+        <a
           href="#hero"
           class="btn-primary nav-cta"
-          style="min-width: unset; padding: 12px 22px; font-size: 15px"
+          style="min-width: unset; padding: 11px 16px; font-size: 14px"
           >Get a Free Consultation</a
         >
         <button
@@ -3368,19 +3388,40 @@
             Adults</span
           >
           <h1>
-            Swimming Lessons Children Love
-            <span style="color: var(--secondary)">and Parents Trust</span>
+            Swim Lessons Built on
+            <span style="color: var(--secondary)">Water Safety First</span>
           </h1>
           <p class="subheadline">
-            AquaSquad grows with your family, from babies to adults. We combine
-            science and heart to keep every swimmer safe, confident, and excited
-            in the water.
+            AquaSquad is now a full-service swim school. Survival swim, mobile
+            learn-to-swim, private, small group, stroke development, and adult
+            lessons. Flexible options that fit busy family schedules, without
+            ever compromising on safety.
           </p>
           <p>
-            Led by Becca, instructor, mom, and the heart behind AquaSquad.
-            Every lesson builds the calm, automatic response that keeps kids
-            safe when seconds count.
+            We teach self-rescue first and strokes second. Every swimmer builds
+            real water competency before moving on to stroke development, taught
+            by trained professionals who do this for a living.
           </p>
+
+          <!-- Phone CTA -->
+          <a
+            href="tel:+18133209787"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              margin-top: var(--space-md);
+              padding: 12px 22px;
+              background: rgba(255, 255, 255, 0.16);
+              border: 1.5px solid rgba(255, 255, 255, 0.55);
+              border-radius: var(--radius-pill);
+              color: #fff;
+              font-weight: 700;
+              font-size: 17px;
+              backdrop-filter: blur(4px);
+            "
+            ><span aria-hidden="true">📞</span> Call or Text: 813-320-9787</a
+          >
 
           <!-- Mini trust row -->
           <div
@@ -3526,6 +3567,33 @@
               >
               Babies, Toddlers, Children &amp; Beginner Adults Welcome
             </div>
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: #fff;
+                font-size: 16px;
+                font-weight: 600;
+              "
+            >
+              <span
+                style="
+                  width: 26px;
+                  height: 26px;
+                  border-radius: 50%;
+                  background: var(--secondary);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 13px;
+                  color: #fff;
+                  flex-shrink: 0;
+                "
+                >✓</span
+              >
+              Approved Step Up for Students Direct Provider
+            </div>
           </div>
         </div>
 
@@ -3591,9 +3659,125 @@
     </section>
 
     <!-- =============================================
+       SECTION 2.5: WE HEARD YOU / FLEXIBLE OPTIONS
+  ============================================= -->
+    <section id="flexible" class="section-pad" style="padding-bottom: var(--space-2xl)">
+      <div class="container">
+        <div class="section-header fade-up">
+          <span class="eyebrow">AquaSquad Has Grown</span>
+          <h2>
+            We Heard You. Now There's a Path
+            <span class="accent">for Every Family.</span>
+          </h2>
+          <p>
+            Many families can't commit to survival lessons three days a week but
+            still want real progress and strong water safety skills. So we built
+            flexible lesson options that fit busy schedules, while still putting
+            water safety and water competency first.
+          </p>
+        </div>
+
+        <!-- Philosophy callout -->
+        <div
+          class="fade-up"
+          style="
+            max-width: 820px;
+            margin: 0 auto var(--space-2xl);
+            background: var(--gradient);
+            color: #fff;
+            border-radius: var(--radius-card);
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+          "
+        >
+          <span style="font-size: 34px; line-height: 1">🛟</span>
+          <p
+            style="
+              font-size: clamp(20px, 3.2vw, 26px);
+              font-weight: 700;
+              margin: var(--space-sm) 0 var(--space-xs);
+              line-height: 1.3;
+            "
+          >
+            We teach self-rescue first and strokes second.
+          </p>
+          <p style="margin: 0; opacity: 0.92; font-size: 16px; max-width: 620px; margin-inline: auto">
+            Every AquaSquad program is built on survival swim principles.
+            Whatever format a family chooses, swimmers build strong water
+            competency and safety skills first, then progress to swimming and
+            stroke development.
+          </p>
+        </div>
+
+        <!-- Three pillars -->
+        <div
+          class="fade-up"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+          "
+        >
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--space-lg)">
+            <span style="font-size: 30px">🛡️</span>
+            <h4 style="margin: 12px 0 8px; color: var(--text-primary)">Safety Is the Foundation</h4>
+            <p style="margin: 0; color: var(--text-secondary); font-size: 15px">
+              As certified survival swim instructors, water safety is the base
+              of every program we offer, from first floats to full strokes.
+            </p>
+          </div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--space-lg)">
+            <span style="font-size: 30px">📅</span>
+            <h4 style="margin: 12px 0 8px; color: var(--text-primary)">Flexible Formats</h4>
+            <p style="margin: 0; color: var(--text-secondary); font-size: 15px">
+              Private, small group, sibling and friend, stroke development, and
+              adult lessons. Real progress without a one-size-fits-all schedule.
+            </p>
+          </div>
+          <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--space-lg)">
+            <span style="font-size: 30px">🏡</span>
+            <h4 style="margin: 12px 0 8px; color: var(--text-primary)">We Can Come to You</h4>
+            <p style="margin: 0; color: var(--text-secondary); font-size: 15px">
+              With mobile learn-to-swim lessons, we bring instruction to your
+              home or community pool. Convenient for families on the go.
+            </p>
+          </div>
+        </div>
+
+        <!-- Age 3 and under recommendation -->
+        <div
+          class="fade-up"
+          style="
+            max-width: 820px;
+            margin: 0 auto;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            background: #fff;
+            border: 1.5px solid var(--secondary);
+            border-radius: var(--radius-card);
+            padding: var(--space-md) var(--space-lg);
+          "
+        >
+          <span style="font-size: 26px; flex-shrink: 0">👶</span>
+          <p style="margin: 0; color: var(--text-primary); font-size: 15px; line-height: 1.6">
+            <strong>For children age 3 and under,</strong> we strongly recommend
+            beginning with our Survival Swim program whenever possible. It's the
+            fastest path to life-saving swim-float-swim skills during the years
+            when drowning risk is highest.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Wave: flexible (white) → about/problem (white) keeps flat; no divider needed -->
+
+    <!-- =============================================
        SECTION 3: ABOUT BECCA + ALTERNATIVES
   ============================================= -->
-    <section id="problem" class="section-pad">
+    <section id="problem" class="section-pad" style="padding-top: var(--space-xl)">
       <div class="container">
         <!-- PART 1: Meet Becca + accordion wrapper -->
         <div class="becca-card-wrap">
@@ -3725,7 +3909,7 @@
             Your Child May Already Have Lessons.
             <span class="accent">This Is Different.</span>
           </h2>
-          <p>Most programs teach strokes. AquaSquad teaches survival.</p>
+          <p>Most programs teach strokes first. AquaSquad teaches survival first, then strokes.</p>
         </div>
 
         <div class="vs-grid fade-up">
@@ -3763,24 +3947,29 @@
             <h4>Built for Real Life. Not Just Lessons.</h4>
             <ul class="vs-list">
               <li>
-                Survival response first: roll, float, breathe, swim to safety
+                Self-rescue first: roll, float, breathe, swim to safety. Strokes
+                come second.
               </li>
               <li>
-                3 short sessions per week to build automatic, reliable reactions
+                Water safety and competency are the foundation of every lesson
+                format
               </li>
             </ul>
             <div class="collapse-body" id="vs-good-extra">
               <ul class="vs-list" style="margin-top: 0; padding-top: 0">
                 <li>
-                  Year-round instruction with a consistent, structured plan
+                  Flexible formats: survival, private, small group, mobile, and
+                  adult lessons
                 </li>
                 <li>
-                  Zero dependency on floaties. Children learn to trust
+                  Zero dependency on floaties. Swimmers learn to trust
                   themselves
                 </li>
-                <li>Every child gets Becca's full attention, every lesson</li>
                 <li>
-                  Children leave knowing exactly what to do if they fall in
+                  Taught by trained professionals, never a random seasonal hire
+                </li>
+                <li>
+                  Swimmers leave knowing exactly what to do if they fall in
                   unexpectedly
                 </li>
               </ul>
@@ -3815,6 +4004,75 @@
       </div>
     </section>
 
+    <!-- =============================================
+       SECTION 3.5: TRAINED PROFESSIONALS
+  ============================================= -->
+    <section id="instructors" class="section-pad" style="padding-top: 0">
+      <div class="container">
+        <div
+          class="fade-up"
+          style="
+            background: var(--gradient);
+            color: #fff;
+            border-radius: var(--radius-card);
+            padding: clamp(28px, 5vw, 56px);
+            box-shadow: var(--shadow-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(24px, 4vw, 48px);
+            align-items: center;
+          "
+        >
+          <div>
+            <span
+              class="eyebrow"
+              style="color: var(--secondary)"
+              >The AquaSquad Difference</span
+            >
+            <h2 style="color: #fff; margin: 10px 0 16px; line-height: 1.2">
+              Trained Professionals,
+              <span style="color: var(--secondary)">Not Summer Help</span>
+            </h2>
+            <p style="font-size: 17px; opacity: 0.95; margin: 0 0 14px; line-height: 1.6">
+              Not all swim lessons are created equal. At AquaSquad, our
+              instructors aren't just passionate, they're highly qualified
+              professionals committed to drowning prevention and water safety.
+            </p>
+            <p style="font-size: 17px; opacity: 0.95; margin: 0; line-height: 1.6">
+              Teaching swimming isn't a summer job for our team. It's their
+              career and their purpose.
+            </p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; gap: 14px; align-items: flex-start">
+              <span style="font-size: 22px; flex-shrink: 0">🎯</span>
+              <div>
+                <strong style="display: block; margin-bottom: 2px">Carefully selected, extensively trained</strong>
+                <span style="opacity: 0.9; font-size: 15px">Every instructor is chosen for skill, judgment, and a genuine love of teaching children.</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start">
+              <span style="font-size: 22px; flex-shrink: 0">🤝</span>
+              <div>
+                <strong style="display: block; margin-bottom: 2px">Never a random instructor</strong>
+                <span style="opacity: 0.9; font-size: 15px">Every team member holds high-level swim instruction certifications and is committed to ongoing education.</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start">
+              <span style="font-size: 22px; flex-shrink: 0">💙</span>
+              <div>
+                <strong style="display: block; margin-bottom: 2px">One shared mission</strong>
+                <span style="opacity: 0.9; font-size: 15px">Water safety, drowning prevention, and a lasting, positive relationship with the water for every child we teach.</span>
+              </div>
+            </div>
+            <p style="margin: 6px 0 0; font-size: 14px; opacity: 0.8; font-style: italic">
+              Survival Swim lessons are taught by Becca personally, at our pool.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Wave: problem (white) → services (#F5FBFA) -->
     <div class="wave-divider" style="background: #ffffff">
       <svg
@@ -3835,15 +4093,15 @@
     <section id="services" class="section-pad">
       <div class="container">
         <div class="section-header fade-up">
-          <span class="eyebrow">Programs &amp; Pricing</span>
+          <span class="eyebrow">Our Programs</span>
           <h2>
-            From Babies to Adults,
-            <span class="accent">Every Swimmer Belongs</span>
+            Many Ways to Learn,
+            <span class="accent">One Foundation: Water Safety</span>
           </h2>
           <p>
-            AquaSquad grows with your family. Whether it's your baby's first
-            lesson or you're an adult finally ready to feel confident in the
-            water. There's a place for you here.
+            From babies to adults, every AquaSquad program is built on survival
+            swim principles. Choose the format that fits your family. We can even
+            come to you.
           </p>
         </div>
 
@@ -3856,9 +4114,9 @@
               <span class="badge badge-coral" style="font-size: 11px"
                 >6 Months to 6 Years</span
               >
-              <h4>Survival Swim Program</h4>
+              <h4>Survival Swim</h4>
               <p class="short-desc">
-                This is where it all begins. I teach babies, toddlers, and young
+                Where it all begins. Becca teaches babies, toddlers, and young
                 children the calm, automatic response that keeps them safe:
                 roll, float, breathe, swim to safety.
               </p>
@@ -3866,7 +4124,7 @@
             <div class="sc-price-block">
               <span class="sc-price">$115 <span class="per">/ week</span></span>
               <p class="sc-price-note">
-                3 sessions per week &bull; 13 to 15 min each
+                15-min private lessons &bull; 3 days/week &bull; at our pool
               </p>
             </div>
             <button
@@ -3881,21 +4139,20 @@
               <div class="sc-features">
                 <ul>
                   <li>
-                    Roll-to-float, independent breathing, calm water response
+                    Taught by Becca personally, at our pool only
                   </li>
-                  <li>Short, frequent sessions build real muscle memory</li>
+                  <li>15-minute private lessons, 3 days per week</li>
                   <li>
-                    Infants through early walkers: float &amp; breathe
-                    independently
+                    Roll-to-float, independent breathing, calm water response
                   </li>
                   <li>18 months+: swim-float-swim sequence to a safe exit</li>
                   <li>
-                    One instructor, one child. My full attention every session
+                    Most students complete the program in 6 to 8 weeks
                   </li>
                 </ul>
                 <p class="sc-note">
-                  Contact me first to confirm scheduling and open spots before
-                  registering.
+                  Refresher sessions available as your child grows. Contact us
+                  first to confirm open spots before registering.
                 </p>
               </div>
             </div>
@@ -3907,74 +4164,110 @@
             </div>
           </div>
 
-          <!-- CARD 2: Refreshers -->
+          <!-- CARD 2: Private Lessons -->
           <div class="service-card fade-up">
             <div class="sc-head">
-              <span class="sc-icon">🔄</span>
+              <span class="sc-icon">⭐</span>
               <span class="badge badge-teal" style="font-size: 11px"
-                >6 Months to 6 Years</span
+                >Ages 4+</span
               >
-              <h4>Refresher Sessions</h4>
+              <h4>Private Lessons</h4>
               <p class="short-desc">
-                Kids grow fast, and growing bodies change buoyancy. Refreshers
-                keep your child's survival skills sharp and updated for where
-                their body is now.
+                One-on-one learn-to-swim and stroke development. Build technique,
+                endurance, and water confidence, all on a foundation of water
+                safety first.
               </p>
             </div>
             <div class="sc-price-block">
-              <span class="sc-price">$115 <span class="per">/ week</span></span>
-              <p class="sc-price-note">1 to 3 weeks &bull; Weekly format</p>
+              <span class="sc-price">From $55 <span class="per">/ lesson</span></span>
+              <p class="sc-price-note">See package &amp; membership pricing below</p>
             </div>
             <button
               class="sc-feat-toggle"
-              onclick="toggleCollapse('sc-feat-refresher', this)"
+              onclick="toggleCollapse('sc-feat-private', this)"
               aria-expanded="false"
             >
               <span class="btn-label">What's included</span>
               <span class="arrow">›</span>
             </button>
-            <div class="collapse-body" id="sc-feat-refresher">
+            <div class="collapse-body" id="sc-feat-private">
               <div class="sc-features">
                 <ul>
-                  <li>Recommended every 4 to 6 months for children under 5</li>
-                  <li>Recommended yearly for children 5 and older</li>
-                  <li>
-                    Children under 3 must have completed Survival Swim first
-                  </li>
-                  <li>
-                    Skills don't disappear, but growing bodies need updated
-                    practice
-                  </li>
-                  <li>
-                    Short, efficient sessions to reinforce what they already
-                    know
-                  </li>
+                  <li>Private, one-on-one instruction</li>
+                  <li>Learn-to-swim and stroke development</li>
+                  <li>Safety and water competency first, then strokes</li>
+                  <li>Single lessons or discounted multi-lesson packages</li>
+                  <li>Monthly membership options available</li>
                 </ul>
               </div>
             </div>
             <div class="sc-foot">
-              <a href="#hero" class="btn-primary">Book a Refresher</a>
-              <span class="cta-subtext">Reach out to check availability</span>
+              <a href="#hero" class="btn-primary">Get Started</a>
+              <span class="cta-subtext">See pricing below or reach out</span>
             </div>
           </div>
 
-          <!-- CARD 3: Group Lessons -->
+          <!-- CARD 3: Mobile Learn-to-Swim -->
+          <div class="service-card fade-up">
+            <div class="sc-head">
+              <span class="sc-icon">🏡</span>
+              <span class="badge badge-coral" style="font-size: 11px"
+                >6 Months to Adult</span
+              >
+              <h4>Mobile Learn-to-Swim</h4>
+              <p class="short-desc">
+                We come to you. Lessons delivered to your home or community pool,
+                for families who want convenience without sacrificing quality or
+                safety.
+              </p>
+            </div>
+            <div class="sc-price-block">
+              <span class="sc-price">From $55 <span class="per">/ lesson</span></span>
+              <p class="sc-price-note">We travel to your pool</p>
+            </div>
+            <button
+              class="sc-feat-toggle"
+              onclick="toggleCollapse('sc-feat-mobile', this)"
+              aria-expanded="false"
+            >
+              <span class="btn-label">What's included</span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="collapse-body" id="sc-feat-mobile">
+              <div class="sc-features">
+                <ul>
+                  <li>Lessons at your home or community pool</li>
+                  <li>Same safety-first instruction, on your schedule</li>
+                  <li>Same package &amp; membership pricing as private lessons</li>
+                  <li>Availability depends on location. Contact us to confirm</li>
+                </ul>
+              </div>
+            </div>
+            <div class="sc-foot">
+              <a href="#hero" class="btn-primary">Check Availability</a>
+              <span class="cta-subtext">Contact us to confirm your area</span>
+            </div>
+          </div>
+
+          <!-- CARD 4: Small Group, Sibling & Friend -->
           <div class="service-card fade-up">
             <div class="sc-head">
               <span class="sc-icon">👥</span>
               <span class="badge badge-teal" style="font-size: 11px"
                 >Ages 3+</span
               >
-              <h4>Group Lessons (3:1)</h4>
+              <h4>Small Group, Sibling &amp; Friend</h4>
               <p class="short-desc">
-                Completed Survival Swim and ready to keep going? Skip the
-                refresher and join a small continuous group — 3 kids to 1
-                instructor — to keep building skills and water confidence.
+                Want to learn with siblings or friends? We offer discounted rates
+                for sibling lessons, friend groups, homeschool groups, and
+                neighborhood swim groups.
               </p>
             </div>
             <div class="sc-price-block">
-              <span class="sc-price">$40 <span class="per">/ lesson</span></span>
-              <p class="sc-price-note">Continuous · 3-to-1 instructor ratio</p>
+              <span class="sc-price"
+                >Custom <span class="per">pricing</span></span
+              >
+              <p class="sc-price-note">Discounted per-swimmer rates</p>
             </div>
             <button
               class="sc-feat-toggle"
@@ -3987,85 +4280,27 @@
             <div class="collapse-body" id="sc-feat-group">
               <div class="sc-features">
                 <ul>
-                  <li>Must have completed the Survival Swim Program</li>
-                  <li>Small group setting — maximum 3 students per instructor</li>
-                  <li>Continuous enrollment, no set end date</li>
-                  <li>Build on survival foundations with real stroke development</li>
-                  <li>Social, fun environment that keeps kids motivated</li>
+                  <li>Siblings, friends, homeschool, and neighborhood groups</li>
+                  <li>The more swimmers you bring, the lower the cost per swimmer</li>
+                  <li>Same water-safety foundation as every AquaSquad program</li>
+                  <li>Contact us for custom group pricing</li>
                 </ul>
               </div>
             </div>
             <div class="sc-foot">
-              <a href="#hero" class="btn-primary">Join the Group</a>
-              <span class="cta-subtext">Reach out to check open spots</span>
+              <a href="#hero" class="btn-primary">Get Custom Pricing</a>
+              <span class="cta-subtext">Reach out with your group size</span>
             </div>
           </div>
 
-          <!-- CARD 4: Learn-to-Swim (was 3) -->
-          <div class="service-card fade-up">
-            <div class="sc-head">
-              <span class="sc-icon">⭐</span>
-              <span class="badge badge-teal" style="font-size: 11px"
-                >Ages 4+</span
-              >
-              <h4>Learn-to-Swim</h4>
-              <p class="short-desc">
-                For children 4 and older ready to build real technique,
-                endurance, and water confidence through structured private
-                instruction.
-              </p>
-            </div>
-            <div class="sc-price-block">
-              <span class="sc-price"
-                >From $60 <span class="per">/ lesson</span></span
-              >
-              <p class="sc-price-note">30-minute one-on-one sessions</p>
-            </div>
-            <button
-              class="sc-feat-toggle"
-              onclick="toggleCollapse('sc-feat-learn', this)"
-              aria-expanded="false"
-            >
-              <span class="btn-label">What's included</span>
-              <span class="arrow">›</span>
-            </button>
-            <div class="collapse-body" id="sc-feat-learn">
-              <div class="sc-features">
-                <ul>
-                  <li>Private, one-on-one instruction</li>
-                  <li>Stroke development, endurance, and water confidence</li>
-                  <li>All packages prepaid</li>
-                </ul>
-                <ul class="sc-packages">
-                  <li>
-                    <span class="sc-pkg-label">6 lessons</span
-                    ><span class="sc-pkg-price">$70/lesson ($420 total)</span>
-                  </li>
-                  <li>
-                    <span class="sc-pkg-label">12 lessons</span
-                    ><span class="sc-pkg-price">$65/lesson ($780 total)</span>
-                  </li>
-                  <li>
-                    <span class="sc-pkg-label">18 lessons</span
-                    ><span class="sc-pkg-price">$60/lesson ($1,080 total)</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="sc-foot">
-              <a href="#hero" class="btn-primary">Get Started</a>
-              <span class="cta-subtext">Get in touch to find your package</span>
-            </div>
-          </div>
-
-          <!-- CARD 4: Adult Lessons -->
+          <!-- CARD 5: Adult Swim Lessons -->
           <div class="service-card fade-up">
             <div class="sc-head">
               <span class="sc-icon">🌊</span>
               <span class="badge badge-teal" style="font-size: 11px"
                 >Ages 18+</span
               >
-              <h4>Adult Lessons</h4>
+              <h4>Adult Swim Lessons</h4>
               <p class="short-desc">
                 You're never too old to learn. Whether you're a complete
                 beginner or just want to feel more confident in the water, you
@@ -4074,9 +4309,9 @@
             </div>
             <div class="sc-price-block">
               <span class="sc-price"
-                >From $60 <span class="per">/ lesson</span></span
+                >From $55 <span class="per">/ lesson</span></span
               >
-              <p class="sc-price-note">30-minute private sessions</p>
+              <p class="sc-price-note">Private, one-on-one</p>
             </div>
             <button
               class="sc-feat-toggle"
@@ -4094,7 +4329,7 @@
                   <li>
                     Water comfort, breathing technique, and foundational skills
                   </li>
-                  <li>30-minute sessions, flexible scheduling</li>
+                  <li>Single lessons, packages, or monthly membership</li>
                 </ul>
               </div>
             </div>
@@ -4104,50 +4339,133 @@
             </div>
           </div>
 
-          <!-- CARD 5: Mobile Private Lessons -->
+          <!-- CARD 6: Parent & Me (Coming Soon) -->
           <div class="service-card fade-up">
             <div class="sc-head">
-              <span class="sc-icon">🏡</span>
+              <span class="sc-icon">👨‍👩‍👧</span>
               <span class="badge badge-coral" style="font-size: 11px"
-                >6 Months to Adult</span
+                >Coming Soon</span
               >
-              <h4>Mobile Private Lessons</h4>
+              <h4>Parent &amp; Me</h4>
               <p class="short-desc">
-                I come to you. Survival swim instruction delivered directly to
-                your home pool, available by request for families who prefer
-                their own backyard.
+                Get in the water with your little one. A gentle, bonding
+                introduction to water safety for our youngest swimmers.
+                Launching soon.
               </p>
             </div>
             <div class="sc-price-block">
-              <span class="sc-price"
-                >Custom <span class="per">quote</span></span
-              >
-              <p class="sc-price-note">Based on location and availability</p>
+              <span class="sc-price">Coming <span class="per">Soon</span></span>
+              <p class="sc-price-note">Join the interest list</p>
             </div>
-            <button
-              class="sc-feat-toggle"
-              onclick="toggleCollapse('sc-feat-mobile', this)"
-              aria-expanded="false"
-            >
-              <span class="btn-label">What's included</span>
-              <span class="arrow">›</span>
-            </button>
-            <div class="collapse-body" id="sc-feat-mobile">
-              <div class="sc-features">
-                <ul>
-                  <li>All programs available at your home pool</li>
-                  <li>By request only. Contact me to check availability</li>
-                  <li>Premium pricing applies due to instructor travel</li>
-                  <li>Custom quote based on location and schedule</li>
-                </ul>
-              </div>
+            <div class="sc-features" style="margin-top: 4px">
+              <ul>
+                <li>A bonding, in-water experience for parent and child</li>
+                <li>Early water comfort and safety habits</li>
+                <li>Designed with our youngest swimmers in mind</li>
+              </ul>
             </div>
             <div class="sc-foot">
-              <a href="#hero" class="btn-primary">Request a Quote</a>
-              <span class="cta-subtext"
-                >Limited availability. Inquire to confirm.</span
-              >
+              <a href="#hero" class="btn-primary">Join the Interest List</a>
+              <span class="cta-subtext">Be first to know when we launch</span>
             </div>
+          </div>
+        </div>
+
+        <!-- =========================================
+             PRICING DETAIL BLOCK
+        ========================================= -->
+        <div id="pricing" style="margin-top: var(--space-3xl); scroll-margin-top: 90px">
+          <div class="section-header fade-up">
+            <span class="eyebrow">Pricing</span>
+            <h2>Simple, <span class="accent">Transparent Pricing</span></h2>
+            <p>
+              Survival Swim runs weekly. All other private, mobile, learn-to-swim,
+              stroke development, and adult lessons share the package and
+              membership pricing below.
+            </p>
+          </div>
+
+          <div
+            class="fade-up"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: var(--space-md);
+              margin-bottom: var(--space-lg);
+            "
+          >
+            <!-- Survival Swim -->
+            <div style="background: #fff; border: 1.5px solid var(--primary); border-radius: var(--radius-card); padding: var(--space-lg); box-shadow: var(--shadow-md)">
+              <span class="badge badge-coral" style="font-size: 11px">Becca only · at our pool</span>
+              <h4 style="margin: 12px 0 4px; color: var(--text-primary)">Survival Swim</h4>
+              <p style="font-size: 30px; font-weight: 700; color: var(--primary); margin: 0 0 12px">
+                $115<span style="font-size: 16px; color: var(--text-secondary); font-weight: 600">/week</span>
+              </p>
+              <ul style="list-style: none; padding: 0; margin: 0; color: var(--text-secondary); font-size: 15px; line-height: 2">
+                <li>✓ 15-minute private lessons</li>
+                <li>✓ 3 days per week</li>
+                <li>✓ Held at our pool only</li>
+                <li>✓ Most complete in 6 to 8 weeks</li>
+              </ul>
+            </div>
+
+            <!-- Package Pricing -->
+            <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--space-lg); box-shadow: var(--shadow-sm)">
+              <span class="badge badge-teal" style="font-size: 11px">Private · Mobile · Adult</span>
+              <h4 style="margin: 12px 0 4px; color: var(--text-primary)">Lesson Packages</h4>
+              <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 12px">Prepaid. Lower per-lesson the more you book.</p>
+              <ul style="list-style: none; padding: 0; margin: 0; color: var(--text-primary); font-size: 15px; line-height: 2.1">
+                <li><strong>Single Lesson</strong>: $75</li>
+                <li><strong>6 Lessons</strong>: $65/lesson ($390)</li>
+                <li><strong>12 Lessons</strong>: $60/lesson ($720)</li>
+                <li><strong>18 Lessons</strong>: $55/lesson ($990)</li>
+              </ul>
+            </div>
+
+            <!-- Monthly Memberships -->
+            <div style="background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--space-lg); box-shadow: var(--shadow-sm)">
+              <span class="badge badge-teal" style="font-size: 11px">Ongoing</span>
+              <h4 style="margin: 12px 0 4px; color: var(--text-primary)">Monthly Membership</h4>
+              <p style="font-size: 14px; color: var(--text-secondary); margin: 0 0 12px">For families who want a steady weekly rhythm.</p>
+              <ul style="list-style: none; padding: 0; margin: 0 0 10px; color: var(--text-primary); font-size: 15px; line-height: 2.1">
+                <li><strong>1 lesson/week</strong>: $65/lesson ($260/mo)</li>
+                <li><strong>2 lessons/week</strong>: $60/lesson ($480/mo)</li>
+              </ul>
+              <p style="font-size: 13px; color: var(--text-secondary); margin: 0; font-style: italic">
+                Monthly commitment required. 7-day cancellation notice required.
+              </p>
+            </div>
+          </div>
+
+          <!-- Registration + Step Up callouts -->
+          <div
+            class="fade-up"
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: var(--space-md);
+            "
+          >
+            <div style="display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); padding: var(--space-md) var(--space-lg)">
+              <span style="font-size: 24px; flex-shrink: 0">📝</span>
+              <p style="margin: 0; color: var(--text-primary); font-size: 15px; line-height: 1.6">
+                <strong>One-time registration fee:</strong> a non-refundable $100
+                registration fee applies to all programs.
+              </p>
+            </div>
+            <div style="display: flex; gap: 14px; align-items: flex-start; background: var(--primary-light); border: 1.5px solid var(--primary); border-radius: var(--radius-card); padding: var(--space-md) var(--space-lg)">
+              <span style="font-size: 24px; flex-shrink: 0">🎓</span>
+              <p style="margin: 0; color: var(--text-primary); font-size: 15px; line-height: 1.6">
+                <strong>Step Up for Students:</strong> AquaSquad Swim is an
+                approved Step Up for Students Direct Provider. Eligible families
+                may use scholarship funds for qualifying programs.
+              </p>
+            </div>
+          </div>
+
+          <div class="text-center fade-up" style="margin-top: var(--space-xl)">
+            <a href="#hero" class="btn-primary">Get a Free Consultation</a>
+            <span class="cta-subtext">Or call/text 813-320-9787 with any questions</span>
           </div>
         </div>
       </div>
@@ -4176,8 +4494,8 @@
           <span class="eyebrow">From First Contact to Water Confidence</span>
           <h2>Getting Started <span class="accent">Is Simple</span></h2>
           <p>
-            Four straightforward steps separate your child from real, practiced
-            water safety skills.
+            Four straightforward steps separate your swimmer from real,
+            practiced water safety skills, whichever program you choose.
           </p>
         </div>
 
@@ -4266,9 +4584,10 @@
             </div>
             <div class="step-detail collapse-body">
               <p>
-                Most children build foundational survival skills within 6 to 8
-                weeks of consistent instruction. Every child moves at their own
-                pace.
+                Survival students build foundational skills in about 6 to 8
+                weeks. Learn-to-swim and stroke development progress on each
+                swimmer's own pace. Either way, consistency is what makes skills
+                stick.
               </p>
               <div class="step-roles">
                 <span
@@ -4419,8 +4738,22 @@
             </div>
             <div class="benefit-desc collapse-body">
               <p>
-                No guessing. Every child has a plan, every session has a
+                No guessing. Every swimmer has a plan, every session has a
                 purpose, and parents always know what to expect.
+              </p>
+            </div>
+          </div>
+          <div class="benefit-card fade-up" role="button" aria-expanded="false">
+            <div class="benefit-icon">&#x1F3E1;</div>
+            <div class="benefit-card-header">
+              <h4>Flexible and Convenient</h4>
+              <span class="benefit-toggle-icon" aria-hidden="true">↓</span>
+            </div>
+            <div class="benefit-desc collapse-body">
+              <p>
+                Survival, private, small group, stroke development, or adult
+                lessons, on a schedule that fits your family. With mobile
+                lessons, we can even come to you.
               </p>
             </div>
           </div>
@@ -4552,6 +4885,92 @@
         </div>
 
         <div class="faq-list fade-up" role="list">
+          <div class="faq-item" role="listitem">
+            <div
+              class="faq-q"
+              onclick="toggleFAQ(this)"
+              role="button"
+              tabindex="0"
+              aria-expanded="false"
+            >
+              Do you offer more than survival swim?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </div>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                Yes. AquaSquad is now a full-service swim school. Alongside
+                Survival Swim, we offer private learn-to-swim and stroke
+                development, mobile lessons, small group and sibling/friend
+                lessons, and adult lessons, with Parent &amp; Me classes coming
+                soon. Every program is built on survival swim principles: we
+                teach self-rescue first and strokes second.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <div
+              class="faq-q"
+              onclick="toggleFAQ(this)"
+              role="button"
+              tabindex="0"
+              aria-expanded="false"
+            >
+              Do you come to my home?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </div>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                Yes. With our Mobile Learn-to-Swim lessons we bring instruction
+                to your home or community pool. Mobile pricing matches our
+                standard lesson packages, and availability depends on your
+                location, so reach out to confirm we can come to you. Note that
+                Survival Swim is taught by Becca at our pool only.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <div
+              class="faq-q"
+              onclick="toggleFAQ(this)"
+              role="button"
+              tabindex="0"
+              aria-expanded="false"
+            >
+              Do you accept Step Up for Students?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </div>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                Yes. AquaSquad Swim is an approved Step Up for Students Direct
+                Provider. Eligible families may use scholarship funds toward
+                qualifying programs. Contact us and we'll walk you through how to
+                apply your funds.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item" role="listitem">
+            <div
+              class="faq-q"
+              onclick="toggleFAQ(this)"
+              role="button"
+              tabindex="0"
+              aria-expanded="false"
+            >
+              Is there a registration fee?
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </div>
+            <div class="faq-a" role="region">
+              <div class="faq-a-inner">
+                Yes. A one-time, non-refundable $100 registration fee applies to
+                all programs. After that, you only pay for your lessons, whether
+                weekly, by package, or through a monthly membership.
+              </div>
+            </div>
+          </div>
+
           <div class="faq-item" role="listitem">
             <div
               class="faq-q"
@@ -4759,8 +5178,12 @@
             </div>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
-                Weekly payments are due on Thursdays for the upcoming week. I
-                accept payment through Stripe (all major credit and debit cards) or cash.
+                Survival Swim is billed weekly. Private, mobile, and adult
+                lessons can be paid as single lessons, prepaid packages, or a
+                monthly membership. Memberships require a monthly commitment and
+                a 7-day cancellation notice. I accept Stripe (all major credit
+                and debit cards) or cash. A one-time, non-refundable $100
+                registration fee applies to all programs.
               </div>
             </div>
           </div>
@@ -4778,23 +5201,26 @@
             </div>
             <div class="faq-a" role="region">
               <div class="faq-a-inner">
-                <strong>Survival Swim</strong> (6 months to 6 years): Daily short
-                sessions (13 to 15 min, 3x/week) focused on building the automatic
-                survival response: roll, float, breathe, swim to safety. This
-                is the foundation.<br /><br />
-                <strong>Refreshers</strong> (6 months to 6 years): 1 to 3 weeks of
-                weekly sessions to update and reinforce existing skills as your
-                child grows. Children under 3 must have completed Survival Swim
-                first.<br /><br />
-                <strong>Learn-to-Swim</strong> (Ages 4+): 30-minute private
-                sessions focused on stroke technique, endurance, and water
-                confidence. Great for children who have a survival foundation
-                and are ready to build on it.<br /><br />
-                <strong>Adult Lessons</strong> (18+): 30-minute private sessions
-                for beginner adults. We start exactly where you
-                are.<br /><br />
-                <strong>Mobile Lessons</strong> (All ages): Any program, at your
-                home pool. By request only. Contact me to check availability.
+                <strong>Survival Swim</strong> (6 months to 6 years): 15-minute
+                private lessons, 3 days a week, taught by Becca at our pool.
+                Builds the automatic response: roll, float, breathe, swim to
+                safety. Most complete in 6 to 8 weeks. This is the
+                foundation.<br /><br />
+                <strong>Private Lessons</strong> (Ages 4+): One-on-one
+                learn-to-swim and stroke development. Technique, endurance, and
+                water confidence built on a safety-first
+                foundation.<br /><br />
+                <strong>Mobile Learn-to-Swim</strong> (All ages): The same
+                lessons delivered to your home or community pool. Availability
+                depends on location.<br /><br />
+                <strong>Small Group, Sibling &amp; Friend</strong> (Ages 3+):
+                Discounted per-swimmer rates for siblings, friends, homeschool,
+                and neighborhood groups. Contact us for custom
+                pricing.<br /><br />
+                <strong>Adult Swim Lessons</strong> (18+): Private sessions for
+                beginner adults. We start exactly where you are.<br /><br />
+                <strong>Parent &amp; Me</strong> (Coming Soon): A gentle, bonding
+                introduction to water safety for our youngest swimmers.
               </div>
             </div>
           </div>
@@ -4870,9 +5296,16 @@
           <span style="color: var(--secondary)">One Message</span>
         </h2>
         <p class="fcta-sub">
-          Becca has helped 200+ families give their children real, practiced
-          water safety skills. Reaching out costs nothing and commits you to
-          nothing.
+          AquaSquad has helped 200+ families build real, practiced water safety
+          skills, with flexible programs for every age. Reaching out costs
+          nothing and commits you to nothing.
+        </p>
+        <p style="text-align: center; margin: 0 auto var(--space-lg)">
+          <a
+            href="tel:+18133209787"
+            style="display: inline-flex; align-items: center; gap: 10px; color: #fff; font-size: 19px; font-weight: 700"
+            ><span aria-hidden="true">📞</span> Call or Text: 813-320-9787</a
+          >
         </p>
 
         <!-- Final CTA Form -->
@@ -4955,9 +5388,10 @@
             alt="AquaSquad Swim"
           />
           <p>
-            Real water survival skills for children 6 months and older. Serving
-            Wesley Chapel, Epperson, and surrounding communities in the Tampa
-            Bay area.
+            A full-service swim school built on water safety first. Survival
+            swim, learn-to-swim, mobile, group, and adult lessons for ages 6
+            months and up. Serving Wesley Chapel, Epperson, and the Tampa Bay
+            area. Approved Step Up for Students Direct Provider.
           </p>
           <div class="footer-social">
             <a class="soc-icon" href="https://www.instagram.com/survivalswimwithbecca/" target="_blank" rel="noopener noreferrer" aria-label="AquaSquad Instagram">
@@ -5009,9 +5443,9 @@
         <div class="footer-col">
           <h5>Quick Links</h5>
           <ul>
-            <li><a href="#process">How It Works</a></li>
-            <li><a href="#services">Programs &amp; Pricing</a></li>
             <li><a href="#services">Programs</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#process">How It Works</a></li>
             <li><a href="#gallery">Gallery</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
@@ -5022,6 +5456,7 @@
           <p>
             Wesley Chapel, FL<br />
             Epperson &amp; Surrounding Areas<br /><br />
+            <a href="tel:+18133209787">Call or Text: 813-320-9787</a><br />
             <a href="mailto:info@aquasquadswim.com">info@aquasquadswim.com</a>
           </p>
         </div>
