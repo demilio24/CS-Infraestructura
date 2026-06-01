@@ -103,6 +103,45 @@ body { min-height: 100vh; }
   }
 }
 
+/* Ultra-narrow viewports (iPhone 5 / very small Androids ≤ 360px) */
+@media (max-width: 360px) {
+  .home-hero .eyebrow { display: none; }
+  .home-hero h1 {
+    font-size: clamp(17px, 5vw, 22px);
+    line-height: 1.15;
+  }
+  .home-hero {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+  }
+  .home-route-halves#offers .route-half {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+  }
+  .home-route-halves#offers .route-half .ico {
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .home-route-halves#offers .route-half h3 {
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .home-route-halves#offers .route-half p {
+    font-size: 12px;
+    line-height: 1.35;
+    margin-bottom: var(--space-2);
+    /* Cap at 3 lines so the button always has room */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .home-route-halves#offers .route-half .btn.prominent {
+    font-size: 13px;
+    padding: var(--space-2) var(--space-4);
+  }
+}
+
 /* ─── HOME PAGE — Hero (shared across all variations) ─── */
 .home-hero {
   padding-top: var(--space-8);
