@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-01T11:43:15Z",
+  "generatedAt": "2026-06-01T11:47:29Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
@@ -220,49 +220,49 @@
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 34,
-      "June 8th-12th": 36,
-      "June 15th-19th": 34,
-      "June 22nd-26th": 35,
-      "June 29th-July 3rd": 35,
-      "July 6th-10th": 35,
+      "June 1st-5th": 32,
+      "June 8th-12th": 34,
+      "June 15th-19th": 33,
+      "June 22nd-26th": 34,
+      "June 29th-July 3rd": 33,
+      "July 6th-10th": 34,
       "July 13th-17th": 35,
       "July 20th-24th": 35,
-      "July 27th-31st": 34,
-      "August 3rd-7th": 33,
+      "July 27th-31st": 33,
+      "August 3rd-7th": 32,
       "August 10th-14th": 0,
       "August 17th-21st": 0,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
       "June 1st-5th": {
+        "Upper Campus": 18,
+        "Lower Campus": 14,
+        "Unknown": 0
+      },
+      "June 8th-12th": {
         "Upper Campus": 19,
         "Lower Campus": 15,
         "Unknown": 0
       },
-      "June 8th-12th": {
-        "Upper Campus": 20,
-        "Lower Campus": 16,
-        "Unknown": 0
-      },
       "June 15th-19th": {
-        "Upper Campus": 18,
+        "Upper Campus": 17,
         "Lower Campus": 16,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 19,
+        "Upper Campus": 18,
         "Lower Campus": 16,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 19,
-        "Lower Campus": 16,
+        "Upper Campus": 18,
+        "Lower Campus": 15,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 20,
-        "Lower Campus": 15,
+        "Lower Campus": 14,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -277,12 +277,12 @@
       },
       "July 27th-31st": {
         "Upper Campus": 20,
-        "Lower Campus": 14,
+        "Lower Campus": 13,
         "Unknown": 0
       },
       "August 3rd-7th": {
         "Upper Campus": 20,
-        "Lower Campus": 13,
+        "Lower Campus": 12,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -302,8 +302,8 @@
       }
     },
     "bySchool": {
-      "Westward Elementary School": 128,
-      "Northboro Elementary School": 78,
+      "Westward Elementary School": 123,
+      "Northboro Elementary School": 72,
       "Pleasant City Elementary School": 58,
       "U.B. Kinsey Educational and Community Center": 50,
       "Roosevelt Elementary School": 33
@@ -323,56 +323,56 @@
   },
   "combined": {
     "total": 178,
-    "enrollments": 586,
+    "enrollments": 575,
     "byCampus": {
       "Upper Campus": 81,
       "Lower Campus": 97,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 56,
-      "June 8th-12th": 67,
-      "June 15th-19th": 55,
-      "June 22nd-26th": 57,
-      "June 29th-July 3rd": 50,
-      "July 6th-10th": 56,
+      "June 1st-5th": 54,
+      "June 8th-12th": 65,
+      "June 15th-19th": 54,
+      "June 22nd-26th": 56,
+      "June 29th-July 3rd": 48,
+      "July 6th-10th": 55,
       "July 13th-17th": 53,
       "July 20th-24th": 57,
-      "July 27th-31st": 48,
-      "August 3rd-7th": 56,
+      "July 27th-31st": 47,
+      "August 3rd-7th": 55,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 30,
-        "Lower Campus": 26,
+        "Upper Campus": 29,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "June 8th-12th": {
-        "Upper Campus": 36,
-        "Lower Campus": 31,
+        "Upper Campus": 35,
+        "Lower Campus": 30,
         "Unknown": 0
       },
       "June 15th-19th": {
-        "Upper Campus": 22,
+        "Upper Campus": 21,
         "Lower Campus": 33,
         "Unknown": 0
       },
       "June 22nd-26th": {
-        "Upper Campus": 25,
+        "Upper Campus": 24,
         "Lower Campus": 32,
         "Unknown": 0
       },
       "June 29th-July 3rd": {
-        "Upper Campus": 25,
-        "Lower Campus": 25,
+        "Upper Campus": 24,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "July 6th-10th": {
         "Upper Campus": 30,
-        "Lower Campus": 26,
+        "Lower Campus": 25,
         "Unknown": 0
       },
       "July 13th-17th": {
@@ -387,12 +387,12 @@
       },
       "July 27th-31st": {
         "Upper Campus": 28,
-        "Lower Campus": 20,
+        "Lower Campus": 19,
         "Unknown": 0
       },
       "August 3rd-7th": {
         "Upper Campus": 29,
-        "Lower Campus": 27,
+        "Lower Campus": 26,
         "Unknown": 0
       },
       "August 10th-14th": {
@@ -4291,13 +4291,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 170,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -4470,19 +4470,6 @@
               },
               {
                 "name": "Javonni Jerome",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Jewels Summer Gibbs",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -4703,19 +4690,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -4746,13 +4720,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 170
+          "all": 160
         }
       },
       "June 8th-12th": {
@@ -4762,13 +4736,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 36,
-              "Tue": 36,
-              "Wed": 36,
-              "Thu": 36,
-              "Fri": 36
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 180,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5005,19 +4979,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Jewels Summer Gibbs",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Josiah Walker",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -5200,19 +5161,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -5243,13 +5191,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 36,
-            "Tue": 36,
-            "Wed": 36,
-            "Thu": 36,
-            "Fri": 36
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 180
+          "all": 170
         }
       },
       "June 15th-19th": {
@@ -5259,13 +5207,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 170,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -5671,19 +5619,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -5714,13 +5649,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 170
+          "all": 165
         }
       },
       "June 22nd-26th": {
@@ -5730,13 +5665,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 175,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6155,19 +6090,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -6198,13 +6120,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 175
+          "all": 170
         }
       },
       "June 29th-July 3rd": {
@@ -6214,13 +6136,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 175,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6431,19 +6353,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Jewels Summer Gibbs",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Josiah Walker",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -6639,19 +6548,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Sunni Hall",
-                "campus": "Upper Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Zaire Clinton",
                 "campus": "Lower Campus",
                 "type": "free",
@@ -6682,13 +6578,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 175
+          "all": 165
         }
       },
       "July 6th-10th": {
@@ -6698,13 +6594,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 35,
-              "Tue": 35,
-              "Wed": 35,
-              "Thu": 35,
-              "Fri": 35
+              "Mon": 34,
+              "Tue": 34,
+              "Wed": 34,
+              "Thu": 34,
+              "Fri": 34
             },
-            "total": 175,
+            "total": 170,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -6903,19 +6799,6 @@
               },
               {
                 "name": "Javonni Jerome",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Jewels Summer Gibbs",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -7166,13 +7049,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 35,
-            "Tue": 35,
-            "Wed": 35,
-            "Thu": 35,
-            "Fri": 35
+            "Mon": 34,
+            "Tue": 34,
+            "Wed": 34,
+            "Thu": 34,
+            "Fri": 34
           },
-          "all": 175
+          "all": 170
         }
       },
       "July 13th-17th": {
@@ -8150,13 +8033,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 34,
-              "Tue": 34,
-              "Wed": 34,
-              "Thu": 34,
-              "Fri": 34
+              "Mon": 33,
+              "Tue": 33,
+              "Wed": 33,
+              "Thu": 33,
+              "Fri": 33
             },
-            "total": 170,
+            "total": 165,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8368,19 +8251,6 @@
               },
               {
                 "name": "Javonni Jerome",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
-                "name": "Jewels Summer Gibbs",
                 "campus": "Lower Campus",
                 "type": "free",
                 "days": [
@@ -8605,13 +8475,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 34,
-            "Tue": 34,
-            "Wed": 34,
-            "Thu": 34,
-            "Fri": 34
+            "Mon": 33,
+            "Tue": 33,
+            "Wed": 33,
+            "Thu": 33,
+            "Fri": 33
           },
-          "all": 170
+          "all": 165
         }
       },
       "August 3rd-7th": {
@@ -8621,13 +8491,13 @@
             "subtypeKey": "other|yes",
             "label": "Yes",
             "byDay": {
-              "Mon": 33,
-              "Tue": 33,
-              "Wed": 33,
-              "Thu": 33,
-              "Fri": 33
+              "Mon": 32,
+              "Tue": 32,
+              "Wed": 32,
+              "Thu": 32,
+              "Fri": 32
             },
-            "total": 165,
+            "total": 160,
             "students": [
               {
                 "name": "Aahna Boone",
@@ -8890,19 +8760,6 @@
                 "lunchRaw": "Yes"
               },
               {
-                "name": "Jewels Summer Gibbs",
-                "campus": "Lower Campus",
-                "type": "free",
-                "days": [
-                  "Mon",
-                  "Tue",
-                  "Wed",
-                  "Thu",
-                  "Fri"
-                ],
-                "lunchRaw": "Yes"
-              },
-              {
                 "name": "Josiah Walker",
                 "campus": "Upper Campus",
                 "type": "free",
@@ -9063,13 +8920,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 33,
-            "Tue": 33,
-            "Wed": 33,
-            "Thu": 33,
-            "Fri": 33
+            "Mon": 32,
+            "Tue": 32,
+            "Wed": 32,
+            "Thu": 32,
+            "Fri": 32
           },
-          "all": 165
+          "all": 160
         }
       },
       "August 10th-14th": {
@@ -9678,7 +9535,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -9703,7 +9560,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -9728,7 +9585,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -9753,7 +9610,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -9778,7 +9635,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -9803,7 +9660,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -9828,7 +9685,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -9853,7 +9710,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -9878,7 +9735,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 3,
+          "sourceRow": 2,
           "days": [
             true,
             true,
@@ -9903,7 +9760,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -9928,7 +9785,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -9978,7 +9835,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -10003,7 +9860,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -10013,31 +9870,6 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
-        },
-        {
-          "name": "Jewels Summer Gibbs",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "maquissia.garcon@palmbeachschools.org",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 7,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Josiah Walker",
@@ -10053,7 +9885,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -10078,7 +9910,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -10103,7 +9935,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -10128,7 +9960,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -10153,7 +9985,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -10203,7 +10035,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -10280,7 +10112,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -10305,7 +10137,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -10330,7 +10162,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -10380,7 +10212,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -10405,7 +10237,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -10430,7 +10262,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -10440,31 +10272,6 @@
           ],
           "type": "free",
           "school": "U.B. Kinsey Educational and Community Center"
-        },
-        {
-          "name": "Sunni Hall",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "pjennifer98@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 2,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Westward Elementary School"
         },
         {
           "name": "Zaire Clinton",
@@ -10480,7 +10287,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -10505,7 +10312,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -11305,7 +11112,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -11355,7 +11162,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -11380,7 +11187,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -11405,7 +11212,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -11430,7 +11237,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -11457,7 +11264,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -11482,7 +11289,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -11507,7 +11314,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -11532,7 +11339,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -11557,7 +11364,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -11582,7 +11389,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -11607,7 +11414,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 3,
+          "sourceRow": 2,
           "days": [
             true,
             true,
@@ -11632,7 +11439,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -11657,7 +11464,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -11707,7 +11514,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -11732,7 +11539,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -11742,31 +11549,6 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
-        },
-        {
-          "name": "Jewels Summer Gibbs",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "maquissia.garcon@palmbeachschools.org",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 42263552,
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 8,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Josiah Walker",
@@ -11782,7 +11564,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -11807,7 +11589,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -11832,7 +11614,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -11857,7 +11639,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -11882,7 +11664,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -11932,7 +11714,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -12009,7 +11791,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 21,
+          "sourceRow": 20,
           "days": [
             true,
             true,
@@ -12034,7 +11816,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -12059,7 +11841,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -12109,7 +11891,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -12119,31 +11901,6 @@
           ],
           "type": "free",
           "school": "Roosevelt Elementary School"
-        },
-        {
-          "name": "Sunni Hall",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "pjennifer98@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 42263552,
-          "sourceTabName": "6/8-6/12",
-          "sourceRow": 2,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Westward Elementary School"
         },
         {
           "name": "Zaire Clinton",
@@ -12159,7 +11916,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -12184,7 +11941,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 42263552,
           "sourceTabName": "6/8-6/12",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -12739,7 +12496,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -12789,7 +12546,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -12889,7 +12646,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -12914,7 +12671,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -12964,7 +12721,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -12989,7 +12746,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -13014,7 +12771,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -13064,7 +12821,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -13114,7 +12871,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -13139,7 +12896,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -13164,7 +12921,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -13214,7 +12971,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -13264,7 +13021,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -13339,7 +13096,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -13414,7 +13171,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -13489,31 +13246,6 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 3,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
-          "name": "Sunni Hall",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "pjennifer98@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 44844437,
-          "sourceTabName": "6/15-6/19",
           "sourceRow": 2,
           "days": [
             true,
@@ -13523,7 +13255,7 @@
             true
           ],
           "type": "free",
-          "school": "Westward Elementary School"
+          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Zaire Clinton",
@@ -13564,7 +13296,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 44844437,
           "sourceTabName": "6/15-6/19",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -14139,7 +13871,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -14189,7 +13921,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -14289,7 +14021,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -14314,7 +14046,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -14364,7 +14096,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -14389,7 +14121,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -14414,7 +14146,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -14464,7 +14196,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -14539,7 +14271,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -14564,7 +14296,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -14589,7 +14321,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -14639,7 +14371,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -14689,7 +14421,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -14766,7 +14498,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -14816,7 +14548,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -14841,7 +14573,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -14916,31 +14648,6 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 3,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
-          "name": "Sunni Hall",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "pjennifer98@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 624596140,
-          "sourceTabName": "6/22-6/26",
           "sourceRow": 2,
           "days": [
             true,
@@ -14950,7 +14657,7 @@
             true
           ],
           "type": "free",
-          "school": "Westward Elementary School"
+          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Zaire Clinton",
@@ -14991,7 +14698,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 624596140,
           "sourceTabName": "6/22-6/26",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -15396,7 +15103,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -15421,7 +15128,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -15446,7 +15153,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -15471,7 +15178,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -15496,7 +15203,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -15521,7 +15228,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -15546,7 +15253,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -15571,7 +15278,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -15596,7 +15303,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -15621,7 +15328,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -15646,7 +15353,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -15671,7 +15378,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -15721,7 +15428,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -15746,7 +15453,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -15771,7 +15478,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -15781,31 +15488,6 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
-        },
-        {
-          "name": "Jewels Summer Gibbs",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "maquissia.garcon@palmbeachschools.org",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 2124671237,
-          "sourceTabName": "6/29-7/3",
-          "sourceRow": 8,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Josiah Walker",
@@ -15821,7 +15503,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 20,
+          "sourceRow": 19,
           "days": [
             true,
             true,
@@ -15846,7 +15528,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -15871,7 +15553,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 19,
+          "sourceRow": 18,
           "days": [
             true,
             true,
@@ -15896,7 +15578,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -15921,7 +15603,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 4,
+          "sourceRow": 3,
           "days": [
             true,
             true,
@@ -15946,7 +15628,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 6,
+          "sourceRow": 5,
           "days": [
             true,
             true,
@@ -16046,7 +15728,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 5,
+          "sourceRow": 4,
           "days": [
             true,
             true,
@@ -16096,7 +15778,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -16121,7 +15803,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -16171,31 +15853,6 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 3,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Roosevelt Elementary School"
-        },
-        {
-          "name": "Sunni Hall",
-          "campus": "Upper Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "pjennifer98@yahoo.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
-          "sourceGid": 2124671237,
-          "sourceTabName": "6/29-7/3",
           "sourceRow": 2,
           "days": [
             true,
@@ -16205,7 +15862,7 @@
             true
           ],
           "type": "free",
-          "school": "Westward Elementary School"
+          "school": "Roosevelt Elementary School"
         },
         {
           "name": "Zaire Clinton",
@@ -16221,7 +15878,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 17,
+          "sourceRow": 16,
           "days": [
             true,
             true,
@@ -16246,7 +15903,7 @@
           "sourceSheetId": "1rK4p6jS1xqSf1qNO9-3ljCRzJcUIDF87sNo_UehBWYQ",
           "sourceGid": 2124671237,
           "sourceTabName": "6/29-7/3",
-          "sourceRow": 18,
+          "sourceRow": 17,
           "days": [
             true,
             true,
@@ -16826,7 +16483,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -16876,7 +16533,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -16926,7 +16583,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -17001,7 +16658,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -17176,7 +16833,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -17186,31 +16843,6 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
-        },
-        {
-          "name": "Jewels Summer Gibbs",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "maquissia.garcon@palmbeachschools.org",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 812152810,
-          "sourceTabName": "7/6-7/10",
-          "sourceRow": 7,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Josiah Walker",
@@ -17276,7 +16908,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -17503,7 +17135,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -17605,7 +17237,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 16,
+          "sourceRow": 15,
           "days": [
             true,
             true,
@@ -17630,7 +17262,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 812152810,
           "sourceTabName": "7/6-7/10",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -20813,7 +20445,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -20915,7 +20547,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 15,
+          "sourceRow": 14,
           "days": [
             true,
             true,
@@ -20940,7 +20572,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -21015,7 +20647,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
@@ -21190,7 +20822,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -21200,31 +20832,6 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
-        },
-        {
-          "name": "Jewels Summer Gibbs",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "maquissia.garcon@palmbeachschools.org",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 780410211,
-          "sourceTabName": "7/27-7/31",
-          "sourceRow": 8,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Josiah Walker",
@@ -21492,7 +21099,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -21592,7 +21199,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 780410211,
           "sourceTabName": "7/27-7/31",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -22253,7 +21860,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 8,
+          "sourceRow": 7,
           "days": [
             true,
             true,
@@ -22303,7 +21910,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 7,
+          "sourceRow": 6,
           "days": [
             true,
             true,
@@ -22378,7 +21985,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 14,
+          "sourceRow": 13,
           "days": [
             true,
             true,
@@ -22403,7 +22010,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 10,
+          "sourceRow": 9,
           "days": [
             true,
             true,
@@ -22505,7 +22112,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 11,
+          "sourceRow": 10,
           "days": [
             true,
             true,
@@ -22705,7 +22312,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 12,
+          "sourceRow": 11,
           "days": [
             true,
             true,
@@ -22715,31 +22322,6 @@
           ],
           "type": "free",
           "school": "Pleasant City Elementary School"
-        },
-        {
-          "name": "Jewels Summer Gibbs",
-          "campus": "Lower Campus",
-          "lunch": true,
-          "lunchRaw": "Yes",
-          "breakfastRaw": "Yes",
-          "allergy": null,
-          "notes": null,
-          "email": "maquissia.garcon@palmbeachschools.org",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
-          "sourceGid": 470608811,
-          "sourceTabName": "8/3-8/7",
-          "sourceRow": 6,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "free",
-          "school": "Northboro Elementary School"
         },
         {
           "name": "Josiah Walker",
@@ -22880,7 +22462,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 9,
+          "sourceRow": 8,
           "days": [
             true,
             true,
@@ -23005,7 +22587,7 @@
           "sourceSheetId": "1_659v7by990V4OJMd86nBG-HUN6_AzZNOAPoQN0LMxY",
           "sourceGid": 470608811,
           "sourceTabName": "8/3-8/7",
-          "sourceRow": 13,
+          "sourceRow": 12,
           "days": [
             true,
             true,
