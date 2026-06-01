@@ -97,6 +97,15 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — About Emilio: polaroid wall (L variant) above About Nils
+Picked L from a 12-option brainstorm spanning 3 rounds (A-D / E-H / I-L). New `.about-emilio` section inserted between the picker and About Nils to put the human face before the stats:
+- 4 polaroid-style cards positioned at the corners, each tilted 5–8° with the existing GHL media photos: Emilio with the 100-clients plaque, presenting at the Asoc. de Usuarios, with a client, and the funnels award.
+- Handwritten captions ("100 clients!" / "on stage" / "with a client" / "we won this") rendered in Caveat (added to the Google Fonts link).
+- Centered content: "About Emilio" eyebrow (plain text, matches About Nils style) + italic-serif "I'm Emilio, the founder." + a tight 2-clause story that names both offers + dual path CTAs (Get a free marketing audit / or / Get a free automation audit) using the same link styling as the closing nudge.
+- Subtle background texture: blue + green radial gradients in opposite corners (4% opacity) to hint at the two paths.
+- Hover on each polaroid: gently uprights and scales up 4%.
+- Mobile: bottom polaroids hidden (pol3 + pol4 set to display none), top two scale to 0.9, CTAs stack vertically.
+
 ### 2026-05-31 — Path-specific CTAs + closing nudge replaces mailto
 - **Marketing card CTA**: "Get a free audit →" → "Get a free marketing audit →"
 - **Automation card CTA**: "Get a free audit →" → "Get a free automation audit →"

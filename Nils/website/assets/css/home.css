@@ -690,6 +690,117 @@
   .home-behind .photo-grid { grid-template-columns: 1fr; }
 }
 
+/* ─── ABOUT EMILIO — polaroid wall + brief story + dual path CTAs ─── */
+.about-emilio {
+  position: relative;
+  min-height: 580px;
+  overflow: hidden;
+  padding: var(--space-9) var(--space-7);
+  background: var(--bg);
+}
+.about-emilio .bg-tex {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(var(--marketing-rgb), 0.05) 0%, transparent 42%),
+    radial-gradient(circle at 82% 72%, rgba(var(--automation-rgb), 0.05) 0%, transparent 42%);
+  pointer-events: none;
+}
+.about-emilio .polaroid {
+  position: absolute;
+  width: 200px;
+  background: #fff;
+  padding: 12px 12px 38px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.04);
+  border-radius: var(--radius-sm);
+  transition: transform var(--dur-base);
+}
+.about-emilio .polaroid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+.about-emilio .polaroid .cap {
+  text-align: center;
+  margin-top: 10px;
+  font-family: 'Caveat', 'Brush Script MT', cursive;
+  font-size: 18px;
+  color: rgba(0,0,0,0.6);
+  line-height: 1;
+}
+.about-emilio .pol1 { top: 32px; left: 32px; transform: rotate(-6deg); }
+.about-emilio .pol2 { top: 48px; right: 56px; transform: rotate(7deg); }
+.about-emilio .pol3 { bottom: 32px; left: 88px; transform: rotate(8deg); }
+.about-emilio .pol4 { bottom: 40px; right: 32px; transform: rotate(-5deg); }
+.about-emilio .polaroid:hover { transform: rotate(0deg) scale(1.04); }
+.about-emilio .content {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  padding: var(--space-9) 0 var(--space-7);
+}
+.about-emilio .eyebrow {
+  /* override globals.css pill — plain text matches About Nils header */
+  background: none; border: 0; padding: 0;
+  color: var(--ink-mute);
+  letter-spacing: 0.25em;
+  margin-bottom: var(--space-4);
+}
+.about-emilio h2 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: var(--fw-serif-regular);
+  font-size: clamp(28px, 4vw, 36px);
+  line-height: var(--lh-tight);
+  margin: 0 0 var(--space-4);
+  color: var(--ink);
+}
+.about-emilio p.story {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-relaxed);
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-6);
+}
+.about-emilio em.accent-marketing { color: var(--marketing); font-style: italic; }
+.about-emilio em.accent-automation { color: var(--automation); font-style: italic; }
+.about-emilio .emilio-cta-row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.about-emilio .emilio-cta-row a {
+  font-family: var(--font-display);
+  font-weight: var(--fw-body-bold);
+  font-size: var(--fs-body);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid currentColor;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
+}
+.about-emilio .emilio-cta-row a.cta-mk { color: var(--marketing); }
+.about-emilio .emilio-cta-row a.cta-au { color: var(--automation); }
+.about-emilio .emilio-cta-row a:hover { opacity: 0.78; transform: translateY(-1px); }
+.about-emilio .emilio-cta-row .sep {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 16px;
+}
+@media (max-width: 900px) {
+  .about-emilio { min-height: auto; padding: var(--space-7) var(--space-4); }
+  .about-emilio .polaroid { width: 140px; padding: 8px 8px 26px; }
+  .about-emilio .polaroid .cap { font-size: 15px; margin-top: 8px; }
+  .about-emilio .pol1 { top: 16px; left: 12px; transform: rotate(-6deg) scale(0.9); }
+  .about-emilio .pol2 { top: 16px; right: 12px; transform: rotate(7deg) scale(0.9); }
+  .about-emilio .pol3, .about-emilio .pol4 { display: none; }
+  .about-emilio .content { padding: var(--space-9) 0 var(--space-5); }
+  .about-emilio .emilio-cta-row { flex-direction: column; gap: var(--space-3); }
+}
+
 /* ─── CLOSING NUDGE — dual path-specific CTA above footer ─── */
 .closing-nudge {
   text-align: center;
