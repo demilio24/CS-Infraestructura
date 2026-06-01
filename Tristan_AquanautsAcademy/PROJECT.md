@@ -67,6 +67,16 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-05-31 (latest +10) — Merged SEO additions from Tristan's Wix homepage (keywords, FAQs, cities, audience pills)
+Tristan emailed 2026-06-01 03:01 UTC asking us to look at his Wix homepage SEO/keyword work and pull anything useful into the funnel. Scraped `aquanautsacademy.ca/` via `scrape-aquanauts-homepage.js` and brought over the highest-impact pieces:
+
+1. **Metadata overhaul.** Title swapped from brand-led to keyword-led: "Private Swim Lessons Vancouver Island | Kids & Adult Swimming Lessons | Aquanauts". Meta description rewritten to front-load private swim lessons / kids swimming lessons / adult swimming lessons / adaptive aquatics / beginner swim lessons + the named cities. Added `keywords` meta, `canonical` link, full Open Graph block (`og:type`, `og:site_name`, `og:title`, `og:description`, `og:url`, `og:image`) and Twitter card tags (`twitter:card=summary_large_image`, title/description/image).
+2. **5 new keyword-direct FAQ entries** (items 10-14), all `data-faq-tags="lessons"`, Yes-pattern answers matching Google's preferred snippet format: "Do you offer private swim lessons?", "Do you offer kids swimming lessons?", "Do you offer adult swimming lessons?", "Do you offer infant swim lessons?", "Do you offer adaptive aquatics?". Also expanded existing FAQ #3 from "Where are your lessons located?" to also include "What areas do you serve?" and the full long-tail city list.
+3. **"Also serving" long-tail city line** added below the Locations grid: "Duncan, Ladysmith, Qualicum Beach, Comox, Port Alberni, and surrounding Vancouver Island communities."
+4. **"Who We Help" audience pill row** above the Programs filter: Infants & Toddlers / Children / Teens / Adults / Beginners / Intermediate / Advanced / Adaptive Aquatics. New `.audience-pills` + `.audience-pill` CSS (teal/blue palette, dot indicator).
+
+Skipped (per recommendation): rewriting "Why Choose Us" H3s to keyword-rich versions (too disruptive to existing brand-voice copy). Tristan's Wix versions of those headings are saved in `.claude/aquanauts_homepage_current.json` if we revisit.
+
 ### 2026-05-31 (latest +9) — Scraped Jane App + Wix /our-instructors, added Talia + 4 real photos + 2 more real bios (now 10 instructors)
 User asked us to scrape `aquanautsacademy.janeapp.com` for canonical instructor data. Parallelized across 4 subagents.
 
