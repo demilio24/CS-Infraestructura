@@ -620,7 +620,8 @@ p { margin: 0 0 1em; }
               <label>Closest location</label>
               <select name="location" required>
                 <option value="">Pick your area</option>
-                <option value="nanaimo">Nanaimo</option>
+                <option value="nanaimo-central">Nanaimo (Central)</option>
+                <option value="nanaimo-south">Nanaimo (South)</option>
                 <option value="nanoose">Nanoose Bay</option>
                 <option value="parksville">Parksville</option>
                 <option value="victoria">Victoria</option>
@@ -926,15 +927,15 @@ p { margin: 0 0 1em; }
   <div class="container">
     <div class="section-head anim">
       <div class="eyebrow">Locations</div>
-      <h2 class="section-title">6 Pools Across <span class="accent">Vancouver Island</span></h2>
+      <h2 class="section-title">7 Pools Across <span class="accent">Vancouver Island</span></h2>
       <p class="section-sub">From Victoria up to Campbell River. Find the location closest to you.</p>
     </div>
     <div class="locations-grid">
       <div class="loc-card anim">
         <div class="loc-card-img"><img src="assets/nanaimo-central-pool.jpg" alt="Central Nanaimo indoor pool" loading="lazy"></div>
         <div class="loc-card-body">
-          <h3>Nanaimo (Central)</h3>
-          <p>Primary location, year-round. Contact us for pool details.</p>
+          <h3>Nanaimo</h3>
+          <p>Two private pools: <strong>Central</strong> and <strong>South</strong>. Year-round. Contact us for pool details and availability at each.</p>
           <a href="#hero-form" class="loc-card-link">Book here →</a>
         </div>
       </div>
@@ -1771,7 +1772,7 @@ function inferLocation(link) {
     if (t.includes('victoria')) return 'victoria';
     if (t.includes('shawnigan')) return 'shawnigan';
     if (t.includes('mobile') || t.includes('in-home')) return 'mobile';
-    if (t.includes('nanaimo')) return 'nanaimo';
+    if (t.includes('nanaimo')) return 'nanaimo-central';
   }
   const tc = link.closest('.team-card');
   if (tc) {
@@ -1780,7 +1781,7 @@ function inferLocation(link) {
     if (s.includes('port alberni')) return 'port-alberni';
     if (s.includes('victoria') || s.includes('shawnigan')) return 'victoria';
     if (s.includes('parksville') || s.includes('nanoose')) return 'parksville';
-    if (s.includes('nanaimo') || s.includes('central')) return 'nanaimo';
+    if (s.includes('nanaimo') || s.includes('central')) return 'nanaimo-central';
   }
   return null;
 }

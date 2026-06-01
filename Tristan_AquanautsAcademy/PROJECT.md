@@ -67,6 +67,16 @@ See [CLIENT_CONTEXT.md](CLIENT_CONTEXT.md) for the full research dossier.
 
 ## Changelog
 
+### 2026-06-01 — Nanaimo South surfaced as sub-location on the Nanaimo card
+Tristan emailed 2026-06-01 04:50 + 04:52 UTC: approved the site ("looks awesome, port over the domain") and asked us to surface the second Nanaimo pool ("Nanaimo South Location") alongside Central for clarity. Per user direction ("if it's another sub-location just point that out without a pic"), did the change without creating a second card:
+
+- Renamed the existing card from `Nanaimo (Central)` to `Nanaimo`, body copy updated to "Two private pools: **Central** and **South**. Year-round. Contact us for pool details and availability at each." Kept the Central pool photo we already have, since we don't have a South pool photo yet.
+- Section H2 updated: "6 Pools Across Vancouver Island" → "7 Pools Across Vancouver Island".
+- Lead form `closest_location` dropdown: replaced the single `nanaimo` option with `nanaimo-central` and `nanaimo-south` so visitors can self-route.
+- `inferLocation()` JS updated: pre-fill for the Nanaimo location card and any team-card mentioning Nanaimo now defaults to `nanaimo-central` (was `nanaimo`).
+
+Open: needs a corresponding GHL custom-field value update on Tristan's sub-account so the form submission routes correctly. The existing `contact.closest_location` custom field (id `uv5pZioA9EuxVABXNpxy`) currently has `Nanaimo` as one of its options; we need to swap that for `Nanaimo (Central)` and `Nanaimo (South)` before the form goes live.
+
 ### 2026-05-31 (latest +11) — All CTAs now point to #hero-form
 Per user direction ("All the call-to-actions on the main website should point to the lead form at the top, all of them"), audited every conversion CTA on `funnel/home.html`. Result: every button-styled link except the nav "Client Login" (Jane App portal for existing customers, by design) was already pointing to `#hero-form` — except the "Meet the Team" ghost button at the bottom of the About section.
 
