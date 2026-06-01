@@ -97,6 +97,17 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — $2.4M ad-spend stat re-scoped to 2025 specifically
+Per user note, the $2.4M figure should reflect 2025 campaign spend (not a perpetual lifetime claim). Added "2025" qualifier wherever $2.4M appears on the home:
+- About Nils stat block label: "in Ads" → "2025 Ad Spend"
+- Ad-spend card preview title: "$2.4M+ in active ad spend." → "$2.4M+ in 2025 ad spend."
+- Card body: "Managed daily across 23 Google Ads accounts" → "Managed across 23 Google Ads accounts during 2025"
+- Ad-spend modal eyebrow: "Ad spend" → "Ad spend · 2025"
+- Modal title: "$2.4M+ in active Google Ads." → "$2.4M+ spent on Google Ads in 2025."
+- ROAS stats band first label: "Total Managed" → "2025 Spend"
+
+The $2.4M number itself was kept (assumed already accurate for 2025). If user has a different exact 2025 figure, swap the number.
+
 ### 2026-05-31 — Automation route-card: copy, prominent CTA, real Matrix rain
 - **Body copy** changed from "Department-by-department blueprint of every job AI can do for you." → "You will implement AI and automation in your business to help you run leaner, faster, and cut your manual work."
 - **CTA** changed from "See the audit →" → "Get a free audit →" and given the `.btn.prominent` modifier (same treatment as the marketing card — bigger font, deeper hard-offset shadow, more pronounced press on hover). Both cards now have prominent CTAs.
