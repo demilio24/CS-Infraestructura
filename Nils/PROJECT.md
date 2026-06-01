@@ -97,6 +97,11 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Automation route-card: copy, prominent CTA, real Matrix rain
+- **Body copy** changed from "Department-by-department blueprint of every job AI can do for you." → "You will implement AI and automation in your business to help you run leaner, faster, and cut your manual work."
+- **CTA** changed from "See the audit →" → "Get a free audit →" and given the `.btn.prominent` modifier (same treatment as the marketing card — bigger font, deeper hard-offset shadow, more pronounced press on hover). Both cards now have prominent CTAs.
+- **Background** swapped from the static `::before` binary pattern in `components.css` to a real canvas-based Matrix rain. Added `<canvas class="matrix-canvas">` as the first child inside the automation `.route-half`. Inline `<script>` at the bottom of `index.html` initializes independent column drops with bright-white "head" + dim-green "tail" characters falling at staggered speeds (classic Matrix-movie pattern). Resizes on window resize. Canvas opacity 0.7 + green/automation accent colors. The `.route-half.automation::before` rule was set to `content: none` to remove the old static pattern.
+
 ### 2026-05-31 — Nav: Marketing & Automation as colored gradient pills, Contact back to plain text
 Picked B from a 4-option nav brainstorm (text+pill / colored pills / centered split / stacked tagline). Marketing and Automation links now render as solid gradient pill buttons matching the home page's route halves:
 - `.nav-marketing` → blue gradient `var(--marketing)` → `var(--marketing-dark)` + 4px blue glow
