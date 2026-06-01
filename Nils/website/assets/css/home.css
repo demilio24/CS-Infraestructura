@@ -37,10 +37,12 @@ body { min-height: 100vh; min-height: 100svh; }
 }
 
 @media (max-width: 720px) {
-  html, body { height: 100vh; height: 100svh; overflow: hidden; }
+  /* Mobile flows and scrolls — content exceeds one screen, so don't lock the
+     viewport. (Desktop keeps the fixed 50/50 router layout above.) */
+  html, body { height: auto; min-height: 100svh; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   body {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
     grid-template-columns: 1fr;
     padding-bottom: env(safe-area-inset-bottom);
   }
@@ -62,27 +64,22 @@ body { min-height: 100vh; min-height: 100svh; }
   .home-route-halves#offers {
     display: flex;
     align-items: stretch;
-    overflow: hidden;
-    min-height: 0;
   }
 }
 @media (max-width: 720px) {
   .home-route-halves#offers .route-halves {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;  /* both cards visible in one viewport, split remaining height */
+    grid-template-rows: auto auto;  /* cards stack and size to content; page scrolls */
     width: 100%;
-    height: 100%;
     flex: 1;
   }
   .home-route-halves#offers .route-half {
-    min-height: 0;
-    height: 100%;
-    padding-top: var(--space-4);
-    padding-bottom: var(--space-4);
+    min-height: 50svh;  /* each card still fills a comfortable screen-height */
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-5);
     padding-left: var(--space-4);
     padding-right: var(--space-4);
-    overflow: hidden;
-    justify-content: space-around;
+    justify-content: center;
   }
   .home-route-halves#offers .route-half h3 {
     font-size: 19px;
