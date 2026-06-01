@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-01T13:12:19Z",
+  "generatedAt": "2026-06-01T13:17:07Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 127,
+    "summer": 128,
     "free": 52,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,14 +108,14 @@
     "roster": []
   },
   "summer": {
-    "total": 127,
+    "total": 128,
     "byCampus": {
-      "Upper Campus": 52,
-      "Lower Campus": 75,
+      "Upper Campus": 54,
+      "Lower Campus": 74,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 22,
+      "June 1st-5th": 23,
       "June 8th-12th": 31,
       "June 15th-19th": 21,
       "June 22nd-26th": 22,
@@ -131,8 +131,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 11,
-        "Lower Campus": 11,
+        "Upper Campus": 13,
+        "Lower Campus": 10,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -322,15 +322,15 @@
     ]
   },
   "combined": {
-    "total": 179,
-    "enrollments": 585,
+    "total": 180,
+    "enrollments": 586,
     "byCampus": {
-      "Upper Campus": 82,
-      "Lower Campus": 97,
+      "Upper Campus": 84,
+      "Lower Campus": 96,
       "Unknown": 0
     },
     "byWeek": {
-      "June 1st-5th": 55,
+      "June 1st-5th": 56,
       "June 8th-12th": 66,
       "June 15th-19th": 55,
       "June 22nd-26th": 57,
@@ -346,8 +346,8 @@
     },
     "byWeekCampus": {
       "June 1st-5th": {
-        "Upper Campus": 30,
-        "Lower Campus": 25,
+        "Upper Campus": 32,
+        "Lower Campus": 24,
         "Unknown": 0
       },
       "June 8th-12th": {
@@ -593,13 +593,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 11,
-              "Tue": 9,
-              "Wed": 10,
-              "Thu": 10,
-              "Fri": 10
+              "Mon": 12,
+              "Tue": 10,
+              "Wed": 11,
+              "Thu": 11,
+              "Fri": 11
             },
-            "total": 50,
+            "total": 55,
             "students": [
               {
                 "name": "Andy Collison",
@@ -646,6 +646,19 @@
                 "lunchRaw": "None"
               },
               {
+                "name": "Finnley Torcivia",
+                "campus": "Upper Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": null
+              },
+              {
                 "name": "Graham Olowin",
                 "campus": "Lower Campus",
                 "type": "summer",
@@ -673,7 +686,7 @@
               },
               {
                 "name": "Jack Torcivia",
-                "campus": "Lower Campus",
+                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -682,7 +695,7 @@
                   "Thu",
                   "Fri"
                 ],
-                "lunchRaw": "None"
+                "lunchRaw": null
               },
               {
                 "name": "Maci Denney",
@@ -752,13 +765,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 21,
-            "Tue": 18,
-            "Wed": 20,
-            "Thu": 19,
-            "Fri": 19
+            "Mon": 22,
+            "Tue": 19,
+            "Wed": 21,
+            "Thu": 20,
+            "Fri": 20
           },
-          "all": 97
+          "all": 102
         }
       },
       "June 8th-12th": {
@@ -9154,6 +9167,64 @@
           "type": "summer"
         },
         {
+          "name": "Finnley Torcivia",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": null,
+          "breakfastRaw": null,
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email",
+            "Age",
+            "Lunch",
+            "Days attending"
+          ],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 13,
+          "days": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Jack Torcivia",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": null,
+          "breakfastRaw": null,
+          "allergy": null,
+          "notes": null,
+          "email": null,
+          "incomplete": true,
+          "missingFields": [
+            "Email",
+            "Age",
+            "Lunch",
+            "Days attending"
+          ],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 0,
+          "sourceTabName": "6/1-6/5",
+          "sourceRow": 14,
+          "days": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "type": "summer"
+        },
+        {
           "name": "Jacob Perna",
           "campus": "Upper Campus",
           "lunch": true,
@@ -9540,30 +9611,6 @@
           "sourceGid": 0,
           "sourceTabName": "6/1-6/5",
           "sourceRow": 9,
-          "days": [
-            true,
-            true,
-            true,
-            true,
-            true
-          ],
-          "type": "summer"
-        },
-        {
-          "name": "Jack Torcivia",
-          "campus": "Lower Campus",
-          "lunch": false,
-          "lunchRaw": "None",
-          "breakfastRaw": "None",
-          "allergy": null,
-          "notes": "Sibling: Finley Torcivia also registering for this week",
-          "email": "torcivia@gmail.com",
-          "incomplete": false,
-          "missingFields": [],
-          "sourceSheetId": "18A_sc917xnxYo3UQ8_cGogqg46Im6qUQlakOC9Oc-Fs",
-          "sourceGid": 0,
-          "sourceTabName": "6/1-6/5",
-          "sourceRow": 11,
           "days": [
             true,
             true,
