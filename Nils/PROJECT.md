@@ -97,6 +97,15 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Marketing CTAs repointed to nilsdigital.com/start1
+All four marketing-side links on the home page now go to `https://nilsdigital.com/start1` instead of `../funnel/vsl.html`:
+- Marketing route-half (picker)
+- About Emilio "Get a free marketing audit" CTA
+- Closing nudge "Get a free marketing audit" CTA
+- Footer "Marketing system" link
+
+Automation links continue to point at `../funnel/automation-vsl-funnel-direct.html` (no change).
+
 ### 2026-05-31 — Removed top navigation bar entirely
 Per user, dropped the `<header class="site-nav">` block from `index.html`. Page now starts directly with the hero. Routing to the two VSLs continues through the picker (right under the hero) + the dual CTAs in the About Emilio section + the closing nudge. Secondary navigation (Proof / About / Blog / Contact) remains in the footer. Brand logo no longer appears at the top; still present in the footer.
 
