@@ -97,6 +97,15 @@ Slides in `Posts/results.html` are exported as static PNGs via html2canvas for I
 
 ## Changelog
 
+### 2026-05-31 — Automation CTAs repointed to nilsdigital.com/automation
+All four automation-side links on the home page now go to `https://nilsdigital.com/automation` instead of `../funnel/automation-vsl-funnel-direct.html`:
+- Automation route-half (picker)
+- About Emilio "Get a free automation audit" CTA
+- Closing nudge "Get a free automation audit" CTA
+- Footer "Automation audit" link
+
+Marketing side already points at `https://nilsdigital.com/start1` from earlier.
+
 ### 2026-05-31 — Marketing CTAs repointed to nilsdigital.com/start1
 All four marketing-side links on the home page now go to `https://nilsdigital.com/start1` instead of `../funnel/vsl.html`:
 - Marketing route-half (picker)
