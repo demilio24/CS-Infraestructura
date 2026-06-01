@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-01T17:22:55Z",
+  "generatedAt": "2026-06-01T17:27:11Z",
   "locationId": "8IWtNFlmgJ8bif9DivHT",
   "cutoff": "2026-06-01",
   "source": "sheets",
   "totals": {
     "contacts": 0,
-    "summer": 135,
+    "summer": 136,
     "free": 52,
     "afterSchool": 0,
     "leadOnly": 0,
@@ -108,9 +108,9 @@
     "roster": []
   },
   "summer": {
-    "total": 135,
+    "total": 136,
     "byCampus": {
-      "Upper Campus": 58,
+      "Upper Campus": 59,
       "Lower Campus": 77,
       "Unknown": 0
     },
@@ -124,7 +124,7 @@
       "July 13th-17th": 19,
       "July 20th-24th": 23,
       "July 27th-31st": 14,
-      "August 3rd-7th": 23,
+      "August 3rd-7th": 24,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -176,7 +176,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 9,
+        "Upper Campus": 10,
         "Lower Campus": 14,
         "Unknown": 0
       },
@@ -322,10 +322,10 @@
     ]
   },
   "combined": {
-    "total": 187,
-    "enrollments": 590,
+    "total": 188,
+    "enrollments": 591,
     "byCampus": {
-      "Upper Campus": 88,
+      "Upper Campus": 89,
       "Lower Campus": 99,
       "Unknown": 0
     },
@@ -339,7 +339,7 @@
       "July 13th-17th": 55,
       "July 20th-24th": 59,
       "July 27th-31st": 48,
-      "August 3rd-7th": 56,
+      "August 3rd-7th": 57,
       "August 10th-14th": 14,
       "August 17th-21st": 17,
       "August 24th-28th": 0
@@ -391,7 +391,7 @@
         "Unknown": 0
       },
       "August 3rd-7th": {
-        "Upper Campus": 30,
+        "Upper Campus": 31,
         "Lower Campus": 26,
         "Unknown": 0
       },
@@ -3704,13 +3704,13 @@
             "subtypeKey": "none",
             "label": "No lunch",
             "byDay": {
-              "Mon": 10,
-              "Tue": 10,
-              "Wed": 10,
-              "Thu": 10,
-              "Fri": 10
+              "Mon": 11,
+              "Tue": 11,
+              "Wed": 11,
+              "Thu": 11,
+              "Fri": 11
             },
-            "total": 50,
+            "total": 55,
             "students": [
               {
                 "name": "Carter Grant",
@@ -3741,6 +3741,19 @@
               {
                 "name": "Grant “Geo” Olowin",
                 "campus": "Lower Campus",
+                "type": "summer",
+                "days": [
+                  "Mon",
+                  "Tue",
+                  "Wed",
+                  "Thu",
+                  "Fri"
+                ],
+                "lunchRaw": "None"
+              },
+              {
+                "name": "Gray Pohrer",
+                "campus": "Upper Campus",
                 "type": "summer",
                 "days": [
                   "Mon",
@@ -3847,13 +3860,13 @@
         ],
         "totals": {
           "byDay": {
-            "Mon": 22,
-            "Tue": 23,
-            "Wed": 23,
-            "Thu": 23,
-            "Fri": 22
+            "Mon": 23,
+            "Tue": 24,
+            "Wed": 24,
+            "Thu": 24,
+            "Fri": 23
           },
-          "all": 113
+          "all": 118
         }
       },
       "August 10th-14th": {
@@ -21911,6 +21924,30 @@
             false,
             false,
             false
+          ],
+          "type": "summer"
+        },
+        {
+          "name": "Gray Pohrer",
+          "campus": "Upper Campus",
+          "lunch": false,
+          "lunchRaw": "None",
+          "breakfastRaw": "None",
+          "allergy": null,
+          "notes": null,
+          "email": "kellypohrer@gmail.com",
+          "incomplete": false,
+          "missingFields": [],
+          "sourceSheetId": "1qejcgNQt3sS_UZ9Gl9Txr8TOocw3LzK5PjPICqnRrGA",
+          "sourceGid": 470608811,
+          "sourceTabName": "8/3-8/7",
+          "sourceRow": 11,
+          "days": [
+            true,
+            true,
+            true,
+            true,
+            true
           ],
           "type": "summer"
         },
